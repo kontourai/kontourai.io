@@ -1,0 +1,168 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - navigation [ref=e4]:
+      - link "Kontour AI home" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img [ref=e6]
+        - generic [ref=e10]: Kontour.
+      - generic [ref=e11]:
+        - link "veritas" [ref=e12] [cursor=pointer]:
+          - /url: /veritas
+        - link "surface" [ref=e13] [cursor=pointer]:
+          - /url: /surface
+        - link "github" [ref=e15] [cursor=pointer]:
+          - /url: https://github.com/kontourai
+          - img [ref=e16]
+          - text: github
+  - generic [ref=e19]:
+    - generic [ref=e20]: Trust Infrastructure — Open source
+    - heading "Map what your product claims. Prove it." [level=1] [ref=e21]:
+      - text: Map what your
+      - text: product
+      - emphasis [ref=e22]: claims
+      - text: .
+      - text: Prove it.
+    - paragraph [ref=e23]: AI increases the volume and polish of product claims. Kontour makes the evidence inspectable — what's verified, what's stale, and what still needs proof.
+    - generic [ref=e24]:
+      - link "Explore Veritas →" [ref=e25] [cursor=pointer]:
+        - /url: /veritas
+      - link "Explore Surface" [ref=e26] [cursor=pointer]:
+        - /url: /surface
+    - generic [ref=e27]:
+      - generic [ref=e28]: verified
+      - generic [ref=e30]: proposed
+      - generic [ref=e32]: stale
+      - generic [ref=e34]: disputed
+      - generic [ref=e36]: unknown
+      - generic [ref=e38]: — every claim has a state
+  - generic [ref=e41]:
+    - generic [ref=e42]:
+      - generic [ref=e43]: The Problem
+      - heading "AI agents are confident. Evidence is not." [level=2] [ref=e44]:
+        - text: AI agents are
+        - emphasis [ref=e45]: confident
+        - text: .
+        - text: Evidence is not.
+      - paragraph [ref=e46]: Every AI agent asserts. Every feature claims. Every product says it does what it says. What's missing is the chain from assertion to evidence — and a way to see where that chain is broken, stale, or never existed.
+      - paragraph [ref=e47]: "\"Evidence-backed confidence. Not certainty theater.\""
+    - generic [ref=e49]:
+      - generic [ref=e50]: claim trace · api.rateLimit
+      - generic [ref=e51]:
+        - generic [ref=e52]: claim
+        - generic [ref=e53]:
+          - generic [ref=e54]: "Rate limit: 100 req/min per key"
+          - generic [ref=e55]: "source: README, spec/rate-limit.test.ts"
+      - generic [ref=e56]:
+        - generic [ref=e57]: evidence
+        - generic [ref=e58]:
+          - generic [ref=e59]: test output — 312 ms ago
+          - generic [ref=e60]: "proof lane: npm test"
+      - generic [ref=e61]:
+        - generic [ref=e62]: check
+        - generic [ref=e63]:
+          - generic [ref=e64]: "CI run #1847"
+          - generic [ref=e65]: 6 days since last verification
+      - generic [ref=e66]:
+        - generic [ref=e67]: policy
+        - generic [ref=e68]:
+          - generic [ref=e69]: "freshness window: 72h"
+          - generic [ref=e70]: ⚠ window exceeded — requires re-verification
+  - generic [ref=e72]:
+    - generic [ref=e73]: Two products. One trust layer.
+    - generic [ref=e74]:
+      - link "v0.1.3 @kontourai/veritas Veritas BESPOKE LINT FOR AI AGENTS Repo-local governance that tells AI agents exactly what changed violated your rules — before they finish work. Works with Claude Code, Cursor, Codex, and Copilot. artifacts governance-block if-changed proof-lanes Explore Veritas →" [ref=e75] [cursor=pointer]:
+        - /url: /veritas
+        - generic [ref=e77]:
+          - generic [ref=e78]:
+            - generic [ref=e79]: v0.1.3
+            - generic [ref=e80]: "@kontourai/veritas"
+          - heading "Veritas" [level=3] [ref=e81]
+          - paragraph [ref=e82]: BESPOKE LINT FOR AI AGENTS
+          - paragraph [ref=e83]: Repo-local governance that tells AI agents exactly what changed violated your rules — before they finish work. Works with Claude Code, Cursor, Codex, and Copilot.
+          - generic [ref=e84]:
+            - generic [ref=e85]: artifacts
+            - generic [ref=e86]: governance-block
+            - generic [ref=e87]: if-changed
+            - generic [ref=e88]: proof-lanes
+          - generic [ref=e89]: Explore Veritas →
+      - link "v0.1.0 @kontourai/surface Surface THE TRUST MAP FOR AI-ERA PRODUCTS Maps what your product claims, what evidence supports it, where trust is missing or stale, and what humans or AI agents need to verify next. claims evidence drift fault-lines coverage Explore Surface →" [ref=e90] [cursor=pointer]:
+        - /url: /surface
+        - generic [ref=e92]:
+          - generic [ref=e93]:
+            - generic [ref=e94]: v0.1.0
+            - generic [ref=e95]: "@kontourai/surface"
+          - heading "Surface" [level=3] [ref=e96]
+          - paragraph [ref=e97]: THE TRUST MAP FOR AI-ERA PRODUCTS
+          - paragraph [ref=e98]: Maps what your product claims, what evidence supports it, where trust is missing or stale, and what humans or AI agents need to verify next.
+          - generic [ref=e99]:
+            - generic [ref=e100]: claims
+            - generic [ref=e101]: evidence
+            - generic [ref=e102]: drift
+            - generic [ref=e103]: fault-lines
+            - generic [ref=e104]: coverage
+          - generic [ref=e105]: Explore Surface →
+  - generic [ref=e107]:
+    - generic [ref=e108]: Philosophy
+    - blockquote [ref=e109]:
+      - text: "\"Evidence-backed"
+      - text: confidence.
+      - text: Not certainty theater."
+    - paragraph [ref=e110]: Surface does not market itself as objective truth. It shows the evidence chain, the verification method, and the current trust state. If a claim is weak, stale, or disputed — the system makes that obvious.
+  - generic [ref=e113]:
+    - generic [ref=e114]:
+      - generic [ref=e115]: Get started
+      - heading "Wire Veritas into your repo in minutes." [level=2] [ref=e116]:
+        - text: Wire Veritas into
+        - text: your repo in minutes.
+      - paragraph [ref=e117]: Bootstrap your adapter, define proof requirements, and get lint-style feedback straight into your AI agent's context.
+      - generic [ref=e118]:
+        - link "Read the docs →" [ref=e119] [cursor=pointer]:
+          - /url: /veritas
+        - link "GitHub" [ref=e120] [cursor=pointer]:
+          - /url: https://github.com/kontourai/veritas
+    - generic [ref=e121]:
+      - generic [ref=e126]: veritas — setup
+      - generic [ref=e127]:
+        - paragraph [ref=e128]: $ npm install -g @kontourai/veritas
+        - paragraph [ref=e129]: added 1 package in 0.8s
+        - paragraph [ref=e130]: $ veritas init
+        - paragraph [ref=e131]: ✓ detected repo shape
+        - paragraph [ref=e132]: ✓ wrote .veritas/repo.adapter.json
+        - paragraph [ref=e133]: ✓ wrote .veritas/policy-packs/default.policy-pack.json
+        - paragraph [ref=e134]: ✓ governance block added to CLAUDE.md, AGENTS.md
+        - paragraph [ref=e135]: $ veritas shadow run
+        - paragraph [ref=e136]: "[feedback] 2 rules checked, 1 pass, 1 warn"
+        - paragraph [ref=e137]: "WARN if-changed: src/api/ changed — tests/api/ must also appear"
+        - paragraph [ref=e138]: evidence written → .veritas/evidence/
+  - contentinfo [ref=e139]:
+    - generic [ref=e141]:
+      - generic [ref=e142]:
+        - link "Kontour." [ref=e143] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e144]: Kontour.
+        - paragraph [ref=e145]:
+          - text: Trust infrastructure for AI-era products.
+          - text: Evidence-backed confidence, not certainty theater.
+        - paragraph [ref=e146]: Apache 2.0 · Open source · © 2025 Kontour AI
+      - navigation [ref=e147]:
+        - link "Veritas" [ref=e148] [cursor=pointer]:
+          - /url: /veritas
+        - link "Surface" [ref=e149] [cursor=pointer]:
+          - /url: /surface
+        - link "GitHub ↗" [ref=e150] [cursor=pointer]:
+          - /url: https://github.com/kontourai/veritas
+        - link "npm ↗" [ref=e151] [cursor=pointer]:
+          - /url: https://www.npmjs.com/package/@kontourai/veritas
+  - generic [ref=e154]:
+    - button "Menu" [ref=e155]:
+      - img [ref=e157]
+      - generic: Menu
+    - button "Inspect" [ref=e161]:
+      - img [ref=e163]
+      - generic: Inspect
+    - button "Audit" [ref=e165]:
+      - img [ref=e167]
+      - generic: Audit
+    - button "Settings" [ref=e170]:
+      - img [ref=e172]
+      - generic: Settings

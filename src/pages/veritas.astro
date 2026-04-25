@@ -1,0 +1,362 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+---
+
+<Layout
+  title="Veritas — Bespoke lint for AI agents · Kontour AI"
+  description="Repo-local governance that tells AI agents exactly what changed violated your rules before they finish work. Works with Claude Code, Cursor, Codex, and Copilot."
+>
+  <Nav active="veritas" />
+
+  <!-- ──────────────────────────────────────────────────────
+       Hero
+  ────────────────────────────────────────────────────────── -->
+  <section class="contour-bg" style="
+    padding: 10rem var(--spacing-page) 6rem;
+    border-bottom: 1px solid var(--color-edge);
+    position: relative;
+    overflow: hidden;
+  ">
+    <!-- Green accent glow -->
+    <div style="
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 600px;
+      height: 400px;
+      background: radial-gradient(ellipse at top right, rgba(82,196,126,0.05) 0%, transparent 70%);
+      pointer-events: none;
+    "></div>
+
+    <div style="max-width: 1280px; margin: 0 auto; position: relative; z-index: 1;">
+      <div style="
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5rem;
+        align-items: center;
+      ">
+        <!-- Left -->
+        <div>
+          <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem;">
+            <span class="trust-badge trust-badge--verified">v0.1.3</span>
+            <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-chalk-3);">npm install @kontourai/veritas</span>
+          </div>
+
+          <h1 class="animate-fade-up" style="
+            font-family: var(--font-display);
+            font-optical-sizing: auto;
+            font-size: clamp(3.5rem, 6vw, 5.5rem);
+            font-weight: 400;
+            line-height: 0.95;
+            letter-spacing: -0.03em;
+            color: var(--color-chalk);
+            margin-bottom: 0.5rem;
+          ">Veritas</h1>
+
+          <p class="animate-fade-up delay-100" style="
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--color-green);
+            margin-bottom: 2rem;
+          ">Bespoke lint for AI agents</p>
+
+          <p class="animate-fade-up delay-200" style="
+            font-size: 1.05rem;
+            color: var(--color-chalk-2);
+            line-height: 1.7;
+            max-width: 460px;
+            margin-bottom: 2.5rem;
+          ">
+            You define what your repo considers mandatory.
+            Veritas tells any AI agent exactly which changes violated those rules —
+            before they finish work.
+          </p>
+
+          <div class="animate-fade-up delay-300" style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <a href="https://github.com/kontourai/veritas" target="_blank" rel="noopener" class="btn-primary">
+              View on GitHub →
+            </a>
+            <a href="https://www.npmjs.com/package/@kontourai/veritas" target="_blank" rel="noopener" class="btn-ghost">
+              npm package
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: shadow run output -->
+        <div class="animate-fade-in delay-300">
+          <div class="terminal">
+            <div class="terminal-bar">
+              <div class="terminal-dot"></div>
+              <div class="terminal-dot"></div>
+              <div class="terminal-dot"></div>
+              <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-chalk-3); margin-left: 0.5rem;">veritas shadow run</span>
+            </div>
+            <div class="terminal-body">
+              <p><span class="prompt">$ </span><span class="cmd">veritas shadow run --format feedback</span></p>
+              <br />
+              <p class="info">  veritas 0.1.3 — shadow run</p>
+              <p class="muted">  adapter: .veritas/repo.adapter.json</p>
+              <p class="muted">  policy:  default.policy-pack.json</p>
+              <br />
+              <p class="pass">  PASS  artifacts: CLAUDE.md exists</p>
+              <p class="pass">  PASS  artifacts: .veritas/repo.adapter.json exists</p>
+              <p class="pass">  PASS  governance-block: CLAUDE.md contains canonical block</p>
+              <p class="pass">  PASS  governance-block: AGENTS.md contains canonical block</p>
+              <br />
+              <p class="warn">  WARN  if-changed: src/api/ changed</p>
+              <p style="color: var(--color-chalk-3); padding-left: 2rem; font-size: 0.72rem;">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ tests/api/ must appear in the diff
+              </p>
+              <p style="color: var(--color-chalk-3); padding-left: 2rem; font-size: 0.72rem;">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ missing: tests/api/rate-limit.test.ts
+              </p>
+              <br />
+              <p class="fail">  FAIL  proof-lane: npm test</p>
+              <p style="color: var(--color-chalk-3); padding-left: 2rem; font-size: 0.72rem;">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ exit 1 — 3 tests failed
+              </p>
+              <br />
+              <p style="color: var(--color-chalk-3);">  ───────────────────────────────</p>
+              <p style="color: var(--color-chalk-2);">  2 pass &nbsp; 1 warn &nbsp; <span class="fail">1 fail</span></p>
+              <p class="muted">  evidence → .veritas/evidence/run-1748220495.json</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────
+       Three pillars
+  ────────────────────────────────────────────────────────── -->
+  <section style="padding: 6rem var(--spacing-page);">
+    <div style="max-width: 1280px; margin: 0 auto;">
+      <div class="label-sm" style="margin-bottom: 3rem;">Three pillars</div>
+
+      <div style="
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+      ">
+        {[
+          {
+            num: '01',
+            title: 'Rules',
+            color: 'var(--color-green)',
+            summary: 'Repo-local lint in `.veritas/`',
+            body: 'Define required files, governance blocks, companion test requirements, and proof lanes. Your repo, your rules — not a cloud platform.',
+            tags: ['artifacts', 'governance-block', 'if-changed', 'proof-lanes'],
+          },
+          {
+            num: '02',
+            title: 'Feedback',
+            color: 'var(--color-gold)',
+            summary: '`veritas shadow run` → lint output',
+            body: 'Agent-facing path that produces lint-style output directly into your agent\'s context window. Exit codes 0 (pass), 1 (fail), 2 (error) — designed for hooks.',
+            tags: ['shadow-run', 'exit-codes', 'hook-integration', 'format:feedback'],
+          },
+          {
+            num: '03',
+            title: 'Improvement',
+            color: 'var(--color-cobalt-2)',
+            summary: 'Local evidence + eval history',
+            body: 'Evidence artifacts persist per run. Eval records track whether the agent accepted or rewrote. Summaries measure if Veritas is actually helping over time.',
+            tags: ['eval-draft', 'eval-record', 'markers', 'summaries'],
+          },
+        ].map(({ num, title, color, summary, body, tags }) => (
+          <div key={num} class="card" style="padding: 2rem;">
+            <div style="
+              font-family: var(--font-mono);
+              font-size: 0.65rem;
+              color: var(--color-chalk-3);
+              margin-bottom: 1rem;
+            ">{num}</div>
+
+            <div style={`
+              width: 28px;
+              height: 2px;
+              background: ${color};
+              margin-bottom: 1.25rem;
+              border-radius: 1px;
+            `}></div>
+
+            <h3 style="
+              font-family: var(--font-display);
+              font-size: 1.5rem;
+              font-weight: 400;
+              color: var(--color-chalk);
+              margin-bottom: 0.35rem;
+              letter-spacing: -0.01em;
+            ">{title}</h3>
+
+            <p style={`
+              font-family: var(--font-mono);
+              font-size: 0.7rem;
+              color: ${color};
+              margin-bottom: 1rem;
+              letter-spacing: 0.03em;
+            `}>{summary}</p>
+
+            <p style="
+              color: var(--color-chalk-2);
+              font-size: 0.875rem;
+              line-height: 1.7;
+              margin-bottom: 1.5rem;
+            ">{body}</p>
+
+            <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
+              {tags.map(tag => (
+                <span key={tag} style="
+                  font-family: var(--font-mono);
+                  font-size: 0.58rem;
+                  padding: 0.12rem 0.45rem;
+                  border: 1px solid var(--color-edge-2);
+                  border-radius: 2px;
+                  color: var(--color-chalk-3);
+                  letter-spacing: 0.06em;
+                ">{tag}</span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────
+       Agent activation
+  ────────────────────────────────────────────────────────── -->
+  <section style="
+    padding: 5rem var(--spacing-page);
+    border-top: 1px solid var(--color-edge);
+    border-bottom: 1px solid var(--color-edge);
+    background: var(--color-ink-1);
+  ">
+    <div style="max-width: 1280px; margin: 0 auto;">
+      <div style="
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+      ">
+        <div>
+          <div class="label-sm" style="margin-bottom: 1.5rem; color: var(--color-cobalt-2);">Agent activation</div>
+          <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 1.25rem;">
+            Works with any agent<br />
+            that reads your repo.
+          </h2>
+          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.5rem;">
+            Veritas injects a governance block into every AI instruction file in your repo.
+            Every agent that reads those files — Claude Code, Cursor, Codex, Copilot — sees
+            the same rules and proof requirements.
+          </p>
+          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75;">
+            Stop-hook integration wires <code style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-green); background: rgba(82,196,126,0.08); padding: 0.1rem 0.35rem; border-radius: 2px;">veritas shadow run</code> to fire
+            at session end for Claude Code and Cursor — no manual invocation needed.
+            Codex integration uses a native hook file.
+          </p>
+        </div>
+
+        <!-- Activation targets grid -->
+        <div style="
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 1rem;
+        ">
+          {[
+            { file: 'CLAUDE.md', agent: 'Claude Code', color: 'var(--color-gold)' },
+            { file: 'AGENTS.md', agent: 'Codex', color: 'var(--color-cobalt-2)' },
+            { file: '.cursorrules', agent: 'Cursor', color: 'var(--color-green)' },
+            { file: 'copilot-instructions.md', agent: 'GitHub Copilot', color: 'var(--color-chalk-2)' },
+          ].map(({ file, agent, color }) => (
+            <div key={file} style="
+              background: var(--color-ink-2);
+              border: 1px solid var(--color-edge);
+              border-radius: 6px;
+              padding: 1.25rem;
+            ">
+              <div style={`
+                font-family: var(--font-mono);
+                font-size: 0.7rem;
+                color: ${color};
+                margin-bottom: 0.35rem;
+              `}>{file}</div>
+              <div style="
+                font-family: var(--font-mono);
+                font-size: 0.65rem;
+                color: var(--color-chalk-3);
+                letter-spacing: 0.04em;
+              ">{agent}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────
+       CLI reference strip
+  ────────────────────────────────────────────────────────── -->
+  <section style="padding: 5rem var(--spacing-page);">
+    <div style="max-width: 1280px; margin: 0 auto;">
+      <div class="label-sm" style="margin-bottom: 2.5rem;">CLI surface</div>
+
+      <div style="
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 0.75rem;
+      ">
+        {[
+          { cmd: 'veritas init', desc: 'Bootstrap adapter, policy pack, governance blocks' },
+          { cmd: 'veritas shadow run', desc: 'Agent-facing lint path with feedback output' },
+          { cmd: 'veritas report', desc: 'Full policy report (JSON or summary)' },
+          { cmd: 'veritas runtime status', desc: 'Check hook wiring and activation state' },
+          { cmd: 'veritas eval draft', desc: 'Record agent evidence for a run' },
+          { cmd: 'veritas eval record', desc: 'Accept or reject agent output manually' },
+          { cmd: 'veritas eval summary', desc: 'Aggregate improvement metrics over time' },
+          { cmd: 'veritas apply stop-hook', desc: 'Wire Claude Code / Cursor stop hooks' },
+        ].map(({ cmd, desc }) => (
+          <div key={cmd} style="
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            padding: 1rem 1.25rem;
+            background: var(--color-ink-1);
+            border: 1px solid var(--color-edge);
+            border-radius: 4px;
+          ">
+            <code style="
+              font-family: var(--font-mono);
+              font-size: 0.78rem;
+              color: var(--color-green);
+            ">{cmd}</code>
+            <span style="
+              font-size: 0.78rem;
+              color: var(--color-chalk-3);
+              line-height: 1.4;
+            ">{desc}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
+
+<style>
+  @media (max-width: 900px) {
+    section > div > div[style*="grid-template-columns: 1fr 1fr"] {
+      display: flex !important;
+      flex-direction: column !important;
+    }
+    section > div > div[style*="grid-template-columns: repeat(3, 1fr)"] {
+      display: flex !important;
+      flex-direction: column !important;
+    }
+  }
+</style>

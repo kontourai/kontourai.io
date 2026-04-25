@@ -1,0 +1,395 @@
+@import "tailwindcss";
+
+/* Fonts are loaded via Google Fonts <link> in Layout.astro */
+
+/* ─────────────────────────────────────────────────────────────
+   Design Tokens
+───────────────────────────────────────────────────────────── */
+
+@theme {
+  /* Typography */
+  --font-display: 'Fraunces', 'Georgia', serif;
+  --font-sans: 'Syne', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* Colors — Ink palette (dark ground) */
+  --color-ink:    #07090e;
+  --color-ink-1:  #0c0f19;
+  --color-ink-2:  #121623;
+  --color-ink-3:  #181d2e;
+  --color-edge:   #1e2538;
+  --color-edge-2: #2a3450;
+
+  /* Colors — Chalk (light text) */
+  --color-chalk:   #eaecf7;
+  --color-chalk-2: #8b91b0;
+  --color-chalk-3: #4e566e;
+
+  /* Colors — Accent */
+  --color-gold:    #c9a35a;
+  --color-gold-2:  #e8c274;
+  --color-gold-3:  #f0d090;
+  --color-green:   #52c47e;
+  --color-red:     #c45a51;
+  --color-cobalt:  #5a90c8;
+  --color-cobalt-2:#7eb3e8;
+
+  /* Spacing */
+  --spacing-page: clamp(1.5rem, 5vw, 5rem);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Base
+───────────────────────────────────────────────────────────── */
+
+html {
+  background-color: var(--color-ink);
+  color: var(--color-chalk);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+/* Contour pattern — the cartographic visual language */
+.contour-bg {
+  position: relative;
+}
+
+.contour-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 59px,
+      rgba(201, 163, 90, 0.045) 59px,
+      rgba(201, 163, 90, 0.045) 60px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 59px,
+      rgba(201, 163, 90, 0.02) 59px,
+      rgba(201, 163, 90, 0.02) 60px
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Typography
+───────────────────────────────────────────────────────────── */
+
+.display {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+
+.display-xl {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-size: clamp(3rem, 7vw, 6.5rem);
+  font-weight: 400;
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+}
+
+.display-lg {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-size: clamp(2rem, 4.5vw, 4rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+}
+
+.display-md {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 300;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.label-sm {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-chalk-3);
+}
+
+.label-md {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Trust state badges
+───────────────────────────────────────────────────────────── */
+
+.trust-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid;
+}
+
+.trust-badge--verified {
+  background: rgba(82, 196, 126, 0.08);
+  border-color: rgba(82, 196, 126, 0.3);
+  color: var(--color-green);
+}
+
+.trust-badge--stale {
+  background: rgba(201, 163, 90, 0.08);
+  border-color: rgba(201, 163, 90, 0.3);
+  color: var(--color-gold);
+}
+
+.trust-badge--disputed {
+  background: rgba(196, 90, 81, 0.08);
+  border-color: rgba(196, 90, 81, 0.3);
+  color: var(--color-red);
+}
+
+.trust-badge--unknown {
+  background: rgba(139, 145, 176, 0.08);
+  border-color: rgba(139, 145, 176, 0.2);
+  color: var(--color-chalk-2);
+}
+
+.trust-badge--proposed {
+  background: rgba(90, 144, 200, 0.08);
+  border-color: rgba(90, 144, 200, 0.3);
+  color: var(--color-cobalt-2);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Terminal / code blocks
+───────────────────────────────────────────────────────────── */
+
+.terminal {
+  background: var(--color-ink-1);
+  border: 1px solid var(--color-edge);
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  line-height: 1.6;
+  overflow: hidden;
+}
+
+.terminal-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid var(--color-edge);
+  background: var(--color-ink-2);
+}
+
+.terminal-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-edge-2);
+}
+
+.terminal-body {
+  padding: 1.25rem 1.5rem;
+  overflow-x: auto;
+}
+
+.terminal-body .prompt {
+  color: var(--color-chalk-3);
+}
+
+.terminal-body .cmd {
+  color: var(--color-chalk);
+}
+
+.terminal-body .pass {
+  color: var(--color-green);
+}
+
+.terminal-body .warn {
+  color: var(--color-gold);
+}
+
+.terminal-body .fail {
+  color: var(--color-red);
+}
+
+.terminal-body .info {
+  color: var(--color-cobalt-2);
+}
+
+.terminal-body .muted {
+  color: var(--color-chalk-3);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Cards
+───────────────────────────────────────────────────────────── */
+
+.card {
+  background: var(--color-ink-1);
+  border: 1px solid var(--color-edge);
+  border-radius: 8px;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.card:hover {
+  border-color: var(--color-edge-2);
+}
+
+.card-elevated {
+  background: var(--color-ink-2);
+  border: 1px solid var(--color-edge-2);
+  border-radius: 8px;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Buttons
+───────────────────────────────────────────────────────────── */
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.5rem;
+  background: var(--color-gold);
+  color: var(--color-ink);
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.btn-primary:hover {
+  background: var(--color-gold-2);
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.5rem;
+  background: transparent;
+  color: var(--color-chalk-2);
+  border: 1px solid var(--color-edge-2);
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.btn-ghost:hover {
+  border-color: var(--color-chalk-3);
+  color: var(--color-chalk);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Divider
+───────────────────────────────────────────────────────────── */
+
+.divider {
+  border: none;
+  border-top: 1px solid var(--color-edge);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Animations
+───────────────────────────────────────────────────────────── */
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 0;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease forwards;
+  opacity: 0;
+}
+
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+.delay-600 { animation-delay: 0.6s; }
+.delay-700 { animation-delay: 0.7s; }
+
+/* ─────────────────────────────────────────────────────────────
+   Scrollbar
+───────────────────────────────────────────────────────────── */
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--color-ink); }
+::-webkit-scrollbar-thumb { background: var(--color-edge-2); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-chalk-3); }
+
+/* ─────────────────────────────────────────────────────────────
+   Selection
+───────────────────────────────────────────────────────────── */
+
+::selection {
+  background: rgba(201, 163, 90, 0.25);
+  color: var(--color-chalk);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Focus ring
+───────────────────────────────────────────────────────────── */
+
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+  border-radius: 2px;
+}

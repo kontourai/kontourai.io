@@ -1,0 +1,164 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - navigation [ref=e4]:
+      - link "Kontour AI home" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img [ref=e6]
+        - generic [ref=e10]: Kontour.
+      - generic [ref=e11]:
+        - link "veritas" [ref=e12] [cursor=pointer]:
+          - /url: /veritas
+        - link "surface" [ref=e13] [cursor=pointer]:
+          - /url: /surface
+        - link "github" [ref=e15] [cursor=pointer]:
+          - /url: https://github.com/kontourai
+          - img [ref=e16]
+          - text: github
+  - generic [ref=e20]:
+    - generic [ref=e21]:
+      - generic [ref=e22]:
+        - generic [ref=e23]: v0.1.3
+        - generic [ref=e24]: npm install @kontourai/veritas
+      - heading "Veritas" [level=1] [ref=e25]
+      - paragraph [ref=e26]: Bespoke lint for AI agents
+      - paragraph [ref=e27]: You define what your repo considers mandatory. Veritas tells any AI agent exactly which changes violated those rules — before they finish work.
+      - generic [ref=e28]:
+        - link "View on GitHub →" [ref=e29] [cursor=pointer]:
+          - /url: https://github.com/kontourai/veritas
+        - link "npm package" [ref=e30] [cursor=pointer]:
+          - /url: https://www.npmjs.com/package/@kontourai/veritas
+    - generic [ref=e32]:
+      - generic [ref=e37]: veritas shadow run
+      - generic [ref=e38]:
+        - paragraph [ref=e39]: $ veritas shadow run --format feedback
+        - paragraph [ref=e40]: veritas 0.1.3 — shadow run
+        - paragraph [ref=e41]: "adapter: .veritas/repo.adapter.json"
+        - paragraph [ref=e42]: "policy: default.policy-pack.json"
+        - paragraph [ref=e43]: "PASS artifacts: CLAUDE.md exists"
+        - paragraph [ref=e44]: "PASS artifacts: .veritas/repo.adapter.json exists"
+        - paragraph [ref=e45]: "PASS governance-block: CLAUDE.md contains canonical block"
+        - paragraph [ref=e46]: "PASS governance-block: AGENTS.md contains canonical block"
+        - paragraph [ref=e47]: "WARN if-changed: src/api/ changed"
+        - paragraph [ref=e48]: → tests/api/ must appear in the diff
+        - paragraph [ref=e49]: "→ missing: tests/api/rate-limit.test.ts"
+        - paragraph [ref=e50]: "FAIL proof-lane: npm test"
+        - paragraph [ref=e51]: → exit 1 — 3 tests failed
+        - paragraph [ref=e52]: ───────────────────────────────
+        - paragraph [ref=e53]: 2 pass 1 warn 1 fail
+        - paragraph [ref=e54]: evidence → .veritas/evidence/run-1748220495.json
+  - generic [ref=e56]:
+    - generic [ref=e57]: Three pillars
+    - generic [ref=e58]:
+      - generic [ref=e59]:
+        - generic [ref=e60]: "01"
+        - heading "Rules" [level=3] [ref=e62]
+        - paragraph [ref=e63]: "Repo-local lint in `.veritas/`"
+        - paragraph [ref=e64]: Define required files, governance blocks, companion test requirements, and proof lanes. Your repo, your rules — not a cloud platform.
+        - generic [ref=e65]:
+          - generic [ref=e66]: artifacts
+          - generic [ref=e67]: governance-block
+          - generic [ref=e68]: if-changed
+          - generic [ref=e69]: proof-lanes
+      - generic [ref=e70]:
+        - generic [ref=e71]: "02"
+        - heading "Feedback" [level=3] [ref=e73]
+        - paragraph [ref=e74]: "`veritas shadow run` → lint output"
+        - paragraph [ref=e75]: Agent-facing path that produces lint-style output directly into your agent's context window. Exit codes 0 (pass), 1 (fail), 2 (error) — designed for hooks.
+        - generic [ref=e76]:
+          - generic [ref=e77]: shadow-run
+          - generic [ref=e78]: exit-codes
+          - generic [ref=e79]: hook-integration
+          - generic [ref=e80]: format:feedback
+      - generic [ref=e81]:
+        - generic [ref=e82]: "03"
+        - heading "Improvement" [level=3] [ref=e84]
+        - paragraph [ref=e85]: Local evidence + eval history
+        - paragraph [ref=e86]: Evidence artifacts persist per run. Eval records track whether the agent accepted or rewrote. Summaries measure if Veritas is actually helping over time.
+        - generic [ref=e87]:
+          - generic [ref=e88]: eval-draft
+          - generic [ref=e89]: eval-record
+          - generic [ref=e90]: markers
+          - generic [ref=e91]: summaries
+  - generic [ref=e94]:
+    - generic [ref=e95]:
+      - generic [ref=e96]: Agent activation
+      - heading "Works with any agent that reads your repo." [level=2] [ref=e97]:
+        - text: Works with any agent
+        - text: that reads your repo.
+      - paragraph [ref=e98]: Veritas injects a governance block into every AI instruction file in your repo. Every agent — regardless of tool — sees the same rules and proof requirements.
+      - paragraph [ref=e99]:
+        - text: Hook integration means
+        - code [ref=e100]: veritas shadow run
+        - text: fires automatically at the end of every agent session, before the session ends — no manual invocation.
+    - generic [ref=e101]:
+      - generic [ref=e102]:
+        - generic [ref=e103]: CLAUDE.md
+        - generic [ref=e104]: Claude Code
+      - generic [ref=e105]:
+        - generic [ref=e106]: AGENTS.md
+        - generic [ref=e107]: Codex
+      - generic [ref=e108]:
+        - generic [ref=e109]: .cursorrules
+        - generic [ref=e110]: Cursor
+      - generic [ref=e111]:
+        - generic [ref=e112]: copilot-instructions.md
+        - generic [ref=e113]: GitHub Copilot
+  - generic [ref=e115]:
+    - generic [ref=e116]: CLI surface
+    - generic [ref=e117]:
+      - generic [ref=e118]:
+        - code [ref=e119]: veritas init
+        - generic [ref=e120]: Bootstrap adapter, policy pack, governance blocks
+      - generic [ref=e121]:
+        - code [ref=e122]: veritas shadow run
+        - generic [ref=e123]: Agent-facing lint path with feedback output
+      - generic [ref=e124]:
+        - code [ref=e125]: veritas report
+        - generic [ref=e126]: Full policy report (JSON or summary)
+      - generic [ref=e127]:
+        - code [ref=e128]: veritas runtime status
+        - generic [ref=e129]: Check hook wiring and activation state
+      - generic [ref=e130]:
+        - code [ref=e131]: veritas eval draft
+        - generic [ref=e132]: Record agent evidence for a run
+      - generic [ref=e133]:
+        - code [ref=e134]: veritas eval record
+        - generic [ref=e135]: Accept or reject agent output manually
+      - generic [ref=e136]:
+        - code [ref=e137]: veritas eval summary
+        - generic [ref=e138]: Aggregate improvement metrics over time
+      - generic [ref=e139]:
+        - code [ref=e140]: veritas apply stop-hook
+        - generic [ref=e141]: Wire Claude Code / Cursor stop hooks
+  - contentinfo [ref=e142]:
+    - generic [ref=e144]:
+      - generic [ref=e145]:
+        - link "Kontour." [ref=e146] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e147]: Kontour.
+        - paragraph [ref=e148]:
+          - text: Trust infrastructure for AI-era products.
+          - text: Evidence-backed confidence, not certainty theater.
+        - paragraph [ref=e149]: Apache 2.0 · Open source · © 2025 Kontour AI
+      - navigation [ref=e150]:
+        - link "Veritas" [ref=e151] [cursor=pointer]:
+          - /url: /veritas
+        - link "Surface" [ref=e152] [cursor=pointer]:
+          - /url: /surface
+        - link "GitHub ↗" [ref=e153] [cursor=pointer]:
+          - /url: https://github.com/kontourai/veritas
+        - link "npm ↗" [ref=e154] [cursor=pointer]:
+          - /url: https://www.npmjs.com/package/@kontourai/veritas
+  - generic [ref=e157]:
+    - button "Menu" [ref=e158]:
+      - img [ref=e160]
+      - generic: Menu
+    - button "Inspect" [ref=e164]:
+      - img [ref=e166]
+      - generic: Inspect
+    - button "Audit" [ref=e168]:
+      - img [ref=e170]
+      - generic: Audit
+    - button "Settings" [ref=e173]:
+      - img [ref=e175]
+      - generic: Settings

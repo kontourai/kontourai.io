@@ -1,0 +1,404 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+---
+
+<Layout
+  title="Surface — Trust map for AI-era products · Kontour AI"
+  description="Kontour Surface maps what your product claims, what evidence supports it, where trust is missing or stale, and what needs verification next."
+>
+  <Nav active="surface" />
+
+  <!-- ──────────────────────────────────────────────────────
+       Hero
+  ────────────────────────────────────────────────────────── -->
+  <section class="contour-bg" style="
+    padding: 10rem var(--spacing-page) 6rem;
+    border-bottom: 1px solid var(--color-edge);
+    position: relative;
+    overflow: hidden;
+  ">
+    <!-- Gold glow -->
+    <div style="
+      position: absolute;
+      top: -100px;
+      left: -100px;
+      width: 700px;
+      height: 600px;
+      background: radial-gradient(ellipse at top left, rgba(201,163,90,0.055) 0%, transparent 65%);
+      pointer-events: none;
+    "></div>
+
+    <div style="max-width: 1280px; margin: 0 auto; position: relative; z-index: 1;">
+      <div style="
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5rem;
+        align-items: start;
+      ">
+        <!-- Left -->
+        <div>
+          <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem;">
+            <span class="trust-badge trust-badge--proposed">v0.1.0 · alpha</span>
+            <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-chalk-3);">@kontourai/surface · publishing soon</span>
+          </div>
+
+          <h1 class="animate-fade-up" style="
+            font-family: var(--font-display);
+            font-optical-sizing: auto;
+            font-size: clamp(3.5rem, 6vw, 5.5rem);
+            font-weight: 400;
+            line-height: 0.95;
+            letter-spacing: -0.03em;
+            color: var(--color-chalk);
+            margin-bottom: 0.5rem;
+          ">Surface</h1>
+
+          <p class="animate-fade-up delay-100" style="
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--color-gold);
+            margin-bottom: 2rem;
+          ">The trust map for AI-era products</p>
+
+          <p class="animate-fade-up delay-200" style="
+            font-size: 1.05rem;
+            color: var(--color-chalk-2);
+            line-height: 1.7;
+            max-width: 460px;
+            margin-bottom: 2.5rem;
+          ">
+            Maps what your product claims, what proves it,
+            where trust is missing or stale, and what humans or AI agents
+            need to verify next.
+          </p>
+
+          <div class="animate-fade-up delay-300" style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <a href="https://github.com/kontourai/surface" target="_blank" rel="noopener" class="btn-primary">
+              View on GitHub →
+            </a>
+            <span class="btn-ghost" style="cursor: default; opacity: 0.5;" title="Publishing soon">
+              npm · coming soon
+            </span>
+          </div>
+        </div>
+
+        <!-- Right: Trust report output -->
+        <div class="animate-fade-in delay-300">
+          <div class="terminal">
+            <div class="terminal-bar">
+              <div class="terminal-dot"></div>
+              <div class="terminal-dot"></div>
+              <div class="terminal-dot"></div>
+              <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-chalk-3); margin-left: 0.5rem;">surface report — summary</span>
+            </div>
+            <div class="terminal-body">
+              <p><span class="prompt">$ </span><span class="cmd">surface report --input examples/surface-fixtures.json --format summary</span></p>
+              <br />
+              <p class="info">  Kontour Surface report surface-1777090239260</p>
+              <p class="muted">  Source: kontour-surface-validation-fixtures</p>
+              <br />
+              <p>  Claims: <span class="pass">4</span> &nbsp;(unknown: 1, verified: 2, stale: 1)</p>
+              <p class="muted">  Surfaces: veritas.developer-proof: 1, campfit.public-data: 1,</p>
+              <p class="muted">  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; taxes.financial-facts: 1, surface.roadmap: 1</p>
+              <br />
+              <p>  High-impact unsupported: <span class="pass">none</span></p>
+              <p>  Stale: &nbsp;&nbsp;&nbsp;<span class="warn">claim.campfit.registration-status</span></p>
+              <p>  Disputed: <span class="pass">none</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────
+       What Surface answers
+  ────────────────────────────────────────────────────────── -->
+  <section style="padding: 6rem var(--spacing-page);">
+    <div style="max-width: 1280px; margin: 0 auto;">
+      <div class="label-sm" style="margin-bottom: 3rem;">What Surface answers</div>
+
+      <div style="
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1rem;
+      ">
+        {[
+          { q: 'What is the claim?', color: 'var(--color-chalk-2)' },
+          { q: 'What evidence supports it?', color: 'var(--color-chalk-2)' },
+          { q: 'Who or what verified it?', color: 'var(--color-chalk-2)' },
+          { q: 'How was it verified?', color: 'var(--color-chalk-2)' },
+          { q: 'How long is that verification valid?', color: 'var(--color-gold)' },
+          { q: 'What is stale, unsupported, or disputed?', color: 'var(--color-gold)' },
+          { q: 'What should an agent do before relying on it?', color: 'var(--color-red)' },
+        ].map(({ q, color }, i) => (
+          <div key={i} style="
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.25rem;
+            background: var(--color-ink-1);
+            border: 1px solid var(--color-edge);
+            border-radius: 4px;
+          ">
+            <span style={`
+              font-family: var(--font-mono);
+              font-size: 0.65rem;
+              color: var(--color-chalk-3);
+              padding-top: 2px;
+              min-width: 1.5rem;
+            `}>0{i + 1}</span>
+            <span style={`
+              font-size: 0.9rem;
+              color: ${color};
+              line-height: 1.5;
+            `}>{q}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────
+       Trust vocabulary
+  ────────────────────────────────────────────────────────── -->
+  <section style="
+    padding: 5rem var(--spacing-page);
+    border-top: 1px solid var(--color-edge);
+    border-bottom: 1px solid var(--color-edge);
+    background: var(--color-ink-1);
+  ">
+    <div style="max-width: 1280px; margin: 0 auto;">
+      <div class="label-sm" style="margin-bottom: 2.5rem;">Trust vocabulary</div>
+
+      <div style="
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+      ">
+        {[
+          {
+            term: 'Surface',
+            def: 'A product area where claims are made. The unit of trust coverage.',
+            color: 'var(--color-chalk)',
+          },
+          {
+            term: 'Claim',
+            def: 'The smallest trust-bearing unit. Subject, field, value, status, and metadata.',
+            color: 'var(--color-cobalt-2)',
+          },
+          {
+            term: 'Evidence',
+            def: 'Why a claim deserves trust — source excerpts, test output, attestations, calculations.',
+            color: 'var(--color-green)',
+          },
+          {
+            term: 'Trace',
+            def: 'The evidence chain that lets reviewers move from a status back to the source.',
+            color: 'var(--color-chalk-2)',
+          },
+          {
+            term: 'Drift',
+            def: 'When once-trusted claims may no longer be safe — time, source changes, new conflicts.',
+            color: 'var(--color-gold)',
+          },
+          {
+            term: 'Fault Line',
+            def: 'Conflicts between claims, evidence, or policies. Made visible, not smoothed over.',
+            color: 'var(--color-red)',
+          },
+          {
+            term: 'Coverage',
+            def: 'How much of a product surface has current, well-supported evidence.',
+            color: 'var(--color-chalk-2)',
+          },
+          {
+            term: 'Check',
+            def: 'A verification event that promotes, stales, disputes, rejects, or supersedes claims.',
+            color: 'var(--color-cobalt-2)',
+          },
+        ].map(({ term, def, color }) => (
+          <div key={term} style="
+            padding: 1.5rem;
+            background: var(--color-ink-2);
+            border: 1px solid var(--color-edge);
+            border-radius: 6px;
+          ">
+            <div style={`
+              font-family: var(--font-display);
+              font-size: 1.15rem;
+              font-weight: 400;
+              color: ${color};
+              margin-bottom: 0.6rem;
+              letter-spacing: -0.01em;
+            `}>{term}</div>
+            <div style="
+              font-size: 0.82rem;
+              color: var(--color-chalk-3);
+              line-height: 1.65;
+            ">{def}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────
+       Trust status model
+  ────────────────────────────────────────────────────────── -->
+  <section style="padding: 5rem var(--spacing-page);">
+    <div style="max-width: 1280px; margin: 0 auto;">
+      <div class="label-sm" style="margin-bottom: 2.5rem;">Trust status model</div>
+
+      <div style="
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
+      ">
+        {[
+          { status: 'unknown',     badge: 'trust-badge--unknown',    label: 'No prior verification exists.' },
+          { status: 'proposed',    badge: 'trust-badge--proposed',   label: 'Submitted but not yet verified.' },
+          { status: 'verified',    badge: 'trust-badge--verified',   label: 'Evidence supports it. Currently valid.' },
+          { status: 'stale',       badge: 'trust-badge--stale',      label: 'Was valid. Freshness window exceeded.' },
+          { status: 'disputed',    badge: 'trust-badge--disputed',   label: 'Conflicting evidence or policy.' },
+          { status: 'rejected',    badge: 'trust-badge--disputed',   label: 'Explicitly failed verification.' },
+          { status: 'superseded',  badge: 'trust-badge--unknown',    label: 'Replaced by a newer verified claim.' },
+        ].map(({ status, badge, label }) => (
+          <div key={status} style="
+            padding: 1.25rem;
+            background: var(--color-ink-1);
+            border: 1px solid var(--color-edge);
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+          ">
+            <span class={`trust-badge ${badge}`}>
+              <span style={`
+                width: 5px;
+                height: 5px;
+                border-radius: 50%;
+                display: inline-block;
+                background: currentColor;
+                ${status === 'stale' ? 'animation: pulse-dot 2s ease-in-out infinite;' : ''}
+              `}></span>
+              {status}
+            </span>
+            <p style="font-size: 0.78rem; color: var(--color-chalk-3); line-height: 1.5;">{label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────
+       Use cases
+  ────────────────────────────────────────────────────────── -->
+  <section style="
+    padding: 5rem var(--spacing-page);
+    border-top: 1px solid var(--color-edge);
+  ">
+    <div style="max-width: 1280px; margin: 0 auto;">
+      <div class="label-sm" style="margin-bottom: 2.5rem;">Product surfaces</div>
+
+      <div style="
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+      ">
+        {[
+          {
+            name: 'Veritas',
+            subtitle: 'Developer proof',
+            desc: 'Repo surfaces, policy packs, proof lanes, and evidence artifacts. Claim that code changes passed the proof required for the surface they touched.',
+            signals: ['repo surface', 'test output', 'CI run', 'policy results'],
+            color: 'var(--color-green)',
+          },
+          {
+            name: 'Campfit',
+            subtitle: 'Public data verification',
+            desc: 'Crawls, attestations, review flags, and freshness signals. Claim that a camp registration is open — with evidence from public sources.',
+            signals: ['web crawl', 'attestation', 'review flag', 'freshness'],
+            color: 'var(--color-cobalt-2)',
+          },
+          {
+            name: 'Taxes',
+            subtitle: 'High-stakes fact verification',
+            desc: 'Extraction, resolution, citations, and review signals for financial claims. Verify that a W2 wage figure came from a specific document line.',
+            signals: ['extraction', 'document ref', 'citation', 'reviewer signal'],
+            color: 'var(--color-gold)',
+          },
+        ].map(({ name, subtitle, desc, signals, color }) => (
+          <div key={name} class="card" style="padding: 2rem; position: relative; overflow: hidden;">
+            <div style={`
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              right: 0;
+              height: 2px;
+              background: linear-gradient(90deg, ${color}, transparent);
+            `}></div>
+
+            <h3 style="
+              font-family: var(--font-display);
+              font-size: 1.5rem;
+              font-weight: 400;
+              color: var(--color-chalk);
+              margin-bottom: 0.3rem;
+              letter-spacing: -0.01em;
+            ">{name}</h3>
+
+            <p style={`
+              font-family: var(--font-mono);
+              font-size: 0.68rem;
+              color: ${color};
+              letter-spacing: 0.08em;
+              text-transform: uppercase;
+              margin-bottom: 1rem;
+            `}>{subtitle}</p>
+
+            <p style="
+              color: var(--color-chalk-2);
+              font-size: 0.85rem;
+              line-height: 1.65;
+              margin-bottom: 1.5rem;
+            ">{desc}</p>
+
+            <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
+              {signals.map(sig => (
+                <span key={sig} style="
+                  font-family: var(--font-mono);
+                  font-size: 0.6rem;
+                  padding: 0.12rem 0.45rem;
+                  border: 1px solid var(--color-edge-2);
+                  border-radius: 2px;
+                  color: var(--color-chalk-3);
+                  letter-spacing: 0.06em;
+                ">{sig}</span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
+
+<style>
+  @media (max-width: 900px) {
+    section > div > div[style*="grid-template-columns: 1fr 1fr"] {
+      display: flex !important;
+      flex-direction: column !important;
+    }
+    section > div > div[style*="grid-template-columns: repeat(3, 1fr)"] {
+      display: flex !important;
+      flex-direction: column !important;
+    }
+  }
+</style>

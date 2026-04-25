@@ -1,0 +1,55 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  og?: {
+    title?: string;
+    description?: string;
+  };
+}
+
+const {
+  title,
+  description = 'Trust infrastructure for AI-era products. Evidence-backed confidence, not certainty theater.',
+  og,
+} = Astro.props;
+
+const ogTitle = og?.title ?? title;
+const ogDescription = og?.description ?? description;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+
+    <!-- OG -->
+    <meta property="og:title" content={ogTitle} />
+    <meta property="og:description" content={ogDescription} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Kontour AI" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={ogTitle} />
+    <meta name="twitter:description" content={ogDescription} />
+
+    <title>{title}</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,200;1,9..144,300;1,9..144,400&family=JetBrains+Mono:wght@400;500&family=Syne:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

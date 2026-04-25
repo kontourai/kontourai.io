@@ -1,0 +1,182 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - navigation [ref=e4]:
+      - link "Kontour AI home" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img [ref=e6]
+        - generic [ref=e10]: Kontour.
+      - generic [ref=e11]:
+        - link "veritas" [ref=e12] [cursor=pointer]:
+          - /url: /veritas
+        - link "surface" [ref=e13] [cursor=pointer]:
+          - /url: /surface
+        - link "github" [ref=e15] [cursor=pointer]:
+          - /url: https://github.com/kontourai
+          - img [ref=e16]
+          - text: github
+  - generic [ref=e20]:
+    - generic [ref=e21]:
+      - generic [ref=e22]:
+        - generic [ref=e23]: v0.1.0
+        - generic [ref=e24]: "@kontourai/surface"
+      - heading "Surface" [level=1] [ref=e25]
+      - paragraph [ref=e26]: The trust map for AI-era products
+      - paragraph [ref=e27]: Maps what your product claims, what proves it, where trust is missing or stale, and what humans or AI agents need to verify next.
+      - generic [ref=e28]:
+        - link "View on GitHub →" [ref=e29] [cursor=pointer]:
+          - /url: https://github.com/kontourai/surface
+        - link "npm package" [ref=e30] [cursor=pointer]:
+          - /url: https://www.npmjs.com/package/@kontourai/surface
+    - generic [ref=e32]:
+      - generic [ref=e37]: surface report — summary
+      - generic [ref=e38]:
+        - paragraph [ref=e39]: $ surface report --adapter veritas --format summary
+        - paragraph [ref=e40]: kontour surface 0.1.0 — trust report
+        - paragraph [ref=e41]: "adapter: veritas · 3 claims loaded"
+        - paragraph [ref=e42]: ─── coverage ──────────────────────────
+        - paragraph [ref=e43]: verified 2 claims (67%)
+        - paragraph [ref=e44]: stale 1 claim (33%)
+        - paragraph [ref=e45]: disputed 0 claims (0%)
+        - paragraph [ref=e46]: ─── stale ─────────────────────────────
+        - paragraph [ref=e47]: api.rateLimit
+        - paragraph [ref=e48]: "last check: 6d ago · freshness window: 72h"
+        - paragraph [ref=e49]: → requires re-verification before relying
+        - paragraph [ref=e50]: ─── fault lines ───────────────────────
+        - paragraph [ref=e51]: none detected
+  - generic [ref=e53]:
+    - generic [ref=e54]: What Surface answers
+    - generic [ref=e55]:
+      - generic [ref=e56]:
+        - generic [ref=e57]: "01"
+        - generic [ref=e58]: What is the claim?
+      - generic [ref=e59]:
+        - generic [ref=e60]: "02"
+        - generic [ref=e61]: What evidence supports it?
+      - generic [ref=e62]:
+        - generic [ref=e63]: "03"
+        - generic [ref=e64]: Who or what verified it?
+      - generic [ref=e65]:
+        - generic [ref=e66]: "04"
+        - generic [ref=e67]: How was it verified?
+      - generic [ref=e68]:
+        - generic [ref=e69]: "05"
+        - generic [ref=e70]: How long is that verification valid?
+      - generic [ref=e71]:
+        - generic [ref=e72]: "06"
+        - generic [ref=e73]: What is stale, unsupported, or disputed?
+      - generic [ref=e74]:
+        - generic [ref=e75]: "07"
+        - generic [ref=e76]: What should an agent do before relying on it?
+  - generic [ref=e78]:
+    - generic [ref=e79]: Trust vocabulary
+    - generic [ref=e80]:
+      - generic [ref=e81]:
+        - generic [ref=e82]: Surface
+        - generic [ref=e83]: A product area where claims are made. The unit of trust coverage.
+      - generic [ref=e84]:
+        - generic [ref=e85]: Claim
+        - generic [ref=e86]: The smallest trust-bearing unit. Subject, field, value, status, and metadata.
+      - generic [ref=e87]:
+        - generic [ref=e88]: Evidence
+        - generic [ref=e89]: Why a claim deserves trust — source excerpts, test output, attestations, calculations.
+      - generic [ref=e90]:
+        - generic [ref=e91]: Trace
+        - generic [ref=e92]: The evidence chain that lets reviewers move from a status back to the source.
+      - generic [ref=e93]:
+        - generic [ref=e94]: Drift
+        - generic [ref=e95]: When once-trusted claims may no longer be safe — time, source changes, new conflicts.
+      - generic [ref=e96]:
+        - generic [ref=e97]: Fault Line
+        - generic [ref=e98]: Conflicts between claims, evidence, or policies. Made visible, not smoothed over.
+      - generic [ref=e99]:
+        - generic [ref=e100]: Coverage
+        - generic [ref=e101]: How much of a product surface has current, well-supported evidence.
+      - generic [ref=e102]:
+        - generic [ref=e103]: Check
+        - generic [ref=e104]: A verification event that promotes, stales, disputes, rejects, or supersedes claims.
+  - generic [ref=e106]:
+    - generic [ref=e107]: Trust status model
+    - generic [ref=e108]:
+      - generic [ref=e109]:
+        - generic [ref=e110]: unknown
+        - paragraph [ref=e112]: No prior verification exists.
+      - generic [ref=e113]:
+        - generic [ref=e114]: proposed
+        - paragraph [ref=e116]: Submitted but not yet verified.
+      - generic [ref=e117]:
+        - generic [ref=e118]: verified
+        - paragraph [ref=e120]: Evidence supports it. Currently valid.
+      - generic [ref=e121]:
+        - generic [ref=e122]: stale
+        - paragraph [ref=e124]: Was valid. Freshness window exceeded.
+      - generic [ref=e125]:
+        - generic [ref=e126]: disputed
+        - paragraph [ref=e128]: Conflicting evidence or policy.
+      - generic [ref=e129]:
+        - generic [ref=e130]: rejected
+        - paragraph [ref=e132]: Explicitly failed verification.
+      - generic [ref=e133]:
+        - generic [ref=e134]: superseded
+        - paragraph [ref=e136]: Replaced by a newer verified claim.
+  - generic [ref=e138]:
+    - generic [ref=e139]: Product surfaces
+    - generic [ref=e140]:
+      - generic [ref=e141]:
+        - heading "Veritas" [level=3] [ref=e143]
+        - paragraph [ref=e144]: Developer proof
+        - paragraph [ref=e145]: Repo surfaces, policy packs, proof lanes, and evidence artifacts. Claim that code changes passed the proof required for the surface they touched.
+        - generic [ref=e146]:
+          - generic [ref=e147]: repo surface
+          - generic [ref=e148]: test output
+          - generic [ref=e149]: CI run
+          - generic [ref=e150]: policy results
+      - generic [ref=e151]:
+        - heading "Campfit" [level=3] [ref=e153]
+        - paragraph [ref=e154]: Public data verification
+        - paragraph [ref=e155]: Crawls, attestations, review flags, and freshness signals. Claim that a camp registration is open — with evidence from public sources.
+        - generic [ref=e156]:
+          - generic [ref=e157]: web crawl
+          - generic [ref=e158]: attestation
+          - generic [ref=e159]: review flag
+          - generic [ref=e160]: freshness
+      - generic [ref=e161]:
+        - heading "Taxes" [level=3] [ref=e163]
+        - paragraph [ref=e164]: High-stakes fact verification
+        - paragraph [ref=e165]: Extraction, resolution, citations, and review signals for financial claims. Verify that a W2 wage figure came from a specific document line.
+        - generic [ref=e166]:
+          - generic [ref=e167]: extraction
+          - generic [ref=e168]: document ref
+          - generic [ref=e169]: citation
+          - generic [ref=e170]: reviewer signal
+  - contentinfo [ref=e171]:
+    - generic [ref=e173]:
+      - generic [ref=e174]:
+        - link "Kontour." [ref=e175] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e176]: Kontour.
+        - paragraph [ref=e177]:
+          - text: Trust infrastructure for AI-era products.
+          - text: Evidence-backed confidence, not certainty theater.
+        - paragraph [ref=e178]: Apache 2.0 · Open source · © 2025 Kontour AI
+      - navigation [ref=e179]:
+        - link "Veritas" [ref=e180] [cursor=pointer]:
+          - /url: /veritas
+        - link "Surface" [ref=e181] [cursor=pointer]:
+          - /url: /surface
+        - link "GitHub ↗" [ref=e182] [cursor=pointer]:
+          - /url: https://github.com/kontourai/veritas
+        - link "npm ↗" [ref=e183] [cursor=pointer]:
+          - /url: https://www.npmjs.com/package/@kontourai/veritas
+  - generic [ref=e186]:
+    - button "Menu" [ref=e187]:
+      - img [ref=e189]
+      - generic: Menu
+    - button "Inspect" [ref=e193]:
+      - img [ref=e195]
+      - generic: Inspect
+    - button "Audit" [ref=e197]:
+      - img [ref=e199]
+      - generic: Audit
+    - button "Settings" [ref=e202]:
+      - img [ref=e204]
+      - generic: Settings

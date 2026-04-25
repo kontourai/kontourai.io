@@ -1,0 +1,29 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Nav from '@/components/Nav.astro';
+---
+
+<Layout title="404 — Not found · Kontour AI">
+  <Nav />
+  <main style="
+    min-height: calc(100dvh - 56px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-page);
+    text-align: center;
+  ">
+    <div class="label-sm" style="margin-bottom: 1.5rem;">404</div>
+    <h1 class="display-md" style="color: var(--color-chalk-2); margin-bottom: 1rem;">
+      Claim not found.
+    </h1>
+    <p style="
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--color-chalk-3);
+      margin-bottom: 2rem;
+    ">trust status: <span class="trust-badge trust-badge--unknown" style="margin-left: 0.25rem;">unknown</span></p>
+    <a href="/" class="btn-ghost">← Return home</a>
+  </main>
+</Layout>

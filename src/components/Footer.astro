@@ -1,0 +1,83 @@
+---
+---
+
+<footer style="
+  border-top: 1px solid var(--color-edge);
+  margin-top: 8rem;
+  padding: 3rem var(--spacing-page);
+">
+  <div style="max-width: 1280px; margin: 0 auto;">
+    <div style="
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: start;
+    ">
+      <!-- Left -->
+      <div>
+        <a href="/" style="
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          text-decoration: none;
+          margin-bottom: 0.75rem;
+        ">
+          <span style="
+            font-family: var(--font-display);
+            font-size: 0.95rem;
+            color: var(--color-chalk-2);
+            letter-spacing: -0.01em;
+          ">Kontour<span style="color: var(--color-gold);">.</span></span>
+        </a>
+        <p style="
+          font-family: var(--font-mono);
+          font-size: 0.7rem;
+          color: var(--color-chalk-3);
+          line-height: 1.6;
+          max-width: 340px;
+          letter-spacing: 0.02em;
+        ">
+          Trust infrastructure for AI-era products.<br />
+          Evidence-backed confidence, not certainty theater.
+        </p>
+        <p style="
+          font-family: var(--font-mono);
+          font-size: 0.65rem;
+          color: var(--color-chalk-3);
+          margin-top: 1.5rem;
+          opacity: 0.6;
+        ">Apache 2.0 &nbsp;·&nbsp; Open source &nbsp;·&nbsp; © 2026 Kontour AI</p>
+      </div>
+
+      <!-- Right nav -->
+      <nav style="display: flex; flex-direction: column; gap: 0.4rem; align-items: flex-end;">
+        {[
+          { href: '/veritas', label: 'Veritas' },
+          { href: '/surface', label: 'Surface' },
+          { href: 'https://github.com/kontourai/veritas', label: 'GitHub ↗', external: true },
+          { href: 'https://www.npmjs.com/package/@kontourai/veritas', label: 'npm ↗', external: true },
+        ].map(({ href, label, external }) => (
+          <a
+            href={href}
+            target={external ? '_blank' : undefined}
+            rel={external ? 'noopener' : undefined}
+            style="
+              font-family: var(--font-mono);
+              font-size: 0.7rem;
+              color: var(--color-chalk-3);
+              text-decoration: none;
+              letter-spacing: 0.05em;
+              transition: color 0.15s;
+            "
+          >{label}</a>
+        ))}
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<style>
+  footer a:hover {
+    color: var(--color-chalk-2) !important;
+  }
+</style>
