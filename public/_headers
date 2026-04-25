@@ -1,0 +1,29 @@
+# Cloudflare Pages _headers
+# Applied to every response from the CDN edge
+
+# Hashed Astro assets — immutable, 1 year
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# HTML pages — revalidate hourly
+/
+  Cache-Control: public, max-age=3600, must-revalidate
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+/veritas/
+  Cache-Control: public, max-age=3600, must-revalidate
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+/surface/
+  Cache-Control: public, max-age=3600, must-revalidate
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+# 404
+/404.html
+  Cache-Control: public, max-age=300, must-revalidate
