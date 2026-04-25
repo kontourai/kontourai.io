@@ -1,0 +1,4 @@
+# kontourai.com → kontourai.io (canonical redirect)
+https://kontourai.com/* https://kontourai.io/:splat 301
+https://www.kontourai.com/* https://kontourai.io/:splat 301
+https://www.kontourai.io/* https://kontourai.io/:splat 301

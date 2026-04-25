@@ -16,9 +16,11 @@ permissions:
   pull-requests: write
 
 jobs:
-  deploy:
-    name: Build & Deploy
+  build:
+    name: Build & Validate
     runs-on: ubuntu-latest
+    outputs:
+      deploy-url: ${{ steps.deploy.outputs.deployment-url }}
 
     steps:
       - name: Checkout
@@ -33,16 +35,48 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Validate
+      - name: Validate (npm registry checks)
         run: npm run validate
-        continue-on-error: true  # WARN on unpublished packages, don't block deploy
+        continue-on-error: true  # WARN on unpublished packages, don't block
 
       - name: Build
         run: npm run build
 
       - name: Deploy to Cloudflare Pages
+        id: deploy
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy dist --project-name=kontourai-io --branch=${{ github.ref_name }}
+
+  smoke:
+    name: Smoke Test
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Check homepage
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://kontourai.io/)
+          echo "kontourai.io → $STATUS"
+          [ "$STATUS" = "200" ] || exit 1
+
+      - name: Check /veritas
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://kontourai.io/veritas/)
+          echo "kontourai.io/veritas → $STATUS"
+          [ "$STATUS" = "200" ] || exit 1
+
+      - name: Check /surface
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://kontourai.io/surface/)
+          echo "kontourai.io/surface → $STATUS"
+          [ "$STATUS" = "200" ] || exit 1
+
+      - name: Check kontourai.com redirects to kontourai.io
+        run: |
+          LOCATION=$(curl -s -o /dev/null -w "%{redirect_url}" https://kontourai.com/)
+          echo "kontourai.com → $LOCATION"
+          echo "$LOCATION" | grep -q "kontourai.io" || exit 1
