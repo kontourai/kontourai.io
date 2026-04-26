@@ -18,6 +18,13 @@ const {
 
 const ogTitle = og?.title ?? title;
 const ogDescription = og?.description ?? description;
+const umamiWebsiteId = import.meta.env.PUBLIC_UMAMI_WEBSITE_ID ?? '36ed1bb2-51d9-4ed9-bf94-c079af4cd804';
+const umamiScriptUrl = import.meta.env.PUBLIC_UMAMI_SCRIPT_URL ?? 'https://cloud.umami.is/script.js';
+const umamiDomains = import.meta.env.PUBLIC_UMAMI_DOMAINS;
+const cloudflareAnalyticsToken = import.meta.env.PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN;
+const cloudflareAnalyticsUrl = import.meta.env.PUBLIC_CLOUDFLARE_WEB_ANALYTICS_URL ?? 'https://static.cloudflareinsights.com/beacon.min.js';
+const shouldLoadUmami = Boolean(umamiWebsiteId) && import.meta.env.PROD;
+const shouldLoadCloudflareAnalytics = Boolean(cloudflareAnalyticsToken) && import.meta.env.PROD;
 ---
 
 <!doctype html>
@@ -48,6 +55,27 @@ const ogDescription = og?.description ?? description;
       rel="stylesheet"
     />
 
+    {
+      shouldLoadUmami && (
+        <script
+          defer
+          src={umamiScriptUrl}
+          data-website-id={umamiWebsiteId}
+          data-domains={umamiDomains}
+          data-do-not-track="true"
+          data-exclude-search="true"
+        />
+      )
+    }
+    {
+      shouldLoadCloudflareAnalytics && (
+        <script
+          defer
+          src={cloudflareAnalyticsUrl}
+          data-cf-beacon={`{"token":"${cloudflareAnalyticsToken}"}`}
+        />
+      )
+    }
   </head>
   <body>
     <slot />

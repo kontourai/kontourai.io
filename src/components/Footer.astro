@@ -52,15 +52,16 @@
       <!-- Right nav -->
       <nav style="display: flex; flex-direction: column; gap: 0.4rem; align-items: flex-end;">
         {[
-          { href: '/veritas', label: 'Veritas' },
-          { href: '/surface', label: 'Surface' },
-          { href: 'https://github.com/kontourai/veritas', label: 'GitHub ↗', external: true },
-          { href: 'https://www.npmjs.com/package/@kontourai/veritas', label: 'npm ↗', external: true },
-        ].map(({ href, label, external }) => (
+          { href: '/veritas', label: 'Veritas', event: 'footer-veritas' },
+          { href: '/surface', label: 'Surface', event: 'footer-surface' },
+          { href: 'https://github.com/kontourai/veritas', label: 'GitHub ↗', external: true, event: 'footer-github-veritas' },
+          { href: 'https://www.npmjs.com/package/@kontourai/veritas', label: 'npm ↗', external: true, event: 'footer-npm-veritas' },
+        ].map(({ href, label, external, event }) => (
           <a
             href={href}
             target={external ? '_blank' : undefined}
             rel={external ? 'noopener' : undefined}
+            data-umami-event={event}
             style="
               font-family: var(--font-mono);
               font-size: 0.7rem;

@@ -72,8 +72,8 @@ import Footer from '@/components/Footer.astro';
 
       <!-- CTA -->
       <div class="animate-fade-up delay-300" style="display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center;">
-        <a href="/veritas" class="btn-primary">Explore Veritas →</a>
-        <a href="/surface" class="btn-ghost">Explore Surface</a>
+        <a href="/veritas" class="btn-primary" data-umami-event="home-hero-explore-veritas">Explore Veritas →</a>
+        <a href="/surface" class="btn-ghost" data-umami-event="home-hero-explore-surface">Explore Surface</a>
       </div>
 
       <!-- Trust state strip -->
@@ -215,7 +215,7 @@ import Footer from '@/components/Footer.astro';
       ">
 
         <!-- Veritas card -->
-        <a href="/veritas" style="text-decoration: none;" class="card" style="
+        <a href="/veritas" data-umami-event="home-product-card-veritas" style="text-decoration: none;" class="card" style="
           padding: 2.5rem;
           display: block;
           position: relative;
@@ -283,7 +283,7 @@ import Footer from '@/components/Footer.astro';
         </a>
 
         <!-- Surface card -->
-        <a href="/surface" style="text-decoration: none;" class="card" style="
+        <a href="/surface" data-umami-event="home-product-card-surface" style="text-decoration: none;" class="card" style="
           display: block;
           position: relative;
           overflow: hidden;
@@ -426,8 +426,8 @@ import Footer from '@/components/Footer.astro';
             and get lint-style feedback straight into your AI agent's context.
           </p>
           <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-            <a href="/veritas" class="btn-primary">Read the docs →</a>
-            <a href="https://github.com/kontourai/veritas" target="_blank" rel="noopener" class="btn-ghost">GitHub</a>
+            <a href="/veritas" class="btn-primary" data-umami-event="home-final-read-docs">Read the docs →</a>
+            <a href="https://github.com/kontourai/veritas" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="home-final-github-veritas">GitHub</a>
           </div>
         </div>
 

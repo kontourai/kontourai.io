@@ -48,6 +48,7 @@ const { active } = Astro.props;
         <a
           href="/veritas"
           aria-current={active === 'veritas' ? 'page' : undefined}
+          data-umami-event="nav-veritas"
           style={`
             padding: 0.4rem 0.85rem;
             border-radius: 4px;
@@ -64,6 +65,7 @@ const { active } = Astro.props;
         <a
           href="/surface"
           aria-current={active === 'surface' ? 'page' : undefined}
+          data-umami-event="nav-surface"
           style={`
             padding: 0.4rem 0.85rem;
             border-radius: 4px;
@@ -83,6 +85,7 @@ const { active } = Astro.props;
           href="https://github.com/kontourai"
           target="_blank"
           rel="noopener"
+          data-umami-event="nav-github"
           style="
             padding: 0.4rem 0.85rem;
             border-radius: 4px;

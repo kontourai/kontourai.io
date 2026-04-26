@@ -77,7 +77,7 @@ import Footer from '@/components/Footer.astro';
           </p>
 
           <div class="animate-fade-up delay-300" style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-            <a href="https://github.com/kontourai/surface" target="_blank" rel="noopener" class="btn-primary">
+            <a href="https://github.com/kontourai/surface" target="_blank" rel="noopener" class="btn-primary" data-umami-event="surface-hero-github">
               View on GitHub →
             </a>
             <span class="btn-ghost" style="cursor: default; opacity: 0.5;" title="Publishing soon">
@@ -102,12 +102,13 @@ import Footer from '@/components/Footer.astro';
               <p class="muted">  Source: kontour-surface-validation-fixtures</p>
               <br />
               <p>  Claims: <span class="pass">4</span> &nbsp;(unknown: 1, verified: 2, stale: 1)</p>
-              <p class="muted">  Surfaces: veritas.developer-proof: 1, campfit.public-data: 1,</p>
+              <p class="muted">  Surfaces: veritas.developer-proof: 1, public-directory-data: 1,</p>
               <p class="muted">  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; taxes.financial-facts: 1, surface.roadmap: 1</p>
               <br />
               <p>  High-impact unsupported: <span class="pass">none</span></p>
-              <p>  Stale: &nbsp;&nbsp;&nbsp;<span class="warn">claim.campfit.registration-status</span></p>
+              <p>  Stale: &nbsp;&nbsp;&nbsp;<span class="warn">claim.public-directory.registration-status</span></p>
               <p>  Disputed: <span class="pass">none</span></p>
+              <p>  Fault lines: <span class="warn">3</span></p>
             </div>
           </div>
         </div>
@@ -193,7 +194,7 @@ import Footer from '@/components/Footer.astro';
           },
           {
             term: 'Evidence',
-            def: 'Why a claim deserves trust — source excerpts, test output, attestations, calculations.',
+            def: 'Why a claim deserves trust, plus the method: observation, validation, corroboration, attestation.',
             color: 'var(--color-green)',
           },
           {
@@ -208,7 +209,7 @@ import Footer from '@/components/Footer.astro';
           },
           {
             term: 'Fault Line',
-            def: 'Conflicts between claims, evidence, or policies. Made visible, not smoothed over.',
+            def: 'Typed gaps such as provenance gaps, stale proof, missing corroboration, or unsupported inference.',
             color: 'var(--color-red)',
           },
           {
@@ -307,7 +308,7 @@ import Footer from '@/components/Footer.astro';
 
       <div style="
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(4, 1fr);
         gap: 1.5rem;
       ">
         {[
@@ -319,9 +320,9 @@ import Footer from '@/components/Footer.astro';
             color: 'var(--color-green)',
           },
           {
-            name: 'Campfit',
+            name: 'Public Data',
             subtitle: 'Public data verification',
-            desc: 'Crawls, attestations, review flags, and freshness signals. Claim that a camp registration is open — with evidence from public sources.',
+            desc: 'Crawls, attestations, review flags, and freshness signals. Claim that a public registration is open, then show the source, timestamp, and review state before anyone relies on it.',
             signals: ['web crawl', 'attestation', 'review flag', 'freshness'],
             color: 'var(--color-cobalt-2)',
           },
@@ -331,6 +332,13 @@ import Footer from '@/components/Footer.astro';
             desc: 'Extraction, resolution, citations, and review signals for financial claims. Verify that a W2 wage figure came from a specific document line.',
             signals: ['extraction', 'document ref', 'citation', 'reviewer signal'],
             color: 'var(--color-gold)',
+          },
+          {
+            name: 'Reputation Integrity',
+            subtitle: 'Heuristic truth boundaries',
+            desc: 'Popularity signals, anomaly detection, and explicit unsupported-inference gaps. A suspicious pattern can require review without becoming an accusation.',
+            signals: ['source snapshot', 'heuristic', 'corroboration gap', 'unsupported inference'],
+            color: 'var(--color-red)',
           },
         ].map(({ name, subtitle, desc, signals, color }) => (
           <div key={name} class="card" style="padding: 2rem; position: relative; overflow: hidden;">
@@ -397,6 +405,10 @@ import Footer from '@/components/Footer.astro';
       flex-direction: column !important;
     }
     section > div > div[style*="grid-template-columns: repeat(3, 1fr)"] {
+      display: flex !important;
+      flex-direction: column !important;
+    }
+    section > div > div[style*="grid-template-columns: repeat(4, 1fr)"] {
       display: flex !important;
       flex-direction: column !important;
     }
