@@ -40,8 +40,8 @@ import Footer from '@/components/Footer.astro';
         <!-- Left -->
         <div>
           <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem;">
-            <span class="trust-badge trust-badge--verified">v0.1.3</span>
-            <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-chalk-3);">npm install @kontourai/veritas</span>
+            <span class="trust-badge trust-badge--verified">v0.3.0</span>
+            <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-chalk-3);">npm install -D @kontourai/veritas</span>
           </div>
 
           <h1 class="animate-fade-up" style="
@@ -98,31 +98,26 @@ import Footer from '@/components/Footer.astro';
             <div class="terminal-body">
               <p><span class="prompt">$ </span><span class="cmd">veritas shadow run --format feedback</span></p>
               <br />
-              <p class="info">  veritas 0.1.3 — shadow run</p>
+              <p class="info">  veritas 0.3.0 — shadow run</p>
               <p class="muted">  adapter: .veritas/repo.adapter.json</p>
               <p class="muted">  policy:  default.policy-pack.json</p>
               <br />
-              <p class="pass">  PASS  artifacts: CLAUDE.md exists</p>
-              <p class="pass">  PASS  artifacts: .veritas/repo.adapter.json exists</p>
-              <p class="pass">  PASS  governance-block: CLAUDE.md contains canonical block</p>
-              <p class="pass">  PASS  governance-block: AGENTS.md contains canonical block</p>
+              <p class="pass">  PASS  proof-command: npm run proof:repo-governance</p>
+              <p class="pass">  PASS  required-governance-artifacts</p>
+              <p class="pass">  PASS  ai-instruction-files-synced</p>
+              <p class="pass">  PASS  proof-family:repo-governance</p>
               <br />
-              <p class="warn">  WARN  if-changed: src/api/ changed</p>
+              <p class="warn">  INFO  proof-family:runtime-contracts</p>
               <p style="color: var(--color-chalk-3); padding-left: 2rem; font-size: 0.72rem;">
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ tests/api/ must appear in the diff
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ move-to-test / advisory
               </p>
               <p style="color: var(--color-chalk-3); padding-left: 2rem; font-size: 0.72rem;">
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ missing: tests/api/rate-limit.test.ts
-              </p>
-              <br />
-              <p class="fail">  FAIL  proof-lane: npm test</p>
-              <p style="color: var(--color-chalk-3); padding-left: 2rem; font-size: 0.72rem;">
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ exit 1 — 3 tests failed
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ evidence: connected-agent replacement tests
               </p>
               <br />
               <p style="color: var(--color-chalk-3);">  ───────────────────────────────</p>
-              <p style="color: var(--color-chalk-2);">  2 pass &nbsp; 1 warn &nbsp; <span class="fail">1 fail</span></p>
-              <p class="muted">  evidence → .veritas/evidence/run-1748220495.json</p>
+              <p style="color: var(--color-chalk-2);">  0 failures &nbsp; 0 warnings</p>
+              <p class="muted">  evidence → .veritas/evidence/native-proof-family-shadow.json</p>
             </div>
           </div>
         </div>
@@ -148,8 +143,8 @@ import Footer from '@/components/Footer.astro';
             title: 'Rules',
             color: 'var(--color-green)',
             summary: 'Repo-local lint in `.veritas/`',
-            body: 'Define required files, governance blocks, companion test requirements, and proof lanes. Your repo, your rules — not a cloud platform.',
-            tags: ['artifacts', 'governance-block', 'if-changed', 'proof-lanes'],
+            body: 'Define required files, governance blocks, companion test requirements, proof lanes, and proof-family manifests. Your repo, your rules — not a cloud platform.',
+            tags: ['artifacts', 'governance-block', 'proof-lanes', 'proof-families'],
           },
           {
             num: '02',
@@ -164,8 +159,8 @@ import Footer from '@/components/Footer.astro';
             title: 'Improvement',
             color: 'var(--color-cobalt-2)',
             summary: 'Local evidence + eval history',
-            body: 'Evidence artifacts persist per run. Eval records track whether the agent accepted or rewrote. Summaries measure if Veritas is actually helping over time.',
-            tags: ['eval-draft', 'eval-record', 'markers', 'summaries'],
+            body: 'Evidence artifacts persist per run. Proof-family results and verification budgets show what can block, what is advisory, and what should move to tests or retire.',
+            tags: ['proof-family-results', 'verification-budget', 'eval-record', 'summaries'],
           },
         ].map(({ num, title, color, summary, body, tags }) => (
           <div key={num} class="card" style="padding: 2rem;">

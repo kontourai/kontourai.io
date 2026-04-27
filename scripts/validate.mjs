@@ -1,12 +1,16 @@
 #!/usr/bin/env node
 
 import { access } from "node:fs/promises";
+import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const packages = ["@kontourai/veritas", "@kontourai/surface"];
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const registryBaseUrl = "https://registry.npmjs.org";
+const expectedVersions = {
+  "@kontourai/veritas": await readAdvertisedVeritasVersion(),
+};
 
 let errorCount = 0;
 
@@ -42,10 +46,27 @@ async function checkPackage(packageName) {
       return;
     }
 
+    const expectedVersion = expectedVersions[packageName];
+    if (expectedVersion && latest !== expectedVersion) {
+      error(`${packageName}: npm latest ${latest} does not match advertised version ${expectedVersion}`);
+      return;
+    }
+
     console.log(`PASS  ${packageName}: found version ${latest}`);
   } catch (err) {
     error(`${packageName}: registry check failed (${err.message})`);
   }
+}
+
+async function readAdvertisedVeritasVersion() {
+  const pagePath = path.join(rootDir, "src/pages/veritas.astro");
+  const source = await readFile(pagePath, "utf8");
+  const match = source.match(/trust-badge[^>]*>v([0-9]+\.[0-9]+\.[0-9]+)</);
+  if (!match) {
+    error("src/pages/veritas.astro: could not find advertised Veritas version badge");
+    return null;
+  }
+  return match[1];
 }
 
 async function checkDist() {

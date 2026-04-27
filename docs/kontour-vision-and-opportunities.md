@@ -41,7 +41,7 @@ This is a base product constraint, not just a marketing preference:
 
 Veritas is the developer-proof wedge: bespoke lint for AI agents.
 
-It lets a repo define local rules, proof lanes, governance blocks, and evidence artifacts. When an AI agent changes code, Veritas gives lint-style feedback about what proof is missing or which rule was violated before the agent declares the task complete.
+It lets a repo define local rules, proof lanes, proof-family manifests, governance blocks, and evidence artifacts. When an AI agent changes code, Veritas gives lint-style feedback about what proof is missing, which rule was violated, and which verification families are required, advisory, moving to tests, or ready to retire.
 
 Veritas proves the Kontour thesis in software development:
 
@@ -243,7 +243,7 @@ The useful mode is a guided bootstrap that first explores the codebase, then int
 
 The companion repo-local Codex skill should live at `.codex/skills/veritas-init-guide/SKILL.md`. It can explore, ask questions, and prepare a guided plan, but it must hand all writes back to the deterministic CLI. The only mutation boundary remains `veritas init --apply --plan <artifact>`.
 
-The output should be an initial Veritas adapter, proof-lane recommendations, codebase guidance, migration notes, and a concise "why this config" report. The goal is not to force a perfect ontology on day one. It is to get a repo into a coherent evidence-backed operating mode quickly, then let future check-ins refine the contract as real work exposes gaps.
+The output should be an initial Veritas adapter, proof-lane recommendations, proof-family inventory, codebase guidance, migration notes, and a concise "why this config" report. The goal is not to force a perfect ontology on day one. It is to get a repo into a coherent evidence-backed operating mode quickly, then let future check-ins refine the contract as real work exposes gaps.
 
 Potential command shape:
 
