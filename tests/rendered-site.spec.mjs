@@ -13,10 +13,11 @@ test("surface page renders workflow archetypes without project-specific public-d
   await page.goto("/surface/");
 
   await expect(page.getByText("Fault lines:")).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Public Data" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Field-Attested Records" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Fact Resolution" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Reputation Integrity" })).toBeVisible();
   await expect(page.getByText("unsupported inference", { exact: true })).toBeVisible();
-  await expect(page.getByText(/public-directory-data/)).toBeVisible();
-  await expect(page.getByText(/claim\.public-directory\.registration-status/)).toBeVisible();
+  await expect(page.getByText(/field-attested-records\.public-data/)).toBeVisible();
+  await expect(page.getByText(/claim\.field-attested-records\.registration-status/)).toBeVisible();
   await expect(page.getByText(new RegExp(`camp${"fit"}`, "i"))).toHaveCount(0);
 });

@@ -3,7 +3,7 @@
 - Source: local public-directory product research snapshot
 - Date analyzed: 2026-04-25
 - Workflow archetype: Public data trust; marketplace/transaction trust
-- Opportunity classification: Surface adapter candidate; product archetype reference
+- Opportunity classification: downstream Surface adapter candidate; product archetype reference
 - Kontour fit: Veritas medium, Surface high
 
 ## Summary

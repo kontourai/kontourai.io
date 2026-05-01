@@ -273,7 +273,7 @@ Current seed entry:
 
 - [Public Directory Data](opportunities/2026-04-25-public-directory-data.md): public data trust and marketplace/transaction trust; strong Surface fit; shows that field-level sources, reviewed blanks, provider rollups, crawl failures, and review flags need explicit semantics.
 - [Dagster Fake Star Detector](opportunities/2026-04-25-dagster-fake-star-detector.md): reputation integrity; strong Surface fit; shows that Kontour needs to support heuristic, adversarial, time-bounded claims without collapsing suspicion into accusation.
-- [Taxes](opportunities/2026-04-25-taxes.md): high-stakes fact verification and compliance/audit evidence; strong Surface and Veritas fit; shows that generated artifacts need a chain from raw extraction to resolved candidate to verified fact to output, with assumptions and rule-source provenance preserved.
+- Fact Resolution: high-stakes fact verification and compliance/audit evidence; strong Surface and Veritas fit; shows that generated artifacts need a chain from raw extraction to resolved candidate to verified fact to output, with assumptions and rule-source provenance preserved.
 
 ## Current Synthesis
 
@@ -281,7 +281,7 @@ The current examples support a broader list of workflow archetypes than the publ
 
 - Veritas: developer proof.
 - Public Directory Data: public data trust and marketplace/transaction trust.
-- Taxes: high-stakes fact verification and compliance/audit evidence.
+- Fact Resolution: high-stakes fact verification and compliance/audit evidence.
 - Fake Star Detector: reputation integrity.
 
 The repeated foundation lessons so far:

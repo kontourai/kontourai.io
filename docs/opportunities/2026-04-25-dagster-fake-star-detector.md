@@ -4,7 +4,7 @@
 - Related sources: <https://dagster.io/blog/fake-stars>
 - Date analyzed: 2026-04-25
 - Workflow archetype: Reputation integrity
-- Opportunity classification: Surface adapter candidate; opportunity category
+- Opportunity classification: downstream Surface adapter candidate; opportunity category
 - Kontour fit: Veritas medium, Surface high
 
 ## Summary

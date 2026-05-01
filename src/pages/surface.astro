@@ -102,11 +102,11 @@ import Footer from '@/components/Footer.astro';
               <p class="muted">  Source: kontour-surface-validation-fixtures</p>
               <br />
               <p>  Claims: <span class="pass">4</span> &nbsp;(unknown: 1, verified: 2, stale: 1)</p>
-              <p class="muted">  Surfaces: veritas.developer-proof: 1, public-directory-data: 1,</p>
-              <p class="muted">  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; taxes.financial-facts: 1, surface.roadmap: 1</p>
+              <p class="muted">  Surfaces: veritas.developer-proof: 1, field-attested-records.public-data: 1,</p>
+              <p class="muted">  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fact-resolution.financial-facts: 1, surface.roadmap: 1</p>
               <br />
               <p>  High-impact unsupported: <span class="pass">none</span></p>
-              <p>  Stale: &nbsp;&nbsp;&nbsp;<span class="warn">claim.public-directory.registration-status</span></p>
+              <p>  Stale: &nbsp;&nbsp;&nbsp;<span class="warn">claim.field-attested-records.registration-status</span></p>
               <p>  Disputed: <span class="pass">none</span></p>
               <p>  Fault lines: <span class="warn">3</span></p>
             </div>
@@ -320,17 +320,17 @@ import Footer from '@/components/Footer.astro';
             color: 'var(--color-green)',
           },
           {
-            name: 'Public Data',
-            subtitle: 'Public data verification',
-            desc: 'Crawls, attestations, review flags, and freshness signals. Claim that a public registration is open, then show the source, timestamp, and review state before anyone relies on it.',
+            name: 'Field-Attested Records',
+            subtitle: 'Field-level public data trust',
+            desc: 'Crawls, attestations, review flags, and freshness signals. Claim that a record field is current, then show the source, timestamp, and review state before anyone relies on it.',
             signals: ['web crawl', 'attestation', 'review flag', 'freshness'],
             color: 'var(--color-cobalt-2)',
           },
           {
-            name: 'Taxes',
+            name: 'Fact Resolution',
             subtitle: 'High-stakes fact verification',
-            desc: 'Extraction, resolution, citations, and review signals for financial claims. Verify that a W2 wage figure came from a specific document line.',
-            signals: ['extraction', 'document ref', 'citation', 'reviewer signal'],
+            desc: 'Extraction, resolution, citations, and review signals for high-stakes claims. Verify that a package value came from a specific source and decision trail.',
+            signals: ['extraction', 'source ref', 'citation', 'review signal'],
             color: 'var(--color-gold)',
           },
           {
