@@ -6,7 +6,7 @@ import Footer from '@/components/Footer.astro';
 
 <Layout
   title="Veritas — Bespoke lint for AI agents · Kontour AI"
-  description="Repo-local governance that tells AI agents exactly what changed violated your rules before they finish work. Works with Claude Code, Cursor, Codex, and Copilot."
+  description="Repo-local governance that tells AI agents exactly what changed violated your rules before they finish work. Runs through tracked instructions, hooks, and CI."
 >
   <Nav active="veritas" />
 
@@ -62,7 +62,7 @@ import Footer from '@/components/Footer.astro';
             text-transform: uppercase;
             color: var(--color-green);
             margin-bottom: 2rem;
-          ">Bespoke lint for AI agents</p>
+          ">Repo lint for AI agents · Built on Surface</p>
 
           <p class="animate-fade-up delay-200" style="
             font-size: 1.05rem;
@@ -72,8 +72,8 @@ import Footer from '@/components/Footer.astro';
             margin-bottom: 2.5rem;
           ">
             You define what your repo considers mandatory.
-            Veritas tells any AI agent exactly which changes violated those rules —
-            before they finish work.
+            Veritas runs your rules and tells any AI agent exactly which changes
+            violated them — before it declares done.
           </p>
 
           <div class="animate-fade-up delay-300" style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
@@ -96,13 +96,13 @@ import Footer from '@/components/Footer.astro';
               <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-chalk-3); margin-left: 0.5rem;">veritas shadow run</span>
             </div>
             <div class="terminal-body">
-              <p><span class="prompt">$ </span><span class="cmd">veritas shadow run --format feedback</span></p>
+              <p><span class="prompt">$ </span><span class="cmd">npx veritas shadow run --working-tree</span></p>
               <br />
               <p class="info">  veritas 0.3.0 — shadow run</p>
               <p class="muted">  adapter: .veritas/repo.adapter.json</p>
-              <p class="muted">  policy:  default.policy-pack.json</p>
+              <p class="muted">  policy:  .veritas/policy-packs/default.policy-pack.json</p>
               <br />
-              <p class="pass">  PASS  proof-command: npm run proof:repo-governance</p>
+              <p class="pass">  PASS  proof-command: npm run verify</p>
               <p class="pass">  PASS  required-governance-artifacts</p>
               <p class="pass">  PASS  ai-instruction-files-synced</p>
               <p class="pass">  PASS  proof-family:repo-governance</p>
@@ -117,7 +117,7 @@ import Footer from '@/components/Footer.astro';
               <br />
               <p style="color: var(--color-chalk-3);">  ───────────────────────────────</p>
               <p style="color: var(--color-chalk-2);">  0 failures &nbsp; 0 warnings</p>
-              <p class="muted">  evidence → .veritas/evidence/native-proof-family-shadow.json</p>
+              <p class="muted">  evidence → .veritas/evidence/&lt;run-id&gt;.json</p>
             </div>
           </div>
         </div>
@@ -126,11 +126,11 @@ import Footer from '@/components/Footer.astro';
   </section>
 
   <!-- ──────────────────────────────────────────────────────
-       Three pillars
+       Three jobs
   ────────────────────────────────────────────────────────── -->
   <section style="padding: 6rem var(--spacing-page);">
     <div style="max-width: 1280px; margin: 0 auto;">
-      <div class="label-sm" style="margin-bottom: 3rem;">Three pillars</div>
+      <div class="label-sm" style="margin-bottom: 3rem;">Three jobs</div>
 
       <div style="
         display: grid;
@@ -140,27 +140,27 @@ import Footer from '@/components/Footer.astro';
         {[
           {
             num: '01',
-            title: 'Rules',
+            title: 'Enforce boundaries',
             color: 'var(--color-green)',
-            summary: 'Repo-local lint in `.veritas/`',
-            body: 'Define required files, governance blocks, companion test requirements, proof lanes, and proof-family manifests. Your repo, your rules — not a cloud platform.',
-            tags: ['artifacts', 'governance-block', 'proof-lanes', 'proof-families'],
+            summary: 'Strict surface ownership',
+            body: 'Required files, governance blocks, companion test requirements, cross-surface-write rules. Stops parallel workstreams from colliding before changes land.',
+            tags: ['artifacts', 'governance-block', 'cross-surface-write', 'if-changed'],
           },
           {
             num: '02',
-            title: 'Feedback',
-            color: 'var(--color-gold)',
-            summary: '`veritas shadow run` → lint output',
-            body: 'Agent-facing path that produces lint-style output directly into your agent\'s context window. Exit codes 0 (pass), 1 (fail), 2 (error) — designed for hooks.',
-            tags: ['shadow-run', 'exit-codes', 'hook-integration', 'format:feedback'],
+            title: 'Deliver JIT context',
+            color: 'var(--color-cobalt-2)',
+            summary: '`veritas explain` + PreToolUse hook',
+            body: 'Long agent sessions drift toward high-level goals and forget repo-specific constraints. Veritas pushes the right rules into the agent\'s context at the moment of edit.',
+            tags: ['explain', 'pre-tool-use', 'per-file', 'per-rule'],
           },
           {
             num: '03',
-            title: 'Improvement',
-            color: 'var(--color-cobalt-2)',
-            summary: 'Local evidence + eval history',
-            body: 'Evidence artifacts persist per run. Proof-family results and verification budgets show what can block, what is advisory, and what should move to tests or retire.',
-            tags: ['proof-family-results', 'verification-budget', 'eval-record', 'summaries'],
+            title: 'Self-correct via lint',
+            color: 'var(--color-gold)',
+            summary: '`veritas shadow run` → PASS / FAIL',
+            body: 'Terse lint-style output directly into the agent\'s context window. Exit codes 0/1/2 are hook-friendly. The agent reads it the way it reads a failing test.',
+            tags: ['shadow-run', 'exit-codes', 'feedback-format', 'eval-history'],
           },
         ].map(({ num, title, color, summary, body, tags }) => (
           <div key={num} class="card" style="padding: 2rem;">
@@ -246,13 +246,17 @@ import Footer from '@/components/Footer.astro';
           </h2>
           <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.5rem;">
             Veritas injects a governance block into every AI instruction file in your repo.
-            Every agent that reads those files — Claude Code, Cursor, Codex, Copilot — sees
-            the same rules and proof requirements.
+            Agents that read repo instructions — Claude Code, Cursor, Codex, Copilot — see
+            the same rules and proof requirements through tracked files.
           </p>
-          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75;">
+          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.5rem;">
             Stop-hook integration wires <code style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-green); background: rgba(82,196,126,0.08); padding: 0.1rem 0.35rem; border-radius: 2px;">veritas shadow run</code> to fire
-            at session end for Claude Code and Cursor — no manual invocation needed.
-            Codex integration uses a native hook file.
+            at session end for Claude Code, Cursor, and Codex. Copilot stays covered
+            through instructions and CI.
+          </p>
+          <p style="color: var(--color-chalk-3); font-size: 0.82rem; line-height: 1.7; font-style: italic;">
+            Codex is the only agent today with deep transcript capture for eval drafts.
+            Other agents work via the generic governance-block + stop-hook contract.
           </p>
         </div>
 
@@ -294,6 +298,63 @@ import Footer from '@/components/Footer.astro';
   </section>
 
   <!-- ──────────────────────────────────────────────────────
+       Built on Surface
+  ────────────────────────────────────────────────────────── -->
+  <section style="padding: 5rem var(--spacing-page); border-top: 1px solid var(--color-edge);">
+    <div style="max-width: 1280px; margin: 0 auto;">
+      <div style="
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+      ">
+        <div>
+          <div class="label-sm" style="margin-bottom: 1.5rem; color: var(--color-gold);">Built on Surface</div>
+          <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 1.25rem;">
+            One run, two consumers.
+          </h2>
+          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.5rem;">
+            Each Veritas evidence artifact projects into <code style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-gold); background: rgba(201,163,90,0.08); padding: 0.1rem 0.35rem; border-radius: 2px;">surface.input</code> —
+            a portable shape Surface can turn into a trust report a human, a PR
+            comment, or a downstream system can read. Same evidence, two audiences.
+          </p>
+          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75;">
+            You can use Veritas without Surface (the feedback loop is independent),
+            and you can use Surface without Veritas (it ships its own adapters).
+            Together, what the agent acted on becomes what the auditor reads.
+          </p>
+          <div style="margin-top: 2rem;">
+            <a href="/surface" class="btn-ghost" data-umami-event="veritas-surface-link">Explore Surface →</a>
+          </div>
+        </div>
+
+        <div class="terminal">
+          <div class="terminal-bar">
+            <div class="terminal-dot"></div>
+            <div class="terminal-dot"></div>
+            <div class="terminal-dot"></div>
+            <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-chalk-3); margin-left: 0.5rem;">surface report ← veritas evidence</span>
+          </div>
+          <div class="terminal-body">
+            <p><span class="prompt">$ </span><span class="cmd">node examples/surface-handoff.mjs</span></p>
+            <br />
+            <p class="info">  Kontour Surface report surface-1778389390389</p>
+            <p class="muted">  Source: veritas:check-in-local</p>
+            <br />
+            <p>  Claims: <span class="pass">11</span> &nbsp;(proposed: 2, verified: 8, disputed: 1)</p>
+            <p class="muted">  Surfaces: veritas.proof-lanes: 2, veritas.policy-results: 7,</p>
+            <p class="muted">  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; veritas.external-tool-results: 1, veritas.verification-budget: 1</p>
+            <br />
+            <p>  High-impact unsupported: <span class="warn">2</span></p>
+            <p>  Disputed: <span class="warn">veritas.check-in-local.external-tool.fallow-fallow-advisory</span></p>
+            <p>  Fault lines: <span class="warn">2</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────
        CLI reference strip
   ────────────────────────────────────────────────────────── -->
   <section style="padding: 5rem var(--spacing-page);">
@@ -308,7 +369,7 @@ import Footer from '@/components/Footer.astro';
         {[
           { cmd: 'veritas init', desc: 'Bootstrap adapter, policy pack, governance blocks' },
           { cmd: 'veritas shadow run', desc: 'Agent-facing lint path with feedback output' },
-          { cmd: 'veritas report', desc: 'Full policy report (JSON or summary)' },
+          { cmd: 'veritas report', desc: 'Evidence artifact with JSON or feedback output' },
           { cmd: 'veritas runtime status', desc: 'Check hook wiring and activation state' },
           { cmd: 'veritas eval draft', desc: 'Record agent evidence for a run' },
           { cmd: 'veritas eval record', desc: 'Accept or reject agent output manually' },

@@ -6,7 +6,7 @@ import Footer from '@/components/Footer.astro';
 
 <Layout
   title="Kontour AI — Trust infrastructure for AI-era products"
-  description="Kontour AI maps what your product claims, what proves it, where trust is missing or stale, and what needs verification next."
+  description="Kontour AI gives you a portable shape for claims, evidence, freshness, and conflict — so any product can show its work instead of asking to be trusted."
 >
   <Nav active="home" />
 
@@ -52,7 +52,7 @@ import Footer from '@/components/Footer.astro';
       ">
         Map what your<br />
         product <em style="color: var(--color-gold); font-style: italic;">claims</em>.<br />
-        Prove it.
+        Show your work.
       </h1>
 
       <!-- Sub -->
@@ -65,15 +65,15 @@ import Footer from '@/components/Footer.astro';
         margin-bottom: 2.5rem;
         font-weight: 400;
       ">
-        AI increases the volume and polish of product claims.
-        Kontour makes the evidence inspectable — what's verified,
-        what's stale, and what still needs proof.
+        AI makes confident output cheap. Kontour gives any product a portable
+        shape for claims, evidence, freshness, and conflict — so a human or a
+        downstream system can see the chain instead of guessing.
       </p>
 
       <!-- CTA -->
       <div class="animate-fade-up delay-300" style="display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center;">
-        <a href="/veritas" class="btn-primary" data-umami-event="home-hero-explore-veritas">Explore Veritas →</a>
-        <a href="/surface" class="btn-ghost" data-umami-event="home-hero-explore-surface">Explore Surface</a>
+        <a href="/surface" class="btn-primary" data-umami-event="home-hero-explore-surface">Explore Surface →</a>
+        <a href="/veritas" class="btn-ghost" data-umami-event="home-hero-explore-veritas">Explore Veritas</a>
       </div>
 
       <!-- Trust state strip -->
@@ -206,7 +206,7 @@ import Footer from '@/components/Footer.astro';
   ────────────────────────────────────────────────────────── -->
   <section style="padding: 6rem var(--spacing-page); border-top: 1px solid var(--color-edge);">
     <div style="max-width: 1280px; margin: 0 auto;">
-      <div class="label-sm" style="margin-bottom: 3rem; text-align: center;">Two products. One trust layer.</div>
+      <div class="label-sm" style="margin-bottom: 3rem; text-align: center;">A substrate, and the products built on it.</div>
 
       <div style="
         display: grid;
@@ -214,7 +214,75 @@ import Footer from '@/components/Footer.astro';
         gap: 1.5rem;
       ">
 
-        <!-- Veritas card -->
+        <!-- Surface card (substrate) -->
+        <a href="/surface" data-umami-event="home-product-card-surface" style="text-decoration: none;" class="card" style="
+          display: block;
+          position: relative;
+          overflow: hidden;
+        ">
+          <div style="
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--color-gold), transparent);
+          "></div>
+
+          <div style="padding: 2.5rem;">
+            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
+              <div class="trust-badge trust-badge--verified">v0.2.0</div>
+              <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-chalk-3);">@kontourai/surface</span>
+            </div>
+
+            <h3 class="display-md" style="color: var(--color-chalk); margin-bottom: 1rem;">
+              Surface
+            </h3>
+
+            <p style="
+              font-family: var(--font-mono);
+              font-size: 0.75rem;
+              color: var(--color-gold);
+              letter-spacing: 0.04em;
+              margin-bottom: 1.25rem;
+              line-height: 1.5;
+            ">THE TRUST SUBSTRATE</p>
+
+            <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.7; margin-bottom: 2rem;">
+              A portable shape for claims, the evidence behind them, the policies
+              that decide what counts as verified, and the events that change a
+              claim's status over time. The foundation any provenance product
+              can build on.
+            </p>
+
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem;">
+              {['claims', 'evidence', 'policies', 'events', 'fault-lines'].map(tag => (
+                <span key={tag} style="
+                  font-family: var(--font-mono);
+                  font-size: 0.6rem;
+                  padding: 0.15rem 0.5rem;
+                  border: 1px solid var(--color-edge-2);
+                  border-radius: 2px;
+                  color: var(--color-chalk-3);
+                  letter-spacing: 0.08em;
+                ">{tag}</span>
+              ))}
+            </div>
+
+            <div style="
+              font-family: var(--font-mono);
+              font-size: 0.75rem;
+              color: var(--color-gold);
+              display: flex;
+              align-items: center;
+              gap: 0.4rem;
+            ">
+              Explore Surface →
+            </div>
+          </div>
+        </a>
+
+        <!-- Veritas card (first consumer) -->
         <a href="/veritas" data-umami-event="home-product-card-veritas" style="text-decoration: none;" class="card" style="
           padding: 2.5rem;
           display: block;
@@ -243,16 +311,17 @@ import Footer from '@/components/Footer.astro';
             <p style="
               font-family: var(--font-mono);
               font-size: 0.75rem;
-              color: var(--color-chalk-3);
+              color: var(--color-green);
               letter-spacing: 0.04em;
               margin-bottom: 1.25rem;
               line-height: 1.5;
-            ">BESPOKE LINT FOR AI AGENTS</p>
+            ">REPO LINT FOR AI AGENTS · BUILT ON SURFACE</p>
 
             <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.7; margin-bottom: 2rem;">
-              Repo-local governance that tells AI agents exactly what changed
-              violated your rules — before they finish work. Works with Claude Code,
-              Cursor, Codex, and Copilot.
+              Repo-local lint that tells an AI agent exactly which changes
+              violated your rules — before it finishes work. Each run projects
+              into a Surface trust report so the same evidence can travel
+              downstream.
             </p>
 
             <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem;">
@@ -282,74 +351,20 @@ import Footer from '@/components/Footer.astro';
           </div>
         </a>
 
-        <!-- Surface card -->
-        <a href="/surface" data-umami-event="home-product-card-surface" style="text-decoration: none;" class="card" style="
-          display: block;
-          position: relative;
-          overflow: hidden;
-        ">
-          <div style="
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--color-gold), transparent);
-          "></div>
-
-          <div style="padding: 2.5rem;">
-            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
-              <div class="trust-badge trust-badge--proposed">v0.1.0</div>
-              <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-chalk-3);">@kontourai/surface</span>
-            </div>
-
-            <h3 class="display-md" style="color: var(--color-chalk); margin-bottom: 1rem;">
-              Surface
-            </h3>
-
-            <p style="
-              font-family: var(--font-mono);
-              font-size: 0.75rem;
-              color: var(--color-chalk-3);
-              letter-spacing: 0.04em;
-              margin-bottom: 1.25rem;
-              line-height: 1.5;
-            ">THE TRUST MAP FOR AI-ERA PRODUCTS</p>
-
-            <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.7; margin-bottom: 2rem;">
-              Maps what your product claims, what evidence supports it, where
-              trust is missing or stale, and what humans or AI agents need to
-              verify next.
-            </p>
-
-            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem;">
-              {['claims', 'evidence', 'drift', 'fault-lines', 'coverage'].map(tag => (
-                <span key={tag} style="
-                  font-family: var(--font-mono);
-                  font-size: 0.6rem;
-                  padding: 0.15rem 0.5rem;
-                  border: 1px solid var(--color-edge-2);
-                  border-radius: 2px;
-                  color: var(--color-chalk-3);
-                  letter-spacing: 0.08em;
-                ">{tag}</span>
-              ))}
-            </div>
-
-            <div style="
-              font-family: var(--font-mono);
-              font-size: 0.75rem;
-              color: var(--color-gold);
-              display: flex;
-              align-items: center;
-              gap: 0.4rem;
-            ">
-              Explore Surface →
-            </div>
-          </div>
-        </a>
-
       </div>
+
+      <p style="
+        text-align: center;
+        margin-top: 2.5rem;
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        color: var(--color-chalk-3);
+        letter-spacing: 0.05em;
+      ">
+        Veritas is the first consumer. Anything that needs to show provenance —
+        public-data records, fact resolution, audit pipelines, fitness tracking,
+        tax filings — can build on Surface the same way.
+      </p>
     </div>
   </section>
 
@@ -395,7 +410,7 @@ import Footer from '@/components/Footer.astro';
         max-width: 520px;
         margin: 0 auto;
       ">
-        Surface does not market itself as objective truth. It shows the evidence chain,
+        Surface does not promise objective truth. It surfaces the evidence chain,
         the verification method, and the current trust state. If a claim is weak,
         stale, or disputed — the system makes that obvious.
       </p>
@@ -443,13 +458,13 @@ import Footer from '@/components/Footer.astro';
             <p><span class="prompt">$ </span><span class="cmd">npm install -D @kontourai/veritas</span></p>
             <p style="color: var(--color-chalk-3); margin: 0.25rem 0;">  added 1 package in 0.8s</p>
             <br />
-            <p><span class="prompt">$ </span><span class="cmd">veritas init</span></p>
+            <p><span class="prompt">$ </span><span class="cmd">npx veritas init</span></p>
             <p class="pass">  ✓ detected repo shape</p>
             <p class="pass">  ✓ wrote .veritas/repo.adapter.json</p>
             <p class="pass">  ✓ wrote .veritas/policy-packs/default.policy-pack.json</p>
             <p class="pass">  ✓ governance block added to CLAUDE.md, AGENTS.md</p>
             <br />
-            <p><span class="prompt">$ </span><span class="cmd">veritas shadow run</span></p>
+            <p><span class="prompt">$ </span><span class="cmd">npx veritas shadow run --working-tree</span></p>
             <p class="info">  [feedback] 2 rules checked, 1 pass, 1 warn</p>
             <p class="warn">  WARN  if-changed: src/api/ changed — tests/api/ must also appear</p>
             <p class="muted">  evidence written → .veritas/evidence/</p>

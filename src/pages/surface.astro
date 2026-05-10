@@ -5,8 +5,8 @@ import Footer from '@/components/Footer.astro';
 ---
 
 <Layout
-  title="Surface — Trust map for AI-era products · Kontour AI"
-  description="Kontour Surface maps what your product claims, what evidence supports it, where trust is missing or stale, and what needs verification next."
+  title="Surface — The trust substrate · Kontour AI"
+  description="Kontour Surface is a portable shape for claims, evidence, freshness, and conflict — the foundation any provenance product can build on."
 >
   <Nav active="surface" />
 
@@ -40,8 +40,8 @@ import Footer from '@/components/Footer.astro';
         <!-- Left -->
         <div>
           <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem;">
-            <span class="trust-badge trust-badge--proposed">v0.1.0 · alpha</span>
-            <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-chalk-3);">@kontourai/surface · publishing soon</span>
+            <span class="trust-badge trust-badge--verified">v0.2.0</span>
+            <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-chalk-3);">npm install -D @kontourai/surface</span>
           </div>
 
           <h1 class="animate-fade-up" style="
@@ -62,7 +62,7 @@ import Footer from '@/components/Footer.astro';
             text-transform: uppercase;
             color: var(--color-gold);
             margin-bottom: 2rem;
-          ">The trust map for AI-era products</p>
+          ">The trust substrate · Show your work</p>
 
           <p class="animate-fade-up delay-200" style="
             font-size: 1.05rem;
@@ -71,18 +71,19 @@ import Footer from '@/components/Footer.astro';
             max-width: 460px;
             margin-bottom: 2.5rem;
           ">
-            Maps what your product claims, what proves it,
-            where trust is missing or stale, and what humans or AI agents
-            need to verify next.
+            A portable shape for claims, the evidence behind them, the policies
+            that decide what counts as verified, and the events that change a
+            claim's status over time. The foundation any provenance product
+            can build on.
           </p>
 
           <div class="animate-fade-up delay-300" style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
             <a href="https://github.com/kontourai/surface" target="_blank" rel="noopener" class="btn-primary" data-umami-event="surface-hero-github">
               View on GitHub →
             </a>
-            <span class="btn-ghost" style="cursor: default; opacity: 0.5;" title="Publishing soon">
-              npm · coming soon
-            </span>
+            <a href="https://www.npmjs.com/package/@kontourai/surface" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="surface-hero-npm">
+              npm package
+            </a>
           </div>
         </div>
 
@@ -96,13 +97,13 @@ import Footer from '@/components/Footer.astro';
               <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-chalk-3); margin-left: 0.5rem;">surface report — summary</span>
             </div>
             <div class="terminal-body">
-              <p><span class="prompt">$ </span><span class="cmd">surface report --input examples/surface-fixtures.json --format summary</span></p>
+              <p><span class="prompt">$ </span><span class="cmd">npx surface report --input examples/surface-fixtures.json --format summary</span></p>
               <br />
               <p class="info">  Kontour Surface report surface-1777090239260</p>
               <p class="muted">  Source: kontour-surface-validation-fixtures</p>
               <br />
               <p>  Claims: <span class="pass">4</span> &nbsp;(unknown: 1, verified: 2, stale: 1)</p>
-              <p class="muted">  Surfaces: veritas.developer-proof: 1, field-attested-records.public-data: 1,</p>
+              <p class="muted">  Surfaces: repo-governance.developer-proof: 1, field-attested-records.public-data: 1,</p>
               <p class="muted">  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fact-resolution.financial-facts: 1, surface.roadmap: 1</p>
               <br />
               <p>  High-impact unsupported: <span class="pass">none</span></p>
@@ -183,13 +184,8 @@ import Footer from '@/components/Footer.astro';
       ">
         {[
           {
-            term: 'Surface',
-            def: 'A product area where claims are made. The unit of trust coverage.',
-            color: 'var(--color-chalk)',
-          },
-          {
             term: 'Claim',
-            def: 'The smallest trust-bearing unit. Subject, field, value, status, and metadata.',
+            def: 'The smallest trust-bearing unit. A statement about a subject — field, value, impact, and current integrity reference.',
             color: 'var(--color-cobalt-2)',
           },
           {
@@ -198,29 +194,34 @@ import Footer from '@/components/Footer.astro';
             color: 'var(--color-green)',
           },
           {
-            term: 'Trace',
-            def: 'The evidence chain that lets reviewers move from a status back to the source.',
+            term: 'Policy',
+            def: 'What makes a claim valid, and for how long. Freshness windows, required methods, commit-scoped validity.',
             color: 'var(--color-chalk-2)',
           },
           {
-            term: 'Drift',
-            def: 'When once-trusted claims may no longer be safe — time, source changes, new conflicts.',
+            term: 'Event',
+            def: 'A verification, dispute, supersede, or rejection that changes a claim\'s status over time.',
+            color: 'var(--color-cobalt-2)',
+          },
+          {
+            term: 'Trust Status',
+            def: 'Derived from claim, evidence, policy, and events: unknown, proposed, verified, stale, disputed, rejected, superseded.',
             color: 'var(--color-gold)',
           },
           {
             term: 'Fault Line',
-            def: 'Typed gaps such as provenance gaps, stale proof, missing corroboration, or unsupported inference.',
+            def: 'A discoverable conflict or gap across the input: provenance gaps, stale proof, missing corroboration, contradiction.',
             color: 'var(--color-red)',
           },
           {
-            term: 'Coverage',
-            def: 'How much of a product surface has current, well-supported evidence.',
-            color: 'var(--color-chalk-2)',
+            term: 'Trust Report',
+            def: 'The portable output. Per-claim derived status, confidence basis, fault lines, proof requirements, and a summary.',
+            color: 'var(--color-chalk)',
           },
           {
-            term: 'Check',
-            def: 'A verification event that promotes, stales, disputes, rejects, or supersedes claims.',
-            color: 'var(--color-cobalt-2)',
+            term: 'Surface',
+            def: 'The named region where a claim lives — a product area, a record type, a workflow step. Used for routing and ownership.',
+            color: 'var(--color-chalk-2)',
           },
         ].map(({ term, def, color }) => (
           <div key={term} style="
@@ -297,47 +298,50 @@ import Footer from '@/components/Footer.astro';
   </section>
 
   <!-- ──────────────────────────────────────────────────────
-       Use cases
+       Reference adapters (shipped, demonstrate the shape)
   ────────────────────────────────────────────────────────── -->
   <section style="
     padding: 5rem var(--spacing-page);
     border-top: 1px solid var(--color-edge);
   ">
     <div style="max-width: 1280px; margin: 0 auto;">
-      <div class="label-sm" style="margin-bottom: 2.5rem;">Product surfaces</div>
+      <div class="label-sm" style="margin-bottom: 1rem;">Reference adapters</div>
+      <p style="
+        color: var(--color-chalk-3);
+        font-size: 0.9rem;
+        line-height: 1.65;
+        max-width: 640px;
+        margin-bottom: 2.5rem;
+      ">
+        Shipped in the Surface repo to demonstrate the shape. Each one takes a different
+        kind of input and projects it into claims, evidence, policies, and events.
+      </p>
 
       <div style="
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(3, 1fr);
         gap: 1.5rem;
       ">
         {[
           {
-            name: 'Veritas',
-            subtitle: 'Developer proof',
-            desc: 'Repo surfaces, policy packs, proof lanes, and evidence artifacts. Claim that code changes passed the proof required for the surface they touched.',
-            signals: ['repo surface', 'test output', 'CI run', 'policy results'],
-            color: 'var(--color-green)',
-          },
-          {
             name: 'Field-Attested Records',
-            subtitle: 'Field-level public data trust',
-            desc: 'Crawls, attestations, review flags, and freshness signals. Claim that a record field is current, then show the source, timestamp, and review state before anyone relies on it.',
+            subtitle: 'Public-data verification',
+            desc: 'Crawls, attestations, review flags, and freshness. Claim that a record field is current, then show the source, timestamp, and review state before anyone relies on it.',
             signals: ['web crawl', 'attestation', 'review flag', 'freshness'],
             color: 'var(--color-cobalt-2)',
           },
           {
             name: 'Fact Resolution',
             subtitle: 'High-stakes fact verification',
-            desc: 'Extraction, resolution, citations, and review signals for high-stakes claims. Verify that a package value came from a specific source and decision trail.',
+            desc: 'Extraction, resolution, citations, and review signals. Verify that a package value came from a specific source and decision trail.',
             signals: ['extraction', 'source ref', 'citation', 'review signal'],
             color: 'var(--color-gold)',
           },
           {
-            name: 'Reputation Integrity',
-            subtitle: 'Heuristic truth boundaries',
-            desc: 'Popularity signals, anomaly detection, and explicit unsupported-inference gaps. A suspicious pattern can require review without becoming an accusation.',
-            signals: ['source snapshot', 'heuristic', 'corroboration gap', 'unsupported inference'],
+            name: 'npm-audit',
+            subtitle: 'Dependency vulnerabilities',
+            desc: 'Minimal example: takes `npm audit --json` output and produces a single claim about whether a dependency set is safe at its current versions.',
+            signals: ['audit output', 'package range', 'severity', 'rejection'],
             color: 'var(--color-red)',
           },
         ].map(({ name, subtitle, desc, signals, color }) => (
@@ -395,6 +399,129 @@ import Footer from '@/components/Footer.astro';
     </div>
   </section>
 
+  <!-- ──────────────────────────────────────────────────────
+       Real consumers
+  ────────────────────────────────────────────────────────── -->
+  <section style="
+    padding: 5rem var(--spacing-page);
+    border-top: 1px solid var(--color-edge);
+    background: var(--color-ink-1);
+  ">
+    <div style="max-width: 1280px; margin: 0 auto;">
+      <div class="label-sm" style="margin-bottom: 1rem;">Real consumers</div>
+      <p style="
+        color: var(--color-chalk-3);
+        font-size: 0.9rem;
+        line-height: 1.65;
+        max-width: 640px;
+        margin-bottom: 2.5rem;
+      ">
+        Products that depend on Surface as their trust substrate. Each keeps its own
+        workflow vocabulary; portable truth flows through Surface at the boundary.
+      </p>
+
+      <div style="
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+      ">
+        <div class="card" style="padding: 2rem; position: relative; overflow: hidden;">
+          <div style="
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--color-green), transparent);
+          "></div>
+
+          <h3 style="
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: var(--color-chalk);
+            margin-bottom: 0.3rem;
+            letter-spacing: -0.01em;
+          ">Veritas</h3>
+
+          <p style="
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            color: var(--color-green);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+          ">Repo lint for AI agents</p>
+
+          <p style="
+            color: var(--color-chalk-2);
+            font-size: 0.85rem;
+            line-height: 1.65;
+            margin-bottom: 1.5rem;
+          ">
+            Projects every code-change run into <code style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--color-green);">surface.input</code>
+            so the same evidence the agent acted on can become a portable trust report
+            downstream consumers can read.
+          </p>
+
+          <a href="/veritas" style="
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--color-green);
+            text-decoration: none;
+          ">Explore Veritas →</a>
+        </div>
+
+        <div class="card" style="padding: 2rem; position: relative; overflow: hidden; opacity: 0.6;">
+          <div style="
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--color-chalk-3), transparent);
+          "></div>
+
+          <h3 style="
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: var(--color-chalk-2);
+            margin-bottom: 0.3rem;
+            letter-spacing: -0.01em;
+          ">Your product</h3>
+
+          <p style="
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            color: var(--color-chalk-3);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+          ">Anything that needs to show provenance</p>
+
+          <p style="
+            color: var(--color-chalk-3);
+            font-size: 0.85rem;
+            line-height: 1.65;
+            margin-bottom: 1.5rem;
+          ">
+            Public-data records, fact resolution, audit pipelines, fitness tracking,
+            tax filings, marketplace listings — anywhere you need to prove an
+            assertion is verified, fresh, and uncontested.
+          </p>
+
+          <a href="https://github.com/kontourai/surface#building-your-own-adapter" target="_blank" rel="noopener" style="
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--color-chalk-3);
+            text-decoration: none;
+          ">Build an adapter →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <Footer />
 </Layout>
 
@@ -405,10 +532,6 @@ import Footer from '@/components/Footer.astro';
       flex-direction: column !important;
     }
     section > div > div[style*="grid-template-columns: repeat(3, 1fr)"] {
-      display: flex !important;
-      flex-direction: column !important;
-    }
-    section > div > div[style*="grid-template-columns: repeat(4, 1fr)"] {
       display: flex !important;
       flex-direction: column !important;
     }
