@@ -33,15 +33,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Validate (npm registry checks)
-        run: npm run validate
-        continue-on-error: true  # WARN on unpublished packages, don't block
-
       - name: Build
         run: npm run build
 
+      - name: Validate
+        run: npm run validate
+
       - name: Deploy to Cloudflare Pages
-        run: npx wrangler@4 pages deploy dist --project-name=kontourai-io --branch=${{ github.ref_name }}
+        run: npx --yes wrangler@4 pages deploy dist --project-name=kontourai-io --branch=${{ github.ref_name }}
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
