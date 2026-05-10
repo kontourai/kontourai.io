@@ -250,13 +250,18 @@ import Footer from '@/components/Footer.astro';
             the same rules and proof requirements through tracked files.
           </p>
           <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.5rem;">
-            Stop-hook integration wires <code style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-green); background: rgba(82,196,126,0.08); padding: 0.1rem 0.35rem; border-radius: 2px;">veritas shadow run</code> to fire
+            Stop-hook integration wires <code style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-green); background: rgba(82,196,126,0.08); padding: 0.1rem 0.35rem; border-radius: 2px;">veritas run</code> to fire
             at session end for Claude Code, Cursor, and Codex. Copilot stays covered
             through instructions and CI.
           </p>
           <p style="color: var(--color-chalk-3); font-size: 0.82rem; line-height: 1.7; font-style: italic;">
-            Codex is the only agent today with deep transcript capture for eval drafts.
-            Other agents work via the generic governance-block + stop-hook contract.
+            Codex and Claude Code can feed transcript-backed eval drafts; Cursor and
+            Copilot use the generic governance-block + stop-hook contract.
+          </p>
+          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 0;">
+            Human attestations keep policy packs, adapters, and team profiles from being
+            silently rewritten by agents. Eval history can draft proposals, but a human
+            accept or reject decision closes the loop.
           </p>
         </div>
 
