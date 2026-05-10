@@ -19,17 +19,13 @@ jobs:
   build:
     name: Build & Validate
     runs-on: ubuntu-latest
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-    outputs:
-      deploy-url: ${{ steps.deploy.outputs.deployment-url }}
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 24
           cache: npm
@@ -45,12 +41,10 @@ jobs:
         run: npm run build
 
       - name: Deploy to Cloudflare Pages
-        id: deploy
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist --project-name=kontourai-io --branch=${{ github.ref_name }}
+        run: npx wrangler@4 pages deploy dist --project-name=kontourai-io --branch=${{ github.ref_name }}
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
   smoke:
     name: Smoke Test
