@@ -298,14 +298,14 @@ import Footer from '@/components/Footer.astro';
   </section>
 
   <!-- ──────────────────────────────────────────────────────
-       Reference adapters (shipped, demonstrate the shape)
+       Producer patterns
   ────────────────────────────────────────────────────────── -->
   <section style="
     padding: 5rem var(--spacing-page);
     border-top: 1px solid var(--color-edge);
   ">
     <div style="max-width: 1280px; margin: 0 auto;">
-      <div class="label-sm" style="margin-bottom: 1rem;">Reference adapters</div>
+      <div class="label-sm" style="margin-bottom: 1rem;">Producer patterns</div>
       <p style="
         color: var(--color-chalk-3);
         font-size: 0.9rem;
@@ -313,8 +313,8 @@ import Footer from '@/components/Footer.astro';
         max-width: 640px;
         margin-bottom: 2.5rem;
       ">
-        Shipped in the Surface repo to demonstrate the shape. Each one takes a different
-        kind of input and projects it into claims, evidence, policies, and events.
+        Any system that needs to express claims, evidence, freshness, and conflict can build on Surface.
+        Producers author claims in a committed file, collect evidence per run, and emit <code style="font-family: var(--font-mono); font-size: 0.82rem;">TrustInput</code> via the SDK.
       </p>
 
       <div style="
@@ -333,15 +333,15 @@ import Footer from '@/components/Footer.astro';
           {
             name: 'Fact Resolution',
             subtitle: 'High-stakes fact verification',
-            desc: 'Extraction, resolution, citations, and review signals. Verify that a package value came from a specific source and decision trail.',
+            desc: 'Extraction, resolution, citations, and review signals. Verify that a value came from a specific source and decision trail.',
             signals: ['extraction', 'source ref', 'citation', 'review signal'],
             color: 'var(--color-gold)',
           },
           {
-            name: 'npm-audit',
-            subtitle: 'Dependency vulnerabilities',
-            desc: 'Minimal example: takes `npm audit --json` output and produces a single claim about whether a dependency set is safe at its current versions.',
-            signals: ['audit output', 'package range', 'severity', 'rejection'],
+            name: 'Dependency Audit',
+            subtitle: 'Security claim coverage',
+            desc: 'Tool output from npm audit, Snyk, or similar maps to authored package-safety claims. Tool vendors can ship authoritative evidence importers as Veritas plugins.',
+            signals: ['audit output', 'package range', 'severity', 'plugin'],
             color: 'var(--color-red)',
           },
         ].map(({ name, subtitle, desc, signals, color }) => (
@@ -511,7 +511,7 @@ import Footer from '@/components/Footer.astro';
             assertion is verified, fresh, and uncontested.
           </p>
 
-          <a href="https://github.com/kontourai/surface#building-your-own-adapter" target="_blank" rel="noopener" style="
+          <a href="https://github.com/kontourai/surface/tree/main/examples/external-adapter" target="_blank" rel="noopener" style="
             font-family: var(--font-mono);
             font-size: 0.72rem;
             color: var(--color-chalk-3);
