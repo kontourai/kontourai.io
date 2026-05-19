@@ -298,14 +298,14 @@ import Footer from '@/components/Footer.astro';
   </section>
 
   <!-- ──────────────────────────────────────────────────────
-       Producer patterns
+       Where it fits
   ────────────────────────────────────────────────────────── -->
   <section style="
     padding: 5rem var(--spacing-page);
     border-top: 1px solid var(--color-edge);
   ">
     <div style="max-width: 1280px; margin: 0 auto;">
-      <div class="label-sm" style="margin-bottom: 1rem;">Producer patterns</div>
+      <div class="label-sm" style="margin-bottom: 1rem;">Where it fits</div>
       <p style="
         color: var(--color-chalk-3);
         font-size: 0.9rem;
@@ -313,8 +313,9 @@ import Footer from '@/components/Footer.astro';
         max-width: 640px;
         margin-bottom: 2.5rem;
       ">
-        Any system that needs to express claims, evidence, freshness, and conflict can build on Surface.
-        Producers author claims in a committed file, collect evidence per run, and emit <code style="font-family: var(--font-mono); font-size: 0.82rem;">TrustInput</code> via the SDK.
+        Any product that makes verifiable assertions can build on Surface as its trust layer.
+        Fitness data, financial records, marketplace listings, audit pipelines, AI agent output —
+        the same shape works anywhere you need to show the evidence, not just the answer.
       </p>
 
       <div style="
@@ -324,24 +325,24 @@ import Footer from '@/components/Footer.astro';
       ">
         {[
           {
-            name: 'Field-Attested Records',
-            subtitle: 'Public-data verification',
-            desc: 'Crawls, attestations, review flags, and freshness. Claim that a record field is current, then show the source, timestamp, and review state before anyone relies on it.',
-            signals: ['web crawl', 'attestation', 'review flag', 'freshness'],
+            name: 'Public Data',
+            subtitle: 'Field-level provenance',
+            desc: 'A record directory, a public dataset, a marketplace listing. Claim that each field is current, show where it came from, and surface when it was last verified — before anyone acts on it.',
+            signals: ['sourced', 'attested', 'reviewed', 'fresh'],
             color: 'var(--color-cobalt-2)',
           },
           {
             name: 'Fact Resolution',
-            subtitle: 'High-stakes fact verification',
-            desc: 'Extraction, resolution, citations, and review signals. Verify that a value came from a specific source and decision trail.',
-            signals: ['extraction', 'source ref', 'citation', 'review signal'],
+            subtitle: 'High-stakes values',
+            desc: 'A fact-extraction workflow that picks among candidates and cites its sources. Show the decision trail, flag what could not be corroborated, and mark what needs a human review.',
+            signals: ['extracted', 'selected', 'cited', 'reviewed'],
             color: 'var(--color-gold)',
           },
           {
-            name: 'Dependency Audit',
-            subtitle: 'Security claim coverage',
-            desc: 'Tool output from npm audit, Snyk, or similar maps to authored package-safety claims. Tool vendors can ship authoritative evidence importers as Veritas plugins.',
-            signals: ['audit output', 'package range', 'severity', 'plugin'],
+            name: 'Security & Compliance',
+            subtitle: 'Evidence-backed assertions',
+            desc: 'Dependency scans, policy checks, access reviews. Turn tool output into traceable claims with a clear verdict — not just a report that gets ignored after the sprint.',
+            signals: ['scanned', 'policy-checked', 'verified', 'current'],
             color: 'var(--color-red)',
           },
         ].map(({ name, subtitle, desc, signals, color }) => (
