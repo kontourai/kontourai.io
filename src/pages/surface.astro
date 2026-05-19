@@ -401,6 +401,89 @@ import Footer from '@/components/Footer.astro';
   </section>
 
   <!-- ──────────────────────────────────────────────────────
+       Local dashboard
+  ────────────────────────────────────────────────────────── -->
+  <section style="
+    padding: 5rem var(--spacing-page);
+    border-top: 1px solid var(--color-edge);
+  ">
+    <div style="max-width: 1280px; margin: 0 auto;">
+      <div style="
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: start;
+      ">
+        <div>
+          <div class="label-sm" style="margin-bottom: 1.5rem;">Local dashboard</div>
+          <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 1.25rem;">
+            See trust state<br />
+            where the work happens.
+          </h2>
+          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.5rem;">
+            <code style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-gold); background: rgba(201,163,90,0.08); padding: 0.1rem 0.35rem; border-radius: 2px;">surface dashboard</code> serves a live view from
+            <code style="font-family: var(--font-mono); font-size: 0.82rem; color: var(--color-chalk-3);">.surface/runs/latest.json</code>.
+            Each new run updates automatically. No cloud, no login.
+          </p>
+
+          <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem;">
+            {[
+              { label: 'Run history', body: 'Switch between past runs in the toolbar to compare claim state before and after a change.' },
+              { label: 'Filtered chips', body: 'Click Verified, Attention, or total Claims to filter the list instantly. Click again to clear.' },
+              { label: 'Master-detail', body: 'On desktop, selecting a claim opens a sticky side panel without hiding the list.' },
+              { label: 'Eval summary', body: 'When a producer records a human eval, the outcome, confidence, and any reviewer notes appear alongside the live trust status.' },
+            ].map(({ label, body }) => (
+              <div key={label} style="
+                display: flex;
+                gap: 1rem;
+                padding: 1rem 1.25rem;
+                background: var(--color-ink-1);
+                border: 1px solid var(--color-edge);
+                border-radius: 4px;
+              ">
+                <div style="
+                  font-family: var(--font-mono);
+                  font-size: 0.7rem;
+                  color: var(--color-gold);
+                  min-width: 110px;
+                  padding-top: 1px;
+                ">{label}</div>
+                <div style="font-size: 0.82rem; color: var(--color-chalk-3); line-height: 1.6;">{body}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div class="terminal">
+          <div class="terminal-bar">
+            <div class="terminal-dot"></div>
+            <div class="terminal-dot"></div>
+            <div class="terminal-dot"></div>
+            <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-chalk-3); margin-left: 0.5rem;">surface dashboard</span>
+          </div>
+          <div class="terminal-body">
+            <p><span class="prompt">$ </span><span class="cmd">npx surface dashboard</span></p>
+            <br />
+            <p class="info">  Surface dashboard running at http://localhost:4242</p>
+            <br />
+            <p class="muted">  Reading: .surface/runs/latest.json</p>
+            <p class="muted">  (fallback: .veritas/surface-dashboard/latest.json)</p>
+            <br />
+            <p class="muted">  GET /              200  dashboard shell</p>
+            <p class="muted">  GET /api/read-model  200  current run snapshot</p>
+            <p class="muted">  GET /api/runs        200  [run-a, run-b, run-c]</p>
+            <br />
+            <p style="color: var(--color-chalk-3);">  ───────────────────────────────</p>
+            <p class="pass">  verified  8 claims</p>
+            <p class="warn">  attention  2 claims</p>
+            <p class="muted">  eval  accepted · confidence: high</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────
        Real consumers
   ────────────────────────────────────────────────────────── -->
   <section style="
