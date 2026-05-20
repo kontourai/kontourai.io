@@ -86,19 +86,19 @@ import Footer from '@/components/Footer.astro';
           </div>
         </div>
 
-        <!-- Right: shadow run output -->
+        <!-- Right: run output -->
         <div class="animate-fade-in delay-300">
           <div class="terminal">
             <div class="terminal-bar">
               <div class="terminal-dot"></div>
               <div class="terminal-dot"></div>
               <div class="terminal-dot"></div>
-              <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-chalk-3); margin-left: 0.5rem;">veritas shadow run</span>
+              <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-chalk-3); margin-left: 0.5rem;">veritas run</span>
             </div>
             <div class="terminal-body">
-              <p><span class="prompt">$ </span><span class="cmd">npx veritas shadow run --working-tree</span></p>
+              <p><span class="prompt">$ </span><span class="cmd">npx veritas run --working-tree</span></p>
               <br />
-              <p class="info">  veritas 0.3.0 — shadow run</p>
+              <p class="info">  veritas 0.3.0 — run</p>
               <p class="muted">  adapter: .veritas/repo.adapter.json</p>
               <p class="muted">  policy:  .veritas/policy-packs/default.policy-pack.json</p>
               <br />
@@ -158,7 +158,7 @@ import Footer from '@/components/Footer.astro';
             num: '03',
             title: 'Self-correct via lint',
             color: 'var(--color-gold)',
-            summary: '`veritas shadow run` → PASS / FAIL',
+            summary: '`veritas run --working-tree` → PASS / FAIL',
             body: 'Terse lint-style output directly into the agent\'s context window. Exit codes 0/1/2 are hook-friendly. The agent reads it the way it reads a failing test.',
             tags: ['shadow-run', 'exit-codes', 'feedback-format', 'eval-history'],
           },
@@ -383,7 +383,7 @@ import Footer from '@/components/Footer.astro';
       ">
         {[
           { cmd: 'veritas init', desc: 'Bootstrap adapter, policy pack, governance blocks' },
-          { cmd: 'veritas shadow run', desc: 'Agent-facing lint path with feedback output' },
+          { cmd: 'veritas run --working-tree', desc: 'Agent-facing lint path with feedback output' },
           { cmd: 'veritas report', desc: 'Evidence artifact with JSON or feedback output' },
           { cmd: 'veritas runtime status', desc: 'Check hook wiring and activation state' },
           { cmd: 'veritas eval draft', desc: 'Record agent evidence for a run' },
