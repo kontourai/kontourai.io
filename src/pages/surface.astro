@@ -106,6 +106,7 @@ import Footer from '@/components/Footer.astro';
               <p class="muted">  Surfaces: repo-governance.developer-proof: 1, field-attested-records.public-data: 1,</p>
               <p class="muted">  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fact-resolution.financial-facts: 1, surface.roadmap: 1</p>
               <br />
+              <p>  Collections: <span class="pass">1</span></p>
               <p>  High-impact unsupported: <span class="pass">none</span></p>
               <p>  Stale: &nbsp;&nbsp;&nbsp;<span class="warn">claim.field-attested-records.registration-status</span></p>
               <p>  Disputed: <span class="pass">none</span></p>
@@ -136,6 +137,7 @@ import Footer from '@/components/Footer.astro';
           { q: 'How was it verified?', color: 'var(--color-chalk-2)' },
           { q: 'How long is that verification valid?', color: 'var(--color-gold)' },
           { q: 'What is stale, unsupported, or disputed?', color: 'var(--color-gold)' },
+          { q: 'Which controls or frameworks does this claim support?', color: 'var(--color-cobalt-2)' },
           { q: 'What should an agent do before relying on it?', color: 'var(--color-red)' },
         ].map(({ q, color }, i) => (
           <div key={i} style="
@@ -197,6 +199,11 @@ import Footer from '@/components/Footer.astro';
             term: 'Policy',
             def: 'What makes a claim valid, and for how long. Freshness windows, required methods, commit-scoped validity.',
             color: 'var(--color-chalk-2)',
+          },
+          {
+            term: 'Collection',
+            def: 'A framework, checklist, or control set that rolls up related claims while preserving drilldown to evidence.',
+            color: 'var(--color-cobalt-2)',
           },
           {
             term: 'Event',
@@ -340,9 +347,9 @@ import Footer from '@/components/Footer.astro';
           },
           {
             name: 'Security & Compliance',
-            subtitle: 'Evidence-backed assertions',
-            desc: 'Dependency scans, policy checks, access reviews. Turn tool output into traceable claims with a clear verdict — not just a report that gets ignored after the sprint.',
-            signals: ['scanned', 'policy-checked', 'verified', 'current'],
+            subtitle: 'Controls with drilldown',
+            desc: 'Dependency scans, policy checks, access reviews. Roll controls up into a framework view while preserving the exact claim, evidence, and event behind each verdict.',
+            signals: ['scanned', 'policy-checked', 'control-rollup', 'current'],
             color: 'var(--color-red)',
           },
         ].map(({ name, subtitle, desc, signals, color }) => (
@@ -430,6 +437,8 @@ import Footer from '@/components/Footer.astro';
             {[
               { label: 'Run history', body: 'Switch between past runs in the toolbar to compare claim state before and after a change.' },
               { label: 'Filtered chips', body: 'Click Verified, Attention, or total Claims to filter the list instantly. Click again to clear.' },
+              { label: 'Collection rollups', body: 'Start from a framework, checklist, or control set, then drill into the claims and evidence that decide its status.' },
+              { label: 'Integrity scope', body: 'Inspect the source anchor, file fingerprints, and configuration hashes behind a verified claim.' },
               { label: 'Master-detail', body: 'On desktop, selecting a claim opens a sticky side panel without hiding the list.' },
               { label: 'Eval summary', body: 'When a producer records a human eval, the outcome, confidence, and any reviewer notes appear alongside the live trust status.' },
             ].map(({ label, body }) => (
@@ -545,7 +554,8 @@ import Footer from '@/components/Footer.astro';
           ">
             Projects every code-change run into <code style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--color-green);">surface.input</code>
             so the same evidence the agent acted on can become a portable trust report
-            downstream consumers can read.
+            downstream consumers can read. Policy packs appear as Surface collections
+            with control-level drilldown.
           </p>
 
           <a href="/veritas" style="

@@ -250,13 +250,13 @@ import Footer from '@/components/Footer.astro';
 
             <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.7; margin-bottom: 2rem;">
               A portable shape for claims, the evidence behind them, the policies
-              that decide what counts as verified, and the events that change a
-              claim's status over time. The foundation any provenance product
-              can build on.
+              that decide what counts as verified, the collections that roll
+              related controls up, and the events that change status over time.
+              The foundation any provenance product can build on.
             </p>
 
             <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem;">
-              {['claims', 'evidence', 'policies', 'events', 'fault-lines'].map(tag => (
+              {['claims', 'evidence', 'policies', 'collections', 'fault-lines'].map(tag => (
                 <span key={tag} style="
                   font-family: var(--font-mono);
                   font-size: 0.6rem;
@@ -320,8 +320,8 @@ import Footer from '@/components/Footer.astro';
             <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.7; margin-bottom: 2rem;">
               Repo-local lint that tells an AI agent exactly which changes
               violated your rules — before it finishes work. Each run projects
-              into a Surface trust report so the same evidence can travel
-              downstream.
+              into a Surface trust report with policy-pack collection rollups
+              so the same evidence can travel downstream.
             </p>
 
             <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem;">
@@ -362,8 +362,8 @@ import Footer from '@/components/Footer.astro';
         letter-spacing: 0.05em;
       ">
         Veritas is the first consumer. Anything that needs to show provenance —
-        public-data records, fact resolution, audit pipelines, fitness tracking,
-        tax filings — can build on Surface the same way.
+        public-data records, fact resolution, control frameworks, audit pipelines,
+        fitness tracking, tax filings — can build on Surface the same way.
       </p>
     </div>
   </section>

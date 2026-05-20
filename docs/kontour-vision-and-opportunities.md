@@ -84,6 +84,7 @@ The long-term foundation should include:
 - Freshness policy: validity windows and drift detection.
 - Fault-line model: conflicts between claims, evidence, policies, and sources.
 - Coverage model: which product surfaces are supported by current evidence.
+- Collection model: frameworks, checklists, and control sets that roll broad assertions up from concrete claims while preserving drilldown to evidence.
 - Adapter contract: product-specific imports that preserve domain evidence.
 - Agent query surface: commands or MCP resources for stale, missing, disputed, and policy-bound claims.
 - Human review surface: queues for high-impact unsupported claims, stale claims, and conflicts.
@@ -170,6 +171,21 @@ Use this growing taxonomy when adding projects:
 - Knowledge and research provenance: citations, source quality, synthesis reliability, and stale claims.
 
 The public site should eventually use this kind of archetype list to show the breadth of Kontour's foundation while staying easy to understand.
+
+## Domain Trust Product Direction
+
+Surface collections make the broader product shape clearer: a domain product can package expertise as a collection of claims, controls, validation strategies, and evidence adapters without forking the trust substrate. Integrity scope should travel with those claims so a user can see not only that a claim is verified, but which source version, input files, configuration, or attestation the verification depends on.
+
+Veritas is the first example in development: repo policy packs project to Surface collections, rules project to claims, and rule execution supplies evidence. The same pattern should apply to other domains when the domain has repeated assertions such as "release ready", "listing verified", "return package complete", "vendor compliant", or "source-backed fact set".
+
+The commercial opportunity is not only storing claims. It is helping users understand why they should trust a claim: what framework it belongs to, which controls passed, which evidence is current, what source/config integrity it is anchored to, what remains unsupported, and where a human or agent should drill down next. Surface should own the common language and rollup mechanics; each domain product should own the specialized policy pack, adapter, vocabulary, and review workflow.
+
+Product direction to keep working toward:
+
+- Surface: neutral trust kernel, collections/control rollups, evidence drilldown, dashboard and query surface.
+- Veritas: development-governance domain product built on Surface collections.
+- Future domain packs/products: compliance, public data, fact resolution, reputation integrity, and marketplace trust, each shipping domain-specific collections and adapters.
+- Kontourai.io: public story should describe the capability concretely without overexplaining this internal product architecture.
 
 ## Opportunity Analysis Protocol
 
@@ -307,6 +323,8 @@ Shipped protocol concepts:
 - `VerificationPolicy.requiredMethods`: the minimum method or combination of methods needed for a claim type.
 - `VerificationPolicy.requiresCorroboration`: whether one evidence item is not enough.
 - `TrustReport.proofRequirementsByClaimId`: report-derived proof requirements without duplicating policy on every claim.
+- `TrustInput.collections`: optional frameworks, checklists, or control sets that group claims.
+- `TrustReport.collectionRollups`: report-derived collection/control status from the underlying claim statuses.
 - Typed fault lines:
   - `contradiction`: two claims have incompatible values.
   - `provenance_gap`: claim exists but evidence is absent or broken.
@@ -322,10 +340,13 @@ Veritas bridge:
 - Proof lanes now use explicit objects with stable IDs, commands, methods, and optional supported claim IDs.
 - Example: `npm test` provides `validation` for `claim.api.rate-limit`.
 - Veritas evidence emits `selected_proof_lanes` so Surface can import proof method metadata instead of inferring from command strings.
+- Policy results now project as concrete Surface claims even when a repo has not manually authored each rule claim.
+- Policy packs now project as Surface collections/control frameworks, preserving drilldown from framework status to rule claim, evidence, and event.
 
 Website change:
 
 - Add method/verification depth to the Surface vocabulary.
+- Add collections and control rollups to the Surface/Veritas public story.
 - Expand examples from three literal projects to workflow archetypes: developer proof, public data trust, high-stakes fact verification, and reputation integrity.
 - Keep the first explanation simple: claim -> status -> evidence method -> gap/next action.
 
@@ -344,3 +365,4 @@ Implemented first iteration:
 2. Updated Surface docs/site vocabulary and examples.
 3. Added Veritas proof-lane metadata with `method` and supported Surface claims.
 4. Added a reputation-integrity fixture showing observation vs corroboration gap vs unsupported accusation.
+5. Added Surface collections/control rollups and Veritas policy-pack projection into those collections.

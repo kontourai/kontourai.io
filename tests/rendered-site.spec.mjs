@@ -11,17 +11,20 @@ test("homepage renders the trust infrastructure entry points", async ({ page }) 
   await expect(page.getByText('"Evidence-backed confidence. Not certainty theater."').first()).toBeVisible();
 });
 
-test("surface page presents the substrate with reference adapters and real consumers", async ({ page }) => {
+test("surface page presents the substrate with domain examples and real consumers", async ({ page }) => {
   await page.goto("/surface/");
 
   await expect(page.getByText("The trust substrate · Show your work")).toBeVisible();
   await expect(page.getByText("Fault lines:")).toBeVisible();
+  await expect(page.getByText("Collections:")).toBeVisible();
 
-  // Reference adapters section
-  await expect(page.locator(".label-sm").filter({ hasText: "Reference adapters" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Field-Attested Records" })).toBeVisible();
+  // Domain examples and collection/control vocabulary
+  await expect(page.locator(".label-sm").filter({ hasText: "Where it fits" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Public Data" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Fact Resolution" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "npm-audit" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Security & Compliance" })).toBeVisible();
+  await expect(page.getByText("Controls with drilldown")).toBeVisible();
+  await expect(page.getByText("Collection rollups")).toBeVisible();
 
   // Real consumers section
   await expect(page.locator(".label-sm").filter({ hasText: "Real consumers" })).toBeVisible();

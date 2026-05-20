@@ -321,7 +321,11 @@ import Footer from '@/components/Footer.astro';
           <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.5rem;">
             Each Veritas evidence artifact projects into <code style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-gold); background: rgba(201,163,90,0.08); padding: 0.1rem 0.35rem; border-radius: 2px;">surface.input</code> —
             a portable shape Surface can turn into a trust report a human, a PR
-            comment, or a downstream system can read. Same evidence, two audiences.
+            comment, or a downstream system can read. Policy packs become Surface
+            collections, so the same run supports both agent feedback and
+            control-level review. Integrity metadata anchors each verified claim
+            to the source ref, changed files, and governance configuration that
+            produced the evidence.
           </p>
           <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.5rem;">
             Run a <code style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-green); background: rgba(82,196,126,0.08); padding: 0.1rem 0.35rem; border-radius: 2px;">veritas eval record</code> and the outcome, confidence, and
@@ -355,6 +359,7 @@ import Footer from '@/components/Footer.astro';
             <p class="muted">  Surfaces: veritas.proof-lanes: 2, veritas.policy-results: 7,</p>
             <p class="muted">  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; veritas.external-tool-results: 1, veritas.verification-budget: 1</p>
             <br />
+            <p>  Collections: <span class="pass">1</span> &nbsp;(policy pack controls)</p>
             <p>  High-impact unsupported: <span class="warn">2</span></p>
             <p>  Disputed: <span class="warn">veritas.check-in-local.external-tool.fallow-fallow-advisory</span></p>
             <p>  Fault lines: <span class="warn">2</span></p>
