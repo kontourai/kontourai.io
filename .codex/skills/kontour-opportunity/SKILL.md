@@ -52,8 +52,8 @@ Workflow:
 5. Map what is missing, stale, disputed, high-impact, probabilistic, or adversarial.
 6. Distinguish observed facts, inferred classifications, and attribution of intent.
 7. Evaluate:
-   - Veritas fit: where repo-local proof or agent feedback would help.
-   - Surface fit: where claims/evidence/checks/freshness/fault-lines would help.
+   - Veritas fit: where repo-local evidence or agent feedback would help.
+   - Surface fit: where claims/evidence/checks/freshness/transparency gaps would help.
    - Website fit: whether it gives a crisp example for explaining Kontour.
 8. Extract one or more foundation lessons.
 9. Classify the opportunity as one or more:
@@ -167,7 +167,7 @@ Workflow:
 If `--with-claude` is requested, ask Claude Opus to review the proposed product iteration for:
 
 - overbuilding
-- missing proof or test strategy
+- missing evidence or test strategy
 - weak abstractions
 - confusing public story
 - places where the plan copies examples instead of extracting the pattern
@@ -200,7 +200,7 @@ Do not use Claude for simple mechanical entries unless the user asks for it or t
 
 Use these as the current starting taxonomy, and refine as examples accumulate:
 
-- Developer proof: code, agents, repos, CI, governance, proof lanes.
+- Developer evidence: code, agents, repos, CI, governance, and Veritas evidence checks.
 - Public data trust: sourced, changing public fields such as listings, availability, pricing, schedules, and profiles.
 - High-stakes fact verification: source documents, extracted facts, resolved facts, citations, and human review.
 - Reputation integrity: social proof, stars, reviews, ratings, downloads, testimonials, and benchmark claims.

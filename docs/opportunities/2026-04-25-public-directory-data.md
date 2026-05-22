@@ -3,7 +3,7 @@
 - Source: local public-directory product research snapshot
 - Date analyzed: 2026-04-25
 - Workflow archetype: Public data trust; marketplace/transaction trust
-- Opportunity classification: downstream Surface adapter candidate; product archetype reference
+- Opportunity classification: downstream Surface producer candidate; product archetype reference
 - Kontour fit: Veritas medium, Surface high
 
 ## Summary
@@ -80,7 +80,7 @@ Surface should be able to represent:
 - Trust coverage often belongs at field level, not only entity level.
 - Human attestation is not a fallback; it is a first-class evidence type.
 - Blank values need explicit semantics.
-- Parent/consumer UX and admin/evidence UX need different levels of detail over the same trust model.
+- Viewer UX and admin/evidence UX need different levels of detail over the same trust model.
 - Provider/group-level claims can govern many child claims and should be first-class in Surface.
 - "Easy to understand quickly" means surfacing the trust state first, then allowing drilldown into crawl logs, proposals, excerpts, and attestations.
 

@@ -5,8 +5,8 @@ import Footer from '@/components/Footer.astro';
 ---
 
 <Layout
-  title="Veritas — Bespoke lint for AI agents · Kontour AI"
-  description="Repo-local governance that tells AI agents exactly what changed violated your rules before they finish work. Runs through tracked instructions, hooks, and CI."
+  title="Veritas — Merge autonomy for AI-authored code · Kontour AI"
+  description="Veritas helps teams trust AI-authored code by turning repo standards into evidence-backed readiness reports, guidance, and merge gates."
 >
   <Nav active="veritas" />
 
@@ -40,7 +40,7 @@ import Footer from '@/components/Footer.astro';
         <!-- Left -->
         <div>
           <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem;">
-            <span class="trust-badge trust-badge--verified">v0.3.0</span>
+            <span class="trust-badge trust-badge--verified">v0.4.0</span>
             <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-chalk-3);">npm install -D @kontourai/veritas</span>
           </div>
 
@@ -62,7 +62,7 @@ import Footer from '@/components/Footer.astro';
             text-transform: uppercase;
             color: var(--color-green);
             margin-bottom: 2rem;
-          ">Repo lint for AI agents · Built on Surface</p>
+          ">Merge autonomy for AI-authored code · Built with Surface</p>
 
           <p class="animate-fade-up delay-200" style="
             font-size: 1.05rem;
@@ -71,9 +71,9 @@ import Footer from '@/components/Footer.astro';
             max-width: 460px;
             margin-bottom: 2.5rem;
           ">
-            You define what your repo considers mandatory.
-            Veritas runs your rules and tells any AI agent exactly which changes
-            violated them — before it declares done.
+            Veritas turns your repo standards into evidence-backed checks, guidance,
+            and readiness reports so routine AI-authored changes can move without
+            making humans re-review every implementation detail.
           </p>
 
           <div class="animate-fade-up delay-300" style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
@@ -93,26 +93,26 @@ import Footer from '@/components/Footer.astro';
               <div class="terminal-dot"></div>
               <div class="terminal-dot"></div>
               <div class="terminal-dot"></div>
-              <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-chalk-3); margin-left: 0.5rem;">veritas run</span>
+              <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-chalk-3); margin-left: 0.5rem;">veritas readiness</span>
             </div>
             <div class="terminal-body">
-              <p><span class="prompt">$ </span><span class="cmd">npx veritas run --working-tree</span></p>
+              <p><span class="prompt">$ </span><span class="cmd">npx veritas readiness --working-tree</span></p>
               <br />
-              <p class="info">  veritas 0.3.0 — run</p>
-              <p class="muted">  adapter: .veritas/repo.adapter.json</p>
-              <p class="muted">  policy:  .veritas/policy-packs/default.policy-pack.json</p>
+              <p class="info">  veritas 0.4.0 — readiness</p>
+              <p class="muted">  repo map:      loaded</p>
+              <p class="muted">  repo standards: loaded</p>
               <br />
-              <p class="pass">  PASS  proof-command: npm run verify</p>
-              <p class="pass">  PASS  required-governance-artifacts</p>
+              <p class="pass">  PASS  evidence-check: npm run verify</p>
+              <p class="pass">  PASS  repo-standards-present</p>
               <p class="pass">  PASS  ai-instruction-files-synced</p>
-              <p class="pass">  PASS  proof-family:repo-governance</p>
+              <p class="pass">  PASS  merge-readiness: ready</p>
               <br />
-              <p class="warn">  INFO  proof-family:runtime-contracts</p>
+              <p class="warn">  INFO  evidence-freshness: current</p>
               <p style="color: var(--color-chalk-3); padding-left: 2rem; font-size: 0.72rem;">
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ move-to-test / advisory
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ checked against this diff and standards version
               </p>
               <p style="color: var(--color-chalk-3); padding-left: 2rem; font-size: 0.72rem;">
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ evidence: connected-agent replacement tests
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ boundary crossing: none
               </p>
               <br />
               <p style="color: var(--color-chalk-3);">  ───────────────────────────────</p>
@@ -126,11 +126,11 @@ import Footer from '@/components/Footer.astro';
   </section>
 
   <!-- ──────────────────────────────────────────────────────
-       Three jobs
+       Product promise
   ────────────────────────────────────────────────────────── -->
   <section style="padding: 6rem var(--spacing-page);">
     <div style="max-width: 1280px; margin: 0 auto;">
-      <div class="label-sm" style="margin-bottom: 3rem;">Three jobs</div>
+      <div class="label-sm" style="margin-bottom: 3rem;">What Veritas makes possible</div>
 
       <div style="
         display: grid;
@@ -140,27 +140,27 @@ import Footer from '@/components/Footer.astro';
         {[
           {
             num: '01',
-            title: 'Enforce boundaries',
+            title: 'Define what good looks like',
             color: 'var(--color-green)',
-            summary: 'Strict surface ownership',
-            body: 'Required files, governance blocks, companion test requirements, cross-surface-write rules. Stops parallel workstreams from colliding before changes land.',
-            tags: ['artifacts', 'governance-block', 'cross-surface-write', 'if-changed'],
+            summary: 'Repo Standards',
+            body: 'Capture the repo expectations reviewers keep in their heads: required tests, protected files, shared contracts, release checks, security scans, boundaries, and authority rules.',
+            tags: ['requirements', 'evidence-checks', 'authorities', 'guidance'],
           },
           {
             num: '02',
-            title: 'Deliver JIT context',
+            title: 'Guide work at the moment of change',
             color: 'var(--color-cobalt-2)',
-            summary: '`veritas explain` + PreToolUse hook',
-            body: 'Long agent sessions drift toward high-level goals and forget repo-specific constraints. Veritas pushes the right rules into the agent\'s context at the moment of edit.',
-            tags: ['explain', 'pre-tool-use', 'per-file', 'per-rule'],
+            summary: 'Change Guidance',
+            body: 'When an agent or developer touches a risky work area, Veritas supplies the relevant standards before context drift turns into a bad merge.',
+            tags: ['work-areas', 'boundaries', 'hooks', 'recheck'],
           },
           {
             num: '03',
-            title: 'Self-correct via lint',
+            title: 'Earn merge readiness',
             color: 'var(--color-gold)',
-            summary: '`veritas run --working-tree` → PASS / FAIL',
-            body: 'Terse lint-style output directly into the agent\'s context window. Exit codes 0/1/2 are hook-friendly. The agent reads it the way it reads a failing test.',
-            tags: ['shadow-run', 'exit-codes', 'feedback-format', 'eval-history'],
+            summary: 'Readiness Reports',
+            body: 'Every change gets a clear answer: what passed, what failed, what evidence is stale, what needs recheck, and why this change can or cannot merge with reduced human review.',
+            tags: ['merge-readiness', 'freshness', 'exceptions', 'coverage'],
           },
         ].map(({ num, title, color, summary, body, tags }) => (
           <div key={num} class="card" style="padding: 2rem;">
@@ -223,7 +223,7 @@ import Footer from '@/components/Footer.astro';
   </section>
 
   <!-- ──────────────────────────────────────────────────────
-       Agent activation
+       Change boundaries
   ────────────────────────────────────────────────────────── -->
   <section style="
     padding: 5rem var(--spacing-page);
@@ -239,29 +239,24 @@ import Footer from '@/components/Footer.astro';
         align-items: center;
       ">
         <div>
-          <div class="label-sm" style="margin-bottom: 1.5rem; color: var(--color-cobalt-2);">Agent activation</div>
+          <div class="label-sm" style="margin-bottom: 1.5rem; color: var(--color-cobalt-2);">Change boundaries</div>
           <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 1.25rem;">
-            Works with any agent<br />
-            that reads your repo.
+            Shared code without<br />
+            shared confusion.
           </h2>
           <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.5rem;">
-            Veritas injects a governance block into every AI instruction file in your repo.
-            Agents that read repo instructions — Claude Code, Cursor, Codex, Copilot — see
-            the same rules and proof requirements through tracked files.
+            Fast AI development breaks down when several agents and developers touch
+            the same repo without knowing which work areas are independent, protected,
+            or coupled. Veritas makes those boundaries explicit.
           </p>
           <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.5rem;">
-            Stop-hook integration wires <code style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-green); background: rgba(82,196,126,0.08); padding: 0.1rem 0.35rem; border-radius: 2px;">veritas run</code> to fire
-            at session end for Claude Code, Cursor, and Codex. Copilot stays covered
-            through instructions and CI.
-          </p>
-          <p style="color: var(--color-chalk-3); font-size: 0.82rem; line-height: 1.7; font-style: italic;">
-            Codex and Claude Code can feed transcript-backed eval drafts; Cursor and
-            Copilot use the generic governance-block + stop-hook contract.
+            A change that stays inside its work area can move quickly. A boundary crossing
+            asks for the right evidence, owner context, or coordination before it becomes
+            another surprise in review.
           </p>
           <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 0;">
-            Human attestations keep policy packs, adapters, and team profiles from being
-            silently rewritten by agents. Eval history can draft proposals, but a human
-            accept or reject decision closes the loop.
+            This is how teams keep code DRY without turning every shared package,
+            contract, or generated artifact into a manual-review bottleneck.
           </p>
         </div>
 
@@ -272,12 +267,12 @@ import Footer from '@/components/Footer.astro';
           gap: 1rem;
         ">
           {[
-            { file: 'CLAUDE.md', agent: 'Claude Code', color: 'var(--color-gold)' },
-            { file: 'AGENTS.md', agent: 'Codex', color: 'var(--color-cobalt-2)' },
-            { file: '.cursorrules', agent: 'Cursor', color: 'var(--color-green)' },
-            { file: 'copilot-instructions.md', agent: 'GitHub Copilot', color: 'var(--color-chalk-2)' },
-          ].map(({ file, agent, color }) => (
-            <div key={file} style="
+            { label: 'Work Area', detail: 'Where the change belongs', color: 'var(--color-gold)' },
+            { label: 'Change Boundary', detail: 'Where extra coordination begins', color: 'var(--color-cobalt-2)' },
+            { label: 'Protected Area', detail: 'Where stronger authority is required', color: 'var(--color-green)' },
+            { label: 'Boundary Crossing', detail: 'When readiness needs more evidence', color: 'var(--color-chalk-2)' },
+          ].map(({ label, detail, color }) => (
+            <div key={label} style="
               background: var(--color-ink-2);
               border: 1px solid var(--color-edge);
               border-radius: 6px;
@@ -288,13 +283,13 @@ import Footer from '@/components/Footer.astro';
                 font-size: 0.7rem;
                 color: ${color};
                 margin-bottom: 0.35rem;
-              `}>{file}</div>
+              `}>{label}</div>
               <div style="
                 font-family: var(--font-mono);
                 font-size: 0.65rem;
                 color: var(--color-chalk-3);
                 letter-spacing: 0.04em;
-              ">{agent}</div>
+              ">{detail}</div>
             </div>
           ))}
         </div>
@@ -303,7 +298,7 @@ import Footer from '@/components/Footer.astro';
   </section>
 
   <!-- ──────────────────────────────────────────────────────
-       Built on Surface
+       Built with Surface
   ────────────────────────────────────────────────────────── -->
   <section style="padding: 5rem var(--spacing-page); border-top: 1px solid var(--color-edge);">
     <div style="max-width: 1280px; margin: 0 auto;">
@@ -314,28 +309,23 @@ import Footer from '@/components/Footer.astro';
         align-items: center;
       ">
         <div>
-          <div class="label-sm" style="margin-bottom: 1.5rem; color: var(--color-gold);">Built on Surface</div>
+          <div class="label-sm" style="margin-bottom: 1.5rem; color: var(--color-gold);">Built with Surface</div>
           <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 1.25rem;">
-            One run, two consumers.
+            One run, two views.
           </h2>
           <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.5rem;">
-            Each Veritas evidence artifact projects into <code style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-gold); background: rgba(201,163,90,0.08); padding: 0.1rem 0.35rem; border-radius: 2px;">surface.input</code> —
-            a portable shape Surface can turn into a trust report a human, a PR
-            comment, or a downstream system can read. Policy packs become Surface
-            collections, so the same run supports both agent feedback and
-            control-level review. Integrity metadata anchors each verified claim
-            to the source ref, changed files, and governance configuration that
-            produced the evidence.
+            Veritas users should not need to learn Surface vocabulary or configure
+            Surface files. Veritas produces repo-native readiness reports, then
+            projects the underlying trust state into Surface for portability,
+            inspection, and downstream consoles.
           </p>
           <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.5rem;">
-            Run a <code style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-green); background: rgba(82,196,126,0.08); padding: 0.1rem 0.35rem; border-radius: 2px;">veritas eval record</code> and the outcome, confidence, and
-            reviewer notes are written directly into the run snapshot at <code style="font-family: var(--font-mono); font-size: 0.82rem; color: var(--color-chalk-3);">.surface/runs/</code>.
-            The Surface dashboard picks it up without any extra steps.
+            That means the same run can guide an agent, inform a reviewer, and later
+            be re-inspected by another system without turning Veritas into generic
+            transparency tooling.
           </p>
           <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75;">
-            You can use Veritas without Surface (the feedback loop is independent),
-            and you can build on Surface without Veritas.
-            Together, what the agent acted on becomes what the auditor reads.
+            Public message: Built with Surface. Product experience: Veritas.
           </p>
           <div style="margin-top: 2rem;">
             <a href="/surface" class="btn-ghost" data-umami-event="veritas-surface-link">Explore Surface →</a>
@@ -347,22 +337,21 @@ import Footer from '@/components/Footer.astro';
             <div class="terminal-dot"></div>
             <div class="terminal-dot"></div>
             <div class="terminal-dot"></div>
-            <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-chalk-3); margin-left: 0.5rem;">surface report ← veritas evidence</span>
+            <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-chalk-3); margin-left: 0.5rem;">trust snapshot ← veritas evidence</span>
           </div>
           <div class="terminal-body">
             <p><span class="prompt">$ </span><span class="cmd">node examples/surface-handoff.mjs</span></p>
             <br />
-            <p class="info">  Kontour Surface report surface-1778389390389</p>
-            <p class="muted">  Source: veritas:check-in-local</p>
+            <p class="info">  Kontour Surface trust snapshot surface-1778389390389</p>
+            <p class="muted">  Source: veritas:readiness-run</p>
             <br />
-            <p>  Claims: <span class="pass">11</span> &nbsp;(proposed: 2, verified: 8, disputed: 1)</p>
-            <p class="muted">  Surfaces: veritas.proof-lanes: 2, veritas.policy-results: 7,</p>
-            <p class="muted">  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; veritas.external-tool-results: 1, veritas.verification-budget: 1</p>
+            <p>  Requirements: <span class="pass">11</span> &nbsp;(satisfied: 8, advisory: 2, disputed: 1)</p>
+            <p class="muted">  Coverage: evidence checks, requirement results, boundary crossings, freshness</p>
             <br />
-            <p>  Collections: <span class="pass">1</span> &nbsp;(policy pack controls)</p>
-            <p>  High-impact unsupported: <span class="warn">2</span></p>
-            <p>  Disputed: <span class="warn">veritas.check-in-local.external-tool.fallow-fallow-advisory</span></p>
-            <p>  Fault lines: <span class="warn">2</span></p>
+            <p>  Merge readiness: <span class="pass">ready with advisory follow-up</span></p>
+            <p>  Recheck available: <span class="pass">npm run verify</span></p>
+            <p>  Freshness: <span class="pass">current for this diff</span></p>
+            <p>  Surface projection: <span class="warn">portable trust state</span></p>
           </div>
         </div>
       </div>
@@ -374,7 +363,7 @@ import Footer from '@/components/Footer.astro';
   ────────────────────────────────────────────────────────── -->
   <section style="padding: 5rem var(--spacing-page);">
     <div style="max-width: 1280px; margin: 0 auto;">
-      <div class="label-sm" style="margin-bottom: 2.5rem;">CLI surface</div>
+      <div class="label-sm" style="margin-bottom: 2.5rem;">Current CLI</div>
 
       <div style="
         display: grid;
@@ -382,14 +371,14 @@ import Footer from '@/components/Footer.astro';
         gap: 0.75rem;
       ">
         {[
-          { cmd: 'veritas init', desc: 'Bootstrap adapter, policy pack, governance blocks' },
-          { cmd: 'veritas run --working-tree', desc: 'Agent-facing lint path with feedback output' },
-          { cmd: 'veritas report', desc: 'Evidence artifact with JSON or feedback output' },
-          { cmd: 'veritas runtime status', desc: 'Check hook wiring and activation state' },
-          { cmd: 'veritas eval draft', desc: 'Record agent evidence for a run' },
-          { cmd: 'veritas eval record', desc: 'Accept or reject agent output manually' },
-          { cmd: 'veritas eval summary', desc: 'Aggregate improvement metrics over time' },
-          { cmd: 'veritas apply stop-hook', desc: 'Wire Claude Code / Cursor stop hooks' },
+          { cmd: 'veritas init', desc: 'Bootstrap Repo Standards, Repo Map, and guidance' },
+          { cmd: 'veritas readiness --working-tree', desc: 'Generate a readiness report for the current change' },
+          { cmd: 'veritas explain --file <path>', desc: 'Show just-in-time guidance for a work area' },
+          { cmd: 'veritas attest bootstrap', desc: 'Record authority evidence for protected standards' },
+          { cmd: 'veritas eval summary', desc: 'Review standards feedback from prior runs' },
+          { cmd: 'veritas recommendation list', desc: 'Review standards recommendations' },
+          { cmd: 'veritas integrations claude-code install', desc: 'Wire agent hooks where supported' },
+          { cmd: 'veritas apply stop-hook', desc: 'Send readiness feedback back to supported agents' },
         ].map(({ cmd, desc }) => (
           <div key={cmd} style="
             display: flex;

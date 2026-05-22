@@ -61,7 +61,7 @@ Record only evidence-backed observations.
 
 Ask concise questions that fill the gaps the repo cannot answer:
 
-- required proof boundaries
+- required evidence boundaries
 - preferred style and conventions
 - release and verification expectations
 - review rules and approval boundaries

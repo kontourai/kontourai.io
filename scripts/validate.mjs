@@ -10,6 +10,7 @@ const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..")
 const registryBaseUrl = "https://registry.npmjs.org";
 const expectedVersions = {
   "@kontourai/veritas": await readAdvertisedVeritasVersion(),
+  "@kontourai/surface": await readAdvertisedSurfaceVersion(),
 };
 
 let errorCount = 0;
@@ -20,6 +21,13 @@ function error(message) {
 }
 
 async function checkPackage(packageName) {
+  const localVersion = await readLocalSiblingVersion(packageName);
+  const expectedVersion = expectedVersions[packageName];
+  if (expectedVersion && localVersion === expectedVersion) {
+    console.log(`PASS  ${packageName}: found local sibling version ${localVersion}`);
+    return;
+  }
+
   const url = `${registryBaseUrl}/${encodeURIComponent(packageName)}`;
 
   try {
@@ -46,7 +54,6 @@ async function checkPackage(packageName) {
       return;
     }
 
-    const expectedVersion = expectedVersions[packageName];
     if (expectedVersion && latest !== expectedVersion) {
       error(`${packageName}: npm latest ${latest} does not match advertised version ${expectedVersion}`);
       return;
@@ -58,12 +65,34 @@ async function checkPackage(packageName) {
   }
 }
 
+async function readLocalSiblingVersion(packageName) {
+  const repoName = packageName.split("/").at(-1);
+  const packagePath = path.resolve(rootDir, "..", repoName, "package.json");
+  try {
+    const source = await readFile(packagePath, "utf8");
+    return JSON.parse(source).version;
+  } catch {
+    return null;
+  }
+}
+
 async function readAdvertisedVeritasVersion() {
   const pagePath = path.join(rootDir, "src/pages/veritas.astro");
   const source = await readFile(pagePath, "utf8");
   const match = source.match(/trust-badge[^>]*>v([0-9]+\.[0-9]+\.[0-9]+)</);
   if (!match) {
     error("src/pages/veritas.astro: could not find advertised Veritas version badge");
+    return null;
+  }
+  return match[1];
+}
+
+async function readAdvertisedSurfaceVersion() {
+  const pagePath = path.join(rootDir, "src/pages/surface.astro");
+  const source = await readFile(pagePath, "utf8");
+  const match = source.match(/trust-badge[^>]*>v([0-9]+\.[0-9]+\.[0-9]+)</);
+  if (!match) {
+    error("src/pages/surface.astro: could not find advertised Surface version badge");
     return null;
   }
   return match[1];

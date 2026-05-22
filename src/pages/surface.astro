@@ -5,8 +5,8 @@ import Footer from '@/components/Footer.astro';
 ---
 
 <Layout
-  title="Surface — The trust substrate · Kontour AI"
-  description="Kontour Surface is a portable shape for claims, evidence, freshness, and conflict — the foundation any provenance product can build on."
+  title="Surface — Product transparency for the AI era · Kontour AI"
+  description="Kontour Surface is a product transparency standard for claims, evidence, evidence traces, policies, trust snapshots, and transparency gaps."
 >
   <Nav active="surface" />
 
@@ -40,7 +40,7 @@ import Footer from '@/components/Footer.astro';
         <!-- Left -->
         <div>
           <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem;">
-            <span class="trust-badge trust-badge--verified">v0.2.0</span>
+            <span class="trust-badge trust-badge--verified">v0.4.0</span>
             <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-chalk-3);">npm install -D @kontourai/surface</span>
           </div>
 
@@ -62,7 +62,17 @@ import Footer from '@/components/Footer.astro';
             text-transform: uppercase;
             color: var(--color-gold);
             margin-bottom: 2rem;
-          ">The trust substrate · Show your work</p>
+          ">Product transparency for the AI era</p>
+
+          <p class="animate-fade-up delay-100" style="
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 3.5vw, 3.4rem);
+            font-weight: 300;
+            line-height: 1.05;
+            color: var(--color-chalk);
+            margin: -0.75rem 0 1.75rem;
+            letter-spacing: -0.02em;
+          ">Show your work. Earn trust.</p>
 
           <p class="animate-fade-up delay-200" style="
             font-size: 1.05rem;
@@ -71,10 +81,10 @@ import Footer from '@/components/Footer.astro';
             max-width: 460px;
             margin-bottom: 2.5rem;
           ">
-            A portable shape for claims, the evidence behind them, the policies
-            that decide what counts as verified, and the events that change a
-            claim's status over time. The foundation any provenance product
-            can build on.
+            AI and product interfaces can make polished claims faster than users
+            can inspect them. Surface gives products a shared way to expose each
+            Claim, the Evidence behind it, the Evidence Trace, the Policy that
+            applies, and the Transparency Gap or Conflict that should slow action.
           </p>
 
           <div class="animate-fade-up delay-300" style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
@@ -99,18 +109,18 @@ import Footer from '@/components/Footer.astro';
             <div class="terminal-body">
               <p><span class="prompt">$ </span><span class="cmd">npx surface report --input examples/surface-fixtures.json --format summary</span></p>
               <br />
-              <p class="info">  Kontour Surface report surface-1777090239260</p>
+              <p class="info">  Kontour Surface trust snapshot surface-1777090239260</p>
               <p class="muted">  Source: kontour-surface-validation-fixtures</p>
               <br />
               <p>  Claims: <span class="pass">4</span> &nbsp;(unknown: 1, verified: 2, stale: 1)</p>
-              <p class="muted">  Surfaces: repo-governance.developer-proof: 1, field-attested-records.public-data: 1,</p>
+              <p class="muted">  Claim types: repo-governance.developer-evidence: 1, field-attested-records.public-data: 1,</p>
               <p class="muted">  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fact-resolution.financial-facts: 1, surface.roadmap: 1</p>
               <br />
-              <p>  Collections: <span class="pass">1</span></p>
+              <p>  Claim Groups: <span class="pass">1</span></p>
               <p>  High-impact unsupported: <span class="pass">none</span></p>
               <p>  Stale: &nbsp;&nbsp;&nbsp;<span class="warn">claim.field-attested-records.registration-status</span></p>
-              <p>  Disputed: <span class="pass">none</span></p>
-              <p>  Fault lines: <span class="warn">3</span></p>
+              <p>  Conflicts: <span class="pass">none</span></p>
+              <p>  Transparency gaps: <span class="warn">3</span></p>
             </div>
           </div>
         </div>
@@ -133,11 +143,11 @@ import Footer from '@/components/Footer.astro';
         {[
           { q: 'What is the claim?', color: 'var(--color-chalk-2)' },
           { q: 'What evidence supports it?', color: 'var(--color-chalk-2)' },
-          { q: 'Who or what verified it?', color: 'var(--color-chalk-2)' },
-          { q: 'How was it verified?', color: 'var(--color-chalk-2)' },
+          { q: 'What evidence trace shows how it was produced?', color: 'var(--color-chalk-2)' },
+          { q: 'Which policy decides whether it is current enough?', color: 'var(--color-chalk-2)' },
           { q: 'How long is that verification valid?', color: 'var(--color-gold)' },
-          { q: 'What is stale, unsupported, or disputed?', color: 'var(--color-gold)' },
-          { q: 'Which controls or frameworks does this claim support?', color: 'var(--color-cobalt-2)' },
+          { q: 'What transparency gap or conflict is visible?', color: 'var(--color-gold)' },
+          { q: 'Which claim group or requirement does this support?', color: 'var(--color-cobalt-2)' },
           { q: 'What should an agent do before relying on it?', color: 'var(--color-red)' },
         ].map(({ q, color }, i) => (
           <div key={i} style="
@@ -161,6 +171,59 @@ import Footer from '@/components/Footer.astro';
               color: ${color};
               line-height: 1.5;
             `}>{q}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────
+       Role paths
+  ────────────────────────────────────────────────────────── -->
+  <section style="
+    padding: 5rem var(--spacing-page);
+    border-top: 1px solid var(--color-edge);
+  ">
+    <div style="max-width: 1280px; margin: 0 auto;">
+      <div class="label-sm" style="margin-bottom: 2.5rem;">Surface paths</div>
+
+      <div style="
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+      ">
+        {[
+          { action: 'View the Surface', role: 'Viewer', body: 'Inspect a Trust Panel before relying on a product answer, report, profile, recommendation, or agent output.', color: 'var(--color-gold)' },
+          { action: 'Shape the Surface', role: 'Operator', body: 'Use the Surface Console to manage Claims, Policies, ownership, review queues, Transparency Gaps, and Conflicts.', color: 'var(--color-cobalt-2)' },
+          { action: 'Build with Surface', role: 'Builder', body: 'Emit Claims, Evidence, Evidence Traces, Policies, materiality mappings, and Trust Snapshots from your product.', color: 'var(--color-green)' },
+          { action: 'Verify with Surface', role: 'Verifier', body: 'Check evidence, authority, freshness, and integrity under policy without turning Surface into a certification service.', color: 'var(--color-red)' },
+        ].map(({ action, role, body, color }) => (
+          <div key={action} class="card" style="padding: 1.5rem; position: relative; overflow: hidden;">
+            <div style={`
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              height: 2px;
+              background: linear-gradient(90deg, ${color}, transparent);
+            `}></div>
+            <div style={`
+              font-family: var(--font-mono);
+              font-size: 0.65rem;
+              color: ${color};
+              letter-spacing: 0.08em;
+              text-transform: uppercase;
+              margin-bottom: 0.75rem;
+            `}>{role}</div>
+            <h3 style="
+              font-family: var(--font-display);
+              font-size: 1.35rem;
+              font-weight: 400;
+              color: var(--color-chalk);
+              margin-bottom: 0.75rem;
+              letter-spacing: -0.01em;
+            ">{action}</h3>
+            <p style="font-size: 0.82rem; color: var(--color-chalk-3); line-height: 1.65;">{body}</p>
           </div>
         ))}
       </div>
@@ -192,43 +255,43 @@ import Footer from '@/components/Footer.astro';
           },
           {
             term: 'Evidence',
-            def: 'Why a claim deserves trust, plus the method: observation, validation, corroboration, attestation.',
+            def: 'An observation, citation, attestation, test result, or traceable artifact that supports or challenges a Claim.',
+            color: 'var(--color-green)',
+          },
+          {
+            term: 'Evidence Trace',
+            def: 'The inspectable path showing source, method, actor or system, timestamp, tool context, logs, and integrity scope.',
             color: 'var(--color-green)',
           },
           {
             term: 'Policy',
-            def: 'What makes a claim valid, and for how long. Freshness windows, required methods, commit-scoped validity.',
+            def: 'The rule that decides what evidence is required, how fresh it must be, and when a Claim needs review.',
             color: 'var(--color-chalk-2)',
           },
           {
-            term: 'Collection',
-            def: 'A framework, checklist, or control set that rolls up related claims while preserving drilldown to evidence.',
+            term: 'Trust Snapshot',
+            def: 'A point-in-time view of Claims, Evidence, Policies, status, gaps, and conflicts that humans and agents can inspect.',
             color: 'var(--color-cobalt-2)',
           },
           {
-            term: 'Event',
-            def: 'A verification, dispute, supersede, or rejection that changes a claim\'s status over time.',
+            term: 'Trust Panel',
+            def: 'The viewer-facing interface that exposes the trust state behind a product claim or output.',
             color: 'var(--color-cobalt-2)',
           },
           {
-            term: 'Trust Status',
-            def: 'Derived from claim, evidence, policy, and events: unknown, proposed, verified, stale, disputed, rejected, superseded.',
-            color: 'var(--color-gold)',
-          },
-          {
-            term: 'Fault Line',
-            def: 'A discoverable conflict or gap across the input: provenance gaps, stale proof, missing corroboration, contradiction.',
-            color: 'var(--color-red)',
-          },
-          {
-            term: 'Trust Report',
-            def: 'The portable output. Per-claim derived status, confidence basis, fault lines, proof requirements, and a summary.',
+            term: 'Surface Console',
+            def: 'The operator workspace for shaping product transparency: claims, ownership, policies, evidence review, and gaps.',
             color: 'var(--color-chalk)',
           },
           {
-            term: 'Surface',
-            def: 'The named region where a claim lives — a product area, a record type, a workflow step. Used for routing and ownership.',
-            color: 'var(--color-chalk-2)',
+            term: 'Transparency Gap',
+            def: 'A missing, weak, stale, private, unavailable, unverifiable, or unmapped element that limits inspectability.',
+            color: 'var(--color-red)',
+          },
+          {
+            term: 'Conflict',
+            def: 'A visible disagreement between Claims, Evidence, Policies, source state, or authority traces.',
+            color: 'var(--color-red)',
           },
         ].map(({ term, def, color }) => (
           <div key={term} style="
@@ -320,9 +383,10 @@ import Footer from '@/components/Footer.astro';
         max-width: 640px;
         margin-bottom: 2.5rem;
       ">
-        Any product that makes verifiable assertions can build on Surface as its trust layer.
-        Fitness data, financial records, marketplace listings, audit pipelines, AI agent output —
-        the same shape works anywhere you need to show the evidence, not just the answer.
+        Any product that makes claims users or agents rely on can build with Surface
+        as its product transparency layer. Fitness data, financial records, marketplace
+        listings, audit pipelines, AI agent output — the same shape works anywhere
+        you need to show the work behind the answer.
       </p>
 
       <div style="
@@ -347,9 +411,9 @@ import Footer from '@/components/Footer.astro';
           },
           {
             name: 'Security & Compliance',
-            subtitle: 'Controls with drilldown',
-            desc: 'Dependency scans, policy checks, access reviews. Roll controls up into a framework view while preserving the exact claim, evidence, and event behind each verdict.',
-            signals: ['scanned', 'policy-checked', 'control-rollup', 'current'],
+            subtitle: 'Requirements with drilldown',
+            desc: 'Dependency scans, policy checks, access reviews. Roll requirements up into a requirement-set view while preserving the exact Claim, Evidence, and Evidence Trace behind each verdict.',
+            signals: ['scanned', 'policy-checked', 'requirement-rollup', 'current'],
             color: 'var(--color-red)',
           },
         ].map(({ name, subtitle, desc, signals, color }) => (
@@ -408,7 +472,7 @@ import Footer from '@/components/Footer.astro';
   </section>
 
   <!-- ──────────────────────────────────────────────────────
-       Local dashboard
+       Surface Console
   ────────────────────────────────────────────────────────── -->
   <section style="
     padding: 5rem var(--spacing-page);
@@ -422,13 +486,13 @@ import Footer from '@/components/Footer.astro';
         align-items: start;
       ">
         <div>
-          <div class="label-sm" style="margin-bottom: 1.5rem;">Local dashboard</div>
+          <div class="label-sm" style="margin-bottom: 1.5rem;">Surface Console</div>
           <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 1.25rem;">
             See trust state<br />
             where the work happens.
           </h2>
           <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.5rem;">
-            <code style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-gold); background: rgba(201,163,90,0.08); padding: 0.1rem 0.35rem; border-radius: 2px;">surface dashboard</code> serves a live view from
+            <code style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-gold); background: rgba(201,163,90,0.08); padding: 0.1rem 0.35rem; border-radius: 2px;">surface console</code> serves a live view from
             <code style="font-family: var(--font-mono); font-size: 0.82rem; color: var(--color-chalk-3);">.surface/runs/latest.json</code>.
             Each new run updates automatically. No cloud, no login.
           </p>
@@ -436,11 +500,12 @@ import Footer from '@/components/Footer.astro';
           <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem;">
             {[
               { label: 'Run history', body: 'Switch between past runs in the toolbar to compare claim state before and after a change.' },
-              { label: 'Filtered chips', body: 'Click Verified, Attention, or total Claims to filter the list instantly. Click again to clear.' },
-              { label: 'Collection rollups', body: 'Start from a framework, checklist, or control set, then drill into the claims and evidence that decide its status.' },
+              { label: 'Trust Panel', body: 'Open the viewer-facing trust state for a Claim without losing the operator context.' },
+              { label: 'Filtered chips', body: 'Filter Verified, Attention, or total Claims instantly while reviewing the current Trust Snapshot.' },
+              { label: 'Claim Groups', body: 'Start from a framework, checklist, or requirement set, then drill into the Claims and Evidence that decide its status.' },
               { label: 'Integrity scope', body: 'Inspect the source anchor, file fingerprints, and configuration hashes behind a verified claim.' },
               { label: 'Master-detail', body: 'On desktop, selecting a claim opens a sticky side panel without hiding the list.' },
-              { label: 'Eval summary', body: 'When a producer records a human eval, the outcome, confidence, and any reviewer notes appear alongside the live trust status.' },
+              { label: 'Transparency gaps', body: 'When evidence is missing, private, stale, or conflicting, the gap stays visible beside the Claim.' },
             ].map(({ label, body }) => (
               <div key={label} style="
                 display: flex;
@@ -468,18 +533,18 @@ import Footer from '@/components/Footer.astro';
             <div class="terminal-dot"></div>
             <div class="terminal-dot"></div>
             <div class="terminal-dot"></div>
-            <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-chalk-3); margin-left: 0.5rem;">surface dashboard</span>
+            <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-chalk-3); margin-left: 0.5rem;">surface console</span>
           </div>
           <div class="terminal-body">
-            <p><span class="prompt">$ </span><span class="cmd">npx surface dashboard</span></p>
+            <p><span class="prompt">$ </span><span class="cmd">npx surface console</span></p>
             <br />
-            <p class="info">  Surface dashboard running at http://localhost:4242</p>
+            <p class="info">  Surface Console running at http://localhost:4242</p>
             <br />
             <p class="muted">  Reading: .surface/runs/latest.json</p>
-            <p class="muted">  (fallback: .veritas/surface-dashboard/latest.json)</p>
+            <p class="muted">  Source: latest Surface run snapshot</p>
             <br />
-            <p class="muted">  GET /              200  dashboard shell</p>
-            <p class="muted">  GET /api/read-model  200  current run snapshot</p>
+            <p class="muted">  GET /              200  console shell</p>
+            <p class="muted">  GET /api/read-model  200  current trust snapshot</p>
             <p class="muted">  GET /api/runs        200  [run-a, run-b, run-c]</p>
             <br />
             <p style="color: var(--color-chalk-3);">  ───────────────────────────────</p>
@@ -493,7 +558,7 @@ import Footer from '@/components/Footer.astro';
   </section>
 
   <!-- ──────────────────────────────────────────────────────
-       Real consumers
+       Products built with Surface
   ────────────────────────────────────────────────────────── -->
   <section style="
     padding: 5rem var(--spacing-page);
@@ -501,7 +566,7 @@ import Footer from '@/components/Footer.astro';
     background: var(--color-ink-1);
   ">
     <div style="max-width: 1280px; margin: 0 auto;">
-      <div class="label-sm" style="margin-bottom: 1rem;">Real consumers</div>
+      <div class="label-sm" style="margin-bottom: 1rem;">Products built with Surface</div>
       <p style="
         color: var(--color-chalk-3);
         font-size: 0.9rem;
@@ -509,8 +574,9 @@ import Footer from '@/components/Footer.astro';
         max-width: 640px;
         margin-bottom: 2.5rem;
       ">
-        Products that depend on Surface as their trust substrate. Each keeps its own
-        workflow vocabulary; portable truth flows through Surface at the boundary.
+        Products built with Surface keep their own workflow vocabulary while exposing
+        Claims, Evidence, Policies, Trust Snapshots, and Transparency Gaps in a shared
+        shape humans and agents can inspect.
       </p>
 
       <div style="
@@ -544,7 +610,7 @@ import Footer from '@/components/Footer.astro';
             letter-spacing: 0.08em;
             text-transform: uppercase;
             margin-bottom: 1rem;
-          ">Repo lint for AI agents</p>
+          ">Merge autonomy for AI-authored code</p>
 
           <p style="
             color: var(--color-chalk-2);
@@ -552,10 +618,9 @@ import Footer from '@/components/Footer.astro';
             line-height: 1.65;
             margin-bottom: 1.5rem;
           ">
-            Projects every code-change run into <code style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--color-green);">surface.input</code>
-            so the same evidence the agent acted on can become a portable trust report
-            downstream consumers can read. Policy packs appear as Surface collections
-            with control-level drilldown.
+            Turns Repo Standards, evidence checks, boundary crossings, and readiness
+            outcomes into Surface-backed trust state. Veritas users stay in repo-native
+            language while downstream systems can inspect the evidence behind merge readiness.
           </p>
 
           <a href="/veritas" style="
@@ -592,7 +657,7 @@ import Footer from '@/components/Footer.astro';
             letter-spacing: 0.08em;
             text-transform: uppercase;
             margin-bottom: 1rem;
-          ">Anything that needs to show provenance</p>
+          ">Anything that needs product transparency</p>
 
           <p style="
             color: var(--color-chalk-3);
@@ -601,8 +666,8 @@ import Footer from '@/components/Footer.astro';
             margin-bottom: 1.5rem;
           ">
             Public-data records, fact resolution, audit pipelines, fitness tracking,
-            tax filings, marketplace listings — anywhere you need to prove an
-            assertion is verified, fresh, and uncontested.
+            tax filings, marketplace listings — anywhere a product needs to show the
+            work behind what it asks people and agents to trust.
           </p>
 
           <a href="https://github.com/kontourai/surface/tree/main/examples/external-adapter" target="_blank" rel="noopener" style="
@@ -610,7 +675,7 @@ import Footer from '@/components/Footer.astro';
             font-size: 0.72rem;
             color: var(--color-chalk-3);
             text-decoration: none;
-          ">Build an adapter →</a>
+          ">Build with Surface →</a>
         </div>
       </div>
     </div>
@@ -626,6 +691,10 @@ import Footer from '@/components/Footer.astro';
       flex-direction: column !important;
     }
     section > div > div[style*="grid-template-columns: repeat(3, 1fr)"] {
+      display: flex !important;
+      flex-direction: column !important;
+    }
+    section > div > div[style*="grid-template-columns: repeat(4, 1fr)"] {
       display: flex !important;
       flex-direction: column !important;
     }

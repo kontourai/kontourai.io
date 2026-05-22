@@ -4,7 +4,7 @@
 - Related sources: <https://dagster.io/blog/fake-stars>
 - Date analyzed: 2026-04-25
 - Workflow archetype: Reputation integrity
-- Opportunity classification: downstream Surface adapter candidate; opportunity category
+- Opportunity classification: downstream Surface producer candidate; opportunity category
 - Kontour fit: Veritas medium, Surface high
 
 ## Summary
@@ -47,7 +47,7 @@ The project is strongly validation-oriented: it asks whether a public metric, Gi
 
 ## Veritas Fit
 
-The detector itself could use Veritas to enforce proof lanes for heuristic changes:
+The detector itself could use Veritas to enforce evidence checks for heuristic changes:
 
 - If thresholds change, tests and fixture reports should change.
 - If dbt models change, expected report schema and validation fixtures should update.
@@ -68,7 +68,7 @@ Surface could model:
 - Status: verified for raw source extraction.
 - Status: proposed for estimated fake-star percentage.
 - Status: stale when the source window or GitHub state changes.
-- Fault line: suspected fake stars do not prove owner intent.
+- Transparency gap: suspected fake stars do not prove owner intent.
 - Review signal: high-impact reputation claim needs human interpretation before public accusation.
 
 Kontour should distinguish:
@@ -101,4 +101,3 @@ Those are different claims with different evidence burdens.
 - Should reputation metrics become a named workflow archetype on the public site?
 - What status vocabulary best communicates "supported suspicion, not proof"?
 - Can Kontour make uncertainty understandable without introducing fake precision?
-
