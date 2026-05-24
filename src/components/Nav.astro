@@ -1,6 +1,6 @@
 ---
 interface Props {
-  active?: 'home' | 'veritas' | 'surface';
+  active?: 'home' | 'veritas' | 'surface' | 'flow';
 }
 const { active } = Astro.props;
 ---
@@ -45,41 +45,62 @@ const { active } = Astro.props;
 
       <!-- Nav links -->
       <div style="display: flex; align-items: center; gap: 0.25rem;">
-        <a
-          href="/veritas"
-          aria-current={active === 'veritas' ? 'page' : undefined}
-          data-umami-event="nav-veritas"
-          style={`
-            padding: 0.4rem 0.85rem;
-            border-radius: 4px;
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            letter-spacing: 0.05em;
-            text-decoration: none;
-            color: ${active === 'veritas' ? 'var(--color-chalk)' : 'var(--color-chalk-3)'};
-            background: ${active === 'veritas' ? 'var(--color-ink-3)' : 'transparent'};
-            transition: color 0.15s, background 0.15s;
-          `}
-        >veritas</a>
+        {active !== 'home' && (
+          <>
+            <a
+              href="/veritas"
+              aria-current={active === 'veritas' ? 'page' : undefined}
+              data-umami-event="nav-veritas"
+              style={`
+                padding: 0.4rem 0.85rem;
+                border-radius: 4px;
+                font-family: var(--font-mono);
+                font-size: 0.75rem;
+                letter-spacing: 0.05em;
+                text-decoration: none;
+                color: ${active === 'veritas' ? 'var(--color-chalk)' : 'var(--color-chalk-3)'};
+                background: ${active === 'veritas' ? 'var(--color-ink-3)' : 'transparent'};
+                transition: color 0.15s, background 0.15s;
+              `}
+            >veritas</a>
 
-        <a
-          href="/surface"
-          aria-current={active === 'surface' ? 'page' : undefined}
-          data-umami-event="nav-surface"
-          style={`
-            padding: 0.4rem 0.85rem;
-            border-radius: 4px;
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            letter-spacing: 0.05em;
-            text-decoration: none;
-            color: ${active === 'surface' ? 'var(--color-chalk)' : 'var(--color-chalk-3)'};
-            background: ${active === 'surface' ? 'var(--color-ink-3)' : 'transparent'};
-            transition: color 0.15s, background 0.15s;
-          `}
-        >surface</a>
+            <a
+              href="/flow"
+              aria-current={active === 'flow' ? 'page' : undefined}
+              data-umami-event="nav-flow"
+              style={`
+                padding: 0.4rem 0.85rem;
+                border-radius: 4px;
+                font-family: var(--font-mono);
+                font-size: 0.75rem;
+                letter-spacing: 0.05em;
+                text-decoration: none;
+                color: ${active === 'flow' ? 'var(--color-chalk)' : 'var(--color-chalk-3)'};
+                background: ${active === 'flow' ? 'var(--color-ink-3)' : 'transparent'};
+                transition: color 0.15s, background 0.15s;
+              `}
+            >flow</a>
 
-        <div style="width: 1px; height: 18px; background: var(--color-edge); margin: 0 0.5rem;"></div>
+            <a
+              href="/surface"
+              aria-current={active === 'surface' ? 'page' : undefined}
+              data-umami-event="nav-surface"
+              style={`
+                padding: 0.4rem 0.85rem;
+                border-radius: 4px;
+                font-family: var(--font-mono);
+                font-size: 0.75rem;
+                letter-spacing: 0.05em;
+                text-decoration: none;
+                color: ${active === 'surface' ? 'var(--color-chalk)' : 'var(--color-chalk-3)'};
+                background: ${active === 'surface' ? 'var(--color-ink-3)' : 'transparent'};
+                transition: color 0.15s, background 0.15s;
+              `}
+            >surface</a>
+
+            <div style="width: 1px; height: 18px; background: var(--color-edge); margin: 0 0.5rem;"></div>
+          </>
+        )}
 
         <a
           href="https://github.com/kontourai"
