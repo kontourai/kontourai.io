@@ -15,6 +15,11 @@ test("homepage renders the product transparency entry points", async ({ page }) 
   await expect(page.locator('[data-umami-event="nav-flow"]')).toHaveCount(0);
   await expect(page.locator('[data-umami-event="nav-veritas"]')).toHaveCount(0);
   await expect(page.locator('[data-umami-event="nav-surface"]')).toHaveCount(0);
+  await expect(page.locator('[data-umami-event="footer-flow"]')).toHaveCount(0);
+  await expect(page.locator('[data-umami-event="footer-veritas"]')).toHaveCount(0);
+  await expect(page.locator('[data-umami-event="footer-surface"]')).toHaveCount(0);
+  await expect(page.locator('[data-umami-event="footer-github"]')).toBeVisible();
+  await expect(page.locator('[data-umami-event="footer-contact"]')).toBeVisible();
 });
 
 test("preview page keeps the fuller product-line story accessible", async ({ page }) => {

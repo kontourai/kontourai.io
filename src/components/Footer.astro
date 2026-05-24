@@ -1,4 +1,21 @@
 ---
+interface Props {
+  active?: 'home' | 'preview' | 'veritas' | 'surface' | 'flow';
+}
+
+const { active } = Astro.props;
+const isPublicHome = active === 'home';
+const links = isPublicHome
+  ? [
+      { href: 'https://github.com/kontourai', label: 'GitHub', external: true, event: 'footer-github' },
+      { href: 'mailto:hello@kontour.ai', label: 'Contact', event: 'footer-contact' },
+    ]
+  : [
+      { href: '/surface', label: 'Surface', event: 'footer-surface' },
+      { href: '/flow', label: 'Flow', event: 'footer-flow' },
+      { href: '/veritas', label: 'Veritas', event: 'footer-veritas' },
+      { href: 'https://github.com/kontourai', label: 'GitHub', external: true, event: 'footer-github' },
+    ];
 ---
 
 <footer style="
@@ -51,12 +68,7 @@
 
       <!-- Right nav -->
       <nav style="display: flex; flex-direction: column; gap: 0.4rem; align-items: flex-end;">
-        {[
-          { href: '/veritas', label: 'Veritas', event: 'footer-veritas' },
-          { href: '/surface', label: 'Surface', event: 'footer-surface' },
-          { href: 'https://github.com/kontourai/veritas', label: 'GitHub ↗', external: true, event: 'footer-github-veritas' },
-          { href: 'https://www.npmjs.com/package/@kontourai/veritas', label: 'npm ↗', external: true, event: 'footer-npm-veritas' },
-        ].map(({ href, label, external, event }) => (
+        {links.map(({ href, label, external, event }) => (
           <a
             href={href}
             target={external ? '_blank' : undefined}
