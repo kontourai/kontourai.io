@@ -1,5 +1,7 @@
 # Kontour AI Vision And Opportunity Map
 
+ARCHIVED — see docs/product-line-vision.md for the current company thesis. This file is preserved as opportunity research only.
+
 This is a working reference for the Kontour AI company thesis, product goals, and future opportunity analysis workflow. It is meant to evolve as we review more projects and sharpen the shared abstraction.
 
 ## Company Thesis

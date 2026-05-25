@@ -1,6 +1,6 @@
 ---
 interface Props {
-  active?: 'home' | 'preview' | 'veritas' | 'surface' | 'flow';
+  active?: 'home' | 'preview' | 'veritas' | 'surface' | 'flow' | 'flow-agents';
 }
 
 const { active } = Astro.props;
@@ -13,6 +13,7 @@ const links = isPublicHome
   : [
       { href: '/surface', label: 'Surface', event: 'footer-surface' },
       { href: '/flow', label: 'Flow', event: 'footer-flow' },
+      { href: '/flow-agents', label: 'Flow Agents', event: 'footer-flow-agents' },
       { href: '/veritas', label: 'Veritas', event: 'footer-veritas' },
       { href: 'https://github.com/kontourai', label: 'GitHub', external: true, event: 'footer-github' },
     ];
@@ -54,8 +55,7 @@ const links = isPublicHome
           max-width: 340px;
           letter-spacing: 0.02em;
         ">
-          Trust infrastructure for AI-era products.<br />
-          Evidence-backed confidence, not certainty theater.
+          Evidence-backed confidence. Not certainty theater.
         </p>
         <p style="
           font-family: var(--font-mono);

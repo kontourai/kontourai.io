@@ -1,0 +1,120 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+---
+
+<Layout
+  title="Flow Agents — Agent-facing vertical of Kontour Flow · Kontour AI"
+  description="Keep your coding agent on the required path across Claude Code, Codex, Kiro, and GitHub Actions."
+>
+  <Nav active="flow-agents" />
+
+  <section class="contour-bg" style="
+    padding: 10rem var(--spacing-page) 6rem;
+    border-bottom: 1px solid var(--color-edge);
+    position: relative;
+    overflow: hidden;
+  ">
+    <div style="
+      position: absolute;
+      top: 0;
+      right: 10%;
+      width: 680px;
+      height: 460px;
+      background: radial-gradient(ellipse at top right, rgba(225,221,211,0.045) 0%, transparent 68%);
+      pointer-events: none;
+    "></div>
+
+    <div style="max-width: 1280px; margin: 0 auto; position: relative; z-index: 1;">
+      <div style="
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5rem;
+        align-items: center;
+      ">
+        <div>
+          <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem;">
+            <span class="trust-badge trust-badge--proposed">coming soon</span>
+            <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-chalk-3);">github.com/kontourai/flow-agents</span>
+          </div>
+
+          <h1 class="animate-fade-up" style="
+            font-family: var(--font-display);
+            font-optical-sizing: auto;
+            font-size: clamp(3.5rem, 6vw, 5.5rem);
+            font-weight: 400;
+            line-height: 0.95;
+            letter-spacing: -0.03em;
+            color: var(--color-chalk);
+            margin-bottom: 0.5rem;
+          ">Flow Agents</h1>
+
+          <p class="animate-fade-up delay-100" style="
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--color-chalk-2);
+            margin-bottom: 2rem;
+          ">the agent-facing vertical of Kontour Flow</p>
+
+          <p class="animate-fade-up delay-200" style="
+            font-size: 1.05rem;
+            color: var(--color-chalk-2);
+            line-height: 1.7;
+            max-width: 540px;
+            margin-bottom: 2.5rem;
+          ">
+            Agents are useful out of the box. They get fragile when work is
+            long, parallel, risky, or knowledge-heavy. Flow Agents wraps Claude
+            Code, Codex, Kiro, and GitHub Actions with the just-in-time
+            guidance, workflow state, and evidence gates that survive long
+            sessions and context compaction. You ask for the outcome you want.
+            The system supplies the right instructions, tools, memory, and
+            checks underneath.
+          </p>
+
+          <div class="animate-fade-up delay-300" style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <a href="https://github.com/kontourai/flow-agents" target="_blank" rel="noopener" class="btn-primary" data-umami-event="flow-agents-hero-github">
+              View on GitHub →
+            </a>
+            <a href="/flow" class="btn-ghost" data-umami-event="flow-agents-hero-flow">
+              Explore Flow
+            </a>
+          </div>
+        </div>
+
+        <div class="animate-fade-in delay-300">
+          <div class="card" style="padding: 2rem; position: relative; overflow: hidden;">
+            <div style="
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              height: 2px;
+              background: linear-gradient(90deg, var(--color-chalk-2), transparent);
+            "></div>
+            <div class="label-sm" style="margin-bottom: 1.25rem; color: var(--color-chalk-2);">Status</div>
+            <p style="color: var(--color-chalk-2); font-size: 1rem; line-height: 1.75; margin: 0;">
+              Flow Agents is the agent-facing distribution layer for Kontour
+              Flow and Veritas evidence. It's actively being built; first
+              public release is upcoming.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer active="flow-agents" />
+</Layout>
+
+<style>
+  @media (max-width: 900px) {
+    section > div > div[style*="grid-template-columns: 1fr 1fr"] {
+      display: flex !important;
+      flex-direction: column !important;
+    }
+  }
+</style>

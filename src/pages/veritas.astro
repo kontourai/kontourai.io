@@ -62,7 +62,7 @@ import Footer from '@/components/Footer.astro';
             text-transform: uppercase;
             color: var(--color-green);
             margin-bottom: 2rem;
-          ">Merge autonomy for AI-authored code · Built with Surface</p>
+          ">merge autonomy for AI-authored code</p>
 
           <p class="animate-fade-up delay-200" style="
             font-size: 1.05rem;
@@ -71,9 +71,11 @@ import Footer from '@/components/Footer.astro';
             max-width: 460px;
             margin-bottom: 2.5rem;
           ">
-            Veritas turns your repo standards into evidence-backed checks, guidance,
-            and readiness reports so routine AI-authored changes can move without
-            making humans re-review every implementation detail.
+            Define what good looks like for your repo. Veritas checks each
+            change against those standards, gives the agent just-in-time
+            guidance while it works, and produces a readiness report that says
+            whether the change has enough fresh evidence to merge with reduced
+            human review.
           </p>
 
           <div class="animate-fade-up delay-300" style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
@@ -120,6 +122,81 @@ import Footer from '@/components/Footer.astro';
               <p class="muted">  evidence → .veritas/evidence/&lt;run-id&gt;.json</p>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────
+       Change boundaries
+  ────────────────────────────────────────────────────────── -->
+  <section style="
+    padding: 5rem var(--spacing-page);
+    border-top: 1px solid var(--color-edge);
+    border-bottom: 1px solid var(--color-edge);
+    background: var(--color-ink-1);
+  ">
+    <div style="max-width: 1280px; margin: 0 auto;">
+      <div style="
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+      ">
+        <div>
+          <div class="label-sm" style="margin-bottom: 1.5rem; color: var(--color-cobalt-2);">Change boundaries</div>
+          <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 1.25rem;">
+            Shared code without<br />
+            shared confusion.
+          </h2>
+          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.5rem;">
+            Fast AI development breaks down when several agents and developers touch
+            the same repo without knowing which work areas are independent, protected,
+            or coupled. Veritas makes those boundaries explicit.
+          </p>
+          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.5rem;">
+            A change that stays inside its work area can move quickly. A boundary crossing
+            asks for the right evidence, owner context, or coordination before it becomes
+            another surprise in review.
+          </p>
+          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 0;">
+            This is how teams keep code DRY without turning every shared package,
+            contract, or generated artifact into a manual-review bottleneck.
+          </p>
+        </div>
+
+        <!-- Activation targets grid -->
+        <div style="
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 1rem;
+        ">
+          {[
+            { label: 'Work Area', detail: 'Where the change belongs', color: 'var(--color-gold)' },
+            { label: 'Change Boundary', detail: 'Where extra coordination begins', color: 'var(--color-cobalt-2)' },
+            { label: 'Protected Area', detail: 'Where stronger authority is required', color: 'var(--color-green)' },
+            { label: 'Boundary Crossing', detail: 'When readiness needs more evidence', color: 'var(--color-chalk-2)' },
+          ].map(({ label, detail, color }) => (
+            <div key={label} style="
+              background: var(--color-ink-2);
+              border: 1px solid var(--color-edge);
+              border-radius: 6px;
+              padding: 1.25rem;
+            ">
+              <div style={`
+                font-family: var(--font-mono);
+                font-size: 0.7rem;
+                color: ${color};
+                margin-bottom: 0.35rem;
+              `}>{label}</div>
+              <div style="
+                font-family: var(--font-mono);
+                font-size: 0.65rem;
+                color: var(--color-chalk-3);
+                letter-spacing: 0.04em;
+              ">{detail}</div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
@@ -223,142 +300,6 @@ import Footer from '@/components/Footer.astro';
   </section>
 
   <!-- ──────────────────────────────────────────────────────
-       Change boundaries
-  ────────────────────────────────────────────────────────── -->
-  <section style="
-    padding: 5rem var(--spacing-page);
-    border-top: 1px solid var(--color-edge);
-    border-bottom: 1px solid var(--color-edge);
-    background: var(--color-ink-1);
-  ">
-    <div style="max-width: 1280px; margin: 0 auto;">
-      <div style="
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 4rem;
-        align-items: center;
-      ">
-        <div>
-          <div class="label-sm" style="margin-bottom: 1.5rem; color: var(--color-cobalt-2);">Change boundaries</div>
-          <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 1.25rem;">
-            Shared code without<br />
-            shared confusion.
-          </h2>
-          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.5rem;">
-            Fast AI development breaks down when several agents and developers touch
-            the same repo without knowing which work areas are independent, protected,
-            or coupled. Veritas makes those boundaries explicit.
-          </p>
-          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.5rem;">
-            A change that stays inside its work area can move quickly. A boundary crossing
-            asks for the right evidence, owner context, or coordination before it becomes
-            another surprise in review.
-          </p>
-          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 0;">
-            This is how teams keep code DRY without turning every shared package,
-            contract, or generated artifact into a manual-review bottleneck.
-          </p>
-        </div>
-
-        <!-- Activation targets grid -->
-        <div style="
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 1rem;
-        ">
-          {[
-            { label: 'Work Area', detail: 'Where the change belongs', color: 'var(--color-gold)' },
-            { label: 'Change Boundary', detail: 'Where extra coordination begins', color: 'var(--color-cobalt-2)' },
-            { label: 'Protected Area', detail: 'Where stronger authority is required', color: 'var(--color-green)' },
-            { label: 'Boundary Crossing', detail: 'When readiness needs more evidence', color: 'var(--color-chalk-2)' },
-          ].map(({ label, detail, color }) => (
-            <div key={label} style="
-              background: var(--color-ink-2);
-              border: 1px solid var(--color-edge);
-              border-radius: 6px;
-              padding: 1.25rem;
-            ">
-              <div style={`
-                font-family: var(--font-mono);
-                font-size: 0.7rem;
-                color: ${color};
-                margin-bottom: 0.35rem;
-              `}>{label}</div>
-              <div style="
-                font-family: var(--font-mono);
-                font-size: 0.65rem;
-                color: var(--color-chalk-3);
-                letter-spacing: 0.04em;
-              ">{detail}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ──────────────────────────────────────────────────────
-       Built with Surface
-  ────────────────────────────────────────────────────────── -->
-  <section style="padding: 5rem var(--spacing-page); border-top: 1px solid var(--color-edge);">
-    <div style="max-width: 1280px; margin: 0 auto;">
-      <div style="
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 4rem;
-        align-items: center;
-      ">
-        <div>
-          <div class="label-sm" style="margin-bottom: 1.5rem; color: var(--color-gold);">Built with Surface</div>
-          <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 1.25rem;">
-            One run, two views.
-          </h2>
-          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.5rem;">
-            Veritas users should not need to learn Surface vocabulary or configure
-            Surface files. Veritas produces repo-native readiness reports, then
-            projects the underlying trust state into Surface for portability,
-            inspection, and downstream consoles.
-          </p>
-          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.5rem;">
-            That means the same run can guide an agent, inform a reviewer, and later
-            be re-inspected by another system without turning Veritas into generic
-            transparency tooling.
-          </p>
-          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75;">
-            Public message: Built with Surface. Product experience: Veritas.
-          </p>
-          <div style="margin-top: 2rem;">
-            <a href="/surface" class="btn-ghost" data-umami-event="veritas-surface-link">Explore Surface →</a>
-          </div>
-        </div>
-
-        <div class="terminal">
-          <div class="terminal-bar">
-            <div class="terminal-dot"></div>
-            <div class="terminal-dot"></div>
-            <div class="terminal-dot"></div>
-            <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-chalk-3); margin-left: 0.5rem;">trust snapshot ← veritas evidence</span>
-          </div>
-          <div class="terminal-body">
-            <p><span class="prompt">$ </span><span class="cmd">node examples/surface-handoff.mjs</span></p>
-            <br />
-            <p class="info">  Kontour Surface trust snapshot surface-1778389390389</p>
-            <p class="muted">  Source: veritas:readiness-run</p>
-            <br />
-            <p>  Requirements: <span class="pass">11</span> &nbsp;(satisfied: 8, advisory: 2, disputed: 1)</p>
-            <p class="muted">  Coverage: evidence checks, requirement results, boundary crossings, freshness</p>
-            <br />
-            <p>  Merge readiness: <span class="pass">ready with advisory follow-up</span></p>
-            <p>  Recheck available: <span class="pass">npm run verify</span></p>
-            <p>  Freshness: <span class="pass">current for this diff</span></p>
-            <p>  Surface projection: <span class="warn">portable trust state</span></p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ──────────────────────────────────────────────────────
        CLI reference strip
   ────────────────────────────────────────────────────────── -->
   <section style="padding: 5rem var(--spacing-page);">
@@ -402,6 +343,12 @@ import Footer from '@/components/Footer.astro';
           </div>
         ))}
       </div>
+    </div>
+  </section>
+
+  <section style="padding: 3rem var(--spacing-page) 0; border-top: 1px solid var(--color-edge);">
+    <div style="max-width: 1280px; margin: 0 auto;">
+      <p style="color: var(--color-chalk-3); font-size: 0.95rem; line-height: 1.7; font-style: italic; margin: 0;">Veritas is built with Surface. Users don't need to configure Surface — it's the shared shape under the readiness state.</p>
     </div>
   </section>
 

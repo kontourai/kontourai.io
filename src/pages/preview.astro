@@ -5,541 +5,152 @@ import Footer from '@/components/Footer.astro';
 ---
 
 <Layout
-  title="Kontour AI Preview — Product-line review"
-  description="Unlinked preview of the Kontour AI product-line story while Surface, Flow, Veritas, and the future agent workflow layer are still being shaped."
+  title="Kontour AI Preview — Internal review"
+  description="Internal review page for the Kontour AI product line."
 >
-  <Nav active="home" />
+  <Nav active="preview" />
 
-  <!-- ──────────────────────────────────────────────────────
-       Hero
-  ────────────────────────────────────────────────────────── -->
-  <section class="contour-bg" style="
-    position: relative;
-    min-height: 100dvh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 8rem var(--spacing-page) 6rem;
-    overflow: hidden;
-  ">
-    <!-- Radial glow -->
-    <div style="
-      position: absolute;
-      top: 20%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 900px;
-      height: 600px;
-      background: radial-gradient(ellipse at center, rgba(201,163,90,0.04) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 0;
-    "></div>
-
-    <!-- Content -->
-    <div style="max-width: 1280px; margin: 0 auto; width: 100%; position: relative; z-index: 1;">
-      <!-- Eye-brow label -->
-      <div class="animate-fade-up" style="margin-bottom: 2.5rem;">
-        <span class="label-sm">Product Transparency</span>
-        <span style="margin: 0 0.75rem; color: var(--color-edge-2);">—</span>
-        <span class="label-sm" style="color: var(--color-chalk-3);">Open source</span>
-      </div>
-
-      <!-- Headline -->
-      <h1 class="display-xl animate-fade-up delay-100" style="
-        max-width: 900px;
-        color: var(--color-chalk);
-        margin-bottom: 1.5rem;
-      ">
-        Show the work<br />
-        behind what your<br />
-        product asks us to trust.
-      </h1>
-
-      <!-- Sub -->
-      <p class="animate-fade-up delay-200" style="
-        font-family: var(--font-sans);
-        font-size: clamp(1rem, 1.8vw, 1.2rem);
-        color: var(--color-chalk-2);
-        max-width: 520px;
-        line-height: 1.65;
-        margin-bottom: 2.5rem;
-        font-weight: 400;
-      ">
-        AI makes polished claims, decisions, and completed work cheap.
-        Kontour builds transparency building blocks that expose the evidence,
-        process gates, and readiness signals behind what humans and agents are
-        asked to trust.
+  <section class="contour-bg" style="padding: 8rem var(--spacing-page) 4rem; border-bottom: 1px solid var(--color-edge);">
+    <div style="max-width: 1280px; margin: 0 auto;">
+      <div class="label-sm" style="margin-bottom: 1rem; color: var(--color-gold);">INTERNAL REVIEW — UNLINKED</div>
+      <h1 class="display-lg" style="color: var(--color-chalk); margin-bottom: 1rem;">Kontour AI shows the work behind AI.</h1>
+      <p style="color: var(--color-chalk-2); font-size: 1rem; line-height: 1.75; max-width: 760px; margin-bottom: 2rem;">
+        This page is for design partners and reviewers. It's not linked from
+        the public site. Content here may include unshipped features and
+        timeline estimates that aren't yet public.
       </p>
-
-      <!-- CTA -->
-      <div class="animate-fade-up delay-300" style="display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center;">
-        <a href="/surface" class="btn-primary" data-umami-event="home-hero-explore-surface">Explore Surface →</a>
-        <a href="/flow" class="btn-ghost" data-umami-event="home-hero-explore-flow">Explore Flow</a>
-        <a href="/veritas" class="btn-ghost" data-umami-event="home-hero-explore-veritas">Explore Veritas</a>
-      </div>
-
-      <!-- Trust state strip -->
-      <div class="animate-fade-in delay-500" style="
-        display: flex;
-        gap: 0.6rem;
-        flex-wrap: wrap;
-        margin-top: 4rem;
-        padding-top: 2.5rem;
-        border-top: 1px solid var(--color-edge);
-      ">
-        <span class="trust-badge trust-badge--verified">
-          <span style="width: 5px; height: 5px; border-radius: 50%; background: var(--color-green); display: inline-block;"></span>
-          verified
-        </span>
-        <span class="trust-badge trust-badge--proposed">
-          <span style="width: 5px; height: 5px; border-radius: 50%; background: var(--color-cobalt-2); display: inline-block;"></span>
-          proposed
-        </span>
-        <span class="trust-badge trust-badge--stale">
-          <span style="width: 5px; height: 5px; border-radius: 50%; background: var(--color-gold); display: inline-block; animation: pulse-dot 2s ease-in-out infinite;"></span>
-          stale
-        </span>
-        <span class="trust-badge trust-badge--disputed">
-          <span style="width: 5px; height: 5px; border-radius: 50%; background: var(--color-red); display: inline-block;"></span>
-          disputed
-        </span>
-        <span class="trust-badge trust-badge--unknown">
-          <span style="width: 5px; height: 5px; border-radius: 50%; background: var(--color-chalk-3); display: inline-block;"></span>
-          unknown
-        </span>
-        <span style="
-          font-family: var(--font-mono);
-          font-size: 0.65rem;
-          color: var(--color-chalk-3);
-          display: flex;
-          align-items: center;
-          margin-left: 0.25rem;
-        ">— every claim has a state</span>
-      </div>
+      <p style="color: var(--color-chalk-3); font-size: 0.95rem; line-height: 1.7; max-width: 760px;">
+        Kontour AI shows the work behind AI. Agents now write code, run
+        processes, and make claims faster than people can review them. Our
+        products give humans and other agents a shared way to see what was
+        claimed, what supports it, which gates the work passed, and what's
+        still uncertain — so anyone can decide whether the work deserves
+        trust before acting on it. The same shape works for any product that
+        needs to show its work, not just AI ones.
+      </p>
     </div>
   </section>
 
-  <!-- ──────────────────────────────────────────────────────
-       Problem / Signal
-  ────────────────────────────────────────────────────────── -->
-  <section style="padding: 6rem var(--spacing-page); border-top: 1px solid var(--color-edge);">
-    <div style="max-width: 1280px; margin: 0 auto;">
-      <div style="
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 4rem;
-        align-items: center;
-      ">
-        <!-- Left: text -->
-        <div>
-          <div class="label-sm" style="margin-bottom: 1.5rem; color: var(--color-gold);">The Problem</div>
-          <h2 class="display-lg" style="color: var(--color-chalk); margin-bottom: 1.5rem;">
-            AI agents are<br />
-            <em style="color: var(--color-chalk-2); font-style: italic;">confident</em>.<br />
-            Support is not.
-          </h2>
-          <p style="
-            color: var(--color-chalk-2);
-            font-size: 1rem;
-            line-height: 1.75;
-            max-width: 440px;
-          ">
-            Every AI agent asserts. Every feature claims. Every product says it does what it says.
-            What's missing is visible support: the Evidence, Evidence Trace, Policy,
-            and current Trust Snapshot behind the claim.
-          </p>
-          <p style="
-            color: var(--color-chalk-3);
-            font-size: 0.9rem;
-            line-height: 1.75;
-            max-width: 440px;
-            margin-top: 1rem;
-            font-family: var(--font-mono);
-            font-style: italic;
-          ">
-            "Evidence-backed confidence. Not certainty theater."
-          </p>
-        </div>
+  <section style="padding: 5rem var(--spacing-page);">
+    <div style="max-width: 1280px; margin: 0 auto; display: flex; flex-direction: column; gap: 3rem;">
+      {[
+        {
+          name: 'Surface',
+          badge: 'v0.4.1',
+          color: 'var(--color-gold)',
+          one: "The shared foundation under Kontour's products. One shape for claims, evidence, freshness, and gaps so the same trust state can be read by a person, an agent, or another system.",
+          now: 'Current package: @kontourai/surface v0.4.1.',
+          coming: 'External adopters; expanded Producer Extension API.',
+          demo: `$ npx surface report --format summary
 
-        <!-- Right: transparency gap diagram -->
-        <div style="position: relative;">
-          <div class="card" style="padding: 2rem;">
-            <div class="label-sm" style="margin-bottom: 1.5rem;">trust panel &nbsp;·&nbsp; api.rateLimit</div>
+Kontour Surface trust snapshot surface-1777090239260
+Source: kontour-surface-validation-fixtures
 
-            <!-- Claim chain -->
-            {[
-              { label: 'claim', value: 'Rate limit: 100 req/min per key', status: 'verified', meta: 'source: README, spec/rate-limit.test.ts' },
-              { label: 'evidence', value: 'test output — 312 ms ago', status: 'verified', meta: 'evidence trace: npm test' },
-              { label: 'snapshot', value: 'CI run #1847', status: 'stale', meta: '6 days since last verification' },
-              { label: 'policy', value: 'freshness window: 72h', status: 'disputed', meta: 'window exceeded — transparency gap' },
-            ].map((row, i) => (
-              <div key={i} style={`
-                display: grid;
-                grid-template-columns: 4.5rem 1fr;
-                gap: 0.75rem;
-                padding: 0.75rem 0;
-                ${i < 3 ? 'border-bottom: 1px solid var(--color-edge);' : ''}
-                align-items: start;
-              `}>
-                <div class="label-sm" style="padding-top: 2px;">{row.label}</div>
-                <div>
-                  <div style={`
-                    font-family: var(--font-mono);
-                    font-size: 0.78rem;
-                    color: ${
-                      row.status === 'verified' ? 'var(--color-chalk)' :
-                      row.status === 'stale' ? 'var(--color-gold)' :
-                      'var(--color-red)'
-                    };
-                    margin-bottom: 0.2rem;
-                  `}>{row.value}</div>
-                  <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-chalk-3);">{row.meta}</div>
-                </div>
+Claims: 4 (unknown: 1, verified: 2, stale: 1)
+High-impact unsupported: none
+Transparency gaps: 3`,
+        },
+        {
+          name: 'Flow',
+          badge: 'v0.1.0',
+          color: 'var(--color-cobalt-2)',
+          one: 'Process transparency for any required-path work. Flow shows why a process was allowed to move forward — gate by gate, with the evidence behind each transition.',
+          now: 'Current package: @kontourai/flow v0.1.0.',
+          coming: 'v0.1 CLI; evidence adapters for command/file/CI/Veritas/human/trace.',
+          demo: `$ flow status run.dev-1847 --format summary
+
+flow run: agent-dev-flow / feature-search-filters
+current step: verify
+
+PASS  plan gate: acceptance criteria linked
+PASS  implementation gate: scoped files changed
+BLOCK verify gate: browser evidence missing
+      expected: tests, lint, screenshot, Veritas readiness
+
+next action: run browser check before publish
+continuation: resume from verify, not chat memory
+report: .flow/runs/run.dev-1847/report.md`,
+        },
+        {
+          name: 'Veritas',
+          badge: 'v0.4.0',
+          color: 'var(--color-green)',
+          one: "Merge autonomy for AI-authored code. Veritas turns your repo's standards into evidence-backed readiness reports the agent reads back.",
+          now: 'Current package: @kontourai/veritas v0.4.0.',
+          coming: 'Repo Conformance public docs; Standards Recommendations workflow.',
+          demo: `$ npx veritas readiness --working-tree --format feedback
+
+veritas 0.4.0 — readiness
+repo standards: loaded
+repo map: loaded
+
+PASS  protected-standards: no unauthorized edits
+PASS  evidence-check: npm run verify
+PASS  change-boundaries: no unreviewed boundary crossing
+PASS  merge-readiness: ready
+
+readiness coverage:
+  satisfied: 12
+  advisory: 1
+  stale: 0
+  missing: 0
+
+report: .veritas/evidence/readiness-local.json`,
+        },
+        {
+          name: 'Flow Agents',
+          badge: 'coming soon',
+          color: 'var(--color-chalk-2)',
+          one: 'Keep your coding agent on the required path across Claude Code, Codex, Kiro, and GitHub Actions. Flow Agents brings Flow-backed workflows and Kontour evidence into the agent tools you already use.',
+          now: 'Developer source exists at the current kagents repo path before the repo move.',
+          coming: 'Public alpha bundles for Claude Code, Codex, Kiro; work-mode library (Build / Understand / Capture / Prepare / Follow Up).',
+          demo: `$ flow-agents status
+
+distribution: upcoming public alpha
+runtimes: Claude Code, Codex, Kiro, GitHub Actions
+workflow state: Flow-backed
+code evidence: Veritas readiness
+repo: https://github.com/kontourai/flow-agents`,
+        },
+      ].map(({ name, badge, color, one, now, coming, demo }) => (
+        <article class="card" style="padding: 2rem; position: relative; overflow: hidden;">
+          <div style={`
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, ${color}, transparent);
+          `}></div>
+          <div style="display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 2rem;">
+            <div>
+              <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                <span class="trust-badge trust-badge--proposed">{badge}</span>
+                <span class="label-sm" style={`color: ${color};`}>{name}</span>
               </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ──────────────────────────────────────────────────────
-       Products
-  ────────────────────────────────────────────────────────── -->
-  <section style="padding: 6rem var(--spacing-page); border-top: 1px solid var(--color-edge);">
-    <div style="max-width: 1280px; margin: 0 auto;">
-      <div class="label-sm" style="margin-bottom: 3rem; text-align: center;">Transparency building blocks for the AI era.</div>
-
-      <div style="
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1.5rem;
-      ">
-
-        <!-- Surface card -->
-        <a href="/surface" data-umami-event="home-product-card-surface" style="text-decoration: none;" class="card" style="
-          display: block;
-          position: relative;
-          overflow: hidden;
-        ">
-          <div style="
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--color-gold), transparent);
-          "></div>
-
-          <div style="padding: 2.5rem;">
-            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
-              <div class="trust-badge trust-badge--verified">v0.4.0</div>
-              <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-chalk-3);">@kontourai/surface</span>
+              <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 1rem;">{name}</h2>
+              <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.7;">{one}</p>
+              <div style="margin-top: 1.5rem; padding: 1rem; background: var(--color-ink-1); border: 1px solid var(--color-edge); border-radius: 4px;">
+                <div class="label-sm" style="margin-bottom: 0.7rem;">What's shipping now / what's coming</div>
+                <p style="color: var(--color-chalk-3); font-size: 0.82rem; line-height: 1.6; margin: 0 0 0.6rem;">{now}</p>
+                <!-- human-edited list — current as of 2026-05-25 -->
+                <p style="color: var(--color-chalk-3); font-size: 0.82rem; line-height: 1.6; margin: 0;">Coming: {coming}</p>
+              </div>
             </div>
-
-            <h3 class="display-md" style="color: var(--color-chalk); margin-bottom: 1rem;">
-              Surface
-            </h3>
-
-            <p style="
-              font-family: var(--font-mono);
-              font-size: 0.75rem;
-              color: var(--color-gold);
-              letter-spacing: 0.04em;
-              margin-bottom: 1.25rem;
-              line-height: 1.5;
-            ">PRODUCT TRANSPARENCY STANDARD</p>
-
-            <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.7; margin-bottom: 2rem;">
-              Surface gives products a shared shape for Claims, Evidence,
-              Evidence Traces, Policies, Trust Snapshots, Trust Panels, and
-              Transparency Gaps. It helps products show the work behind what
-              they ask users and agents to trust.
-            </p>
-
-            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem;">
-              {['claims', 'evidence-traces', 'policies', 'trust-snapshots', 'transparency-gaps'].map(tag => (
-                <span key={tag} style="
-                  font-family: var(--font-mono);
-                  font-size: 0.6rem;
-                  padding: 0.15rem 0.5rem;
-                  border: 1px solid var(--color-edge-2);
-                  border-radius: 2px;
-                  color: var(--color-chalk-3);
-                  letter-spacing: 0.08em;
-                ">{tag}</span>
-              ))}
-            </div>
-
-            <div style="
-              font-family: var(--font-mono);
-              font-size: 0.75rem;
-              color: var(--color-gold);
-              display: flex;
-              align-items: center;
-              gap: 0.4rem;
-            ">
-              Explore Surface →
+            <div class="terminal">
+              <div class="terminal-bar">
+                <div class="terminal-dot"></div>
+                <div class="terminal-dot"></div>
+                <div class="terminal-dot"></div>
+                <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-chalk-3); margin-left: 0.5rem;">{name.toLowerCase()} demo</span>
+              </div>
+              <div class="terminal-body">
+                <pre style="margin: 0; white-space: pre-wrap; font-family: var(--font-mono); font-size: 0.75rem; line-height: 1.6; color: var(--color-chalk-2);">{demo}</pre>
+              </div>
             </div>
           </div>
-        </a>
-
-        <!-- Flow card -->
-        <a href="/flow" data-umami-event="home-product-card-flow" style="text-decoration: none;" class="card" style="
-          padding: 2.5rem;
-          display: block;
-          position: relative;
-          overflow: hidden;
-        ">
-          <div style="
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--color-cobalt-2), transparent);
-          "></div>
-
-          <div style="padding: 2.5rem;">
-            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
-              <div class="trust-badge trust-badge--proposed">concept</div>
-              <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-chalk-3);">@kontourai/flow</span>
-            </div>
-
-            <h3 class="display-md" style="color: var(--color-chalk); margin-bottom: 1rem;">
-              Flow
-            </h3>
-
-            <p style="
-              font-family: var(--font-mono);
-              font-size: 0.75rem;
-              color: var(--color-cobalt-2);
-              letter-spacing: 0.04em;
-              margin-bottom: 1.25rem;
-              line-height: 1.5;
-            ">PROCESS TRANSPARENCY · BUILT WITH SURFACE</p>
-
-            <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.7; margin-bottom: 2rem;">
-              Flow keeps AI and automation on the required path by making each
-              important transition evidence-backed, inspectable, and resumable
-              across the tools that already run the work.
-            </p>
-
-            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem;">
-              {['steps', 'gates', 'transitions', 'evidence', 'exceptions'].map(tag => (
-                <span key={tag} style="
-                  font-family: var(--font-mono);
-                  font-size: 0.6rem;
-                  padding: 0.15rem 0.5rem;
-                  border: 1px solid var(--color-edge-2);
-                  border-radius: 2px;
-                  color: var(--color-chalk-3);
-                  letter-spacing: 0.08em;
-                ">{tag}</span>
-              ))}
-            </div>
-
-            <div style="
-              font-family: var(--font-mono);
-              font-size: 0.75rem;
-              color: var(--color-cobalt-2);
-              display: flex;
-              align-items: center;
-              gap: 0.4rem;
-            ">
-              Explore Flow →
-            </div>
-          </div>
-        </a>
-
-        <!-- Veritas card (first product built with Surface) -->
-        <a href="/veritas" data-umami-event="home-product-card-veritas" style="text-decoration: none;" class="card" style="
-          padding: 2.5rem;
-          display: block;
-          position: relative;
-          overflow: hidden;
-        ">
-          <div style="
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--color-green), transparent);
-          "></div>
-
-          <div style="padding: 2.5rem;">
-            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
-              <div class="trust-badge trust-badge--verified">v0.4.0</div>
-              <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-chalk-3);">@kontourai/veritas</span>
-            </div>
-
-            <h3 class="display-md" style="color: var(--color-chalk); margin-bottom: 1rem;">
-              Veritas
-            </h3>
-
-            <p style="
-              font-family: var(--font-mono);
-              font-size: 0.75rem;
-              color: var(--color-green);
-              letter-spacing: 0.04em;
-              margin-bottom: 1.25rem;
-              line-height: 1.5;
-            ">MERGE AUTONOMY FOR AI-AUTHORED CODE · BUILT WITH SURFACE</p>
-
-            <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.7; margin-bottom: 2rem;">
-              Veritas turns repo standards into evidence-backed readiness reports,
-              boundary guidance, and merge gates so AI-authored changes can move
-              quickly without making humans re-review every implementation detail.
-            </p>
-
-            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem;">
-              {['repo-standards', 'repo-map', 'if-changed', 'evidence-checks'].map(tag => (
-                <span key={tag} style="
-                  font-family: var(--font-mono);
-                  font-size: 0.6rem;
-                  padding: 0.15rem 0.5rem;
-                  border: 1px solid var(--color-edge-2);
-                  border-radius: 2px;
-                  color: var(--color-chalk-3);
-                  letter-spacing: 0.08em;
-                ">{tag}</span>
-              ))}
-            </div>
-
-            <div style="
-              font-family: var(--font-mono);
-              font-size: 0.75rem;
-              color: var(--color-green);
-              display: flex;
-              align-items: center;
-              gap: 0.4rem;
-            ">
-              Explore Veritas →
-            </div>
-          </div>
-        </a>
-
-      </div>
-
-      <p style="
-        text-align: center;
-        margin-top: 2.5rem;
-        font-family: var(--font-mono);
-        font-size: 0.72rem;
-        color: var(--color-chalk-3);
-        letter-spacing: 0.05em;
-      ">
-        Surface makes claims inspectable. Flow makes required process paths inspectable.
-        Veritas makes AI-authored code changes inspectable. Each product can stand
-        alone, and together they form Kontour's transparency layer.
-      </p>
-    </div>
-  </section>
-
-  <!-- ──────────────────────────────────────────────────────
-       Philosophy
-  ────────────────────────────────────────────────────────── -->
-  <section style="
-    padding: 7rem var(--spacing-page);
-    border-top: 1px solid var(--color-edge);
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  ">
-    <div style="
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 50% 100%, rgba(201,163,90,0.035) 0%, transparent 65%);
-      pointer-events: none;
-    "></div>
-
-    <div style="max-width: 760px; margin: 0 auto; position: relative; z-index: 1;">
-      <div class="label-sm" style="margin-bottom: 2rem; color: var(--color-gold);">Philosophy</div>
-
-      <blockquote style="
-        font-family: var(--font-display);
-        font-size: clamp(1.8rem, 3.5vw, 3rem);
-        font-weight: 300;
-        font-style: italic;
-        color: var(--color-chalk);
-        line-height: 1.2;
-        letter-spacing: -0.02em;
-        margin: 0 0 2rem;
-      ">
-        "Evidence-backed<br />
-        confidence.<br />
-        Not certainty theater."
-      </blockquote>
-
-      <p style="
-        color: var(--color-chalk-3);
-        font-size: 0.9rem;
-        line-height: 1.75;
-        max-width: 520px;
-        margin: 0 auto;
-      ">
-        Surface does not promise objective truth. It exposes the Evidence Trace,
-        the Policy, and the current Trust Snapshot. If a Claim is weak, stale,
-        missing support, or in Conflict, the gap stays visible.
-      </p>
-    </div>
-  </section>
-
-  <!-- ──────────────────────────────────────────────────────
-       Quick install
-  ────────────────────────────────────────────────────────── -->
-  <section style="
-    padding: 5rem var(--spacing-page);
-    border-top: 1px solid var(--color-edge);
-  ">
-    <div style="max-width: 1280px; margin: 0 auto;">
-      <div style="
-        display: grid;
-        grid-template-columns: 1fr 1.2fr;
-        gap: 4rem;
-        align-items: center;
-      ">
-        <div>
-          <div class="label-sm" style="margin-bottom: 1.5rem; color: var(--color-green);">Get started</div>
-          <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 1rem;">
-            Wire Veritas into<br />your repo in minutes.
-          </h2>
-          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.7; margin-bottom: 2rem;">
-            Bootstrap your Repo Standards and Repo Map, define evidence checks,
-            and get readiness feedback straight into your AI agent's context.
-          </p>
-          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-            <a href="/veritas" class="btn-primary" data-umami-event="home-final-read-docs">Read the docs →</a>
-            <a href="https://github.com/kontourai/veritas" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="home-final-github-veritas">GitHub</a>
-          </div>
-        </div>
-
-        <!-- Terminal -->
-        <div class="terminal">
-          <div class="terminal-bar">
-            <div class="terminal-dot"></div>
-            <div class="terminal-dot"></div>
-            <div class="terminal-dot"></div>
-            <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-chalk-3); margin-left: 0.5rem; letter-spacing: 0.05em;">veritas — setup</span>
-          </div>
-          <div class="terminal-body">
-            <p><span class="prompt">$ </span><span class="cmd">npm install -D @kontourai/veritas</span></p>
-            <p style="color: var(--color-chalk-3); margin: 0.25rem 0;">  added 1 package in 0.8s</p>
-            <br />
-            <p><span class="prompt">$ </span><span class="cmd">npx veritas init</span></p>
-            <p class="pass">  ✓ detected repo shape</p>
-            <p class="pass">  ✓ wrote Repo Map</p>
-            <p class="pass">  ✓ wrote Repo Standards</p>
-            <p class="pass">  ✓ guidance added to CLAUDE.md, AGENTS.md</p>
-            <br />
-            <p><span class="prompt">$ </span><span class="cmd">npx veritas readiness --working-tree</span></p>
-            <p class="info">  [readiness] 2 requirements checked, 1 pass, 1 warn</p>
-            <p class="warn">  WARN  api-change-tests: src/api/ changed — tests/api/ must also appear</p>
-            <p class="muted">  evidence written → .veritas/evidence/</p>
-          </div>
-        </div>
-      </div>
+        </article>
+      ))}
     </div>
   </section>
 
@@ -547,16 +158,8 @@ import Footer from '@/components/Footer.astro';
 </Layout>
 
 <style>
-  @media (max-width: 768px) {
-    section > div > div[style*="grid-template-columns: 1fr 1fr"] {
-      display: flex !important;
-      flex-direction: column !important;
-    }
-    section > div > div[style*="grid-template-columns: repeat(3, 1fr)"] {
-      display: flex !important;
-      flex-direction: column !important;
-    }
-    section > div > div[style*="grid-template-columns: 1fr 1.2fr"] {
+  @media (max-width: 900px) {
+    article > div[style*="grid-template-columns"] {
       display: flex !important;
       flex-direction: column !important;
     }

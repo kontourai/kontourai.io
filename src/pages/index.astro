@@ -5,8 +5,8 @@ import Footer from '@/components/Footer.astro';
 ---
 
 <Layout
-  title="Kontour AI — Transparency building blocks for the AI era"
-  description="Kontour AI is building transparency infrastructure that helps humans and agents inspect the evidence behind AI-era claims, decisions, and work."
+  title="Kontour AI — Show the work behind AI"
+  description="Kontour AI shows the work behind AI."
 >
   <Nav active="home" />
 
@@ -16,7 +16,7 @@ import Footer from '@/components/Footer.astro';
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 8rem var(--spacing-page) 6rem;
+    padding: 8rem var(--spacing-page) 5rem;
     overflow: hidden;
   ">
     <div style="
@@ -34,7 +34,7 @@ import Footer from '@/components/Footer.astro';
     <div style="max-width: 1180px; margin: 0 auto; width: 100%; position: relative; z-index: 1;">
       <div class="animate-fade-up" style="margin-bottom: 2.25rem;">
         <span class="label-sm">Kontour AI</span>
-        <span style="margin: 0 0.75rem; color: var(--color-edge-2);">—</span>
+        <span style="margin: 0 0.75rem; color: var(--color-edge-2);">-</span>
         <span class="label-sm" style="color: var(--color-gold);">Building in progress</span>
       </div>
 
@@ -43,77 +43,102 @@ import Footer from '@/components/Footer.astro';
         color: var(--color-chalk);
         margin-bottom: 1.5rem;
       ">
-        Transparency<br />
-        building blocks<br />
-        for the AI era.
+        Show the work<br />
+        behind AI.
       </h1>
 
       <p class="animate-fade-up delay-200" style="
         font-family: var(--font-sans);
         font-size: clamp(1rem, 1.8vw, 1.2rem);
         color: var(--color-chalk-2);
-        max-width: 620px;
+        max-width: 680px;
         line-height: 1.7;
         margin-bottom: 2.5rem;
         font-weight: 400;
       ">
-        AI systems can now summarize, recommend, approve, ship, and act faster
-        than humans can manually inspect. Kontour is building the infrastructure
-        that shows the evidence, process state, and readiness signals behind
-        what people and agents are asked to trust.
+        Agents write code, run processes, and make claims faster than people
+        can review them. Kontour AI is building the products that show what
+        was claimed, what supports it, which gates the work passed, and
+        what's still uncertain - so anyone can decide whether the work
+        deserves trust before acting on it.
       </p>
 
       <div class="animate-fade-up delay-300" style="display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center;">
-        <a href="https://github.com/kontourai" target="_blank" rel="noopener" class="btn-primary" data-umami-event="home-hero-github">Follow the build →</a>
+        <a href="https://github.com/kontourai" target="_blank" rel="noopener" class="btn-primary" data-umami-event="home-hero-github">Follow the build -></a>
         <a href="mailto:hello@kontour.ai" class="btn-ghost" data-umami-event="home-hero-contact">Get in touch</a>
       </div>
+    </div>
+  </section>
 
-      <div class="animate-fade-in delay-500" style="
+  <section style="
+    padding: 5rem var(--spacing-page);
+    border-top: 1px solid var(--color-edge);
+    background: var(--color-ink-1);
+  ">
+    <div style="max-width: 1280px; margin: 0 auto;">
+      <div style="max-width: 720px; margin-bottom: 3rem;">
+        <div class="label-sm" style="margin-bottom: 1rem; color: var(--color-gold);">Four products. One shared promise.</div>
+        <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 1rem;">
+          Surface and Flow are the substrates. Veritas and Flow Agents are the AI-specific products built on top.
+        </h2>
+      </div>
+
+      <div style="
         display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(4, 1fr);
         gap: 1rem;
-        margin-top: 4.5rem;
-        padding-top: 2.5rem;
-        border-top: 1px solid var(--color-edge);
       ">
         {[
           {
-            label: 'Claims',
-            body: 'What was asserted, what supports it, and what gap should stay visible.',
+            href: '/surface',
+            name: 'Surface',
+            badge: 'v0.4',
             color: 'var(--color-gold)',
+            body: "The shared foundation under Kontour's products. One shape for claims, evidence, freshness, and gaps so the same trust state can be read by a person, an agent, or another system.",
           },
           {
-            label: 'Processes',
-            body: 'Which path was required, which gate passed, and why work advanced.',
+            href: '/flow',
+            name: 'Flow',
+            badge: 'v0.1',
             color: 'var(--color-cobalt-2)',
+            body: 'Process transparency for any required-path work. Flow shows why a process was allowed to move forward - gate by gate, with the evidence behind each transition.',
           },
           {
-            label: 'Changes',
-            body: 'Whether AI-authored work has enough evidence to move forward.',
+            href: '/veritas',
+            name: 'Veritas',
+            badge: 'v0.4',
             color: 'var(--color-green)',
+            body: "Merge autonomy for AI-authored code. Veritas turns your repo's standards into evidence-backed readiness reports the agent reads back.",
           },
-        ].map(({ label, body, color }) => (
-          <div style="
-            background: rgba(12, 15, 25, 0.72);
-            border: 1px solid var(--color-edge);
-            border-radius: 6px;
-            padding: 1.25rem;
-          ">
+          {
+            href: '/flow-agents',
+            name: 'Flow Agents',
+            badge: 'coming soon',
+            color: 'var(--color-chalk-2)',
+            body: 'Keep your coding agent on the required path across Claude Code, Codex, Kiro, and GitHub Actions. Flow Agents brings Flow-backed workflows and Kontour evidence into the agent tools you already use.',
+          },
+        ].map(({ href, name, badge, color, body }) => (
+          <a href={href} class="card" style="padding: 1.5rem; text-decoration: none; position: relative; overflow: hidden;">
             <div style={`
-              font-family: var(--font-mono);
-              font-size: 0.7rem;
-              color: ${color};
-              letter-spacing: 0.08em;
-              text-transform: uppercase;
-              margin-bottom: 0.75rem;
-            `}>{label}</div>
-            <p style="
-              color: var(--color-chalk-3);
-              font-size: 0.84rem;
-              line-height: 1.65;
-              margin: 0;
-            ">{body}</p>
-          </div>
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              height: 2px;
+              background: linear-gradient(90deg, ${color}, transparent);
+            `}></div>
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; margin-bottom: 1.25rem;">
+              <h3 style="
+                font-family: var(--font-display);
+                font-size: 1.45rem;
+                font-weight: 400;
+                color: var(--color-chalk);
+                margin: 0;
+              ">{name}</h3>
+              <span class="trust-badge trust-badge--proposed">{badge}</span>
+            </div>
+            <p style="color: var(--color-chalk-2); font-size: 0.86rem; line-height: 1.65; margin: 0;">{body}</p>
+          </a>
         ))}
       </div>
     </div>
@@ -140,8 +165,15 @@ import Footer from '@/components/Footer.astro';
 </Layout>
 
 <style>
-  @media (max-width: 768px) {
-    section div[style*="grid-template-columns: repeat(3"] {
+  @media (max-width: 1000px) {
+    section div[style*="grid-template-columns: repeat(4"] {
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+  }
+
+  @media (max-width: 640px) {
+    section div[style*="grid-template-columns: repeat(4"] {
       display: flex !important;
       flex-direction: column !important;
     }

@@ -1,8 +1,8 @@
 # Kontour AI Product Line Vision
 
-Kontour AI builds transparency building blocks for the AI era.
+Kontour AI shows the work behind AI.
 
-AI systems can now summarize, recommend, approve, ship, transform, and act faster than humans can manually inspect. The company's opportunity is not to build another agent runtime. It is to make the work behind AI-mediated decisions visible enough that humans and agents can decide what to trust, where to pause, and what needs stronger evidence.
+Agents now act, decide, summarize, recommend, and ship faster than humans can manually inspect. Kontour AI builds the products that show the work behind every step — what was claimed, what evidence supports it, which gates the work passed, and what's still uncertain — so humans and other agents can decide what to trust, where to pause, and what needs stronger evidence.
 
 ## Core Promise
 
@@ -13,7 +13,7 @@ This is the connective tissue across the product line:
 - **Surface** makes claims inspectable.
 - **Flow** makes required process paths inspectable.
 - **Veritas** makes code/change readiness inspectable.
-- A future **agent workflow layer** will apply those primitives inside the agent tools people already use.
+- **Flow Agents** applies those primitives inside the agent tools people already use.
 
 ## Why This Is Different
 
@@ -79,9 +79,9 @@ Veritas answers: "Is this code change ready to merge under this repo's standards
 
 Veritas can provide evidence to Flow gates in development workflows.
 
-### Agent workflow layer
+### Flow Agents
 
-The agent workflow layer is not publicly named yet. It should eventually own the agent-facing distribution:
+Keep your coding agent on the required path across Claude Code, Codex, Kiro, and GitHub Actions. Flow Agents brings Flow-backed workflows and Kontour evidence into the agent tools you already use. It should own the agent-facing distribution:
 
 - Work modes
 - Skills
@@ -99,18 +99,20 @@ It can consume Flow to enforce workflow state across Codex, Claude Code, Kiro, G
 
 ```text
 Surface
-  Trust substrate for claims and evidence.
-
-Flow
-  Process transparency built with Surface.
+  Shared transparency foundation.
+  Claims, evidence, freshness, gaps, policies, trust snapshots.
 
 Veritas
-  Repo/change transparency built with Surface.
-  Can act as a Flow evidence provider.
+  AI-authored code vertical built on Surface.
+  Repo standards, requirements, evidence checks, readiness reports.
 
-Agent workflow layer
-  Agent-facing workflow distribution.
-  Can consume Flow and Veritas.
+Flow
+  Process transparency substrate.
+  Steps, gates, transitions, runs, exceptions, Flow Reports.
+
+Flow Agents
+  AI agentic-work vertical built on Flow + Veritas.
+  Work modes, skills, runtime adapters, hooks, console.
 ```
 
 This keeps every product focused while allowing them to reinforce each other.
@@ -121,7 +123,7 @@ Kontour's wedge is not "AI workflow automation."
 
 The stronger category is:
 
-> Transparency infrastructure for agentic systems.
+> Inspectability infrastructure for AI-assisted work.
 
 That category includes:
 
@@ -137,23 +139,23 @@ That category includes:
 
 ### Company
 
-Kontour AI builds transparency building blocks for the AI era.
+Kontour AI shows the work behind AI.
 
 ### Surface
 
-Surface shows the evidence behind product claims.
+The shared foundation under Kontour's products. One shape for claims, evidence, freshness, and gaps so the same trust state can be read by a person, an agent, or another system.
 
 ### Flow
 
-Flow shows why work was allowed to move forward.
+Process transparency for any required-path work. Flow shows why a process was allowed to move forward — gate by gate, with the evidence behind each transition.
 
 ### Veritas
 
-Veritas shows whether an AI-authored code change is ready to merge.
+Merge autonomy for AI-authored code. Veritas turns your repo's standards into evidence-backed readiness reports the agent reads back.
 
-### Agent workflow layer
+### Flow Agents
 
-Coming soon: keeps agents on track inside the tools people already use.
+Keep your coding agent on the required path across Claude Code, Codex, Kiro, and GitHub Actions. Flow Agents brings Flow-backed workflows and Kontour evidence into the agent tools you already use.
 
 ## What To Avoid
 
@@ -176,7 +178,7 @@ The unique product motion combines:
 - Surface-style claims and evidence
 - Flow-style required-path gates
 - Veritas-style repo readiness
-- runtime-native workflow enforcement through a future agent workflow layer
+- runtime-native workflow enforcement through Flow Agents
 - OpenTelemetry-compatible traces
 - policy-as-code outputs where useful
 - human approvals that include context and authority
