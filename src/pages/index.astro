@@ -75,72 +75,57 @@ import Footer from '@/components/Footer.astro';
     border-top: 1px solid var(--color-edge);
     background: var(--color-ink-1);
   ">
-    <div style="max-width: 1280px; margin: 0 auto;">
-      <div style="max-width: 720px; margin-bottom: 3rem;">
-        <div class="label-sm" style="margin-bottom: 1rem; color: var(--color-gold);">Four products. One shared promise.</div>
-        <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 1rem;">
-          Surface and Flow are the substrates. Veritas and Flow Agents are the AI-specific products built on top.
-        </h2>
-      </div>
+    <div style="max-width: 820px; margin: 0 auto;">
+      <div class="label-sm" style="margin-bottom: 1.25rem; color: var(--color-gold);">What we're building</div>
+      <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 2rem; line-height: 1.15;">
+        Four products. One shared promise: show the work behind every step AI takes.
+      </h2>
 
-      <div style="
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 1rem;
-      ">
+      <div style="display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 2.5rem;">
         {[
           {
-            href: '/surface',
             name: 'Surface',
-            badge: 'v0.4',
             color: 'var(--color-gold)',
-            body: "The shared foundation under Kontour's products. One shape for claims, evidence, freshness, and gaps so the same trust state can be read by a person, an agent, or another system.",
+            body: "The shared transparency foundation under our products. One shape for claims, evidence, freshness, and gaps.",
           },
           {
-            href: '/flow',
             name: 'Flow',
-            badge: 'v0.1',
             color: 'var(--color-cobalt-2)',
-            body: 'Process transparency for any required-path work. Flow shows why a process was allowed to move forward - gate by gate, with the evidence behind each transition.',
+            body: 'Process transparency for any required-path work. Why work was allowed to advance - gate by gate, with the evidence behind each transition.',
           },
           {
-            href: '/veritas',
             name: 'Veritas',
-            badge: 'v0.4',
             color: 'var(--color-green)',
-            body: "Merge autonomy for AI-authored code. Veritas turns your repo's standards into evidence-backed readiness reports the agent reads back.",
+            body: "Merge autonomy for AI-authored code. Your repo's standards turned into evidence-backed readiness reports the agent reads back.",
           },
           {
-            href: '/flow-agents',
             name: 'Flow Agents',
-            badge: 'coming soon',
             color: 'var(--color-chalk-2)',
-            body: 'Keep your coding agent on the required path across Claude Code, Codex, Kiro, and GitHub Actions. Flow Agents brings Flow-backed workflows and Kontour evidence into the agent tools you already use.',
+            body: 'Keeping coding agents on the required path across Claude Code, Codex, Kiro, and GitHub Actions.',
           },
-        ].map(({ href, name, badge, color, body }) => (
-          <a href={href} class="card" style="padding: 1.5rem; text-decoration: none; position: relative; overflow: hidden;">
+        ].map(({ name, color, body }) => (
+          <div style="display: grid; grid-template-columns: 11rem 1fr; gap: 1.5rem; align-items: baseline; padding-bottom: 1.25rem; border-bottom: 1px solid var(--color-edge);">
             <div style={`
-              position: absolute;
-              top: 0;
-              left: 0;
-              right: 0;
-              height: 2px;
-              background: linear-gradient(90deg, ${color}, transparent);
-            `}></div>
-            <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; margin-bottom: 1.25rem;">
-              <h3 style="
-                font-family: var(--font-display);
-                font-size: 1.45rem;
-                font-weight: 400;
-                color: var(--color-chalk);
-                margin: 0;
-              ">{name}</h3>
-              <span class="trust-badge trust-badge--proposed">{badge}</span>
-            </div>
-            <p style="color: var(--color-chalk-2); font-size: 0.86rem; line-height: 1.65; margin: 0;">{body}</p>
-          </a>
+              font-family: var(--font-display);
+              font-size: 1.35rem;
+              font-weight: 400;
+              color: ${color};
+              letter-spacing: -0.01em;
+            `}>{name}</div>
+            <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.7; margin: 0;">{body}</p>
+          </div>
         ))}
       </div>
+
+      <p style="
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        color: var(--color-chalk-3);
+        letter-spacing: 0.02em;
+        margin: 0;
+      ">
+        Building in public. Follow along on GitHub for updates as each product ships.
+      </p>
     </div>
   </section>
 
