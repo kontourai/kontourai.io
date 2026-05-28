@@ -135,7 +135,7 @@ import Footer from '@/components/Footer.astro';
           { q: 'What does this product claim?', color: 'var(--color-chalk-2)' },
           { q: 'What evidence supports the claim, and where does it come from?', color: 'var(--color-chalk-2)' },
           { q: 'Is the verification still current?', color: 'var(--color-gold)' },
-          { q: "What's missing, stale, or in conflict - and what should happen before anyone acts on it?", color: 'var(--color-red)' },
+          { q: "What's missing, stale, or in conflict — and what should happen before anyone acts on it?", color: 'var(--color-red)' },
         ].map(({ q, color }, i) => (
           <div key={i} style="
             display: flex;
@@ -334,29 +334,6 @@ import Footer from '@/components/Footer.astro';
   </section>
 
   <!-- ──────────────────────────────────────────────────────
-       Products built with Surface
-  ────────────────────────────────────────────────────────── -->
-  <section style="
-    padding: 5rem var(--spacing-page);
-    border-top: 1px solid var(--color-edge);
-  ">
-    <div style="max-width: 1280px; margin: 0 auto;">
-      <div class="label-sm" style="margin-bottom: 1rem;">Products built with Surface</div>
-      <p style="
-        color: var(--color-chalk-3);
-        font-size: 0.95rem;
-        line-height: 1.65;
-        max-width: 760px;
-        margin: 0;
-        font-style: italic;
-      ">
-        Veritas is built with Surface. Anything that needs to show the work
-        behind a product claim can build with Surface too.
-      </p>
-    </div>
-  </section>
-
-  <!-- ──────────────────────────────────────────────────────
        Surface Console
   ────────────────────────────────────────────────────────── -->
   <section style="
@@ -385,11 +362,11 @@ import Footer from '@/components/Footer.astro';
           <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem;">
             {[
               { label: 'Run history', body: 'Switch between past runs in the toolbar to compare claim state before and after a change.' },
-              { label: 'Trust Panel', body: 'Open the viewer-facing trust state for a Claim without losing the operator context.' },
+              { label: 'Trust Panel', body: 'See the customer-facing view of any Claim alongside your full operator context.' },
               { label: 'Filtered chips', body: 'Filter Verified, Attention, or total Claims instantly while reviewing the current Trust Snapshot.' },
               { label: 'Claim Groups', body: 'Start from a framework, checklist, or requirement set, then drill into the Claims and Evidence that decide its status.' },
-              { label: 'Integrity scope', body: 'Inspect the source anchor, file fingerprints, and configuration hashes behind a verified claim.' },
-              { label: 'Master-detail', body: 'On desktop, selecting a claim opens a sticky side panel without hiding the list.' },
+              { label: 'Integrity scope', body: 'Inspect the source anchor and cryptographic fingerprints behind a verified claim.' },
+              { label: 'Side panel', body: 'Select any claim on desktop to open full detail in a side panel without losing your place in the list.' },
               { label: 'Transparency gaps', body: 'When evidence is missing, private, stale, or conflicting, the gap stays visible beside the Claim.' },
             ].map(({ label, body }) => (
               <div key={label} style="
