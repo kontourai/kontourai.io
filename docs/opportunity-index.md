@@ -8,6 +8,12 @@ materiality, temporal claims, multi-party adjudication), captured in
 `surface-derived-trust-primitives.md`. The products below kept dying on go-to-market while the
 primitives recurred — so several entries are "primitive yes, horizontal product no."
 
+That note also classifies each primitive (bake into existing products vs. new shared layer vs.
+vertical-only) and proposes **two new foundational products** — Curation (raw → verified claims)
+and Derivation (claims → derived claims, recompute-on-change) — making the platform four generic
+pieces (Curation, Surface, Derivation, Flow) that the tax and sales verticals consume rather than
+rebuild.
+
 | Project | Date | Workflow Archetype | Veritas Fit | Surface Fit | Classification | Key Lesson |
 | --- | --- | --- | --- | --- | --- | --- |
 | [Public Directory Data](opportunities/2026-04-25-public-directory-data.md) | 2026-04-25 | Public data trust; marketplace/transaction trust | Medium | High | downstream Surface producer candidate; product archetype reference | Public-data trust often lives at field level; blanks, attestations, provider rollups, crawl failures, and review flags need explicit semantics. |

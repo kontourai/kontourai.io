@@ -1,7 +1,8 @@
-# Surface Primitives: Derived Trust
+# Derived Trust: Primitives and Foundational Products
 
-Status: design exploration. Not shipped. Captures building blocks that
-repeated across multiple product explorations on 2026-05-29.
+Status: design exploration. Not shipped. Captures building blocks — and two
+candidate new products — that repeated across multiple product explorations on
+2026-05-29.
 
 ## Why this note exists
 
@@ -15,6 +16,13 @@ separate from any one product, because their value is as reusable building block
 The shift they enable: Surface moves from "show the work behind **a claim**" to "show the
 work behind **a conclusion built on many claims**" — the place where high-stakes decisions
 and real willingness-to-pay live.
+
+This note covers three decisions, not just a primitive list:
+1. The seven candidate primitives (below).
+2. Which primitives bake into existing products vs. become a new shared layer vs. stay
+   vertical-only (see "Disposition").
+3. Two capabilities large enough to be **their own foundational products** — Curation and
+   Derivation — with their boundaries (see "New foundational products").
 
 ## The boundary these primitives do NOT cross
 
@@ -107,6 +115,94 @@ Demanded by: the adversarial-substrate exploration (disputes, chargebacks, enfor
 Captured as a primitive; the research showed the *product* only adopts when a forum already
 compels both parties onto the record.
 
+## Disposition: bake-in vs. new layer vs. vertical-only
+
+The seven items above are not all the same kind of thing. The deciding test, from the
+product-line vision: **does it stay generic across every domain, and does it keep Surface's
+base schema small?** That sorts them into three buckets.
+
+### A. Bake into existing products (generic, foundation-level)
+
+These refine what Surface/Veritas already do and stay domain-neutral:
+
+- **Support-strength edge** → Surface core. Refines existing `Evidence.method` and the
+  `unsupported_inference` gap; promotes "cited vs. entails" to a first-class link.
+- **Held assumption** → Surface core. A small new status (`assumed`) beside
+  unknown/proposed/verified, that taints downstream via a derivation edge.
+- **Materiality** → Surface provides the *slot* (the Claim already carries impact); keep it
+  ordinal, not numeric, to respect the no-scores rule. Verticals calibrate the scale
+  (financial materiality ≠ deal materiality).
+- **Veritas** needs no new primitive — it is the proof case. The move is letting a Veritas
+  readiness verdict be consumed as a derived claim.
+
+### B. New shared layer, not Surface core (see Derivation Engine, below)
+
+- **Derivation edge** and **freshness propagation** are the multi-hop engine. They could be
+  bolted onto Surface, but a graph + recompute runtime would bloat a deliberately-thin claim
+  schema. Recommendation (resolves open question #3): keep Surface core single-hop and put
+  derivation in a separate foundation product. This preserves "base schema small" while giving
+  the big bets their engine.
+
+### C. Vertical-only — do NOT bake into the foundation
+
+These are *different trust shapes*, not generic extensions; putting them in the shared core
+would dilute its genericity.
+
+- **Temporal / resolvable claim** → pull into a vertical only when it needs track records. The
+  research verdict (horizontal monetization trap) is also the argument against making it core.
+- **Multi-party + adjudication** → the adversarial-substrate product only. Surface assumes a
+  single trusted producer; adversarial multi-party submission is a different model that would
+  complicate every other use case.
+
+## New foundational products (peers to Surface and Flow)
+
+The bake-in analysis surfaced two capabilities large and generic enough to be their own
+products — peers to Surface/Flow, not verticals like Veritas. Together with Surface and Flow
+they make the platform **four foundational pieces, not two**, and the tax and sales bets need
+only these four generic pieces plus their own domain rules and review UX — the strongest proof
+of the platform thesis.
+
+### Curation (raw → verified claims)
+
+The L1 ingestion engine: turn raw, messy, untrusted input into verified claims with provenance.
+
+- **Owns**: source ingestion, extraction, candidate resolution (dedupe, rank, conflict),
+  promotion from extracted → resolved → verified, and the human-review/attestation loop.
+- **Boundary**: Surface explicitly says producers collect their own evidence, so this is *out
+  of Surface's scope by design*. Curation produces the verified claims Surface then stores and
+  exposes. Domain extractors (tax forms, CRM signals, crawlers) are plugins; the resolution and
+  review machinery is shared.
+- **Why it's a product, not a vertical feature**: the `taxes` repo
+  (`ExtractedFact → ResolvedFact → VerifiedFact`) and the public-directory repo
+  (`crawl → proposal → field-source → attestation`) independently invented the same pipeline.
+  Two repos converging on one shape is the signal for a reusable primitive. Competitive research
+  on both tax and sales concluded the moat is this verified-fact spine, not the UI.
+
+### Derivation (claims → derived claims)
+
+The multi-hop trust graph and recompute runtime (bucket B above, as a standalone product).
+
+- **Owns**: derivation edges, weakest-link status propagation, freshness cascade,
+  recompute-on-change, and the counterfactual query ("if this input flips, which conclusions
+  flip?").
+- **Boundary**: Surface stores and exposes single claims and their direct evidence; Derivation
+  computes the claims that are *inferred from other claims* and keeps them current. Surface stays
+  single-hop and generic; Derivation is the optional graph layer on top.
+- **Why separate from Surface**: a graph/recompute engine is a different concern from a small,
+  inspectable claim schema. Keeping them apart honors the vision's "Surface remains generic and
+  small" constraint.
+
+Provisional product-line architecture:
+
+```text
+Curation     raw, untrusted input        -> verified claims + provenance
+Surface      verified claims             -> stored, inspectable single-hop trust state
+Derivation   claims                      -> derived claims (multi-hop, recompute-on-change)
+Flow         required-path process       -> evidence-gated transitions
+Veritas      repo standards (vertical)   -> merge readiness, built on the above
+Verticals    tax / sales / lineage       -> domain rules + review, built on Curation+Derivation
+```
+
 ## What this unlocks: the "living document" class
 
 The combination of derivation edges, freshness-as-state, and support-strength enables a class
@@ -137,7 +233,12 @@ useful residue is the primitives above.
   the likely throttle.
 - Should derivation method be a typed, inspectable object (sum, max, model, rule-application)
   or free-form?
-- Do these belong in Surface core, or in a `surface-derive` extension so the base schema stays
-  small?
+- Surface core vs. separate layer (was open): resolved above — Surface core stays single-hop;
+  derivation/recompute lives in a separate Derivation product. Remaining sub-question: does
+  Curation also warrant its own package now, or grow inside the first vertical until a second
+  vertical confirms the shared shape?
 - What is the smallest end-to-end slice — probably one vertical, one derivation depth of two —
   that proves the recompute-on-change behavior is real and valuable?
+- For the two new products: build Curation and Derivation as shared packages up front, or
+  extract them from the first vertical (tax or sales) once it works? Extraction-after-proof is
+  lower-risk but risks baking domain assumptions into the "generic" layer.
