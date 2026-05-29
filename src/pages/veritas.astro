@@ -300,6 +300,65 @@ import Footer from '@/components/Footer.astro';
   </section>
 
   <!-- ──────────────────────────────────────────────────────
+       In practice
+  ────────────────────────────────────────────────────────── -->
+  <section style="
+    padding: 5rem var(--spacing-page);
+    border-top: 1px solid var(--color-edge);
+    background: var(--color-ink-1);
+  ">
+    <div style="max-width: 1280px; margin: 0 auto;">
+      <div style="
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+      ">
+        <div>
+          <div class="label-sm" style="margin-bottom: 1.5rem; color: var(--color-green);">In practice</div>
+          <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 1.25rem;">
+            The catch you'd<br />otherwise miss.
+          </h2>
+          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.5rem;">
+            An agent rewrites an API handler but skips the test that covers it.
+            Instead of surfacing days later in review, Veritas flags the missing
+            evidence at the moment of change — and tells the agent exactly what
+            it needs before the work is submitted.
+          </p>
+          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin: 0;">
+            Reviewers spend their attention inspecting evidence, not
+            rediscovering the standard from a diff.
+          </p>
+        </div>
+
+        <div class="terminal">
+          <div class="terminal-bar">
+            <div class="terminal-dot"></div>
+            <div class="terminal-dot"></div>
+            <div class="terminal-dot"></div>
+            <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-chalk-3); margin-left: 0.5rem;">veritas readiness — blocked</span>
+          </div>
+          <div class="terminal-body">
+            <p><span class="prompt">$ </span><span class="cmd">npx veritas readiness --working-tree</span></p>
+            <br />
+            <p class="info">  veritas 0.4.0 — readiness</p>
+            <p class="muted">  repo standards: loaded</p>
+            <br />
+            <p class="pass">  PASS  change-boundaries: within work area</p>
+            <p class="warn">  BLOCK evidence-check: api handler changed, test missing</p>
+            <p style="color: var(--color-chalk-3); padding-left: 2rem; font-size: 0.72rem;">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ expected: test covering src/api/handler.ts
+            </p>
+            <br />
+            <p>  merge-readiness: <span class="warn">blocked — 1 requirement unmet</span></p>
+            <p class="muted">  next action: add the missing test, then re-run</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────
        CLI reference strip
   ────────────────────────────────────────────────────────── -->
   <section style="padding: 5rem var(--spacing-page);">
