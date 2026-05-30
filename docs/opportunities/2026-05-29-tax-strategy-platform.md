@@ -90,12 +90,12 @@ daily, and need defensible documentation for fiduciary/compliance reasons.
 This vertical should be thin — domain rules and review UX over generic foundation pieces (see
 `surface-derived-trust-primitives.md`). What it owns vs. consumes:
 
-- **Consumes Curation** for L1: document ingestion, form extraction, fact resolution, and the
+- **Consumes Survey** for L1: document ingestion, form extraction, fact resolution, and the
   human-review loop. The tax-form extractors are domain plugins; the resolution/review machinery
   is shared.
-- **Consumes Surface** to store and expose verified facts and their provenance.
-- **Consumes Derivation** for L2→L3: positions and recommendations as derived claims, with
-  weakest-link propagation and auto-stale on input change.
+- **Consumes Surface** to store and expose verified facts and their provenance, and (via Surface
+  derived trust) for L2→L3: positions and recommendations as derived claims, with weakest-link
+  propagation and auto-stale on input change.
 - **Consumes Veritas** to govern its own brittle code and the annual rule-change workflow
   (`.veritas` already present in the repo).
 - **Owns** (the actual product): the IRS-rule spine (machine-linkable, annually maintained), the

@@ -8,12 +8,13 @@ materiality, temporal claims, multi-party adjudication), captured in
 `surface-derived-trust-primitives.md`. The products below kept dying on go-to-market while the
 primitives recurred — so several entries are "primitive yes, horizontal product no."
 
-That note also classifies each primitive (bake into existing products vs. new shared layer vs.
-vertical-only) and proposes **two new foundational products** — Curation (raw → verified claims)
-and Derivation (claims → derived claims, recompute-on-change) — making the platform four generic
-pieces (Curation, Surface, Derivation, Flow) that the tax and sales verticals consume rather than
-rebuild. The phased build plan for those two products (across all repos, both verticals) lives in
-`build-plan-curation-derivation.md`.
+That note classifies each primitive (bake into existing products vs. Surface capability vs.
+vertical-only) and proposes **one new foundational product — Survey** (raw → verified claims).
+Multi-hop derived trust is a **Surface capability**, not a separate product (it never leaves
+Surface's claim vocabulary and Surface already derives across claims). The platform is three
+generic pieces — **Survey → Surface (now multi-hop) → Flow** — that the tax and sales verticals
+consume rather than rebuild. The phased build plan (across all repos, both verticals) lives in
+`build-plan-survey-derived-trust.md`.
 
 | Project | Date | Workflow Archetype | Veritas Fit | Surface Fit | Classification | Key Lesson |
 | --- | --- | --- | --- | --- | --- | --- |

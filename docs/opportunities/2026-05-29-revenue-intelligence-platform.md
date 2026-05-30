@@ -93,21 +93,21 @@ angle ("a forecast you can audit"), but RevOps is the land-and-expand entry.
 Like the tax vertical, this should be thin over generic foundation pieces (see
 `surface-derived-trust-primitives.md`):
 
-- **Consumes Curation** for L1: ingest raw signals (emails, calls, CRM, usage, news) and resolve
+- **Consumes Survey** for L1: ingest raw signals (emails, calls, CRM, usage, news) and resolve
   them into verified account facts. The signal extractors are domain plugins.
-- **Consumes Surface** to store/expose the verified facts and their freshness.
-- **Consumes Derivation** for L2→L3: deal state and forecast as derived claims, with
-  freshness-decaying confidence falling out of the freshness cascade.
+- **Consumes Surface** to store/expose the verified facts and their freshness, and (via Surface
+  derived trust) for L2→L3: deal state and forecast as derived claims, with freshness-decaying
+  confidence falling out of the freshness cascade.
 - **Owns** (the product): the sales-domain derivation logic (deal-state and forecast models),
   materiality calibration for deal value/risk, and the RevOps/CFO-facing audit and forecast UX.
 
 ## Durable moat
 
 Assume incumbents copy the drill-down UI within a year. The defensible moat is the
-fact-verification/provenance graph it consumes (Curation's verified L1 facts + Derivation's
-edges), plus the sales-domain logic it owns — not the UI. This is also why the generic Curation
-and Derivation layers are worth building once and reusing across verticals rather than rebuilding
-per product.
+fact-verification/provenance graph it consumes (Survey's verified L1 facts + Surface's derivation
+edges), plus the sales-domain logic it owns — not the UI. This is also why the generic Survey
+product and Surface's derived-trust capability are worth building once and reusing across verticals
+rather than rebuilding per product.
 
 ## Follow-up questions
 

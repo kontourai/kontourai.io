@@ -21,8 +21,9 @@ This note covers three decisions, not just a primitive list:
 1. The seven candidate primitives (below).
 2. Which primitives bake into existing products vs. become a new shared layer vs. stay
    vertical-only (see "Disposition").
-3. Two capabilities large enough to be **their own foundational products** — Curation and
-   Derivation — with their boundaries (see "New foundational products").
+3. One capability large enough to be **its own foundational product** — Survey — with its
+   boundary, plus why multi-hop derived trust is a Surface capability rather than a product
+   (see "New foundational product: Survey").
 
 ## The boundary these primitives do NOT cross
 
@@ -135,13 +136,17 @@ These refine what Surface/Veritas already do and stay domain-neutral:
 - **Veritas** needs no new primitive — it is the proof case. The move is letting a Veritas
   readiness verdict be consumed as a derived claim.
 
-### B. New shared layer, not Surface core (see Derivation Engine, below)
+### B. Surface capability (a Surface extension, not a separate product)
 
-- **Derivation edge** and **freshness propagation** are the multi-hop engine. They could be
-  bolted onto Surface, but a graph + recompute runtime would bloat a deliberately-thin claim
-  schema. Recommendation (resolves open question #3): keep Surface core single-hop and put
-  derivation in a separate foundation product. This preserves "base schema small" while giving
-  the big bets their engine.
+- **Derivation edge** and **freshness propagation** are the multi-hop engine. Earlier this note
+  floated them as a separate product ("Derivation"); on reflection that fails the product test
+  (see "Why derived trust is not its own product" below): its input and output are both Surface's
+  native Claim type, it has no domain-plugin surface, and Surface already derives across claims
+  (Claim Groups roll up; Trust Snapshots derive status; freshness already propagates). So this is
+  a **Surface capability**. The only real seam is runtime: if recompute-on-change needs a
+  long-running watcher rather than Surface's on-demand report model, ship it as an optional
+  `@kontourai/surface-derive` package — a sub-package, not a brand. This preserves "base schema
+  small" without inventing a product.
 
 ### C. Vertical-only — do NOT bake into the foundation
 
@@ -154,22 +159,22 @@ would dilute its genericity.
   single trusted producer; adversarial multi-party submission is a different model that would
   complicate every other use case.
 
-## New foundational products (peers to Surface and Flow)
+## New foundational product: Survey
 
-The bake-in analysis surfaced two capabilities large and generic enough to be their own
-products — peers to Surface/Flow, not verticals like Veritas. Together with Surface and Flow
-they make the platform **four foundational pieces, not two**, and the tax and sales bets need
-only these four generic pieces plus their own domain rules and review UX — the strongest proof
-of the platform thesis.
+The bake-in analysis surfaced **one** capability large and generic enough to be its own product
+(working name **Survey**) — a peer to Surface/Flow, not a vertical like Veritas. With Surface
+(now multi-hop) and Flow, the platform is **three foundational pieces**, and the tax and sales
+bets need only these three plus their own domain rules and review UX — the strongest proof of the
+platform thesis.
 
-### Curation (raw → verified claims)
+### Survey (raw → verified claims)
 
 The L1 ingestion engine: turn raw, messy, untrusted input into verified claims with provenance.
 
 - **Owns**: source ingestion, extraction, candidate resolution (dedupe, rank, conflict),
   promotion from extracted → resolved → verified, and the human-review/attestation loop.
 - **Boundary**: Surface explicitly says producers collect their own evidence, so this is *out
-  of Surface's scope by design*. Curation produces the verified claims Surface then stores and
+  of Surface's scope by design*. Survey produces the verified claims Surface then stores and
   exposes. Domain extractors (tax forms, CRM signals, crawlers) are plugins; the resolution and
   review machinery is shared.
 - **Why it's a product, not a vertical feature**: the `taxes` repo
@@ -178,29 +183,28 @@ The L1 ingestion engine: turn raw, messy, untrusted input into verified claims w
   Two repos converging on one shape is the signal for a reusable primitive. Competitive research
   on both tax and sales concluded the moat is this verified-fact spine, not the UI.
 
-### Derivation (claims → derived claims)
+### Why derived trust is NOT its own product
 
-The multi-hop trust graph and recompute runtime (bucket B above, as a standalone product).
+Multi-hop derivation was previously floated as a second product ("Derivation"). It fails the
+product test on both axes:
+- **No boundary crossing**: its input and output are both Surface's native Claim type — it never
+  leaves Surface's vocabulary. (Survey, by contrast, turns non-Surface raw input into claims.)
+- **No extensibility surface**: the methods (sum / max / model / rule-application) are generic and
+  few; there is no per-domain plugin ecosystem.
+- **Surface already derives**: Claim Groups roll claims up, Trust Snapshots derive status from
+  evidence, freshness already propagates. Multi-hop + cascade generalizes what Surface does.
 
-- **Owns**: derivation edges, weakest-link status propagation, freshness cascade,
-  recompute-on-change, and the counterfactual query ("if this input flips, which conclusions
-  flip?").
-- **Boundary**: Surface stores and exposes single claims and their direct evidence; Derivation
-  computes the claims that are *inferred from other claims* and keeps them current. Surface stays
-  single-hop and generic; Derivation is the optional graph layer on top.
-- **Why separate from Surface**: a graph/recompute engine is a different concern from a small,
-  inspectable claim schema. Keeping them apart honors the vision's "Surface remains generic and
-  small" constraint.
+So derived trust is a **Surface capability** (bucket B), optionally packaged as
+`@kontourai/surface-derive` if recompute needs a stateful runtime — a sub-package, not a brand.
 
 Provisional product-line architecture:
 
 ```text
-Curation     raw, untrusted input        -> verified claims + provenance
-Surface      verified claims             -> stored, inspectable single-hop trust state
-Derivation   claims                      -> derived claims (multi-hop, recompute-on-change)
+Survey       raw, untrusted input        -> verified claims + provenance
+Surface      verified + derived claims   -> stored, inspectable trust state (now multi-hop)
 Flow         required-path process       -> evidence-gated transitions
 Veritas      repo standards (vertical)   -> merge readiness, built on the above
-Verticals    tax / sales / lineage       -> domain rules + review, built on Curation+Derivation
+Verticals    tax / sales / lineage       -> domain rules + review, built on Survey + Surface
 ```
 
 ## What this unlocks: the "living document" class
@@ -233,12 +237,11 @@ useful residue is the primitives above.
   the likely throttle.
 - Should derivation method be a typed, inspectable object (sum, max, model, rule-application)
   or free-form?
-- Surface core vs. separate layer (was open): resolved above — Surface core stays single-hop;
-  derivation/recompute lives in a separate Derivation product. Remaining sub-question: does
-  Curation also warrant its own package now, or grow inside the first vertical until a second
-  vertical confirms the shared shape?
+- Derived trust as Surface core vs. optional package (was "core vs. separate product"): resolved
+  to a Surface *capability*; the remaining sub-question is in-core vs. `@kontourai/surface-derive`,
+  decided by whether recompute needs a stateful watcher.
 - What is the smallest end-to-end slice — probably one vertical, one derivation depth of two —
   that proves the recompute-on-change behavior is real and valuable?
-- For the two new products: build Curation and Derivation as shared packages up front, or
-  extract them from the first vertical (tax or sales) once it works? Extraction-after-proof is
-  lower-risk but risks baking domain assumptions into the "generic" layer.
+- For Survey: build as a shared package up front, or extract from the first vertical (tax) once it
+  works? Extraction-after-proof is lower-risk but risks baking domain assumptions into the
+  "generic" layer (see the build plan's Phase 4/5 genericity gate).
