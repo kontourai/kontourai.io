@@ -12,7 +12,8 @@ That note also classifies each primitive (bake into existing products vs. new sh
 vertical-only) and proposes **two new foundational products** — Curation (raw → verified claims)
 and Derivation (claims → derived claims, recompute-on-change) — making the platform four generic
 pieces (Curation, Surface, Derivation, Flow) that the tax and sales verticals consume rather than
-rebuild.
+rebuild. The phased build plan for those two products (across all repos, both verticals) lives in
+`build-plan-curation-derivation.md`.
 
 | Project | Date | Workflow Archetype | Veritas Fit | Surface Fit | Classification | Key Lesson |
 | --- | --- | --- | --- | --- | --- | --- |
