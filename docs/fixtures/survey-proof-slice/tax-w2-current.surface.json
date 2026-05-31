@@ -1,0 +1,173 @@
+{
+  "schemaVersion": 3,
+  "source": "survey-proof-slice.tax-w2-current",
+  "claims": [
+    {
+      "id": "tax-2025-w2-acme-wages",
+      "subjectType": "tax.household-year",
+      "subjectId": "household-demo:2025",
+      "surface": "tax.return-prep",
+      "claimType": "tax.source-fact",
+      "fieldOrBehavior": "w2.wages",
+      "value": 82000,
+      "status": "verified",
+      "createdAt": "2026-05-31T00:00:00.000Z",
+      "updatedAt": "2026-05-31T00:00:00.000Z",
+      "impactLevel": "high",
+      "confidenceBasis": {
+        "sourceQuality": "strong",
+        "extractionConfidence": 0.96,
+        "reviewerAuthority": "operator",
+        "evidenceStrength": "strong",
+        "impactLevel": "high"
+      },
+      "metadata": {
+        "survey": {
+          "rawSourceId": "raw-tax-w2-acme-2025",
+          "extractionId": "extract-tax-w2-acme-2025-wages",
+          "resolvedValueId": "resolve-tax-w2-acme-2025-wages",
+          "reviewOutcomeId": "review-tax-w2-acme-2025-wages"
+        }
+      }
+    },
+    {
+      "id": "tax-2025-w2-acme-federal-withholding",
+      "subjectType": "tax.household-year",
+      "subjectId": "household-demo:2025",
+      "surface": "tax.return-prep",
+      "claimType": "tax.source-fact",
+      "fieldOrBehavior": "w2.federalIncomeTaxWithheld",
+      "value": 9100,
+      "status": "verified",
+      "createdAt": "2026-05-31T00:00:00.000Z",
+      "updatedAt": "2026-05-31T00:00:00.000Z",
+      "impactLevel": "high",
+      "confidenceBasis": {
+        "sourceQuality": "strong",
+        "extractionConfidence": 0.94,
+        "reviewerAuthority": "operator",
+        "evidenceStrength": "strong",
+        "impactLevel": "high"
+      },
+      "metadata": {
+        "survey": {
+          "rawSourceId": "raw-tax-w2-acme-2025",
+          "extractionId": "extract-tax-w2-acme-2025-federal-withholding",
+          "resolvedValueId": "resolve-tax-w2-acme-2025-federal-withholding",
+          "reviewOutcomeId": "review-tax-w2-acme-2025-federal-withholding"
+        }
+      }
+    },
+    {
+      "id": "tax-2025-derived-withholding-position",
+      "subjectType": "tax.household-year",
+      "subjectId": "household-demo:2025",
+      "surface": "tax.return-prep",
+      "claimType": "tax.derived-position",
+      "fieldOrBehavior": "withholdingPosition",
+      "value": {
+        "wages": 82000,
+        "federalIncomeTaxWithheld": 9100,
+        "position": "withholding-present"
+      },
+      "status": "verified",
+      "createdAt": "2026-05-31T00:00:00.000Z",
+      "updatedAt": "2026-05-31T00:00:00.000Z",
+      "impactLevel": "high",
+      "derivedFrom": [
+        "tax-2025-w2-acme-wages",
+        "tax-2025-w2-acme-federal-withholding"
+      ],
+      "confidenceBasis": {
+        "sourceQuality": "strong",
+        "reviewerAuthority": "system",
+        "evidenceStrength": "moderate",
+        "impactLevel": "high"
+      },
+      "metadata": {
+        "derivation": {
+          "method": "rule-application",
+          "rule": "withholdingPosition = present when federalIncomeTaxWithheld > 0"
+        }
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "id": "evidence-tax-w2-acme-2025-wages",
+      "claimId": "tax-2025-w2-acme-wages",
+      "evidenceType": "document_citation",
+      "method": "extraction",
+      "sourceRef": "uploaded-document://taxes/household-demo/2025/acme-w2.pdf",
+      "sourceLocator": "pdf:page=1;box=1;label=Box 1 Wages",
+      "excerptOrSummary": "Box 1 Wages, tips, other compensation: 82000.00",
+      "observedAt": "2026-05-31T00:00:00.000Z",
+      "collectedBy": "survey-proof-slice",
+      "integrityRef": "sha256:demo-current-w2"
+    },
+    {
+      "id": "evidence-tax-w2-acme-2025-federal-withholding",
+      "claimId": "tax-2025-w2-acme-federal-withholding",
+      "evidenceType": "document_citation",
+      "method": "extraction",
+      "sourceRef": "uploaded-document://taxes/household-demo/2025/acme-w2.pdf",
+      "sourceLocator": "pdf:page=1;box=2;label=Box 2 Federal income tax withheld",
+      "excerptOrSummary": "Box 2 Federal income tax withheld: 9100.00",
+      "observedAt": "2026-05-31T00:00:00.000Z",
+      "collectedBy": "survey-proof-slice",
+      "integrityRef": "sha256:demo-current-w2"
+    },
+    {
+      "id": "evidence-tax-2025-derived-withholding-position",
+      "claimId": "tax-2025-derived-withholding-position",
+      "evidenceType": "calculation_trace",
+      "method": "validation",
+      "sourceRef": "survey-proof://tax/w2-current",
+      "excerptOrSummary": "Derived from W-2 wages and federal withholding claims.",
+      "observedAt": "2026-05-31T00:00:00.000Z",
+      "collectedBy": "survey-proof-slice"
+    }
+  ],
+  "policies": [],
+  "events": [
+    {
+      "id": "event-tax-2025-w2-acme-wages",
+      "claimId": "tax-2025-w2-acme-wages",
+      "status": "verified",
+      "actor": "tax-operator-demo",
+      "method": "human-review",
+      "evidenceIds": [
+        "evidence-tax-w2-acme-2025-wages"
+      ],
+      "createdAt": "2026-05-31T00:00:00.000Z",
+      "verifiedAt": "2026-05-31T00:00:00.000Z",
+      "notes": "Selected extracted Box 1 value from the uploaded W-2."
+    },
+    {
+      "id": "event-tax-2025-w2-acme-federal-withholding",
+      "claimId": "tax-2025-w2-acme-federal-withholding",
+      "status": "verified",
+      "actor": "tax-operator-demo",
+      "method": "human-review",
+      "evidenceIds": [
+        "evidence-tax-w2-acme-2025-federal-withholding"
+      ],
+      "createdAt": "2026-05-31T00:00:00.000Z",
+      "verifiedAt": "2026-05-31T00:00:00.000Z",
+      "notes": "Selected extracted Box 2 value from the uploaded W-2."
+    },
+    {
+      "id": "event-tax-2025-derived-withholding-position",
+      "claimId": "tax-2025-derived-withholding-position",
+      "status": "verified",
+      "actor": "tax-rule-engine-demo",
+      "method": "rule-application",
+      "evidenceIds": [
+        "evidence-tax-2025-derived-withholding-position"
+      ],
+      "createdAt": "2026-05-31T00:00:00.000Z",
+      "verifiedAt": "2026-05-31T00:00:00.000Z",
+      "notes": "Derived claim should never outrank the source W-2 claims."
+    }
+  ]
+}
