@@ -16,6 +16,12 @@ plus Veritas and the verticals, all consuming rather than rebuilding.
 Non-negotiable boundary, from the primitives note: **provenance, not veracity.** These bound and
 trace confidence; they do not manufacture correctness at the leaves.
 
+Shared format convention: new portable Survey, Surface, Flow, and Veritas records should follow
+the [Kontour Resource Shape](kontour-resource-shape.md). This is especially relevant for Survey
+review records and Surface integrity anchors: Survey can prove that its review trail was emitted
+and not silently changed, while Surface can store and expose the generic integrity anchor without
+claiming the underlying domain value is true.
+
 ## Why derived trust is Surface, not a product
 
 The test for a standalone product: does it cross a boundary Surface refuses to cross, and does it
@@ -43,7 +49,7 @@ without minting a separate product brand.
 
 | Repo / product | State | Role in this plan |
 | --- | --- | --- |
-| `kontourai/surface` (@kontourai/surface v0.4.1, TS) | shipped | Gains derived-trust (multi-hop edges, freshness cascade, recompute) plus the bake-ins (support-strength edge, `assumed` status, materiality slot). Heavy graph/recompute code may live in an optional `surface-derive` package. |
+| `kontourai/surface` (@kontourai/surface v0.5.0, TS) | shipped | Gains derived-trust (multi-hop edges, freshness cascade, recompute) plus the bake-ins (support-strength edge, `assumed` status, materiality slot). Heavy graph/recompute code may live in an optional `surface-derive` package. |
 | `kontourai/flow` (@kontourai/flow v0.1.0) | shipped | Can consume Survey-verified facts and Surface derived claims as gate evidence. Not on the critical path. |
 | `kontourai/veritas` (@kontourai/veritas v0.4.0, JS) | shipped | Already projects Repo Standards → Surface Claim Groups, requirements → claims. Becomes an early **derived-trust** proof: a readiness verdict is a claim derived from requirement claims. |
 | `kontourai/flow-agents` | private, soon | Consumes Flow. Out of scope. |

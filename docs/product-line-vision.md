@@ -117,6 +117,19 @@ Flow Agents
 
 This keeps every product focused while allowing them to reinforce each other.
 
+## Shared Resource Shape
+
+New portable Kontour records should follow the
+[Kontour Resource Shape](kontour-resource-shape.md): `apiVersion`, `kind`,
+`metadata`, `spec`, optional `status`, and optional `proof`.
+
+This convention gives Surface, Survey, Flow, Veritas, vertical products, and
+agents a consistent envelope for trust-bearing records without turning every
+product into the same product. Surface still owns claim and evidence
+transparency. Survey still owns producer-side review and provenance before the
+Surface boundary. Flow and Veritas use the same shape for their own process and
+readiness records.
+
 ## Market Position
 
 Kontour's wedge is not "AI workflow automation."
