@@ -97,10 +97,10 @@ Both proofs can now emit real Surface types from `@kontourai/surface`.
 | --- | --- | --- | --- |
 | Raw source | `UploadedDocument` with checksum and stored path | source URL from field source or proposal | `RawSource` |
 | Extraction | `ExtractedFact` with value/confidence/source type | `FieldDiff` with new value/confidence/excerpt/source URL | `Extraction` |
-| Candidate set | `ResolvedFact.candidates` | `CampChangeProposal.proposedChanges` | `CandidateSet` or `ResolvedValue` |
+| Candidate set | `ResolvedFact.candidates` | `CampChangeProposal.proposedChanges` | `CandidateSet` |
 | Review/promotion | `VerifiedFact` or unresolved proposed fact | approved `fieldSources` or pending/rejected proposal | `ReviewOutcome` |
 | Surface evidence | document citation | crawl observation | Surface projection helper |
-| Derived trust | W-2 source facts -> withholding position | not used yet for scalar field | Surface-owned |
+| Claim Dependency | W-2 source facts -> withholding position | not used yet for scalar field | Surface-owned |
 
 This is enough convergence to define a Survey contract.
 
