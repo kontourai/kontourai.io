@@ -1,9 +1,9 @@
 {
   "schemaVersion": 3,
-  "source": "survey-proof-slice.campfit-registration-status",
+  "source": "survey-proof-slice.public-directory-registration-status",
   "claims": [
     {
-      "id": "campfit-camp-demo-registration-status",
+      "id": "public-directory-camp-demo-registration-status",
       "subjectType": "public-directory.camp",
       "subjectId": "camp-demo",
       "surface": "public-directory.camp-profile",
@@ -24,12 +24,12 @@
       },
       "metadata": {
         "survey": {
-          "rawSourceId": "raw-campfit-camp-demo-homepage",
-          "extractionId": "extract-campfit-camp-demo-registration-status",
-          "resolvedValueId": "resolve-campfit-camp-demo-registration-status",
-          "reviewOutcomeId": "review-campfit-camp-demo-registration-status"
+          "rawSourceId": "raw-public-directory-camp-demo-homepage",
+          "extractionId": "extract-public-directory-camp-demo-registration-status",
+          "resolvedValueId": "resolve-public-directory-camp-demo-registration-status",
+          "reviewOutcomeId": "review-public-directory-camp-demo-registration-status"
         },
-        "campfit": {
+        "public-directory": {
           "fieldSource": {
             "sourceUrl": "https://example.org/camps/demo",
             "excerpt": "Registration is open for summer sessions.",
@@ -41,28 +41,28 @@
   ],
   "evidence": [
     {
-      "id": "evidence-campfit-camp-demo-registration-status",
-      "claimId": "campfit-camp-demo-registration-status",
+      "id": "evidence-public-directory-camp-demo-registration-status",
+      "claimId": "public-directory-camp-demo-registration-status",
       "evidenceType": "crawl_observation",
       "method": "extraction",
       "sourceRef": "https://example.org/camps/demo",
       "sourceLocator": "html:main >> text=/Registration is open/",
       "excerptOrSummary": "Registration is open for summer sessions.",
       "observedAt": "2026-05-31T00:00:00.000Z",
-      "collectedBy": "campfit-crawl-demo",
-      "integrityRef": "sha256:demo-campfit-registration-page"
+      "collectedBy": "public-directory-crawl-demo",
+      "integrityRef": "sha256:demo-public-directory-registration-page"
     }
   ],
   "policies": [],
   "events": [
     {
-      "id": "event-campfit-camp-demo-registration-status",
-      "claimId": "campfit-camp-demo-registration-status",
+      "id": "event-public-directory-camp-demo-registration-status",
+      "claimId": "public-directory-camp-demo-registration-status",
       "status": "verified",
-      "actor": "campfit-admin-demo",
+      "actor": "public-directory-admin-demo",
       "method": "field-source-approval",
       "evidenceIds": [
-        "evidence-campfit-camp-demo-registration-status"
+        "evidence-public-directory-camp-demo-registration-status"
       ],
       "createdAt": "2026-05-31T00:00:00.000Z",
       "verifiedAt": "2026-05-31T00:00:00.000Z",

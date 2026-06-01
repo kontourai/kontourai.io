@@ -11,19 +11,19 @@ derived-trust goals.
 Strategy lens:
 
 - `docs/product-line-vision.md`
-- `docs/surface-derived-trust-primitives.md`
-- `docs/build-plan-survey-derived-trust.md`
-- `docs/opportunities/2026-05-29-tax-strategy-platform.md`
-- `docs/opportunities/2026-04-25-taxes.md`
-- `docs/opportunities/2026-04-25-public-directory-data.md`
+- `docs/ideation/surface-derived-trust-primitives.md`
+- `docs/ideation/build-plan-survey-derived-trust.md`
+- `docs/ideation/opportunities/2026-05-29-regulated-advisory-platform.md`
+- `docs/ideation/opportunities/2026-04-25-regulated-document-workflows.md`
+- `docs/ideation/opportunities/2026-04-25-public-directory-data.md`
 
 Code audited read-only:
 
-- `briananderson1222/taxes` at `76adae2ff78c5c0034821125657ddd78088c3e94`
-- `briananderson1222/campfit` at `93659a251cf7d9a1a60e64567fb7afa6588681c7`
+- regulated-document proof source at a reviewed snapshot.
+- public-directory proof source at a reviewed snapshot.
 - `kontourai/surface` local sibling at `24954e615cf0e635ee863e15beefa68fc2d76aa6`
 
-Important caveat: `taxes` and `campfit` are prototype evidence sources. They
+Important caveat: the regulated-document proof and `public-directory` are proof inputs. They
 are useful because they independently reached similar ingestion and verification
 shapes. They are not authoritative designs and should not be treated as complete
 or correct.
@@ -40,7 +40,7 @@ raw source -> extraction -> candidate resolution -> review/promotion -> verified
 verified claim -> derived claim -> stale/recompute/change explanation
 ```
 
-The repo audit confirms the shape is real in both tax and public-directory data,
+The repo audit confirms the shape is real in both regulated and public-directory data,
 but the current implementations are still domain-shaped and uneven. The next
 step should be a small proof slice, not a new public Survey repo.
 
@@ -48,20 +48,20 @@ Recommended first implementation sequence:
 
 1. Surface Phase 0 bake-ins: support-strength, `assumed`, materiality.
 2. Surface derivation edge contract: typed input claims and method metadata.
-3. Tax proof: one W-2-like fact into a Surface claim, one derived tax position,
+3. Regulated proof: one source-document fact into a Surface claim, one derived derived compliance position,
    and a corrected-source stale/recompute path.
-4. Campfit genericity check: one crawl/proposal/field-source path mapped onto
+4. Public-directory product genericity check: one crawl/proposal/field-source path mapped onto
    the same Survey contract.
 5. Only then scaffold or promote `kontourai/survey`.
 
-The first proof artifact now lives in `docs/survey-proof-slice.md`, with
-Surface-compatible fixtures under `docs/fixtures/survey-proof-slice/`.
+The first proof artifact now lives in `docs/ideation/survey-proof-slice.md`, with
+Surface-compatible fixtures under `docs/ideation/fixtures/survey-proof-slice/`.
 
-## Taxes Alignment
+## Regulated document workflows Alignment
 
 ### What aligns well
 
-Taxes already has the core Survey spine:
+Regulated document workflows already has the core Survey spine:
 
 - `UploadedDocument` stores stable source identity: file name, stored path,
   checksum, document type, issuer, status, text content, and created time.
@@ -92,7 +92,7 @@ The reusable Survey boundary is not clean yet:
 - Confidence is used in resolution, but it is not a trust status. Survey must
   keep confidence as extractor evidence, then rely on review/promotion and
   Surface status for trust.
-- Resolution is tax-shaped. `ResolutionSource` includes tax-specific source
+- Resolution is regulated-shaped. `ResolutionSource` includes domain-specific source
   categories such as `prior_year_carry_forward` and document-confidence states.
 - Verification loses some source path detail. `VerifiedFact` keeps rationale but
   not the selected candidate, locator, source checksum, or evidence method.
@@ -102,33 +102,33 @@ The reusable Survey boundary is not clean yet:
 
 ### Best proof slice
 
-Use a W-2-like path because it already maps to the strategic example and creates
+Use a source-document path because it already maps to the strategic example and creates
 a clear downstream calculation.
 
 Proof target:
 
 ```text
-W-2 source
+source document source
   -> RawSource(checksum, stored path, observed time)
-  -> Extraction(wages, federal withholding, locator, confidence, method)
+  -> Extraction(wages, federal retained amount, locator, confidence, method)
   -> ResolvedValue(winner, candidates, rationale)
   -> VerifiedClaim(Surface-compatible claim + evidence)
-  -> Derived tax position from wages/withholding
-  -> Corrected W-2 stales/recomputes derived position
+  -> Derived derived compliance position from wages/retained amount
+  -> Corrected source document stales/recomputes derived position
 ```
 
-Do not try to extract all of Survey from taxes. The proof should first answer:
+Do not try to extract all of Survey from the regulated-document product. The proof should first answer:
 
 - What is the smallest generic `RawSource`?
 - What locator shape survives both PDF boxes and text extraction?
-- What resolution output is generic vs. tax-only?
+- What resolution output is generic vs. domain-only?
 - What must a verified fact carry so Surface can expose provenance later?
 
-## Campfit Alignment
+## Public-directory product Alignment
 
 ### What aligns well
 
-Campfit independently confirms the Survey pattern outside tax:
+Public-directory product independently confirms the Survey pattern outside regulated:
 
 - `FieldSource` stores excerpt, source URL, and approval timestamp.
 - Camp records carry `fieldSources`, `dataConfidence`, `lastVerifiedAt`, and
@@ -144,11 +144,11 @@ Campfit independently confirms the Survey pattern outside tax:
 - Blank fields have explicit semantics: a blank value can count as covered only
   when an admin attests it as intentionally reviewed.
 
-This is strong evidence that Survey is not only a tax feature.
+This is strong evidence that Survey is not only a regulated feature.
 
 ### What does not yet align
 
-Campfit is also prototype-shaped:
+Public-directory product is also prototype-shaped:
 
 - `FieldSource` is field-level but not a portable claim/evidence record.
 - Array fields such as schedules, pricing, and age groups are handled as whole
@@ -177,7 +177,7 @@ camp website URL
   -> VerifiedClaim(Surface-compatible public-data field claim)
 ```
 
-The Campfit check should specifically test Survey's non-tax semantics:
+The Public-directory product check should specifically test Survey's cross-domain semantics:
 
 - Source URL and excerpt locator instead of PDF page/box.
 - Blank value semantics: unknown vs unavailable vs intentionally not applicable.
@@ -295,14 +295,14 @@ Build the first proof without creating `kontourai/survey`:
 
 1. In `surface`, complete the small bake-ins that the proof needs:
    support-strength, `assumed`, and materiality/impact decision.
-2. In `taxes`, create or identify one fixture path for W-2 wages and federal
-   withholding.
+2. In the regulated-document proof, create or identify one fixture path for source document wages and federal
+   retained amount.
 3. Write a tiny adapter or fixture that maps that fact into Surface `TrustInput`
    with evidence method, source locator, and source identity.
-4. Add one derived claim representing a tax position or withholding result.
+4. Add one derived claim representing a derived compliance position or derived result.
 5. Change the source fact in the fixture and show the derived claim becoming
    stale or recompute-needed.
-6. Repeat the mapping for one Campfit field to test genericity.
+6. Repeat the mapping for one Public-directory product field to test genericity.
 
 Acceptance evidence should be fixtures and reports, not broad UI.
 
@@ -318,16 +318,16 @@ Existing issues are directionally right:
 - `kontourai/surface#16` recompute records
 - `kontourai/surface#17` counterfactual traversal
 - `kontourai/surface#18` Veritas readiness derived claim
-- `briananderson1222/taxes#1` tax proof slice
-- `briananderson1222/campfit#3` Campfit genericity check
+- regulated-document proof issue
+- `public-directory proof issue` Public-directory product genericity check
 
 Suggested issue refinement:
 
 - Update `surface#14` to acknowledge existing `derivedFrom` behavior and focus
   on structured derivation edges plus backward compatibility.
-- Keep `taxes#1` focused on one W-2-like path. Avoid pulling the full return
+- Keep `regulated-document-proof#1` focused on one source-document path. Avoid pulling the full return
   package into the first proof.
-- Keep `campfit#3` focused on one scalar public-data field first, then test
+- Keep `public-directory#3` focused on one scalar public-data field first, then test
   arrays/blanks/failures as follow-up slices.
 
 ## Open Decisions

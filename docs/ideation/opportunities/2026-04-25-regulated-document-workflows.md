@@ -1,6 +1,6 @@
-# Taxes
+# Regulated document workflows
 
-- Source: private tax workflow repository
+- Source: internal regulated workflow proof
 - Date analyzed: 2026-04-25
 - Workflow archetype: High-stakes fact verification; compliance and audit evidence
 - Opportunity classification: downstream Surface producer candidate; Veritas customer/use case; product archetype reference
@@ -8,12 +8,12 @@
 
 ## Summary
 
-`taxes` is a local household tax workflow for ingesting documents, resolving facts, calculating withholding, managing tax rules, and exposing the workflow through CLI, MCP, and web surfaces.
+The regulated-document workflow proof models a local regulated workflow for ingesting documents, resolving facts, calculating retained amount, managing regulated rules, and exposing the workflow through CLI, MCP, and web surfaces.
 
 It has two distinct trust layers:
 
 - Household fact verification: raw documents -> extracted facts -> resolved facts -> verified facts -> return package.
-- Managed rule provenance: official tax-rule sources -> extracted candidates -> reconciled values -> confirmed, discovered, or conflict-flagged rule data.
+- Managed rule provenance: official regulated-rule sources -> extracted candidates -> reconciled values -> confirmed, discovered, or conflict-flagged rule data.
 
 This repo is one of the strongest examples of high-stakes trust because wrong values can materially affect financial outcomes.
 
@@ -27,8 +27,8 @@ This repo is one of the strongest examples of high-stakes trust because wrong va
 - A verified fact is safe to use in calculations.
 - A return-package field is backed by citations, selected fact traces, rules, or assumptions.
 - A prepared return differs from generated calculations by a known amount.
-- A tax-rule value came from a specific official source URL, section, page, and snippet.
-- A managed tax-rule value is confirmed, provisional, discovered, or conflict-flagged.
+- A regulated-rule value came from a specific official source URL, section, page, and snippet.
+- A managed regulated-rule value is confirmed, provisional, discovered, or conflict-flagged.
 - A discovery workflow or manual override was used when deterministic source retrieval was blocked.
 
 ## Current Evidence And Validation
@@ -53,7 +53,7 @@ This repo is one of the strongest examples of high-stakes trust because wrong va
 
 ## Veritas Fit
 
-Taxes is a high Veritas fit because repo changes can weaken trust boundaries:
+Regulated document workflows is a high Veritas fit because repo changes can weaken trust boundaries:
 
 - If fact-resolution logic changes, tests should prove conflict handling, verification gating, and candidate ordering.
 - If return-package generation changes, citation and review-signal tests should change.
@@ -63,16 +63,16 @@ Taxes is a high Veritas fit because repo changes can weaken trust boundaries:
 
 ## Surface Fit
 
-Taxes is a high Surface fit because it already has claim/evidence/check/status semantics.
+Regulated document workflows is a high Surface fit because it already has claim/evidence/check/status semantics.
 
 Surface should be able to represent:
 
-- `tax-extracted-fact` claims from document parsing.
-- `tax-resolved-fact` claims that are proposed and may need verification.
-- `tax-verified-fact` claims promoted by user or system.
-- `tax-return-field` claims backed by citations, calculation traces, and selected facts.
-- `tax-assumption` claims that remain disputed or review-required.
-- `tax-rule-value` claims with source URL, section, page, status, and changelog.
+- `regulated-extracted-fact` claims from document parsing.
+- `regulated-resolved-fact` claims that are proposed and may need verification.
+- `regulated-verified-fact` claims promoted by user or system.
+- `regulated-return-field` claims backed by citations, calculation traces, and selected facts.
+- `regulated-assumption` claims that remain disputed or review-required.
+- `regulated-rule-value` claims with source URL, section, page, status, and changelog.
 - `rules-source-availability` claims for official source retrieval, fallback, discovery, blocked, or manual states.
 
 ## Product Ideas
@@ -97,4 +97,4 @@ Surface should be able to represent:
 - Should Surface add a first-class `materiality` field for review signals?
 - Should rule-source provenance become its own workflow archetype under compliance/audit evidence?
 - How should Surface model a value that is calculated correctly but depends on an assumption?
-- What is the simplest public explanation of raw -> resolved -> verified that non-tax users can understand quickly?
+- What is the simplest public explanation of raw -> resolved -> verified that cross-domain users can understand quickly?

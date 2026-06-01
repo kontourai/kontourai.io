@@ -61,7 +61,7 @@ It models Claims, Evidence, Evidence Traces, Policies, Trust Snapshots, Trust Pa
 Surface proves the Kontour thesis beyond code:
 
 - Public directories need sourced and fresh data.
-- Tax workflows need verified facts, citations, and review signals.
+- Regulated document workflows need verified facts, citations, and review signals.
 - Developer evidence, public-data evidence, and financial-fact evidence can share one transparency vocabulary without pretending they are the same domain.
 
 ### Kontourai.io
@@ -145,7 +145,7 @@ Initial categories:
 - Code review, CI governance, and software supply-chain evidence.
 - Open-source reputation and adoption metrics.
 - Public directories and marketplaces.
-- Tax, finance, insurance, and document-backed workflows.
+- Regulated, finance, insurance, and document-backed workflows.
 - Healthcare operations and care coordination.
 - Compliance and audit workflows.
 - Procurement and vendor-risk systems.
@@ -205,13 +205,13 @@ When reviewing a new project, analyze it through this lens:
 
 ## Tracking System
 
-Use this document as the human-readable working map. As the list grows, split detailed entries into `docs/opportunities/` and keep this file as the synthesis layer.
+Use this document as the human-readable working map. As the list grows, split detailed entries into `docs/ideation/opportunities/` and keep this file as the synthesis layer.
 
 Recommended structure:
 
-- `docs/kontour-vision-and-opportunities.md`: company thesis, foundation, synthesis, product update plan, and top opportunities.
-- `docs/opportunities/YYYY-MM-DD-project-slug.md`: one project analysis per file once entries become too long.
-- `docs/opportunity-index.md`: compact table of reviewed projects, categories, fit, and extracted lessons.
+- `docs/ideation/kontour-vision-and-opportunities.md`: company thesis, foundation, synthesis, product update plan, and top opportunities.
+- `docs/ideation/opportunities/YYYY-MM-DD-project-slug.md`: one project analysis per file once entries become too long.
+- `docs/ideation/opportunity-index.md`: compact table of reviewed projects, categories, fit, and extracted lessons.
 - `.codex/skills/kontour-opportunity/SKILL.md`: future-session workflow for link intake, corpus synthesis, and next-iteration planning.
 
 Use the skill as:
@@ -285,12 +285,12 @@ When enough entries accumulate, synthesize them into:
 
 ## Current Reviewed Projects
 
-See `docs/opportunity-index.md` for the compact list and `docs/opportunities/` for detailed entries.
+See `docs/ideation/opportunity-index.md` for the compact list and `docs/ideation/opportunities/` for detailed entries.
 
 Current seed entry:
 
-- [Public Directory Data](opportunities/2026-04-25-public-directory-data.md): public data trust and marketplace/transaction trust; strong Surface fit; shows that field-level sources, reviewed blanks, provider rollups, crawl failures, and review flags need explicit semantics.
-- [Dagster Fake Star Detector](opportunities/2026-04-25-dagster-fake-star-detector.md): reputation integrity; strong Surface fit; shows that Kontour needs to support heuristic, adversarial, time-bounded claims without collapsing suspicion into accusation.
+- [Public Directory Data](docs/ideation/opportunities/2026-04-25-public-directory-data.md): public data trust and marketplace/transaction trust; strong Surface fit; shows that field-level sources, reviewed blanks, provider rollups, crawl failures, and review flags need explicit semantics.
+- [Dagster Fake Star Detector](docs/ideation/opportunities/2026-04-25-dagster-fake-star-detector.md): reputation integrity; strong Surface fit; shows that Kontour needs to support heuristic, adversarial, time-bounded claims without collapsing suspicion into accusation.
 - Fact Resolution: high-stakes fact verification and compliance/audit evidence; strong Surface and Veritas fit; shows that generated artifacts need a chain from raw extraction to resolved candidate to verified fact to output, with assumptions and rule-source provenance preserved.
 
 ## Current Synthesis

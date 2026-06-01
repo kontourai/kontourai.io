@@ -4,7 +4,7 @@ Status: proof artifact. Created 2026-05-31.
 
 This document turns the Survey idea into a small, testable contract without
 creating a standalone Survey repo yet. It is intentionally narrower than the
-full product: prove that tax documents and public-directory crawls can both emit
+full product: prove that regulated documents and public-directory crawls can both emit
 the same raw-to-reviewed claim shape, then let Surface derive and explain
 downstream trust from those claims.
 
@@ -110,41 +110,41 @@ Current Surface compatibility gap: Surface does not yet accept `assumed`, so
 fixtures that need assumed semantics must either use `proposed` with metadata or
 wait for the Surface Phase 0 status addition.
 
-## Tax Proof
+## Regulated Document Proof
 
-Use one W-2-like source and two source facts:
+Use one source-document source and two source facts:
 
 - `wages`
 - `federalIncomeTaxWithheld`
 
-The vertical then derives a tax-position claim:
+The vertical then derives a regulated-position claim:
 
 ```text
-federalIncomeTaxWithheld >= expectedMinimumWithholding(wages)
+federalIncomeTaxWithheld >= expectedMinimumRetained amount(wages)
 ```
 
-The point is not tax correctness. The point is provenance:
+The point is not regulated correctness. The point is provenance:
 
 ```text
 uploaded document
-  -> extracted wages and withholding with source locators
+  -> extracted wages and retained amount with source locators
   -> resolved values
   -> reviewed facts
-  -> derived tax position
+  -> derived derived compliance position
   -> corrected source creates stale/recompute pressure
 ```
 
 Fixtures:
 
-- `docs/fixtures/survey-proof-slice/tax-w2-current.surface.json`
-- `docs/fixtures/survey-proof-slice/tax-w2-corrected.surface.json`
+- `docs/ideation/fixtures/survey-proof-slice/regulated-document-current.surface.json`
+- `docs/ideation/fixtures/survey-proof-slice/regulated-document-corrected.surface.json`
 
 The corrected fixture deliberately models the later state as a new source and
 new claims that supersede the earlier source in metadata. Surface still needs a
 first-class recompute/change-record model before this can become product
 behavior.
 
-## Campfit Proof
+## Public-directory product Proof
 
 Use one scalar public-directory field:
 
@@ -163,19 +163,19 @@ camp website URL
 
 Fixture:
 
-- `docs/fixtures/survey-proof-slice/campfit-registration-status.surface.json`
+- `docs/ideation/fixtures/survey-proof-slice/public-directory-registration-status.surface.json`
 
-This checks that Survey is not tax-specific: source URL, excerpt locator,
-crawl model, and field-level approval should fit the same contract as a tax
-document.
+This checks that Survey is not domain-specific: source URL, excerpt locator,
+crawl model, and field-level approval should fit the same contract as a
+regulated document.
 
 ## Acceptance Criteria
 
 The proof is sufficient to justify real implementation work when:
 
-- The tax fixture validates against current Surface input schema.
-- The Campfit fixture validates against current Surface input schema.
-- The corrected tax fixture makes the missing Surface recompute/change-record
+- The regulated fixture validates against current Surface input schema.
+- The Public-directory product fixture validates against current Surface input schema.
+- The corrected regulated fixture makes the missing Surface recompute/change-record
   behavior obvious without inventing it inside Survey.
 - At least one follow-up Surface issue is refined from "add derivation" to
   "formalize structured derivation edges and recompute records."
@@ -187,6 +187,6 @@ The proof is sufficient to justify real implementation work when:
 1. Add Surface Phase 0 bake-ins: support-strength, `assumed`, materiality alias
    or decision.
 2. Add structured derivation edges while preserving `derivedFrom: string[]`.
-3. Implement the W-2 fixture path inside `taxes`.
-4. Implement the Campfit scalar-field mapping against `campfit`.
+3. Implement the source document fixture path inside the regulated-document proof.
+4. Implement the Public-directory product scalar-field mapping against `public-directory`.
 5. Extract shared producer contract only after those two paths converge in code.

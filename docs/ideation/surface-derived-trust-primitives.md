@@ -8,7 +8,7 @@ candidate new products — that repeated across multiple product explorations on
 
 Surface today is single-hop: a Claim points to Evidence, and Evidence points to a
 Source. Claim Groups roll claims *up* (aggregation), but nothing models a claim that is
-*inferred from other claims*. Several product explorations — tax, sales, diligence,
+*inferred from other claims*. Several product explorations — regulated, sales, diligence,
 accountability ledgers, composed supply chains — independently hit the same wall and asked
 for the same handful of new primitives. They are captured here as a foundation candidate,
 separate from any one product, because their value is as reusable building blocks.
@@ -64,7 +64,7 @@ A claim that transitions to `stale` on its own timer or on an upstream change, a
 downstream derived claims to recompute. The temporal half of derived trust.
 
 Demanded by: sales forecasting ("last real buyer signal is 40 days old → confidence
-decays"), tax ("the W-2 changed → the Roth recommendation is stale"), compliance ("this
+decays"), regulated ("the source document changed → the strategy recommendation is stale"), compliance ("this
 control's evidence aged past its review window"). Competitive research found this is
 universally complained about and productized by no one — the strongest-validated primitive.
 
@@ -75,7 +75,7 @@ A typed link between Evidence and Claim that distinguishes "this source was cite
 to a first-class relationship.
 
 Demanded by: any RAG/answer/extraction flow (a retrieved passage is not the same as a
-supporting passage), tax (does this rule actually support this deduction?), diligence (does
+supporting passage), regulated (does this rule actually support this eligibility item?), diligence (does
 this filing actually support this metric?). This is the durable building block left behind
 when the thin "RAG trust layer" product idea was discarded.
 
@@ -85,7 +85,7 @@ An evidence-less value, deliberately used, that taints everything downstream so 
 claims carry the flag forward. Distinct from "unknown" (it is knowingly assumed) and from
 "verified" (it has no evidence).
 
-Demanded by: tax (`taxes.md` explicitly asked how to model a value that is calculated
+Demanded by: regulated (`the regulated-document product.md` explicitly asked how to model a value that is calculated
 correctly but depends on an assumption), any financial projection.
 
 ### 5. Materiality
@@ -94,7 +94,7 @@ A first-class signal of impact, so alerts, review queues, and (where relevant) r
 rank by consequence rather than by missingness. Not every stale or missing fact carries
 equal product risk.
 
-Demanded by: tax (`taxes.md` asked for a review queue ordered by materiality, not
+Demanded by: regulated (`the regulated-document product.md` asked for a review queue ordered by materiality, not
 missingness), composed chains (gap → materiality → price), sales (which stale fact actually
 threatens the forecast).
 
@@ -163,7 +163,7 @@ would dilute its genericity.
 
 The bake-in analysis surfaced **one** capability large and generic enough to be its own product
 (working name **Survey**) — a peer to Surface/Flow, not a vertical like Veritas. With Surface
-(now multi-hop) and Flow, the platform is **three foundational pieces**, and the tax and sales
+(now multi-hop) and Flow, the platform is **three foundational pieces**, and the regulated and sales
 bets need only these three plus their own domain rules and review UX — the strongest proof of the
 platform thesis.
 
@@ -175,13 +175,13 @@ The L1 ingestion engine: turn raw, messy, untrusted input into verified claims w
   promotion from extracted → resolved → verified, and the human-review/attestation loop.
 - **Boundary**: Surface explicitly says producers collect their own evidence, so this is *out
   of Surface's scope by design*. Survey produces the verified claims Surface then stores and
-  exposes. Domain extractors (tax forms, CRM signals, crawlers) are plugins; the resolution and
+  exposes. Domain extractors (regulated forms, CRM signals, crawlers) are plugins; the resolution and
   review machinery is shared.
-- **Why it's a product, not a vertical feature**: the `taxes` repo
+- **Why it's a product, not a vertical feature**: the regulated-document proof
   (`ExtractedFact → ResolvedFact → VerifiedFact`) and the public-directory repo
   (`crawl → proposal → field-source → attestation`) independently invented the same pipeline.
   Two repos converging on one shape is the signal for a reusable primitive. Competitive research
-  on both tax and sales concluded the moat is this verified-fact spine, not the UI.
+  on both regulated and sales concluded the moat is this verified-fact spine, not the UI.
 
 ### Why derived trust is NOT its own product
 
@@ -204,7 +204,7 @@ Survey       raw, untrusted input        -> verified claims + provenance
 Surface      verified + derived claims   -> stored, inspectable trust state (now multi-hop)
 Flow         required-path process       -> evidence-gated transitions
 Veritas      repo standards (vertical)   -> merge readiness, built on the above
-Verticals    tax / sales / lineage       -> domain rules + review, built on Survey + Surface
+Verticals    regulated / sales / lineage       -> domain rules + review, built on Survey + Surface
 ```
 
 ## What this unlocks: the "living document" class
@@ -215,7 +215,7 @@ of product that is not defined by domain but by behavior:
 > Any high-stakes artifact that is authored once but should **flinch when its inputs change** —
 > because every assertion in it is an edge in a graph that recomputes.
 
-A living tax return, a living research report, a living contract, a living forecast. This is
+A living regulated filing, a living research report, a living contract, a living forecast. This is
 the outside-the-box generalization of Veritas: Veritas makes *code* flinch when standards are
 not met; this class makes *conclusions* flinch when their evidence shifts.
 
@@ -242,6 +242,6 @@ useful residue is the primitives above.
   decided by whether recompute needs a stateful watcher.
 - What is the smallest end-to-end slice — probably one vertical, one derivation depth of two —
   that proves the recompute-on-change behavior is real and valuable?
-- For Survey: build as a shared package up front, or extract from the first vertical (tax) once it
+- For Survey: build as a shared package up front, or extract from the first regulated-document vertical once it
   works? Extraction-after-proof is lower-risk but risks baking domain assumptions into the
   "generic" layer (see the build plan's Phase 4/5 genericity gate).
