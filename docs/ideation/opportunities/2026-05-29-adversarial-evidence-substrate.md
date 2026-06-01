@@ -16,7 +16,7 @@ first-class; a neutral (human or agent) adjudicates from one inspectable record.
 ## Competitive landscape (researched 2026-05-29)
 
 Key analog: **Online Dispute Resolution** — Modria (eBay/PayPal spin-out, acquired by Tyler
-Technologies 2017) already runs neutral evidence exchange for property-tax appeals and several
+Technologies 2017) already runs neutral evidence exchange for property assessment appeals and several
 court systems. It validates the pattern, but succeeded only where a forum already owned both
 parties.
 

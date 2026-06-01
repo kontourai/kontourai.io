@@ -6,8 +6,8 @@ This audit follows the Surface derive work and the two vertical proof PRs:
 
 - `kontourai/surface#19` — `assumed`, structured `derivationEdges`, and report
   `changeRecords`.
-- `briananderson1222/taxes#2` — W-2 Surface trust export proof.
-- `briananderson1222/campfit#4` — Campfit `registrationStatus` Surface trust
+- regulated-document proof issue — source document Surface trust export proof.
+- `public-directory proof issue` — Public-directory product `registrationStatus` Surface trust
   export proof.
 
 The result is stronger than a paper plan but not yet a full extraction mandate.
@@ -37,7 +37,7 @@ and leave all domain acquisition/parsing/review UX in the vertical products.
 Do not extract the current adapters wholesale. Extract the concepts they now
 make visible.
 
-The strongest version of this strategy is not "make taxes and Campfit share a
+The strongest version of this strategy is not "make the regulated-document and public-directory proofs share a
 library." It is "make every producer pass through the same trust-producing
 discipline before its claims can participate in Surface, Flow, Veritas, or a
 vertical product." Survey should be the front door for that discipline.
@@ -67,7 +67,7 @@ That discipline is the product value. Code reduction is a secondary effect.
 
 This also changes the management surface. A claim produced through Survey and
 projected into Surface can be managed in the same place as every other claim:
-the Surface Console. That means operators should not need a tax-specific trust
+the Surface Console. That means operators should not need a domain-specific trust
 debugger, a camp-directory-specific trust debugger, and a separate agent-facing
 report format. They should see one trust inventory with product-specific labels
 on top.
@@ -93,28 +93,28 @@ Both proofs can now emit real Surface types from `@kontourai/surface`.
 
 ### Shared Concepts
 
-| Concept | Taxes proof | Campfit proof | Survey candidate |
+| Concept | Regulated document workflows proof | Public-directory product proof | Survey candidate |
 | --- | --- | --- | --- |
 | Raw source | `UploadedDocument` with checksum and stored path | source URL from field source or proposal | `RawSource` |
 | Extraction | `ExtractedFact` with value/confidence/source type | `FieldDiff` with new value/confidence/excerpt/source URL | `Extraction` |
 | Candidate set | `ResolvedFact.candidates` | `CampChangeProposal.proposedChanges` | `CandidateSet` |
 | Review/promotion | `VerifiedFact` or unresolved proposed fact | approved `fieldSources` or pending/rejected proposal | `ReviewOutcome` |
 | Surface evidence | document citation | crawl observation | Surface projection helper |
-| Claim Dependency | W-2 source facts -> withholding position | not used yet for scalar field | Surface-owned |
+| Claim Dependency | source document source facts -> retained amount position | not used yet for scalar field | Surface-owned |
 
 This is enough convergence to define a Survey contract.
 
 ### Important Difference
 
-Taxes proves the **need** for Survey more strongly. Campfit proves the **shape**
+Regulated document workflows proves the **need** for Survey more strongly. Public-directory product proves the **shape**
 more cleanly.
 
-Taxes is still summary-object-shaped: W-2 parsing emits one object with wages,
-federal withholding, state wages, and state withholding. The adapter then splits
+Regulated document workflows is still summary-object-shaped: source document parsing emits one object with wages,
+federal retained amount, state wages, and state retained amount. The adapter then splits
 that object into Surface field claims. Survey should eventually make those
 field-level extraction targets explicit earlier.
 
-Campfit is already field-shaped: `FieldDiff` carries old/new values, confidence,
+Public-directory product is already field-shaped: `FieldDiff` carries old/new values, confidence,
 excerpt, source URL, and mode. But it does not yet carry a strong reusable raw
 source identity, crawl-run identity, or review outcome model.
 
@@ -154,7 +154,7 @@ If these appear, Survey is overreaching:
 
 - Vertical code starts contorting domain concepts just to fit generic Survey
   fields.
-- Survey needs tax or camp-directory policy branches.
+- Survey needs regulated or camp-directory policy branches.
 - Producers can emit `verified` without source identity, locator, freshness, and
   authority.
 - Surface Console cannot explain a claim without calling back into vertical-only
@@ -167,15 +167,15 @@ If those happen, keep Survey smaller and push the behavior back to the vertical.
 
 These are the areas most likely to shrink or standardize after Survey exists.
 
-### Taxes
+### Regulated document workflows
 
-Keep in taxes:
+Keep in the regulated-document product:
 
-- W-2, paystub, 1099, 1098, and return parsing.
-- Tax fact keys and domain labels.
-- Household and tax-year workflows.
-- Withholding and return-package calculations.
-- Any tax-specific conflict rules.
+- source document, paystub, 1099, 1098, and return parsing.
+- Regulated fact keys and domain labels.
+- Household and regulated-year workflows.
+- Retained amount and return-package calculations.
+- Any domain-specific conflict rules.
 
 Move toward Survey:
 
@@ -191,13 +191,13 @@ Likely code reduction:
 - `surface-adapter.ts` should shrink once Survey provides `toSurfaceTrustInput`
   helpers.
 - Parts of `ResolvedFact` and `VerifiedFact` may become adapters over Survey
-  records instead of tax-owned trust lifecycle records.
+  records instead of regulated-owned trust lifecycle records.
 - Parser output should become closer to `Extraction[]`, reducing translation
   from summary objects into claim fields.
 
 Likely non-reduction:
 
-- The tax resolver may not shrink much at first. It contains actual tax-domain
+- The regulated resolver may not shrink much at first. It contains actual domain
   precedence and conflict behavior, not just generic trust plumbing.
 - The parser may initially grow because field-level locators and confidence are
   more precise than today's summary object.
@@ -206,9 +206,9 @@ Likely non-reduction:
 That is acceptable. The first win is better claim discipline and Surface
 interoperability. Deleting code comes later, after the Survey contract stabilizes.
 
-### Campfit
+### Public-directory product
 
-Keep in Campfit:
+Keep in Public-directory product:
 
 - Camp/provider domain model.
 - Crawl target selection, scraper strategy, and admin UX.
@@ -236,12 +236,12 @@ Likely code reduction:
 
 Likely non-reduction:
 
-- Crawling, scraping, and admin approval remain Campfit concerns.
-- Directory-specific field labels and display grouping remain Campfit concerns.
+- Crawling, scraping, and admin approval remain Public-directory product concerns.
+- Directory-specific field labels and display grouping remain Public-directory product concerns.
 - Array-level provenance probably needs another proof before it becomes Survey
   scope.
 
-Campfit should use Survey to normalize source/extraction/review provenance, not
+Public-directory product should use Survey to normalize source/extraction/review provenance, not
 to become a generic public-directory product by accident.
 
 ## Extraction Candidates
@@ -306,9 +306,9 @@ type ReviewOutcome = {
 
 Do not extract these yet:
 
-- Tax-specific source ranking such as prior-year carry-forward precedence.
-- W-2 summary parsing.
-- Campfit array diffs for schedules, pricing, and age groups.
+- Domain-specific source ranking such as prior-period carry-forward precedence.
+- source document summary parsing.
+- Public-directory product array diffs for schedules, pricing, and age groups.
 - Full review workflow state machines.
 - Database schemas.
 - UI review components.
@@ -357,7 +357,7 @@ Surface validation/reporting without a translation fork.
 Survey v0 should be considered successful only if the next slice proves all of
 these:
 
-- Taxes and Campfit can produce golden Survey records from real-ish fixtures.
+- Regulated document workflows and Public-directory product can produce golden Survey records from real-ish fixtures.
 - Survey can project those records into the same Surface report shape the proof
   PRs already produce.
 - At least one rejected proposal, one assumed/attested blank, one stale source,
@@ -383,7 +383,7 @@ fixtures, not rewrite ingestion.
 | Is Survey justified as a service? | Not yet. There is no evidence that hosting, queues, storage, or orchestration are shared. | Low |
 | Can code be removed immediately? | Some adapter boilerplate, but domain logic mostly stays. | Medium |
 | Is the Surface Console benefit real? | Yes, if producers emit enough source/review/materiality metadata. | Medium-high |
-| Are array/repeated-entity claims solved? | No. Campfit schedule/pricing/age arrays need a separate proof. | Low |
+| Are array/repeated-entity claims solved? | No. Public-directory product schedule/pricing/age arrays need a separate proof. | Low |
 | Is materiality generic? | No. Survey can require it, but verticals should decide it. | Medium |
 
 ## Testing Depth
@@ -393,16 +393,16 @@ stable shared package.
 
 ### Current Evidence
 
-Taxes:
+Regulated document workflows:
 
 - `npm run typecheck`
 - `npm test`
 - pre-push `lint`, `typecheck`, `test`, `build`
-- generated W-2 corrected-source export validated with installed
+- generated source document corrected-source export validated with installed
   `@kontourai/surface`
 - Surface report produced one recompute `changeRecord`
 
-Campfit:
+Public-directory product:
 
 - `npx tsc --noEmit`
 - `npm run test:surface`
@@ -419,8 +419,8 @@ Before Survey is more than a contracts package, add:
 - Golden fixtures in `kontourai.io` or `survey` that validate with Surface.
 - Rejected proposal example.
 - Blank/attested-not-applicable example.
-- Stale source example for Campfit.
-- Tax conflict example with two W-2 candidates requiring review.
+- Stale source example for Public-directory product.
+- Regulated conflict example with two source document candidates requiring review.
 - Locator tests across PDF/page, text, HTML excerpt, and structured field.
 - Candidate ranking tests that prove domain ranking can remain outside Survey.
 - Round-trip tests from Survey records to Surface report.
@@ -433,15 +433,15 @@ Before Survey is more than a contracts package, add:
 
 ### 1. Move Field-Level Extraction Earlier
 
-Taxes should stop treating W-2 as one opaque summary object if the goal is
+Regulated document workflows should stop treating source document as one opaque summary object if the goal is
 trust transparency. The parser can still parse a full form, but the trust layer
 should see field-level extractions:
 
 ```text
-w2.wages
-w2.federalIncomeTaxWithheld
-w2.stateWages
-w2.stateWithholding
+source-doc.wages
+source-doc.federalIncomeTaxWithheld
+source-doc.stateWages
+source-doc.stateRetained amount
 ```
 
 That unlocks precise locators, field-level confidence, and better recompute
@@ -451,15 +451,15 @@ records.
 
 Both repos blur candidate lifecycle and trust status:
 
-- Taxes has `needsVerification`, `selectedSource`, and `VerifiedFact`.
-- Campfit has `PENDING`, `APPROVED`, `REJECTED` proposals plus `dataConfidence`.
+- Regulated document workflows has `needsVerification`, `selectedSource`, and `VerifiedFact`.
+- Public-directory product has `PENDING`, `APPROVED`, `REJECTED` proposals plus `dataConfidence`.
 
 Survey should model candidate/review lifecycle. Surface should model trust
 status. The adapter can map from one to the other.
 
 ### 3. Treat Approved Product Fields As Read Models
 
-Campfit `fieldSources` and taxes `verified_facts` can become product read
+Public-directory product `fieldSources` and regulated-document product `verified_facts` can become product read
 models over Survey/Surface records, not the canonical trust lifecycle. This
 would reduce future migration pain.
 
@@ -494,7 +494,7 @@ Do not start with a broad ingestion service. Start with:
 - Types.
 - Fixture builders.
 - Surface projection helpers.
-- Golden fixtures from taxes and Campfit.
+- Golden fixtures from the regulated-document and public-directory proofs.
 - Contract tests against `@kontourai/surface`.
 
 Suggested initial package scope:
@@ -503,8 +503,8 @@ Suggested initial package scope:
 @kontourai/survey
   src/types.ts
   src/to-surface.ts
-  fixtures/tax-w2-corrected.ts
-  fixtures/campfit-registration-status.ts
+  fixtures/regulated-source-doc-corrected.ts
+  fixtures/public-directory-registration-status.ts
   tests/contracts.test.ts
 ```
 
@@ -522,14 +522,14 @@ vertical fixture
   -> Surface report / console-ready read model
 ```
 
-If that chain holds across taxes and Campfit, Survey is real. If it only works
+If that chain holds across the regulated-document and public-directory proofs, Survey is real. If it only works
 by adding vertical-specific branches inside Survey, the abstraction is too big.
 
 ## Next Validation Plan
 
-1. Merge or update taxes and Campfit proof PRs to include golden fixture output.
-2. Add rejected/stale/blank-attested cases in Campfit.
-3. Add conflict/needing-review case in taxes.
+1. Merge or update the regulated-document and public-directory proof issues to include golden fixture output.
+2. Add rejected/stale/blank-attested cases in Public-directory product.
+3. Add conflict/needing-review case in the regulated-document product.
 4. Create Survey contracts package only after those fixtures are stable.
 5. Replace proof adapter boilerplate with Survey projection helpers.
 6. Measure code removed from each vertical and document what stayed vertical.

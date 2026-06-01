@@ -90,7 +90,7 @@ angle ("a forecast you can audit"), but RevOps is the land-and-expand entry.
 
 ## Product boundaries (owns vs. consumes)
 
-Like the tax vertical, this should be thin over generic foundation pieces (see
+Like the regulated vertical, this should be thin over generic foundation pieces (see
 `surface-derived-trust-primitives.md`):
 
 - **Consumes Survey** for L1: ingest raw signals (emails, calls, CRM, usage, news) and resolve

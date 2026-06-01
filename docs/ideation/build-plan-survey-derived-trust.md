@@ -13,7 +13,7 @@ claim kind.
 
 Build **Survey** (producer observations → Surface `TrustInput`) as a foundation
 package, extend **Surface** with multi-hop Claim Dependency behavior, then prove
-both by shipping the tax vertical and validating genericity with the sales
+both by shipping the regulated vertical and validating genericity with the sales
 vertical. The platform becomes three generic pieces — **Survey → Surface → Flow**
 — plus Veritas and the verticals, all consuming rather than rebuilding.
 
@@ -59,11 +59,10 @@ without minting a separate product brand.
 | `kontourai/veritas` (@kontourai/veritas) | shipped | Already projects Repo Standards → Surface Claim Groups, requirements → claims. Becomes an early **Claim Dependency** proof: a readiness verdict is a claim that depends on requirement claims. |
 | `kontourai/flow-agents` | private, soon | Consumes Flow. Out of scope. |
 | `kontourai/kontourai.io` | shipped | Public story. Updates only after the products are real. |
-| `taxes` (private) | exists | Has `ExtractedFact → ResolvedFact → VerifiedFact` + managed-rules + `.veritas`. **Survey L1 largely exists here** — primary harvest source. Becomes the tax vertical. |
+| Regulated-document workflow proof | exists | Has `ExtractedFact → ResolvedFact → VerifiedFact` + managed-rules + `.veritas`. **Survey L1 largely exists here** — primary harvest source. Becomes the regulated vertical. |
 | public-directory-data (private) | exists | Has `crawl → proposal → field-source → attestation`. The *second, independent* instance of the Survey pipeline — the evidence Survey is a reusable product, and a genericity check. |
 
-The two repos that independently invented the same ingestion pipeline (`taxes` and
-public-directory-data) are why Survey is a product, not a per-vertical feature.
+The public-directory and regulated-document proof paths independently invented the same ingestion pipeline. That convergence is why Survey is a product, not a per-vertical feature.
 
 ## Product: Survey (producer observations → Surface `TrustInput`)
 
@@ -73,7 +72,7 @@ claims, evidence, and events with provenance.
 **Owns**
 - Source ingestion with stable identity (checksum, source path/URL, fetch time).
 - Extraction: parse values with a locator (page/line/field), confidence, method. Domain
-  extractors (tax forms, CRM signals, crawlers) are **plugins**.
+  extractors (regulated forms, CRM signals, crawlers) are **plugins**.
 - Candidate sets: group possible values, select a candidate, and expose Candidate
   Conflict before projection.
 - Review outcomes: record producer review status and authority.
@@ -92,8 +91,8 @@ Extractor       extract(RawSource) -> Extraction[]{ target, value, locator, conf
 Resolver        resolve(Extraction[]) -> CandidateSet{ candidates, selectedCandidateId, status }
 ReviewPolicy    gate(CandidateSet) -> ReviewOutcome{ status, actor, reviewedAt }
 ```
-Tax ships form extractors; sales ships signal extractors; the resolution/review machinery is
-shared. This is the split the `taxes` and public-directory repos already converged on.
+Regulated-document workflows ship form extractors; sales workflows ship signal extractors; the resolution/review machinery is
+shared. This is the split the regulated-document and public-directory proofs already converged on.
 
 ## Surface Capability: Claim Dependencies
 
@@ -112,30 +111,30 @@ Multi-hop claim graph and recompute pressure in Surface.
 Surface claims with `derivedFrom` or `derivationEdges`; single-hop consumers
 ignore the edge graph and see ordinary claims. No numeric scores.
 
-## End-to-end data flow (tax vertical, concrete)
+## End-to-end data flow (regulated-document vertical, concrete)
 
 ```
-W-2 PDF ──Survey RawSource──────► RawSource(checksum)
+source document PDF ──Survey RawSource──────► RawSource(checksum)
         ──Survey Extraction─────► Extraction(box1=$X, locator=page1/box1, confidence)
-        ──Survey CandidateSet───► CandidateSet (W-2 vs prior-year vs paystub candidates)
-        ──Survey ReviewOutcome──► ClaimTarget  ──► Surface TrustInput claim.tax.wages = $X
-                                                     Evidence{ method, source=W-2 page1/box1 }
-Surface claim ──Claim Dependency──► claim.tax.position.bracket  (rule-application)
-              ──Claim Dependency──► claim.tax.strategy.roth     (model: bracket + balances)
-Corrected W-2 lands ──► Survey emits corrected producer observation ──► Surface claim updated/stale
-                    ──► Surface freshness cascade ──► bracket + roth flagged stale
-                    ──► recompute ──► change report: "Roth saving $2,100 → $1,650"
-RIA drills: strategy.roth ──► bracket ──► wages ──► W-2 page1/box1   (full lineage)
+        ──Survey CandidateSet───► CandidateSet (source document vs prior-year vs paystub candidates)
+        ──Survey ReviewOutcome──► ClaimTarget  ──► Surface TrustInput claim.regulated.wages = $X
+                                                     Evidence{ method, source=source document page1/box1 }
+Surface claim ──Claim Dependency──► claim.regulated.position.band  (rule-application)
+              ──Claim Dependency──► claim.regulated.strategy.adjustment     (model: band + balances)
+Corrected source document lands ──► Survey emits corrected producer observation ──► Surface claim updated/stale
+                    ──► Surface freshness cascade ──► band + adjustment flagged stale
+                    ──► recompute ──► change report: "strategy impact $2,100 -> $1,650"
+Advisor drills: strategy.adjustment ──► band ──► amount ──► source document page1/box1   (full lineage)
 ```
 
 Sales is the same skeleton with different plugins: signal adapters instead of form extractors,
-`deal-state`/`forecast` derivation methods instead of tax positions, freshness cascade producing
+`deal-state`/`forecast` derivation methods instead of derived compliance positions, freshness cascade producing
 "confidence decays because the champion fact is 40 days old."
 
 ## What each vertical owns vs. consumes (keeps verticals thin)
 
-- **Tax** consumes Survey + Surface (incl. Claim Dependencies) + Veritas; owns the IRS-rule spine,
-  tax-domain derivation logic, tax-dollar materiality calibration, RIA/CPA review + reporting UX.
+- **Regulated advisory** consumes Survey + Surface (incl. Claim Dependencies) + Veritas; owns the official-rule spine,
+  domain derivation logic, materiality materiality calibration, advisor review + reporting UX.
 - **Sales** consumes Survey + Surface; owns deal-state/forecast models, deal-value materiality
   calibration, RevOps/CFO audit + forecast UX.
 
@@ -156,21 +155,21 @@ but keep Survey a separate internal package and Claim Dependencies behind a clea
 day one, so promoting Survey to its own repo is mechanical. Use the second vertical to validate the
 generic boundary before locking public APIs.
 
-First vertical = **tax**: `taxes` already implements most of Survey L1 and carries `.veritas`;
-sales L1 is greenfield against ~80%-bad data. Tax de-risks Survey; sales proves genericity.
+First vertical = **regulated documents**: the regulated-document proof already implements most of Survey L1 and carries governance evidence;
+sales L1 is greenfield against ~80%-bad data. Regulated-document workflows de-risk Survey; sales proves genericity.
 
 - **Phase 0 — Surface bake-ins.** support-strength, `assumed`, materiality. Lowest risk.
 - **Phase 1 — Survey, internal package.** Lift `ExtractedFact → ResolvedFact → VerifiedFact` out
-  of `taxes` into a `survey` package with the plugin contract; tax form extractors first. Output
-  verified claims into Surface. Acceptance: a W-2 yields a Surface claim with a drillable locator.
+  of the regulated-document proof into a `survey` package with the plugin contract; regulated form extractors first. Output
+  verified claims into Surface. Acceptance: a source document yields a Surface claim with a drillable locator.
 - **Phase 2 — Surface Claim Dependencies.** Edge graph + propagation + freshness cascade + recompute
-  (core or `surface-derive`). First edges: tax positions from facts. Acceptance: changing a fact
+  (core or `surface-derive`). First edges: derived compliance positions from facts. Acceptance: changing a fact
   auto-stales a position and recompute emits a change record. Validate against **Veritas
-  readiness-as-dependent-claim** as a non-tax sanity check before tax-think calcifies.
-- **Phase 3 — Tax vertical.** Rule spine + L2/L3 logic + RIA review UX. Acceptance: the full flow
-  above, including "which recommendations changed and by how much" on a corrected W-2.
+  readiness-as-dependent-claim** as a cross-domain sanity check before regulated-think calcifies.
+- **Phase 3 — Regulated vertical.** Rule spine + L2/L3 logic + advisor review UX. Acceptance: the full flow
+  above, including "which recommendations changed and by how much" on a corrected source document.
 - **Phase 4 — Extract Survey to a standalone product.** Promote `survey` to its own repo / npm
-  package with a stable public API. Gate: nothing tax-specific leaks.
+  package with a stable public API. Gate: nothing domain-specific leaks.
 - **Phase 5 — Sales vertical.** Build on standalone Survey + Surface; every change sales forces in
   the shared layers is a genericity bug to fix there.
 - **Phase 6 — Public story.** Update `kontourai.io` to the three-piece architecture only once the
@@ -187,7 +186,7 @@ sales L1 is greenfield against ~80%-bad data. Tax de-risks Survey; sales proves 
 
 ## Risks and open decisions
 
-- **Genericity leak**: extracting Survey after a single vertical risks baking tax assumptions in.
+- **Genericity leak**: extracting Survey after a single vertical risks baking regulated assumptions in.
   Mitigation: the Phase 5 second-vertical gate; do not 1.0 the public API until sales runs on it
   unchanged.
 - **`surface-derive` packaging** (open): in-core vs. separate package — decided in Phase 2 by the
