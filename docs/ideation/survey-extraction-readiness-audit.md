@@ -1,6 +1,8 @@
 # Survey Extraction Readiness Audit
 
-Status: extraction-readiness analysis. Created 2026-05-31.
+Status: extraction-readiness analysis. Created 2026-05-31. Updated
+2026-06-02 after the standalone Survey package and the two vertical helper
+adoptions.
 
 This audit follows the Surface derive work and the two vertical proof PRs:
 
@@ -10,14 +12,14 @@ This audit follows the Surface derive work and the two vertical proof PRs:
 - `public-directory proof issue` — Public-directory product `registrationStatus` Surface trust
   export proof.
 
-The result is stronger than a paper plan but not yet a full extraction mandate.
-The proofs show a real shared lifecycle. They also show where extraction would
-be premature or leaky.
+The result is now stronger than a paper plan and stronger than fixture-only
+validation. The proofs show a real shared lifecycle in two vertical products.
+They also show where further extraction would be premature or leaky.
 
 ## Executive Judgment
 
-Survey is justified as a contract and eventually as a small package, but not as
-a broad product implementation yet.
+Survey is justified as a contract package and now exists as a small standalone
+package. It is still not justified as a broad hosted ingestion platform.
 
 The reusable shape is now proven in two different verticals:
 
@@ -30,12 +32,35 @@ raw source
   -> Surface-derived stale/recompute/report state
 ```
 
-The next step should be a **Survey contracts package**, not a full ingestion
-platform. It should hold producer-neutral types and fixtures, depend on Surface,
-and leave all domain acquisition/parsing/review UX in the vertical products.
+The current package shape is right: producer-neutral builders and projection
+helpers that depend on Surface and leave all domain acquisition, parsing, ranking,
+materiality, and review UX in the vertical products.
 
-Do not extract the current adapters wholesale. Extract the concepts they now
-make visible.
+Do not extract the current adapters wholesale. Extract only the concepts the
+adapters repeatedly prove.
+
+## 2026-06-02 Proof Update
+
+Survey is now a standalone npm package consumed by both proof verticals.
+
+- Public-directory product consumes `@kontourai/survey@^0.4.0` and uses
+  `reviewedCurrentProposedResolution` for crawl proposal review: current value
+  versus proposed value, accepted or rejected by a reviewer.
+- Regulated-document workflows consume `@kontourai/survey@^0.4.0` and use the
+  same helper for the exact reviewed two-candidate W-2 correction case: original
+  document as `current`, corrected document as `proposed`, and reviewer-selected
+  source as the promoted claim.
+- Both integrations preserve product-owned observation authoring, source
+  references, claim type, domain status policy, materiality, and metadata.
+- Survey adds shared candidate/review wiring and candidate-role metadata that
+  flows through Surface evidence, making the review decision inspectable by the
+  Surface Console or any downstream trust panel.
+
+This proves the first code-removal path: verticals can replace bespoke reviewed
+candidate wiring with a Survey helper while preserving their Surface report
+behavior. It does not prove that Survey should own parsing, crawling,
+regulated-rule logic, directory policy, canonical claim storage, or long-term
+history.
 
 The strongest version of this strategy is not "make the regulated-document and public-directory proofs share a
 library." It is "make every producer pass through the same trust-producing
@@ -102,7 +127,8 @@ Both proofs can now emit real Surface types from `@kontourai/surface`.
 | Surface evidence | document citation | crawl observation | Surface projection helper |
 | Claim Dependency | source document source facts -> retained amount position | not used yet for scalar field | Surface-owned |
 
-This is enough convergence to define a Survey contract.
+This is enough convergence to keep growing Survey as a small contracts/projection
+package.
 
 ### Important Difference
 
