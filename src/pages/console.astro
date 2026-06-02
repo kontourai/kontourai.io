@@ -2,6 +2,7 @@
 import Layout from '@/layouts/Layout.astro';
 import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
+import Terminal from '@/components/Terminal.astro';
 ---
 
 <Layout
@@ -31,7 +32,7 @@ import Footer from '@/components/Footer.astro';
     "></div>
 
     <div style="max-width: 1280px; margin: 0 auto; position: relative; z-index: 1;">
-      <div style="
+      <div class="stack-mobile" style="
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 5rem;
@@ -103,34 +104,24 @@ import Footer from '@/components/Footer.astro';
         </div>
 
         <!-- Right: fixture inspector output -->
-        <div class="animate-fade-in delay-300">
-          <div class="terminal">
-            <div class="terminal-bar">
-              <div class="terminal-dot"></div>
-              <div class="terminal-dot"></div>
-              <div class="terminal-dot"></div>
-              <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-chalk-3); margin-left: 0.5rem;">kontour-console — fixture inspection</span>
-            </div>
-            <div class="terminal-body">
-              <p><span class="prompt">$ </span><span class="cmd">npm run inspect:fixtures</span></p>
-              <br />
-              <p class="info">  Kontour Console fixture inspection</p>
-              <br />
-              <p class="muted">  Event streams: 3</p>
-              <p class="muted">  Projection snapshots: 2</p>
-              <br />
-              <p>  claim <span class="muted">claim-provider-directory</span>  <span class="pass">verified</span> <span class="muted">freshness=fresh</span></p>
-              <p>  process <span class="muted">run-provider-118-review</span>  <span class="pass">completed</span></p>
-              <p>  gate <span class="muted">gate-provider-evidence</span>  <span class="pass">passed</span></p>
-              <p>  review <span class="muted">review-provider-118</span>  <span class="pass">approved</span></p>
-              <p>  action <span class="muted">action-apply-provider-118</span>  <span class="warn">read-only</span></p>
-              <br />
-              <p style="color: var(--color-chalk-3);">  ───────────────────────────────</p>
-              <p class="pass">  Validation: errors=0</p>
-              <p class="muted">  actions shown as inert descriptors only</p>
-            </div>
-          </div>
-        </div>
+        <Terminal class="animate-fade-in delay-300" title="kontour-console — fixture inspection">
+          <p><span class="prompt">$ </span><span class="cmd">npm run inspect:fixtures</span></p>
+          <br />
+          <p class="info">  Kontour Console fixture inspection</p>
+          <br />
+          <p class="muted">  Event streams: 3</p>
+          <p class="muted">  Projection snapshots: 2</p>
+          <br />
+          <p>  claim <span class="muted">claim-provider-directory</span>  <span class="pass">verified</span> <span class="muted">freshness=fresh</span></p>
+          <p>  process <span class="muted">run-provider-118-review</span>  <span class="pass">completed</span></p>
+          <p>  gate <span class="muted">gate-provider-evidence</span>  <span class="pass">passed</span></p>
+          <p>  review <span class="muted">review-provider-118</span>  <span class="pass">approved</span></p>
+          <p>  action <span class="muted">action-apply-provider-118</span>  <span class="warn">read-only</span></p>
+          <br />
+          <p style="color: var(--color-chalk-3);">  ───────────────────────────────</p>
+          <p class="pass">  Validation: errors=0</p>
+          <p class="muted">  actions shown as inert descriptors only</p>
+        </Terminal>
       </div>
     </div>
   </section>
@@ -197,7 +188,7 @@ import Footer from '@/components/Footer.astro';
     background: var(--color-ink-1);
   ">
     <div style="max-width: 1280px; margin: 0 auto;">
-      <div style="
+      <div class="stack-mobile" style="
         display: grid;
         grid-template-columns: 1fr 1.15fr;
         gap: 4rem;
@@ -221,25 +212,17 @@ import Footer from '@/components/Footer.astro';
           </p>
         </div>
 
-        <div class="terminal">
-          <div class="terminal-bar">
-            <div class="terminal-dot"></div>
-            <div class="terminal-dot"></div>
-            <div class="terminal-dot"></div>
-            <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-chalk-3); margin-left: 0.5rem;">producers → console</span>
-          </div>
-          <div class="terminal-body">
-            <p><span style="color: var(--color-gold);">Surface</span>      claim status, evidence, freshness</p>
-            <p><span style="color: var(--color-gold-2);">Survey</span>       fact-review records, candidates, decisions</p>
-            <p><span style="color: var(--color-cobalt-2);">Flow</span>         runs, gates, transitions, exceptions</p>
-            <p><span style="color: var(--color-green);">Veritas</span>      repo readiness, evidence gaps</p>
-            <p><span style="color: var(--color-chalk-2);">Flow Agents</span>  session + continuation state</p>
-            <br />
-            <p class="muted">  each emits → console projection + event stream</p>
-            <p style="color: var(--color-chalk-3);">  ───────────────────────────────</p>
-            <p><span style="color: var(--color-cobalt);">Kontour Console</span>  one correlated operating plane</p>
-          </div>
-        </div>
+        <Terminal title="producers → console">
+          <p><span style="color: var(--color-gold);">Surface</span>      claim status, evidence, freshness</p>
+          <p><span style="color: var(--color-gold-2);">Survey</span>       fact-review records, candidates, decisions</p>
+          <p><span style="color: var(--color-cobalt-2);">Flow</span>         runs, gates, transitions, exceptions</p>
+          <p><span style="color: var(--color-green);">Veritas</span>      repo readiness, evidence gaps</p>
+          <p><span style="color: var(--color-chalk-2);">Flow Agents</span>  session + continuation state</p>
+          <br />
+          <p class="muted">  each emits → console projection + event stream</p>
+          <p style="color: var(--color-chalk-3);">  ───────────────────────────────</p>
+          <p><span style="color: var(--color-cobalt);">Kontour Console</span>  one correlated operating plane</p>
+        </Terminal>
       </div>
     </div>
   </section>
@@ -249,7 +232,7 @@ import Footer from '@/components/Footer.astro';
   ────────────────────────────────────────────────────────── -->
   <section style="padding: 6rem var(--spacing-page);">
     <div style="max-width: 1280px; margin: 0 auto;">
-      <div style="
+      <div class="stack-mobile" style="
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 4rem;
@@ -272,27 +255,19 @@ import Footer from '@/components/Footer.astro';
           </p>
         </div>
 
-        <div class="terminal">
-          <div class="terminal-bar">
-            <div class="terminal-dot"></div>
-            <div class="terminal-dot"></div>
-            <div class="terminal-dot"></div>
-            <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-chalk-3); margin-left: 0.5rem;">suite work queue</span>
-          </div>
-          <div class="terminal-body">
-            <p class="warn">  stale     surface · claim-provider-directory</p>
-            <p class="muted">            → request reverification</p>
-            <p class="info">  open      flow · gate-provider-evidence</p>
-            <p class="muted">            → review evidence, then resume run</p>
-            <p style="color: var(--color-gold-2);">  review    survey · review-provider-118-npi</p>
-            <p class="muted">            → approve or send back a candidate</p>
-            <p class="pass">  ready     veritas · change-search-filters</p>
-            <p class="muted">            → merge with reduced review</p>
-            <br />
-            <p style="color: var(--color-chalk-3);">  ───────────────────────────────</p>
-            <p class="muted">  actions routed to the owning product</p>
-          </div>
-        </div>
+        <Terminal title="suite work queue">
+          <p class="warn">  stale     surface · claim-provider-directory</p>
+          <p class="muted">            → request reverification</p>
+          <p class="info">  open      flow · gate-provider-evidence</p>
+          <p class="muted">            → review evidence, then resume run</p>
+          <p style="color: var(--color-gold-2);">  review    survey · review-provider-118-npi</p>
+          <p class="muted">            → approve or send back a candidate</p>
+          <p class="pass">  ready     veritas · change-search-filters</p>
+          <p class="muted">            → merge with reduced review</p>
+          <br />
+          <p style="color: var(--color-chalk-3);">  ───────────────────────────────</p>
+          <p class="muted">  actions routed to the owning product</p>
+        </Terminal>
       </div>
     </div>
   </section>
@@ -320,7 +295,7 @@ import Footer from '@/components/Footer.astro';
         the products it observes — and primitives never have to depend on it.
       </p>
 
-      <div style="
+      <div class="stack-mobile" style="
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 1.5rem;
@@ -378,7 +353,7 @@ import Footer from '@/components/Footer.astro';
   ────────────────────────────────────────────────────────── -->
   <section style="padding: 6rem var(--spacing-page);">
     <div style="max-width: 1280px; margin: 0 auto;">
-      <div style="
+      <div class="stack-mobile" style="
         display: grid;
         grid-template-columns: 1fr 1.15fr;
         gap: 4rem;
@@ -403,14 +378,7 @@ import Footer from '@/components/Footer.astro';
           </p>
         </div>
 
-        <div class="terminal">
-          <div class="terminal-bar">
-            <div class="terminal-dot"></div>
-            <div class="terminal-dot"></div>
-            <div class="terminal-dot"></div>
-            <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-chalk-3); margin-left: 0.5rem;">local-producer.js</span>
-          </div>
-          <div class="terminal-body">
+        <Terminal title="local-producer.js">
 <pre style="margin: 0; white-space: pre; overflow-x: auto; font-family: var(--font-mono); font-size: 0.72rem; line-height: 1.7; color: var(--color-chalk-2);"><span style="color: var(--color-chalk-3);">// write control-plane records locally — no network</span>
 <span style="color: var(--color-cobalt);">const</span> {'{'} KontourEmitter, LocalFileSink {'}'} =
   <span style="color: var(--color-cobalt-2);">require</span>(<span style="color: var(--color-green);">"./src/console-foundation"</span>);
@@ -426,8 +394,7 @@ import Footer from '@/components/Footer.astro';
 {'}'});
 
 <span style="color: var(--color-chalk-3);">// → .kontour/events/ + .kontour/projections/</span></pre>
-          </div>
-        </div>
+        </Terminal>
       </div>
     </div>
   </section>
@@ -446,14 +413,3 @@ import Footer from '@/components/Footer.astro';
 
   <Footer active="console" />
 </Layout>
-
-<style>
-  @media (max-width: 900px) {
-    section > div > div[style*="grid-template-columns: 1fr 1fr"],
-    section > div > div[style*="grid-template-columns: 1fr 1.15fr"],
-    section > div > div[style*="grid-template-columns: repeat(3, 1fr)"] {
-      display: flex !important;
-      flex-direction: column !important;
-    }
-  }
-</style>

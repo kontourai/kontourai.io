@@ -2,6 +2,7 @@
 import Layout from '@/layouts/Layout.astro';
 import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
+import Terminal from '@/components/Terminal.astro';
 ---
 
 <Layout
@@ -161,7 +162,7 @@ actions shown as inert descriptors only`,
             height: 2px;
             background: linear-gradient(90deg, ${color}, transparent);
           `}></div>
-          <div style="display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 2rem;">
+          <div class="stack-mobile" style="display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 2rem;">
             <div>
               <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
                 <span class="trust-badge trust-badge--proposed">{badge}</span>
@@ -175,17 +176,9 @@ actions shown as inert descriptors only`,
                 <p style="color: var(--color-chalk-3); font-size: 0.82rem; line-height: 1.6; margin: 0;">Coming: {coming}</p>
               </div>
             </div>
-            <div class="terminal">
-              <div class="terminal-bar">
-                <div class="terminal-dot"></div>
-                <div class="terminal-dot"></div>
-                <div class="terminal-dot"></div>
-                <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-chalk-3); margin-left: 0.5rem;">{name.toLowerCase()} demo</span>
-              </div>
-              <div class="terminal-body">
-                <pre style="margin: 0; white-space: pre-wrap; font-family: var(--font-mono); font-size: 0.75rem; line-height: 1.6; color: var(--color-chalk-2);">{demo}</pre>
-              </div>
-            </div>
+            <Terminal title={`${name.toLowerCase()} demo`}>
+              <pre style="margin: 0; white-space: pre-wrap; font-family: var(--font-mono); font-size: 0.75rem; line-height: 1.6; color: var(--color-chalk-2);">{demo}</pre>
+            </Terminal>
           </div>
         </article>
       ))}
@@ -194,12 +187,3 @@ actions shown as inert descriptors only`,
 
   <Footer active="preview" />
 </Layout>
-
-<style>
-  @media (max-width: 900px) {
-    article > div[style*="grid-template-columns"] {
-      display: flex !important;
-      flex-direction: column !important;
-    }
-  }
-</style>

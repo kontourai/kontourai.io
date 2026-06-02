@@ -144,6 +144,49 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ─────────────────────────────────────────────────────────────
+   Layout helpers
+───────────────────────────────────────────────────────────── */
+
+/* Centered content column shared by every section. */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.container--narrow { max-width: 820px; }
+.container--readable { max-width: 980px; }
+
+/* Two-/multi-column layouts collapse to a single stacked column on
+   narrow screens. Replaces fragile `[style*="grid-template-columns"]`
+   attribute selectors that broke whenever an inline style string changed. */
+@media (max-width: 900px) {
+  .stack-mobile {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Nav links
+───────────────────────────────────────────────────────────── */
+
+.nav-link {
+  padding: 0.4rem 0.85rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  color: var(--color-chalk-3);
+  white-space: nowrap;
+  flex: 0 0 auto;
+  transition: color 0.15s, background 0.15s;
+}
+
+.nav-link:hover { color: var(--color-chalk); }
+.nav-link[aria-current="page"] { background: var(--color-ink-3); }
+
+/* ─────────────────────────────────────────────────────────────
    Trust state badges
 ───────────────────────────────────────────────────────────── */
 
@@ -218,6 +261,13 @@ h1, h2, h3, h4, h5, h6 {
   height: 10px;
   border-radius: 50%;
   background: var(--color-edge-2);
+}
+
+.terminal-title {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--color-chalk-3);
+  margin-left: 0.5rem;
 }
 
 .terminal-body {

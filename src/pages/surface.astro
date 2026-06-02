@@ -2,6 +2,7 @@
 import Layout from '@/layouts/Layout.astro';
 import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
+import Terminal from '@/components/Terminal.astro';
 ---
 
 <Layout
@@ -31,7 +32,7 @@ import Footer from '@/components/Footer.astro';
     "></div>
 
     <div style="max-width: 1280px; margin: 0 auto; position: relative; z-index: 1;">
-      <div style="
+      <div class="stack-mobile" style="
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 5rem;
@@ -89,32 +90,22 @@ import Footer from '@/components/Footer.astro';
         </div>
 
         <!-- Right: Trust report output -->
-        <div class="animate-fade-in delay-300">
-          <div class="terminal">
-            <div class="terminal-bar">
-              <div class="terminal-dot"></div>
-              <div class="terminal-dot"></div>
-              <div class="terminal-dot"></div>
-              <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-chalk-3); margin-left: 0.5rem;">surface report — summary</span>
-            </div>
-            <div class="terminal-body">
-              <p><span class="prompt">$ </span><span class="cmd">npx surface report --input examples/surface-fixtures.json --format summary</span></p>
-              <br />
-              <p class="info">  Kontour Surface trust snapshot surface-1777090239260</p>
-              <p class="muted">  Source: kontour-surface-validation-fixtures</p>
-              <br />
-              <p>  Claims: <span class="pass">4</span> &nbsp;(unknown: 1, verified: 2, stale: 1)</p>
-              <p class="muted">  Claim types: repo-governance.developer-evidence: 1, field-attested-records.public-data: 1,</p>
-              <p class="muted">  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fact-resolution.financial-facts: 1, surface.roadmap: 1</p>
-              <br />
-              <p>  Claim Groups: <span class="pass">1</span></p>
-              <p>  High-impact unsupported: <span class="pass">none</span></p>
-              <p>  Stale: &nbsp;&nbsp;&nbsp;<span class="warn">claim.field-attested-records.registration-status</span></p>
-              <p>  Conflicts: <span class="pass">none</span></p>
-              <p>  Transparency gaps: <span class="warn">3</span></p>
-            </div>
-          </div>
-        </div>
+        <Terminal class="animate-fade-in delay-300" title="surface report — summary">
+          <p><span class="prompt">$ </span><span class="cmd">npx surface report --input examples/surface-fixtures.json --format summary</span></p>
+          <br />
+          <p class="info">  Kontour Surface trust snapshot surface-1777090239260</p>
+          <p class="muted">  Source: kontour-surface-validation-fixtures</p>
+          <br />
+          <p>  Claims: <span class="pass">4</span> &nbsp;(unknown: 1, verified: 2, stale: 1)</p>
+          <p class="muted">  Claim types: repo-governance.developer-evidence: 1, field-attested-records.public-data: 1,</p>
+          <p class="muted">  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fact-resolution.financial-facts: 1, surface.roadmap: 1</p>
+          <br />
+          <p>  Claim Groups: <span class="pass">1</span></p>
+          <p>  High-impact unsupported: <span class="pass">none</span></p>
+          <p>  Stale: &nbsp;&nbsp;&nbsp;<span class="warn">claim.field-attested-records.registration-status</span></p>
+          <p>  Conflicts: <span class="pass">none</span></p>
+          <p>  Transparency gaps: <span class="warn">3</span></p>
+        </Terminal>
       </div>
     </div>
   </section>
@@ -174,7 +165,7 @@ import Footer from '@/components/Footer.astro';
     <div style="max-width: 1280px; margin: 0 auto;">
       <div class="label-sm" style="margin-bottom: 2.5rem;">What Surface gives you</div>
 
-      <div style="
+      <div class="stack-mobile" style="
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 1rem;
@@ -228,7 +219,7 @@ import Footer from '@/components/Footer.astro';
     <div style="max-width: 1280px; margin: 0 auto;">
       <div class="label-sm" style="margin-bottom: 2.5rem;">Trust vocabulary</div>
 
-      <div style="
+      <div class="stack-mobile" style="
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 1.5rem;
@@ -341,7 +332,7 @@ import Footer from '@/components/Footer.astro';
     border-top: 1px solid var(--color-edge);
   ">
     <div style="max-width: 1280px; margin: 0 auto;">
-      <div style="
+      <div class="stack-mobile" style="
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 4rem;
@@ -390,31 +381,23 @@ import Footer from '@/components/Footer.astro';
           </div>
         </div>
 
-        <div class="terminal">
-          <div class="terminal-bar">
-            <div class="terminal-dot"></div>
-            <div class="terminal-dot"></div>
-            <div class="terminal-dot"></div>
-            <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-chalk-3); margin-left: 0.5rem;">surface console</span>
-          </div>
-          <div class="terminal-body">
-            <p><span class="prompt">$ </span><span class="cmd">npx surface console</span></p>
-            <br />
-            <p class="info">  Surface Console running at http://localhost:4242</p>
-            <br />
-            <p class="muted">  Reading: .surface/runs/latest.json</p>
-            <p class="muted">  Source: latest Surface run snapshot</p>
-            <br />
-            <p class="muted">  GET /              200  console shell</p>
-            <p class="muted">  GET /api/read-model  200  current trust snapshot</p>
-            <p class="muted">  GET /api/runs        200  [run-a, run-b, run-c]</p>
-            <br />
-            <p style="color: var(--color-chalk-3);">  ───────────────────────────────</p>
-            <p class="pass">  verified  8 claims</p>
-            <p class="warn">  attention  2 claims</p>
-            <p class="muted">  eval  accepted · confidence: high</p>
-          </div>
-        </div>
+        <Terminal title="surface console">
+          <p><span class="prompt">$ </span><span class="cmd">npx surface console</span></p>
+          <br />
+          <p class="info">  Surface Console running at http://localhost:4242</p>
+          <br />
+          <p class="muted">  Reading: .surface/runs/latest.json</p>
+          <p class="muted">  Source: latest Surface run snapshot</p>
+          <br />
+          <p class="muted">  GET /              200  console shell</p>
+          <p class="muted">  GET /api/read-model  200  current trust snapshot</p>
+          <p class="muted">  GET /api/runs        200  [run-a, run-b, run-c]</p>
+          <br />
+          <p style="color: var(--color-chalk-3);">  ───────────────────────────────</p>
+          <p class="pass">  verified  8 claims</p>
+          <p class="warn">  attention  2 claims</p>
+          <p class="muted">  eval  accepted · confidence: high</p>
+        </Terminal>
       </div>
     </div>
   </section>
@@ -441,7 +424,7 @@ import Footer from '@/components/Footer.astro';
         shape humans and agents can inspect.
       </p>
 
-      <div style="
+      <div class="stack-mobile" style="
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 1.5rem;
@@ -545,20 +528,3 @@ import Footer from '@/components/Footer.astro';
 
   <Footer active="surface" />
 </Layout>
-
-<style>
-  @media (max-width: 900px) {
-    section > div > div[style*="grid-template-columns: 1fr 1fr"] {
-      display: flex !important;
-      flex-direction: column !important;
-    }
-    section > div > div[style*="grid-template-columns: repeat(3, 1fr)"] {
-      display: flex !important;
-      flex-direction: column !important;
-    }
-    section > div > div[style*="grid-template-columns: repeat(4, 1fr)"] {
-      display: flex !important;
-      flex-direction: column !important;
-    }
-  }
-</style>

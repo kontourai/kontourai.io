@@ -2,6 +2,7 @@
 import Layout from '@/layouts/Layout.astro';
 import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
+import Terminal from '@/components/Terminal.astro';
 ---
 
 <Layout
@@ -31,7 +32,7 @@ import Footer from '@/components/Footer.astro';
     "></div>
 
     <div style="max-width: 1280px; margin: 0 auto; position: relative; z-index: 1;">
-      <div style="
+      <div class="stack-mobile" style="
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 5rem;
@@ -89,15 +90,7 @@ import Footer from '@/components/Footer.astro';
         </div>
 
         <!-- Right: quickstart code -->
-        <div class="animate-fade-in delay-300">
-          <div class="terminal">
-            <div class="terminal-bar">
-              <div class="terminal-dot"></div>
-              <div class="terminal-dot"></div>
-              <div class="terminal-dot"></div>
-              <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-chalk-3); margin-left: 0.5rem;">quickstart.ts</span>
-            </div>
-            <div class="terminal-body">
+        <Terminal class="animate-fade-in delay-300" title="quickstart.ts">
 <pre style="margin: 0; white-space: pre; overflow-x: auto; font-family: var(--font-mono); font-size: 0.72rem; line-height: 1.7; color: var(--color-chalk-2);"><span style="color: var(--color-chalk-3);">// observation in → Surface-ready claim out</span>
 <span style="color: var(--color-gold-2);">import</span> {'{'} buildSurveyTrustInput,
          SurveyInputBuilder {'}'} <span style="color: var(--color-gold-2);">from</span> <span style="color: var(--color-green);">"@kontourai/survey"</span>;
@@ -113,9 +106,7 @@ import Footer from '@/components/Footer.astro';
 <span style="color: var(--color-gold-2);">const</span> report = <span style="color: var(--color-cobalt-2);">buildTrustReport</span>(
   <span style="color: var(--color-cobalt-2);">buildSurveyTrustInput</span>(input),
 );</pre>
-            </div>
-          </div>
-        </div>
+        </Terminal>
       </div>
     </div>
   </section>
@@ -130,7 +121,7 @@ import Footer from '@/components/Footer.astro';
         One path from raw source to a claim Surface can verify.
       </h2>
 
-      <div style="
+      <div class="pipeline-grid" style="
         display: grid;
         grid-template-columns: repeat(5, 1fr);
         gap: 0.75rem;
@@ -196,7 +187,7 @@ import Footer from '@/components/Footer.astro';
         contract so the same provenance shape reaches Surface every time.
       </p>
 
-      <div style="
+      <div class="stack-mobile" style="
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 1.5rem;
@@ -304,7 +295,7 @@ import Footer from '@/components/Footer.astro';
     background: var(--color-ink-1);
   ">
     <div style="max-width: 1280px; margin: 0 auto;">
-      <div style="
+      <div class="stack-mobile" style="
         display: grid;
         grid-template-columns: 1fr 1.15fr;
         gap: 4rem;
@@ -330,14 +321,7 @@ import Footer from '@/components/Footer.astro';
           </p>
         </div>
 
-        <div class="terminal">
-          <div class="terminal-bar">
-            <div class="terminal-dot"></div>
-            <div class="terminal-dot"></div>
-            <div class="terminal-dot"></div>
-            <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-chalk-3); margin-left: 0.5rem;">field-observation.ts</span>
-          </div>
-          <div class="terminal-body">
+        <Terminal title="field-observation.ts">
 <pre style="margin: 0; white-space: pre; overflow-x: auto; font-family: var(--font-mono); font-size: 0.72rem; line-height: 1.7; color: var(--color-chalk-2);"><span style="color: var(--color-gold-2);">import</span> {'{'} fieldObservation,
          SurveyInputBuilder {'}'} <span style="color: var(--color-gold-2);">from</span> <span style="color: var(--color-green);">"@kontourai/survey"</span>;
 
@@ -368,8 +352,7 @@ import Footer from '@/components/Footer.astro';
     {'}'},
   {'}'}))
   .<span style="color: var(--color-cobalt-2);">build</span>();</pre>
-          </div>
-        </div>
+        </Terminal>
       </div>
     </div>
   </section>
@@ -379,7 +362,7 @@ import Footer from '@/components/Footer.astro';
   ────────────────────────────────────────────────────────── -->
   <section style="padding: 5rem var(--spacing-page); border-top: 1px solid var(--color-edge);">
     <div style="max-width: 1280px; margin: 0 auto;">
-      <div style="
+      <div class="stack-mobile" style="
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 4rem;
@@ -405,25 +388,17 @@ import Footer from '@/components/Footer.astro';
           ">Explore Surface →</a>
         </div>
 
-        <div class="terminal">
-          <div class="terminal-bar">
-            <div class="terminal-dot"></div>
-            <div class="terminal-dot"></div>
-            <div class="terminal-dot"></div>
-            <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-chalk-3); margin-left: 0.5rem;">survey → surface</span>
-          </div>
-          <div class="terminal-body">
-            <p class="muted">  Survey records</p>
-            <p>  source → extraction → candidate → review → <span class="info">claim</span></p>
-            <br />
-            <p class="muted">  buildSurveyTrustInput()</p>
-            <p style="color: var(--color-chalk-3);">  ───────────────────────────────</p>
-            <p class="info">  Surface TrustInput</p>
-            <p class="pass">  verified  registrationStatus = ACTIVE</p>
-            <p class="muted">  evidence  web-page · css:#registration-status</p>
-            <p class="muted">  freshness owned by Surface policy</p>
-          </div>
-        </div>
+        <Terminal title="survey → surface">
+          <p class="muted">  Survey records</p>
+          <p>  source → extraction → candidate → review → <span class="info">claim</span></p>
+          <br />
+          <p class="muted">  buildSurveyTrustInput()</p>
+          <p style="color: var(--color-chalk-3);">  ───────────────────────────────</p>
+          <p class="info">  Surface TrustInput</p>
+          <p class="pass">  verified  registrationStatus = ACTIVE</p>
+          <p class="muted">  evidence  web-page · css:#registration-status</p>
+          <p class="muted">  freshness owned by Surface policy</p>
+        </Terminal>
       </div>
     </div>
   </section>
@@ -432,24 +407,15 @@ import Footer from '@/components/Footer.astro';
 </Layout>
 
 <style>
+  /* The five-step pipeline steps down 5 → 2 → 1 across breakpoints.
+     (Other two-/three-column grids on this page use the shared
+     .stack-mobile helper, which collapses them at 900px.) */
   @media (max-width: 1000px) {
-    section > div > div[style*="grid-template-columns: repeat(5"] {
-      display: grid !important;
-      grid-template-columns: repeat(2, 1fr) !important;
-    }
-  }
-
-  @media (max-width: 900px) {
-    section > div > div[style*="grid-template-columns: 1fr 1fr"],
-    section > div > div[style*="grid-template-columns: 1fr 1.15fr"],
-    section > div > div[style*="grid-template-columns: repeat(3, 1fr)"] {
-      display: flex !important;
-      flex-direction: column !important;
-    }
+    .pipeline-grid { grid-template-columns: repeat(2, 1fr) !important; }
   }
 
   @media (max-width: 600px) {
-    section > div > div[style*="grid-template-columns: repeat(5"] {
+    .pipeline-grid {
       display: flex !important;
       flex-direction: column !important;
     }

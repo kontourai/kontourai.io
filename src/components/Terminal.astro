@@ -1,0 +1,22 @@
+---
+interface Props {
+  /** Label shown in the terminal title bar (e.g. a filename or command). */
+  title?: string;
+  /** Optional extra classes on the outer terminal (e.g. animation utilities). */
+  class?: string;
+}
+
+const { title, class: className } = Astro.props;
+---
+
+<div class:list={["terminal", className]}>
+  <div class="terminal-bar">
+    <div class="terminal-dot"></div>
+    <div class="terminal-dot"></div>
+    <div class="terminal-dot"></div>
+    {title && <span class="terminal-title">{title}</span>}
+  </div>
+  <div class="terminal-body">
+    <slot />
+  </div>
+</div>

@@ -159,19 +159,3 @@ import Footer from '@/components/Footer.astro';
 
   <Footer active="home" />
 </Layout>
-
-<style>
-  @media (max-width: 1000px) {
-    section div[style*="grid-template-columns: repeat(4"] {
-      display: grid !important;
-      grid-template-columns: repeat(2, 1fr) !important;
-    }
-  }
-
-  @media (max-width: 640px) {
-    section div[style*="grid-template-columns: repeat(4"] {
-      display: flex !important;
-      flex-direction: column !important;
-    }
-  }
-</style>

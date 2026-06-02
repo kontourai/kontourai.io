@@ -1,8 +1,20 @@
 ---
+type NavKey = 'home' | 'preview' | 'veritas' | 'surface' | 'survey' | 'flow' | 'flow-agents' | 'console';
+
 interface Props {
-  active?: 'home' | 'preview' | 'veritas' | 'surface' | 'survey' | 'flow' | 'flow-agents' | 'console';
+  active?: NavKey;
 }
 const { active } = Astro.props;
+
+// Product nav links, in display order, each with its accent color when active.
+const links: { href: string; label: string; key: NavKey; color: string }[] = [
+  { href: '/veritas', label: 'veritas', key: 'veritas', color: 'var(--color-green)' },
+  { href: '/flow', label: 'flow', key: 'flow', color: 'var(--color-cobalt-2)' },
+  { href: '/flow-agents', label: 'Flow Agents', key: 'flow-agents', color: 'var(--color-chalk-2)' },
+  { href: '/surface', label: 'surface', key: 'surface', color: 'var(--color-gold)' },
+  { href: '/survey', label: 'survey', key: 'survey', color: 'var(--color-gold-2)' },
+  { href: '/console', label: 'console', key: 'console', color: 'var(--color-cobalt)' },
+];
 ---
 
 <header style="position: fixed; top: 0; left: 0; right: 0; z-index: 100; border-bottom: 1px solid var(--color-edge);">
@@ -47,107 +59,15 @@ const { active } = Astro.props;
       <div class="nav-links" style="display: flex; align-items: center; gap: 0.25rem; min-width: 0; overflow-x: auto;">
         {active !== 'home' && (
           <>
-            <a
-              href="/veritas"
-              aria-current={active === 'veritas' ? 'page' : undefined}
-              data-umami-event="nav-veritas"
-              style={`
-                padding: 0.4rem 0.85rem;
-                border-radius: 4px;
-                font-family: var(--font-mono);
-                font-size: 0.75rem;
-                letter-spacing: 0.05em;
-                text-decoration: none;
-                color: ${active === 'veritas' ? 'var(--color-green)' : 'var(--color-chalk-3)'};
-                background: ${active === 'veritas' ? 'var(--color-ink-3)' : 'transparent'};
-                transition: color 0.15s, background 0.15s;
-              `}
-            >veritas</a>
-
-            <a
-              href="/flow"
-              aria-current={active === 'flow' ? 'page' : undefined}
-              data-umami-event="nav-flow"
-              style={`
-                padding: 0.4rem 0.85rem;
-                border-radius: 4px;
-                font-family: var(--font-mono);
-                font-size: 0.75rem;
-                letter-spacing: 0.05em;
-                text-decoration: none;
-                color: ${active === 'flow' ? 'var(--color-cobalt-2)' : 'var(--color-chalk-3)'};
-                background: ${active === 'flow' ? 'var(--color-ink-3)' : 'transparent'};
-                transition: color 0.15s, background 0.15s;
-              `}
-            >flow</a>
-
-            <a
-              href="/flow-agents"
-              aria-current={active === 'flow-agents' ? 'page' : undefined}
-              data-umami-event="nav-flow-agents"
-              style={`
-                padding: 0.4rem 0.85rem;
-                border-radius: 4px;
-                font-family: var(--font-mono);
-                font-size: 0.75rem;
-                letter-spacing: 0.05em;
-                text-decoration: none;
-                color: ${active === 'flow-agents' ? 'var(--color-chalk-2)' : 'var(--color-chalk-3)'};
-                background: ${active === 'flow-agents' ? 'var(--color-ink-3)' : 'transparent'};
-                transition: color 0.15s, background 0.15s;
-              `}
-            >Flow Agents</a>
-
-            <a
-              href="/surface"
-              aria-current={active === 'surface' ? 'page' : undefined}
-              data-umami-event="nav-surface"
-              style={`
-                padding: 0.4rem 0.85rem;
-                border-radius: 4px;
-                font-family: var(--font-mono);
-                font-size: 0.75rem;
-                letter-spacing: 0.05em;
-                text-decoration: none;
-                color: ${active === 'surface' ? 'var(--color-gold)' : 'var(--color-chalk-3)'};
-                background: ${active === 'surface' ? 'var(--color-ink-3)' : 'transparent'};
-                transition: color 0.15s, background 0.15s;
-              `}
-            >surface</a>
-
-            <a
-              href="/survey"
-              aria-current={active === 'survey' ? 'page' : undefined}
-              data-umami-event="nav-survey"
-              style={`
-                padding: 0.4rem 0.85rem;
-                border-radius: 4px;
-                font-family: var(--font-mono);
-                font-size: 0.75rem;
-                letter-spacing: 0.05em;
-                text-decoration: none;
-                color: ${active === 'survey' ? 'var(--color-gold-2)' : 'var(--color-chalk-3)'};
-                background: ${active === 'survey' ? 'var(--color-ink-3)' : 'transparent'};
-                transition: color 0.15s, background 0.15s;
-              `}
-            >survey</a>
-
-            <a
-              href="/console"
-              aria-current={active === 'console' ? 'page' : undefined}
-              data-umami-event="nav-console"
-              style={`
-                padding: 0.4rem 0.85rem;
-                border-radius: 4px;
-                font-family: var(--font-mono);
-                font-size: 0.75rem;
-                letter-spacing: 0.05em;
-                text-decoration: none;
-                color: ${active === 'console' ? 'var(--color-cobalt)' : 'var(--color-chalk-3)'};
-                background: ${active === 'console' ? 'var(--color-ink-3)' : 'transparent'};
-                transition: color 0.15s, background 0.15s;
-              `}
-            >console</a>
+            {links.map(({ href, label, key, color }) => (
+              <a
+                href={href}
+                class="nav-link"
+                aria-current={active === key ? 'page' : undefined}
+                data-umami-event={`nav-${key}`}
+                style={active === key ? `color: ${color};` : undefined}
+              >{label}</a>
+            ))}
 
             <div style="width: 1px; height: 18px; background: var(--color-edge); margin: 0 0.5rem;"></div>
           </>
@@ -158,19 +78,8 @@ const { active } = Astro.props;
           target="_blank"
           rel="noopener"
           data-umami-event="nav-github"
-          style="
-            padding: 0.4rem 0.85rem;
-            border-radius: 4px;
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            letter-spacing: 0.05em;
-            text-decoration: none;
-            color: var(--color-chalk-3);
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            transition: color 0.15s;
-          "
+          class="nav-link"
+          style="display: flex; align-items: center; gap: 0.4rem;"
         >
           <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
             <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
@@ -183,14 +92,8 @@ const { active } = Astro.props;
 </header>
 
 <style>
-  a[style*="color: var(--color-chalk-3)"]:hover {
-    color: var(--color-chalk) !important;
-  }
-
   /* Keep the bar one line tall; let links scroll on narrow screens
      instead of wrapping (which would break the fixed header height). */
   .nav-links { scrollbar-width: none; -ms-overflow-style: none; }
   .nav-links::-webkit-scrollbar { display: none; }
-  .nav-links > a,
-  .nav-links > * > a { white-space: nowrap; flex: 0 0 auto; }
 </style>

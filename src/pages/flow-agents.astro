@@ -27,7 +27,7 @@ import Footer from '@/components/Footer.astro';
     "></div>
 
     <div style="max-width: 1280px; margin: 0 auto; position: relative; z-index: 1;">
-      <div style="
+      <div class="stack-mobile" style="
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 5rem;
@@ -108,12 +108,3 @@ import Footer from '@/components/Footer.astro';
 
   <Footer active="flow-agents" />
 </Layout>
-
-<style>
-  @media (max-width: 900px) {
-    section > div > div[style*="grid-template-columns: 1fr 1fr"] {
-      display: flex !important;
-      flex-direction: column !important;
-    }
-  }
-</style>
