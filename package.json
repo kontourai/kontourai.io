@@ -9,8 +9,9 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "validate": "node scripts/validate.mjs",
-    "test:rendered": "npm run build && playwright test"
+    "validate": "node scripts/check-content-boundary.cjs && node scripts/validate.mjs",
+    "test:rendered": "npm run build && playwright test",
+    "check:content-boundary": "node scripts/check-content-boundary.cjs"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.0",
