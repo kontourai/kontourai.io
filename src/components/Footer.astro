@@ -1,6 +1,6 @@
 ---
 interface Props {
-  active?: 'home' | 'preview' | 'veritas' | 'surface' | 'flow' | 'flow-agents';
+  active?: 'home' | 'preview' | 'veritas' | 'surface' | 'survey' | 'flow' | 'flow-agents';
 }
 
 const { active } = Astro.props;
@@ -12,6 +12,7 @@ const links = isPublicHome
     ]
   : [
       { href: '/surface', label: 'Surface', event: 'footer-surface' },
+      { href: '/survey', label: 'Survey', event: 'footer-survey' },
       { href: '/flow', label: 'Flow', event: 'footer-flow' },
       { href: '/flow-agents', label: 'Flow Agents', event: 'footer-flow-agents' },
       { href: '/veritas', label: 'Veritas', event: 'footer-veritas' },

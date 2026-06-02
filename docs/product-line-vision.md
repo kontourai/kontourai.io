@@ -11,6 +11,7 @@ Agents now act, decide, summarize, recommend, and ship faster than humans can ma
 This is the connective tissue across the product line:
 
 - **Surface** makes claims inspectable.
+- **Survey** makes the producer side of a claim — source, extraction, candidate, review — inspectable before it reaches Surface.
 - **Flow** makes required process paths inspectable.
 - **Veritas** makes code/change readiness inspectable.
 - **Flow Agents** applies those primitives inside the agent tools people already use.
@@ -101,6 +102,10 @@ It can consume Flow to enforce workflow state across Codex, Claude Code, Kiro, G
 Surface
   Shared transparency foundation.
   Claims, evidence, freshness, gaps, policies, trust snapshots.
+
+Survey
+  Producer-side contract built on Surface.
+  Source, extraction, candidate, review -> Surface-ready TrustInput.
 
 Veritas
   AI-authored code vertical built on Surface.

@@ -51,6 +51,25 @@ High-impact unsupported: none
 Transparency gaps: 3`,
         },
         {
+          name: 'Survey',
+          badge: 'v0.3.0',
+          color: 'var(--color-gold-2)',
+          one: 'Producer-side trust for Surface. Survey turns sources, extractions, candidates, and reviews into Surface-ready claims with provenance attached — without absorbing producer domain policy.',
+          now: 'Current package: @kontourai/survey v0.3.0. Proof-stage library, not an ingestion platform.',
+          coming: 'Resource-shaped ClaimReviewRecord exports; structured derivation edges; first vertical adapters.',
+          demo: `import { buildSurveyTrustInput, SurveyInputBuilder } from "@kontourai/survey";
+import { buildTrustReport } from "@kontourai/surface";
+
+const input = new SurveyInputBuilder({ source: "crawler:run-1" })
+  .addObservation(observation)
+  .build();
+
+const report = buildTrustReport(buildSurveyTrustInput(input));
+
+// source -> extraction -> candidate -> review -> claim
+// projected into a Surface TrustInput`,
+        },
+        {
           name: 'Flow',
           badge: 'v0.1.0',
           color: 'var(--color-cobalt-2)',

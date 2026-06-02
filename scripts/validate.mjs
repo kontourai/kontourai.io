@@ -5,12 +5,13 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-const packages = ["@kontourai/veritas", "@kontourai/surface"];
+const packages = ["@kontourai/veritas", "@kontourai/surface", "@kontourai/survey"];
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const registryBaseUrl = "https://registry.npmjs.org";
 const expectedVersions = {
   "@kontourai/veritas": await readAdvertisedVeritasVersion(),
   "@kontourai/surface": await readAdvertisedSurfaceVersion(),
+  "@kontourai/survey": await readAdvertisedSurveyVersion(),
 };
 
 let errorCount = 0;
@@ -93,6 +94,17 @@ async function readAdvertisedSurfaceVersion() {
   const match = source.match(/trust-badge[^>]*>v([0-9]+\.[0-9]+\.[0-9]+)</);
   if (!match) {
     error("src/pages/surface.astro: could not find advertised Surface version badge");
+    return null;
+  }
+  return match[1];
+}
+
+async function readAdvertisedSurveyVersion() {
+  const pagePath = path.join(rootDir, "src/pages/survey.astro");
+  const source = await readFile(pagePath, "utf8");
+  const match = source.match(/trust-badge[^>]*>v([0-9]+\.[0-9]+\.[0-9]+)</);
+  if (!match) {
+    error("src/pages/survey.astro: could not find advertised Survey version badge");
     return null;
   }
   return match[1];
