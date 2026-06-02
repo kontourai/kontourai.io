@@ -51,6 +51,25 @@ High-impact unsupported: none
 Transparency gaps: 3`,
         },
         {
+          name: 'Survey',
+          badge: 'v0.3.0',
+          color: 'var(--color-gold-2)',
+          one: 'Producer-side trust for Surface. Survey turns sources, extractions, candidates, and reviews into Surface-ready claims with provenance attached — without absorbing producer domain policy.',
+          now: 'Current package: @kontourai/survey v0.3.0. Proof-stage library, not an ingestion platform.',
+          coming: 'Resource-shaped ClaimReviewRecord exports; structured derivation edges; first vertical adapters.',
+          demo: `import { buildSurveyTrustInput, SurveyInputBuilder } from "@kontourai/survey";
+import { buildTrustReport } from "@kontourai/surface";
+
+const input = new SurveyInputBuilder({ source: "crawler:run-1" })
+  .addObservation(observation)
+  .build();
+
+const report = buildTrustReport(buildSurveyTrustInput(input));
+
+// source -> extraction -> candidate -> review -> claim
+// projected into a Surface TrustInput`,
+        },
+        {
           name: 'Flow',
           badge: 'v0.1.0',
           color: 'var(--color-cobalt-2)',
@@ -111,6 +130,26 @@ runtimes: Claude Code, Codex, Kiro, GitHub Actions
 workflow state: Flow-backed
 code evidence: Veritas readiness
 repo: https://github.com/kontourai/flow-agents`,
+        },
+        {
+          name: 'Console',
+          badge: 'early preview',
+          color: 'var(--color-cobalt)',
+          one: 'The suite-level operating plane. Console brings claim status, process state, proof, queues, decisions, freshness, and next actions from every Kontour product into one place — without owning their semantics.',
+          now: 'Early preview. Portable contracts plus a local, read-only fixture inspector — not an app or hosted service. Primitives work without it.',
+          coming: 'Shared console shell after Surface / Flow / Survey consoles converge; unified work queue and suite-level action routing.',
+          demo: `$ npm run inspect:fixtures
+
+Kontour Console fixture inspection
+Event streams: 3   Projection snapshots: 2
+
+claim   claim-provider-directory  verified  fresh
+process run-provider-118-review  completed
+gate    gate-provider-evidence    passed
+review  review-provider-118       approved
+
+Validation: errors=0
+actions shown as inert descriptors only`,
         },
       ].map(({ name, badge, color, one, now, coming, demo }) => (
         <article class="card" style="padding: 2rem; position: relative; overflow: hidden;">

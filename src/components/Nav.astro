@@ -1,6 +1,6 @@
 ---
 interface Props {
-  active?: 'home' | 'preview' | 'veritas' | 'surface' | 'flow' | 'flow-agents';
+  active?: 'home' | 'preview' | 'veritas' | 'surface' | 'survey' | 'flow' | 'flow-agents' | 'console';
 }
 const { active } = Astro.props;
 ---
@@ -44,7 +44,7 @@ const { active } = Astro.props;
       </a>
 
       <!-- Nav links -->
-      <div style="display: flex; align-items: center; gap: 0.25rem;">
+      <div class="nav-links" style="display: flex; align-items: center; gap: 0.25rem; min-width: 0; overflow-x: auto;">
         {active !== 'home' && (
           <>
             <a
@@ -115,6 +115,40 @@ const { active } = Astro.props;
               `}
             >surface</a>
 
+            <a
+              href="/survey"
+              aria-current={active === 'survey' ? 'page' : undefined}
+              data-umami-event="nav-survey"
+              style={`
+                padding: 0.4rem 0.85rem;
+                border-radius: 4px;
+                font-family: var(--font-mono);
+                font-size: 0.75rem;
+                letter-spacing: 0.05em;
+                text-decoration: none;
+                color: ${active === 'survey' ? 'var(--color-gold-2)' : 'var(--color-chalk-3)'};
+                background: ${active === 'survey' ? 'var(--color-ink-3)' : 'transparent'};
+                transition: color 0.15s, background 0.15s;
+              `}
+            >survey</a>
+
+            <a
+              href="/console"
+              aria-current={active === 'console' ? 'page' : undefined}
+              data-umami-event="nav-console"
+              style={`
+                padding: 0.4rem 0.85rem;
+                border-radius: 4px;
+                font-family: var(--font-mono);
+                font-size: 0.75rem;
+                letter-spacing: 0.05em;
+                text-decoration: none;
+                color: ${active === 'console' ? 'var(--color-cobalt)' : 'var(--color-chalk-3)'};
+                background: ${active === 'console' ? 'var(--color-ink-3)' : 'transparent'};
+                transition: color 0.15s, background 0.15s;
+              `}
+            >console</a>
+
             <div style="width: 1px; height: 18px; background: var(--color-edge); margin: 0 0.5rem;"></div>
           </>
         )}
@@ -152,4 +186,11 @@ const { active } = Astro.props;
   a[style*="color: var(--color-chalk-3)"]:hover {
     color: var(--color-chalk) !important;
   }
+
+  /* Keep the bar one line tall; let links scroll on narrow screens
+     instead of wrapping (which would break the fixed header height). */
+  .nav-links { scrollbar-width: none; -ms-overflow-style: none; }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-links > a,
+  .nav-links > * > a { white-space: nowrap; flex: 0 0 auto; }
 </style>
