@@ -2,6 +2,7 @@
 import Layout from '@/layouts/Layout.astro';
 import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
+import Terminal from '@/components/Terminal.astro';
 ---
 
 <Layout
@@ -31,7 +32,7 @@ import Footer from '@/components/Footer.astro';
     "></div>
 
     <div style="max-width: 1280px; margin: 0 auto; position: relative; z-index: 1;">
-      <div style="
+      <div class="stack-mobile" style="
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 5rem;
@@ -89,40 +90,30 @@ import Footer from '@/components/Footer.astro';
         </div>
 
         <!-- Right: run output -->
-        <div class="animate-fade-in delay-300">
-          <div class="terminal">
-            <div class="terminal-bar">
-              <div class="terminal-dot"></div>
-              <div class="terminal-dot"></div>
-              <div class="terminal-dot"></div>
-              <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-chalk-3); margin-left: 0.5rem;">veritas readiness</span>
-            </div>
-            <div class="terminal-body">
-              <p><span class="prompt">$ </span><span class="cmd">npx veritas readiness --working-tree</span></p>
-              <br />
-              <p class="info">  veritas 0.4.0 — readiness</p>
-              <p class="muted">  repo map:      loaded</p>
-              <p class="muted">  repo standards: loaded</p>
-              <br />
-              <p class="pass">  PASS  evidence-check: npm run verify</p>
-              <p class="pass">  PASS  repo-standards-present</p>
-              <p class="pass">  PASS  ai-instruction-files-synced</p>
-              <p class="pass">  PASS  merge-readiness: ready</p>
-              <br />
-              <p class="warn">  INFO  evidence-freshness: current</p>
-              <p style="color: var(--color-chalk-3); padding-left: 2rem; font-size: 0.72rem;">
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ checked against this diff and standards version
-              </p>
-              <p style="color: var(--color-chalk-3); padding-left: 2rem; font-size: 0.72rem;">
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ boundary crossing: none
-              </p>
-              <br />
-              <p style="color: var(--color-chalk-3);">  ───────────────────────────────</p>
-              <p style="color: var(--color-chalk-2);">  0 failures &nbsp; 0 warnings</p>
-              <p class="muted">  evidence → .veritas/evidence/&lt;run-id&gt;.json</p>
-            </div>
-          </div>
-        </div>
+        <Terminal class="animate-fade-in delay-300" title="veritas readiness">
+          <p><span class="prompt">$ </span><span class="cmd">npx veritas readiness --working-tree</span></p>
+          <br />
+          <p class="info">  veritas 0.4.0 — readiness</p>
+          <p class="muted">  repo map:      loaded</p>
+          <p class="muted">  repo standards: loaded</p>
+          <br />
+          <p class="pass">  PASS  evidence-check: npm run verify</p>
+          <p class="pass">  PASS  repo-standards-present</p>
+          <p class="pass">  PASS  ai-instruction-files-synced</p>
+          <p class="pass">  PASS  merge-readiness: ready</p>
+          <br />
+          <p class="warn">  INFO  evidence-freshness: current</p>
+          <p style="color: var(--color-chalk-3); padding-left: 2rem; font-size: 0.72rem;">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ checked against this diff and standards version
+          </p>
+          <p style="color: var(--color-chalk-3); padding-left: 2rem; font-size: 0.72rem;">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ boundary crossing: none
+          </p>
+          <br />
+          <p style="color: var(--color-chalk-3);">  ───────────────────────────────</p>
+          <p style="color: var(--color-chalk-2);">  0 failures &nbsp; 0 warnings</p>
+          <p class="muted">  evidence → .veritas/evidence/&lt;run-id&gt;.json</p>
+        </Terminal>
       </div>
     </div>
   </section>
@@ -137,7 +128,7 @@ import Footer from '@/components/Footer.astro';
     background: var(--color-ink-1);
   ">
     <div style="max-width: 1280px; margin: 0 auto;">
-      <div style="
+      <div class="stack-mobile" style="
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 4rem;
@@ -209,7 +200,7 @@ import Footer from '@/components/Footer.astro';
     <div style="max-width: 1280px; margin: 0 auto;">
       <div class="label-sm" style="margin-bottom: 3rem;">What Veritas makes possible</div>
 
-      <div style="
+      <div class="stack-mobile" style="
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 1.5rem;
@@ -308,7 +299,7 @@ import Footer from '@/components/Footer.astro';
     background: var(--color-ink-1);
   ">
     <div style="max-width: 1280px; margin: 0 auto;">
-      <div style="
+      <div class="stack-mobile" style="
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 4rem;
@@ -331,29 +322,21 @@ import Footer from '@/components/Footer.astro';
           </p>
         </div>
 
-        <div class="terminal">
-          <div class="terminal-bar">
-            <div class="terminal-dot"></div>
-            <div class="terminal-dot"></div>
-            <div class="terminal-dot"></div>
-            <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-chalk-3); margin-left: 0.5rem;">veritas readiness — blocked</span>
-          </div>
-          <div class="terminal-body">
-            <p><span class="prompt">$ </span><span class="cmd">npx veritas readiness --working-tree</span></p>
-            <br />
-            <p class="info">  veritas 0.4.0 — readiness</p>
-            <p class="muted">  repo standards: loaded</p>
-            <br />
-            <p class="pass">  PASS  change-boundaries: within work area</p>
-            <p class="warn">  BLOCK evidence-check: api handler changed, test missing</p>
-            <p style="color: var(--color-chalk-3); padding-left: 2rem; font-size: 0.72rem;">
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ expected: test covering src/api/handler.ts
-            </p>
-            <br />
-            <p>  merge-readiness: <span class="warn">blocked — 1 requirement unmet</span></p>
-            <p class="muted">  next action: add the missing test, then re-run</p>
-          </div>
-        </div>
+        <Terminal title="veritas readiness — blocked">
+          <p><span class="prompt">$ </span><span class="cmd">npx veritas readiness --working-tree</span></p>
+          <br />
+          <p class="info">  veritas 0.4.0 — readiness</p>
+          <p class="muted">  repo standards: loaded</p>
+          <br />
+          <p class="pass">  PASS  change-boundaries: within work area</p>
+          <p class="warn">  BLOCK evidence-check: api handler changed, test missing</p>
+          <p style="color: var(--color-chalk-3); padding-left: 2rem; font-size: 0.72rem;">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ expected: test covering src/api/handler.ts
+          </p>
+          <br />
+          <p>  merge-readiness: <span class="warn">blocked — 1 requirement unmet</span></p>
+          <p class="muted">  next action: add the missing test, then re-run</p>
+        </Terminal>
       </div>
     </div>
   </section>
@@ -413,16 +396,3 @@ import Footer from '@/components/Footer.astro';
 
   <Footer active="veritas" />
 </Layout>
-
-<style>
-  @media (max-width: 900px) {
-    section > div > div[style*="grid-template-columns: 1fr 1fr"] {
-      display: flex !important;
-      flex-direction: column !important;
-    }
-    section > div > div[style*="grid-template-columns: repeat(3, 1fr)"] {
-      display: flex !important;
-      flex-direction: column !important;
-    }
-  }
-</style>

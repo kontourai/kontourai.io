@@ -2,6 +2,7 @@
 import Layout from '@/layouts/Layout.astro';
 import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
+import Terminal from '@/components/Terminal.astro';
 ---
 
 <Layout
@@ -27,7 +28,7 @@ import Footer from '@/components/Footer.astro';
     "></div>
 
     <div style="max-width: 1280px; margin: 0 auto; position: relative; z-index: 1;">
-      <div style="
+      <div class="stack-mobile" style="
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 5rem;
@@ -85,31 +86,21 @@ import Footer from '@/components/Footer.astro';
           </div>
         </div>
 
-        <div class="animate-fade-in delay-300">
-          <div class="terminal">
-            <div class="terminal-bar">
-              <div class="terminal-dot"></div>
-              <div class="terminal-dot"></div>
-              <div class="terminal-dot"></div>
-              <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-chalk-3); margin-left: 0.5rem;">flow report — current run</span>
-            </div>
-            <div class="terminal-body">
-              <p><span class="prompt">$ </span><span class="cmd">flow status run.dev-1847 --format summary</span></p>
-              <br />
-              <p class="info">  flow run: agent-dev-flow / feature-search-filters</p>
-              <p class="muted">  current step: verify</p>
-              <br />
-              <p class="pass">  PASS  plan gate: acceptance criteria linked</p>
-              <p class="pass">  PASS  implementation gate: scoped files changed</p>
-              <p class="warn">  BLOCK verify gate: browser evidence missing</p>
-              <p class="muted">        expected: tests, lint, screenshot, Veritas readiness</p>
-              <br />
-              <p>  next action: <span class="warn">run browser check before publish</span></p>
-              <p class="muted">  continuation: resume from verify, not chat memory</p>
-              <p class="muted">  report: .flow/runs/run.dev-1847/report.md</p>
-            </div>
-          </div>
-        </div>
+        <Terminal class="animate-fade-in delay-300" title="flow report — current run">
+          <p><span class="prompt">$ </span><span class="cmd">flow status run.dev-1847 --format summary</span></p>
+          <br />
+          <p class="info">  flow run: agent-dev-flow / feature-search-filters</p>
+          <p class="muted">  current step: verify</p>
+          <br />
+          <p class="pass">  PASS  plan gate: acceptance criteria linked</p>
+          <p class="pass">  PASS  implementation gate: scoped files changed</p>
+          <p class="warn">  BLOCK verify gate: browser evidence missing</p>
+          <p class="muted">        expected: tests, lint, screenshot, Veritas readiness</p>
+          <br />
+          <p>  next action: <span class="warn">run browser check before publish</span></p>
+          <p class="muted">  continuation: resume from verify, not chat memory</p>
+          <p class="muted">  report: .flow/runs/run.dev-1847/report.md</p>
+        </Terminal>
       </div>
     </div>
   </section>
@@ -121,22 +112,14 @@ import Footer from '@/components/Footer.astro';
   ">
     <div style="max-width: 1280px; margin: 0 auto;">
       <div class="label-sm" style="margin-bottom: 1.5rem; color: var(--color-cobalt-2);">Quickstart</div>
-      <div class="terminal">
-        <div class="terminal-bar">
-          <div class="terminal-dot"></div>
-          <div class="terminal-dot"></div>
-          <div class="terminal-dot"></div>
-          <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-chalk-3); margin-left: 0.5rem;">flow quickstart</span>
-        </div>
-        <div class="terminal-body">
-          <p><span class="prompt">$ </span><span class="cmd">npm install -D @kontourai/flow</span></p>
-          <p><span class="prompt">$ </span><span class="cmd">npx flow init</span></p>
-          <p><span class="prompt">$ </span><span class="cmd">npx flow start examples/agent-dev-flow.json --run-id dev-1847</span></p>
-          <p><span class="prompt">$ </span><span class="cmd">npx flow attach-evidence dev-1847 --gate verify-gate \</span></p>
-          <p><span class="cmd">    --file ./test-output.json --kind command</span></p>
-          <p><span class="prompt">$ </span><span class="cmd">npx flow report dev-1847</span></p>
-        </div>
-      </div>
+      <Terminal title="flow quickstart">
+        <p><span class="prompt">$ </span><span class="cmd">npm install -D @kontourai/flow</span></p>
+        <p><span class="prompt">$ </span><span class="cmd">npx flow init</span></p>
+        <p><span class="prompt">$ </span><span class="cmd">npx flow start examples/agent-dev-flow.json --run-id dev-1847</span></p>
+        <p><span class="prompt">$ </span><span class="cmd">npx flow attach-evidence dev-1847 --gate verify-gate \</span></p>
+        <p><span class="cmd">    --file ./test-output.json --kind command</span></p>
+        <p><span class="prompt">$ </span><span class="cmd">npx flow report dev-1847</span></p>
+      </Terminal>
     </div>
   </section>
 
@@ -193,7 +176,7 @@ import Footer from '@/components/Footer.astro';
     background: var(--color-ink-1);
   ">
     <div style="max-width: 1280px; margin: 0 auto;">
-      <div style="
+      <div class="stack-mobile" style="
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 4rem;
@@ -258,7 +241,7 @@ import Footer from '@/components/Footer.astro';
     <div style="max-width: 1280px; margin: 0 auto;">
       <div class="label-sm" style="margin-bottom: 2.5rem;">What Flow does not replace</div>
 
-      <div style="
+      <div class="stack-mobile" style="
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         gap: 1rem;
@@ -299,7 +282,7 @@ import Footer from '@/components/Footer.astro';
     background: var(--color-ink-1);
   ">
     <div style="max-width: 1280px; margin: 0 auto;">
-      <div style="
+      <div class="stack-mobile" style="
         display: grid;
         grid-template-columns: 1fr 1.2fr;
         gap: 4rem;
@@ -322,42 +305,18 @@ import Footer from '@/components/Footer.astro';
           </p>
         </div>
 
-        <div class="terminal">
-          <div class="terminal-bar">
-            <div class="terminal-dot"></div>
-            <div class="terminal-dot"></div>
-            <div class="terminal-dot"></div>
-            <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-chalk-3); margin-left: 0.5rem;">kontour stack</span>
-          </div>
-          <div class="terminal-body">
-            <p><span class="info">Surface</span>  claims, evidence, policies, trust snapshots</p>
-            <p><span class="info">Flow</span>     steps, gates, transitions, exceptions, reports</p>
-            <p><span class="info">Veritas</span>  repo standards, evidence checks, merge readiness</p>
-            <p><span class="info">Flow Agents</span>     coming soon: agent-runtime distribution + work modes</p>
-            <br />
-            <p class="muted">  shared promise: Kontour AI shows the work behind AI.</p>
-          </div>
-        </div>
+        <Terminal title="kontour stack">
+          <p><span class="info">Surface</span>  claims, evidence, policies, trust snapshots</p>
+          <p><span class="info">Survey</span>   producer-side source → review → claim, projected into Surface</p>
+          <p><span class="info">Flow</span>     steps, gates, transitions, exceptions, reports</p>
+          <p><span class="info">Veritas</span>  repo standards, evidence checks, merge readiness</p>
+          <p><span class="info">Flow Agents</span>     coming soon: agent-runtime distribution + work modes</p>
+          <br />
+          <p class="muted">  shared promise: Kontour AI shows the work behind AI.</p>
+        </Terminal>
       </div>
     </div>
   </section>
 
   <Footer active="flow" />
 </Layout>
-
-<style>
-  @media (max-width: 900px) {
-    section > div > div[style*="grid-template-columns: 1fr 1fr"] {
-      display: flex !important;
-      flex-direction: column !important;
-    }
-    section > div > div[style*="grid-template-columns: 1fr 1.2fr"] {
-      display: flex !important;
-      flex-direction: column !important;
-    }
-    section > div > div[style*="grid-template-columns: repeat(4, 1fr)"] {
-      display: flex !important;
-      flex-direction: column !important;
-    }
-  }
-</style>

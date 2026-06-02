@@ -1,0 +1,415 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import Terminal from '@/components/Terminal.astro';
+---
+
+<Layout
+  title="Kontour Console — One operating plane for the suite · Kontour AI"
+  description="Kontour Console brings claim status, process state, proof, queues, decisions, freshness, and next actions from every Kontour product into one operating plane — without owning their semantics."
+>
+  <Nav active="console" />
+
+  <!-- ──────────────────────────────────────────────────────
+       Hero
+  ────────────────────────────────────────────────────────── -->
+  <section class="contour-bg" style="
+    padding: 10rem var(--spacing-page) 6rem;
+    border-bottom: 1px solid var(--color-edge);
+    position: relative;
+    overflow: hidden;
+  ">
+    <!-- Cobalt accent glow -->
+    <div style="
+      position: absolute;
+      top: 0;
+      right: 6%;
+      width: 700px;
+      height: 460px;
+      background: radial-gradient(ellipse at top right, rgba(90,144,200,0.06) 0%, transparent 68%);
+      pointer-events: none;
+    "></div>
+
+    <div style="max-width: 1280px; margin: 0 auto; position: relative; z-index: 1;">
+      <div class="stack-mobile" style="
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5rem;
+        align-items: center;
+      ">
+        <!-- Left -->
+        <div>
+          <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem;">
+            <span style="
+              display: inline-flex;
+              align-items: center;
+              gap: 0.35rem;
+              padding: 0.2rem 0.6rem;
+              border-radius: 2px;
+              font-family: var(--font-mono);
+              font-size: 0.65rem;
+              letter-spacing: 0.1em;
+              text-transform: uppercase;
+              border: 1px solid rgba(90,144,200,0.3);
+              background: rgba(90,144,200,0.08);
+              color: var(--color-cobalt);
+            ">early preview</span>
+            <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-chalk-3);">github.com/kontourai/kontour-console</span>
+          </div>
+
+          <h1 class="animate-fade-up" style="
+            font-family: var(--font-display);
+            font-optical-sizing: auto;
+            font-size: clamp(3.5rem, 6vw, 5.5rem);
+            font-weight: 400;
+            line-height: 1.3;
+            letter-spacing: -0.03em;
+            color: var(--color-chalk);
+            margin-bottom: 0.5rem;
+          ">Console</h1>
+
+          <p class="animate-fade-up delay-100" style="
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--color-cobalt);
+            margin-bottom: 2rem;
+          ">one operating plane for the suite</p>
+
+          <p class="animate-fade-up delay-200" style="
+            font-size: 1.05rem;
+            color: var(--color-chalk-2);
+            line-height: 1.7;
+            max-width: 500px;
+            margin-bottom: 2.5rem;
+          ">
+            Each Kontour product makes one kind of trust state portable —
+            Surface claims, Survey reviews, Flow runs, Veritas readiness, agent
+            sessions. Kontour Console brings them into a single place to see
+            what's true, what's in progress, what's stale, what's blocked, what
+            proof exists, and what should happen next — without taking over the
+            products it observes.
+          </p>
+
+          <div class="animate-fade-up delay-300" style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <a href="https://github.com/kontourai/kontour-console" target="_blank" rel="noopener" class="btn-primary" data-umami-event="console-hero-github">
+              View on GitHub →
+            </a>
+            <a href="/surface" class="btn-ghost" data-umami-event="console-hero-surface">
+              Built on the primitives
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: fixture inspector output -->
+        <Terminal class="animate-fade-in delay-300" title="kontour-console — fixture inspection">
+          <p><span class="prompt">$ </span><span class="cmd">npm run inspect:fixtures</span></p>
+          <br />
+          <p class="info">  Kontour Console fixture inspection</p>
+          <br />
+          <p class="muted">  Event streams: 3</p>
+          <p class="muted">  Projection snapshots: 2</p>
+          <br />
+          <p>  claim <span class="muted">claim-provider-directory</span>  <span class="pass">verified</span> <span class="muted">freshness=fresh</span></p>
+          <p>  process <span class="muted">run-provider-118-review</span>  <span class="pass">completed</span></p>
+          <p>  gate <span class="muted">gate-provider-evidence</span>  <span class="pass">passed</span></p>
+          <p>  review <span class="muted">review-provider-118</span>  <span class="pass">approved</span></p>
+          <p>  action <span class="muted">action-apply-provider-118</span>  <span class="warn">read-only</span></p>
+          <br />
+          <p style="color: var(--color-chalk-3);">  ───────────────────────────────</p>
+          <p class="pass">  Validation: errors=0</p>
+          <p class="muted">  actions shown as inert descriptors only</p>
+        </Terminal>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────
+       What Console brings together
+  ────────────────────────────────────────────────────────── -->
+  <section style="padding: 6rem var(--spacing-page);">
+    <div style="max-width: 1280px; margin: 0 auto;">
+      <div class="label-sm" style="margin-bottom: 1rem; color: var(--color-cobalt);">Current operating state</div>
+      <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 2.5rem; max-width: 760px;">
+        One cross-product view of where everything stands right now.
+      </h2>
+
+      <div style="
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 1rem;
+      ">
+        {[
+          { q: 'What claims are true, and how fresh are they?', color: 'var(--color-gold)' },
+          { q: 'Which processes are running, blocked, or done?', color: 'var(--color-cobalt-2)' },
+          { q: 'What proof backs each answer?', color: 'var(--color-green)' },
+          { q: "What's in the queue and waiting on a person?", color: 'var(--color-gold-2)' },
+          { q: 'What decisions were made, and by whom?', color: 'var(--color-chalk-2)' },
+          { q: "What's stale and needs reverification?", color: 'var(--color-gold)' },
+          { q: 'Which exceptions were accepted?', color: 'var(--color-red)' },
+          { q: 'What should happen next?', color: 'var(--color-cobalt)' },
+        ].map(({ q, color }, i) => (
+          <div key={i} style="
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.25rem;
+            background: var(--color-ink-1);
+            border: 1px solid var(--color-edge);
+            border-radius: 4px;
+          ">
+            <span style="
+              font-family: var(--font-mono);
+              font-size: 0.65rem;
+              color: var(--color-chalk-3);
+              padding-top: 2px;
+              min-width: 1.5rem;
+            ">0{i + 1}</span>
+            <span style={`
+              font-size: 0.9rem;
+              color: ${color};
+              line-height: 1.5;
+            `}>{q}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────
+       The operating plane
+  ────────────────────────────────────────────────────────── -->
+  <section style="
+    padding: 5rem var(--spacing-page);
+    border-top: 1px solid var(--color-edge);
+    border-bottom: 1px solid var(--color-edge);
+    background: var(--color-ink-1);
+  ">
+    <div style="max-width: 1280px; margin: 0 auto;">
+      <div class="stack-mobile" style="
+        display: grid;
+        grid-template-columns: 1fr 1.15fr;
+        gap: 4rem;
+        align-items: center;
+      ">
+        <div>
+          <div class="label-sm" style="margin-bottom: 1.5rem; color: var(--color-cobalt);">The operating plane</div>
+          <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 1.25rem;">
+            Primitives make transparency portable.<br />
+            Console makes it operable.
+          </h2>
+          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.5rem;">
+            Every product publishes a <strong style="color: var(--color-chalk);">console projection</strong> —
+            a read model shaped for display and action — backed by an
+            append-only event stream. Console composes those projections and
+            links related objects across products by their own IDs.
+          </p>
+          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin: 0;">
+            The projections stay product-owned. Console aggregates, correlates,
+            filters, and routes — it never becomes a second source of truth.
+          </p>
+        </div>
+
+        <Terminal title="producers → console">
+          <p><span style="color: var(--color-gold);">Surface</span>      claim status, evidence, freshness</p>
+          <p><span style="color: var(--color-gold-2);">Survey</span>       fact-review records, candidates, decisions</p>
+          <p><span style="color: var(--color-cobalt-2);">Flow</span>         runs, gates, transitions, exceptions</p>
+          <p><span style="color: var(--color-green);">Veritas</span>      repo readiness, evidence gaps</p>
+          <p><span style="color: var(--color-chalk-2);">Flow Agents</span>  session + continuation state</p>
+          <br />
+          <p class="muted">  each emits → console projection + event stream</p>
+          <p style="color: var(--color-chalk-3);">  ───────────────────────────────</p>
+          <p><span style="color: var(--color-cobalt);">Kontour Console</span>  one correlated operating plane</p>
+        </Terminal>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────
+       Unified work queue
+  ────────────────────────────────────────────────────────── -->
+  <section style="padding: 6rem var(--spacing-page);">
+    <div style="max-width: 1280px; margin: 0 auto;">
+      <div class="stack-mobile" style="
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+      ">
+        <div>
+          <div class="label-sm" style="margin-bottom: 1.5rem; color: var(--color-cobalt);">Unified work queue</div>
+          <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 1.25rem;">
+            Everything waiting on a human,<br />in one queue.
+          </h2>
+          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.5rem;">
+            Stale claims, evidence gaps, open Flow gates, Survey review items,
+            reverification requests, and Veritas readiness gaps usually live in
+            five different tools. Console brings them into one suite-level queue
+            so nothing waits unseen.
+          </p>
+          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin: 0;">
+            Each item keeps a link back to the product that owns it — and the
+            product that owns the action stays the authority that runs it.
+          </p>
+        </div>
+
+        <Terminal title="suite work queue">
+          <p class="warn">  stale     surface · claim-provider-directory</p>
+          <p class="muted">            → request reverification</p>
+          <p class="info">  open      flow · gate-provider-evidence</p>
+          <p class="muted">            → review evidence, then resume run</p>
+          <p style="color: var(--color-gold-2);">  review    survey · review-provider-118-npi</p>
+          <p class="muted">            → approve or send back a candidate</p>
+          <p class="pass">  ready     veritas · change-search-filters</p>
+          <p class="muted">            → merge with reduced review</p>
+          <br />
+          <p style="color: var(--color-chalk-3);">  ───────────────────────────────</p>
+          <p class="muted">  actions routed to the owning product</p>
+        </Terminal>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────
+       Boundary
+  ────────────────────────────────────────────────────────── -->
+  <section style="
+    padding: 5rem var(--spacing-page);
+    border-top: 1px solid var(--color-edge);
+    border-bottom: 1px solid var(--color-edge);
+    background: var(--color-ink-1);
+  ">
+    <div style="max-width: 1280px; margin: 0 auto;">
+      <div class="label-sm" style="margin-bottom: 1rem;">Operable, not authoritative</div>
+      <p style="
+        color: var(--color-chalk-3);
+        font-size: 0.9rem;
+        line-height: 1.65;
+        max-width: 700px;
+        margin-bottom: 2.5rem;
+      ">
+        Console is a management plane, not a product kernel. It can host
+        collaboration and monitoring, but it must not own the core semantics of
+        the products it observes — and primitives never have to depend on it.
+      </p>
+
+      <div class="stack-mobile" style="
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+      ">
+        {[
+          {
+            title: 'Console owns',
+            color: 'var(--color-cobalt)',
+            items: ['Suite navigation & workspace structure', 'Cross-product aggregation & correlation', 'Unified queues & action routing', 'Identity links across product objects', 'Extension composition across consoles'],
+          },
+          {
+            title: 'Console does not own',
+            color: 'var(--color-chalk-2)',
+            items: ['Surface trust derivation', 'Flow gate & transition semantics', 'Survey fact-review semantics', 'Veritas governance policy', 'Any hosted-infrastructure requirement'],
+          },
+          {
+            title: 'Primitives stay portable',
+            color: 'var(--color-gold)',
+            items: ['Adopt Surface, Flow, Survey, or Veritas alone', 'Event streams are the durable contract', 'Projections are cached, product-owned views', 'Actions execute through the owning product', 'No `.kontour` dependency for verticals'],
+          },
+        ].map(({ title, color, items }) => (
+          <div key={title} class="card" style="padding: 1.75rem; position: relative; overflow: hidden;">
+            <div style={`
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              height: 2px;
+              background: linear-gradient(90deg, ${color}, transparent);
+            `}></div>
+            <h3 style={`
+              font-family: var(--font-display);
+              font-size: 1.25rem;
+              font-weight: 400;
+              color: var(--color-chalk);
+              margin-bottom: 1.25rem;
+              letter-spacing: -0.01em;
+            `}>{title}</h3>
+            <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.6rem;">
+              {items.map(item => (
+                <li key={item} style="display: flex; gap: 0.6rem; align-items: flex-start;">
+                  <span style={`color: ${color}; font-family: var(--font-mono); font-size: 0.7rem; padding-top: 2px;`}>—</span>
+                  <span style="font-size: 0.82rem; color: var(--color-chalk-2); line-height: 1.55;">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────
+       Contracts first
+  ────────────────────────────────────────────────────────── -->
+  <section style="padding: 6rem var(--spacing-page);">
+    <div style="max-width: 1280px; margin: 0 auto;">
+      <div class="stack-mobile" style="
+        display: grid;
+        grid-template-columns: 1fr 1.15fr;
+        gap: 4rem;
+        align-items: center;
+      ">
+        <div>
+          <div class="label-sm" style="margin-bottom: 1.5rem; color: var(--color-cobalt);">Where it is today</div>
+          <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 1.25rem;">
+            Contracts first.<br />Shared UI later.
+          </h2>
+          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.5rem;">
+            Console starts with the contracts that make a suite plane possible —
+            event streams, projection boundaries, identity links, and a queue
+            and action vocabulary. A shared shell comes after Surface, Flow, and
+            Survey consoles prove which pieces are truly common.
+          </p>
+          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin: 0;">
+            Today the repo ships a local, read-only fixture inspector and
+            dependency-free producer helpers that write control-plane records
+            under a local <code style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-cobalt);">.kontour</code> root.
+            No app. No hosted service. No login.
+          </p>
+        </div>
+
+        <Terminal title="local-producer.js">
+<pre style="margin: 0; white-space: pre; overflow-x: auto; font-family: var(--font-mono); font-size: 0.72rem; line-height: 1.7; color: var(--color-chalk-2);"><span style="color: var(--color-chalk-3);">// write control-plane records locally — no network</span>
+<span style="color: var(--color-cobalt);">const</span> {'{'} KontourEmitter, LocalFileSink {'}'} =
+  <span style="color: var(--color-cobalt-2);">require</span>(<span style="color: var(--color-green);">"./src/console-foundation"</span>);
+
+<span style="color: var(--color-cobalt);">const</span> emitter = <span style="color: var(--color-cobalt);">new</span> <span style="color: var(--color-cobalt-2);">KontourEmitter</span>({'{'}
+  sink: <span style="color: var(--color-cobalt);">new</span> <span style="color: var(--color-cobalt-2);">LocalFileSink</span>({'{'} root: <span style="color: var(--color-green);">".kontour"</span> {'}'}),
+{'}'});
+
+<span style="color: var(--color-cobalt);">await</span> emitter.<span style="color: var(--color-cobalt-2);">emitEvent</span>({'{'}
+  type: <span style="color: var(--color-green);">"claim.updated"</span>,
+  producer: {'{'} product: <span style="color: var(--color-green);">"surface"</span> {'}'},
+  subject: {'{'} kind: <span style="color: var(--color-green);">"claim"</span>, id: <span style="color: var(--color-green);">"claim-1"</span> {'}'},
+{'}'});
+
+<span style="color: var(--color-chalk-3);">// → .kontour/events/ + .kontour/projections/</span></pre>
+        </Terminal>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────
+       Product line footer note
+  ────────────────────────────────────────────────────────── -->
+  <section style="padding: 3rem var(--spacing-page) 0; border-top: 1px solid var(--color-edge);">
+    <div style="max-width: 1280px; margin: 0 auto;">
+      <p style="color: var(--color-chalk-3); font-size: 0.95rem; line-height: 1.7; font-style: italic; margin: 0;">
+        Kontour primitives make transparency portable. Kontour Console makes
+        transparency operable — you can adopt any product without it.
+      </p>
+    </div>
+  </section>
+
+  <Footer active="console" />
+</Layout>

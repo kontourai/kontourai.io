@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-test("homepage renders the teaser hero and four-product line", async ({ page }) => {
+test("homepage renders the teaser hero and six-product line", async ({ page }) => {
   await page.goto("/");
 
   await expect(page.locator(".label-sm").filter({ hasText: "Kontour AI" }).first()).toBeVisible();
@@ -8,12 +8,14 @@ test("homepage renders the teaser hero and four-product line", async ({ page }) 
   await expect(page.locator('[data-umami-event="home-hero-github"]')).toBeVisible();
   await expect(page.locator('[data-umami-event="home-hero-contact"]')).toBeVisible();
 
-  // Four-product line
+  // Six-product line
   await expect(page.locator(".label-sm").filter({ hasText: "What we're building" })).toBeVisible();
   await expect(page.getByText("Surface").first()).toBeVisible();
+  await expect(page.getByText("Survey", { exact: true }).first()).toBeVisible();
   await expect(page.getByText("Flow", { exact: true }).first()).toBeVisible();
   await expect(page.getByText("Veritas").first()).toBeVisible();
   await expect(page.getByText("Flow Agents").first()).toBeVisible();
+  await expect(page.getByText("Console", { exact: true }).first()).toBeVisible();
 
   // Brand promise
   await expect(page.getByText("Evidence-backed confidence.").first()).toBeVisible();
@@ -23,10 +25,14 @@ test("homepage renders the teaser hero and four-product line", async ({ page }) 
   await expect(page.locator('[data-umami-event="nav-flow"]')).toHaveCount(0);
   await expect(page.locator('[data-umami-event="nav-veritas"]')).toHaveCount(0);
   await expect(page.locator('[data-umami-event="nav-surface"]')).toHaveCount(0);
+  await expect(page.locator('[data-umami-event="nav-survey"]')).toHaveCount(0);
   await expect(page.locator('[data-umami-event="nav-flow-agents"]')).toHaveCount(0);
+  await expect(page.locator('[data-umami-event="nav-console"]')).toHaveCount(0);
   await expect(page.locator('[data-umami-event="footer-flow"]')).toHaveCount(0);
   await expect(page.locator('[data-umami-event="footer-veritas"]')).toHaveCount(0);
   await expect(page.locator('[data-umami-event="footer-surface"]')).toHaveCount(0);
+  await expect(page.locator('[data-umami-event="footer-survey"]')).toHaveCount(0);
+  await expect(page.locator('[data-umami-event="footer-console"]')).toHaveCount(0);
   await expect(page.locator('[data-umami-event="footer-github"]')).toBeVisible();
   await expect(page.locator('[data-umami-event="footer-contact"]')).toBeVisible();
 
@@ -35,15 +41,17 @@ test("homepage renders the teaser hero and four-product line", async ({ page }) 
   await expect(page.getByText("intentionally simple")).toHaveCount(0);
 });
 
-test("preview page keeps the fuller four-product story accessible", async ({ page }) => {
+test("preview page keeps the fuller six-product story accessible", async ({ page }) => {
   await page.goto("/preview/");
 
   await expect(page.getByText("INTERNAL REVIEW").first()).toBeVisible();
   await expect(page.getByRole("heading", { name: "Kontour AI shows the work behind AI." })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Surface", exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Survey", exact: true })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Flow", exact: true })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Veritas", exact: true })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Flow Agents", exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Console", exact: true })).toBeVisible();
 });
 
 test("flow page explains process transparency and product boundaries", async ({ page }) => {
@@ -112,6 +120,51 @@ test("veritas page shows the promise, a concrete catch, and the surface handoff"
   // Current CLI and the Surface handoff
   await expect(page.locator(".label-sm").filter({ hasText: "Current CLI" })).toBeVisible();
   await expect(page.getByText("Veritas is built with Surface.")).toBeVisible();
+});
+
+test("survey page explains the producer pipeline and surface handoff", async ({ page }) => {
+  await page.goto("/survey/");
+
+  await expect(page.getByText("producer-side trust for Surface").first()).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Survey", exact: true })).toBeVisible();
+
+  // Producer pipeline
+  await expect(page.locator(".label-sm").filter({ hasText: "The producer pipeline" })).toBeVisible();
+  await expect(page.getByText("Source", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("Extraction", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("Candidate", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("Review", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("Claim", { exact: true }).first()).toBeVisible();
+
+  // Boundary and helpers
+  await expect(page.getByRole("heading", { name: "Survey owns" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Producers own" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Surface owns" })).toBeVisible();
+  await expect(page.getByText("fieldObservation()").first()).toBeVisible();
+
+  // Surface handoff
+  await expect(page.getByText("Survey produces.")).toBeVisible();
+  await expect(page.getByText("Surface verifies.")).toBeVisible();
+});
+
+test("console page presents the suite operating plane and boundary", async ({ page }) => {
+  await page.goto("/console/");
+
+  await expect(page.getByText("one operating plane for the suite").first()).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Console", exact: true })).toBeVisible();
+  await expect(page.getByText("early preview").first()).toBeVisible();
+
+  // Operating state + plane
+  await expect(page.locator(".label-sm").filter({ hasText: "Current operating state" })).toBeVisible();
+  await expect(page.getByText("Primitives make transparency portable.").first()).toBeVisible();
+
+  // Unified work queue
+  await expect(page.locator(".label-sm").filter({ hasText: "Unified work queue" })).toBeVisible();
+
+  // Boundary — Console owns / does not own / primitives stay portable
+  await expect(page.getByRole("heading", { name: "Console owns" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Console does not own" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Primitives stay portable" })).toBeVisible();
 });
 
 test("flow agents page presents the agent-facing vertical and status", async ({ page }) => {

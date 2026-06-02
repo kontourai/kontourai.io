@@ -11,9 +11,11 @@ Agents now act, decide, summarize, recommend, and ship faster than humans can ma
 This is the connective tissue across the product line:
 
 - **Surface** makes claims inspectable.
+- **Survey** makes the producer side of a claim — source, extraction, candidate, review — inspectable before it reaches Surface.
 - **Flow** makes required process paths inspectable.
 - **Veritas** makes code/change readiness inspectable.
 - **Flow Agents** applies those primitives inside the agent tools people already use.
+- **Console** makes the suite operable — claim status, process state, proof, queues, decisions, and next actions across products in one operating plane.
 
 ## Why This Is Different
 
@@ -102,6 +104,10 @@ Surface
   Shared transparency foundation.
   Claims, evidence, freshness, gaps, policies, trust snapshots.
 
+Survey
+  Producer-side contract built on Surface.
+  Source, extraction, candidate, review -> Surface-ready TrustInput.
+
 Veritas
   AI-authored code vertical built on Surface.
   Repo standards, requirements, evidence checks, readiness reports.
@@ -113,6 +119,10 @@ Flow
 Flow Agents
   AI agentic-work vertical built on Flow + Veritas.
   Work modes, skills, runtime adapters, hooks, console.
+
+Console
+  Suite-level management plane over the primitives.
+  Cross-product projections, event streams, identity links, unified queues, action routing.
 ```
 
 This keeps every product focused while allowing them to reinforce each other.
@@ -158,6 +168,10 @@ Kontour AI shows the work behind AI.
 
 The shared foundation under Kontour's products. One shape for claims, evidence, freshness, and gaps so the same trust state can be read by a person, an agent, or another system.
 
+### Survey
+
+Producer-side trust for Surface. Survey turns sources, extractions, candidates, and reviews into Surface-ready claims with provenance attached — without absorbing producer domain policy.
+
 ### Flow
 
 Process transparency for any required-path work. Flow shows why a process was allowed to move forward — gate by gate, with the evidence behind each transition.
@@ -169,6 +183,10 @@ Merge autonomy for AI-authored code. Veritas turns your repo's standards into ev
 ### Flow Agents
 
 Keep your coding agent on the required path across Claude Code, Codex, Kiro, and GitHub Actions. Flow Agents brings Flow-backed workflows and Kontour evidence into the agent tools you already use.
+
+### Console
+
+One operating plane for the suite. Kontour primitives make transparency portable; Kontour Console makes it operable — claim status, process state, proof, queues, decisions, and next actions across products in one place, without owning their semantics.
 
 ## What To Avoid
 
