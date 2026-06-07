@@ -36,7 +36,7 @@ import Terminal from '@/components/Terminal.astro';
       ">
         <div>
           <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem;">
-            <span class="trust-badge trust-badge--verified">v0.1</span>
+            <span class="trust-badge trust-badge--verified">v0.1.0</span>
             <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-chalk-3);">npm install -D @kontourai/flow</span>
           </div>
 
@@ -276,6 +276,82 @@ import Terminal from '@/components/Terminal.astro';
     </div>
   </section>
 
+  <!-- ──────────────────────────────────────────────────────
+       Flow Console
+  ────────────────────────────────────────────────────────── -->
+  <section style="
+    padding: 5rem var(--spacing-page);
+    border-top: 1px solid var(--color-edge);
+  ">
+    <div style="max-width: 1280px; margin: 0 auto;">
+      <div class="stack-mobile" style="
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: start;
+      ">
+        <div>
+          <div class="label-sm" style="margin-bottom: 1.5rem; color: var(--color-cobalt-2);">Flow Console</div>
+          <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 1.25rem;">
+            See the run<br />
+            where the work happens.
+          </h2>
+          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.5rem;">
+            <code style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-cobalt-2); background: rgba(126,179,232,0.08); padding: 0.1rem 0.35rem; border-radius: 2px;">flow console --run &lt;id&gt;</code>
+            serves a live view of a run straight from
+            <code style="font-family: var(--font-mono); font-size: 0.82rem; color: var(--color-chalk-3);">.flow/runs/&lt;id&gt;/</code>.
+            Loopback only. No cloud, no login.
+          </p>
+
+          <div style="display: flex; flex-direction: column; gap: 1rem;">
+            {[
+              { label: 'Process graph', body: 'See the required path and where the run sits on it right now.' },
+              { label: 'Transition timeline', body: 'Walk every gate the run cleared, blocked on, or routed back from.' },
+              { label: 'Gate detail', body: 'Inspect the evidence a gate expected and what was actually collected.' },
+              { label: 'Evidence links', body: 'Jump from a gate to the tests, CI, traces, or readiness reports behind it.' },
+            ].map(({ label, body }) => (
+              <div key={label} style="
+                display: flex;
+                gap: 1rem;
+                padding: 1rem 1.25rem;
+                background: var(--color-ink-1);
+                border: 1px solid var(--color-edge);
+                border-radius: 4px;
+              ">
+                <div style="
+                  font-family: var(--font-mono);
+                  font-size: 0.7rem;
+                  color: var(--color-cobalt-2);
+                  min-width: 130px;
+                  padding-top: 1px;
+                ">{label}</div>
+                <div style="font-size: 0.82rem; color: var(--color-chalk-3); line-height: 1.6;">{body}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <Terminal title="flow console">
+          <p><span class="prompt">$ </span><span class="cmd">npx flow console --run dev-1847</span></p>
+          <br />
+          <p class="info">  Flow Console running at http://127.0.0.1:4317</p>
+          <br />
+          <p class="muted">  Reading: .flow/runs/dev-1847/</p>
+          <p class="muted">  run: agent-dev-flow / feature-search-filters</p>
+          <br />
+          <p class="muted">  GET /              200  console shell</p>
+          <p class="muted">  GET /api/run         200  run graph + timeline</p>
+          <p class="muted">  GET /api/gates       200  gate detail + evidence</p>
+          <br />
+          <p style="color: var(--color-chalk-3);">  ───────────────────────────────</p>
+          <p class="pass">  PASS  plan · implementation</p>
+          <p class="warn">  BLOCK verify · browser evidence missing</p>
+          <p class="muted">  loopback only · no hosted service</p>
+        </Terminal>
+      </div>
+    </div>
+  </section>
+
   <section style="
     padding: 5rem var(--spacing-page);
     border-top: 1px solid var(--color-edge);
@@ -310,7 +386,7 @@ import Terminal from '@/components/Terminal.astro';
           <p><span class="info">Survey</span>   producer-side source → review → claim, projected into Surface</p>
           <p><span class="info">Flow</span>     steps, gates, transitions, exceptions, reports</p>
           <p><span class="info">Veritas</span>  repo standards, evidence checks, merge readiness</p>
-          <p><span class="info">Flow Agents</span>     coming soon: agent-runtime distribution + work modes</p>
+          <p><span class="info">Flow Agents</span>  agent-runtime distribution + work modes</p>
           <br />
           <p class="muted">  shared promise: Kontour AI shows the work behind AI.</p>
         </Terminal>

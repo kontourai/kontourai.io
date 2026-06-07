@@ -41,7 +41,7 @@ import Terminal from '@/components/Terminal.astro';
         <!-- Left -->
         <div>
           <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem;">
-            <span class="trust-badge trust-badge--verified">v0.5.0</span>
+            <span class="trust-badge trust-badge--verified">v0.5.1</span>
             <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-chalk-3);">npm install -D @kontourai/surface</span>
           </div>
 
@@ -318,6 +318,53 @@ import Terminal from '@/components/Terminal.astro';
               {status}
             </span>
             <p style="font-size: 0.78rem; color: var(--color-chalk-3); line-height: 1.5;">{label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────
+       Goes further than a status
+  ────────────────────────────────────────────────────────── -->
+  <section style="
+    padding: 6rem var(--spacing-page);
+    border-top: 1px solid var(--color-edge);
+  ">
+    <div style="max-width: 1280px; margin: 0 auto;">
+      <div class="label-sm" style="margin-bottom: 1rem;">More than a status</div>
+      <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 2.5rem; max-width: 760px;">
+        Trust state that propagates, refreshes, and answers questions.
+      </h2>
+
+      <div class="stack-mobile" style="
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+      ">
+        {[
+          { title: 'Claim dependencies', color: 'var(--color-cobalt-2)', body: 'A claim can depend on supporting claims. When an upstream claim goes stale or disputed, that state propagates to everything built on it — no silent rot.' },
+          { title: 'Reverification', color: 'var(--color-gold)', body: 'Producers can advertise how to recheck a claim’s evidence, authority, freshness, or integrity — so a stale claim has a path back to verified instead of staying a dead end.' },
+          { title: 'Analytics reports', color: 'var(--color-green)', body: 'Beyond the human summary, an analytics format exposes evidence and gaps as queryable data for dashboards, audits, and trust intelligence.' },
+        ].map(({ title, color, body }) => (
+          <div key={title} class="card" style="padding: 1.75rem; position: relative; overflow: hidden;">
+            <div style={`
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              height: 2px;
+              background: linear-gradient(90deg, ${color}, transparent);
+            `}></div>
+            <h3 style="
+              font-family: var(--font-display);
+              font-size: 1.25rem;
+              font-weight: 400;
+              color: var(--color-chalk);
+              margin-bottom: 0.6rem;
+              letter-spacing: -0.01em;
+            ">{title}</h3>
+            <p style="font-size: 0.82rem; color: var(--color-chalk-3); line-height: 1.65;">{body}</p>
           </div>
         ))}
       </div>

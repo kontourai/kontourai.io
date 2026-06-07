@@ -131,10 +131,16 @@ import Terminal from '@/components/Terminal.astro';
   ────────────────────────────────────────────────────────── -->
   <section style="padding: 6rem var(--spacing-page);">
     <div style="max-width: 1280px; margin: 0 auto;">
-      <div class="label-sm" style="margin-bottom: 1rem; color: var(--color-cobalt);">Current operating state</div>
-      <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 2.5rem; max-width: 760px;">
-        One cross-product view of where everything stands right now.
+      <div class="label-sm" style="margin-bottom: 1rem; color: var(--color-cobalt);">What it's built to answer</div>
+      <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 1rem; max-width: 760px;">
+        The cross-product questions a suite plane has to answer.
       </h2>
+      <p style="color: var(--color-chalk-3); font-size: 0.9rem; line-height: 1.65; max-width: 640px; margin-bottom: 2.5rem;">
+        These are the questions Console is designed around. Today it can answer
+        them from local fixtures and producer helpers; answering them from live
+        Surface, Flow, Survey, and Veritas data is what the contracts below are
+        being built toward.
+      </p>
 
       <div style="
         display: grid;
@@ -201,14 +207,17 @@ import Terminal from '@/components/Terminal.astro';
             Console makes it operable.
           </h2>
           <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.5rem;">
-            Every product publishes a <strong style="color: var(--color-chalk);">console projection</strong> —
+            The contract is simple: each product publishes a
+            <strong style="color: var(--color-chalk);">console projection</strong> —
             a read model shaped for display and action — backed by an
             append-only event stream. Console composes those projections and
             links related objects across products by their own IDs.
           </p>
           <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin: 0;">
-            The projections stay product-owned. Console aggregates, correlates,
+            Projections stay product-owned; Console aggregates, correlates,
             filters, and routes — it never becomes a second source of truth.
+            Today this runs through dependency-free producer helpers and local
+            fixtures, not yet a live feed from each product.
           </p>
         </div>
 
@@ -246,16 +255,18 @@ import Terminal from '@/components/Terminal.astro';
           <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.5rem;">
             Stale claims, evidence gaps, open Flow gates, Survey review items,
             reverification requests, and Veritas readiness gaps usually live in
-            five different tools. Console brings them into one suite-level queue
-            so nothing waits unseen.
+            five different tools. The queue is the design goal: bring them into
+            one suite-level view so nothing waits unseen.
           </p>
           <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin: 0;">
             Each item keeps a link back to the product that owns it — and the
-            product that owns the action stays the authority that runs it.
+            product that owns the action stays the authority that runs it. The
+            view below is illustrative; cross-product feeds are still being wired
+            in.
           </p>
         </div>
 
-        <Terminal title="suite work queue">
+        <Terminal title="suite work queue — illustrative">
           <p class="warn">  stale     surface · claim-provider-directory</p>
           <p class="muted">            → request reverification</p>
           <p class="info">  open      flow · gate-provider-evidence</p>
@@ -371,10 +382,11 @@ import Terminal from '@/components/Terminal.astro';
             Survey consoles prove which pieces are truly common.
           </p>
           <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin: 0;">
-            Today the repo ships a local, read-only fixture inspector and
-            dependency-free producer helpers that write control-plane records
-            under a local <code style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-cobalt);">.kontour</code> root.
-            No app. No hosted service. No login.
+            Today the repo ships a local read-only fixture inspector, a
+            loopback event hub, and a local UI that renders live suite state over
+            SSE — backed by dependency-free producer helpers that write
+            control-plane records under a local <code style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-cobalt);">.kontour</code> root.
+            Cross-product wiring is still example-stage. No hosted service. No login.
           </p>
         </div>
 

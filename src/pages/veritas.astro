@@ -342,9 +342,63 @@ import Terminal from '@/components/Terminal.astro';
   </section>
 
   <!-- ──────────────────────────────────────────────────────
+       Standards that learn
+  ────────────────────────────────────────────────────────── -->
+  <section style="
+    padding: 6rem var(--spacing-page);
+    border-top: 1px solid var(--color-edge);
+  ">
+    <div style="max-width: 1280px; margin: 0 auto;">
+      <div class="label-sm" style="margin-bottom: 1rem; color: var(--color-green);">Beyond the gate</div>
+      <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 1rem; max-width: 760px;">
+        Standards that get sharper the more you ship.
+      </h2>
+      <p style="color: var(--color-chalk-3); font-size: 0.9rem; line-height: 1.65; max-width: 680px; margin-bottom: 2.5rem;">
+        A readiness verdict is the start. Veritas also tracks whether your
+        standards are actually helping, recommends adjustments from real run
+        history, and projects every claim into Surface so the evidence is
+        inspectable downstream.
+      </p>
+
+      <div class="stack-mobile" style="
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+      ">
+        {[
+          { title: 'Standards feedback', color: 'var(--color-green)', body: 'Longitudinal tracking of whether each standard helped, got in the way, or needs adjustment — built from real run evidence.' },
+          { title: 'Recommendations', color: 'var(--color-cobalt-2)', body: 'Data-driven suggestions for tightening, relaxing, or retiring standards, accepted or rejected with authority backing.' },
+          { title: 'Marker benchmarking', color: 'var(--color-gold)', body: 'Deterministic scoring of whether Veritas guidance actually improves agent outcomes, not just whether checks pass.' },
+          { title: 'Claim authoring', color: 'var(--color-chalk-2)', body: 'Author and manage Surface claims directly from the repo, so readiness state is portable to people, agents, and other systems.' },
+        ].map(({ title, color, body }) => (
+          <div key={title} class="card" style="padding: 1.5rem; position: relative; overflow: hidden;">
+            <div style={`
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              height: 2px;
+              background: linear-gradient(90deg, ${color}, transparent);
+            `}></div>
+            <h3 style="
+              font-family: var(--font-display);
+              font-size: 1.15rem;
+              font-weight: 400;
+              color: var(--color-chalk);
+              margin-bottom: 0.6rem;
+              letter-spacing: -0.01em;
+            ">{title}</h3>
+            <p style="font-size: 0.8rem; color: var(--color-chalk-3); line-height: 1.6;">{body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────
        CLI reference strip
   ────────────────────────────────────────────────────────── -->
-  <section style="padding: 5rem var(--spacing-page);">
+  <section style="padding: 5rem var(--spacing-page); border-top: 1px solid var(--color-edge);">
     <div style="max-width: 1280px; margin: 0 auto;">
       <div class="label-sm" style="margin-bottom: 2.5rem;">Current CLI</div>
 
@@ -358,10 +412,10 @@ import Terminal from '@/components/Terminal.astro';
           { cmd: 'veritas readiness --working-tree', desc: 'Generate a readiness report for the current change' },
           { cmd: 'veritas explain --file <path>', desc: 'Show just-in-time guidance for a work area' },
           { cmd: 'veritas attest bootstrap', desc: 'Record authority evidence for protected standards' },
-          { cmd: 'veritas eval summary', desc: 'Review standards feedback from prior runs' },
-          { cmd: 'veritas recommendation list', desc: 'Review standards recommendations' },
+          { cmd: 'veritas claim list', desc: 'Author and inspect Surface claims for the repo' },
+          { cmd: 'veritas feedback summary', desc: 'Review whether standards are helping across prior runs' },
+          { cmd: 'veritas recommendation list', desc: 'Review data-driven standards recommendations' },
           { cmd: 'veritas integrations claude-code install', desc: 'Wire agent hooks where supported' },
-          { cmd: 'veritas apply stop-hook', desc: 'Send readiness feedback back to supported agents' },
         ].map(({ cmd, desc }) => (
           <div key={cmd} style="
             display: flex;
