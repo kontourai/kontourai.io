@@ -35,6 +35,9 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN: ${{ vars.PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN }}
+          PUBLIC_CLOUDFLARE_WEB_ANALYTICS_URL: ${{ vars.PUBLIC_CLOUDFLARE_WEB_ANALYTICS_URL }}
 
       - name: Rendered tests
         run: npx playwright test
@@ -66,6 +69,9 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN: ${{ vars.PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN }}
+          PUBLIC_CLOUDFLARE_WEB_ANALYTICS_URL: ${{ vars.PUBLIC_CLOUDFLARE_WEB_ANALYTICS_URL }}
 
       - name: Deploy to Cloudflare Pages
         run: npm exec -- wrangler pages deploy dist --project-name=kontourai-io --branch=main
