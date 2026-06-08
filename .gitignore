@@ -9,3 +9,4 @@ test-results/
 screenshot-*.png
 .omx/
 .agents/
+.wrangler/
