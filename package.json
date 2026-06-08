@@ -9,10 +9,11 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "validate": "node scripts/check-content-boundary.cjs && node scripts/check-theme-tokens.mjs && node scripts/validate.mjs",
+    "validate": "node scripts/check-content-boundary.cjs && node scripts/check-theme-tokens.mjs && node scripts/check-security-hardening.mjs && node scripts/validate.mjs",
     "test:rendered": "npm run build && playwright test",
     "check:content-boundary": "node scripts/check-content-boundary.cjs",
-    "check:theme-tokens": "node scripts/check-theme-tokens.mjs"
+    "check:theme-tokens": "node scripts/check-theme-tokens.mjs",
+    "check:security-hardening": "node scripts/check-security-hardening.mjs"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.0",
@@ -21,6 +22,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.59.1",
-    "vite": "^7.3.3"
+    "vite": "^7.3.3",
+    "wrangler": "4.98.0"
   }
 }

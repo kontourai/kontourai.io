@@ -1,6 +1,13 @@
 # Cloudflare Pages _headers
 # Applied to every response from the CDN edge
 
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), fullscreen=(self)
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; script-src 'self' https://cloud.umami.is https://static.cloudflareinsights.com; connect-src 'self' https://cloud.umami.is https://cloudflareinsights.com https://*.cloudflareinsights.com; img-src 'self' data: https:; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; upgrade-insecure-requests
+
 # Hashed Astro assets — immutable, 1 year
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
@@ -8,21 +15,12 @@
 # HTML pages — revalidate hourly
 /
   Cache-Control: public, max-age=3600, must-revalidate
-  X-Frame-Options: DENY
-  X-Content-Type-Options: nosniff
-  Referrer-Policy: strict-origin-when-cross-origin
 
 /veritas/
   Cache-Control: public, max-age=3600, must-revalidate
-  X-Frame-Options: DENY
-  X-Content-Type-Options: nosniff
-  Referrer-Policy: strict-origin-when-cross-origin
 
 /surface/
   Cache-Control: public, max-age=3600, must-revalidate
-  X-Frame-Options: DENY
-  X-Content-Type-Options: nosniff
-  Referrer-Policy: strict-origin-when-cross-origin
 
 # 404
 /404.html
