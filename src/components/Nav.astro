@@ -2,9 +2,10 @@
 import { products, type ProductKey } from '@/lib/products';
 
 type NavKey = 'home' | 'preview' | ProductKey;
+type SiteNavKey = NavKey | 'developers';
 
 interface Props {
-  active?: NavKey;
+  active?: SiteNavKey;
   /** Hide product links regardless of active page (teaser pages like home/early access). */
   teaser?: boolean;
 }
@@ -48,6 +49,15 @@ const hideProducts = teaser || active === 'home';
 
             <div class="nav__divider"></div>
           </>
+        )}
+
+        {!hideProducts && (
+          <a
+            href="/developers/"
+            class="nav-link"
+            aria-current={active === 'developers' ? 'page' : undefined}
+            data-umami-event="nav-developers"
+          >Developers</a>
         )}
 
         <a

@@ -2,7 +2,7 @@
 import { products, type ProductKey } from '@/lib/products';
 
 interface Props {
-  active?: 'home' | 'preview' | ProductKey;
+  active?: 'home' | 'preview' | 'developers' | ProductKey;
   /** Hide product links regardless of active page (teaser pages like home/early access). */
   teaser?: boolean;
 }
@@ -17,6 +17,7 @@ const links = teaserNav
       { href: '/early-access/', label: 'Early access', event: 'footer-contact' },
     ]
   : [
+      { href: '/developers/', label: 'Developers', event: 'footer-developers' },
       ...products.map(({ href, label, key }) => ({ href, label, event: `footer-${key}` })),
       github,
     ];
