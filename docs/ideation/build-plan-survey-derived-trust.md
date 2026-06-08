@@ -173,7 +173,8 @@ sales L1 is greenfield against ~80%-bad data. Regulated-document workflows de-ri
 - **Phase 5 — Sales vertical.** Build on standalone Survey + Surface; every change sales forces in
   the shared layers is a genericity bug to fix there.
 - **Phase 6 — Public story.** Update `kontourai.io` to the three-piece architecture only once the
-  products are real and the website tests are wired into CI.
+  products are real and the website tests are wired into CI. Use the shared
+  [Browser Test Baseline](../browser-test-baseline.md) for rendered product surfaces.
 
 ## Packaging
 
