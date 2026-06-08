@@ -186,6 +186,38 @@ const boundary: { title: string; accent: Accent; items: string[] }[] = [
     </div>
   </Section>
 
+  <!-- Example use case -->
+  <Section tone="alt" borderTop>
+    <div class="container">
+      <Split ratio="1-1" gap="md" align="center">
+        <div>
+          <Eyebrow accent="cobalt">Example use case</Eyebrow>
+          <h2 class="display-md queue__title">A release operator sees what needs attention.</h2>
+          <p class="body queue__copy">
+            Before a launch, an operator opens Console and sees one stale Surface
+            claim, one Flow gate blocked on missing browser evidence, and one
+            Veritas readiness report that passed. Console correlates the objects
+            and routes each action back to the product that owns it.
+          </p>
+          <p class="body queue__copy queue__copy--last">
+            The source of truth does not move. Console makes the next action
+            visible without owning claim semantics, gate semantics, or policy.
+          </p>
+        </div>
+
+        <Terminal title="operator attention view">
+          <p class="warn">  attention  surface · claim-provider-directory stale</p>
+          <p class="info">  blocked    flow · release-browser-check missing</p>
+          <p class="pass">  ready      veritas · readiness-report passed</p>
+          <br />
+          <p class="muted">  route stale claim → Surface</p>
+          <p class="muted">  route blocked gate → Flow</p>
+          <p class="muted">  route readiness evidence → Veritas</p>
+        </Terminal>
+      </Split>
+    </div>
+  </Section>
+
   <!-- Boundary -->
   <Section tone="alt" borderTop borderBottom>
     <div class="container">

@@ -1,0 +1,163 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import Section from '@/components/Section.astro';
+import Glow from '@/components/Glow.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+import Card from '@/components/Card.astro';
+import Grid from '@/components/Grid.astro';
+import Split from '@/components/Split.astro';
+import Terminal from '@/components/Terminal.astro';
+import type { Accent } from '@/lib/theme';
+
+const lanes: { title: string; label: string; body: string; subject: string; bodyText: string; accent: Accent }[] = [
+  {
+    title: 'Design partner',
+    label: 'AI-assisted work',
+    body: 'You have a real workflow where agents, people, or automation need clearer evidence before work advances.',
+    subject: 'Kontour design partner',
+    bodyText: 'I want to talk about a design partner fit for Kontour. The trust break I see is:',
+    accent: 'gold',
+  },
+  {
+    title: 'Product builder',
+    label: 'Claims and evidence',
+    body: 'You are building an app that makes claims and needs to show source, freshness, uncertainty, and gaps.',
+    subject: 'Kontour product builder',
+    bodyText: 'I am building a product that needs inspectable claims. The product is:',
+    accent: 'green',
+  },
+  {
+    title: 'Agent workflow team',
+    label: 'Gates and readiness',
+    body: 'You are shipping with coding agents or internal tools and want durable plans, review, verification, and release evidence.',
+    subject: 'Kontour agent workflow',
+    bodyText: 'I want to explore Kontour for agent workflows. The workflow I want to make inspectable is:',
+    accent: 'cobalt-2',
+  },
+];
+
+const mailto = (subject: string, body: string) =>
+  `mailto:hello@kontourai.io?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+---
+
+<Layout
+  title="Early Access — Kontour AI"
+  description="Talk with Kontour AI about design partner fit, product integrations, and inspectability infrastructure for AI-assisted work."
+>
+  <Nav />
+
+  <Section contour size="hero" borderBottom>
+    <Glow accent="gold" position="top-right" />
+    <div class="container">
+      <Split ratio="1-1" gap="lg" align="center">
+        <div>
+          <div class="hero-badges">
+            <span class="trust-badge trust-badge--proposed">early access</span>
+            <span class="install-hint">hello@kontourai.io</span>
+          </div>
+
+          <h1 class="product-title animate-fade-up">Tell us where trust breaks.</h1>
+          <p class="product-tagline animate-fade-up delay-100" data-accent="gold">
+            Design partners, product builders, and teams shipping AI-assisted workflows.
+          </p>
+          <p class="hero-copy animate-fade-up delay-200">
+            Kontour is early infrastructure for making AI-assisted work inspectable:
+            claims, evidence, required gates, readiness, uncertainty, and next
+            actions. The best conversations start with a concrete place where
+            polished output is moving faster than your ability to inspect it.
+          </p>
+          <div class="hero-actions animate-fade-up delay-300">
+            <a href={mailto('Kontour early access', 'I want to talk about Kontour early access. The trust break I see is:')} class="btn-primary" data-umami-event="early-access-hero-email">Email Kontour →</a>
+            <a href="https://github.com/kontourai" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="early-access-hero-github">Follow on GitHub</a>
+          </div>
+        </div>
+
+        <Terminal class="animate-fade-in delay-300" title="good fit signals">
+          <p class="pass">  ✓ claims need evidence and freshness</p>
+          <p class="pass">  ✓ agent work needs required gates</p>
+          <p class="pass">  ✓ reviewers need readiness state</p>
+          <p class="pass">  ✓ teams need durable handoffs</p>
+          <br />
+          <p class="warn">  not a fit if the only goal is a chatbot UI</p>
+          <p class="muted">  current mode: design partner conversations</p>
+        </Terminal>
+      </Split>
+    </div>
+  </Section>
+
+  <Section size="lg">
+    <div class="container">
+      <Eyebrow gap="lg">Start with the shape of the problem</Eyebrow>
+      <Grid cols={3} gap="lg">
+        {lanes.map(({ title, label, body, subject, bodyText, accent }) => (
+          <Card accent={accent} bar="top" pad="lg">
+            <div class="lane__label" data-accent={accent}>{label}</div>
+            <h2 class="lane__title">{title}</h2>
+            <p class="lane__body">{body}</p>
+            <a href={mailto(subject, bodyText)} class="lane__link" data-accent={accent} data-umami-event={`early-access-${title.toLowerCase().replaceAll(' ', '-')}`}>Start this thread →</a>
+          </Card>
+        ))}
+      </Grid>
+    </div>
+  </Section>
+
+  <Section tone="alt" borderTop>
+    <div class="container container--readable">
+      <Eyebrow accent="gold">What to send</Eyebrow>
+      <h2 class="display-md send__title">One concrete workflow is enough.</h2>
+      <p class="body send__copy">
+        A useful note says what the work is, who needs to trust it, what evidence
+        exists today, and what currently gets missed, stale, skipped, or buried
+        in chat. No procurement packet or polished brief required.
+      </p>
+      <p class="fine send__note">
+        Kontour is not promising instant access to a hosted product. The current
+        path is a focused conversation around fit, examples, and product direction.
+      </p>
+    </div>
+  </Section>
+
+  <Footer />
+</Layout>
+
+<style>
+  .lane__label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--accent);
+    letter-spacing: 0;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .lane__title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--color-chalk);
+    margin-bottom: 0.75rem;
+    letter-spacing: 0;
+  }
+  .lane__body {
+    color: var(--color-chalk-2);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+  .lane__link {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .send__title {
+    margin-bottom: 1.25rem;
+  }
+  .send__copy {
+    margin-bottom: 1.25rem;
+  }
+  .send__note {
+    margin: 0;
+  }
+</style>

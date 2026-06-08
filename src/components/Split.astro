@@ -27,6 +27,10 @@ const { ratio = "1-1", gap = "md", align = "start", class: className, ...rest } 
 <style>
   .split {
     display: grid;
+    min-width: 0;
+  }
+  .split > :global(*) {
+    min-width: 0;
   }
   .split[data-gap="md"] {
     gap: 4rem;
