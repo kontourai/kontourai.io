@@ -42,6 +42,16 @@ test("homepage renders the teaser hero and six-product line", async ({ page }) =
   await expect(page.getByText("intentionally simple")).toHaveCount(0);
 });
 
+test("production analytics scripts are configured defensively", async ({ page }) => {
+  await page.goto("/");
+
+  const umami = page.locator('script[src="https://cloud.umami.is/script.js"]');
+  await expect(umami).toHaveAttribute("data-website-id", "36ed1bb2-51d9-4ed9-bf94-c079af4cd804");
+  await expect(umami).toHaveAttribute("data-domains", "kontourai.io,www.kontourai.io");
+  await expect(umami).toHaveAttribute("data-do-not-track", "true");
+  await expect(umami).toHaveAttribute("data-exclude-search", "true");
+});
+
 test("preview page keeps the fuller six-product story accessible", async ({ page }) => {
   await page.goto("/preview/");
 
