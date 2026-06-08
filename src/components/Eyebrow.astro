@@ -10,12 +10,13 @@ interface Props {
   /** Space below the kicker. */
   gap?: "sm" | "md" | "lg" | "xl";
   class?: string;
+  [key: string]: unknown;
 }
 
-const { accent, gap = "md", class: className } = Astro.props;
+const { accent, gap = "md", class: className, ...rest } = Astro.props;
 ---
 
-<p class:list={["label-sm", "eyebrow", className]} data-accent={accent} data-gap={gap}>
+<p {...rest} class:list={["label-sm", "eyebrow", className]} data-accent={accent} data-gap={gap}>
   <slot />
 </p>
 

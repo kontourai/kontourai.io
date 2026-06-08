@@ -116,44 +116,44 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
   font-optical-sizing: auto;
   line-height: 1.3;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
   color: var(--color-chalk);
 }
 
 .display-xl {
   font-family: var(--font-display);
   font-optical-sizing: auto;
-  font-size: clamp(3rem, 7vw, 6.5rem);
+  font-size: 4.75rem;
   font-weight: 400;
   line-height: 1.3;
-  letter-spacing: -0.03em;
+  letter-spacing: 0;
   color: var(--color-chalk);
 }
 
 .display-lg {
   font-family: var(--font-display);
   font-optical-sizing: auto;
-  font-size: clamp(2rem, 4.5vw, 4rem);
+  font-size: 3rem;
   font-weight: 400;
   line-height: 1.3;
-  letter-spacing: -0.025em;
+  letter-spacing: 0;
   color: var(--color-chalk);
 }
 
 .display-md {
   font-family: var(--font-display);
   font-optical-sizing: auto;
-  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-size: 2.25rem;
   font-weight: 300;
   line-height: 1.3;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
   color: var(--color-chalk);
 }
 
 .label-sm {
   font-family: var(--font-mono);
   font-size: 0.65rem;
-  letter-spacing: 0.15em;
+  letter-spacing: 0;
   text-transform: uppercase;
   color: var(--color-chalk-3);
 }
@@ -161,7 +161,7 @@ h1, h2, h3, h4, h5, h6 {
 .label-md {
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  letter-spacing: 0.12em;
+  letter-spacing: 0;
   text-transform: uppercase;
 }
 
@@ -171,7 +171,7 @@ h1, h2, h3, h4, h5, h6 {
    with the `.measure-*` helpers below. */
 .lead {
   font-family: var(--font-sans);
-  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  font-size: 1.1rem;
   color: var(--color-chalk-2);
   line-height: 1.7;
   font-weight: 400;
@@ -213,10 +213,10 @@ h1, h2, h3, h4, h5, h6 {
 .product-title {
   font-family: var(--font-display);
   font-optical-sizing: auto;
-  font-size: clamp(3.5rem, 6vw, 5.5rem);
+  font-size: 5rem;
   font-weight: 400;
   line-height: 1.3;
-  letter-spacing: -0.03em;
+  letter-spacing: 0;
   color: var(--color-chalk);
   margin-bottom: 0.5rem;
 }
@@ -224,7 +224,7 @@ h1, h2, h3, h4, h5, h6 {
 .product-tagline {
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  letter-spacing: 0.12em;
+  letter-spacing: 0;
   text-transform: uppercase;
   color: var(--accent, var(--color-gold));
   margin-bottom: 2rem;
@@ -236,6 +236,39 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.7;
   max-width: 480px;
   margin-bottom: 2.5rem;
+}
+
+@media (max-width: 900px) {
+  .display-xl {
+    font-size: 3.75rem;
+  }
+  .display-lg {
+    font-size: 2.5rem;
+  }
+  .display-md {
+    font-size: 2rem;
+  }
+  .product-title {
+    font-size: 4rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .display-xl {
+    font-size: 3rem;
+  }
+  .display-lg {
+    font-size: 2rem;
+  }
+  .display-md {
+    font-size: 1.5rem;
+  }
+  .lead {
+    font-size: 1rem;
+  }
+  .product-title {
+    font-size: 3.25rem;
+  }
 }
 
 .hero-actions {
@@ -263,7 +296,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 1.25rem;
   font-weight: 400;
   color: var(--color-chalk);
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
   margin-bottom: 0.75rem;
 }
 .feature-body {
@@ -274,7 +307,7 @@ h1, h2, h3, h4, h5, h6 {
 .feature-label {
   font-family: var(--font-mono);
   font-size: 0.65rem;
-  letter-spacing: 0.08em;
+  letter-spacing: 0;
   text-transform: uppercase;
   color: var(--accent, var(--color-chalk-3));
   margin-bottom: 0.75rem;
@@ -315,7 +348,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-mono);
   font-size: 0.65rem;
   color: var(--color-chalk-3);
-  letter-spacing: 0.04em;
+  letter-spacing: 0;
   line-height: 1.55;
 }
 
@@ -394,7 +427,7 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 4px;
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  letter-spacing: 0.05em;
+  letter-spacing: 0;
   text-decoration: none;
   color: var(--color-chalk-3);
   white-space: nowrap;
@@ -417,7 +450,7 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 2px;
   font-family: var(--font-mono);
   font-size: 0.65rem;
-  letter-spacing: 0.1em;
+  letter-spacing: 0;
   text-transform: uppercase;
   border: 1px solid;
 }
@@ -595,7 +628,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-mono);
   font-size: 0.8rem;
   font-weight: 600;
-  letter-spacing: 0.05em;
+  letter-spacing: 0;
   text-decoration: none;
   transition: background 0.15s ease, transform 0.1s ease;
 }
@@ -616,7 +649,7 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 4px;
   font-family: var(--font-mono);
   font-size: 0.8rem;
-  letter-spacing: 0.05em;
+  letter-spacing: 0;
   text-decoration: none;
   transition: border-color 0.15s ease, color 0.15s ease;
 }

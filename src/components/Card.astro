@@ -11,6 +11,7 @@ interface Props {
   pad?: "sm" | "md" | "lg";
   elevated?: boolean;
   class?: string;
+  [key: string]: unknown;
 }
 
 const {
@@ -19,10 +20,12 @@ const {
   pad = "md",
   elevated = false,
   class: className,
+  ...rest
 } = Astro.props;
 ---
 
 <article
+  {...rest}
   class:list={[elevated ? "card-elevated" : "card", "ui-card", className]}
   data-accent={accent}
   data-bar={bar}
