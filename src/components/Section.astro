@@ -13,6 +13,7 @@ interface Props {
   borderTop?: boolean;
   borderBottom?: boolean;
   class?: string;
+  [key: string]: unknown;
 }
 
 const {
@@ -22,10 +23,12 @@ const {
   borderTop = false,
   borderBottom = false,
   class: className,
+  ...rest
 } = Astro.props;
 ---
 
 <section
+  {...rest}
   class:list={["section", contour && "contour-bg", className]}
   data-tone={tone}
   data-size={size}
