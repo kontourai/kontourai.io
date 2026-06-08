@@ -38,8 +38,8 @@ const helpers = [
 ---
 
 <Layout
-  title="Survey — Producer-side trust for Surface · Kontour AI"
-  description="Kontour Survey turns producer observations — sources, extractions, candidates, and reviews — into Surface-ready claims, without absorbing your domain policy."
+  title="Survey — Inspectable producer-side provenance for Surface · Kontour AI"
+  description="Kontour Survey makes the producer side of claims inspectable before Surface: sources, extractions, candidates, reviews, and provenance."
 >
   <Nav active="survey" />
 
@@ -55,14 +55,15 @@ const helpers = [
           </div>
 
           <h1 class="product-title animate-fade-up">Survey</h1>
-          <p class="product-tagline animate-fade-up delay-100" data-accent="gold-2">producer-side trust for Surface</p>
+          <p class="product-tagline animate-fade-up delay-100" data-accent="gold-2">producer-side provenance for Surface-ready claims</p>
 
           <p class="hero-copy animate-fade-up delay-200">
-            Before a claim can be trusted, someone has to form it — from a
+            Before a claim reaches Surface, someone has to form it — from a
             source, an extraction, competing candidates, and a review. Survey
-            is the small contract for that producer side: it turns your
-            observations into Surface-ready claims with their provenance
-            attached, without absorbing your domain policy.
+            is the small contract for that producer side: it makes those
+            observations inspectable and projects them into Surface-ready claims
+            with provenance attached, without crawling, parsing, ranking, or
+            absorbing your domain policy.
           </p>
 
           <div class="hero-actions animate-fade-up delay-300">
@@ -97,7 +98,7 @@ const helpers = [
     <div class="container">
       <Eyebrow accent="gold-2" gap="sm">The producer pipeline</Eyebrow>
       <h2 class="display-md measure-lg pipeline-title">
-        One path from raw source to a claim Surface can verify.
+        One path from raw source to a claim Surface can inspect.
       </h2>
 
       <Grid cols={5} gap="sm">
@@ -225,7 +226,7 @@ const helpers = [
       <Split ratio="1-1" gap="md" align="center">
         <div>
           <Eyebrow accent="gold">Built for Surface</Eyebrow>
-          <h2 class="display-md handoff__title">Survey produces.<br />Surface verifies.</h2>
+          <h2 class="display-md handoff__title">Survey produces.<br />Surface makes it inspectable.</h2>
           <p class="body handoff__copy">
             <code class="codechip" data-accent="gold-2">buildSurveyTrustInput</code>
             projects Survey records into a Surface

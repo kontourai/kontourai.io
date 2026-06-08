@@ -12,7 +12,7 @@ const items: { name: string; badge: string; accent: Accent; one: string; now: st
     name: 'Surface',
     badge: 'v0.5.1',
     accent: 'gold',
-    one: "The shared foundation under Kontour's products. One shape for claims, evidence, freshness, and gaps so the same trust state can be read by a person, an agent, or another system.",
+    one: "Surface makes claims inspectable. One shape for claims, evidence, policies, freshness, and gaps so the same trust state can be read by a person, an agent, or another system.",
     now: 'Current package: @kontourai/surface v0.5.1.',
     coming: 'Support for external integrations; expanded Producer Extension API.',
     demo: `$ npx surface report --format summary
@@ -28,7 +28,7 @@ Transparency gaps: 3`,
     name: 'Survey',
     badge: 'v0.4.5',
     accent: 'gold-2',
-    one: 'Producer-side trust for Surface. Survey turns sources, extractions, candidates, and reviews into Surface-ready claims with provenance attached — without absorbing producer domain policy.',
+    one: 'Survey makes the producer side of claims inspectable before Surface. Sources, extractions, candidates, and reviews become Surface-ready claims with provenance attached — without absorbing producer domain policy.',
     now: 'Current package: @kontourai/survey v0.4.5. Proof-stage library, not an ingestion platform.',
     coming: 'Resource-shaped ClaimReviewRecord exports; structured derivation edges; first vertical adapters.',
     demo: `import { buildSurveyTrustInput, SurveyInputBuilder } from "@kontourai/survey";
@@ -47,7 +47,7 @@ const report = buildTrustReport(buildSurveyTrustInput(input));
     name: 'Flow',
     badge: 'v0.1.0',
     accent: 'cobalt-2',
-    one: 'Process transparency for any required-path work. Flow shows why a process was allowed to move forward — gate by gate, with the evidence behind each transition.',
+    one: 'Flow makes required process paths inspectable. It shows why a process was allowed to move forward — gate by gate, with the evidence behind each transition.',
     now: 'Current package: @kontourai/flow v0.1.0. Local CLI plus a loopback Flow Console.',
     coming: 'Evidence adapters for command/file/CI/Veritas/human/trace; richer console views.',
     demo: `$ flow status run.dev-1847 --format summary
@@ -68,7 +68,7 @@ report: .flow/runs/run.dev-1847/report.md`,
     name: 'Veritas',
     badge: 'v0.4.0',
     accent: 'green',
-    one: "Merge autonomy for AI-authored code. Veritas turns your repo's standards into evidence-backed readiness reports agents and reviewers can rely on.",
+    one: "Veritas makes code and change readiness inspectable. It turns your repo's standards into evidence-backed readiness reports agents and reviewers can rely on.",
     now: 'Current package: @kontourai/veritas v0.4.0.',
     coming: 'Repo Conformance public docs; Standards Recommendations workflow.',
     demo: `$ npx veritas readiness --working-tree --format feedback
@@ -94,7 +94,7 @@ report: .veritas/evidence/readiness-local.json`,
     name: 'Flow Agents',
     badge: 'early access',
     accent: 'chalk-2',
-    one: 'Keep your coding agent on the required path across Claude Code, Codex, Kiro, and GitHub Actions. Flow Agents brings Flow-backed workflows and Kontour evidence into the agent tools you already use.',
+    one: 'Flow Agents applies Flow and Veritas discipline inside Claude Code, Codex, Kiro, and GitHub Actions. It keeps coding work on the required path without becoming an agent runtime.',
     now: 'Installable today from GitHub via install.sh; pre-1.0, GitHub-only (not yet on npm).',
     coming: 'npm distribution; broader work-mode library (Build / Understand / Capture / Prepare / Follow Up); framework adapters.',
     demo: `$ bash install.sh ~/dev/my-project
@@ -109,7 +109,7 @@ repo: https://github.com/kontourai/flow-agents`,
     name: 'Console',
     badge: 'early preview',
     accent: 'cobalt',
-    one: 'The suite-level operating plane. Console brings claim status, process state, proof, queues, decisions, freshness, and next actions from every Kontour product into one place — without owning their semantics.',
+    one: 'Console makes the suite operable. It brings claim status, process state, proof, queues, decisions, freshness, and next actions across Kontour products into one place — without owning their semantics.',
     now: 'Early preview. Portable contracts, a local read-only fixture inspector, and a local UI over a loopback SSE hub — not a hosted service. Primitives work without it.',
     coming: 'Shared console shell after Surface / Flow / Survey consoles converge; unified work queue and suite-level action routing.',
     demo: `$ npm run inspect:fixtures
@@ -144,11 +144,11 @@ actions shown as inert descriptors only`,
         timeline estimates that aren't yet public.
       </p>
       <p class="preview-hero__body">
-        Kontour AI shows the work behind AI. Agents now write code, run
-        processes, and make claims faster than people can review them. Our
-        products give humans and other agents a shared way to see what was
-        claimed, what supports it, which gates the work passed, and what's
-        still uncertain — so anyone can decide whether the work deserves
+        Kontour AI builds inspectability infrastructure for AI-assisted work.
+        Agents now write code, run processes, and make claims faster than people
+        can manually inspect. Our products give humans and other agents a shared
+        way to see what was claimed, what supports it, which gates the work
+        passed, and what's still uncertain — so anyone can decide what deserves
         trust before acting on it. The same shape works for any product that
         needs to show its work, not just AI ones.
       </p>
