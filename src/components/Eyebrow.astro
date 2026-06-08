@@ -1,0 +1,41 @@
+---
+/**
+ * Mono uppercase kicker above a heading. Keeps the `.label-sm` class (shared
+ * styling + test locator); `accent` tints it via the `--accent` cascade.
+ */
+import type { Accent } from "@/lib/theme";
+
+interface Props {
+  accent?: Accent;
+  /** Space below the kicker. */
+  gap?: "sm" | "md" | "lg" | "xl";
+  class?: string;
+}
+
+const { accent, gap = "md", class: className } = Astro.props;
+---
+
+<p class:list={["label-sm", "eyebrow", className]} data-accent={accent} data-gap={gap}>
+  <slot />
+</p>
+
+<style>
+  .eyebrow {
+    margin: 0 0 1.5rem;
+  }
+  .eyebrow[data-accent] {
+    color: var(--accent);
+  }
+  .eyebrow[data-gap="sm"] {
+    margin-bottom: 1rem;
+  }
+  .eyebrow[data-gap="md"] {
+    margin-bottom: 1.5rem;
+  }
+  .eyebrow[data-gap="lg"] {
+    margin-bottom: 2.5rem;
+  }
+  .eyebrow[data-gap="xl"] {
+    margin-bottom: 3rem;
+  }
+</style>

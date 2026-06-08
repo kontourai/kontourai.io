@@ -3,6 +3,44 @@ import Layout from '@/layouts/Layout.astro';
 import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
 import Terminal from '@/components/Terminal.astro';
+import Section from '@/components/Section.astro';
+import Glow from '@/components/Glow.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+import Card from '@/components/Card.astro';
+import Grid from '@/components/Grid.astro';
+import Split from '@/components/Split.astro';
+import type { Accent } from '@/lib/theme';
+
+const boundaries: { label: string; detail: string; accent: Accent }[] = [
+  { label: 'Work Area', detail: 'Where the change belongs', accent: 'gold' },
+  { label: 'Change Boundary', detail: 'Where extra coordination begins', accent: 'cobalt-2' },
+  { label: 'Protected Area', detail: 'Where stronger authority is required', accent: 'green' },
+  { label: 'Boundary Crossing', detail: 'When readiness needs more evidence', accent: 'chalk-2' },
+];
+
+const promises: { num: string; title: string; accent: Accent; summary: string; body: string; tags: string[] }[] = [
+  { num: '01', title: 'Define what good looks like', accent: 'green', summary: 'Repo Standards', body: 'Capture the repo expectations reviewers keep in their heads: required tests, protected files, shared contracts, release checks, security scans, boundaries, and authority rules.', tags: ['requirements', 'evidence-checks', 'authorities', 'guidance'] },
+  { num: '02', title: 'Guide work at the moment of change', accent: 'cobalt-2', summary: 'Change Guidance', body: 'When an agent or developer touches a risky work area, Veritas supplies the relevant standards before context drift turns into a bad merge.', tags: ['work-areas', 'boundaries', 'hooks', 'recheck'] },
+  { num: '03', title: 'Earn merge readiness', accent: 'gold', summary: 'Readiness Reports', body: 'Every change gets a clear answer: what passed, what failed, what evidence is stale, what needs recheck, and why this change can or cannot merge with reduced human review.', tags: ['merge-readiness', 'freshness', 'exceptions', 'coverage'] },
+];
+
+const beyond: { title: string; body: string; accent: Accent }[] = [
+  { title: 'Standards feedback', accent: 'green', body: 'Longitudinal tracking of whether each standard helped, got in the way, or needs adjustment — built from real run evidence.' },
+  { title: 'Recommendations', accent: 'cobalt-2', body: 'Data-driven suggestions for tightening, relaxing, or retiring standards, accepted or rejected with authority backing.' },
+  { title: 'Marker benchmarking', accent: 'gold', body: 'Deterministic scoring of whether Veritas guidance actually improves agent outcomes, not just whether checks pass.' },
+  { title: 'Claim authoring', accent: 'chalk-2', body: 'Author and manage Surface claims directly from the repo, so readiness state is portable to people, agents, and other systems.' },
+];
+
+const cli = [
+  { cmd: 'veritas init', desc: 'Bootstrap Repo Standards, Repo Map, and guidance' },
+  { cmd: 'veritas readiness --working-tree', desc: 'Generate a readiness report for the current change' },
+  { cmd: 'veritas explain --file <path>', desc: 'Show just-in-time guidance for a work area' },
+  { cmd: 'veritas attest bootstrap', desc: 'Record authority evidence for protected standards' },
+  { cmd: 'veritas claim list', desc: 'Author and inspect Surface claims for the repo' },
+  { cmd: 'veritas feedback summary', desc: 'Review whether standards are helping across prior runs' },
+  { cmd: 'veritas recommendation list', desc: 'Review data-driven standards recommendations' },
+  { cmd: 'veritas integrations claude-code install', desc: 'Wire agent hooks where supported' },
+];
 ---
 
 <Layout
@@ -11,67 +49,21 @@ import Terminal from '@/components/Terminal.astro';
 >
   <Nav active="veritas" />
 
-  <!-- ──────────────────────────────────────────────────────
-       Hero
-  ────────────────────────────────────────────────────────── -->
-  <section class="contour-bg" style="
-    padding: 10rem var(--spacing-page) 6rem;
-    border-bottom: 1px solid var(--color-edge);
-    position: relative;
-    overflow: hidden;
-  ">
-    <!-- Green accent glow -->
-    <div style="
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 600px;
-      height: 400px;
-      background: radial-gradient(ellipse at top right, rgba(82,196,126,0.05) 0%, transparent 70%);
-      pointer-events: none;
-    "></div>
-
-    <div style="max-width: 1280px; margin: 0 auto; position: relative; z-index: 1;">
-      <div class="stack-mobile" style="
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 5rem;
-        align-items: center;
-      ">
-        <!-- Left -->
+  <!-- Hero -->
+  <Section contour size="hero" borderBottom>
+    <Glow accent="green" position="top-right" />
+    <div class="container">
+      <Split ratio="1-1" gap="lg" align="center">
         <div>
-          <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem;">
+          <div class="hero-badges">
             <span class="trust-badge trust-badge--verified">v0.4.0</span>
-            <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-chalk-3);">npm install -D @kontourai/veritas</span>
+            <span class="install-hint">npm install -D @kontourai/veritas</span>
           </div>
 
-          <h1 class="animate-fade-up" style="
-            font-family: var(--font-display);
-            font-optical-sizing: auto;
-            font-size: clamp(3.5rem, 6vw, 5.5rem);
-            font-weight: 400;
-            line-height: 1.3;
-            letter-spacing: -0.03em;
-            color: var(--color-chalk);
-            margin-bottom: 0.5rem;
-          ">Veritas</h1>
+          <h1 class="product-title animate-fade-up">Veritas</h1>
+          <p class="product-tagline animate-fade-up delay-100" data-accent="green">merge autonomy for AI-authored code</p>
 
-          <p class="animate-fade-up delay-100" style="
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--color-green);
-            margin-bottom: 2rem;
-          ">merge autonomy for AI-authored code</p>
-
-          <p class="animate-fade-up delay-200" style="
-            font-size: 1.05rem;
-            color: var(--color-chalk-2);
-            line-height: 1.7;
-            max-width: 460px;
-            margin-bottom: 2.5rem;
-          ">
+          <p class="hero-copy animate-fade-up delay-200">
             Define what good looks like for your repo. Veritas checks each
             change against those standards, gives the agent just-in-time
             guidance while it works, and produces a readiness report that says
@@ -79,17 +71,12 @@ import Terminal from '@/components/Terminal.astro';
             human review.
           </p>
 
-          <div class="animate-fade-up delay-300" style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-            <a href="https://github.com/kontourai/veritas" target="_blank" rel="noopener" class="btn-primary" data-umami-event="veritas-hero-github">
-              View on GitHub →
-            </a>
-            <a href="https://www.npmjs.com/package/@kontourai/veritas" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="veritas-hero-npm">
-              npm package
-            </a>
+          <div class="hero-actions animate-fade-up delay-300">
+            <a href="https://github.com/kontourai/veritas" target="_blank" rel="noopener" class="btn-primary" data-umami-event="veritas-hero-github">View on GitHub →</a>
+            <a href="https://www.npmjs.com/package/@kontourai/veritas" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="veritas-hero-npm">npm package</a>
           </div>
         </div>
 
-        <!-- Right: run output -->
         <Terminal class="animate-fade-in delay-300" title="veritas readiness">
           <p><span class="prompt">$ </span><span class="cmd">npx veritas readiness --working-tree</span></p>
           <br />
@@ -103,220 +90,87 @@ import Terminal from '@/components/Terminal.astro';
           <p class="pass">  PASS  merge-readiness: ready</p>
           <br />
           <p class="warn">  INFO  evidence-freshness: current</p>
-          <p style="color: var(--color-chalk-3); padding-left: 2rem; font-size: 0.72rem;">
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ checked against this diff and standards version
-          </p>
-          <p style="color: var(--color-chalk-3); padding-left: 2rem; font-size: 0.72rem;">
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ boundary crossing: none
-          </p>
+          <p class="sub">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ checked against this diff and standards version</p>
+          <p class="sub">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ boundary crossing: none</p>
           <br />
-          <p style="color: var(--color-chalk-3);">  ───────────────────────────────</p>
-          <p style="color: var(--color-chalk-2);">  0 failures &nbsp; 0 warnings</p>
+          <p class="rule">  ───────────────────────────────</p>
+          <p class="cmd">  0 failures &nbsp; 0 warnings</p>
           <p class="muted">  evidence → .veritas/evidence/&lt;run-id&gt;.json</p>
         </Terminal>
-      </div>
+      </Split>
     </div>
-  </section>
+  </Section>
 
-  <!-- ──────────────────────────────────────────────────────
-       Change boundaries
-  ────────────────────────────────────────────────────────── -->
-  <section style="
-    padding: 5rem var(--spacing-page);
-    border-top: 1px solid var(--color-edge);
-    border-bottom: 1px solid var(--color-edge);
-    background: var(--color-ink-1);
-  ">
-    <div style="max-width: 1280px; margin: 0 auto;">
-      <div class="stack-mobile" style="
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 4rem;
-        align-items: center;
-      ">
+  <!-- Change boundaries -->
+  <Section tone="alt" borderTop borderBottom>
+    <div class="container">
+      <Split ratio="1-1" gap="md" align="center">
         <div>
-          <div class="label-sm" style="margin-bottom: 1.5rem; color: var(--color-cobalt-2);">Change boundaries</div>
-          <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 1.25rem;">
-            Shared code without<br />
-            shared confusion.
-          </h2>
-          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.5rem;">
+          <Eyebrow accent="cobalt-2">Change boundaries</Eyebrow>
+          <h2 class="display-md cb__title">Shared code without<br />shared confusion.</h2>
+          <p class="body cb__copy">
             Fast AI development breaks down when several agents and developers touch
             the same repo without knowing which work areas are independent, protected,
             or coupled. Veritas makes those boundaries explicit.
           </p>
-          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.5rem;">
+          <p class="body cb__copy">
             A change that stays inside its work area can move quickly. A boundary crossing
             asks for the right evidence, owner context, or coordination before it becomes
             another surprise in review.
           </p>
-          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 0;">
+          <p class="body cb__copy cb__copy--last">
             This is how teams keep code DRY without turning every shared package,
             contract, or generated artifact into a manual-review bottleneck.
           </p>
         </div>
 
-        <!-- Activation targets grid -->
-        <div style="
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 1rem;
-        ">
-          {[
-            { label: 'Work Area', detail: 'Where the change belongs', color: 'var(--color-gold)' },
-            { label: 'Change Boundary', detail: 'Where extra coordination begins', color: 'var(--color-cobalt-2)' },
-            { label: 'Protected Area', detail: 'Where stronger authority is required', color: 'var(--color-green)' },
-            { label: 'Boundary Crossing', detail: 'When readiness needs more evidence', color: 'var(--color-chalk-2)' },
-          ].map(({ label, detail, color }) => (
-            <div key={label} style="
-              background: var(--color-ink-2);
-              border: 1px solid var(--color-edge);
-              border-radius: 6px;
-              padding: 1.25rem;
-            ">
-              <div style={`
-                font-family: var(--font-mono);
-                font-size: 0.7rem;
-                color: ${color};
-                margin-bottom: 0.35rem;
-              `}>{label}</div>
-              <div style="
-                font-family: var(--font-mono);
-                font-size: 0.65rem;
-                color: var(--color-chalk-3);
-                letter-spacing: 0.04em;
-              ">{detail}</div>
+        <Grid cols={2} gap="md">
+          {boundaries.map(({ label, detail, accent }) => (
+            <div class="minicard" data-accent={accent}>
+              <div class="minicard__label">{label}</div>
+              <div class="minicard__detail">{detail}</div>
             </div>
           ))}
-        </div>
-      </div>
+        </Grid>
+      </Split>
     </div>
-  </section>
+  </Section>
 
-  <!-- ──────────────────────────────────────────────────────
-       Product promise
-  ────────────────────────────────────────────────────────── -->
-  <section style="padding: 6rem var(--spacing-page);">
-    <div style="max-width: 1280px; margin: 0 auto;">
-      <div class="label-sm" style="margin-bottom: 3rem;">What Veritas makes possible</div>
-
-      <div class="stack-mobile" style="
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1.5rem;
-      ">
-        {[
-          {
-            num: '01',
-            title: 'Define what good looks like',
-            color: 'var(--color-green)',
-            summary: 'Repo Standards',
-            body: 'Capture the repo expectations reviewers keep in their heads: required tests, protected files, shared contracts, release checks, security scans, boundaries, and authority rules.',
-            tags: ['requirements', 'evidence-checks', 'authorities', 'guidance'],
-          },
-          {
-            num: '02',
-            title: 'Guide work at the moment of change',
-            color: 'var(--color-cobalt-2)',
-            summary: 'Change Guidance',
-            body: 'When an agent or developer touches a risky work area, Veritas supplies the relevant standards before context drift turns into a bad merge.',
-            tags: ['work-areas', 'boundaries', 'hooks', 'recheck'],
-          },
-          {
-            num: '03',
-            title: 'Earn merge readiness',
-            color: 'var(--color-gold)',
-            summary: 'Readiness Reports',
-            body: 'Every change gets a clear answer: what passed, what failed, what evidence is stale, what needs recheck, and why this change can or cannot merge with reduced human review.',
-            tags: ['merge-readiness', 'freshness', 'exceptions', 'coverage'],
-          },
-        ].map(({ num, title, color, summary, body, tags }) => (
-          <div key={num} class="card" style="padding: 2rem;">
-            <div style="
-              font-family: var(--font-mono);
-              font-size: 0.65rem;
-              color: var(--color-chalk-3);
-              margin-bottom: 1rem;
-            ">{num}</div>
-
-            <div style={`
-              width: 28px;
-              height: 2px;
-              background: ${color};
-              margin-bottom: 1.25rem;
-              border-radius: 1px;
-            `}></div>
-
-            <h3 style="
-              font-family: var(--font-display);
-              font-size: 1.5rem;
-              font-weight: 400;
-              color: var(--color-chalk);
-              margin-bottom: 0.35rem;
-              letter-spacing: -0.01em;
-            ">{title}</h3>
-
-            <p style={`
-              font-family: var(--font-mono);
-              font-size: 0.7rem;
-              color: ${color};
-              margin-bottom: 1rem;
-              letter-spacing: 0.03em;
-            `}>{summary}</p>
-
-            <p style="
-              color: var(--color-chalk-2);
-              font-size: 0.875rem;
-              line-height: 1.7;
-              margin-bottom: 1.5rem;
-            ">{body}</p>
-
-            <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
-              {tags.map(tag => (
-                <span key={tag} style="
-                  font-family: var(--font-mono);
-                  font-size: 0.58rem;
-                  padding: 0.12rem 0.45rem;
-                  border: 1px solid var(--color-edge-2);
-                  border-radius: 2px;
-                  color: var(--color-chalk-3);
-                  letter-spacing: 0.06em;
-                ">{tag}</span>
-              ))}
+  <!-- Product promise -->
+  <Section size="lg">
+    <div class="container">
+      <Eyebrow gap="lg">What Veritas makes possible</Eyebrow>
+      <Grid cols={3} gap="lg">
+        {promises.map(({ num, title, accent, summary, body, tags }) => (
+          <Card pad="lg" accent={accent}>
+            <div class="promise__num">{num}</div>
+            <div class="promise__rule"></div>
+            <h3 class="promise__title">{title}</h3>
+            <p class="promise__summary">{summary}</p>
+            <p class="promise__body">{body}</p>
+            <div class="promise__tags">
+              {tags.map(tag => <span class="tag">{tag}</span>)}
             </div>
-          </div>
+          </Card>
         ))}
-      </div>
+      </Grid>
     </div>
-  </section>
+  </Section>
 
-  <!-- ──────────────────────────────────────────────────────
-       In practice
-  ────────────────────────────────────────────────────────── -->
-  <section style="
-    padding: 5rem var(--spacing-page);
-    border-top: 1px solid var(--color-edge);
-    background: var(--color-ink-1);
-  ">
-    <div style="max-width: 1280px; margin: 0 auto;">
-      <div class="stack-mobile" style="
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 4rem;
-        align-items: center;
-      ">
+  <!-- In practice -->
+  <Section tone="alt" borderTop>
+    <div class="container">
+      <Split ratio="1-1" gap="md" align="center">
         <div>
-          <div class="label-sm" style="margin-bottom: 1.5rem; color: var(--color-green);">In practice</div>
-          <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 1.25rem;">
-            The catch you'd<br />otherwise miss.
-          </h2>
-          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.5rem;">
+          <Eyebrow accent="green">In practice</Eyebrow>
+          <h2 class="display-md ip__title">The catch you'd<br />otherwise miss.</h2>
+          <p class="body ip__copy">
             An agent rewrites an API handler but skips the test that covers it.
             Instead of surfacing days later in review, Veritas flags the missing
             evidence at the moment of change — and tells the agent exactly what
             it needs before the work is submitted.
           </p>
-          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin: 0;">
+          <p class="body ip__copy ip__copy--last">
             Reviewers spend their attention inspecting evidence, not
             rediscovering the standard from a diff.
           </p>
@@ -330,123 +184,170 @@ import Terminal from '@/components/Terminal.astro';
           <br />
           <p class="pass">  PASS  change-boundaries: within work area</p>
           <p class="warn">  BLOCK evidence-check: api handler changed, test missing</p>
-          <p style="color: var(--color-chalk-3); padding-left: 2rem; font-size: 0.72rem;">
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ expected: test covering src/api/handler.ts
-          </p>
+          <p class="sub">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ expected: test covering src/api/handler.ts</p>
           <br />
           <p>  merge-readiness: <span class="warn">blocked — 1 requirement unmet</span></p>
           <p class="muted">  next action: add the missing test, then re-run</p>
         </Terminal>
-      </div>
+      </Split>
     </div>
-  </section>
+  </Section>
 
-  <!-- ──────────────────────────────────────────────────────
-       Standards that learn
-  ────────────────────────────────────────────────────────── -->
-  <section style="
-    padding: 6rem var(--spacing-page);
-    border-top: 1px solid var(--color-edge);
-  ">
-    <div style="max-width: 1280px; margin: 0 auto;">
-      <div class="label-sm" style="margin-bottom: 1rem; color: var(--color-green);">Beyond the gate</div>
-      <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 1rem; max-width: 760px;">
-        Standards that get sharper the more you ship.
-      </h2>
-      <p style="color: var(--color-chalk-3); font-size: 0.9rem; line-height: 1.65; max-width: 680px; margin-bottom: 2.5rem;">
+  <!-- Standards that learn -->
+  <Section borderTop size="lg">
+    <div class="container">
+      <Eyebrow accent="green">Beyond the gate</Eyebrow>
+      <h2 class="display-md measure-lg beyond-heading">Standards that get sharper the more you ship.</h2>
+      <p class="fine measure beyond-note">
         A readiness verdict is the start. Veritas also tracks whether your
         standards are actually helping, recommends adjustments from real run
         history, and projects every claim into Surface so the evidence is
         inspectable downstream.
       </p>
 
-      <div class="stack-mobile" style="
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 1rem;
-      ">
-        {[
-          { title: 'Standards feedback', color: 'var(--color-green)', body: 'Longitudinal tracking of whether each standard helped, got in the way, or needs adjustment — built from real run evidence.' },
-          { title: 'Recommendations', color: 'var(--color-cobalt-2)', body: 'Data-driven suggestions for tightening, relaxing, or retiring standards, accepted or rejected with authority backing.' },
-          { title: 'Marker benchmarking', color: 'var(--color-gold)', body: 'Deterministic scoring of whether Veritas guidance actually improves agent outcomes, not just whether checks pass.' },
-          { title: 'Claim authoring', color: 'var(--color-chalk-2)', body: 'Author and manage Surface claims directly from the repo, so readiness state is portable to people, agents, and other systems.' },
-        ].map(({ title, color, body }) => (
-          <div key={title} class="card" style="padding: 1.5rem; position: relative; overflow: hidden;">
-            <div style={`
-              position: absolute;
-              top: 0;
-              left: 0;
-              right: 0;
-              height: 2px;
-              background: linear-gradient(90deg, ${color}, transparent);
-            `}></div>
-            <h3 style="
-              font-family: var(--font-display);
-              font-size: 1.15rem;
-              font-weight: 400;
-              color: var(--color-chalk);
-              margin-bottom: 0.6rem;
-              letter-spacing: -0.01em;
-            ">{title}</h3>
-            <p style="font-size: 0.8rem; color: var(--color-chalk-3); line-height: 1.6;">{body}</p>
+      <Grid cols={4} gap="md">
+        {beyond.map(({ title, body, accent }) => (
+          <Card accent={accent} bar="top" pad="sm">
+            <h3 class="beyond__title">{title}</h3>
+            <p class="beyond__body">{body}</p>
+          </Card>
+        ))}
+      </Grid>
+    </div>
+  </Section>
+
+  <!-- CLI reference strip -->
+  <Section borderTop>
+    <div class="container">
+      <Eyebrow gap="lg">Current CLI</Eyebrow>
+      <Grid min="280" gap="sm">
+        {cli.map(({ cmd, desc }) => (
+          <div class="cli">
+            <code class="cli__cmd">{cmd}</code>
+            <span class="cli__desc">{desc}</span>
           </div>
         ))}
-      </div>
+      </Grid>
     </div>
-  </section>
+  </Section>
 
-  <!-- ──────────────────────────────────────────────────────
-       CLI reference strip
-  ────────────────────────────────────────────────────────── -->
-  <section style="padding: 5rem var(--spacing-page); border-top: 1px solid var(--color-edge);">
-    <div style="max-width: 1280px; margin: 0 auto;">
-      <div class="label-sm" style="margin-bottom: 2.5rem;">Current CLI</div>
-
-      <div style="
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 0.75rem;
-      ">
-        {[
-          { cmd: 'veritas init', desc: 'Bootstrap Repo Standards, Repo Map, and guidance' },
-          { cmd: 'veritas readiness --working-tree', desc: 'Generate a readiness report for the current change' },
-          { cmd: 'veritas explain --file <path>', desc: 'Show just-in-time guidance for a work area' },
-          { cmd: 'veritas attest bootstrap', desc: 'Record authority evidence for protected standards' },
-          { cmd: 'veritas claim list', desc: 'Author and inspect Surface claims for the repo' },
-          { cmd: 'veritas feedback summary', desc: 'Review whether standards are helping across prior runs' },
-          { cmd: 'veritas recommendation list', desc: 'Review data-driven standards recommendations' },
-          { cmd: 'veritas integrations claude-code install', desc: 'Wire agent hooks where supported' },
-        ].map(({ cmd, desc }) => (
-          <div key={cmd} style="
-            display: flex;
-            flex-direction: column;
-            gap: 0.35rem;
-            padding: 1rem 1.25rem;
-            background: var(--color-ink-1);
-            border: 1px solid var(--color-edge);
-            border-radius: 4px;
-          ">
-            <code style="
-              font-family: var(--font-mono);
-              font-size: 0.78rem;
-              color: var(--color-green);
-            ">{cmd}</code>
-            <span style="
-              font-size: 0.78rem;
-              color: var(--color-chalk-3);
-              line-height: 1.4;
-            ">{desc}</span>
-          </div>
-        ))}
-      </div>
+  <Section size="note" borderTop>
+    <div class="container">
+      <p class="closing-note">Veritas is built with Surface. Users don't need to configure Surface — it's the shared shape under the readiness state.</p>
     </div>
-  </section>
-
-  <section style="padding: 3rem var(--spacing-page) 0; border-top: 1px solid var(--color-edge);">
-    <div style="max-width: 1280px; margin: 0 auto;">
-      <p style="color: var(--color-chalk-3); font-size: 0.95rem; line-height: 1.7; font-style: italic; margin: 0;">Veritas is built with Surface. Users don't need to configure Surface — it's the shared shape under the readiness state.</p>
-    </div>
-  </section>
+  </Section>
 
   <Footer active="veritas" />
 </Layout>
+
+<style>
+  .cb__title,
+  .ip__title {
+    margin-bottom: 1.25rem;
+  }
+  .cb__copy,
+  .ip__copy {
+    margin-bottom: 1.5rem;
+  }
+  .cb__copy--last,
+  .ip__copy--last {
+    margin-bottom: 0;
+  }
+
+  .promise__num {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--color-chalk-3);
+    margin-bottom: 1rem;
+  }
+  .promise__rule {
+    width: 28px;
+    height: 2px;
+    background: var(--accent);
+    margin-bottom: 1.25rem;
+    border-radius: 1px;
+  }
+  .promise__title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--color-chalk);
+    margin-bottom: 0.35rem;
+    letter-spacing: -0.01em;
+  }
+  .promise__summary {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    letter-spacing: 0.03em;
+  }
+  .promise__body {
+    color: var(--color-chalk-2);
+    font-size: 0.875rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+  .promise__tags {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    padding: 0.12rem 0.45rem;
+    border: 1px solid var(--color-edge-2);
+    border-radius: 2px;
+    color: var(--color-chalk-3);
+    letter-spacing: 0.06em;
+  }
+
+  .beyond-heading {
+    margin-bottom: 1rem;
+  }
+  .beyond-note {
+    margin-bottom: 2.5rem;
+  }
+  .beyond__title {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--color-chalk);
+    margin-bottom: 0.6rem;
+    letter-spacing: -0.01em;
+  }
+  .beyond__body {
+    font-size: 0.8rem;
+    color: var(--color-chalk-3);
+    line-height: 1.6;
+  }
+
+  .cli {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 1rem 1.25rem;
+    background: var(--color-ink-1);
+    border: 1px solid var(--color-edge);
+    border-radius: 4px;
+  }
+  .cli__cmd {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--color-green);
+  }
+  .cli__desc {
+    font-size: 0.78rem;
+    color: var(--color-chalk-3);
+    line-height: 1.4;
+  }
+
+  .closing-note {
+    color: var(--color-chalk-3);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    font-style: italic;
+    margin: 0;
+  }
+</style>

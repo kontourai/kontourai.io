@@ -1,0 +1,46 @@
+---
+/**
+ * Decorative radial-gradient glow behind a hero. Tinted by `accent`, placed by
+ * `position`. Sits at z-index 0 so the section's `.container` paints over it.
+ */
+import type { Accent } from "@/lib/theme";
+
+interface Props {
+  accent: Accent;
+  position?: "top-right" | "top-left" | "top-center";
+}
+
+const { accent, position = "top-right" } = Astro.props;
+---
+
+<div class="glow" data-accent={accent} data-pos={position} aria-hidden="true"></div>
+
+<style>
+  .glow {
+    position: absolute;
+    z-index: 0;
+    width: 720px;
+    height: 520px;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse at center,
+      color-mix(in srgb, var(--accent) 6%, transparent) 0%,
+      transparent 70%
+    );
+  }
+  .glow[data-pos="top-right"] {
+    top: 0;
+    right: 6%;
+  }
+  .glow[data-pos="top-left"] {
+    top: -100px;
+    left: -100px;
+  }
+  .glow[data-pos="top-center"] {
+    top: 14%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 900px;
+    height: 620px;
+  }
+</style>

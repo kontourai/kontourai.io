@@ -3,6 +3,46 @@ import Layout from '@/layouts/Layout.astro';
 import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
 import Terminal from '@/components/Terminal.astro';
+import Section from '@/components/Section.astro';
+import Glow from '@/components/Glow.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+import Card from '@/components/Card.astro';
+import Grid from '@/components/Grid.astro';
+import Split from '@/components/Split.astro';
+import QuestionGrid from '@/components/QuestionGrid.astro';
+import type { Accent } from '@/lib/theme';
+
+const answers: { q: string; accent?: Accent }[] = [
+  { q: 'What process path was required?' },
+  { q: 'Which step is active now?' },
+  { q: 'Which gate controls the next transition?', accent: 'cobalt-2' },
+  { q: 'What evidence does the gate expect?', accent: 'cobalt-2' },
+  { q: 'What evidence was actually collected?', accent: 'green' },
+  { q: 'Why was the transition allowed or blocked?', accent: 'gold' },
+  { q: 'Was an exception accepted, and by whom?', accent: 'red' },
+  { q: 'How should another agent resume?' },
+];
+
+const objects: { label: string; detail: string; accent: Accent }[] = [
+  { label: 'Flow Definition', detail: 'The required path and gate expectations', accent: 'cobalt-2' },
+  { label: 'Flow Run', detail: 'One concrete execution with state and history', accent: 'green' },
+  { label: 'Gate Evidence', detail: 'Tests, CI, traces, approvals, Veritas reports', accent: 'gold' },
+  { label: 'Flow Report', detail: 'Current state, blocked gates, next action', accent: 'chalk-2' },
+];
+
+const notReplace: { title: string; body: string; accent: Accent }[] = [
+  { title: 'Workflow engines', body: 'Camunda, Temporal, Dapr, Inngest, and Trigger.dev can still run durable work. Flow records gate state and evidence.', accent: 'gold' },
+  { title: 'Agent frameworks', body: 'LangGraph, CrewAI, OpenAI Agents, Microsoft Agent Framework, and runtime SDKs can still execute agent loops.', accent: 'cobalt-2' },
+  { title: 'Observability', body: 'Phoenix, LangSmith, AgentOps, and OpenTelemetry can still store traces. Flow interprets traces against gate expectations.', accent: 'green' },
+  { title: 'Policy systems', body: 'OPA, security tools, and Veritas can still evaluate rules. Flow records their decisions as process evidence.', accent: 'red' },
+];
+
+const consoleFeatures = [
+  { label: 'Process graph', body: 'See the required path and where the run sits on it right now.' },
+  { label: 'Transition timeline', body: 'Walk every gate the run cleared, blocked on, or routed back from.' },
+  { label: 'Gate detail', body: 'Inspect the evidence a gate expected and what was actually collected.' },
+  { label: 'Evidence links', body: 'Jump from a gate to the tests, CI, traces, or readiness reports behind it.' },
+];
 ---
 
 <Layout
@@ -11,62 +51,21 @@ import Terminal from '@/components/Terminal.astro';
 >
   <Nav active="flow" />
 
-  <section class="contour-bg" style="
-    padding: 10rem var(--spacing-page) 6rem;
-    border-bottom: 1px solid var(--color-edge);
-    position: relative;
-    overflow: hidden;
-  ">
-    <div style="
-      position: absolute;
-      top: 0;
-      right: 10%;
-      width: 680px;
-      height: 460px;
-      background: radial-gradient(ellipse at top right, rgba(126,179,232,0.055) 0%, transparent 68%);
-      pointer-events: none;
-    "></div>
-
-    <div style="max-width: 1280px; margin: 0 auto; position: relative; z-index: 1;">
-      <div class="stack-mobile" style="
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 5rem;
-        align-items: center;
-      ">
+  <!-- Hero -->
+  <Section contour size="hero" borderBottom>
+    <Glow accent="cobalt-2" position="top-right" />
+    <div class="container">
+      <Split ratio="1-1" gap="lg" align="center">
         <div>
-          <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem;">
+          <div class="hero-badges">
             <span class="trust-badge trust-badge--verified">v0.1.0</span>
-            <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-chalk-3);">npm install -D @kontourai/flow</span>
+            <span class="install-hint">npm install -D @kontourai/flow</span>
           </div>
 
-          <h1 class="animate-fade-up" style="
-            font-family: var(--font-display);
-            font-optical-sizing: auto;
-            font-size: clamp(3.5rem, 6vw, 5.5rem);
-            font-weight: 400;
-            line-height: 1.3;
-            letter-spacing: -0.03em;
-            color: var(--color-chalk);
-            margin-bottom: 0.5rem;
-          ">Flow</h1>
+          <h1 class="product-title animate-fade-up">Flow</h1>
+          <p class="product-tagline animate-fade-up delay-100" data-accent="cobalt-2">process transparency for any required-path work</p>
 
-          <p class="animate-fade-up delay-100" style="
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--color-cobalt-2);
-            margin-bottom: 2rem;
-          ">process transparency for any required-path work</p>
-
-          <p class="animate-fade-up delay-200" style="
-            font-size: 1.05rem;
-            color: var(--color-chalk-2);
-            line-height: 1.7;
-            max-width: 500px;
-            margin-bottom: 2.5rem;
-          ">
+          <p class="hero-copy hero-copy--wide animate-fade-up delay-200">
             Agents skip steps, accept weak evidence, summarize work as complete,
             and lose the thread after compaction. Flow is the small thing
             missing in the middle: a record of the required path, the evidence
@@ -76,13 +75,9 @@ import Terminal from '@/components/Terminal.astro';
             advance.
           </p>
 
-          <div class="animate-fade-up delay-300" style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-            <a href="https://github.com/kontourai/flow" target="_blank" rel="noopener" class="btn-primary" data-umami-event="flow-hero-github">
-              View on GitHub →
-            </a>
-            <a href="/surface" class="btn-ghost" data-umami-event="flow-hero-surface">
-              Built with Surface
-            </a>
+          <div class="hero-actions animate-fade-up delay-300">
+            <a href="https://github.com/kontourai/flow" target="_blank" rel="noopener" class="btn-primary" data-umami-event="flow-hero-github">View on GitHub →</a>
+            <a href="/surface" class="btn-ghost" data-umami-event="flow-hero-surface">Built with Surface</a>
           </div>
         </div>
 
@@ -101,17 +96,14 @@ import Terminal from '@/components/Terminal.astro';
           <p class="muted">  continuation: resume from verify, not chat memory</p>
           <p class="muted">  report: .flow/runs/run.dev-1847/report.md</p>
         </Terminal>
-      </div>
+      </Split>
     </div>
-  </section>
+  </Section>
 
-  <section style="
-    padding: 5rem var(--spacing-page);
-    border-bottom: 1px solid var(--color-edge);
-    background: var(--color-ink-1);
-  ">
-    <div style="max-width: 1280px; margin: 0 auto;">
-      <div class="label-sm" style="margin-bottom: 1.5rem; color: var(--color-cobalt-2);">Quickstart</div>
+  <!-- Quickstart -->
+  <Section tone="alt" borderBottom>
+    <div class="container">
+      <Eyebrow accent="cobalt-2">Quickstart</Eyebrow>
       <Terminal title="flow quickstart">
         <p><span class="prompt">$ </span><span class="cmd">npm install -D @kontourai/flow</span></p>
         <p><span class="prompt">$ </span><span class="cmd">npx flow init</span></p>
@@ -121,211 +113,81 @@ import Terminal from '@/components/Terminal.astro';
         <p><span class="prompt">$ </span><span class="cmd">npx flow report dev-1847</span></p>
       </Terminal>
     </div>
-  </section>
+  </Section>
 
-  <section style="padding: 6rem var(--spacing-page);">
-    <div style="max-width: 1280px; margin: 0 auto;">
-      <div class="label-sm" style="margin-bottom: 3rem;">What Flow answers</div>
-
-      <div style="
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 1rem;
-      ">
-        {[
-          { q: 'What process path was required?', color: 'var(--color-chalk-2)' },
-          { q: 'Which step is active now?', color: 'var(--color-chalk-2)' },
-          { q: 'Which gate controls the next transition?', color: 'var(--color-cobalt-2)' },
-          { q: 'What evidence does the gate expect?', color: 'var(--color-cobalt-2)' },
-          { q: 'What evidence was actually collected?', color: 'var(--color-green)' },
-          { q: 'Why was the transition allowed or blocked?', color: 'var(--color-gold)' },
-          { q: 'Was an exception accepted, and by whom?', color: 'var(--color-red)' },
-          { q: 'How should another agent resume?', color: 'var(--color-chalk-2)' },
-        ].map(({ q, color }, i) => (
-          <div key={i} style="
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            padding: 1.25rem;
-            background: var(--color-ink-1);
-            border: 1px solid var(--color-edge);
-            border-radius: 4px;
-          ">
-            <span style="
-              font-family: var(--font-mono);
-              font-size: 0.65rem;
-              color: var(--color-chalk-3);
-              padding-top: 2px;
-              min-width: 1.5rem;
-            ">0{i + 1}</span>
-            <span style={`
-              font-size: 0.9rem;
-              color: ${color};
-              line-height: 1.5;
-            `}>{q}</span>
-          </div>
-        ))}
-      </div>
+  <!-- What Flow answers -->
+  <Section size="lg">
+    <div class="container">
+      <Eyebrow gap="lg">What Flow answers</Eyebrow>
+      <QuestionGrid items={answers} min="280" />
     </div>
-  </section>
+  </Section>
 
-  <section style="
-    padding: 5rem var(--spacing-page);
-    border-top: 1px solid var(--color-edge);
-    border-bottom: 1px solid var(--color-edge);
-    background: var(--color-ink-1);
-  ">
-    <div style="max-width: 1280px; margin: 0 auto;">
-      <div class="stack-mobile" style="
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 4rem;
-        align-items: center;
-      ">
+  <!-- The difference -->
+  <Section tone="alt" borderTop borderBottom>
+    <div class="container">
+      <Split ratio="1-1" gap="md" align="center">
         <div>
-          <div class="label-sm" style="margin-bottom: 1.5rem; color: var(--color-cobalt-2);">The difference</div>
-          <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 1.25rem;">
-            A trace says what happened.<br />
-            Flow says why it was enough.
-          </h2>
-          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.5rem;">
+          <Eyebrow accent="cobalt-2">The difference</Eyebrow>
+          <h2 class="display-md diff__title">A trace says what happened.<br />Flow says why it was enough.</h2>
+          <p class="body diff__copy">
             Observability is necessary, but a trace alone does not know whether
             the right verification happened, whether approval had enough context,
             or whether the agent skipped a required handoff.
           </p>
-          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 0;">
+          <p class="body diff__copy diff__copy--last">
             Flow turns required paths into evidence-gated transitions. If the
             evidence is missing, the run blocks or routes back. If the user accepts
             the gap, the exception becomes part of the record.
           </p>
         </div>
 
-        <div style="
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 1rem;
-        ">
-          {[
-            { label: 'Flow Definition', detail: 'The required path and gate expectations', color: 'var(--color-cobalt-2)' },
-            { label: 'Flow Run', detail: 'One concrete execution with state and history', color: 'var(--color-green)' },
-            { label: 'Gate Evidence', detail: 'Tests, CI, traces, approvals, Veritas reports', color: 'var(--color-gold)' },
-            { label: 'Flow Report', detail: 'Current state, blocked gates, next action', color: 'var(--color-chalk-2)' },
-          ].map(({ label, detail, color }) => (
-            <div key={label} style="
-              background: var(--color-ink-2);
-              border: 1px solid var(--color-edge);
-              border-radius: 6px;
-              padding: 1.25rem;
-            ">
-              <div style={`
-                font-family: var(--font-mono);
-                font-size: 0.7rem;
-                color: ${color};
-                margin-bottom: 0.35rem;
-              `}>{label}</div>
-              <div style="
-                font-family: var(--font-mono);
-                font-size: 0.65rem;
-                color: var(--color-chalk-3);
-                letter-spacing: 0.04em;
-                line-height: 1.55;
-              ">{detail}</div>
+        <Grid cols={2} gap="md">
+          {objects.map(({ label, detail, accent }) => (
+            <div class="minicard" data-accent={accent}>
+              <div class="minicard__label">{label}</div>
+              <div class="minicard__detail">{detail}</div>
             </div>
           ))}
-        </div>
-      </div>
+        </Grid>
+      </Split>
     </div>
-  </section>
+  </Section>
 
-  <section style="padding: 5rem var(--spacing-page); border-top: 1px solid var(--color-edge);">
-    <div style="max-width: 1280px; margin: 0 auto;">
-      <div class="label-sm" style="margin-bottom: 2.5rem;">What Flow does not replace</div>
-
-      <div class="stack-mobile" style="
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 1rem;
-      ">
-        {[
-          { title: 'Workflow engines', body: 'Camunda, Temporal, Dapr, Inngest, and Trigger.dev can still run durable work. Flow records gate state and evidence.', color: 'var(--color-gold)' },
-          { title: 'Agent frameworks', body: 'LangGraph, CrewAI, OpenAI Agents, Microsoft Agent Framework, and runtime SDKs can still execute agent loops.', color: 'var(--color-cobalt-2)' },
-          { title: 'Observability', body: 'Phoenix, LangSmith, AgentOps, and OpenTelemetry can still store traces. Flow interprets traces against gate expectations.', color: 'var(--color-green)' },
-          { title: 'Policy systems', body: 'OPA, security tools, and Veritas can still evaluate rules. Flow records their decisions as process evidence.', color: 'var(--color-red)' },
-        ].map(({ title, body, color }) => (
-          <div key={title} class="card" style="padding: 1.5rem; position: relative; overflow: hidden;">
-            <div style={`
-              position: absolute;
-              top: 0;
-              left: 0;
-              right: 0;
-              height: 2px;
-              background: linear-gradient(90deg, ${color}, transparent);
-            `}></div>
-            <h3 style="
-              font-family: var(--font-display);
-              font-size: 1.25rem;
-              font-weight: 400;
-              color: var(--color-chalk);
-              margin-bottom: 0.75rem;
-              letter-spacing: -0.01em;
-            ">{title}</h3>
-            <p style="font-size: 0.82rem; color: var(--color-chalk-3); line-height: 1.65;">{body}</p>
-          </div>
+  <!-- What Flow does not replace -->
+  <Section borderTop>
+    <div class="container">
+      <Eyebrow gap="lg">What Flow does not replace</Eyebrow>
+      <Grid cols={4} gap="md">
+        {notReplace.map(({ title, body, accent }) => (
+          <Card accent={accent} bar="top" pad="sm">
+            <h3 class="feature-title">{title}</h3>
+            <p class="feature-body">{body}</p>
+          </Card>
         ))}
-      </div>
+      </Grid>
     </div>
-  </section>
+  </Section>
 
-  <!-- ──────────────────────────────────────────────────────
-       Flow Console
-  ────────────────────────────────────────────────────────── -->
-  <section style="
-    padding: 5rem var(--spacing-page);
-    border-top: 1px solid var(--color-edge);
-  ">
-    <div style="max-width: 1280px; margin: 0 auto;">
-      <div class="stack-mobile" style="
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 4rem;
-        align-items: start;
-      ">
+  <!-- Flow Console -->
+  <Section borderTop>
+    <div class="container">
+      <Split ratio="1-1" gap="md" align="start">
         <div>
-          <div class="label-sm" style="margin-bottom: 1.5rem; color: var(--color-cobalt-2);">Flow Console</div>
-          <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 1.25rem;">
-            See the run<br />
-            where the work happens.
-          </h2>
-          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.5rem;">
-            <code style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-cobalt-2); background: rgba(126,179,232,0.08); padding: 0.1rem 0.35rem; border-radius: 2px;">flow console --run &lt;id&gt;</code>
+          <Eyebrow accent="cobalt-2">Flow Console</Eyebrow>
+          <h2 class="display-md fc__title">See the run<br />where the work happens.</h2>
+          <p class="body fc__copy">
+            <code class="codechip" data-accent="cobalt-2">flow console --run &lt;id&gt;</code>
             serves a live view of a run straight from
-            <code style="font-family: var(--font-mono); font-size: 0.82rem; color: var(--color-chalk-3);">.flow/runs/&lt;id&gt;/</code>.
+            <code class="code-plain">.flow/runs/&lt;id&gt;/</code>.
             Loopback only. No cloud, no login.
           </p>
 
-          <div style="display: flex; flex-direction: column; gap: 1rem;">
-            {[
-              { label: 'Process graph', body: 'See the required path and where the run sits on it right now.' },
-              { label: 'Transition timeline', body: 'Walk every gate the run cleared, blocked on, or routed back from.' },
-              { label: 'Gate detail', body: 'Inspect the evidence a gate expected and what was actually collected.' },
-              { label: 'Evidence links', body: 'Jump from a gate to the tests, CI, traces, or readiness reports behind it.' },
-            ].map(({ label, body }) => (
-              <div key={label} style="
-                display: flex;
-                gap: 1rem;
-                padding: 1rem 1.25rem;
-                background: var(--color-ink-1);
-                border: 1px solid var(--color-edge);
-                border-radius: 4px;
-              ">
-                <div style="
-                  font-family: var(--font-mono);
-                  font-size: 0.7rem;
-                  color: var(--color-cobalt-2);
-                  min-width: 130px;
-                  padding-top: 1px;
-                ">{label}</div>
-                <div style="font-size: 0.82rem; color: var(--color-chalk-3); line-height: 1.6;">{body}</div>
+          <div class="fc-list">
+            {consoleFeatures.map(({ label, body }) => (
+              <div class="kv fc-row">
+                <div class="fc-row__key">{label}</div>
+                <div class="kv__val">{body}</div>
               </div>
             ))}
           </div>
@@ -343,39 +205,29 @@ import Terminal from '@/components/Terminal.astro';
           <p class="muted">  GET /api/run         200  run graph + timeline</p>
           <p class="muted">  GET /api/gates       200  gate detail + evidence</p>
           <br />
-          <p style="color: var(--color-chalk-3);">  ───────────────────────────────</p>
+          <p class="rule">  ───────────────────────────────</p>
           <p class="pass">  PASS  plan · implementation</p>
           <p class="warn">  BLOCK verify · browser evidence missing</p>
           <p class="muted">  loopback only · no hosted service</p>
         </Terminal>
-      </div>
+      </Split>
     </div>
-  </section>
+  </Section>
 
-  <section style="
-    padding: 5rem var(--spacing-page);
-    border-top: 1px solid var(--color-edge);
-    background: var(--color-ink-1);
-  ">
-    <div style="max-width: 1280px; margin: 0 auto;">
-      <div class="stack-mobile" style="
-        display: grid;
-        grid-template-columns: 1fr 1.2fr;
-        gap: 4rem;
-        align-items: center;
-      ">
+  <!-- Product line -->
+  <Section tone="alt" borderTop>
+    <div class="container">
+      <Split ratio="1-1.2" gap="md" align="center">
         <div>
-          <div class="label-sm" style="margin-bottom: 1.5rem; color: var(--color-gold);">Product line</div>
-          <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 1rem;">
-            One transparency stack.<br />Independent products.
-          </h2>
-          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.5rem;">
+          <Eyebrow accent="gold">Product line</Eyebrow>
+          <h2 class="display-md line__title">One transparency stack.<br />Independent products.</h2>
+          <p class="body line__copy">
             Surface makes claims inspectable. Flow makes process transitions
             inspectable. Flow Agents can use Flow to keep
             agents on track inside Codex, Claude Code, Kiro, GitHub Actions,
             and future runtimes.
           </p>
-          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.7;">
+          <p class="body line__copy line__copy--last">
             You get a workflow that simply works. Underneath, each Kontour
             product adds one focused layer of the trust stack.
           </p>
@@ -390,9 +242,45 @@ import Terminal from '@/components/Terminal.astro';
           <br />
           <p class="muted">  shared promise: Kontour AI shows the work behind AI.</p>
         </Terminal>
-      </div>
+      </Split>
     </div>
-  </section>
+  </Section>
 
   <Footer active="flow" />
 </Layout>
+
+<style>
+  .hero-copy--wide {
+    max-width: 500px;
+  }
+
+  .diff__title,
+  .fc__title,
+  .line__title {
+    margin-bottom: 1.25rem;
+  }
+  .diff__copy,
+  .line__copy {
+    margin-bottom: 1.5rem;
+  }
+  .diff__copy--last,
+  .line__copy--last {
+    margin-bottom: 0;
+  }
+
+  .fc__copy {
+    margin-bottom: 1.5rem;
+  }
+  .fc-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .fc-row__key {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-cobalt-2);
+    min-width: 130px;
+    padding-top: 1px;
+  }
+</style>

@@ -1,0 +1,66 @@
+---
+/**
+ * Surface card built on the `.card` / `.card-elevated` base classes. Optional
+ * accent bar runs along the top or bottom edge, tinted by `accent`.
+ */
+import type { Accent } from "@/lib/theme";
+
+interface Props {
+  accent?: Accent;
+  bar?: "top" | "bottom" | "none";
+  pad?: "sm" | "md" | "lg";
+  elevated?: boolean;
+  class?: string;
+}
+
+const {
+  accent,
+  bar = "none",
+  pad = "md",
+  elevated = false,
+  class: className,
+} = Astro.props;
+---
+
+<article
+  class:list={[elevated ? "card-elevated" : "card", "ui-card", className]}
+  data-accent={accent}
+  data-bar={bar}
+  data-pad={pad}
+>
+  <slot />
+</article>
+
+<style>
+  .ui-card {
+    position: relative;
+    overflow: hidden;
+  }
+  .ui-card[data-pad="sm"] {
+    padding: 1.5rem;
+  }
+  .ui-card[data-pad="md"] {
+    padding: 1.75rem;
+  }
+  .ui-card[data-pad="lg"] {
+    padding: 2rem;
+  }
+
+  .ui-card[data-bar]::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent, var(--color-edge-2)), transparent);
+  }
+  .ui-card[data-bar="top"]::before {
+    top: 0;
+  }
+  .ui-card[data-bar="bottom"]::before {
+    bottom: 0;
+  }
+  .ui-card[data-bar="none"]::before {
+    display: none;
+  }
+</style>

@@ -2,8 +2,10 @@
 
 const { execFileSync } = require("node:child_process");
 const { readFileSync } = require("node:fs");
+const { resolve } = require("node:path");
 
 const SELF = "scripts/check-content-boundary.cjs";
+const REPO_ROOT = resolve(__dirname, "..");
 
 const bannedTerms = [
   {
@@ -31,7 +33,10 @@ const ignoredPathPatterns = [
 ];
 
 function trackedFiles() {
-  const output = execFileSync("git", ["ls-files", "-z"], { encoding: "utf8" });
+  const output = execFileSync("git", ["-c", `safe.directory=${REPO_ROOT}`, "ls-files", "-z"], {
+    cwd: REPO_ROOT,
+    encoding: "utf8",
+  });
   return output.split("\0").filter(Boolean);
 }
 
@@ -61,7 +66,7 @@ for (const filePath of trackedFiles()) {
 
   let content;
   try {
-    content = readFileSync(filePath, "utf8");
+    content = readFileSync(resolve(REPO_ROOT, filePath), "utf8");
   } catch {
     continue;
   }
