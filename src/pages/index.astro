@@ -5,45 +5,61 @@ import Footer from '@/components/Footer.astro';
 import Section from '@/components/Section.astro';
 import Glow from '@/components/Glow.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
+import Card from '@/components/Card.astro';
+import Grid from '@/components/Grid.astro';
+import Split from '@/components/Split.astro';
+import Subscribe from '@/components/Subscribe.astro';
 import type { Accent } from '@/lib/theme';
 
-const products: { name: string; accent: Accent; body: string }[] = [
+// The hero "trust snapshot" — a concrete, illustrative view of the question the
+// whole suite answers: what holds up, what doesn't, and what to do before acting.
+const snapshot: { kind: string; name: string; status: string; badge: string; pulse?: boolean }[] = [
+  { kind: 'Claim', name: 'Provider listing is current', status: 'verified', badge: 'trust-badge--verified' },
+  { kind: 'Claim', name: 'Pricing reflects latest source', status: 'stale', badge: 'trust-badge--stale', pulse: true },
+  { kind: 'Gate', name: 'Tests and checks passed', status: 'verified', badge: 'trust-badge--verified' },
+  { kind: 'Gate', name: 'Human review of exceptions', status: 'proposed', badge: 'trust-badge--proposed' },
+  { kind: 'Readiness', name: 'Safe to merge with reduced review', status: 'verified', badge: 'trust-badge--verified' },
+];
+
+// Off-the-shelf products: built on the primitives, usable today.
+const products: { name: string; label: string; accent: Accent; body: string }[] = [
+  {
+    name: 'Veritas',
+    label: 'Ships today · npm',
+    accent: 'green',
+    body: "Merge autonomy for AI-authored code. Turns your repo's standards into evidence-backed readiness reports that agents and reviewers can rely on — with just-in-time guidance while the work happens.",
+  },
+  {
+    name: 'Flow Agents',
+    label: 'Ships today · install',
+    accent: 'chalk-2',
+    body: 'Workflow discipline inside the agent tools you already use — Claude Code, Codex, Kiro, GitHub Actions. Durable plans, review, verification, and release evidence that survive compaction and handoffs.',
+  },
+];
+
+// Primitives: the open shapes builders compose into their own products.
+const primitives: { name: string; accent: Accent; body: string }[] = [
   {
     name: 'Surface',
     accent: 'gold',
-    body: "Makes claims inspectable. One shape for claims, evidence, freshness, policies, and gaps so the same trust state can be read by a person, an agent, or another system.",
-  },
-  {
-    name: 'Survey',
-    accent: 'gold-2',
-    body: 'Makes the producer side of claims inspectable before Surface. Sources, extractions, candidates, and reviews become Surface-ready claims with provenance attached.',
+    body: 'One shape for claims, evidence, freshness, policies, and gaps — so the same trust state can be read by a person, an agent, or another system.',
   },
   {
     name: 'Flow',
     accent: 'cobalt-2',
-    body: 'Makes required process paths inspectable. Flow shows why work was allowed to advance — gate by gate, with the evidence behind each transition.',
+    body: 'Process transparency for required-path work. Shows why work was allowed to advance, gate by gate, with the evidence behind each transition.',
   },
   {
-    name: 'Veritas',
-    accent: 'green',
-    body: "Makes code and change readiness inspectable. Veritas turns your repo's standards into evidence-backed readiness reports agents and reviewers can rely on.",
-  },
-  {
-    name: 'Flow Agents',
-    accent: 'chalk-2',
-    body: 'Applies Flow and Veritas discipline inside the agent tools people already use: Claude Code, Codex, Kiro, and GitHub Actions.',
-  },
-  {
-    name: 'Console',
-    accent: 'cobalt',
-    body: 'Makes the suite operable. Claim status, process state, proof, queues, decisions, and next actions across products in one place, without owning their semantics.',
+    name: 'Survey',
+    accent: 'gold-2',
+    body: 'The producer side of claims. Turns sources, extractions, candidates, and reviews into Surface-ready claims with provenance attached.',
   },
 ];
 ---
 
 <Layout
   title="Kontour AI — Show the work behind AI"
-  description="Kontour AI builds inspectability infrastructure for AI-assisted work."
+  description="Show the work behind AI. Kontour makes AI-assisted work inspectable — what was claimed, what supports it, which gates it passed, and what is still uncertain — so people and agents can decide what deserves trust before acting on it."
 >
   <Nav active="home" />
 
@@ -51,51 +67,108 @@ const products: { name: string; accent: Accent; body: string }[] = [
     <Glow accent="gold" position="top-center" />
 
     <div class="container container--hero">
-      <div class="animate-fade-up hero-kicker">
-        <span class="label-sm">Kontour AI</span>
-        <span class="hero-kicker__sep">-</span>
-        <span class="label-sm hero-kicker__live">Building in progress</span>
-      </div>
+      <Split ratio="1-1" gap="lg" align="center">
+        <div>
+          <div class="animate-fade-up hero-kicker">
+            <span class="label-sm">Kontour AI</span>
+            <span class="hero-kicker__sep">-</span>
+            <span class="label-sm hero-kicker__live">Building in progress</span>
+          </div>
 
-      <h1 class="display-xl animate-fade-up delay-100 hero-title">
-        Show the work<br />
-        behind AI.
-      </h1>
+          <h1 class="display-xl animate-fade-up delay-100 hero-title">
+            Show the work<br />
+            behind AI.
+          </h1>
 
-      <p class="lead measure animate-fade-up delay-200 hero-lead">
-        Kontour AI builds inspectability infrastructure for AI-assisted work.
-        Agents write code, run processes, and make claims faster than people
-        can manually inspect. Kontour shows what was claimed, what supports it,
-        which gates the work passed, and what's still uncertain — so people and
-        agents can decide what deserves trust before acting on it.
-      </p>
+          <p class="lead measure animate-fade-up delay-200 hero-lead">
+            Agents write code, run processes, and make claims faster than anyone
+            can inspect by hand. Kontour shows what was claimed, what supports it,
+            which gates it passed, and what's still uncertain — so people and
+            agents can decide what deserves trust before they act.
+          </p>
 
-      <div class="animate-fade-up delay-300 hero-actions">
-        <a href="https://github.com/kontourai" target="_blank" rel="noopener" class="btn-primary" data-umami-event="home-hero-github">Follow the build →</a>
-        <a href="/early-access/" class="btn-ghost" data-umami-event="home-hero-contact">Get early access</a>
-      </div>
+          <div class="animate-fade-up delay-300 hero-actions">
+            <a href="/early-access/" class="btn-primary" data-umami-event="home-hero-early-access">Get early access →</a>
+            <a href="https://github.com/kontourai" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="home-hero-github">Follow the build</a>
+          </div>
+        </div>
+
+        <div class="snapshot card-elevated animate-fade-in delay-300" aria-label="Example Kontour trust snapshot">
+          <div class="snapshot__bar">
+            <span class="snapshot__title">trust snapshot</span>
+            <span class="snapshot__meta">evidence-backed · point in time</span>
+          </div>
+          <div class="snapshot__rows">
+            {snapshot.map(({ kind, name, status, badge, pulse }) => (
+              <div class="snapshot__row">
+                <span class="snapshot__kind">{kind}</span>
+                <span class="snapshot__name">{name}</span>
+                <span class={`trust-badge ${badge}`}>
+                  <span class="snapshot__dot" data-pulse={pulse}></span>
+                  {status}
+                </span>
+              </div>
+            ))}
+          </div>
+          <div class="snapshot__verdict">
+            <span class="snapshot__verdict-key">verdict</span>
+            <span class="snapshot__verdict-val">Evidence-backed · clear 2 gaps before anyone acts</span>
+          </div>
+        </div>
+      </Split>
     </div>
   </Section>
 
   <Section tone="alt" borderTop>
-    <div class="container container--narrow">
+    <div class="container">
       <Eyebrow accent="gold">What we're building</Eyebrow>
       <h2 class="display-md build-title">
-        One product line for showing the work behind AI.
+        Two layers. One job:<br />show the work behind AI.
       </h2>
+      <p class="body measure build-intro">
+        Pull a finished product off the shelf, or build on the open primitives
+        underneath it. Either way, the trust state stays inspectable by people,
+        agents, and the systems downstream.
+      </p>
 
-      <div class="product-list">
-        {products.map(({ name, accent, body }) => (
-          <div class="product-row">
-            <div class="product-row__name" data-accent={accent}>{name}</div>
-            <p class="product-row__body">{body}</p>
-          </div>
-        ))}
+      <div class="layer">
+        <Eyebrow accent="green" gap="lg">Products you can use today</Eyebrow>
+        <Grid cols={2} gap="lg">
+          {products.map(({ name, label, accent, body }) => (
+            <Card accent={accent} bar="top" pad="lg">
+              <div class="feature-label" data-accent={accent}>{label}</div>
+              <h3 class="product-card__name">{name}</h3>
+              <p class="product-card__body">{body}</p>
+            </Card>
+          ))}
+        </Grid>
       </div>
 
-      <p class="build-note">
-        Building in public. Follow along on GitHub or tell us where trust breaks in your AI-assisted work.
-      </p>
+      <div class="layer">
+        <Eyebrow accent="gold" gap="lg">Primitives to build on</Eyebrow>
+        <Grid cols={3} gap="lg">
+          {primitives.map(({ name, accent, body }) => (
+            <Card accent={accent} bar="top" pad="md">
+              <h3 class="primitive-card__name" data-accent={accent}>{name}</h3>
+              <p class="feature-body">{body}</p>
+            </Card>
+          ))}
+        </Grid>
+      </div>
+
+      <Card accent="cobalt" bar="top" pad="lg" class="console-row">
+        <div class="console-row__inner">
+          <div>
+            <div class="feature-label" data-accent="cobalt">The operating plane</div>
+            <h3 class="product-card__name">Console</h3>
+          </div>
+          <p class="console-row__body">
+            Claim status, process state, proof, queues, decisions, and next
+            actions across the whole suite in one place — without owning any
+            product's semantics.
+          </p>
+        </div>
+      </Card>
     </div>
   </Section>
 
@@ -110,6 +183,23 @@ const products: { name: string; accent: Accent; body: string }[] = [
         the claim, the evidence, the required path, the gate decisions, and the
         gaps — so people and agents can tell what actually holds up before they
         act on it.
+      </p>
+    </div>
+  </Section>
+
+  <Section borderTop size="lg">
+    <Glow accent="gold" position="top-center" />
+    <div class="container container--readable cta">
+      <Eyebrow accent="gold">Early access</Eyebrow>
+      <h2 class="display-md cta__title">Tell us where trust breaks.</h2>
+      <p class="body measure cta__copy">
+        We're building in public. Drop your email for build updates and an early
+        look — or start a focused design-partner conversation about the workflow
+        you want to make inspectable.
+      </p>
+      <Subscribe source="home" cta="Get early access" event="home-subscribe" />
+      <p class="cta__alt">
+        Prefer to talk specifics? <a href="/early-access/" class="cta__alt-link" data-umami-event="home-cta-early-access">Start a design-partner thread →</a>
       </p>
     </div>
   </Section>
@@ -129,7 +219,6 @@ const products: { name: string; accent: Accent; body: string }[] = [
     color: var(--color-gold);
   }
   .hero-title {
-    max-width: 980px;
     margin-bottom: 1.5rem;
   }
   .hero-lead {
@@ -142,44 +231,146 @@ const products: { name: string; accent: Accent; body: string }[] = [
     align-items: center;
   }
 
-  .build-title {
-    margin-bottom: 2rem;
+  /* Hero trust snapshot ------------------------------------------------ */
+  .snapshot {
+    padding: 0;
+    overflow: hidden;
   }
-  .product-list {
+  .snapshot__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.85rem 1.25rem;
+    border-bottom: 1px solid var(--color-edge);
+    background: var(--color-ink-1);
+  }
+  .snapshot__title {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    color: var(--color-chalk-2);
+  }
+  .snapshot__meta {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    color: var(--color-chalk-3);
+  }
+  .snapshot__rows {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
-    margin-bottom: 2.5rem;
   }
-  .product-row {
+  .snapshot__row {
     display: grid;
-    grid-template-columns: 11rem 1fr;
-    gap: 1.5rem;
-    align-items: baseline;
-    padding-bottom: 1.25rem;
+    grid-template-columns: 5.5rem 1fr auto;
+    gap: 0.75rem;
+    align-items: center;
+    padding: 0.85rem 1.25rem;
     border-bottom: 1px solid var(--color-edge);
   }
-  .product-row__name {
+  .snapshot__kind {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    color: var(--color-chalk-3);
+  }
+  .snapshot__name {
+    font-size: 0.82rem;
+    color: var(--color-chalk-2);
+    line-height: 1.4;
+  }
+  .snapshot__dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    display: inline-block;
+    background: currentColor;
+  }
+  .snapshot__dot[data-pulse] {
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+  .snapshot__verdict {
+    display: flex;
+    gap: 0.85rem;
+    align-items: baseline;
+    padding: 0.95rem 1.25rem;
+    background: var(--color-ink-1);
+  }
+  .snapshot__verdict-key {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    color: var(--color-gold);
+  }
+  .snapshot__verdict-val {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--color-chalk-2);
+    line-height: 1.5;
+  }
+
+  @media (max-width: 560px) {
+    .snapshot__row {
+      grid-template-columns: 1fr auto;
+    }
+    .snapshot__kind {
+      display: none;
+    }
+  }
+
+  /* Product / primitive layers ---------------------------------------- */
+  .build-title {
+    margin-bottom: 1.25rem;
+  }
+  .build-intro {
+    margin-bottom: 3.5rem;
+  }
+  .layer {
+    margin-bottom: 3.5rem;
+  }
+  .product-card__name {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--color-chalk);
+    letter-spacing: 0;
+    margin-bottom: 0.85rem;
+  }
+  .product-card__body {
+    color: var(--color-chalk-2);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+  .primitive-card__name {
     font-family: var(--font-display);
     font-size: 1.35rem;
     font-weight: 400;
     color: var(--accent, var(--color-chalk));
     letter-spacing: 0;
+    margin-bottom: 0.75rem;
   }
-  .product-row__body {
+  .console-row__inner {
+    display: grid;
+    grid-template-columns: 14rem 1fr;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  .console-row__body {
     color: var(--color-chalk-2);
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     line-height: 1.7;
     margin: 0;
   }
-  .build-note {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--color-chalk-3);
-    letter-spacing: 0;
-    margin: 0;
+  @media (max-width: 700px) {
+    .console-row__inner {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
   }
 
+  /* Promise + CTA ------------------------------------------------------ */
   .promise {
     text-align: center;
   }
@@ -190,10 +381,23 @@ const products: { name: string; accent: Accent; body: string }[] = [
     margin: 0 auto;
   }
 
-  @media (max-width: 600px) {
-    .product-row {
-      grid-template-columns: 1fr;
-      gap: 0.5rem;
-    }
+  .cta__title {
+    margin-bottom: 1.25rem;
+  }
+  .cta__copy {
+    margin-bottom: 2rem;
+  }
+  .cta__alt {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--color-chalk-3);
+    margin-top: 1.5rem;
+  }
+  .cta__alt-link {
+    color: var(--color-chalk-2);
+    text-decoration: none;
+  }
+  .cta__alt-link:hover {
+    color: var(--color-chalk);
   }
 </style>

@@ -9,6 +9,7 @@ import Card from '@/components/Card.astro';
 import Grid from '@/components/Grid.astro';
 import Split from '@/components/Split.astro';
 import Terminal from '@/components/Terminal.astro';
+import Subscribe from '@/components/Subscribe.astro';
 import type { Accent } from '@/lib/theme';
 
 const lanes: { title: string; label: string; body: string; subject: string; bodyText: string; accent: Accent }[] = [
@@ -68,9 +69,12 @@ const mailto = (subject: string, body: string) =>
             actions. The best conversations start with a concrete place where
             polished output is moving faster than your ability to inspect it.
           </p>
-          <div class="hero-actions animate-fade-up delay-300">
-            <a href={mailto('Kontour early access', 'I want to talk about Kontour early access. The trust break I see is:')} class="btn-primary" data-umami-event="early-access-hero-email">Email Kontour →</a>
-            <a href="https://github.com/kontourai" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="early-access-hero-github">Follow on GitHub</a>
+          <div class="animate-fade-up delay-300 early-signup">
+            <Subscribe source="early-access" cta="Get early access" event="early-access-subscribe" />
+            <p class="early-signup__alt">
+              Or <a href={mailto('Kontour early access', 'I want to talk about Kontour early access. The trust break I see is:')} class="early-signup__link" data-umami-event="early-access-hero-email">email us directly</a>
+              · <a href="https://github.com/kontourai" target="_blank" rel="noopener" class="early-signup__link" data-umami-event="early-access-hero-github">follow on GitHub</a>
+            </p>
           </div>
         </div>
 
@@ -123,6 +127,23 @@ const mailto = (subject: string, body: string) =>
 </Layout>
 
 <style>
+  .early-signup {
+    margin-top: 0.5rem;
+  }
+  .early-signup__alt {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--color-chalk-3);
+    margin-top: 1.25rem;
+  }
+  .early-signup__link {
+    color: var(--color-chalk-2);
+    text-decoration: none;
+  }
+  .early-signup__link:hover {
+    color: var(--color-chalk);
+  }
+
   .lane__label {
     font-family: var(--font-mono);
     font-size: 0.68rem;

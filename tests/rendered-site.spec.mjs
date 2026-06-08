@@ -1,14 +1,15 @@
 import { expect, test } from "@playwright/test";
 
-test("homepage renders the teaser hero and six-product line", async ({ page }) => {
+test("homepage renders the teaser hero and six-product line without product links", async ({ page }) => {
   await page.goto("/");
 
   await expect(page.locator(".label-sm").filter({ hasText: "Kontour AI" }).first()).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Show the work behind AI." })).toBeVisible();
-  await expect(page.getByText("inspectability infrastructure for AI-assisted work").first()).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Show the work behind AI.", exact: true })).toBeVisible();
+  await expect(page.getByText("Agents write code, run processes, and make claims faster than anyone").first()).toBeVisible();
+  await expect(page.getByText("trust snapshot").first()).toBeVisible();
   await expect(page.locator('[data-umami-event="home-hero-github"]')).toBeVisible();
-  await expect(page.locator('[data-umami-event="home-hero-contact"]')).toBeVisible();
-  await expect(page.locator('[data-umami-event="home-hero-contact"]')).toHaveAttribute("href", "/early-access/");
+  await expect(page.locator('[data-umami-event="home-hero-early-access"]')).toBeVisible();
+  await expect(page.locator('[data-umami-event="home-hero-early-access"]')).toHaveAttribute("href", "/early-access/");
 
   // Six-product line
   await expect(page.locator(".label-sm").filter({ hasText: "What we're building" })).toBeVisible();
@@ -18,6 +19,7 @@ test("homepage renders the teaser hero and six-product line", async ({ page }) =
   await expect(page.getByText("Veritas").first()).toBeVisible();
   await expect(page.getByText("Flow Agents").first()).toBeVisible();
   await expect(page.getByText("Console", { exact: true }).first()).toBeVisible();
+  await expect(page.locator('[data-umami-event="home-subscribe"]')).toBeVisible();
 
   // Brand promise
   await expect(page.getByText("Evidence-backed confidence.").first()).toBeVisible();

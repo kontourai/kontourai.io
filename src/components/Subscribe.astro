@@ -1,0 +1,121 @@
+---
+/**
+ * Early-access email capture. Posts same-origin to /api/subscribe (handled by
+ * public/_worker.js, backed by a `SUBSCRIBERS` KV namespace).
+ *
+ * Progressive enhancement: the form is a real POST form; the bundled script
+ * below intercepts submit, posts JSON, and swaps in an inline status message.
+ * No inline handlers — the script is bundled to /_astro and served under the
+ * site's strict `script-src 'self'` CSP.
+ */
+interface Props {
+  /** Tag stored with each subscriber so we know which surface converted. */
+  source?: string;
+  /** Submit button label. */
+  cta?: string;
+  /** Umami event name for the submit action. */
+  event?: string;
+}
+
+const { source = "site", cta = "Get early access", event = "subscribe-submit" } = Astro.props;
+---
+
+<form class="subscribe" action="/api/subscribe" method="post" data-source={source} novalidate>
+  <div class="subscribe__row">
+    <label class="subscribe__field">
+      <span class="sr-only">Email address</span>
+      <input
+        class="subscribe__input"
+        type="email"
+        name="email"
+        inputmode="email"
+        autocomplete="email"
+        placeholder="you@company.com"
+        required
+      />
+    </label>
+    <button class="btn-primary subscribe__btn" type="submit" data-umami-event={event}>{cta} →</button>
+  </div>
+
+  <!-- Honeypot: hidden from humans, tempting to bots. Never filled by users. -->
+  <div class="subscribe__hp" aria-hidden="true">
+    <label>Company<input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
+  </div>
+
+  <p class="subscribe__status" role="status" aria-live="polite"></p>
+</form>
+
+<style>
+  .subscribe {
+    width: 100%;
+    max-width: 520px;
+  }
+  .subscribe__row {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+  .subscribe__field {
+    flex: 1 1 240px;
+    min-width: 0;
+  }
+  .subscribe__input {
+    width: 100%;
+    padding: 0.7rem 1rem;
+    background: var(--color-ink-1);
+    border: 1px solid var(--color-edge-2);
+    border-radius: 4px;
+    color: var(--color-chalk);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    transition: border-color 0.15s ease;
+  }
+  .subscribe__input::placeholder {
+    color: var(--color-chalk-3);
+  }
+  .subscribe__input:focus-visible {
+    border-color: var(--color-gold);
+  }
+  .subscribe__btn {
+    flex: 0 0 auto;
+    border: none;
+    cursor: pointer;
+  }
+  .subscribe__hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+  .subscribe__status {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    line-height: 1.6;
+    margin: 0.85rem 0 0;
+    min-height: 1.1rem;
+    color: var(--color-chalk-3);
+  }
+  .subscribe__status[data-state="ok"] {
+    color: var(--color-green);
+  }
+  .subscribe__status[data-state="error"] {
+    color: var(--color-red);
+  }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+</style>
+
+<!-- Loaded as a same-origin static asset (not bundled) so the strict
+     `script-src 'self'` CSP is satisfied without 'unsafe-inline'. The script
+     guards against double-init, so multiple <Subscribe /> on a page is fine. -->
+<script is:inline src="/subscribe.js" defer></script>

@@ -723,6 +723,30 @@ h1, h2, h3, h4, h5, h6 {
 .delay-700 { animation-delay: 0.7s; }
 
 /* ─────────────────────────────────────────────────────────────
+   Reduced motion
+
+   Honor the OS "reduce motion" preference. The fade-up/fade-in helpers start
+   at opacity:0 and animate to 1, so disabling animation must also force the
+   final visible state — otherwise content would stay invisible.
+───────────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .animate-fade-up,
+  .animate-fade-in {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
    Scrollbar
 ───────────────────────────────────────────────────────────── */
 
