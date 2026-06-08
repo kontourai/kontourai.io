@@ -415,6 +415,10 @@ h1, h2, h3, h4, h5, h6 {
   .stack-mobile {
     display: flex !important;
     flex-direction: column !important;
+    min-width: 0;
+  }
+  .stack-mobile > * {
+    min-width: 0;
   }
 }
 
@@ -497,6 +501,10 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 0.8rem;
   line-height: 1.6;
   overflow: hidden;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .terminal-bar {
@@ -525,6 +533,7 @@ h1, h2, h3, h4, h5, h6 {
 .terminal-body {
   padding: 1.25rem 1.5rem;
   overflow-x: auto;
+  min-width: 0;
 }
 
 .terminal-body .prompt {
@@ -578,6 +587,8 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0;
   white-space: pre;
   overflow-x: auto;
+  max-width: 100%;
+  min-width: 0;
   font-family: var(--font-mono);
   font-size: 0.72rem;
   line-height: 1.7;

@@ -8,6 +8,7 @@ test("homepage renders the teaser hero and six-product line", async ({ page }) =
   await expect(page.getByText("inspectability infrastructure for AI-assisted work").first()).toBeVisible();
   await expect(page.locator('[data-umami-event="home-hero-github"]')).toBeVisible();
   await expect(page.locator('[data-umami-event="home-hero-contact"]')).toBeVisible();
+  await expect(page.locator('[data-umami-event="home-hero-contact"]')).toHaveAttribute("href", "/early-access/");
 
   // Six-product line
   await expect(page.locator(".label-sm").filter({ hasText: "What we're building" })).toBeVisible();
@@ -36,10 +37,38 @@ test("homepage renders the teaser hero and six-product line", async ({ page }) =
   await expect(page.locator('[data-umami-event="footer-console"]')).toHaveCount(0);
   await expect(page.locator('[data-umami-event="footer-github"]')).toBeVisible();
   await expect(page.locator('[data-umami-event="footer-contact"]')).toBeVisible();
+  await expect(page.locator('[data-umami-event="footer-contact"]')).toHaveAttribute("href", "/early-access/");
+  await expect(page.locator('a[href="/surface"], a[href="/survey"], a[href="/flow"], a[href="/flow-agents"], a[href="/veritas"], a[href="/console"]')).toHaveCount(0);
 
   // Guard against leaked build-process / internal copy regressing back in
   await expect(page.getByText("still shaping")).toHaveCount(0);
   await expect(page.getByText("intentionally simple")).toHaveCount(0);
+});
+
+test("early access page gives static contact paths", async ({ page }) => {
+  await page.goto("/early-access/");
+
+  await expect(page.getByRole("heading", { name: "Tell us where trust breaks." })).toBeVisible();
+  await expect(page.getByText("Design partners, product builders, and teams shipping AI-assisted workflows.")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Design partner" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Product builder" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Agent workflow team" })).toBeVisible();
+  await expect(page.getByText("One concrete workflow is enough.")).toBeVisible();
+  await expect(page.locator('[data-umami-event="early-access-hero-email"]')).toHaveAttribute("href", /mailto:hello@kontourai\.io/);
+});
+
+test("default social metadata includes canonical and share image", async ({ page }) => {
+  await page.goto("/early-access/");
+
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://kontourai.io/early-access/");
+  await expect(page.locator('meta[property="og:url"]')).toHaveAttribute("content", "https://kontourai.io/early-access/");
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute("content", "https://kontourai.io/og/kontour-share.png");
+  await expect(page.locator('meta[property="og:image:type"]')).toHaveAttribute("content", "image/png");
+  await expect(page.locator('meta[property="og:image:width"]')).toHaveAttribute("content", "1200");
+  await expect(page.locator('meta[property="og:image:height"]')).toHaveAttribute("content", "630");
+  await expect(page.locator('meta[property="og:image:alt"]')).toHaveAttribute("content", /Kontour AI share card/);
+  await expect(page.locator('meta[name="twitter:image"]')).toHaveAttribute("content", "https://kontourai.io/og/kontour-share.png");
+  await expect(page.locator('meta[name="twitter:image:alt"]')).toHaveAttribute("content", /Kontour AI share card/);
 });
 
 test("production analytics scripts are configured defensively", async ({ page }) => {
@@ -74,6 +103,9 @@ test("flow page explains process transparency and product boundaries", async ({ 
   await expect(page.locator(".label-sm").filter({ hasText: "What Flow answers" })).toBeVisible();
   await expect(page.getByText("What process path was required?")).toBeVisible();
   await expect(page.getByText("Why was the transition allowed or blocked?")).toBeVisible();
+  await expect(page.locator(".label-sm").filter({ hasText: "Example use case" })).toBeVisible();
+  await expect(page.getByText("A release path that waits for evidence.")).toBeVisible();
+  await expect(page.getByText("rendered-page screenshot missing")).toBeVisible();
   await expect(page.locator(".label-sm").filter({ hasText: "What Flow does not replace" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Workflow engines" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Agent frameworks" })).toBeVisible();
@@ -89,6 +121,9 @@ test("surface page presents inspectable claims and trust vocabulary", async ({ p
 
   await expect(page.getByText("claims, evidence, freshness, and gaps in one inspectable shape").first()).toBeVisible();
   await expect(page.locator(".label-sm").filter({ hasText: "What Surface answers" })).toBeVisible();
+  await expect(page.locator(".label-sm").filter({ hasText: "Example use case" })).toBeVisible();
+  await expect(page.getByText("This provider directory listing is current")).toBeVisible();
+  await expect(page.getByText("show uncertainty beside recommendation")).toBeVisible();
 
   // Trust report output
   await expect(page.getByText("Transparency gaps:")).toBeVisible();
@@ -124,7 +159,7 @@ test("veritas page shows the promise, a concrete catch, and the surface handoff"
   await expect(page.getByRole("heading", { name: "Earn merge readiness" })).toBeVisible();
 
   // Concrete use-case section
-  await expect(page.locator(".label-sm").filter({ hasText: "In practice" })).toBeVisible();
+  await expect(page.locator(".label-sm").filter({ hasText: "Example use case" })).toBeVisible();
   await expect(page.getByText("The catch you'd")).toBeVisible();
   await expect(page.getByText("api handler changed, test missing")).toBeVisible();
 
@@ -152,6 +187,8 @@ test("survey page explains the producer pipeline and surface handoff", async ({ 
   await expect(page.getByRole("heading", { name: "Producers own" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Surface owns" })).toBeVisible();
   await expect(page.getByText("fieldObservation()").first()).toBeVisible();
+  await expect(page.locator(".label-sm").filter({ hasText: "Example use case" })).toBeVisible();
+  await expect(page.getByText("public record and needs to preserve the extraction")).toBeVisible();
 
   // Surface handoff
   await expect(page.getByText("Survey produces.")).toBeVisible();
@@ -174,6 +211,9 @@ test("console page presents the suite operating plane and boundary", async ({ pa
 
   // Unified work queue
   await expect(page.locator(".label-sm").filter({ hasText: "Unified work queue" })).toBeVisible();
+  await expect(page.locator(".label-sm").filter({ hasText: "Example use case" })).toBeVisible();
+  await expect(page.getByText("A release operator sees what needs attention.")).toBeVisible();
+  await expect(page.getByText("release-browser-check missing")).toBeVisible();
 
   // Boundary — Console owns / does not own / primitives stay portable
   await expect(page.getByRole("heading", { name: "Console owns" })).toBeVisible();
@@ -195,6 +235,8 @@ test("flow agents page presents agent-tool discipline and status", async ({ page
   await expect(page.getByText("Claude Code").first()).toBeVisible();
   await expect(page.getByText("idea-to-backlog").first()).toBeVisible();
   await expect(page.getByText("bash install.sh").first()).toBeVisible();
+  await expect(page.locator(".label-sm").filter({ hasText: "Example use case" })).toBeVisible();
+  await expect(page.getByText("from idea to backlog to plan")).toBeVisible();
 
   // Guard against the old "coming soon" framing regressing back in
   await expect(page.getByText("coming soon")).toHaveCount(0);

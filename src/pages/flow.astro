@@ -124,6 +124,38 @@ const consoleFeatures = [
     </div>
   </Section>
 
+  <!-- Example use case -->
+  <Section borderTop>
+    <div class="container">
+      <Split ratio="1-1" gap="md" align="center">
+        <div>
+          <Eyebrow accent="cobalt-2">Example use case</Eyebrow>
+          <h2 class="display-md diff__title">A release path that waits for evidence.</h2>
+          <p class="body diff__copy">
+            A team asks an agent to ship a pricing-page change. Flow records the
+            required path: plan, implementation, code review, rendered-page
+            verification, release readiness, and post-deploy smoke. The work can
+            only advance when each gate has the evidence it asked for.
+          </p>
+          <p class="body diff__copy diff__copy--last">
+            If the browser check is missing, the run does not become "done." It
+            stays blocked with a resumable next action.
+          </p>
+        </div>
+
+        <Terminal title="release-readiness-flow">
+          <p class="pass">  PASS  plan: acceptance criteria present</p>
+          <p class="pass">  PASS  implementation: scoped diff</p>
+          <p class="pass">  PASS  review: no high findings</p>
+          <p class="warn">  BLOCK verify: rendered-page screenshot missing</p>
+          <p class="muted">        expected: desktop + mobile evidence</p>
+          <br />
+          <p>  next action: <span class="warn">capture browser evidence, then resume</span></p>
+        </Terminal>
+      </Split>
+    </div>
+  </Section>
+
   <!-- The difference -->
   <Section tone="alt" borderTop borderBottom>
     <div class="container">

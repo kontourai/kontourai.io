@@ -123,6 +123,34 @@ const moreThanStatus: { title: string; body: string; accent: Accent }[] = [
     </div>
   </Section>
 
+  <!-- Example use case -->
+  <Section tone="alt" borderTop borderBottom>
+    <div class="container">
+      <Split ratio="1-1" gap="md" align="center">
+        <div>
+          <Eyebrow accent="gold">Example use case</Eyebrow>
+          <h2 class="display-md section-title">Inspect a claim before an agent acts on it.</h2>
+          <p class="body">
+            A support agent says, "This provider directory listing is current."
+            Surface turns that into an inspectable claim with a source anchor,
+            freshness policy, last verification time, and any gap that should
+            slow the agent down before it recommends the listing.
+          </p>
+        </div>
+
+        <Terminal title="claim.provider-directory.current">
+          <p class="info">  claim: provider directory listing is current</p>
+          <p class="muted">  source: registry export · row 1842</p>
+          <p class="pass">  evidence: verified 2026-06-07</p>
+          <p class="warn">  freshness: recheck in 7 days</p>
+          <p class="muted">  gap: phone number attestation private</p>
+          <br />
+          <p>  action: <span class="warn">show uncertainty beside recommendation</span></p>
+        </Terminal>
+      </Split>
+    </div>
+  </Section>
+
   <!-- Role paths -->
   <Section borderTop>
     <div class="container">

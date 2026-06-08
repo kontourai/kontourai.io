@@ -7,6 +7,8 @@ interface Props {
   og?: {
     title?: string;
     description?: string;
+    image?: string;
+    imageAlt?: string;
   };
 }
 
@@ -18,6 +20,10 @@ const {
 
 const ogTitle = og?.title ?? title;
 const ogDescription = og?.description ?? description;
+const site = Astro.site ?? new URL('https://kontourai.io');
+const canonicalUrl = new URL(Astro.url.pathname, site);
+const ogImage = new URL(og?.image ?? '/og/kontour-share.png', site);
+const ogImageAlt = og?.imageAlt ?? 'Kontour AI share card showing inspectability infrastructure for AI-assisted work.';
 const umamiWebsiteId = import.meta.env.PUBLIC_UMAMI_WEBSITE_ID ?? '6a6ee693-2480-4bd2-a371-6af4e5f82e7d';
 const umamiScriptUrl = import.meta.env.PUBLIC_UMAMI_SCRIPT_URL ?? 'https://cloud.umami.is/script.js';
 const umamiDomains = import.meta.env.PUBLIC_UMAMI_DOMAINS ?? 'kontourai.io,www.kontourai.io';
@@ -33,17 +39,26 @@ const shouldLoadCloudflareAnalytics = Boolean(cloudflareAnalyticsToken) && impor
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl.href} />
 
     <!-- OG -->
     <meta property="og:title" content={ogTitle} />
     <meta property="og:description" content={ogDescription} />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Kontour AI" />
+    <meta property="og:url" content={canonicalUrl.href} />
+    <meta property="og:image" content={ogImage.href} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={ogImageAlt} />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={ogTitle} />
     <meta name="twitter:description" content={ogDescription} />
+    <meta name="twitter:image" content={ogImage.href} />
+    <meta name="twitter:image:alt" content={ogImageAlt} />
 
     <title>{title}</title>
 
