@@ -13,11 +13,11 @@ import type { Accent } from '@/lib/theme';
 
 // The hero "trust snapshot" — what an end user actually sees before relying on
 // an answer: each claim, its current status, and when it was last checked.
-const snapshot: { name: string; status: string; badge: string; checked: string; pulse?: boolean }[] = [
-  { name: 'Listing is available', status: 'verified', badge: 'trust-badge--verified', checked: 'checked 2m ago' },
-  { name: 'License is active', status: 'verified', badge: 'trust-badge--verified', checked: 'checked 1h ago' },
-  { name: 'Price matches the source', status: 'stale', badge: 'trust-badge--stale', checked: 'checked 9d ago', pulse: true },
-  { name: 'Identity confirmed', status: 'unverified', badge: 'trust-badge--unknown', checked: 'not checked yet' },
+const snapshot: { name: string; desc: string; status: string; badge: string; checked: string; pulse?: boolean }[] = [
+  { name: 'Listing is available', desc: 'The slot still shows open in the provider’s live calendar.', status: 'verified', badge: 'trust-badge--verified', checked: 'checked 2m ago' },
+  { name: 'License is active', desc: 'State board lists license #A-4471 active, no disciplinary flags.', status: 'verified', badge: 'trust-badge--verified', checked: 'checked 1h ago' },
+  { name: 'Price matches the source', desc: 'The quoted $149 matches the provider’s published rate card.', status: 'stale', badge: 'trust-badge--stale', checked: 'checked 9d ago', pulse: true },
+  { name: 'Identity confirmed', desc: 'Business name and address match the state registration record.', status: 'unverified', badge: 'trust-badge--unknown', checked: 'not checked yet' },
 ];
 
 // Off-the-shelf products: built on the primitives, usable today.
@@ -98,9 +98,12 @@ const primitives: { name: string; accent: Accent; body: string }[] = [
             <span class="snapshot__meta">as of just now</span>
           </div>
           <div class="snapshot__rows">
-            {snapshot.map(({ name, status, badge, checked, pulse }) => (
+            {snapshot.map(({ name, desc, status, badge, checked, pulse }) => (
               <div class="snapshot__row">
-                <span class="snapshot__name">{name}</span>
+                <div class="snapshot__claim">
+                  <span class="snapshot__name">{name}</span>
+                  <span class="snapshot__desc">{desc}</span>
+                </div>
                 <span class="snapshot__checked">{checked}</span>
                 <span class={`trust-badge ${badge}`}>
                   <span class="snapshot__dot" data-pulse={pulse}></span>
@@ -262,15 +265,26 @@ const primitives: { name: string; accent: Accent; body: string }[] = [
   .snapshot__row {
     display: grid;
     grid-template-columns: 1fr auto auto;
-    gap: 0.75rem 1rem;
-    align-items: center;
+    gap: 0.5rem 1rem;
+    align-items: start;
     padding: 0.85rem 1.25rem;
     border-bottom: 1px solid var(--color-edge);
+  }
+  .snapshot__claim {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    min-width: 0;
   }
   .snapshot__name {
     font-size: 0.82rem;
     color: var(--color-chalk-2);
     line-height: 1.4;
+  }
+  .snapshot__desc {
+    font-size: 0.68rem;
+    color: var(--color-chalk-3);
+    line-height: 1.45;
   }
   .snapshot__checked {
     font-family: var(--font-mono);
@@ -278,6 +292,7 @@ const primitives: { name: string; accent: Accent; body: string }[] = [
     letter-spacing: 0;
     color: var(--color-chalk-3);
     white-space: nowrap;
+    padding-top: 2px;
   }
   .snapshot__dot {
     width: 5px;
