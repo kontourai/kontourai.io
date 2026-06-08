@@ -39,6 +39,24 @@
 }
 
 /* ─────────────────────────────────────────────────────────────
+   Accent system
+
+   Components expose a typed `accent` prop (see src/lib/theme.ts) and render it
+   as a `data-accent` attribute. These rules resolve that attribute to the
+   `--accent` custom property, which cascades into the component's scoped styles
+   (text, borders, gradient bars). One place to add or retune an accent.
+───────────────────────────────────────────────────────────── */
+
+[data-accent="gold"]     { --accent: var(--color-gold); }
+[data-accent="gold-2"]   { --accent: var(--color-gold-2); }
+[data-accent="green"]    { --accent: var(--color-green); }
+[data-accent="red"]      { --accent: var(--color-red); }
+[data-accent="cobalt"]   { --accent: var(--color-cobalt); }
+[data-accent="cobalt-2"] { --accent: var(--color-cobalt-2); }
+[data-accent="chalk-2"]  { --accent: var(--color-chalk-2); }
+[data-accent="chalk-3"]  { --accent: var(--color-chalk-3); }
+
+/* ─────────────────────────────────────────────────────────────
    Base
 ───────────────────────────────────────────────────────────── */
 
@@ -98,40 +116,44 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
   font-optical-sizing: auto;
   line-height: 1.3;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
+  color: var(--color-chalk);
 }
 
 .display-xl {
   font-family: var(--font-display);
   font-optical-sizing: auto;
-  font-size: clamp(3rem, 7vw, 6.5rem);
+  font-size: 4.75rem;
   font-weight: 400;
   line-height: 1.3;
-  letter-spacing: -0.03em;
+  letter-spacing: 0;
+  color: var(--color-chalk);
 }
 
 .display-lg {
   font-family: var(--font-display);
   font-optical-sizing: auto;
-  font-size: clamp(2rem, 4.5vw, 4rem);
+  font-size: 3rem;
   font-weight: 400;
   line-height: 1.3;
-  letter-spacing: -0.025em;
+  letter-spacing: 0;
+  color: var(--color-chalk);
 }
 
 .display-md {
   font-family: var(--font-display);
   font-optical-sizing: auto;
-  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-size: 2.25rem;
   font-weight: 300;
   line-height: 1.3;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
+  color: var(--color-chalk);
 }
 
 .label-sm {
   font-family: var(--font-mono);
   font-size: 0.65rem;
-  letter-spacing: 0.15em;
+  letter-spacing: 0;
   text-transform: uppercase;
   color: var(--color-chalk-3);
 }
@@ -139,22 +161,252 @@ h1, h2, h3, h4, h5, h6 {
 .label-md {
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  letter-spacing: 0.12em;
+  letter-spacing: 0;
   text-transform: uppercase;
+}
+
+/* Body copy scales — replace the repeated inline paragraph styling.
+   `.lead` is hero subcopy, `.body` is standard section prose, `.fine` is a
+   small muted note. Each has a `--measure` line-length cap callers can override
+   with the `.measure-*` helpers below. */
+.lead {
+  font-family: var(--font-sans);
+  font-size: 1.1rem;
+  color: var(--color-chalk-2);
+  line-height: 1.7;
+  font-weight: 400;
+}
+
+.body {
+  font-size: 0.95rem;
+  color: var(--color-chalk-2);
+  line-height: 1.75;
+}
+
+.fine {
+  font-size: 0.85rem;
+  color: var(--color-chalk-3);
+  line-height: 1.65;
+}
+
+.measure   { max-width: 680px; }
+.measure-sm { max-width: 480px; }
+.measure-lg { max-width: 760px; }
+
+/* The mono install hint shown beside hero badges. */
+.install-hint {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-chalk-3);
+}
+
+/* Shared product-page hero pieces (Surface, Survey, Flow, Veritas, Flow
+   Agents, Console all use the same shape). The tagline takes its color from
+   the `--accent` cascade via a `data-accent` attribute. */
+.hero-badges {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.product-title {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-size: 5rem;
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: 0;
+  color: var(--color-chalk);
+  margin-bottom: 0.5rem;
+}
+
+.product-tagline {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: var(--accent, var(--color-gold));
+  margin-bottom: 2rem;
+}
+
+.hero-copy {
+  font-size: 1.05rem;
+  color: var(--color-chalk-2);
+  line-height: 1.7;
+  max-width: 480px;
+  margin-bottom: 2.5rem;
+}
+
+@media (max-width: 900px) {
+  .display-xl {
+    font-size: 3.75rem;
+  }
+  .display-lg {
+    font-size: 2.5rem;
+  }
+  .display-md {
+    font-size: 2rem;
+  }
+  .product-title {
+    font-size: 4rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .display-xl {
+    font-size: 3rem;
+  }
+  .display-lg {
+    font-size: 2rem;
+  }
+  .display-md {
+    font-size: 1.5rem;
+  }
+  .lead {
+    font-size: 1rem;
+  }
+  .product-title {
+    font-size: 3.25rem;
+  }
+}
+
+.hero-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* Stacks of short label/value or label/body rows (CLI strips, console
+   feature lists). */
+.def-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+/* ── Composed content helpers (reused across product pages) ── */
+
+/* Card heading + body (the h3 + paragraph pattern inside cards). */
+.feature-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--color-chalk);
+  letter-spacing: 0;
+  margin-bottom: 0.75rem;
+}
+.feature-body {
+  font-size: 0.82rem;
+  color: var(--color-chalk-3);
+  line-height: 1.65;
+}
+.feature-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: var(--accent, var(--color-chalk-3));
+  margin-bottom: 0.75rem;
+}
+
+/* Ownership / definition rows ("Survey owns", "Console owns", …). */
+.def-item {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+}
+.def-item__dash {
+  color: var(--accent, var(--color-chalk-3));
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  padding-top: 2px;
+}
+.def-item__text {
+  font-size: 0.82rem;
+  color: var(--color-chalk-2);
+  line-height: 1.55;
+}
+
+/* Compact label + detail tile (Flow / Veritas object & boundary grids). */
+.minicard {
+  background: var(--color-ink-2);
+  border: 1px solid var(--color-edge);
+  border-radius: 6px;
+  padding: 1.25rem;
+}
+.minicard__label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--accent, var(--color-chalk-2));
+  margin-bottom: 0.35rem;
+}
+.minicard__detail {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--color-chalk-3);
+  letter-spacing: 0;
+  line-height: 1.55;
+}
+
+/* Label + value rows (CLI strips, console feature lists, work queues). */
+.kv {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: var(--color-ink-1);
+  border: 1px solid var(--color-edge);
+  border-radius: 4px;
+}
+.kv__key {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--accent, var(--color-gold));
+  min-width: 110px;
+  padding-top: 1px;
+}
+.kv__val {
+  font-size: 0.82rem;
+  color: var(--color-chalk-3);
+  line-height: 1.6;
+}
+
+/* Plain (un-chipped) inline code in prose. */
+.code-plain {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--color-chalk-3);
+}
+
+/* Inline code chip used in prose. */
+.codechip {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--accent, var(--color-gold));
+  background: color-mix(in srgb, var(--accent, var(--color-gold)) 8%, transparent);
+  padding: 0.1rem 0.35rem;
+  border-radius: 2px;
 }
 
 /* ─────────────────────────────────────────────────────────────
    Layout helpers
 ───────────────────────────────────────────────────────────── */
 
-/* Centered content column shared by every section. */
+/* Centered content column shared by every section. Positioned so it layers
+   above decorative Glow / contour backgrounds within a Section. */
 .container {
+  position: relative;
+  z-index: 1;
   max-width: 1280px;
   margin: 0 auto;
 }
 
 .container--narrow { max-width: 820px; }
 .container--readable { max-width: 980px; }
+.container--hero { max-width: 1180px; }
 
 /* Two-/multi-column layouts collapse to a single stacked column on
    narrow screens. Replaces fragile `[style*="grid-template-columns"]`
@@ -175,7 +427,7 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 4px;
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  letter-spacing: 0.05em;
+  letter-spacing: 0;
   text-decoration: none;
   color: var(--color-chalk-3);
   white-space: nowrap;
@@ -198,7 +450,7 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 2px;
   font-family: var(--font-mono);
   font-size: 0.65rem;
-  letter-spacing: 0.1em;
+  letter-spacing: 0;
   text-transform: uppercase;
   border: 1px solid;
 }
@@ -303,6 +555,43 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--color-chalk-3);
 }
 
+/* Divider rule line inside a terminal (the ──── separators). */
+.terminal-body .rule {
+  color: var(--color-chalk-3);
+}
+
+/* Indented sub-note under a terminal line (the `→ …` annotations). */
+.terminal-body .sub {
+  color: var(--color-chalk-3);
+  padding-left: 2rem;
+  font-size: 0.72rem;
+}
+
+/* Accent-tinted label span inside a terminal (e.g. product names). */
+.terminal-body span[data-accent] {
+  color: var(--accent);
+}
+
+/* Syntax tokens for the highlighted code snippets inside terminals.
+   Replace the per-span inline `color: var(--color-…)` styling. */
+.terminal-body .code {
+  margin: 0;
+  white-space: pre;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  line-height: 1.7;
+  color: var(--color-chalk-2);
+}
+
+.terminal-body .t-com { color: var(--color-chalk-3); }
+.terminal-body .t-kw  { color: var(--color-gold-2); }
+.terminal-body .t-fn  { color: var(--color-cobalt-2); }
+.terminal-body .t-str { color: var(--color-green); }
+.terminal-body .t-num { color: var(--color-gold-2); }
+/* Console snippets tint keywords/identifiers cobalt rather than gold. */
+.terminal-body .code--cobalt .t-kw { color: var(--color-cobalt); }
+
 /* ─────────────────────────────────────────────────────────────
    Cards
 ───────────────────────────────────────────────────────────── */
@@ -339,7 +628,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-mono);
   font-size: 0.8rem;
   font-weight: 600;
-  letter-spacing: 0.05em;
+  letter-spacing: 0;
   text-decoration: none;
   transition: background 0.15s ease, transform 0.1s ease;
 }
@@ -360,7 +649,7 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 4px;
   font-family: var(--font-mono);
   font-size: 0.8rem;
-  letter-spacing: 0.05em;
+  letter-spacing: 0;
   text-decoration: none;
   transition: border-color 0.15s ease, color 0.15s ease;
 }

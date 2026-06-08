@@ -4,12 +4,13 @@ interface Props {
   title?: string;
   /** Optional extra classes on the outer terminal (e.g. animation utilities). */
   class?: string;
+  [key: string]: unknown;
 }
 
-const { title, class: className } = Astro.props;
+const { title, class: className, ...rest } = Astro.props;
 ---
 
-<div class:list={["terminal", className]}>
+<div {...rest} class:list={["terminal", className]}>
   <div class="terminal-bar">
     <div class="terminal-dot"></div>
     <div class="terminal-dot"></div>

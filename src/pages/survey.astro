@@ -3,6 +3,38 @@ import Layout from '@/layouts/Layout.astro';
 import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
 import Terminal from '@/components/Terminal.astro';
+import Section from '@/components/Section.astro';
+import Glow from '@/components/Glow.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+import Card from '@/components/Card.astro';
+import Grid from '@/components/Grid.astro';
+import Split from '@/components/Split.astro';
+import type { Accent } from '@/lib/theme';
+
+const pipeline = [
+  { step: 'Source', body: 'Where the value came from — a page, a document, an API record, a manual entry — with its reference, time, and checksum.' },
+  { step: 'Extraction', body: 'The value pulled from that source, with a locator, an excerpt, the extractor, and a confidence.' },
+  { step: 'Candidate', body: 'Competing values for the same target, kept side by side instead of silently dropped.' },
+  { step: 'Review', body: 'The outcome a human or policy assigns — verified, assumed, rejected, or needs-review.' },
+  { step: 'Claim', body: 'A Surface-ready claim with its full provenance trail attached, ready to be reported on.' },
+];
+
+const boundary: { title: string; accent: Accent; items: string[] }[] = [
+  { title: 'Survey owns', accent: 'gold-2', items: ['Raw source identity & retrieval context', 'Extraction observations & locators', 'Candidate sets and resolutions', 'Review outcomes', 'Projection into Surface TrustInput'] },
+  { title: 'Producers own', accent: 'cobalt-2', items: ['Acquisition, crawling, and parsing', 'Candidate ranking and scoring', 'Review UX and policy', 'Materiality and domain rules', 'Whether a value is verified or assumed'] },
+  { title: 'Surface owns', accent: 'gold', items: ['Claim status vocabulary', 'Evidence display & support strength', 'Claim dependencies & derived edges', 'Freshness and stale cascades', 'Trust reports and console views'] },
+];
+
+const helpers = [
+  { fn: 'fieldObservation', desc: 'One scalar field value with its source, extraction, review, and claim defaults filled in.' },
+  { fn: 'repeatedObservation', desc: 'A repeated field or entity list described as one aggregate observation.' },
+  { fn: 'candidateReviewRecord', desc: 'Multiple candidates for one target, assembled into a shared candidate set with links.' },
+  { fn: 'reviewedCandidateResolution', desc: 'Attaches a review outcome to the selected candidate and supersedes the rest.' },
+  { fn: 'uploadedDocumentSource', desc: 'A stable RawSource for a document a producer already retrieved.' },
+  { fn: 'apiRecordSource', desc: 'A stable RawSource for a structured record pulled from an API.' },
+  { fn: 'webPageSource', desc: 'A stable RawSource for a crawled web page, with locator scheme and checksum.' },
+  { fn: 'manualEntrySource', desc: 'A stable RawSource for a value entered by hand, kept inspectable like the rest.' },
+];
 ---
 
 <Layout
@@ -11,67 +43,21 @@ import Terminal from '@/components/Terminal.astro';
 >
   <Nav active="survey" />
 
-  <!-- ──────────────────────────────────────────────────────
-       Hero
-  ────────────────────────────────────────────────────────── -->
-  <section class="contour-bg" style="
-    padding: 10rem var(--spacing-page) 6rem;
-    border-bottom: 1px solid var(--color-edge);
-    position: relative;
-    overflow: hidden;
-  ">
-    <!-- Gold-2 accent glow -->
-    <div style="
-      position: absolute;
-      top: 0;
-      right: 5%;
-      width: 680px;
-      height: 460px;
-      background: radial-gradient(ellipse at top right, rgba(232,194,116,0.05) 0%, transparent 68%);
-      pointer-events: none;
-    "></div>
-
-    <div style="max-width: 1280px; margin: 0 auto; position: relative; z-index: 1;">
-      <div class="stack-mobile" style="
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 5rem;
-        align-items: center;
-      ">
-        <!-- Left -->
+  <!-- Hero -->
+  <Section contour size="hero" borderBottom>
+    <Glow accent="gold-2" position="top-right" />
+    <div class="container">
+      <Split ratio="1-1" gap="lg" align="center">
         <div>
-          <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem;">
-            <span class="trust-badge trust-badge--stale">v0.4.0</span>
-            <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-chalk-3);">npm install -D @kontourai/survey</span>
+          <div class="hero-badges">
+            <span class="trust-badge trust-badge--verified">v0.4.4</span>
+            <span class="install-hint">npm install -D @kontourai/survey</span>
           </div>
 
-          <h1 class="animate-fade-up" style="
-            font-family: var(--font-display);
-            font-optical-sizing: auto;
-            font-size: clamp(3.5rem, 6vw, 5.5rem);
-            font-weight: 400;
-            line-height: 1.3;
-            letter-spacing: -0.03em;
-            color: var(--color-chalk);
-            margin-bottom: 0.5rem;
-          ">Survey</h1>
+          <h1 class="product-title animate-fade-up">Survey</h1>
+          <p class="product-tagline animate-fade-up delay-100" data-accent="gold-2">producer-side trust for Surface</p>
 
-          <p class="animate-fade-up delay-100" style="
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--color-gold-2);
-            margin-bottom: 2rem;
-          ">producer-side trust for Surface</p>
-
-          <p class="animate-fade-up delay-200" style="
-            font-size: 1.05rem;
-            color: var(--color-chalk-2);
-            line-height: 1.7;
-            max-width: 480px;
-            margin-bottom: 2.5rem;
-          ">
+          <p class="hero-copy animate-fade-up delay-200">
             Before a claim can be trusted, someone has to form it — from a
             source, an extraction, competing candidates, and a review. Survey
             is the small contract for that producer side: it turns your
@@ -79,313 +65,175 @@ import Terminal from '@/components/Terminal.astro';
             attached, without absorbing your domain policy.
           </p>
 
-          <div class="animate-fade-up delay-300" style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-            <a href="https://www.npmjs.com/package/@kontourai/survey" target="_blank" rel="noopener" class="btn-primary" data-umami-event="survey-hero-npm">
-              npm package →
-            </a>
-            <a href="/surface" class="btn-ghost" data-umami-event="survey-hero-surface">
-              Projects into Surface
-            </a>
+          <div class="hero-actions animate-fade-up delay-300">
+            <a href="https://www.npmjs.com/package/@kontourai/survey" target="_blank" rel="noopener" class="btn-primary" data-umami-event="survey-hero-npm">npm package →</a>
+            <a href="/surface" class="btn-ghost" data-umami-event="survey-hero-surface">Projects into Surface</a>
           </div>
         </div>
 
-        <!-- Right: quickstart code -->
         <Terminal class="animate-fade-in delay-300" title="quickstart.ts">
-<pre style="margin: 0; white-space: pre; overflow-x: auto; font-family: var(--font-mono); font-size: 0.72rem; line-height: 1.7; color: var(--color-chalk-2);"><span style="color: var(--color-chalk-3);">// observation in → Surface-ready claim out</span>
-<span style="color: var(--color-gold-2);">import</span> {'{'} buildSurveyTrustInput,
-         SurveyInputBuilder {'}'} <span style="color: var(--color-gold-2);">from</span> <span style="color: var(--color-green);">"@kontourai/survey"</span>;
-<span style="color: var(--color-gold-2);">import</span> {'{'} buildTrustReport {'}'} <span style="color: var(--color-gold-2);">from</span> <span style="color: var(--color-green);">"@kontourai/surface"</span>;
+<pre class="code"><span class="t-com">// observation in → Surface-ready claim out</span>
+<span class="t-kw">import</span> {'{'} buildSurveyTrustInput,
+         SurveyInputBuilder {'}'} <span class="t-kw">from</span> <span class="t-str">"@kontourai/survey"</span>;
+<span class="t-kw">import</span> {'{'} buildTrustReport {'}'} <span class="t-kw">from</span> <span class="t-str">"@kontourai/surface"</span>;
 
-<span style="color: var(--color-gold-2);">const</span> input = <span style="color: var(--color-gold-2);">new</span> <span style="color: var(--color-cobalt-2);">SurveyInputBuilder</span>({'{'}
-  source: <span style="color: var(--color-green);">"crawler:run-1"</span>,
+<span class="t-kw">const</span> input = <span class="t-kw">new</span> <span class="t-fn">SurveyInputBuilder</span>({'{'}
+  source: <span class="t-str">"crawler:run-1"</span>,
 {'}'})
-  .<span style="color: var(--color-cobalt-2);">addObservation</span>(observation)
-  .<span style="color: var(--color-cobalt-2);">build</span>();
+  .<span class="t-fn">addObservation</span>(observation)
+  .<span class="t-fn">build</span>();
 
-<span style="color: var(--color-chalk-3);">// hand the trust state to Surface</span>
-<span style="color: var(--color-gold-2);">const</span> report = <span style="color: var(--color-cobalt-2);">buildTrustReport</span>(
-  <span style="color: var(--color-cobalt-2);">buildSurveyTrustInput</span>(input),
+<span class="t-com">// hand the trust state to Surface</span>
+<span class="t-kw">const</span> report = <span class="t-fn">buildTrustReport</span>(
+  <span class="t-fn">buildSurveyTrustInput</span>(input),
 );</pre>
         </Terminal>
-      </div>
+      </Split>
     </div>
-  </section>
+  </Section>
 
-  <!-- ──────────────────────────────────────────────────────
-       The pipeline
-  ────────────────────────────────────────────────────────── -->
-  <section style="padding: 6rem var(--spacing-page);">
-    <div style="max-width: 1280px; margin: 0 auto;">
-      <div class="label-sm" style="margin-bottom: 1rem; color: var(--color-gold-2);">The producer pipeline</div>
-      <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 2.5rem; max-width: 760px;">
+  <!-- The pipeline -->
+  <Section size="lg">
+    <div class="container">
+      <Eyebrow accent="gold-2" gap="sm">The producer pipeline</Eyebrow>
+      <h2 class="display-md measure-lg pipeline-title">
         One path from raw source to a claim Surface can verify.
       </h2>
 
-      <div class="pipeline-grid" style="
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        gap: 0.75rem;
-        align-items: stretch;
-      ">
-        {[
-          { step: 'Source', body: 'Where the value came from — a page, a document, an API record, a manual entry — with its reference, time, and checksum.' },
-          { step: 'Extraction', body: 'The value pulled from that source, with a locator, an excerpt, the extractor, and a confidence.' },
-          { step: 'Candidate', body: 'Competing values for the same target, kept side by side instead of silently dropped.' },
-          { step: 'Review', body: 'The outcome a human or policy assigns — verified, assumed, rejected, or needs-review.' },
-          { step: 'Claim', body: 'A Surface-ready claim with its full provenance trail attached, ready to be reported on.' },
-        ].map(({ step, body }, i) => (
-          <div key={step} style="
-            position: relative;
-            padding: 1.5rem 1.25rem;
-            background: var(--color-ink-1);
-            border: 1px solid var(--color-edge);
-            border-radius: 6px;
-            display: flex;
-            flex-direction: column;
-            gap: 0.6rem;
-          ">
-            <div style="display: flex; align-items: center; gap: 0.6rem;">
-              <span style="
-                font-family: var(--font-mono);
-                font-size: 0.62rem;
-                color: var(--color-chalk-3);
-              ">0{i + 1}</span>
-              <span style={`
-                font-family: var(--font-display);
-                font-size: 1.05rem;
-                color: var(--color-gold-2);
-                letter-spacing: -0.01em;
-              `}>{step}</span>
+      <Grid cols={5} gap="sm">
+        {pipeline.map(({ step, body }, i) => (
+          <div class="pstep">
+            <div class="pstep__head">
+              <span class="pstep__n">0{i + 1}</span>
+              <span class="pstep__name">{step}</span>
             </div>
-            <p style="font-size: 0.78rem; color: var(--color-chalk-3); line-height: 1.6; margin: 0;">{body}</p>
+            <p class="pstep__body">{body}</p>
           </div>
         ))}
-      </div>
+      </Grid>
     </div>
-  </section>
+  </Section>
 
-  <!-- ──────────────────────────────────────────────────────
-       Boundary
-  ────────────────────────────────────────────────────────── -->
-  <section style="
-    padding: 5rem var(--spacing-page);
-    border-top: 1px solid var(--color-edge);
-    border-bottom: 1px solid var(--color-edge);
-    background: var(--color-ink-1);
-  ">
-    <div style="max-width: 1280px; margin: 0 auto;">
-      <div class="label-sm" style="margin-bottom: 1rem;">A deliberately narrow boundary</div>
-      <p style="
-        color: var(--color-chalk-3);
-        font-size: 0.9rem;
-        line-height: 1.65;
-        max-width: 680px;
-        margin-bottom: 2.5rem;
-      ">
+  <!-- Boundary -->
+  <Section tone="alt" borderTop borderBottom>
+    <div class="container">
+      <Eyebrow gap="sm">A deliberately narrow boundary</Eyebrow>
+      <p class="fine boundary-note">
         Survey does not crawl pages, parse PDFs, rank candidates, decide review
         policy, or claim a value is true. It gives producers a consistent
         contract so the same provenance shape reaches Surface every time.
       </p>
 
-      <div class="stack-mobile" style="
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1.5rem;
-      ">
-        {[
-          {
-            title: 'Survey owns',
-            color: 'var(--color-gold-2)',
-            items: ['Raw source identity & retrieval context', 'Extraction observations & locators', 'Candidate sets and resolutions', 'Review outcomes', 'Projection into Surface TrustInput'],
-          },
-          {
-            title: 'Producers own',
-            color: 'var(--color-cobalt-2)',
-            items: ['Acquisition, crawling, and parsing', 'Candidate ranking and scoring', 'Review UX and policy', 'Materiality and domain rules', 'Whether a value is verified or assumed'],
-          },
-          {
-            title: 'Surface owns',
-            color: 'var(--color-gold)',
-            items: ['Claim status vocabulary', 'Evidence display & support strength', 'Claim dependencies & derived edges', 'Freshness and stale cascades', 'Trust reports and console views'],
-          },
-        ].map(({ title, color, items }) => (
-          <div key={title} class="card" style="padding: 1.75rem; position: relative; overflow: hidden;">
-            <div style={`
-              position: absolute;
-              top: 0;
-              left: 0;
-              right: 0;
-              height: 2px;
-              background: linear-gradient(90deg, ${color}, transparent);
-            `}></div>
-            <h3 style={`
-              font-family: var(--font-display);
-              font-size: 1.25rem;
-              font-weight: 400;
-              color: var(--color-chalk);
-              margin-bottom: 1.25rem;
-              letter-spacing: -0.01em;
-            `}>{title}</h3>
-            <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.6rem;">
+      <Grid cols={3} gap="lg">
+        {boundary.map(({ title, accent, items }) => (
+          <Card accent={accent} pad="md">
+            <h3 class="boundary__title">{title}</h3>
+            <ul class="def-list">
               {items.map(item => (
-                <li key={item} style="display: flex; gap: 0.6rem; align-items: flex-start;">
-                  <span style={`color: ${color}; font-family: var(--font-mono); font-size: 0.7rem; padding-top: 2px;`}>—</span>
-                  <span style="font-size: 0.82rem; color: var(--color-chalk-2); line-height: 1.55;">{item}</span>
+                <li class="def-item">
+                  <span class="def-item__dash">—</span>
+                  <span class="def-item__text">{item}</span>
                 </li>
               ))}
             </ul>
-          </div>
+          </Card>
         ))}
-      </div>
+      </Grid>
     </div>
-  </section>
+  </Section>
 
-  <!-- ──────────────────────────────────────────────────────
-       Authoring helpers
-  ────────────────────────────────────────────────────────── -->
-  <section style="padding: 6rem var(--spacing-page);">
-    <div style="max-width: 1280px; margin: 0 auto;">
-      <div class="label-sm" style="margin-bottom: 1rem;">Authoring helpers</div>
-      <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 2.5rem; max-width: 720px;">
+  <!-- Authoring helpers -->
+  <Section size="lg">
+    <div class="container">
+      <Eyebrow gap="sm">Authoring helpers</Eyebrow>
+      <h2 class="display-md helpers-title">
         Describe the common cases without hand-assembling every record.
       </h2>
 
-      <div style="
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 1rem;
-      ">
-        {[
-          { fn: 'fieldObservation', desc: 'One scalar field value with its source, extraction, review, and claim defaults filled in.' },
-          { fn: 'repeatedObservation', desc: 'A repeated field or entity list described as one aggregate observation.' },
-          { fn: 'candidateReviewRecord', desc: 'Multiple candidates for one target, assembled into a shared candidate set with links.' },
-          { fn: 'reviewedCandidateResolution', desc: 'Attaches a review outcome to the selected candidate and supersedes the rest.' },
-          { fn: 'uploadedDocumentSource', desc: 'A stable RawSource for a document a producer already retrieved.' },
-          { fn: 'apiRecordSource', desc: 'A stable RawSource for a structured record pulled from an API.' },
-          { fn: 'webPageSource', desc: 'A stable RawSource for a crawled web page, with locator scheme and checksum.' },
-          { fn: 'manualEntrySource', desc: 'A stable RawSource for a value entered by hand, kept inspectable like the rest.' },
-        ].map(({ fn, desc }) => (
-          <div key={fn} style="
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
-            padding: 1.1rem 1.25rem;
-            background: var(--color-ink-1);
-            border: 1px solid var(--color-edge);
-            border-radius: 4px;
-          ">
-            <code style="
-              font-family: var(--font-mono);
-              font-size: 0.78rem;
-              color: var(--color-gold-2);
-            ">{fn}()</code>
-            <span style="font-size: 0.78rem; color: var(--color-chalk-3); line-height: 1.45;">{desc}</span>
+      <Grid min="300" gap="md">
+        {helpers.map(({ fn, desc }) => (
+          <div class="helper">
+            <code class="helper__fn">{fn}()</code>
+            <span class="helper__desc">{desc}</span>
           </div>
         ))}
-      </div>
+      </Grid>
     </div>
-  </section>
+  </Section>
 
-  <!-- ──────────────────────────────────────────────────────
-       Worked example
-  ────────────────────────────────────────────────────────── -->
-  <section style="
-    padding: 5rem var(--spacing-page);
-    border-top: 1px solid var(--color-edge);
-    background: var(--color-ink-1);
-  ">
-    <div style="max-width: 1280px; margin: 0 auto;">
-      <div class="stack-mobile" style="
-        display: grid;
-        grid-template-columns: 1fr 1.15fr;
-        gap: 4rem;
-        align-items: center;
-      ">
+  <!-- Worked example -->
+  <Section tone="alt" borderTop>
+    <div class="container">
+      <Split ratio="1-1.15" gap="md" align="center">
         <div>
-          <div class="label-sm" style="margin-bottom: 1.5rem; color: var(--color-gold-2);">A worked example</div>
-          <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 1.25rem;">
-            One field. Full provenance.
-          </h2>
-          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.5rem;">
+          <Eyebrow accent="gold-2">A worked example</Eyebrow>
+          <h2 class="display-md worked__title">One field. Full provenance.</h2>
+          <p class="body worked__copy">
             A crawler reads a registration status off a public record. With
-            <code style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-gold-2); background: rgba(232,194,116,0.08); padding: 0.1rem 0.35rem; border-radius: 2px;">fieldObservation</code>,
+            <code class="codechip" data-accent="gold-2">fieldObservation</code>,
             the source, extraction, review outcome, and claim travel together —
             so Surface can report not just the value, but where it came from
             and how fresh it is.
           </p>
-          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin: 0;">
+          <p class="body worked__copy worked__copy--last">
             Conflicting candidates don't disappear. A losing source stays on the
-            trail as <code style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-chalk-3);">superseded</code>,
+            trail as <code class="code-plain">superseded</code>,
             and an unresolved conflict projects to Surface as
-            <code style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-chalk-3);">disputed</code>.
+            <code class="code-plain">disputed</code>.
           </p>
         </div>
 
         <Terminal title="field-observation.ts">
-<pre style="margin: 0; white-space: pre; overflow-x: auto; font-family: var(--font-mono); font-size: 0.72rem; line-height: 1.7; color: var(--color-chalk-2);"><span style="color: var(--color-gold-2);">import</span> {'{'} fieldObservation,
-         SurveyInputBuilder {'}'} <span style="color: var(--color-gold-2);">from</span> <span style="color: var(--color-green);">"@kontourai/survey"</span>;
+<pre class="code"><span class="t-kw">import</span> {'{'} fieldObservation,
+         SurveyInputBuilder {'}'} <span class="t-kw">from</span> <span class="t-str">"@kontourai/survey"</span>;
 
-<span style="color: var(--color-gold-2);">const</span> input = <span style="color: var(--color-gold-2);">new</span> <span style="color: var(--color-cobalt-2);">SurveyInputBuilder</span>({'{'} source: <span style="color: var(--color-green);">"crawler:run-1"</span> {'}'})
-  .<span style="color: var(--color-cobalt-2);">addObservation</span>(<span style="color: var(--color-cobalt-2);">fieldObservation</span>({'{'}
-    id: <span style="color: var(--color-green);">"entity-123.status.current"</span>,
-    field: <span style="color: var(--color-green);">"registrationStatus"</span>,
-    value: <span style="color: var(--color-green);">"ACTIVE"</span>,
+<span class="t-kw">const</span> input = <span class="t-kw">new</span> <span class="t-fn">SurveyInputBuilder</span>({'{'} source: <span class="t-str">"crawler:run-1"</span> {'}'})
+  .<span class="t-fn">addObservation</span>(<span class="t-fn">fieldObservation</span>({'{'}
+    id: <span class="t-str">"entity-123.status.current"</span>,
+    field: <span class="t-str">"registrationStatus"</span>,
+    value: <span class="t-str">"ACTIVE"</span>,
     rawSource: {'{'}
-      kind: <span style="color: var(--color-green);">"web-page"</span>,
-      sourceRef: <span style="color: var(--color-green);">"https://records.test/123"</span>,
-      observedAt: <span style="color: var(--color-cobalt-2);">now</span>(),
-      locatorScheme: <span style="color: var(--color-green);">"html"</span>,
+      kind: <span class="t-str">"web-page"</span>,
+      sourceRef: <span class="t-str">"https://records.test/123"</span>,
+      observedAt: <span class="t-fn">now</span>(),
+      locatorScheme: <span class="t-str">"html"</span>,
     {'}'},
     extraction: {'{'}
-      confidence: <span style="color: var(--color-gold-2);">0.97</span>,
-      locator: <span style="color: var(--color-green);">"css:#registration-status"</span>,
-      extractor: <span style="color: var(--color-green);">"example-crawler"</span>,
-      extractedAt: <span style="color: var(--color-cobalt-2);">now</span>(),
+      confidence: <span class="t-num">0.97</span>,
+      locator: <span class="t-str">"css:#registration-status"</span>,
+      extractor: <span class="t-str">"example-crawler"</span>,
+      extractedAt: <span class="t-fn">now</span>(),
     {'}'},
-    reviewOutcome: {'{'} status: <span style="color: var(--color-green);">"verified"</span> {'}'},
+    reviewOutcome: {'{'} status: <span class="t-str">"verified"</span> {'}'},
     claim: {'{'}
-      subjectType: <span style="color: var(--color-green);">"public-record.entity"</span>,
-      subjectId: <span style="color: var(--color-green);">"entity-123"</span>,
-      claimType: <span style="color: var(--color-green);">"public-data.field"</span>,
-      impactLevel: <span style="color: var(--color-green);">"medium"</span>,
-      collectedBy: <span style="color: var(--color-green);">"example-crawler"</span>,
+      subjectType: <span class="t-str">"public-record.entity"</span>,
+      subjectId: <span class="t-str">"entity-123"</span>,
+      claimType: <span class="t-str">"public-data.field"</span>,
+      impactLevel: <span class="t-str">"medium"</span>,
+      collectedBy: <span class="t-str">"example-crawler"</span>,
     {'}'},
   {'}'}))
-  .<span style="color: var(--color-cobalt-2);">build</span>();</pre>
+  .<span class="t-fn">build</span>();</pre>
         </Terminal>
-      </div>
+      </Split>
     </div>
-  </section>
+  </Section>
 
-  <!-- ──────────────────────────────────────────────────────
-       Surface handoff
-  ────────────────────────────────────────────────────────── -->
-  <section style="padding: 5rem var(--spacing-page); border-top: 1px solid var(--color-edge);">
-    <div style="max-width: 1280px; margin: 0 auto;">
-      <div class="stack-mobile" style="
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 4rem;
-        align-items: center;
-      ">
+  <!-- Surface handoff -->
+  <Section borderTop>
+    <div class="container">
+      <Split ratio="1-1" gap="md" align="center">
         <div>
-          <div class="label-sm" style="margin-bottom: 1.5rem; color: var(--color-gold);">Built for Surface</div>
-          <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 1.25rem;">
-            Survey produces.<br />Surface verifies.
-          </h2>
-          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.5rem;">
-            <code style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-gold-2);">buildSurveyTrustInput</code>
+          <Eyebrow accent="gold">Built for Surface</Eyebrow>
+          <h2 class="display-md handoff__title">Survey produces.<br />Surface verifies.</h2>
+          <p class="body handoff__copy">
+            <code class="codechip" data-accent="gold-2">buildSurveyTrustInput</code>
             projects Survey records into a Surface
-            <code style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-gold);">TrustInput</code>.
+            <code class="codechip" data-accent="gold">TrustInput</code>.
             From there, Surface owns claim status, evidence, dependencies,
             freshness, and the trust reports humans and agents inspect.
           </p>
-          <a href="/surface" data-umami-event="survey-explore-surface" style="
-            font-family: var(--font-mono);
-            font-size: 0.78rem;
-            color: var(--color-gold);
-            text-decoration: none;
-          ">Explore Surface →</a>
+          <a href="/surface" data-umami-event="survey-explore-surface" class="handoff__link">Explore Surface →</a>
         </div>
 
         <Terminal title="survey → surface">
@@ -393,31 +241,110 @@ import Terminal from '@/components/Terminal.astro';
           <p>  source → extraction → candidate → review → <span class="info">claim</span></p>
           <br />
           <p class="muted">  buildSurveyTrustInput()</p>
-          <p style="color: var(--color-chalk-3);">  ───────────────────────────────</p>
+          <p class="rule">  ───────────────────────────────</p>
           <p class="info">  Surface TrustInput</p>
           <p class="pass">  verified  registrationStatus = ACTIVE</p>
           <p class="muted">  evidence  web-page · css:#registration-status</p>
           <p class="muted">  freshness owned by Surface policy</p>
         </Terminal>
-      </div>
+      </Split>
     </div>
-  </section>
+  </Section>
 
   <Footer active="survey" />
 </Layout>
 
 <style>
-  /* The five-step pipeline steps down 5 → 2 → 1 across breakpoints.
-     (Other two-/three-column grids on this page use the shared
-     .stack-mobile helper, which collapses them at 900px.) */
-  @media (max-width: 1000px) {
-    .pipeline-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .pipeline-title {
+    margin-bottom: 2.5rem;
+  }
+  .pstep {
+    position: relative;
+    padding: 1.5rem 1.25rem;
+    background: var(--color-ink-1);
+    border: 1px solid var(--color-edge);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .pstep__head {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .pstep__n {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    color: var(--color-chalk-3);
+  }
+  .pstep__name {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    color: var(--color-gold-2);
+    letter-spacing: 0;
+  }
+  .pstep__body {
+    font-size: 0.78rem;
+    color: var(--color-chalk-3);
+    line-height: 1.6;
+    margin: 0;
   }
 
-  @media (max-width: 600px) {
-    .pipeline-grid {
-      display: flex !important;
-      flex-direction: column !important;
-    }
+  .boundary-note {
+    max-width: 680px;
+    margin-bottom: 2.5rem;
+  }
+  .boundary__title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--color-chalk);
+    margin-bottom: 1.25rem;
+    letter-spacing: 0;
+  }
+
+  .helpers-title {
+    margin-bottom: 2.5rem;
+    max-width: 720px;
+  }
+  .helper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 1.1rem 1.25rem;
+    background: var(--color-ink-1);
+    border: 1px solid var(--color-edge);
+    border-radius: 4px;
+  }
+  .helper__fn {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--color-gold-2);
+  }
+  .helper__desc {
+    font-size: 0.78rem;
+    color: var(--color-chalk-3);
+    line-height: 1.45;
+  }
+
+  .worked__title,
+  .handoff__title {
+    margin-bottom: 1.25rem;
+  }
+  .worked__copy {
+    margin-bottom: 1.5rem;
+  }
+  .worked__copy--last {
+    margin-bottom: 0;
+  }
+  .handoff__copy {
+    margin-bottom: 1.5rem;
+  }
+  .handoff__link {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--color-gold);
+    text-decoration: none;
   }
 </style>

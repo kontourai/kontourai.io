@@ -2,8 +2,10 @@
 
 const { execFileSync } = require("node:child_process");
 const { readFileSync } = require("node:fs");
+const { resolve } = require("node:path");
 
 const SELF = "scripts/check-content-boundary.cjs";
+const REPO_ROOT = resolve(__dirname, "..");
 
 const bannedTerms = [
   {
@@ -30,8 +32,18 @@ const ignoredPathPatterns = [
   /^\.omx\//,
 ];
 
+const trackedSecretPathPatterns = [
+  /(?:^|\/)\.env(?:$|[.\w-])/,
+  /\.(?:pem|key|p12|pfx)$/,
+  /(?:^|\/)id_(?:rsa|dsa|ecdsa|ed25519)$/,
+  /(?:^|\/)(?:secrets?|credentials?)(?:\.|\/|$)/i,
+];
+
 function trackedFiles() {
-  const output = execFileSync("git", ["ls-files", "-z"], { encoding: "utf8" });
+  const output = execFileSync("git", ["-c", `safe.directory=${REPO_ROOT}`, "ls-files", "-z"], {
+    cwd: REPO_ROOT,
+    encoding: "utf8",
+  });
   return output.split("\0").filter(Boolean);
 }
 
@@ -55,13 +67,22 @@ for (const filePath of trackedFiles()) {
     continue;
   }
 
+  if (filePath !== ".env.example" && trackedSecretPathPatterns.some((pattern) => pattern.test(filePath))) {
+    findings.push({
+      filePath,
+      line: 1,
+      label: "secret-prone file must not be tracked in this public repo",
+    });
+    continue;
+  }
+
   if (isIgnoredPath(filePath)) {
     continue;
   }
 
   let content;
   try {
-    content = readFileSync(filePath, "utf8");
+    content = readFileSync(resolve(REPO_ROOT, filePath), "utf8");
   } catch {
     continue;
   }

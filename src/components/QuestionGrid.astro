@@ -1,0 +1,66 @@
+---
+/**
+ * The numbered "What X answers" question cards. Each item is auto-numbered and
+ * its question text is tinted by an optional `accent`.
+ */
+import type { Accent } from "@/lib/theme";
+
+interface Props {
+  items: { q: string; accent?: Accent }[];
+  min?: "260" | "280" | "300";
+}
+
+const { items, min = "280" } = Astro.props;
+---
+
+<div class="qgrid" data-min={min}>
+  {
+    items.map((item, i) => (
+      <div class="qcard">
+        <span class="qcard__n">0{i + 1}</span>
+        <span class="qcard__q" data-accent={item.accent}>{item.q}</span>
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .qgrid {
+    display: grid;
+    gap: 1rem;
+  }
+  .qgrid[data-min="260"] {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  }
+  .qgrid[data-min="280"] {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+  .qgrid[data-min="300"] {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+
+  .qcard {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem;
+    background: var(--color-ink-1);
+    border: 1px solid var(--color-edge);
+    border-radius: 4px;
+  }
+  .qcard__n {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--color-chalk-3);
+    padding-top: 2px;
+    min-width: 1.5rem;
+  }
+  .qcard__q {
+    font-size: 0.9rem;
+    color: var(--color-chalk-2);
+    line-height: 1.5;
+  }
+  .qcard__q[data-accent] {
+    color: var(--accent);
+  }
+</style>

@@ -155,8 +155,11 @@ test("console page presents the suite operating plane and boundary", async ({ pa
   await expect(page.getByText("early preview").first()).toBeVisible();
 
   // Operating state + plane
-  await expect(page.locator(".label-sm").filter({ hasText: "Current operating state" })).toBeVisible();
+  await expect(page.locator(".label-sm").filter({ hasText: "What it's built to answer" })).toBeVisible();
   await expect(page.getByText("Primitives make transparency portable.").first()).toBeVisible();
+
+  // Honest framing: illustrative, not a live cross-product feed yet
+  await expect(page.getByText("illustrative").first()).toBeVisible();
 
   // Unified work queue
   await expect(page.locator(".label-sm").filter({ hasText: "Unified work queue" })).toBeVisible();
@@ -170,7 +173,18 @@ test("console page presents the suite operating plane and boundary", async ({ pa
 test("flow agents page presents the agent-facing vertical and status", async ({ page }) => {
   await page.goto("/flow-agents/");
 
-  await expect(page.getByRole("heading", { name: "Flow Agents" })).toBeVisible();
-  await expect(page.getByText("the agent-facing vertical of Kontour Flow")).toBeVisible();
-  await expect(page.getByText("coming soon").first()).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Flow Agents", exact: true })).toBeVisible();
+  await expect(page.getByText("the agent-facing vertical of Kontour Flow").first()).toBeVisible();
+
+  // Early-access status, not vapor
+  await expect(page.getByText("early access").first()).toBeVisible();
+
+  // Real capabilities: runtimes, the Builder Kit, and an install path
+  await expect(page.locator(".label-sm").filter({ hasText: "Builder Kit" }).first()).toBeVisible();
+  await expect(page.getByText("Claude Code").first()).toBeVisible();
+  await expect(page.getByText("idea-to-backlog").first()).toBeVisible();
+  await expect(page.getByText("bash install.sh").first()).toBeVisible();
+
+  // Guard against the old "coming soon" framing regressing back in
+  await expect(page.getByText("coming soon")).toHaveCount(0);
 });

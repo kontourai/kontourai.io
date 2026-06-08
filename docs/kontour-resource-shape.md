@@ -57,6 +57,34 @@ Use product-scoped API versions:
 Use explicit `kind` values such as `ClaimReviewRecord`, `IntegrityAnchor`,
 `TrustSnapshot`, `GateRun`, or `ReadinessReport`.
 
+## Relationship to Console handoffs
+
+Kontour Resource Shape is the recommended durable shape for product-owned
+records. It is not the same thing as a Kontour Console event or projection.
+
+Use the layers this way:
+
+- product-owned resources carry durable product identity, observed state, and
+  proof;
+- Console events describe what happened so a management plane can replay,
+  correlate, and build timelines;
+- Console projections describe the current snapshot a management plane can
+  render quickly;
+- Sink delivery results describe whether a destination accepted a semantic
+  record.
+
+Console events and projections may carry, reference, or derive from resource
+records. They should not replace the product-owned resource or make Kontour
+Console the authority for Surface trust semantics, Flow gate semantics, Survey
+review semantics, Veritas readiness policy, Flow Agents runtime behavior, or
+vertical product domain truth.
+
+When a Console ref points to a resource-shaped record, use `product`, `kind`,
+and `id` as the minimum cross-product ref and enrich it with `apiVersion`,
+`metadata.name`, and `metadata.uid` when available. This lets lightweight local
+handoffs work immediately while preserving a path toward stronger resource
+identity for reproducibility and versioning.
+
 ## Field rules
 
 `apiVersion` identifies the product namespace and version of the resource
