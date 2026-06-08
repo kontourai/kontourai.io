@@ -1,0 +1,80 @@
+---
+/**
+ * Page section band. Replaces the hand-rolled inline-styled section blocks
+ * (padding / border / background) with tone + size + border props.
+ */
+interface Props {
+  /** `alt` paints the muted ink-1 ground. */
+  tone?: "base" | "alt";
+  /** Vertical rhythm preset. */
+  size?: "cover" | "hero" | "lg" | "md" | "sm" | "note";
+  /** Adds the cartographic contour background (and clips decorative overflow). */
+  contour?: boolean;
+  borderTop?: boolean;
+  borderBottom?: boolean;
+  class?: string;
+}
+
+const {
+  tone = "base",
+  size = "md",
+  contour = false,
+  borderTop = false,
+  borderBottom = false,
+  class: className,
+} = Astro.props;
+---
+
+<section
+  class:list={["section", contour && "contour-bg", className]}
+  data-tone={tone}
+  data-size={size}
+  data-border-top={borderTop || undefined}
+  data-border-bottom={borderBottom || undefined}
+>
+  <slot />
+</section>
+
+<style>
+  .section {
+    position: relative;
+    padding: 5rem var(--spacing-page);
+  }
+  .section.contour-bg {
+    overflow: hidden;
+  }
+
+  .section[data-tone="alt"] {
+    background: var(--color-ink-1);
+  }
+
+  .section[data-border-top] {
+    border-top: 1px solid var(--color-edge);
+  }
+  .section[data-border-bottom] {
+    border-bottom: 1px solid var(--color-edge);
+  }
+
+  .section[data-size="cover"] {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem var(--spacing-page) 5rem;
+  }
+  .section[data-size="hero"] {
+    padding: 10rem var(--spacing-page) 6rem;
+  }
+  .section[data-size="lg"] {
+    padding: 6rem var(--spacing-page);
+  }
+  .section[data-size="md"] {
+    padding: 5rem var(--spacing-page);
+  }
+  .section[data-size="sm"] {
+    padding: 3rem var(--spacing-page);
+  }
+  .section[data-size="note"] {
+    padding: 3rem var(--spacing-page) 0;
+  }
+</style>

@@ -3,6 +3,47 @@ import Layout from '@/layouts/Layout.astro';
 import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
 import Terminal from '@/components/Terminal.astro';
+import Section from '@/components/Section.astro';
+import Glow from '@/components/Glow.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+import Card from '@/components/Card.astro';
+import Grid from '@/components/Grid.astro';
+import Split from '@/components/Split.astro';
+import type { Accent } from '@/lib/theme';
+
+const steps = ['Idea', 'Backlog', 'Plan', 'Build', 'Review', 'Verify', 'Evidence', 'Release', 'Learn'];
+
+const promises: { title: string; body: string; accent: Accent }[] = [
+  { title: 'Stay on the path', accent: 'cobalt-2', body: 'Loose requests turn into shaped work, plans, implementation waves, review, verification, and release decisions — without writing a perfect prompt every time.' },
+  { title: 'Show the evidence', accent: 'green', body: 'Acceptance criteria, test results, browser checks, governance reports, and gaps live in durable workflow artifacts the agent reads back — not in chat memory.' },
+  { title: 'Use your runtime', accent: 'chalk-2', body: 'Install one bundle across Claude Code, Codex, Kiro, and CI. The same workflow, without rewriting it for each tool.' },
+];
+
+const runtimes = [
+  { rt: 'Claude Code', detail: 'Agents, skills, and hooks wired into the Claude Code harness.' },
+  { rt: 'Codex', detail: 'The same workflow path mapped to Codex agent definitions.' },
+  { rt: 'Kiro', detail: 'Runtime-specific hook wiring for Kiro sessions.' },
+  { rt: 'GitHub Actions', detail: 'Carry the workflow and its evidence into CI agents.' },
+];
+
+const skills = [
+  { skill: 'idea-to-backlog', desc: 'Shape a raw idea into executable issues' },
+  { skill: 'pull-work', desc: 'Select the next ready issue and hand it off' },
+  { skill: 'plan-work', desc: 'Turn a goal into a structured execution plan' },
+  { skill: 'execute-plan', desc: 'Run implementation in parallel waves' },
+  { skill: 'review-work', desc: 'Critique before verification' },
+  { skill: 'verify-work', desc: 'Prove the change actually works' },
+  { skill: 'evidence-gate', desc: 'Decide if the work is trustworthy' },
+  { skill: 'release-readiness', desc: 'Merge, release, or hold — with reasons' },
+  { skill: 'deliver', desc: 'The full chain, end to end' },
+  { skill: 'fix-bug', desc: 'Diagnose → fix → verify the regression' },
+];
+
+const honest: { title: string; body: string; accent: Accent }[] = [
+  { title: 'Durable artifacts', accent: 'green', body: 'Workflow state, acceptance, evidence, critique, release, and learning records persist as inspectable sidecars under .agents/flow-agents/ — so a session can be resumed, audited, or handed off.' },
+  { title: 'Optional governance', accent: 'cobalt-2', body: 'Wire Veritas readiness reports in as a governance adapter to back merge decisions with repo-standard evidence. Optional, never mandatory — Flow Agents does not own the policy.' },
+  { title: 'Deliberate execution', accent: 'gold', body: 'Choose local, worktree, container, cloud, or privileged execution boundaries on purpose. Evals — static, integration, behavioral — keep the bundle honest as it changes.' },
+];
 ---
 
 <Layout
@@ -11,65 +52,21 @@ import Terminal from '@/components/Terminal.astro';
 >
   <Nav active="flow-agents" />
 
-  <!-- ──────────────────────────────────────────────────────
-       Hero
-  ────────────────────────────────────────────────────────── -->
-  <section class="contour-bg" style="
-    padding: 10rem var(--spacing-page) 6rem;
-    border-bottom: 1px solid var(--color-edge);
-    position: relative;
-    overflow: hidden;
-  ">
-    <div style="
-      position: absolute;
-      top: 0;
-      right: 10%;
-      width: 680px;
-      height: 460px;
-      background: radial-gradient(ellipse at top right, rgba(225,221,211,0.045) 0%, transparent 68%);
-      pointer-events: none;
-    "></div>
-
-    <div style="max-width: 1280px; margin: 0 auto; position: relative; z-index: 1;">
-      <div class="stack-mobile" style="
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 5rem;
-        align-items: center;
-      ">
+  <!-- Hero -->
+  <Section contour size="hero" borderBottom>
+    <Glow accent="chalk-2" position="top-right" />
+    <div class="container">
+      <Split ratio="1-1" gap="lg" align="center">
         <div>
-          <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem;">
+          <div class="hero-badges">
             <span class="trust-badge trust-badge--proposed">early access</span>
-            <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-chalk-3);">bash install.sh /path/to/workspace</span>
+            <span class="install-hint">bash install.sh /path/to/workspace</span>
           </div>
 
-          <h1 class="animate-fade-up" style="
-            font-family: var(--font-display);
-            font-optical-sizing: auto;
-            font-size: clamp(3.5rem, 6vw, 5.5rem);
-            font-weight: 400;
-            line-height: 1.3;
-            letter-spacing: -0.03em;
-            color: var(--color-chalk);
-            margin-bottom: 0.5rem;
-          ">Flow Agents</h1>
+          <h1 class="product-title animate-fade-up">Flow Agents</h1>
+          <p class="product-tagline animate-fade-up delay-100" data-accent="chalk-2">the agent-facing vertical of Kontour Flow</p>
 
-          <p class="animate-fade-up delay-100" style="
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--color-chalk-2);
-            margin-bottom: 2rem;
-          ">the agent-facing vertical of Kontour Flow</p>
-
-          <p class="animate-fade-up delay-200" style="
-            font-size: 1.05rem;
-            color: var(--color-chalk-2);
-            line-height: 1.7;
-            max-width: 520px;
-            margin-bottom: 2.5rem;
-          ">
+          <p class="hero-copy hero-copy--wide animate-fade-up delay-200">
             Agents are useful out of the box. They get fragile when work is
             long, parallel, risky, or knowledge-heavy — they skip verification,
             call partial work done, and lose the thread after compaction. Flow
@@ -79,13 +76,9 @@ import Terminal from '@/components/Terminal.astro';
             can both read back.
           </p>
 
-          <div class="animate-fade-up delay-300" style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-            <a href="https://github.com/kontourai/flow-agents" target="_blank" rel="noopener" class="btn-primary" data-umami-event="flow-agents-hero-github">
-              View on GitHub →
-            </a>
-            <a href="/flow" class="btn-ghost" data-umami-event="flow-agents-hero-flow">
-              Built on Flow
-            </a>
+          <div class="hero-actions animate-fade-up delay-300">
+            <a href="https://github.com/kontourai/flow-agents" target="_blank" rel="noopener" class="btn-primary" data-umami-event="flow-agents-hero-github">View on GitHub →</a>
+            <a href="/flow" class="btn-ghost" data-umami-event="flow-agents-hero-flow">Built on Flow</a>
           </div>
         </div>
 
@@ -100,206 +93,94 @@ import Terminal from '@/components/Terminal.astro';
           <p class="pass">  ✓ evals       static · integration · behavioral</p>
           <br />
           <p class="muted">  workflow artifacts → .agents/flow-agents/</p>
-          <p style="color: var(--color-chalk-3);">  ───────────────────────────────</p>
+          <p class="rule">  ───────────────────────────────</p>
           <p class="info">  ready. ask your agent:</p>
           <p>  <span class="muted">"Use deliver for this issue."</span></p>
         </Terminal>
-      </div>
+      </Split>
     </div>
-  </section>
+  </Section>
 
-  <!-- ──────────────────────────────────────────────────────
-       The workflow
-  ────────────────────────────────────────────────────────── -->
-  <section style="padding: 6rem var(--spacing-page);">
-    <div style="max-width: 1280px; margin: 0 auto;">
-      <div class="label-sm" style="margin-bottom: 1rem;">One structured path</div>
-      <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 1rem; max-width: 760px;">
+  <!-- The workflow -->
+  <Section size="lg">
+    <div class="container">
+      <Eyebrow gap="sm">One structured path</Eyebrow>
+      <h2 class="display-md measure-lg path-title">
         From a loose request to a release decision — gate by gate.
       </h2>
-      <p style="color: var(--color-chalk-3); font-size: 0.9rem; line-height: 1.65; max-width: 680px; margin-bottom: 2.5rem;">
+      <p class="fine measure path-note">
         Skills choose the right workflow, sidecars preserve state across
         compaction, gates catch stop-short behavior, and a finding or gap routes
         the work back instead of waving it through.
       </p>
 
-      <div class="flow-steps" style="
-        display: grid;
-        grid-template-columns: repeat(9, 1fr);
-        gap: 0.5rem;
-        align-items: stretch;
-      ">
-        {[
-          'Idea', 'Backlog', 'Plan', 'Build', 'Review', 'Verify', 'Evidence', 'Release', 'Learn',
-        ].map((step, i) => (
-          <div key={step} style="
-            position: relative;
-            padding: 1.1rem 0.75rem;
-            background: var(--color-ink-1);
-            border: 1px solid var(--color-edge);
-            border-radius: 6px;
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
-            text-align: center;
-          ">
-            <span style="font-family: var(--font-mono); font-size: 0.58rem; color: var(--color-chalk-3);">0{i + 1}</span>
-            <span style="font-family: var(--font-display); font-size: 0.92rem; color: var(--color-chalk-2); letter-spacing: -0.01em;">{step}</span>
+      <Grid cols={9} gap="xs">
+        {steps.map((step, i) => (
+          <div class="fstep">
+            <span class="fstep__n">0{i + 1}</span>
+            <span class="fstep__name">{step}</span>
           </div>
         ))}
-      </div>
+      </Grid>
 
-      <p style="
-        font-family: var(--font-mono);
-        font-size: 0.7rem;
-        color: var(--color-chalk-3);
-        letter-spacing: 0.04em;
-        margin-top: 1rem;
-      ">
+      <p class="path-routes">
         review → finding routes back to build · verify → gap routes back to build · evidence → not-verified routes back to plan
       </p>
     </div>
-  </section>
+  </Section>
 
-  <!-- ──────────────────────────────────────────────────────
-       Three promises
-  ────────────────────────────────────────────────────────── -->
-  <section style="
-    padding: 5rem var(--spacing-page);
-    border-top: 1px solid var(--color-edge);
-    border-bottom: 1px solid var(--color-edge);
-    background: var(--color-ink-1);
-  ">
-    <div style="max-width: 1280px; margin: 0 auto;">
-      <div class="stack-mobile" style="
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1.5rem;
-      ">
-        {[
-          {
-            title: 'Stay on the path',
-            color: 'var(--color-cobalt-2)',
-            body: 'Loose requests turn into shaped work, plans, implementation waves, review, verification, and release decisions — without writing a perfect prompt every time.',
-          },
-          {
-            title: 'Show the evidence',
-            color: 'var(--color-green)',
-            body: 'Acceptance criteria, test results, browser checks, governance reports, and gaps live in durable workflow artifacts the agent reads back — not in chat memory.',
-          },
-          {
-            title: 'Use your runtime',
-            color: 'var(--color-chalk-2)',
-            body: 'Install one bundle across Claude Code, Codex, Kiro, and CI. The same workflow, without rewriting it for each tool.',
-          },
-        ].map(({ title, color, body }) => (
-          <div key={title} class="card" style="padding: 2rem; position: relative; overflow: hidden;">
-            <div style={`
-              position: absolute;
-              top: 0;
-              left: 0;
-              right: 0;
-              height: 2px;
-              background: linear-gradient(90deg, ${color}, transparent);
-            `}></div>
-            <h3 style="
-              font-family: var(--font-display);
-              font-size: 1.35rem;
-              font-weight: 400;
-              color: var(--color-chalk);
-              margin-bottom: 0.75rem;
-              letter-spacing: -0.01em;
-            ">{title}</h3>
-            <p style="font-size: 0.85rem; color: var(--color-chalk-3); line-height: 1.7;">{body}</p>
-          </div>
+  <!-- Three promises -->
+  <Section tone="alt" borderTop borderBottom>
+    <div class="container">
+      <Grid cols={3} gap="lg">
+        {promises.map(({ title, body, accent }) => (
+          <Card accent={accent} bar="top" pad="lg">
+            <h3 class="promo__title">{title}</h3>
+            <p class="promo__body">{body}</p>
+          </Card>
         ))}
-      </div>
+      </Grid>
     </div>
-  </section>
+  </Section>
 
-  <!-- ──────────────────────────────────────────────────────
-       Runtimes
-  ────────────────────────────────────────────────────────── -->
-  <section style="padding: 6rem var(--spacing-page);">
-    <div style="max-width: 1280px; margin: 0 auto;">
-      <div class="label-sm" style="margin-bottom: 1rem;">Runs in the tools you already use</div>
-      <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 2.5rem; max-width: 720px;">
-        One bundle. Every runtime maps to its native shape.
-      </h2>
+  <!-- Runtimes -->
+  <Section size="lg">
+    <div class="container">
+      <Eyebrow gap="sm">Runs in the tools you already use</Eyebrow>
+      <h2 class="display-md measure-lg runtimes-title">One bundle. Every runtime maps to its native shape.</h2>
 
-      <div style="
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-        gap: 1rem;
-      ">
-        {[
-          { rt: 'Claude Code', detail: 'Agents, skills, and hooks wired into the Claude Code harness.' },
-          { rt: 'Codex', detail: 'The same workflow path mapped to Codex agent definitions.' },
-          { rt: 'Kiro', detail: 'Runtime-specific hook wiring for Kiro sessions.' },
-          { rt: 'GitHub Actions', detail: 'Carry the workflow and its evidence into CI agents.' },
-        ].map(({ rt, detail }) => (
-          <div key={rt} style="
-            padding: 1.5rem;
-            background: var(--color-ink-1);
-            border: 1px solid var(--color-edge);
-            border-radius: 6px;
-          ">
-            <div style="
-              font-family: var(--font-display);
-              font-size: 1.15rem;
-              color: var(--color-chalk);
-              margin-bottom: 0.5rem;
-              letter-spacing: -0.01em;
-            ">{rt}</div>
-            <p style="font-size: 0.8rem; color: var(--color-chalk-3); line-height: 1.6; margin: 0;">{detail}</p>
+      <Grid min="260" gap="md">
+        {runtimes.map(({ rt, detail }) => (
+          <div class="rt">
+            <div class="rt__name">{rt}</div>
+            <p class="rt__detail">{detail}</p>
           </div>
         ))}
-      </div>
+      </Grid>
 
-      <p style="
-        font-family: var(--font-mono);
-        font-size: 0.72rem;
-        color: var(--color-chalk-3);
-        line-height: 1.6;
-        margin-top: 1.5rem;
-        max-width: 720px;
-      ">
+      <p class="rt-note">
         Runtime adapters translate one source configuration into each tool's
         native shape — so adding a runtime doesn't fork the workflow. Framework
         adapters for API-based agents (LangGraph, CrewAI, and peers) are on the
         roadmap.
       </p>
     </div>
-  </section>
+  </Section>
 
-  <!-- ──────────────────────────────────────────────────────
-       Builder Kit
-  ────────────────────────────────────────────────────────── -->
-  <section style="
-    padding: 5rem var(--spacing-page);
-    border-top: 1px solid var(--color-edge);
-    background: var(--color-ink-1);
-  ">
-    <div style="max-width: 1280px; margin: 0 auto;">
-      <div class="stack-mobile" style="
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 4rem;
-        align-items: start;
-      ">
+  <!-- Builder Kit -->
+  <Section tone="alt" borderTop>
+    <div class="container">
+      <Split ratio="1-1" gap="md" align="start">
         <div>
-          <div class="label-sm" style="margin-bottom: 1.5rem; color: var(--color-chalk-2);">Builder Kit</div>
-          <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 1.25rem;">
-            Opinionated building,<br />
-            installed as a kit.
-          </h2>
-          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.5rem;">
+          <Eyebrow accent="chalk-2">Builder Kit</Eyebrow>
+          <h2 class="display-md bk__title">Opinionated building,<br />installed as a kit.</h2>
+          <p class="body bk__copy">
             The Builder Kit is the first Kontour-authored Flow Kit. It owns the
             Build path end to end — shaping, probing, planning, execution,
             verification, PR readiness, merge readiness, and learning — as
             workflows your agent invokes by name.
           </p>
-          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin: 0;">
+          <p class="body bk__copy bk__copy--last">
             Flow Kits are runtime-neutral and authorable, so the Build path is a
             starting point — not the ceiling. Capture, Prepare, Understand, and
             Follow&nbsp;Up round out the work-mode model Flow Agents routes
@@ -307,60 +188,32 @@ import Terminal from '@/components/Terminal.astro';
           </p>
         </div>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
-          {[
-            { skill: 'idea-to-backlog', desc: 'Shape a raw idea into executable issues' },
-            { skill: 'pull-work', desc: 'Select the next ready issue and hand it off' },
-            { skill: 'plan-work', desc: 'Turn a goal into a structured execution plan' },
-            { skill: 'execute-plan', desc: 'Run implementation in parallel waves' },
-            { skill: 'review-work', desc: 'Critique before verification' },
-            { skill: 'verify-work', desc: 'Prove the change actually works' },
-            { skill: 'evidence-gate', desc: 'Decide if the work is trustworthy' },
-            { skill: 'release-readiness', desc: 'Merge, release, or hold — with reasons' },
-            { skill: 'deliver', desc: 'The full chain, end to end' },
-            { skill: 'fix-bug', desc: 'Diagnose → fix → verify the regression' },
-          ].map(({ skill, desc }) => (
-            <div key={skill} style="
-              display: flex;
-              flex-direction: column;
-              gap: 0.3rem;
-              padding: 0.9rem 1rem;
-              background: var(--color-ink-2);
-              border: 1px solid var(--color-edge);
-              border-radius: 4px;
-            ">
-              <code style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--color-chalk-2);">{skill}</code>
-              <span style="font-size: 0.72rem; color: var(--color-chalk-3); line-height: 1.4;">{desc}</span>
+        <Grid cols={2} gap="sm">
+          {skills.map(({ skill, desc }) => (
+            <div class="skill">
+              <code class="skill__fn">{skill}</code>
+              <span class="skill__desc">{desc}</span>
             </div>
           ))}
-        </div>
-      </div>
+        </Grid>
+      </Split>
     </div>
-  </section>
+  </Section>
 
-  <!-- ──────────────────────────────────────────────────────
-       In practice
-  ────────────────────────────────────────────────────────── -->
-  <section style="padding: 6rem var(--spacing-page); border-top: 1px solid var(--color-edge);">
-    <div style="max-width: 1280px; margin: 0 auto;">
-      <div class="stack-mobile" style="
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 4rem;
-        align-items: center;
-      ">
+  <!-- In practice -->
+  <Section borderTop size="lg">
+    <div class="container">
+      <Split ratio="1-1" gap="md" align="center">
         <div>
-          <div class="label-sm" style="margin-bottom: 1.5rem;">In practice</div>
-          <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 1.25rem;">
-            You ask for the outcome.<br />Flow Agents handles the scaffolding.
-          </h2>
-          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.5rem;">
+          <Eyebrow>In practice</Eyebrow>
+          <h2 class="display-md ip__title">You ask for the outcome.<br />Flow Agents handles the scaffolding.</h2>
+          <p class="body ip__copy">
             No new CLI to memorize. You describe what you want in plain language;
             Flow Agents routes it to the right workflow and keeps the state,
             evidence, and next action durable — even across compaction, branch
             switches, and delegated subagents.
           </p>
-          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin: 0;">
+          <p class="body ip__copy ip__copy--last">
             When evidence is missing, the workflow stops and says so, instead of
             summarizing unfinished work as done.
           </p>
@@ -381,95 +234,39 @@ import Terminal from '@/components/Terminal.astro';
           <p class="muted">  next: capture a browser check, then resume</p>
           <p class="muted">  state → .agents/flow-agents/runs/deliver-214/</p>
         </Terminal>
-      </div>
+      </Split>
     </div>
-  </section>
+  </Section>
 
-  <!-- ──────────────────────────────────────────────────────
-       Evidence, governance, safety
-  ────────────────────────────────────────────────────────── -->
-  <section style="
-    padding: 5rem var(--spacing-page);
-    border-top: 1px solid var(--color-edge);
-    background: var(--color-ink-1);
-  ">
-    <div style="max-width: 1280px; margin: 0 auto;">
-      <div class="label-sm" style="margin-bottom: 2.5rem;">What keeps it honest</div>
-
-      <div class="stack-mobile" style="
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1.5rem;
-      ">
-        {[
-          {
-            title: 'Durable artifacts',
-            color: 'var(--color-green)',
-            body: 'Workflow state, acceptance, evidence, critique, release, and learning records persist as inspectable sidecars under .agents/flow-agents/ — so a session can be resumed, audited, or handed off.',
-          },
-          {
-            title: 'Optional governance',
-            color: 'var(--color-cobalt-2)',
-            body: 'Wire Veritas readiness reports in as a governance adapter to back merge decisions with repo-standard evidence. Optional, never mandatory — Flow Agents does not own the policy.',
-          },
-          {
-            title: 'Deliberate execution',
-            color: 'var(--color-gold)',
-            body: 'Choose local, worktree, container, cloud, or privileged execution boundaries on purpose. Evals — static, integration, behavioral — keep the bundle honest as it changes.',
-          },
-        ].map(({ title, color, body }) => (
-          <div key={title} class="card" style="padding: 1.75rem; position: relative; overflow: hidden;">
-            <div style={`
-              position: absolute;
-              top: 0;
-              left: 0;
-              right: 0;
-              height: 2px;
-              background: linear-gradient(90deg, ${color}, transparent);
-            `}></div>
-            <h3 style="
-              font-family: var(--font-display);
-              font-size: 1.25rem;
-              font-weight: 400;
-              color: var(--color-chalk);
-              margin-bottom: 0.75rem;
-              letter-spacing: -0.01em;
-            ">{title}</h3>
-            <p style="font-size: 0.82rem; color: var(--color-chalk-3); line-height: 1.65;">{body}</p>
-          </div>
+  <!-- Evidence, governance, safety -->
+  <Section tone="alt" borderTop>
+    <div class="container">
+      <Eyebrow gap="lg">What keeps it honest</Eyebrow>
+      <Grid cols={3} gap="lg">
+        {honest.map(({ title, body, accent }) => (
+          <Card accent={accent} bar="top" pad="md">
+            <h3 class="feature-title">{title}</h3>
+            <p class="feature-body">{body}</p>
+          </Card>
         ))}
-      </div>
+      </Grid>
     </div>
-  </section>
+  </Section>
 
-  <!-- ──────────────────────────────────────────────────────
-       Where it is today
-  ────────────────────────────────────────────────────────── -->
-  <section style="padding: 5rem var(--spacing-page); border-top: 1px solid var(--color-edge);">
-    <div style="max-width: 1280px; margin: 0 auto;">
-      <div class="stack-mobile" style="
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 4rem;
-        align-items: center;
-      ">
+  <!-- Where it is today -->
+  <Section borderTop>
+    <div class="container">
+      <Split ratio="1-1" gap="md" align="center">
         <div>
-          <div class="label-sm" style="margin-bottom: 1.5rem; color: var(--color-chalk-2);">Where it is today</div>
-          <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 1.25rem;">
-            Usable now.<br />Early by design.
-          </h2>
-          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.5rem;">
+          <Eyebrow accent="chalk-2">Where it is today</Eyebrow>
+          <h2 class="display-md today__title">Usable now.<br />Early by design.</h2>
+          <p class="body today__copy">
             The core Build workflows run today. Flow Agents installs into a
             workspace from GitHub — it isn't on npm yet, and it's pre-1.0, with a
             phased rollout toward richer just-in-time guidance, more work modes,
             and deeper governance.
           </p>
-          <a href="https://github.com/kontourai/flow-agents" target="_blank" rel="noopener" data-umami-event="flow-agents-bottom-github" style="
-            font-family: var(--font-mono);
-            font-size: 0.78rem;
-            color: var(--color-chalk-2);
-            text-decoration: none;
-          ">Read the docs on GitHub →</a>
+          <a href="https://github.com/kontourai/flow-agents" target="_blank" rel="noopener" data-umami-event="flow-agents-bottom-github" class="today__link">Read the docs on GitHub →</a>
         </div>
 
         <Terminal title="quickstart">
@@ -484,29 +281,157 @@ import Terminal from '@/components/Terminal.astro';
           <p>  <span class="muted">"Use fix-bug. Reproduce it, find root cause,</span></p>
           <p>  <span class="muted"> fix it, and verify the regression path."</span></p>
         </Terminal>
-      </div>
+      </Split>
     </div>
-  </section>
+  </Section>
 
-  <section style="padding: 3rem var(--spacing-page) 0; border-top: 1px solid var(--color-edge);">
-    <div style="max-width: 1280px; margin: 0 auto;">
-      <p style="color: var(--color-chalk-3); font-size: 0.95rem; line-height: 1.7; font-style: italic; margin: 0;">
+  <Section size="note" borderTop>
+    <div class="container">
+      <p class="closing-note">
         Flow Agents is the agent-facing vertical of Kontour Flow. Flow owns the
         gates, transitions, and evidence; Flow Agents brings them — and optional
         Veritas governance — into the coding agents you already use.
       </p>
     </div>
-  </section>
+  </Section>
 
   <Footer active="flow-agents" />
 </Layout>
 
 <style>
-  /* The nine-step path steps down across breakpoints so the labels stay legible. */
-  @media (max-width: 1100px) {
-    .flow-steps { grid-template-columns: repeat(3, 1fr) !important; }
+  .hero-copy--wide {
+    max-width: 520px;
   }
-  @media (max-width: 560px) {
-    .flow-steps { grid-template-columns: repeat(2, 1fr) !important; }
+
+  .path-title {
+    margin-bottom: 1rem;
+  }
+  .path-note {
+    margin-bottom: 2.5rem;
+  }
+  .fstep {
+    position: relative;
+    padding: 1.1rem 0.75rem;
+    background: var(--color-ink-1);
+    border: 1px solid var(--color-edge);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    text-align: center;
+  }
+  .fstep__n {
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    color: var(--color-chalk-3);
+  }
+  .fstep__name {
+    font-family: var(--font-display);
+    font-size: 0.92rem;
+    color: var(--color-chalk-2);
+    letter-spacing: -0.01em;
+  }
+  .path-routes {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-chalk-3);
+    letter-spacing: 0.04em;
+    margin-top: 1rem;
+  }
+
+  .promo__title {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 400;
+    color: var(--color-chalk);
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
+  }
+  .promo__body {
+    font-size: 0.85rem;
+    color: var(--color-chalk-3);
+    line-height: 1.7;
+  }
+
+  .runtimes-title {
+    margin-bottom: 2.5rem;
+  }
+  .rt {
+    padding: 1.5rem;
+    background: var(--color-ink-1);
+    border: 1px solid var(--color-edge);
+    border-radius: 6px;
+  }
+  .rt__name {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    color: var(--color-chalk);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+  }
+  .rt__detail {
+    font-size: 0.8rem;
+    color: var(--color-chalk-3);
+    line-height: 1.6;
+    margin: 0;
+  }
+  .rt-note {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--color-chalk-3);
+    line-height: 1.6;
+    margin-top: 1.5rem;
+    max-width: 720px;
+  }
+
+  .bk__title,
+  .ip__title,
+  .today__title {
+    margin-bottom: 1.25rem;
+  }
+  .bk__copy,
+  .ip__copy {
+    margin-bottom: 1.5rem;
+  }
+  .bk__copy--last,
+  .ip__copy--last {
+    margin-bottom: 0;
+  }
+  .today__copy {
+    margin-bottom: 1.5rem;
+  }
+  .today__link {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--color-chalk-2);
+    text-decoration: none;
+  }
+
+  .skill {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: 0.9rem 1rem;
+    background: var(--color-ink-2);
+    border: 1px solid var(--color-edge);
+    border-radius: 4px;
+  }
+  .skill__fn {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--color-chalk-2);
+  }
+  .skill__desc {
+    font-size: 0.72rem;
+    color: var(--color-chalk-3);
+    line-height: 1.4;
+  }
+
+  .closing-note {
+    color: var(--color-chalk-3);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    font-style: italic;
+    margin: 0;
   }
 </style>

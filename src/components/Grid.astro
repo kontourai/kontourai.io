@@ -1,0 +1,104 @@
+---
+/**
+ * Responsive grid. Either a fixed column count (`cols`) or an auto-filling
+ * track (`min`, a minmax floor in px). Fixed 2/3/4-column grids collapse to a
+ * single column on narrow screens via `.stack-mobile`; the 5- and 9-column
+ * special cases (pipeline, step path) carry their own breakpoints below.
+ */
+interface Props {
+  cols?: 2 | 3 | 4 | 5 | 9;
+  min?: "200" | "260" | "280" | "300";
+  gap?: "xs" | "sm" | "md" | "lg";
+  align?: "start" | "stretch";
+  class?: string;
+}
+
+const { cols, min, gap = "md", align = "stretch", class: className } = Astro.props;
+const collapsible = cols === 2 || cols === 3 || cols === 4;
+---
+
+<div
+  class:list={["grid", collapsible && "stack-mobile", className]}
+  data-cols={cols}
+  data-min={min}
+  data-gap={gap}
+  data-align={align}
+>
+  <slot />
+</div>
+
+<style>
+  .grid {
+    display: grid;
+    align-items: stretch;
+  }
+  .grid[data-align="start"] {
+    align-items: start;
+  }
+
+  .grid[data-gap="xs"] {
+    gap: 0.5rem;
+  }
+  .grid[data-gap="sm"] {
+    gap: 0.75rem;
+  }
+  .grid[data-gap="md"] {
+    gap: 1rem;
+  }
+  .grid[data-gap="lg"] {
+    gap: 1.5rem;
+  }
+
+  .grid[data-cols="2"] {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .grid[data-cols="3"] {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .grid[data-cols="4"] {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .grid[data-cols="5"] {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  .grid[data-cols="9"] {
+    grid-template-columns: repeat(9, 1fr);
+  }
+
+  .grid[data-min="200"] {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+  .grid[data-min="260"] {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  }
+  .grid[data-min="280"] {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+  .grid[data-min="300"] {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+
+  /* Pipeline (5) and step path (9) step down on their own rather than using
+     the shared .stack-mobile flex switch. */
+  @media (max-width: 1100px) {
+    .grid[data-cols="9"] {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  @media (max-width: 1000px) {
+    .grid[data-cols="5"] {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 600px) {
+    .grid[data-cols="5"] {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  @media (max-width: 560px) {
+    .grid[data-cols="9"] {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

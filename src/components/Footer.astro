@@ -21,78 +21,97 @@ const links = isPublicHome
     ];
 ---
 
-<footer style="
-  border-top: 1px solid var(--color-edge);
-  margin-top: 8rem;
-  padding: 3rem var(--spacing-page);
-">
-  <div style="max-width: 1280px; margin: 0 auto;">
-    <div style="
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 2rem;
-      align-items: start;
-    ">
-      <!-- Left -->
-      <div>
-        <a href="/" style="
-          display: inline-flex;
-          align-items: center;
-          gap: 0.5rem;
-          text-decoration: none;
-          margin-bottom: 0.75rem;
-        ">
-          <span style="
-            font-family: var(--font-display);
-            font-size: 0.95rem;
-            color: var(--color-chalk-2);
-            letter-spacing: -0.01em;
-          ">Kontour<span style="color: var(--color-gold);">.</span></span>
-        </a>
-        <p style="
-          font-family: var(--font-mono);
-          font-size: 0.7rem;
-          color: var(--color-chalk-3);
-          line-height: 1.6;
-          max-width: 340px;
-          letter-spacing: 0.02em;
-        ">
-          Evidence-backed confidence. Not certainty theater.
-        </p>
-        <p style="
-          font-family: var(--font-mono);
-          font-size: 0.65rem;
-          color: var(--color-chalk-3);
-          margin-top: 1.5rem;
-          opacity: 0.6;
-        ">Apache 2.0 &nbsp;·&nbsp; Open source &nbsp;·&nbsp; © 2026 Kontour AI</p>
-      </div>
-
-      <!-- Right nav -->
-      <nav style="display: flex; flex-direction: column; gap: 0.4rem; align-items: flex-end;">
-        {links.map(({ href, label, external, event }) => (
-          <a
-            href={href}
-            target={external ? '_blank' : undefined}
-            rel={external ? 'noopener' : undefined}
-            data-umami-event={event}
-            style="
-              font-family: var(--font-mono);
-              font-size: 0.7rem;
-              color: var(--color-chalk-3);
-              text-decoration: none;
-              letter-spacing: 0.05em;
-              transition: color 0.15s;
-            "
-          >{label}</a>
-        ))}
-      </nav>
+<footer class="footer">
+  <div class="container footer__grid">
+    <div>
+      <a href="/" class="footer__brand" aria-label="Kontour AI home">
+        <span class="footer__wordmark">Kontour<span class="footer__dot">.</span></span>
+      </a>
+      <p class="footer__tagline">Evidence-backed confidence. Not certainty theater.</p>
+      <p class="footer__legal">Apache 2.0 &nbsp;·&nbsp; Open source &nbsp;·&nbsp; © 2026 Kontour AI</p>
     </div>
+
+    <nav class="footer__nav">
+      {links.map(({ href, label, external, event }) => (
+        <a
+          href={href}
+          target={external ? '_blank' : undefined}
+          rel={external ? 'noopener' : undefined}
+          data-umami-event={event}
+          class="footer__link"
+        >{label}</a>
+      ))}
+    </nav>
   </div>
 </footer>
 
 <style>
-  footer a:hover {
-    color: var(--color-chalk-2) !important;
+  .footer {
+    border-top: 1px solid var(--color-edge);
+    margin-top: 8rem;
+    padding: 3rem var(--spacing-page);
+  }
+
+  .footer__grid {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .footer__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    margin-bottom: 0.75rem;
+  }
+
+  .footer__wordmark {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    color: var(--color-chalk-2);
+    letter-spacing: -0.01em;
+  }
+
+  .footer__dot {
+    color: var(--color-gold);
+  }
+
+  .footer__tagline {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-chalk-3);
+    line-height: 1.6;
+    max-width: 340px;
+    letter-spacing: 0.02em;
+  }
+
+  .footer__legal {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--color-chalk-3);
+    margin-top: 1.5rem;
+    opacity: 0.6;
+  }
+
+  .footer__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    align-items: flex-end;
+  }
+
+  .footer__link {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-chalk-3);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: color 0.15s;
+  }
+
+  .footer__link:hover {
+    color: var(--color-chalk-2);
   }
 </style>

@@ -3,6 +3,39 @@ import Layout from '@/layouts/Layout.astro';
 import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
 import Terminal from '@/components/Terminal.astro';
+import Section from '@/components/Section.astro';
+import Glow from '@/components/Glow.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+import Card from '@/components/Card.astro';
+import Grid from '@/components/Grid.astro';
+import Split from '@/components/Split.astro';
+import QuestionGrid from '@/components/QuestionGrid.astro';
+import type { Accent } from '@/lib/theme';
+
+const questions: { q: string; accent?: Accent }[] = [
+  { q: 'What claims are true, and how fresh are they?', accent: 'gold' },
+  { q: 'Which processes are running, blocked, or done?', accent: 'cobalt-2' },
+  { q: 'What proof backs each answer?', accent: 'green' },
+  { q: "What's in the queue and waiting on a person?", accent: 'gold-2' },
+  { q: 'What decisions were made, and by whom?', accent: 'chalk-2' },
+  { q: "What's stale and needs reverification?", accent: 'gold' },
+  { q: 'Which exceptions were accepted?', accent: 'red' },
+  { q: 'What should happen next?', accent: 'cobalt' },
+];
+
+const producers: { product: string; detail: string; accent: Accent }[] = [
+  { product: 'Surface', detail: 'claim status, evidence, freshness', accent: 'gold' },
+  { product: 'Survey', detail: 'fact-review records, candidates, decisions', accent: 'gold-2' },
+  { product: 'Flow', detail: 'runs, gates, transitions, exceptions', accent: 'cobalt-2' },
+  { product: 'Veritas', detail: 'repo readiness, evidence gaps', accent: 'green' },
+  { product: 'Flow Agents', detail: 'session + continuation state', accent: 'chalk-2' },
+];
+
+const boundary: { title: string; accent: Accent; items: string[] }[] = [
+  { title: 'Console owns', accent: 'cobalt', items: ['Suite navigation & workspace structure', 'Cross-product aggregation & correlation', 'Unified queues & action routing', 'Identity links across product objects', 'Extension composition across consoles'] },
+  { title: 'Console does not own', accent: 'chalk-2', items: ['Surface trust derivation', 'Flow gate & transition semantics', 'Survey fact-review semantics', 'Veritas governance policy', 'Any hosted-infrastructure requirement'] },
+  { title: 'Primitives stay portable', accent: 'gold', items: ['Adopt Surface, Flow, Survey, or Veritas alone', 'Event streams are the durable contract', 'Projections are cached, product-owned views', 'Actions execute through the owning product', 'No `.kontour` dependency for verticals'] },
+];
 ---
 
 <Layout
@@ -11,80 +44,21 @@ import Terminal from '@/components/Terminal.astro';
 >
   <Nav active="console" />
 
-  <!-- ──────────────────────────────────────────────────────
-       Hero
-  ────────────────────────────────────────────────────────── -->
-  <section class="contour-bg" style="
-    padding: 10rem var(--spacing-page) 6rem;
-    border-bottom: 1px solid var(--color-edge);
-    position: relative;
-    overflow: hidden;
-  ">
-    <!-- Cobalt accent glow -->
-    <div style="
-      position: absolute;
-      top: 0;
-      right: 6%;
-      width: 700px;
-      height: 460px;
-      background: radial-gradient(ellipse at top right, rgba(90,144,200,0.06) 0%, transparent 68%);
-      pointer-events: none;
-    "></div>
-
-    <div style="max-width: 1280px; margin: 0 auto; position: relative; z-index: 1;">
-      <div class="stack-mobile" style="
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 5rem;
-        align-items: center;
-      ">
-        <!-- Left -->
+  <!-- Hero -->
+  <Section contour size="hero" borderBottom>
+    <Glow accent="cobalt" position="top-right" />
+    <div class="container">
+      <Split ratio="1-1" gap="lg" align="center">
         <div>
-          <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem;">
-            <span style="
-              display: inline-flex;
-              align-items: center;
-              gap: 0.35rem;
-              padding: 0.2rem 0.6rem;
-              border-radius: 2px;
-              font-family: var(--font-mono);
-              font-size: 0.65rem;
-              letter-spacing: 0.1em;
-              text-transform: uppercase;
-              border: 1px solid rgba(90,144,200,0.3);
-              background: rgba(90,144,200,0.08);
-              color: var(--color-cobalt);
-            ">early preview</span>
-            <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-chalk-3);">github.com/kontourai/kontour-console</span>
+          <div class="hero-badges">
+            <span class="trust-badge badge-preview">early preview</span>
+            <span class="install-hint">github.com/kontourai/kontour-console</span>
           </div>
 
-          <h1 class="animate-fade-up" style="
-            font-family: var(--font-display);
-            font-optical-sizing: auto;
-            font-size: clamp(3.5rem, 6vw, 5.5rem);
-            font-weight: 400;
-            line-height: 1.3;
-            letter-spacing: -0.03em;
-            color: var(--color-chalk);
-            margin-bottom: 0.5rem;
-          ">Console</h1>
+          <h1 class="product-title animate-fade-up">Console</h1>
+          <p class="product-tagline animate-fade-up delay-100" data-accent="cobalt">one operating plane for the suite</p>
 
-          <p class="animate-fade-up delay-100" style="
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--color-cobalt);
-            margin-bottom: 2rem;
-          ">one operating plane for the suite</p>
-
-          <p class="animate-fade-up delay-200" style="
-            font-size: 1.05rem;
-            color: var(--color-chalk-2);
-            line-height: 1.7;
-            max-width: 500px;
-            margin-bottom: 2.5rem;
-          ">
+          <p class="hero-copy hero-copy--wide animate-fade-up delay-200">
             Each Kontour product makes one kind of trust state portable —
             Surface claims, Survey reviews, Flow runs, Veritas readiness, agent
             sessions. Kontour Console brings them into a single place to see
@@ -93,17 +67,12 @@ import Terminal from '@/components/Terminal.astro';
             products it observes.
           </p>
 
-          <div class="animate-fade-up delay-300" style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-            <a href="https://github.com/kontourai/kontour-console" target="_blank" rel="noopener" class="btn-primary" data-umami-event="console-hero-github">
-              View on GitHub →
-            </a>
-            <a href="/surface" class="btn-ghost" data-umami-event="console-hero-surface">
-              Built on the primitives
-            </a>
+          <div class="hero-actions animate-fade-up delay-300">
+            <a href="https://github.com/kontourai/kontour-console" target="_blank" rel="noopener" class="btn-primary" data-umami-event="console-hero-github">View on GitHub →</a>
+            <a href="/surface" class="btn-ghost" data-umami-event="console-hero-surface">Built on the primitives</a>
           </div>
         </div>
 
-        <!-- Right: fixture inspector output -->
         <Terminal class="animate-fade-in delay-300" title="kontour-console — fixture inspection">
           <p><span class="prompt">$ </span><span class="cmd">npm run inspect:fixtures</span></p>
           <br />
@@ -118,102 +87,45 @@ import Terminal from '@/components/Terminal.astro';
           <p>  review <span class="muted">review-provider-118</span>  <span class="pass">approved</span></p>
           <p>  action <span class="muted">action-apply-provider-118</span>  <span class="warn">read-only</span></p>
           <br />
-          <p style="color: var(--color-chalk-3);">  ───────────────────────────────</p>
+          <p class="rule">  ───────────────────────────────</p>
           <p class="pass">  Validation: errors=0</p>
           <p class="muted">  actions shown as inert descriptors only</p>
         </Terminal>
-      </div>
+      </Split>
     </div>
-  </section>
+  </Section>
 
-  <!-- ──────────────────────────────────────────────────────
-       What Console brings together
-  ────────────────────────────────────────────────────────── -->
-  <section style="padding: 6rem var(--spacing-page);">
-    <div style="max-width: 1280px; margin: 0 auto;">
-      <div class="label-sm" style="margin-bottom: 1rem; color: var(--color-cobalt);">What it's built to answer</div>
-      <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 1rem; max-width: 760px;">
-        The cross-product questions a suite plane has to answer.
-      </h2>
-      <p style="color: var(--color-chalk-3); font-size: 0.9rem; line-height: 1.65; max-width: 640px; margin-bottom: 2.5rem;">
+  <!-- What Console brings together -->
+  <Section size="lg">
+    <div class="container">
+      <Eyebrow accent="cobalt" gap="sm">What it's built to answer</Eyebrow>
+      <h2 class="display-md measure-lg ans-title">The cross-product questions a suite plane has to answer.</h2>
+      <p class="fine ans-note">
         These are the questions Console is designed around. Today it can answer
         them from local fixtures and producer helpers; answering them from live
         Surface, Flow, Survey, and Veritas data is what the contracts below are
         being built toward.
       </p>
 
-      <div style="
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-        gap: 1rem;
-      ">
-        {[
-          { q: 'What claims are true, and how fresh are they?', color: 'var(--color-gold)' },
-          { q: 'Which processes are running, blocked, or done?', color: 'var(--color-cobalt-2)' },
-          { q: 'What proof backs each answer?', color: 'var(--color-green)' },
-          { q: "What's in the queue and waiting on a person?", color: 'var(--color-gold-2)' },
-          { q: 'What decisions were made, and by whom?', color: 'var(--color-chalk-2)' },
-          { q: "What's stale and needs reverification?", color: 'var(--color-gold)' },
-          { q: 'Which exceptions were accepted?', color: 'var(--color-red)' },
-          { q: 'What should happen next?', color: 'var(--color-cobalt)' },
-        ].map(({ q, color }, i) => (
-          <div key={i} style="
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            padding: 1.25rem;
-            background: var(--color-ink-1);
-            border: 1px solid var(--color-edge);
-            border-radius: 4px;
-          ">
-            <span style="
-              font-family: var(--font-mono);
-              font-size: 0.65rem;
-              color: var(--color-chalk-3);
-              padding-top: 2px;
-              min-width: 1.5rem;
-            ">0{i + 1}</span>
-            <span style={`
-              font-size: 0.9rem;
-              color: ${color};
-              line-height: 1.5;
-            `}>{q}</span>
-          </div>
-        ))}
-      </div>
+      <QuestionGrid items={questions} min="260" />
     </div>
-  </section>
+  </Section>
 
-  <!-- ──────────────────────────────────────────────────────
-       The operating plane
-  ────────────────────────────────────────────────────────── -->
-  <section style="
-    padding: 5rem var(--spacing-page);
-    border-top: 1px solid var(--color-edge);
-    border-bottom: 1px solid var(--color-edge);
-    background: var(--color-ink-1);
-  ">
-    <div style="max-width: 1280px; margin: 0 auto;">
-      <div class="stack-mobile" style="
-        display: grid;
-        grid-template-columns: 1fr 1.15fr;
-        gap: 4rem;
-        align-items: center;
-      ">
+  <!-- The operating plane -->
+  <Section tone="alt" borderTop borderBottom>
+    <div class="container">
+      <Split ratio="1-1.15" gap="md" align="center">
         <div>
-          <div class="label-sm" style="margin-bottom: 1.5rem; color: var(--color-cobalt);">The operating plane</div>
-          <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 1.25rem;">
-            Primitives make transparency portable.<br />
-            Console makes it operable.
-          </h2>
-          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.5rem;">
+          <Eyebrow accent="cobalt">The operating plane</Eyebrow>
+          <h2 class="display-md plane__title">Primitives make transparency portable.<br />Console makes it operable.</h2>
+          <p class="body plane__copy">
             The contract is simple: each product publishes a
-            <strong style="color: var(--color-chalk);">console projection</strong> —
+            <strong class="strong">console projection</strong> —
             a read model shaped for display and action — backed by an
             append-only event stream. Console composes those projections and
             links related objects across products by their own IDs.
           </p>
-          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin: 0;">
+          <p class="body plane__copy plane__copy--last">
             Projections stay product-owned; Console aggregates, correlates,
             filters, and routes — it never becomes a second source of truth.
             Today this runs through dependency-free producer helpers and local
@@ -222,43 +134,32 @@ import Terminal from '@/components/Terminal.astro';
         </div>
 
         <Terminal title="producers → console">
-          <p><span style="color: var(--color-gold);">Surface</span>      claim status, evidence, freshness</p>
-          <p><span style="color: var(--color-gold-2);">Survey</span>       fact-review records, candidates, decisions</p>
-          <p><span style="color: var(--color-cobalt-2);">Flow</span>         runs, gates, transitions, exceptions</p>
-          <p><span style="color: var(--color-green);">Veritas</span>      repo readiness, evidence gaps</p>
-          <p><span style="color: var(--color-chalk-2);">Flow Agents</span>  session + continuation state</p>
+          {producers.map(({ product, detail, accent }) => (
+            <p><span data-accent={accent}>{product}</span>  {detail}</p>
+          ))}
           <br />
           <p class="muted">  each emits → console projection + event stream</p>
-          <p style="color: var(--color-chalk-3);">  ───────────────────────────────</p>
-          <p><span style="color: var(--color-cobalt);">Kontour Console</span>  one correlated operating plane</p>
+          <p class="rule">  ───────────────────────────────</p>
+          <p><span data-accent="cobalt">Kontour Console</span>  one correlated operating plane</p>
         </Terminal>
-      </div>
+      </Split>
     </div>
-  </section>
+  </Section>
 
-  <!-- ──────────────────────────────────────────────────────
-       Unified work queue
-  ────────────────────────────────────────────────────────── -->
-  <section style="padding: 6rem var(--spacing-page);">
-    <div style="max-width: 1280px; margin: 0 auto;">
-      <div class="stack-mobile" style="
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 4rem;
-        align-items: center;
-      ">
+  <!-- Unified work queue -->
+  <Section size="lg">
+    <div class="container">
+      <Split ratio="1-1" gap="md" align="center">
         <div>
-          <div class="label-sm" style="margin-bottom: 1.5rem; color: var(--color-cobalt);">Unified work queue</div>
-          <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 1.25rem;">
-            Everything waiting on a human,<br />in one queue.
-          </h2>
-          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.5rem;">
+          <Eyebrow accent="cobalt">Unified work queue</Eyebrow>
+          <h2 class="display-md queue__title">Everything waiting on a human,<br />in one queue.</h2>
+          <p class="body queue__copy">
             Stale claims, evidence gaps, open Flow gates, Survey review items,
             reverification requests, and Veritas readiness gaps usually live in
             five different tools. The queue is the design goal: bring them into
             one suite-level view so nothing waits unseen.
           </p>
-          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin: 0;">
+          <p class="body queue__copy queue__copy--last">
             Each item keeps a link back to the product that owns it — and the
             product that owns the action stays the authority that runs it. The
             view below is illustrative; cross-product feeds are still being wired
@@ -271,157 +172,157 @@ import Terminal from '@/components/Terminal.astro';
           <p class="muted">            → request reverification</p>
           <p class="info">  open      flow · gate-provider-evidence</p>
           <p class="muted">            → review evidence, then resume run</p>
-          <p style="color: var(--color-gold-2);">  review    survey · review-provider-118-npi</p>
+          <p><span data-accent="gold-2">  review    survey · review-provider-118-npi</span></p>
           <p class="muted">            → approve or send back a candidate</p>
           <p class="pass">  ready     veritas · change-search-filters</p>
           <p class="muted">            → merge with reduced review</p>
           <br />
-          <p style="color: var(--color-chalk-3);">  ───────────────────────────────</p>
+          <p class="rule">  ───────────────────────────────</p>
           <p class="muted">  actions routed to the owning product</p>
         </Terminal>
-      </div>
+      </Split>
     </div>
-  </section>
+  </Section>
 
-  <!-- ──────────────────────────────────────────────────────
-       Boundary
-  ────────────────────────────────────────────────────────── -->
-  <section style="
-    padding: 5rem var(--spacing-page);
-    border-top: 1px solid var(--color-edge);
-    border-bottom: 1px solid var(--color-edge);
-    background: var(--color-ink-1);
-  ">
-    <div style="max-width: 1280px; margin: 0 auto;">
-      <div class="label-sm" style="margin-bottom: 1rem;">Operable, not authoritative</div>
-      <p style="
-        color: var(--color-chalk-3);
-        font-size: 0.9rem;
-        line-height: 1.65;
-        max-width: 700px;
-        margin-bottom: 2.5rem;
-      ">
+  <!-- Boundary -->
+  <Section tone="alt" borderTop borderBottom>
+    <div class="container">
+      <Eyebrow gap="sm">Operable, not authoritative</Eyebrow>
+      <p class="fine boundary-note">
         Console is a management plane, not a product kernel. It can host
         collaboration and monitoring, but it must not own the core semantics of
         the products it observes — and primitives never have to depend on it.
       </p>
 
-      <div class="stack-mobile" style="
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1.5rem;
-      ">
-        {[
-          {
-            title: 'Console owns',
-            color: 'var(--color-cobalt)',
-            items: ['Suite navigation & workspace structure', 'Cross-product aggregation & correlation', 'Unified queues & action routing', 'Identity links across product objects', 'Extension composition across consoles'],
-          },
-          {
-            title: 'Console does not own',
-            color: 'var(--color-chalk-2)',
-            items: ['Surface trust derivation', 'Flow gate & transition semantics', 'Survey fact-review semantics', 'Veritas governance policy', 'Any hosted-infrastructure requirement'],
-          },
-          {
-            title: 'Primitives stay portable',
-            color: 'var(--color-gold)',
-            items: ['Adopt Surface, Flow, Survey, or Veritas alone', 'Event streams are the durable contract', 'Projections are cached, product-owned views', 'Actions execute through the owning product', 'No `.kontour` dependency for verticals'],
-          },
-        ].map(({ title, color, items }) => (
-          <div key={title} class="card" style="padding: 1.75rem; position: relative; overflow: hidden;">
-            <div style={`
-              position: absolute;
-              top: 0;
-              left: 0;
-              right: 0;
-              height: 2px;
-              background: linear-gradient(90deg, ${color}, transparent);
-            `}></div>
-            <h3 style={`
-              font-family: var(--font-display);
-              font-size: 1.25rem;
-              font-weight: 400;
-              color: var(--color-chalk);
-              margin-bottom: 1.25rem;
-              letter-spacing: -0.01em;
-            `}>{title}</h3>
-            <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.6rem;">
+      <Grid cols={3} gap="lg">
+        {boundary.map(({ title, accent, items }) => (
+          <Card accent={accent} pad="md">
+            <h3 class="boundary__title">{title}</h3>
+            <ul class="def-list">
               {items.map(item => (
-                <li key={item} style="display: flex; gap: 0.6rem; align-items: flex-start;">
-                  <span style={`color: ${color}; font-family: var(--font-mono); font-size: 0.7rem; padding-top: 2px;`}>—</span>
-                  <span style="font-size: 0.82rem; color: var(--color-chalk-2); line-height: 1.55;">{item}</span>
+                <li class="def-item">
+                  <span class="def-item__dash">—</span>
+                  <span class="def-item__text">{item}</span>
                 </li>
               ))}
             </ul>
-          </div>
+          </Card>
         ))}
-      </div>
+      </Grid>
     </div>
-  </section>
+  </Section>
 
-  <!-- ──────────────────────────────────────────────────────
-       Contracts first
-  ────────────────────────────────────────────────────────── -->
-  <section style="padding: 6rem var(--spacing-page);">
-    <div style="max-width: 1280px; margin: 0 auto;">
-      <div class="stack-mobile" style="
-        display: grid;
-        grid-template-columns: 1fr 1.15fr;
-        gap: 4rem;
-        align-items: center;
-      ">
+  <!-- Contracts first -->
+  <Section size="lg">
+    <div class="container">
+      <Split ratio="1-1.15" gap="md" align="center">
         <div>
-          <div class="label-sm" style="margin-bottom: 1.5rem; color: var(--color-cobalt);">Where it is today</div>
-          <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 1.25rem;">
-            Contracts first.<br />Shared UI later.
-          </h2>
-          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.5rem;">
+          <Eyebrow accent="cobalt">Where it is today</Eyebrow>
+          <h2 class="display-md cf__title">Contracts first.<br />Shared UI later.</h2>
+          <p class="body cf__copy">
             Console starts with the contracts that make a suite plane possible —
             event streams, projection boundaries, identity links, and a queue
             and action vocabulary. A shared shell comes after Surface, Flow, and
             Survey consoles prove which pieces are truly common.
           </p>
-          <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.75; margin: 0;">
+          <p class="body cf__copy cf__copy--last">
             Today the repo ships a local read-only fixture inspector, a
             loopback event hub, and a local UI that renders live suite state over
             SSE — backed by dependency-free producer helpers that write
-            control-plane records under a local <code style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-cobalt);">.kontour</code> root.
+            control-plane records under a local <code class="codechip" data-accent="cobalt">.kontour</code> root.
             Cross-product wiring is still example-stage. No hosted service. No login.
           </p>
         </div>
 
         <Terminal title="local-producer.js">
-<pre style="margin: 0; white-space: pre; overflow-x: auto; font-family: var(--font-mono); font-size: 0.72rem; line-height: 1.7; color: var(--color-chalk-2);"><span style="color: var(--color-chalk-3);">// write control-plane records locally — no network</span>
-<span style="color: var(--color-cobalt);">const</span> {'{'} KontourEmitter, LocalFileSink {'}'} =
-  <span style="color: var(--color-cobalt-2);">require</span>(<span style="color: var(--color-green);">"./src/console-foundation"</span>);
+<pre class="code code--cobalt"><span class="t-com">// write control-plane records locally — no network</span>
+<span class="t-kw">const</span> {'{'} KontourEmitter, LocalFileSink {'}'} =
+  <span class="t-fn">require</span>(<span class="t-str">"./src/console-foundation"</span>);
 
-<span style="color: var(--color-cobalt);">const</span> emitter = <span style="color: var(--color-cobalt);">new</span> <span style="color: var(--color-cobalt-2);">KontourEmitter</span>({'{'}
-  sink: <span style="color: var(--color-cobalt);">new</span> <span style="color: var(--color-cobalt-2);">LocalFileSink</span>({'{'} root: <span style="color: var(--color-green);">".kontour"</span> {'}'}),
+<span class="t-kw">const</span> emitter = <span class="t-kw">new</span> <span class="t-fn">KontourEmitter</span>({'{'}
+  sink: <span class="t-kw">new</span> <span class="t-fn">LocalFileSink</span>({'{'} root: <span class="t-str">".kontour"</span> {'}'}),
 {'}'});
 
-<span style="color: var(--color-cobalt);">await</span> emitter.<span style="color: var(--color-cobalt-2);">emitEvent</span>({'{'}
-  type: <span style="color: var(--color-green);">"claim.updated"</span>,
-  producer: {'{'} product: <span style="color: var(--color-green);">"surface"</span> {'}'},
-  subject: {'{'} kind: <span style="color: var(--color-green);">"claim"</span>, id: <span style="color: var(--color-green);">"claim-1"</span> {'}'},
+<span class="t-kw">await</span> emitter.<span class="t-fn">emitEvent</span>({'{'}
+  type: <span class="t-str">"claim.updated"</span>,
+  producer: {'{'} product: <span class="t-str">"surface"</span> {'}'},
+  subject: {'{'} kind: <span class="t-str">"claim"</span>, id: <span class="t-str">"claim-1"</span> {'}'},
 {'}'});
 
-<span style="color: var(--color-chalk-3);">// → .kontour/events/ + .kontour/projections/</span></pre>
+<span class="t-com">// → .kontour/events/ + .kontour/projections/</span></pre>
         </Terminal>
-      </div>
+      </Split>
     </div>
-  </section>
+  </Section>
 
-  <!-- ──────────────────────────────────────────────────────
-       Product line footer note
-  ────────────────────────────────────────────────────────── -->
-  <section style="padding: 3rem var(--spacing-page) 0; border-top: 1px solid var(--color-edge);">
-    <div style="max-width: 1280px; margin: 0 auto;">
-      <p style="color: var(--color-chalk-3); font-size: 0.95rem; line-height: 1.7; font-style: italic; margin: 0;">
+  <Section size="note" borderTop>
+    <div class="container">
+      <p class="closing-note">
         Kontour primitives make transparency portable. Kontour Console makes
         transparency operable — you can adopt any product without it.
       </p>
     </div>
-  </section>
+  </Section>
 
   <Footer active="console" />
 </Layout>
+
+<style>
+  .badge-preview {
+    border-color: rgba(90, 144, 200, 0.3);
+    background: rgba(90, 144, 200, 0.08);
+    color: var(--color-cobalt);
+  }
+
+  .hero-copy--wide {
+    max-width: 500px;
+  }
+
+  .ans-title {
+    margin-bottom: 1rem;
+  }
+  .ans-note {
+    max-width: 640px;
+    margin-bottom: 2.5rem;
+  }
+
+  .plane__title,
+  .queue__title,
+  .cf__title {
+    margin-bottom: 1.25rem;
+  }
+  .plane__copy,
+  .queue__copy,
+  .cf__copy {
+    margin-bottom: 1.5rem;
+  }
+  .plane__copy--last,
+  .queue__copy--last,
+  .cf__copy--last {
+    margin-bottom: 0;
+  }
+  .strong {
+    color: var(--color-chalk);
+  }
+
+  .boundary-note {
+    max-width: 700px;
+    margin-bottom: 2.5rem;
+  }
+  .boundary__title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--color-chalk);
+    margin-bottom: 1.25rem;
+    letter-spacing: -0.01em;
+  }
+
+  .closing-note {
+    color: var(--color-chalk-3);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    font-style: italic;
+    margin: 0;
+  }
+</style>

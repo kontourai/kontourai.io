@@ -3,46 +3,19 @@ import Layout from '@/layouts/Layout.astro';
 import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
 import Terminal from '@/components/Terminal.astro';
----
+import Section from '@/components/Section.astro';
+import Card from '@/components/Card.astro';
+import type { Accent } from '@/lib/theme';
 
-<Layout
-  title="Kontour AI Preview — Internal review"
-  description="Internal review page for the Kontour AI product line."
->
-  <Nav active="preview" />
-
-  <section class="contour-bg" style="padding: 8rem var(--spacing-page) 4rem; border-bottom: 1px solid var(--color-edge);">
-    <div style="max-width: 1280px; margin: 0 auto;">
-      <div class="label-sm" style="margin-bottom: 1rem; color: var(--color-gold);">INTERNAL REVIEW — UNLINKED</div>
-      <h1 class="display-lg" style="color: var(--color-chalk); margin-bottom: 1rem;">Kontour AI shows the work behind AI.</h1>
-      <p style="color: var(--color-chalk-2); font-size: 1rem; line-height: 1.75; max-width: 760px; margin-bottom: 2rem;">
-        This page is for design partners and reviewers. It's not linked from
-        the public site. Content here may include unshipped features and
-        timeline estimates that aren't yet public.
-      </p>
-      <p style="color: var(--color-chalk-3); font-size: 0.95rem; line-height: 1.7; max-width: 760px;">
-        Kontour AI shows the work behind AI. Agents now write code, run
-        processes, and make claims faster than people can review them. Our
-        products give humans and other agents a shared way to see what was
-        claimed, what supports it, which gates the work passed, and what's
-        still uncertain — so anyone can decide whether the work deserves
-        trust before acting on it. The same shape works for any product that
-        needs to show its work, not just AI ones.
-      </p>
-    </div>
-  </section>
-
-  <section style="padding: 5rem var(--spacing-page);">
-    <div style="max-width: 1280px; margin: 0 auto; display: flex; flex-direction: column; gap: 3rem;">
-      {[
-        {
-          name: 'Surface',
-          badge: 'v0.5.0',
-          color: 'var(--color-gold)',
-          one: "The shared foundation under Kontour's products. One shape for claims, evidence, freshness, and gaps so the same trust state can be read by a person, an agent, or another system.",
-          now: 'Current package: @kontourai/surface v0.5.0.',
-          coming: 'Support for external integrations; expanded Producer Extension API.',
-          demo: `$ npx surface report --format summary
+const items: { name: string; badge: string; accent: Accent; one: string; now: string; coming: string; demo: string }[] = [
+  {
+    name: 'Surface',
+    badge: 'v0.5.1',
+    accent: 'gold',
+    one: "The shared foundation under Kontour's products. One shape for claims, evidence, freshness, and gaps so the same trust state can be read by a person, an agent, or another system.",
+    now: 'Current package: @kontourai/surface v0.5.1.',
+    coming: 'Support for external integrations; expanded Producer Extension API.',
+    demo: `$ npx surface report --format summary
 
 Kontour Surface trust snapshot surface-1777090239260
 Source: kontour-surface-validation-fixtures
@@ -50,15 +23,15 @@ Source: kontour-surface-validation-fixtures
 Claims: 4 (unknown: 1, verified: 2, stale: 1)
 High-impact unsupported: none
 Transparency gaps: 3`,
-        },
-        {
-          name: 'Survey',
-          badge: 'v0.4.0',
-          color: 'var(--color-gold-2)',
-          one: 'Producer-side trust for Surface. Survey turns sources, extractions, candidates, and reviews into Surface-ready claims with provenance attached — without absorbing producer domain policy.',
-          now: 'Current package: @kontourai/survey v0.4.0. Proof-stage library, not an ingestion platform.',
-          coming: 'Resource-shaped ClaimReviewRecord exports; structured derivation edges; first vertical adapters.',
-          demo: `import { buildSurveyTrustInput, SurveyInputBuilder } from "@kontourai/survey";
+  },
+  {
+    name: 'Survey',
+    badge: 'v0.4.4',
+    accent: 'gold-2',
+    one: 'Producer-side trust for Surface. Survey turns sources, extractions, candidates, and reviews into Surface-ready claims with provenance attached — without absorbing producer domain policy.',
+    now: 'Current package: @kontourai/survey v0.4.4. Proof-stage library, not an ingestion platform.',
+    coming: 'Resource-shaped ClaimReviewRecord exports; structured derivation edges; first vertical adapters.',
+    demo: `import { buildSurveyTrustInput, SurveyInputBuilder } from "@kontourai/survey";
 import { buildTrustReport } from "@kontourai/surface";
 
 const input = new SurveyInputBuilder({ source: "crawler:run-1" })
@@ -69,15 +42,15 @@ const report = buildTrustReport(buildSurveyTrustInput(input));
 
 // source -> extraction -> candidate -> review -> claim
 // projected into a Surface TrustInput`,
-        },
-        {
-          name: 'Flow',
-          badge: 'v0.1.0',
-          color: 'var(--color-cobalt-2)',
-          one: 'Process transparency for any required-path work. Flow shows why a process was allowed to move forward — gate by gate, with the evidence behind each transition.',
-          now: 'Current package: @kontourai/flow v0.1.0.',
-          coming: 'v0.1 CLI; evidence adapters for command/file/CI/Veritas/human/trace.',
-          demo: `$ flow status run.dev-1847 --format summary
+  },
+  {
+    name: 'Flow',
+    badge: 'v0.1.0',
+    accent: 'cobalt-2',
+    one: 'Process transparency for any required-path work. Flow shows why a process was allowed to move forward — gate by gate, with the evidence behind each transition.',
+    now: 'Current package: @kontourai/flow v0.1.0. Local CLI plus a loopback Flow Console.',
+    coming: 'Evidence adapters for command/file/CI/Veritas/human/trace; richer console views.',
+    demo: `$ flow status run.dev-1847 --format summary
 
 flow run: agent-dev-flow / feature-search-filters
 current step: verify
@@ -90,15 +63,15 @@ BLOCK verify gate: browser evidence missing
 next action: run browser check before publish
 continuation: resume from verify, not chat memory
 report: .flow/runs/run.dev-1847/report.md`,
-        },
-        {
-          name: 'Veritas',
-          badge: 'v0.4.0',
-          color: 'var(--color-green)',
-          one: "Merge autonomy for AI-authored code. Veritas turns your repo's standards into evidence-backed readiness reports agents and reviewers can rely on.",
-          now: 'Current package: @kontourai/veritas v0.4.0.',
-          coming: 'Repo Conformance public docs; Standards Recommendations workflow.',
-          demo: `$ npx veritas readiness --working-tree --format feedback
+  },
+  {
+    name: 'Veritas',
+    badge: 'v0.4.0',
+    accent: 'green',
+    one: "Merge autonomy for AI-authored code. Veritas turns your repo's standards into evidence-backed readiness reports agents and reviewers can rely on.",
+    now: 'Current package: @kontourai/veritas v0.4.0.',
+    coming: 'Repo Conformance public docs; Standards Recommendations workflow.',
+    demo: `$ npx veritas readiness --working-tree --format feedback
 
 veritas 0.4.0 — readiness
 repo standards: loaded
@@ -116,30 +89,30 @@ readiness coverage:
   missing: 0
 
 report: .veritas/evidence/readiness-local.json`,
-        },
-        {
-          name: 'Flow Agents',
-          badge: 'coming soon',
-          color: 'var(--color-chalk-2)',
-          one: 'Keep your coding agent on the required path across Claude Code, Codex, Kiro, and GitHub Actions. Flow Agents brings Flow-backed workflows and Kontour evidence into the agent tools you already use.',
-          now: 'In active development; public alpha expected soon.',
-          coming: 'Public alpha bundles for Claude Code, Codex, Kiro; work-mode library (Build / Understand / Capture / Prepare / Follow Up).',
-          demo: `$ flow-agents status
+  },
+  {
+    name: 'Flow Agents',
+    badge: 'early access',
+    accent: 'chalk-2',
+    one: 'Keep your coding agent on the required path across Claude Code, Codex, Kiro, and GitHub Actions. Flow Agents brings Flow-backed workflows and Kontour evidence into the agent tools you already use.',
+    now: 'Installable today from GitHub via install.sh; pre-1.0, GitHub-only (not yet on npm).',
+    coming: 'npm distribution; broader work-mode library (Build / Understand / Capture / Prepare / Follow Up); framework adapters.',
+    demo: `$ bash install.sh ~/dev/my-project
 
-distribution: upcoming public alpha
+distribution: GitHub (install.sh), pre-1.0
 runtimes: Claude Code, Codex, Kiro, GitHub Actions
-workflow state: Flow-backed
-code evidence: Veritas readiness
+workflow state: Flow-backed sidecars
+code evidence: optional Veritas readiness
 repo: https://github.com/kontourai/flow-agents`,
-        },
-        {
-          name: 'Console',
-          badge: 'early preview',
-          color: 'var(--color-cobalt)',
-          one: 'The suite-level operating plane. Console brings claim status, process state, proof, queues, decisions, freshness, and next actions from every Kontour product into one place — without owning their semantics.',
-          now: 'Early preview. Portable contracts plus a local, read-only fixture inspector — not an app or hosted service. Primitives work without it.',
-          coming: 'Shared console shell after Surface / Flow / Survey consoles converge; unified work queue and suite-level action routing.',
-          demo: `$ npm run inspect:fixtures
+  },
+  {
+    name: 'Console',
+    badge: 'early preview',
+    accent: 'cobalt',
+    one: 'The suite-level operating plane. Console brings claim status, process state, proof, queues, decisions, freshness, and next actions from every Kontour product into one place — without owning their semantics.',
+    now: 'Early preview. Portable contracts, a local read-only fixture inspector, and a local UI over a loopback SSE hub — not a hosted service. Primitives work without it.',
+    coming: 'Shared console shell after Surface / Flow / Survey consoles converge; unified work queue and suite-level action routing.',
+    demo: `$ npm run inspect:fixtures
 
 Kontour Console fixture inspection
 Event streams: 3   Projection snapshots: 2
@@ -151,39 +124,142 @@ review  review-provider-118       approved
 
 Validation: errors=0
 actions shown as inert descriptors only`,
-        },
-      ].map(({ name, badge, color, one, now, coming, demo }) => (
-        <article class="card" style="padding: 2rem; position: relative; overflow: hidden;">
-          <div style={`
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, ${color}, transparent);
-          `}></div>
-          <div class="stack-mobile" style="display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 2rem;">
-            <div>
-              <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
-                <span class="trust-badge trust-badge--proposed">{badge}</span>
-                <span class="label-sm" style={`color: ${color};`}>{name}</span>
-              </div>
-              <h2 class="display-md" style="color: var(--color-chalk); margin-bottom: 1rem;">{name}</h2>
-              <p style="color: var(--color-chalk-2); font-size: 0.95rem; line-height: 1.7;">{one}</p>
-              <div style="margin-top: 1.5rem; padding: 1rem; background: var(--color-ink-1); border: 1px solid var(--color-edge); border-radius: 4px;">
-                <div class="label-sm" style="margin-bottom: 0.7rem;">What's shipping now / what's coming</div>
-                <p style="color: var(--color-chalk-3); font-size: 0.82rem; line-height: 1.6; margin: 0 0 0.6rem;">{now}</p>
-                <p style="color: var(--color-chalk-3); font-size: 0.82rem; line-height: 1.6; margin: 0;">Coming: {coming}</p>
-              </div>
-            </div>
-            <Terminal title={`${name.toLowerCase()} demo`}>
-              <pre style="margin: 0; white-space: pre-wrap; font-family: var(--font-mono); font-size: 0.75rem; line-height: 1.6; color: var(--color-chalk-2);">{demo}</pre>
-            </Terminal>
-          </div>
-        </article>
-      ))}
+  },
+];
+---
+
+<Layout
+  title="Kontour AI Preview — Internal review"
+  description="Internal review page for the Kontour AI product line."
+>
+  <Nav active="preview" />
+
+  <section class="contour-bg preview-hero">
+    <div class="container">
+      <p class="label-sm preview-hero__kicker">INTERNAL REVIEW — UNLINKED</p>
+      <h1 class="display-lg preview-hero__title">Kontour AI shows the work behind AI.</h1>
+      <p class="preview-hero__lede">
+        This page is for design partners and reviewers. It's not linked from
+        the public site. Content here may include unshipped features and
+        timeline estimates that aren't yet public.
+      </p>
+      <p class="preview-hero__body">
+        Kontour AI shows the work behind AI. Agents now write code, run
+        processes, and make claims faster than people can review them. Our
+        products give humans and other agents a shared way to see what was
+        claimed, what supports it, which gates the work passed, and what's
+        still uncertain — so anyone can decide whether the work deserves
+        trust before acting on it. The same shape works for any product that
+        needs to show its work, not just AI ones.
+      </p>
     </div>
   </section>
 
+  <Section>
+    <div class="container preview-list">
+      {items.map(({ name, badge, accent, one, now, coming, demo }) => (
+        <Card accent={accent} bar="top" pad="lg">
+          <div class="preview-split stack-mobile">
+            <div>
+              <div class="preview-card__head">
+                <span class="trust-badge trust-badge--proposed">{badge}</span>
+                <span class="label-sm pname">{name}</span>
+              </div>
+              <h2 class="display-md preview-card__title">{name}</h2>
+              <p class="body">{one}</p>
+              <div class="preview-meta">
+                <p class="label-sm preview-meta__label">What's shipping now / what's coming</p>
+                <p class="preview-meta__text">{now}</p>
+                <p class="preview-meta__text preview-meta__text--last">Coming: {coming}</p>
+              </div>
+            </div>
+            <Terminal title={`${name.toLowerCase()} demo`}>
+              <pre class="pv-demo">{demo}</pre>
+            </Terminal>
+          </div>
+        </Card>
+      ))}
+    </div>
+  </Section>
+
   <Footer active="preview" />
 </Layout>
+
+<style>
+  .preview-hero {
+    padding: 8rem var(--spacing-page) 4rem;
+    border-bottom: 1px solid var(--color-edge);
+    position: relative;
+    overflow: hidden;
+  }
+  .preview-hero__kicker {
+    color: var(--color-gold);
+    margin: 0 0 1rem;
+  }
+  .preview-hero__title {
+    margin-bottom: 1rem;
+  }
+  .preview-hero__lede {
+    color: var(--color-chalk-2);
+    font-size: 1rem;
+    line-height: 1.75;
+    max-width: 760px;
+    margin-bottom: 2rem;
+  }
+  .preview-hero__body {
+    color: var(--color-chalk-3);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    max-width: 760px;
+  }
+
+  .preview-list {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+  .preview-split {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 2rem;
+  }
+  .preview-card__head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  .pname {
+    color: var(--accent);
+  }
+  .preview-card__title {
+    margin-bottom: 1rem;
+  }
+  .preview-meta {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: var(--color-ink-1);
+    border: 1px solid var(--color-edge);
+    border-radius: 4px;
+  }
+  .preview-meta__label {
+    margin-bottom: 0.7rem;
+  }
+  .preview-meta__text {
+    color: var(--color-chalk-3);
+    font-size: 0.82rem;
+    line-height: 1.6;
+    margin: 0 0 0.6rem;
+  }
+  .preview-meta__text--last {
+    margin-bottom: 0;
+  }
+  .pv-demo {
+    margin: 0;
+    white-space: pre-wrap;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 1.6;
+    color: var(--color-chalk-2);
+  }
+</style>
