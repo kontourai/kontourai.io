@@ -11,14 +11,13 @@ import Split from '@/components/Split.astro';
 import Subscribe from '@/components/Subscribe.astro';
 import type { Accent } from '@/lib/theme';
 
-// The hero "trust snapshot" — a concrete, illustrative view of the question the
-// whole suite answers: what holds up, what doesn't, and what to do before acting.
-const snapshot: { kind: string; name: string; status: string; badge: string; pulse?: boolean }[] = [
-  { kind: 'Claim', name: 'Provider listing is current', status: 'verified', badge: 'trust-badge--verified' },
-  { kind: 'Claim', name: 'Pricing reflects latest source', status: 'stale', badge: 'trust-badge--stale', pulse: true },
-  { kind: 'Gate', name: 'Tests and checks passed', status: 'verified', badge: 'trust-badge--verified' },
-  { kind: 'Gate', name: 'Human review of exceptions', status: 'proposed', badge: 'trust-badge--proposed' },
-  { kind: 'Readiness', name: 'Safe to merge with reduced review', status: 'verified', badge: 'trust-badge--verified' },
+// The hero "trust snapshot" — what an end user actually sees before relying on
+// an answer: each claim, its current status, and when it was last checked.
+const snapshot: { name: string; status: string; badge: string; checked: string; pulse?: boolean }[] = [
+  { name: 'Listing is available', status: 'verified', badge: 'trust-badge--verified', checked: 'checked 2m ago' },
+  { name: 'License is active', status: 'verified', badge: 'trust-badge--verified', checked: 'checked 1h ago' },
+  { name: 'Price matches the source', status: 'stale', badge: 'trust-badge--stale', checked: 'checked 9d ago', pulse: true },
+  { name: 'Identity confirmed', status: 'unverified', badge: 'trust-badge--unknown', checked: 'not checked yet' },
 ];
 
 // Off-the-shelf products: built on the primitives, usable today.
@@ -96,13 +95,13 @@ const primitives: { name: string; accent: Accent; body: string }[] = [
         <div class="snapshot card-elevated animate-fade-in delay-300" role="group" aria-label="Example Kontour trust snapshot">
           <div class="snapshot__bar">
             <span class="snapshot__title">trust snapshot</span>
-            <span class="snapshot__meta">evidence-backed · point in time</span>
+            <span class="snapshot__meta">as of just now</span>
           </div>
           <div class="snapshot__rows">
-            {snapshot.map(({ kind, name, status, badge, pulse }) => (
+            {snapshot.map(({ name, status, badge, checked, pulse }) => (
               <div class="snapshot__row">
-                <span class="snapshot__kind">{kind}</span>
                 <span class="snapshot__name">{name}</span>
+                <span class="snapshot__checked">{checked}</span>
                 <span class={`trust-badge ${badge}`}>
                   <span class="snapshot__dot" data-pulse={pulse}></span>
                   {status}
@@ -111,8 +110,8 @@ const primitives: { name: string; accent: Accent; body: string }[] = [
             ))}
           </div>
           <div class="snapshot__verdict">
-            <span class="snapshot__verdict-key">verdict</span>
-            <span class="snapshot__verdict-val">Evidence-backed · clear 2 gaps before anyone acts</span>
+            <span class="snapshot__verdict-key">now</span>
+            <span class="snapshot__verdict-val">Current — recheck 1 claim before you rely on it</span>
           </div>
         </div>
       </Split>
@@ -159,13 +158,13 @@ const primitives: { name: string; accent: Accent; body: string }[] = [
       <Card accent="cobalt" bar="top" pad="lg" class="console-row">
         <div class="console-row__inner">
           <div>
-            <div class="feature-label" data-accent="cobalt">The operating plane</div>
+            <div class="feature-label" data-accent="cobalt">Over the suite</div>
             <h3 class="product-card__name">Console</h3>
           </div>
           <p class="console-row__body">
-            Claim status, process state, proof, queues, decisions, and next
-            actions across the whole suite in one place — without owning any
-            product's semantics.
+            Console sits above the primitives — one place to visualize and manage
+            claim status, process state, proof, queues, decisions, and next actions
+            across every product, without owning their semantics.
           </p>
         </div>
       </Card>
@@ -262,23 +261,23 @@ const primitives: { name: string; accent: Accent; body: string }[] = [
   }
   .snapshot__row {
     display: grid;
-    grid-template-columns: 5.5rem 1fr auto;
-    gap: 0.75rem;
+    grid-template-columns: 1fr auto auto;
+    gap: 0.75rem 1rem;
     align-items: center;
     padding: 0.85rem 1.25rem;
     border-bottom: 1px solid var(--color-edge);
-  }
-  .snapshot__kind {
-    font-family: var(--font-mono);
-    font-size: 0.62rem;
-    text-transform: uppercase;
-    letter-spacing: 0;
-    color: var(--color-chalk-3);
   }
   .snapshot__name {
     font-size: 0.82rem;
     color: var(--color-chalk-2);
     line-height: 1.4;
+  }
+  .snapshot__checked {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0;
+    color: var(--color-chalk-3);
+    white-space: nowrap;
   }
   .snapshot__dot {
     width: 5px;
@@ -314,7 +313,7 @@ const primitives: { name: string; accent: Accent; body: string }[] = [
     .snapshot__row {
       grid-template-columns: 1fr auto;
     }
-    .snapshot__kind {
+    .snapshot__checked {
       display: none;
     }
   }

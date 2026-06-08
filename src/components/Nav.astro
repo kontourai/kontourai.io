@@ -1,22 +1,15 @@
 ---
-import type { Accent } from '@/lib/theme';
+import { products, type ProductKey } from '@/lib/products';
 
-type NavKey = 'home' | 'preview' | 'veritas' | 'surface' | 'survey' | 'flow' | 'flow-agents' | 'console';
+type NavKey = 'home' | 'preview' | ProductKey;
 
 interface Props {
   active?: NavKey;
+  /** Hide product links regardless of active page (teaser pages like home/early access). */
+  teaser?: boolean;
 }
-const { active } = Astro.props;
-
-// Product nav links, in display order, each with its accent when active.
-const links: { href: string; label: string; key: NavKey; accent: Accent }[] = [
-  { href: '/veritas', label: 'veritas', key: 'veritas', accent: 'green' },
-  { href: '/flow', label: 'flow', key: 'flow', accent: 'cobalt-2' },
-  { href: '/flow-agents', label: 'Flow Agents', key: 'flow-agents', accent: 'chalk-2' },
-  { href: '/surface', label: 'surface', key: 'surface', accent: 'gold' },
-  { href: '/survey', label: 'survey', key: 'survey', accent: 'gold-2' },
-  { href: '/console', label: 'console', key: 'console', accent: 'cobalt' },
-];
+const { active, teaser } = Astro.props;
+const hideProducts = teaser || active === 'home';
 ---
 
 <header class="nav">
@@ -41,9 +34,9 @@ const links: { href: string; label: string; key: NavKey; accent: Accent }[] = [
 
       <!-- Nav links -->
       <div class="nav-links nav__links">
-        {active !== 'home' && (
+        {!hideProducts && (
           <>
-            {links.map(({ href, label, key, accent }) => (
+            {products.map(({ href, label, key, accent }) => (
               <a
                 href={href}
                 class="nav-link"

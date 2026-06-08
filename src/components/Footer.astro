@@ -1,23 +1,24 @@
 ---
+import { products, type ProductKey } from '@/lib/products';
+
 interface Props {
-  active?: 'home' | 'preview' | 'veritas' | 'surface' | 'survey' | 'flow' | 'flow-agents' | 'console';
+  active?: 'home' | 'preview' | ProductKey;
+  /** Hide product links regardless of active page (teaser pages like home/early access). */
+  teaser?: boolean;
 }
 
-const { active } = Astro.props;
-const isPublicHome = active === 'home';
-const links = isPublicHome
+const { active, teaser } = Astro.props;
+const teaserNav = teaser || active === 'home';
+
+const github = { href: 'https://github.com/kontourai', label: 'GitHub', external: true, event: 'footer-github' };
+const links = teaserNav
   ? [
-      { href: 'https://github.com/kontourai', label: 'GitHub', external: true, event: 'footer-github' },
+      github,
       { href: '/early-access/', label: 'Early access', event: 'footer-contact' },
     ]
   : [
-      { href: '/surface', label: 'Surface', event: 'footer-surface' },
-      { href: '/survey', label: 'Survey', event: 'footer-survey' },
-      { href: '/flow', label: 'Flow', event: 'footer-flow' },
-      { href: '/flow-agents', label: 'Flow Agents', event: 'footer-flow-agents' },
-      { href: '/veritas', label: 'Veritas', event: 'footer-veritas' },
-      { href: '/console', label: 'Console', event: 'footer-console' },
-      { href: 'https://github.com/kontourai', label: 'GitHub', external: true, event: 'footer-github' },
+      ...products.map(({ href, label, key }) => ({ href, label, event: `footer-${key}` })),
+      github,
     ];
 ---
 

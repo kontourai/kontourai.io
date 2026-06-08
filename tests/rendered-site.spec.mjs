@@ -57,6 +57,13 @@ test("early access page gives static contact paths", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "Agent workflow team" })).toBeVisible();
   await expect(page.getByText("One concrete workflow is enough.")).toBeVisible();
   await expect(page.locator('[data-umami-event="early-access-hero-email"]')).toHaveAttribute("href", /mailto:hello@kontourai\.io/);
+
+  // Teaser: product links are hidden here too (nav, footer, and inline)
+  await expect(page.locator('[data-umami-event="nav-veritas"]')).toHaveCount(0);
+  await expect(page.locator('[data-umami-event="footer-surface"]')).toHaveCount(0);
+  await expect(
+    page.locator('a[href="/surface"], a[href="/survey"], a[href="/flow"], a[href="/flow-agents"], a[href="/veritas"], a[href="/console"]')
+  ).toHaveCount(0);
 });
 
 test("default social metadata includes canonical and share image", async ({ page }) => {
