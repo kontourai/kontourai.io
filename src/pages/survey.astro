@@ -50,7 +50,7 @@ const helpers = [
       <Split ratio="1-1" gap="lg" align="center">
         <div>
           <div class="hero-badges">
-            <span class="trust-badge trust-badge--verified">v0.4.6</span>
+            <span class="trust-badge trust-badge--verified">v0.4.8</span>
             <span class="install-hint">npm install -D @kontourai/survey</span>
           </div>
 
@@ -73,21 +73,29 @@ const helpers = [
         </div>
 
         <Terminal class="animate-fade-in delay-300" title="quickstart.ts">
-<pre class="code"><span class="t-com">// observation in → Surface-ready claim out</span>
-<span class="t-kw">import</span> {'{'} buildSurveyTrustInput,
-         SurveyInputBuilder {'}'} <span class="t-kw">from</span> <span class="t-str">"@kontourai/survey"</span>;
-<span class="t-kw">import</span> {'{'} buildTrustReport {'}'} <span class="t-kw">from</span> <span class="t-str">"@kontourai/surface"</span>;
+<pre class="code"><span class="t-com">// proposed claim changes in → auditable review results out</span>
+<span class="t-kw">import</span> {'{'} buildReviewWorkbenchResultsFromSession,
+         createPersistentReviewSessionEventStore,
+         mountReviewWorkbench {'}'} <span class="t-kw">from</span> <span class="t-str">"@kontourai/survey/review-workbench"</span>;
 
-<span class="t-kw">const</span> input = <span class="t-kw">new</span> <span class="t-fn">SurveyInputBuilder</span>({'{'}
-  source: <span class="t-str">"crawler:run-1"</span>,
-{'}'})
-  .<span class="t-fn">addObservation</span>(observation)
-  .<span class="t-fn">build</span>();
+<span class="t-kw">const</span> session = {'{'}
+  items: [registrationStatusReviewItem],
+  activeItemName: <span class="t-str">"entity-123.registrationStatus"</span>,
+  notesByItemName: {'{'}{'}'},
+  decisionsByItemName: {'{'}{'}'},
+  actorId: <span class="t-str">"reviewer@example.test"</span>,
+  reviewedAt: <span class="t-kw">new</span> <span class="t-fn">Date</span>().<span class="t-fn">toISOString</span>(),
+{'}'};
 
-<span class="t-com">// hand the trust state to Surface</span>
-<span class="t-kw">const</span> report = <span class="t-fn">buildTrustReport</span>(
-  <span class="t-fn">buildSurveyTrustInput</span>(input),
-);</pre>
+<span class="t-fn">mountReviewWorkbench</span>(document.<span class="t-fn">querySelector</span>(<span class="t-str">"#review"</span>)!, session, {'{'}
+  eventStore: <span class="t-fn">createPersistentReviewSessionEventStore</span>({'{'}
+    initialEvents,
+    persist: ({'{'} events, expectedEventCount {'}'}) =>
+      <span class="t-fn">saveReviewEvents</span>({'{'} events, expectedEventCount {'}'}),
+  {'}'}),
+{'}'});
+
+<span class="t-kw">const</span> results = <span class="t-fn">buildReviewWorkbenchResultsFromSession</span>(session);</pre>
         </Terminal>
       </Split>
     </div>

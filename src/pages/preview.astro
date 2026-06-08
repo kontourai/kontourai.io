@@ -26,22 +26,28 @@ Transparency gaps: 3`,
   },
   {
     name: 'Survey',
-    badge: 'v0.4.6',
+    badge: 'v0.4.8',
     accent: 'gold-2',
     one: 'Survey makes the producer side of claims inspectable before Surface. Sources, extractions, candidates, and reviews become Surface-ready claims with provenance attached — without absorbing producer domain policy.',
-    now: 'Current package: @kontourai/survey v0.4.6. Proof-stage library, not an ingestion platform.',
-    coming: 'Resource-shaped ClaimReviewRecord exports; structured derivation edges; first vertical adapters.',
-    demo: `import { buildSurveyTrustInput, SurveyInputBuilder } from "@kontourai/survey";
-import { buildTrustReport } from "@kontourai/surface";
+    now: 'Current package: @kontourai/survey v0.4.8. Proof-stage library, not an ingestion platform.',
+    coming: 'Generic review workbench hardening; richer result-to-Surface projection helpers; first vertical adapters.',
+    demo: `import {
+  buildReviewWorkbenchResultsFromSession,
+  createPersistentReviewSessionEventStore,
+  mountReviewWorkbench,
+} from "@kontourai/survey/review-workbench";
 
-const input = new SurveyInputBuilder({ source: "crawler:run-1" })
-  .addObservation(observation)
-  .build();
+mountReviewWorkbench(reviewRoot, session, {
+  eventStore: createPersistentReviewSessionEventStore({
+    initialEvents,
+    persist: ({ events, expectedEventCount }) =>
+      saveReviewEvents({ events, expectedEventCount }),
+  }),
+});
 
-const report = buildTrustReport(buildSurveyTrustInput(input));
+const results = buildReviewWorkbenchResultsFromSession(session);
 
-// source -> extraction -> candidate -> review -> claim
-// projected into a Surface TrustInput`,
+// proposed changes -> review events -> selected claim candidates`,
   },
   {
     name: 'Flow',
