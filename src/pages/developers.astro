@@ -1,0 +1,547 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import Section from '@/components/Section.astro';
+import Glow from '@/components/Glow.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+import Card from '@/components/Card.astro';
+import Grid from '@/components/Grid.astro';
+import Terminal from '@/components/Terminal.astro';
+import type { Accent } from '@/lib/theme';
+
+const products: { name: string; owns: string; composes: string; href: string; repo: string; accent: Accent }[] = [
+  {
+    name: 'Surface',
+    accent: 'gold',
+    owns: 'portable claims, evidence, policies, status, Trust Reports, and trust vocabulary',
+    composes: 'makes product facts inspectable for Console, Flow gates, Veritas reports, and downstream operators',
+    href: '/surface/',
+    repo: 'https://github.com/kontourai/surface',
+  },
+  {
+    name: 'Flow',
+    accent: 'cobalt-2',
+    owns: 'process paths, transitions, gates, route-backs, exceptions, and next-action semantics',
+    composes: 'uses Surface or Veritas evidence as gate input without owning claim truth or repo policy',
+    href: '/flow/',
+    repo: 'https://github.com/kontourai/flow',
+  },
+  {
+    name: 'Veritas',
+    accent: 'green',
+    owns: 'repo standards, readiness checks, evidence findings, exceptions, and code-change governance',
+    composes: 'projects code-change readiness into evidence other products can inspect',
+    href: '/veritas/',
+    repo: 'https://github.com/kontourai/veritas',
+  },
+  {
+    name: 'Flow Agents',
+    accent: 'chalk-2',
+    owns: 'agent workflows, skills, kits, local sidecars, verification loops, and handoff discipline',
+    composes: 'coordinates Builder Kit work and can consume Flow, Veritas, and Surface signals',
+    href: '/flow-agents/',
+    repo: 'https://github.com/kontourai/flow-agents',
+  },
+];
+
+const mapNodes = [
+  { label: 'Flow Agents', sub: 'agent workflow coordination', accent: 'chalk-2' },
+  { label: 'Builder Kit', sub: 'build path, verification, release readiness', accent: 'chalk-2' },
+  { label: 'Veritas', sub: 'repo readiness and evidence findings', accent: 'green' },
+  { label: 'Flow', sub: 'process gates and route-backs', accent: 'cobalt-2' },
+  { label: 'Surface', sub: 'claims, evidence, status, trust reports', accent: 'gold' },
+] as const;
+
+const lifecycle = [
+  { step: '01', label: 'Work item', detail: 'idea, issue, customer promise, or operational change', accent: 'chalk-2' },
+  { step: '02', label: 'Flow path', detail: 'required states, gates, evidence, and route-backs', accent: 'cobalt-2' },
+  { step: '03', label: 'Agent work', detail: 'Builder Kit or local workflow executes with sidecar state', accent: 'chalk-2' },
+  { step: '04', label: 'Readiness evidence', detail: 'Veritas checks repo standards and change evidence', accent: 'green' },
+  { step: '05', label: 'Trust projection', detail: 'Surface packages claims, evidence, status, and gaps', accent: 'gold' },
+  { step: '06', label: 'Decision view', detail: 'Console or a gate shows what is ready, blocked, stale, or missing', accent: 'cobalt' },
+] as const;
+
+const useCases = [
+  {
+    title: 'Sales / RevOps',
+    detail: 'Keep account, pipeline, renewal, and enablement claims tied to sources, freshness, approvals, and next actions.',
+  },
+  {
+    title: 'Software delivery',
+    detail: 'Make code-change readiness, release gates, browser checks, and missing evidence visible before merge.',
+  },
+  {
+    title: 'Public data and records',
+    detail: 'Track claim provenance, review status, staleness, and disputed facts for directories or public datasets.',
+  },
+  {
+    title: 'Regulated advisory review',
+    detail: 'Separate authored recommendations from evidence, reviewer authority, exception handling, and final status.',
+  },
+  {
+    title: 'Support and customer operations',
+    detail: 'Route unresolved promises, stale facts, policy exceptions, and follow-up work back to the owning system.',
+  },
+  {
+    title: 'Research and knowledge operations',
+    detail: 'Preserve where assertions came from, what changed, which gaps remain, and who can rely on the output.',
+  },
+];
+
+const states = [
+  {
+    label: 'Current state',
+    body: 'Product pages, open repositories, local workflow artifacts, Surface trust reports, Veritas readiness evidence, Flow Agents workflows, and early Console projections are available to inspect today.',
+    accent: 'green',
+  },
+  {
+    label: 'Near-term direction',
+    body: 'Tighter cross-product handoffs, more published examples, clearer resource-shaped contracts, and richer Console projections are being wired in product by product.',
+    accent: 'cobalt-2',
+  },
+  {
+    label: 'Future possibilities',
+    body: 'Kubernetes-style operators, hosted coordination, and broader runtime adapters are possible future integrations. They are not current requirements for using the products.',
+    accent: 'gold',
+  },
+] as const;
+---
+
+<Layout
+  title="Developers — Kontour product map and ownership boundaries · Kontour AI"
+  description="A developer-focused map of how Surface, Flow, Veritas, Flow Agents, Builder Kit, and Console compose without conflating ownership or maturity."
+>
+  <Nav active="developers" />
+
+  <Section contour size="hero" borderBottom>
+    <Glow accent="gold" position="top-right" />
+    <div class="container dev-hero">
+      <div class="dev-hero__copy">
+        <div class="hero-badges">
+          <span class="trust-badge trust-badge--proposed">developer map</span>
+          <span class="install-hint">products compose by evidence, gates, and ownership</span>
+        </div>
+        <h1 class="product-title animate-fade-up">Kontour for developers</h1>
+        <p class="product-tagline animate-fade-up delay-100" data-accent="gold">which product owns what, and how the pieces fit</p>
+        <p class="hero-copy hero-copy--wide animate-fade-up delay-200">
+          Kontour is a product line for making AI-assisted and human-operated
+          work inspectable. Surface owns trust records. Flow owns process
+          semantics. Veritas owns repo readiness. Flow Agents brings those
+          disciplines into local agent workflows. Console makes the resulting
+          state operable without taking over the products it observes.
+        </p>
+        <div class="hero-actions animate-fade-up delay-300">
+          <a href="#ownership" class="btn-primary" data-umami-event="developers-hero-ownership">Start with ownership →</a>
+          <a href="https://github.com/kontourai" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="developers-hero-github">Open repositories</a>
+        </div>
+      </div>
+
+      <div class="mini-map animate-fade-in delay-300" aria-label="Kontour product relationship summary">
+        {mapNodes.map(({ label, sub, accent }) => (
+          <div class="mini-map__node" data-accent={accent}>
+            <span class="mini-map__label">{label}</span>
+            <span class="mini-map__sub">{sub}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </Section>
+
+  <Section id="ownership" size="lg">
+    <div class="container">
+      <Eyebrow gap="sm">Ownership boundaries</Eyebrow>
+      <h2 class="display-md measure-lg">Each product owns one layer of the work.</h2>
+      <p class="fine measure ownership-note">
+        Composition is intentionally one-way: product layers can consume trust
+        and process evidence, but the evidence substrate does not depend on a
+        specific agent, workflow, or application.
+      </p>
+
+      <div class="ownership-map" aria-label="Product relationship layer map">
+        <div class="ownership-map__lane ownership-map__lane--tools">
+          <span class="lane-label">Tools and workflows</span>
+          <div class="lane-grid lane-grid--two">
+            <div class="map-card" data-accent="chalk-2">
+              <strong>Flow Agents</strong>
+              <span>runs local agent workflows, skills, sidecars, and kits</span>
+            </div>
+            <div class="map-card" data-accent="chalk-2">
+              <strong>Builder Kit</strong>
+              <span>consumes Flow, Veritas, and Surface signals for build work</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ownership-map__lane ownership-map__lane--governance">
+          <span class="lane-label">Governance and process</span>
+          <div class="lane-grid lane-grid--two">
+            <div class="map-card" data-accent="green">
+              <strong>Veritas</strong>
+              <span>owns repo standards, readiness, evidence findings, and exceptions</span>
+            </div>
+            <div class="map-card" data-accent="cobalt-2">
+              <strong>Flow</strong>
+              <span>owns paths, transitions, gates, route-backs, and next action</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ownership-map__lane ownership-map__lane--trust">
+          <span class="lane-label">Trust substrate</span>
+          <div class="map-card map-card--wide" data-accent="gold">
+            <strong>Surface</strong>
+            <span>owns portable claims, evidence, policies, status, Trust Reports, and transparency gaps</span>
+          </div>
+        </div>
+
+        <div class="ownership-map__lane ownership-map__lane--view">
+          <span class="lane-label">Operating view</span>
+          <div class="map-card map-card--wide" data-accent="cobalt">
+            <strong>Console</strong>
+            <span>aggregates product-owned projections and routes attention back to the owner</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="alt" borderTop borderBottom>
+    <div class="container">
+      <Eyebrow gap="sm" accent="cobalt-2">Evidence lifecycle</Eyebrow>
+      <h2 class="display-md measure-lg">A change moves by gates, evidence, and state handoffs.</h2>
+      <p class="fine measure lifecycle-note">
+        This is the intended composition model. The exact integration depends
+        on which products a team adopts, but ownership stays stable.
+      </p>
+
+      <div class="lifecycle" aria-label="Evidence lifecycle flow">
+        {lifecycle.map(({ step, label, detail, accent }) => (
+          <div class="life-step" data-accent={accent}>
+            <span class="life-step__n">{step}</span>
+            <strong>{label}</strong>
+            <span>{detail}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </Section>
+
+  <Section size="lg">
+    <div class="container">
+      <Eyebrow gap="sm">Composition contracts</Eyebrow>
+      <Grid min="280" gap="md">
+        {products.map(({ name, owns, composes, href, repo, accent }) => (
+          <Card accent={accent} bar="top" pad="md">
+            <h3 class="product-card__title">{name}</h3>
+            <p class="product-card__body"><strong>Owns:</strong> {owns}.</p>
+            <p class="product-card__body"><strong>Composes by:</strong> {composes}.</p>
+            <div class="product-card__links">
+              <a href={href} data-umami-event={`developers-${name.toLowerCase().replace(' ', '-')}-page`}>Product page</a>
+              <a href={repo} target="_blank" rel="noopener" data-umami-event={`developers-${name.toLowerCase().replace(' ', '-')}-repo`}>GitHub</a>
+            </div>
+          </Card>
+        ))}
+      </Grid>
+    </div>
+  </Section>
+
+  <Section tone="alt" borderTop>
+    <div class="container">
+      <Eyebrow gap="sm">Use-case families</Eyebrow>
+      <h2 class="display-md measure-lg">Useful anywhere claims, process, readiness, and evidence need to stay connected.</h2>
+      <Grid min="260" gap="md" class="use-grid">
+        {useCases.map(({ title, detail }) => (
+          <div class="use-case">
+            <h3>{title}</h3>
+            <p>{detail}</p>
+          </div>
+        ))}
+      </Grid>
+    </div>
+  </Section>
+
+  <Section borderTop>
+    <div class="container state-section">
+      <div>
+        <Eyebrow gap="sm">Maturity framing</Eyebrow>
+        <h2 class="display-md measure-lg">Current state, near-term direction, and future possibilities are separate.</h2>
+        <p class="body measure">
+          The public map should help developers decide what to inspect next,
+          not imply a single finished control plane. Adopt one product, or
+          compose several when the workflow needs it.
+        </p>
+      </div>
+      <Grid cols={3} gap="lg">
+        {states.map(({ label, body, accent }) => (
+          <Card accent={accent} bar="top" pad="md">
+            <h3 class="state-card__title">{label}</h3>
+            <p class="state-card__body">{body}</p>
+          </Card>
+        ))}
+      </Grid>
+    </div>
+  </Section>
+
+  <Section tone="alt" borderTop>
+    <div class="container">
+      <Grid cols={2} gap="lg" align="start">
+        <Terminal title="inspect the product line">
+          <p><span class="prompt">$ </span><span class="cmd">open /developers</span></p>
+          <br />
+          <p class="pass">  ✓ Surface      trust records and reports</p>
+          <p class="pass">  ✓ Flow         paths, gates, route-backs</p>
+          <p class="pass">  ✓ Veritas      repo readiness evidence</p>
+          <p class="pass">  ✓ Flow Agents  local workflow coordination</p>
+          <p class="info">  → Console      operating view, not authority</p>
+        </Terminal>
+
+        <div class="next-links">
+          <Eyebrow>Where to go next</Eyebrow>
+          <a href="/surface/" data-umami-event="developers-next-surface">Inspect Surface trust records</a>
+          <a href="/flow/" data-umami-event="developers-next-flow">Inspect Flow gates</a>
+          <a href="/veritas/" data-umami-event="developers-next-veritas">Inspect Veritas readiness</a>
+          <a href="/flow-agents/" data-umami-event="developers-next-flow-agents">Inspect Flow Agents workflows</a>
+          <a href="/console/" data-umami-event="developers-next-console">Inspect Console framing</a>
+        </div>
+      </Grid>
+    </div>
+  </Section>
+
+  <Footer active="developers" />
+</Layout>
+
+<style>
+  .dev-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(360px, 0.92fr);
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+  }
+
+  .mini-map,
+  .ownership-map,
+  .lifecycle {
+    position: relative;
+    z-index: 1;
+  }
+
+  .mini-map {
+    display: grid;
+    gap: 0.75rem;
+    padding: 1rem;
+    border: 1px solid var(--color-edge);
+    background: rgba(12, 15, 25, 0.72);
+  }
+
+  .mini-map__node,
+  .map-card,
+  .life-step,
+  .use-case {
+    border: 1px solid var(--color-edge);
+    background: linear-gradient(135deg, rgba(18, 22, 35, 0.92), rgba(12, 15, 25, 0.86));
+  }
+
+  .mini-map__node {
+    display: grid;
+    grid-template-columns: minmax(120px, 0.42fr) 1fr;
+    gap: 1rem;
+    align-items: center;
+    min-height: 68px;
+    padding: 0.9rem 1rem;
+    border-left: 3px solid var(--accent, var(--color-edge-2));
+  }
+
+  .mini-map__label {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    color: var(--accent, var(--color-chalk));
+  }
+
+  .mini-map__sub {
+    font-size: 0.86rem;
+    color: var(--color-chalk-2);
+    line-height: 1.45;
+  }
+
+  .ownership-note,
+  .lifecycle-note {
+    margin: 0.8rem 0 2rem;
+  }
+
+  .ownership-map {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .ownership-map__lane {
+    display: grid;
+    grid-template-columns: 160px minmax(0, 1fr);
+    gap: 1rem;
+    align-items: stretch;
+  }
+
+  .lane-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 86px;
+    padding: 0.8rem;
+    border: 1px solid var(--color-edge);
+    color: var(--color-chalk-3);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    text-align: center;
+    background: rgba(7, 9, 14, 0.58);
+  }
+
+  .lane-grid {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .lane-grid--two {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .map-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 86px;
+    padding: 1rem;
+    border-left: 3px solid var(--accent, var(--color-edge-2));
+  }
+
+  .map-card strong,
+  .life-step strong {
+    color: var(--accent, var(--color-chalk));
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+  }
+
+  .map-card span,
+  .life-step span {
+    color: var(--color-chalk-2);
+    font-size: 0.86rem;
+    line-height: 1.5;
+    margin-top: 0.35rem;
+  }
+
+  .lifecycle {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .life-step {
+    min-height: 190px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    border-top: 3px solid var(--accent, var(--color-edge-2));
+  }
+
+  .life-step__n {
+    color: var(--color-chalk-3);
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+  }
+
+  .product-card__title,
+  .state-card__title,
+  .use-case h3 {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--color-chalk);
+    margin-bottom: 0.8rem;
+  }
+
+  .product-card__body,
+  .state-card__body,
+  .use-case p {
+    color: var(--color-chalk-2);
+    font-size: 0.9rem;
+    line-height: 1.65;
+  }
+
+  .product-card__body strong {
+    color: var(--color-chalk);
+    font-weight: 500;
+  }
+
+  .product-card__links,
+  .next-links {
+    display: flex;
+    gap: 0.7rem;
+    flex-wrap: wrap;
+    margin-top: 1.2rem;
+  }
+
+  .product-card__links a,
+  .next-links a {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--color-gold);
+    text-decoration: none;
+  }
+
+  .use-grid {
+    margin-top: 2rem;
+  }
+
+  .use-case {
+    min-height: 170px;
+    padding: 1.25rem;
+  }
+
+  .state-section {
+    display: grid;
+    gap: 2rem;
+  }
+
+  .next-links {
+    align-content: start;
+    flex-direction: column;
+    padding: 1rem 0;
+  }
+
+  @media (max-width: 980px) {
+    .dev-hero {
+      grid-template-columns: 1fr;
+    }
+
+    .lifecycle {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 720px) {
+    .ownership-map__lane {
+      grid-template-columns: 1fr;
+    }
+
+    .lane-label {
+      min-height: auto;
+      justify-content: flex-start;
+      text-align: left;
+    }
+
+    .lane-grid--two,
+    .lifecycle {
+      grid-template-columns: 1fr;
+    }
+
+    .mini-map__node {
+      grid-template-columns: 1fr;
+      gap: 0.25rem;
+    }
+
+    .life-step,
+    .use-case {
+      min-height: auto;
+    }
+  }
+</style>

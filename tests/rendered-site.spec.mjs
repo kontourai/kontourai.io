@@ -230,6 +230,70 @@ test("console page presents the suite operating plane and boundary", async ({ pa
   await expect(page.getByRole("heading", { name: "Primitives stay portable" })).toBeVisible();
 });
 
+test("developers page maps product ownership, lifecycle, and maturity on desktop", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1100 });
+  await page.goto("/developers/");
+
+  await expect(page.locator('[data-umami-event="nav-developers"]')).toBeVisible();
+  await expect(page.locator('[data-umami-event="nav-developers"]')).toHaveAttribute("aria-current", "page");
+  await expect(page.getByRole("heading", { name: "Kontour for developers" })).toBeVisible();
+
+  await expect(page.getByText("Surface owns trust records.")).toBeVisible();
+  await expect(page.getByText("Flow owns process semantics.")).toBeVisible();
+  await expect(page.getByText("Veritas owns repo readiness.")).toBeVisible();
+  await expect(page.getByText("Flow Agents brings those disciplines")).toBeVisible();
+
+  await expect(page.getByLabel("Product relationship layer map")).toBeVisible();
+  await expect(page.getByLabel("Product relationship layer map").getByText("Trust substrate")).toBeVisible();
+  await expect(page.getByLabel("Product relationship layer map").getByText("Builder Kit")).toBeVisible();
+  await expect(page.getByLabel("Evidence lifecycle flow")).toBeVisible();
+  await expect(page.getByLabel("Evidence lifecycle flow").getByText("Readiness evidence")).toBeVisible();
+  await expect(page.getByLabel("Evidence lifecycle flow").getByText("Trust projection")).toBeVisible();
+
+  await expect(page.getByRole("heading", { name: "Sales / RevOps" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Software delivery" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Public data and records" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Regulated advisory review" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Support and customer operations" })).toBeVisible();
+
+  await expect(page.getByRole("heading", { name: "Current state", exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Near-term direction", exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Future possibilities", exact: true })).toBeVisible();
+  await expect(page.getByText("Kubernetes-style operators")).toBeVisible();
+  await expect(page.getByText("They are not current requirements")).toBeVisible();
+
+  await expect(page.getByRole("link", { name: "Product page" }).first()).toHaveAttribute("href", "/surface/");
+  await expect(page.locator('[data-umami-event="developers-surface-repo"]')).toHaveAttribute("href", "https://github.com/kontourai/surface");
+  await expect(page.locator('[data-umami-event="footer-developers"]')).toBeVisible();
+
+  await expect(page.getByText("raw internal critique")).toHaveCount(0);
+  await expect(page.getByText("production-ready Kubernetes operator")).toHaveCount(0);
+  await expect(page.getByText("current Kubernetes runtime")).toHaveCount(0);
+});
+
+test("developers page keeps visual maps readable on mobile", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 1200 });
+  await page.goto("/developers/");
+
+  await expect(page.getByRole("heading", { name: "Kontour for developers" })).toBeVisible();
+  await expect(page.getByLabel("Product relationship layer map")).toBeVisible();
+  await expect(page.getByLabel("Evidence lifecycle flow")).toBeVisible();
+  await expect(page.locator(".ownership-map")).toHaveCSS("display", "grid");
+
+  const viewport = page.viewportSize();
+  const mapBox = await page.locator(".ownership-map").boundingBox();
+  const lifecycleBox = await page.locator(".lifecycle").boundingBox();
+  expect(viewport).not.toBeNull();
+  expect(mapBox).not.toBeNull();
+  expect(lifecycleBox).not.toBeNull();
+  if (viewport && mapBox && lifecycleBox) {
+    expect(mapBox.x).toBeGreaterThanOrEqual(0);
+    expect(lifecycleBox.x).toBeGreaterThanOrEqual(0);
+    expect(mapBox.x + mapBox.width).toBeLessThanOrEqual(viewport.width + 1);
+    expect(lifecycleBox.x + lifecycleBox.width).toBeLessThanOrEqual(viewport.width + 1);
+  }
+});
+
 test("flow agents page presents agent-tool discipline and status", async ({ page }) => {
   await page.goto("/flow-agents/");
 
