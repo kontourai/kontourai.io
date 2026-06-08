@@ -11,39 +11,39 @@ const products: { name: string; accent: Accent; body: string }[] = [
   {
     name: 'Surface',
     accent: 'gold',
-    body: "The shared transparency foundation under our products. One shape for claims, evidence, freshness, and gaps.",
+    body: "Makes claims inspectable. One shape for claims, evidence, freshness, policies, and gaps so the same trust state can be read by a person, an agent, or another system.",
   },
   {
     name: 'Survey',
     accent: 'gold-2',
-    body: 'Producer-side trust for Surface. Turns sources, extractions, candidates, and reviews into Surface-ready claims with provenance attached.',
+    body: 'Makes the producer side of claims inspectable before Surface. Sources, extractions, candidates, and reviews become Surface-ready claims with provenance attached.',
   },
   {
     name: 'Flow',
     accent: 'cobalt-2',
-    body: 'Process transparency for any required-path work. Why work was allowed to advance — gate by gate, with the evidence behind each transition.',
+    body: 'Makes required process paths inspectable. Flow shows why work was allowed to advance — gate by gate, with the evidence behind each transition.',
   },
   {
     name: 'Veritas',
     accent: 'green',
-    body: "Merge autonomy for AI-authored code. Your repo's standards turned into evidence-backed readiness reports agents and reviewers can rely on.",
+    body: "Makes code and change readiness inspectable. Veritas turns your repo's standards into evidence-backed readiness reports agents and reviewers can rely on.",
   },
   {
     name: 'Flow Agents',
     accent: 'chalk-2',
-    body: 'Keeping coding agents on the required path across Claude Code, Codex, Kiro, and GitHub Actions.',
+    body: 'Applies Flow and Veritas discipline inside the agent tools people already use: Claude Code, Codex, Kiro, and GitHub Actions.',
   },
   {
     name: 'Console',
     accent: 'cobalt',
-    body: 'The suite-level operating plane. Claim status, process state, proof, queues, decisions, and next actions from every Kontour product in one place.',
+    body: 'Makes the suite operable. Claim status, process state, proof, queues, decisions, and next actions across products in one place, without owning their semantics.',
   },
 ];
 ---
 
 <Layout
   title="Kontour AI — Show the work behind AI"
-  description="Kontour AI shows the work behind AI."
+  description="Kontour AI builds inspectability infrastructure for AI-assisted work."
 >
   <Nav active="home" />
 
@@ -63,11 +63,11 @@ const products: { name: string; accent: Accent; body: string }[] = [
       </h1>
 
       <p class="lead measure animate-fade-up delay-200 hero-lead">
+        Kontour AI builds inspectability infrastructure for AI-assisted work.
         Agents write code, run processes, and make claims faster than people
-        can review them. Kontour AI is building the products that show what
-        was claimed, what supports it, which gates the work passed, and
-        what's still uncertain — so anyone can decide whether the work
-        deserves trust before acting on it.
+        can manually inspect. Kontour shows what was claimed, what supports it,
+        which gates the work passed, and what's still uncertain — so people and
+        agents can decide what deserves trust before acting on it.
       </p>
 
       <div class="animate-fade-up delay-300 hero-actions">
@@ -81,7 +81,7 @@ const products: { name: string; accent: Accent; body: string }[] = [
     <div class="container container--narrow">
       <Eyebrow accent="gold">What we're building</Eyebrow>
       <h2 class="display-md build-title">
-        Six products. One shared promise: show the work behind every step AI takes.
+        One product line for showing the work behind AI.
       </h2>
 
       <div class="product-list">
@@ -94,7 +94,7 @@ const products: { name: string; accent: Accent; body: string }[] = [
       </div>
 
       <p class="build-note">
-        Building in public. Follow along on GitHub for updates as each product ships.
+        Building in public. Follow along on GitHub as packages, consoles, and early previews ship.
       </p>
     </div>
   </Section>
@@ -107,8 +107,9 @@ const products: { name: string; accent: Accent; body: string }[] = [
       </h2>
       <p class="body measure promise__copy">
         AI can make any output look finished. Kontour shows the work behind it —
-        the claim, the evidence, and the gaps — so people and agents can tell
-        what actually holds up before they act on it.
+        the claim, the evidence, the required path, the gate decisions, and the
+        gaps — so people and agents can tell what actually holds up before they
+        act on it.
       </p>
     </div>
   </Section>

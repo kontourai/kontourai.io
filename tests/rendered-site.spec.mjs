@@ -5,6 +5,7 @@ test("homepage renders the teaser hero and six-product line", async ({ page }) =
 
   await expect(page.locator(".label-sm").filter({ hasText: "Kontour AI" }).first()).toBeVisible();
   await expect(page.getByRole("heading", { name: "Show the work behind AI." })).toBeVisible();
+  await expect(page.getByText("inspectability infrastructure for AI-assisted work").first()).toBeVisible();
   await expect(page.locator('[data-umami-event="home-hero-github"]')).toBeVisible();
   await expect(page.locator('[data-umami-event="home-hero-contact"]')).toBeVisible();
 
@@ -57,7 +58,7 @@ test("preview page keeps the fuller six-product story accessible", async ({ page
 test("flow page explains process transparency and product boundaries", async ({ page }) => {
   await page.goto("/flow/");
 
-  await expect(page.getByText("process transparency for any required-path work")).toBeVisible();
+  await expect(page.getByText("required paths, gates, evidence, and exceptions made inspectable")).toBeVisible();
   await expect(page.getByText("A trace says what happened.")).toBeVisible();
   await expect(page.getByText("Flow says why it was enough.")).toBeVisible();
   await expect(page.locator(".label-sm").filter({ hasText: "What Flow answers" })).toBeVisible();
@@ -73,10 +74,10 @@ test("flow page explains process transparency and product boundaries", async ({ 
   await expect(page.getByText("The user sees a useful workflow")).toHaveCount(0);
 });
 
-test("surface page presents the shared foundation and trust vocabulary", async ({ page }) => {
+test("surface page presents inspectable claims and trust vocabulary", async ({ page }) => {
   await page.goto("/surface/");
 
-  await expect(page.getByText("the shared foundation under Kontour's products").first()).toBeVisible();
+  await expect(page.getByText("claims, evidence, freshness, and gaps in one inspectable shape").first()).toBeVisible();
   await expect(page.locator(".label-sm").filter({ hasText: "What Surface answers" })).toBeVisible();
 
   // Trust report output
@@ -106,7 +107,7 @@ test("surface page presents the shared foundation and trust vocabulary", async (
 test("veritas page shows the promise, a concrete catch, and the surface handoff", async ({ page }) => {
   await page.goto("/veritas/");
 
-  await expect(page.getByText("merge autonomy for AI-authored code").first()).toBeVisible();
+  await expect(page.getByText("code and change readiness made inspectable").first()).toBeVisible();
   await expect(page.locator(".label-sm").filter({ hasText: "What Veritas makes possible" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Define what good looks like" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Guide work at the moment of change" })).toBeVisible();
@@ -125,7 +126,7 @@ test("veritas page shows the promise, a concrete catch, and the surface handoff"
 test("survey page explains the producer pipeline and surface handoff", async ({ page }) => {
   await page.goto("/survey/");
 
-  await expect(page.getByText("producer-side trust for Surface").first()).toBeVisible();
+  await expect(page.getByText("producer-side provenance for Surface-ready claims").first()).toBeVisible();
   await expect(page.getByRole("heading", { name: "Survey", exact: true })).toBeVisible();
 
   // Producer pipeline
@@ -144,13 +145,13 @@ test("survey page explains the producer pipeline and surface handoff", async ({ 
 
   // Surface handoff
   await expect(page.getByText("Survey produces.")).toBeVisible();
-  await expect(page.getByText("Surface verifies.")).toBeVisible();
+  await expect(page.getByText("Surface makes it inspectable.")).toBeVisible();
 });
 
 test("console page presents the suite operating plane and boundary", async ({ page }) => {
   await page.goto("/console/");
 
-  await expect(page.getByText("one operating plane for the suite").first()).toBeVisible();
+  await expect(page.getByText("suite trust state made operable without becoming the source of truth").first()).toBeVisible();
   await expect(page.getByRole("heading", { name: "Console", exact: true })).toBeVisible();
   await expect(page.getByText("early preview").first()).toBeVisible();
 
@@ -170,11 +171,11 @@ test("console page presents the suite operating plane and boundary", async ({ pa
   await expect(page.getByRole("heading", { name: "Primitives stay portable" })).toBeVisible();
 });
 
-test("flow agents page presents the agent-facing vertical and status", async ({ page }) => {
+test("flow agents page presents agent-tool discipline and status", async ({ page }) => {
   await page.goto("/flow-agents/");
 
   await expect(page.getByRole("heading", { name: "Flow Agents", exact: true })).toBeVisible();
-  await expect(page.getByText("the agent-facing vertical of Kontour Flow").first()).toBeVisible();
+  await expect(page.getByText("Flow and Veritas discipline inside the agents you already use").first()).toBeVisible();
 
   // Early-access status, not vapor
   await expect(page.getByText("early access").first()).toBeVisible();

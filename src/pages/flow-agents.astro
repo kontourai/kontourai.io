@@ -16,7 +16,7 @@ const steps = ['Idea', 'Backlog', 'Plan', 'Build', 'Review', 'Verify', 'Evidence
 const promises: { title: string; body: string; accent: Accent }[] = [
   { title: 'Stay on the path', accent: 'cobalt-2', body: 'Loose requests turn into shaped work, plans, implementation waves, review, verification, and release decisions — without writing a perfect prompt every time.' },
   { title: 'Show the evidence', accent: 'green', body: 'Acceptance criteria, test results, browser checks, governance reports, and gaps live in durable workflow artifacts the agent reads back — not in chat memory.' },
-  { title: 'Use your runtime', accent: 'chalk-2', body: 'Install one bundle across Claude Code, Codex, Kiro, and CI. The same workflow, without rewriting it for each tool.' },
+  { title: 'Use your agent tool', accent: 'chalk-2', body: 'Install one bundle across Claude Code, Codex, Kiro, and CI. The same workflow, without rewriting it for each tool.' },
 ];
 
 const runtimes = [
@@ -47,8 +47,8 @@ const honest: { title: string; body: string; accent: Accent }[] = [
 ---
 
 <Layout
-  title="Flow Agents — Structured workflows for coding agents · Kontour AI"
-  description="Flow Agents installs workflow-aware agent bundles for Claude Code, Codex, Kiro, and GitHub Actions — one structured path from idea to release readiness, with evidence the agent reads back."
+  title="Flow Agents — Flow and Veritas discipline inside coding agents · Kontour AI"
+  description="Flow Agents applies Flow-backed workflows and optional Veritas governance inside Claude Code, Codex, Kiro, and GitHub Actions without becoming an agent runtime."
 >
   <Nav active="flow-agents" />
 
@@ -64,16 +64,17 @@ const honest: { title: string; body: string; accent: Accent }[] = [
           </div>
 
           <h1 class="product-title animate-fade-up">Flow Agents</h1>
-          <p class="product-tagline animate-fade-up delay-100" data-accent="chalk-2">the agent-facing vertical of Kontour Flow</p>
+          <p class="product-tagline animate-fade-up delay-100" data-accent="chalk-2">Flow and Veritas discipline inside the agents you already use</p>
 
           <p class="hero-copy hero-copy--wide animate-fade-up delay-200">
             Agents are useful out of the box. They get fragile when work is
             long, parallel, risky, or knowledge-heavy — they skip verification,
             call partial work done, and lose the thread after compaction. Flow
-            Agents installs one structured path into the runtime you already use,
+            Agents installs one structured path into the agent tool you already use,
             so a loose request becomes shaped work, plans, review, verification,
             and a release decision — with evidence the agent and the developer
-            can both read back.
+            can both read back. It does not replace the runtime or framework; it
+            gives the work a required path and inspectable evidence.
           </p>
 
           <div class="hero-actions animate-fade-up delay-300">
@@ -147,7 +148,7 @@ const honest: { title: string; body: string; accent: Accent }[] = [
   <Section size="lg">
     <div class="container">
       <Eyebrow gap="sm">Runs in the tools you already use</Eyebrow>
-      <h2 class="display-md measure-lg runtimes-title">One bundle. Every runtime maps to its native shape.</h2>
+      <h2 class="display-md measure-lg runtimes-title">One bundle. Every tool maps to its native shape.</h2>
 
       <Grid min="260" gap="md">
         {runtimes.map(({ rt, detail }) => (
@@ -159,8 +160,8 @@ const honest: { title: string; body: string; accent: Accent }[] = [
       </Grid>
 
       <p class="rt-note">
-        Runtime adapters translate one source configuration into each tool's
-        native shape — so adding a runtime doesn't fork the workflow. Framework
+        Tool adapters translate one source configuration into each tool's
+        native shape — so adding a tool doesn't fork the workflow. Framework
         adapters for API-based agents (LangGraph, CrewAI, and peers) are on the
         roadmap.
       </p>
@@ -181,7 +182,7 @@ const honest: { title: string; body: string; accent: Accent }[] = [
             workflows your agent invokes by name.
           </p>
           <p class="body bk__copy bk__copy--last">
-            Flow Kits are runtime-neutral and authorable, so the Build path is a
+            Flow Kits are tool-neutral and authorable, so the Build path is a
             starting point — not the ceiling. Capture, Prepare, Understand, and
             Follow&nbsp;Up round out the work-mode model Flow Agents routes
             intent into.
@@ -288,7 +289,7 @@ const honest: { title: string; body: string; accent: Accent }[] = [
   <Section size="note" borderTop>
     <div class="container">
       <p class="closing-note">
-        Flow Agents is the agent-facing vertical of Kontour Flow. Flow owns the
+        Flow Agents applies Kontour Flow inside existing agent tools. Flow owns the
         gates, transitions, and evidence; Flow Agents brings them — and optional
         Veritas governance — into the coding agents you already use.
       </p>
