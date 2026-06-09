@@ -8,5 +8,6 @@ node_modules/
 test-results/
 screenshot-*.png
 .omx/
-.agents/
 .wrangler/
+
+.flow-agents/
