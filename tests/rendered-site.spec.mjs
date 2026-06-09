@@ -180,7 +180,7 @@ test("veritas page shows the promise, a concrete catch, and the surface handoff"
 test("survey page explains the producer pipeline and surface handoff", async ({ page }) => {
   await page.goto("/survey/");
 
-  await expect(page.getByText("producer-side provenance for Surface-ready claims").first()).toBeVisible();
+  await expect(page.getByText("review workflow for producing trustworthy Surface-ready claims").first()).toBeVisible();
   await expect(page.getByRole("heading", { name: "Survey", exact: true })).toBeVisible();
 
   // Producer pipeline
@@ -195,6 +195,12 @@ test("survey page explains the producer pipeline and surface handoff", async ({ 
   await expect(page.getByRole("heading", { name: "Survey owns" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Producers own" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Surface owns" })).toBeVisible();
+  await expect(page.locator(".label-sm").filter({ hasText: "Consumer adapter contract" })).toBeVisible();
+  await expect(page.getByText("ReviewPresentationAdapter").first()).toBeVisible();
+  await expect(page.getByRole("link", { name: "Read the integration guide" })).toHaveAttribute(
+    "href",
+    "https://github.com/kontourai/survey/blob/main/docs/consumer-integration-guide.md",
+  );
   await expect(page.getByText("fieldObservation()").first()).toBeVisible();
   await expect(page.locator(".label-sm").filter({ hasText: "Example use case" })).toBeVisible();
   await expect(page.getByText("public record and needs to preserve the extraction")).toBeVisible();
