@@ -1,28 +1,38 @@
 ---
 name: kontour-opportunity
-description: Research project links through the Kontour AI trust-infrastructure lens, update the opportunity corpus, and synthesize next product iterations.
+description: Analyze external projects, products, markets, or workflows to discover reusable Kontour transparency/trust-infrastructure primitives first, then identify stack fit, wedge products, verticals, demos, or website examples built on those primitives.
 triggers:
   - kontour opportunity
+  - trust primitive
+  - transparency primitive
+  - primitive discovery
   - evidence-based truth
   - trust opportunity
   - project link
   - product iteration
-argument-hint: "analyze <url> | synthesize | plan"
+argument-hint: "analyze <url> | synthesize primitives | plan iteration"
 ---
 
 # Kontour Opportunity Skill
 
 ## Purpose
 
-Use this skill to grow Kontour AI's opportunity corpus and turn repeated project lessons into concrete product iterations for Veritas, Surface, and kontourai.io.
+Use this skill to grow Kontour AI's opportunity corpus by finding repeated transparency/trust-infrastructure primitives hiding inside specific projects, products, markets, and workflows.
+
+Priority order:
+
+1. Discover reusable primitives: claim/evidence shape, provenance, freshness, disputes, reviewed blanks, derived trust, gate evidence, exceptions, authority, auditability, and handoff state.
+2. Map stack fit: whether the primitive belongs in Surface, Survey, Flow, Veritas, Flow Agents, Console, or a small adapter.
+3. Identify buildable surfaces: wedge products, verticals, demos, examples, docs, or website stories built on the primitives.
+4. Reject weak roadmap gravity: do not turn every interesting app idea into a product unless the primitive repeats or sharply strengthens the foundation.
 
 The workflow is intentionally simple to pick up:
 
 - `analyze <url>`: research one project and add/update an opportunity entry.
 - `analyze --with-claude <url>`: research one project, then ask Claude Opus to critique the draft before finalizing.
-- `synthesize`: read the vision doc plus opportunity entries and extract repeated patterns.
+- `synthesize`: read the vision doc plus opportunity entries and extract repeated primitive patterns.
 - `synthesize --with-claude`: ask Claude Opus to challenge the repeated patterns before finalizing.
-- `plan`: compare the synthesized patterns against the current repos and propose the next build/refactor iteration.
+- `plan`: compare the synthesized primitives against the current repos and propose the next build/refactor iteration.
 - `plan --with-claude`: ask Claude Opus to review the proposed iteration before finalizing.
 
 ## Required Context
@@ -41,37 +51,6 @@ If the current working directory is not `kontourai.io`, locate the repo before e
 - `/Users/brian/dev/github/kontourai/kontourai.io/docs/ideation/opportunity-index.md`
 - `/Users/brian/dev/github/kontourai/kontourai.io/docs/ideation/opportunities/`
 
-## Mode: Product Refresh
-
-Use when checking whether `kontourai.io` reflects current public Kontour product state: package versions, install paths, public examples, missing/unclear product information, stale badges, or public-safe product status notes.
-
-Required reads:
-
-1. `docs/product-line-vision.md`
-2. `src/lib/products.ts`
-3. `src/data/product-status.json`
-4. `src/lib/product-status.ts`
-5. relevant files under `src/pages/`
-6. `scripts/refresh-product-status.mjs`
-7. `docs/ideation/kontour-vision-and-opportunities.md` only as archived ideation context, not current public positioning
-
-Public repo boundary:
-
-- Use only explicit public allowlists for package, repository, and product sources.
-- Do not publish private repo names, customer examples, prototype names, unreleased roadmap, secrets, or non-public package information.
-- Keep uncertain, missing, stale, and private follow-up notes under `.flow-agents/product-audits/`, not in public site copy.
-- Promote only reviewed, public-safe facts into `src/data/product-status.json` or marketing pages.
-
-Workflow:
-
-1. Run `npm run check:product-status` for a dry-run audit when network/local sources are available.
-2. Inspect the generated `.flow-agents/product-audits/` report.
-3. Compare public metadata and page copy against the current product-line vision and public package/repo sources.
-4. Identify missing, unclear, stale, or duplicated public information and examples.
-5. Update `src/data/product-status.json` through `npm run refresh:product-status` only when the source is public and allowlisted.
-6. Update marketing pages only with public-safe reviewed facts.
-7. Run `npm run check:content-boundary`, `npm run validate`, and relevant rendered-site tests before claiming the refresh is complete.
-
 ## Mode: Analyze A Link
 
 Use when the user provides a project, repository, article, product, or website link.
@@ -84,12 +63,15 @@ Workflow:
 4. Identify the evidence, validation, checks, or provenance mechanisms it already uses.
 5. Map what is missing, stale, disputed, high-impact, probabilistic, or adversarial.
 6. Distinguish observed facts, inferred classifications, and attribution of intent.
-7. Evaluate:
+7. Evaluate primitive and stack fit:
+   - Reusable primitive: the transparency/trust shape this example reveals.
+   - Stack fit: whether the shape belongs in Surface, Survey, Flow, Veritas, Flow Agents, Console, or an adapter.
    - Veritas fit: where repo-local evidence or agent feedback would help.
    - Surface fit: where claims/evidence/checks/freshness/transparency gaps would help.
    - Website fit: whether it gives a crisp example for explaining Kontour.
-8. Extract one or more foundation lessons.
+8. Extract one or more foundation lessons. Keep product/application ideas subordinate to the primitive.
 9. Classify the opportunity as one or more:
+   - primitive discovery
    - workflow archetype
    - Surface adapter candidate
    - Veritas customer/use case
@@ -142,6 +124,10 @@ Entry template:
 
 ## Foundation Lessons
 
+## Primitive Discovery
+
+The reusable transparency/trust-infrastructure primitive this example reveals. State whether it appears broadly reusable, narrowly vertical, or only a research reference.
+
 ## Follow-Up Questions
 
 ## Claude Critique
@@ -156,18 +142,19 @@ Optional. Include only when `--with-claude` was used.
 
 ## Mode: Synthesize
 
-Use when the user asks what the collected project list says about the company vision or foundation.
+Use when the user asks what the collected project list says about the company vision, foundation, or reusable primitive layer.
 
 Workflow:
 
 1. Read the product-line vision doc, ideation vision doc, opportunity index, and all opportunity entries.
-2. Group projects by workflow archetype and repeated trust pattern.
-3. Identify which lessons are repeated and which are one-off curiosities.
+2. Group projects by workflow archetype and repeated trust/inspectability primitive.
+3. Identify which primitives repeat and which are one-off curiosities.
 4. Update `docs/ideation/kontour-vision-and-opportunities.md` with:
    - repeated patterns
    - workflow archetypes
    - sharpened product principles
    - candidate foundation changes
+   - product/application ideas only when grounded in repeated primitives
 5. Keep claims grounded in the reviewed entries. Do not overstate product readiness.
 
 If `--with-claude` is requested, ask Claude Opus to critique the repeated patterns, possible overfitting, missing abstractions, and product-story clarity. Codex must then write its own synthesis verdict, including what it accepted and rejected from Claude.
@@ -177,6 +164,7 @@ Output should include:
 - What is becoming clearer.
 - What product foundation should change.
 - What should not become roadmap yet.
+- Which product/application ideas are merely examples built on existing primitives.
 - Which examples best explain the vision quickly.
 
 ## Mode: Plan
@@ -187,10 +175,13 @@ Workflow:
 
 1. Read `docs/product-line-vision.md` and the opportunity corpus.
 2. Inspect current state of `../veritas`, `../surface`, and current `kontourai.io`.
-3. Compare the corpus against shipped behavior, docs, schemas, CLI, tests, and website copy.
+3. Compare the primitive corpus against shipped behavior, docs, schemas, CLI, tests, and website copy.
 4. Propose the next iteration as concrete work:
+   - primitive/foundation changes
    - Veritas changes
+   - Survey changes
    - Surface changes
+   - Flow or Console changes
    - Website/docs changes
    - tests or verification needed
    - examples/case studies to add

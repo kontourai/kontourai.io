@@ -212,7 +212,7 @@ Recommended structure:
 - `docs/ideation/kontour-vision-and-opportunities.md`: company thesis, foundation, synthesis, product update plan, and top opportunities.
 - `docs/ideation/opportunities/YYYY-MM-DD-project-slug.md`: one project analysis per file once entries become too long.
 - `docs/ideation/opportunity-index.md`: compact table of reviewed projects, categories, fit, and extracted lessons.
-- `.codex/skills/kontour-opportunity/SKILL.md`: future-session workflow for link intake, corpus synthesis, and next-iteration planning.
+- `.agents/skills/kontour-opportunity/SKILL.md`: future-session workflow for link intake, corpus synthesis, and next-iteration planning.
 
 Use the skill as:
 
@@ -259,7 +259,7 @@ Veritas should grow beyond a static starter config into an agent-led initializat
 
 The useful mode is a guided bootstrap that first explores the codebase, then interviews the owner about boundaries the code cannot infer. The exploration pass should detect repo shape, languages, package managers, test/build commands, work areas, risky mutation points, existing conventions, docs, and CI. The interview pass should ask about evidence boundaries, coding style, release expectations, ownership, review requirements, and what must never be changed without explicit approval.
 
-The companion repo-local Codex skill should live at `.codex/skills/veritas-init-guide/SKILL.md`. It can explore, ask questions, and prepare a guided plan, but it must hand all writes back to the deterministic CLI. The only mutation boundary remains `veritas init --apply --plan <artifact>`.
+The companion repo-local skill should live at `.agents/skills/veritas-init-guide/SKILL.md`. It can explore, ask questions, and prepare a guided plan, but it must hand all writes back to the deterministic CLI. The only mutation boundary remains `veritas init --apply --plan <artifact>`.
 
 The output should be an initial Repo Map, evidence-check recommendations, readiness coverage inventory, codebase guidance, migration notes, and a concise "why this config" report. The goal is not to force a perfect ontology on day one. It is to get a repo into a coherent evidence-backed operating mode quickly, then let future readiness reports and standards feedback refine the contract as real work exposes gaps.
 

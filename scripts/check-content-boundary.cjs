@@ -20,6 +20,18 @@ const bannedTerms = [
     label: "private regulated vertical term",
     pattern: new RegExp("\\b" + ["t", "a", "x"].join("") + "\\b", "i"),
   },
+  {
+    label: "internal preview route copy",
+    pattern: /internal review/i,
+  },
+  {
+    label: "unshipped public route copy",
+    pattern: /unshipped features/i,
+  },
+  {
+    label: "non-public timeline copy",
+    pattern: /timeline estimates/i,
+  },
 ];
 
 const ignoredPathPatterns = [

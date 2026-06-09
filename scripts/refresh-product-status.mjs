@@ -23,17 +23,6 @@ function today() {
   return new Date().toISOString().slice(0, 10);
 }
 
-async function readLocalSiblingVersion(packageName) {
-  const repoName = packageName.split("/").at(-1);
-  const packagePath = path.resolve(rootDir, "..", repoName, "package.json");
-  try {
-    const source = await readFile(packagePath, "utf8");
-    return JSON.parse(source).version;
-  } catch {
-    return null;
-  }
-}
-
 async function fetchNpmLatest(packageName) {
   const url = `${registryBaseUrl}/${encodeURIComponent(packageName)}`;
   const response = await fetch(url, {
@@ -86,15 +75,6 @@ for (const [key, packageName] of allowlistedPackages.entries()) {
 
   if (!versionedPackageKeys.has(key)) {
     auditRows.push(auditLine(status, { version: null, source: "manual public status", note: "Kept manual status; local package versions are not public release evidence for this product." }));
-    continue;
-  }
-
-  const localVersion = await readLocalSiblingVersion(packageName);
-  if (localVersion) {
-    if (!dryRun) {
-      status.version = localVersion;
-    }
-    auditRows.push(auditLine(status, { version: localVersion, source: "local sibling checkout", note: "Metadata updated from local package.json." }));
     continue;
   }
 

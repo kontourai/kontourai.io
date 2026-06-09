@@ -23,7 +23,7 @@
       "key": "flow",
       "label": "Flow",
       "packageName": "@kontourai/flow",
-      "version": "0.1.9",
+      "version": "0.1.10",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/flow",
       "publicNotes": "Local CLI plus a loopback Flow Console."

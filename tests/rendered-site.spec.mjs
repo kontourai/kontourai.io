@@ -93,7 +93,7 @@ test("production analytics scripts are configured defensively", async ({ page })
 test("preview page keeps the fuller six-product story accessible", async ({ page }) => {
   await page.goto("/preview/");
 
-  await expect(page.getByText("INTERNAL REVIEW").first()).toBeVisible();
+  await expect(page.getByText("PRODUCT LINE PREVIEW").first()).toBeVisible();
   await expect(page.getByRole("heading", { name: "Kontour AI shows the work behind AI." })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Surface", exact: true })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Survey", exact: true })).toBeVisible();

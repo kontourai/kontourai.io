@@ -20,8 +20,8 @@ function warn(message) {
 }
 
 // Packages whose advertised version badge must match the public metadata. The
-// metadata is then compared against the local sibling checkout (preferred) or,
-// when available, the published npm version.
+// metadata is compared against the public npm version when registry access is
+// available; local sibling checkouts are never public release evidence.
 const versionedPackages = [
   { key: "veritas", name: "@kontourai/veritas", page: "src/pages/veritas.astro" },
   { key: "surface", name: "@kontourai/surface", page: "src/pages/surface.astro" },
@@ -29,10 +29,14 @@ const versionedPackages = [
   { key: "flow", name: "@kontourai/flow", page: "src/pages/flow.astro" },
 ];
 
-async function assertPageUsesProductStatus(pageFile, key) {
+async function assertPageUsesProductStatus(pageFile, key, version) {
   const source = await readFile(path.join(rootDir, pageFile), "utf8");
   if (!source.includes("product-status") || !source.includes(`getProductStatus('${key}')`)) {
     error(`${pageFile}: does not derive ${key} status from src/data/product-status.json`);
+  }
+
+  if (version && (source.includes(version) || source.includes(`v${version}`))) {
+    error(`${pageFile}: hard-coded version/status copy remains (${version}); derive it from product-status metadata`);
   }
 }
 
@@ -43,17 +47,6 @@ async function checkProductRegistryCoverage() {
     if (!statusData.products[key]) {
       error(`src/data/product-status.json: missing product status for ${key}`);
     }
-  }
-}
-
-async function readLocalSiblingVersion(packageName) {
-  const repoName = packageName.split("/").at(-1);
-  const packagePath = path.resolve(rootDir, "..", repoName, "package.json");
-  try {
-    const source = await readFile(packagePath, "utf8");
-    return JSON.parse(source).version;
-  } catch {
-    return null;
   }
 }
 
@@ -80,13 +73,12 @@ async function fetchNpmLatest(packageName) {
 }
 
 async function checkVersionedPackage({ key, name, page }) {
-  await assertPageUsesProductStatus(page, key);
-
   const status = statusData.products[key];
   if (!status) {
     error(`src/data/product-status.json: missing ${key}`);
     return;
   }
+  await assertPageUsesProductStatus(page, key, status.version);
   if (status.packageName !== name) {
     error(`${key}: expected packageName ${name}, found ${status.packageName ?? "null"}`);
     return;
@@ -97,24 +89,15 @@ async function checkVersionedPackage({ key, name, page }) {
   }
 
   const advertised = status.version;
-  const localVersion = await readLocalSiblingVersion(name);
-  if (localVersion && localVersion === advertised) {
-    console.log(`PASS  ${name}: metadata v${advertised} matches local sibling`);
-    return;
-  }
-  if (localVersion && localVersion !== advertised) {
-    error(`${name}: metadata v${advertised} does not match local sibling v${localVersion}`);
-    return;
-  }
 
   try {
     const result = await fetchNpmLatest(name);
     if (result.error) {
-      warn(`${name}: ${result.error}`);
+      warn(`${name}: ${result.error}; public version not rechecked`);
       return;
     }
     if (!result.published) {
-      warn(`${name}: not yet published and no local sibling to confirm metadata v${advertised}`);
+      warn(`${name}: not published on npm; metadata v${advertised} requires manual public-source review`);
       return;
     }
     if (result.latest !== advertised) {
