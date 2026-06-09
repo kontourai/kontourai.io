@@ -9,7 +9,10 @@ import Eyebrow from '@/components/Eyebrow.astro';
 import Card from '@/components/Card.astro';
 import Grid from '@/components/Grid.astro';
 import Split from '@/components/Split.astro';
+import { getProductStatus, productBadge } from '@/lib/product-status';
 import type { Accent } from '@/lib/theme';
+
+const surveyStatus = getProductStatus('survey');
 
 const pipeline = [
   { step: 'Source', body: 'Where the value came from — a page, a document, an API record, a manual entry — with its reference, time, and checksum.' },
@@ -55,7 +58,7 @@ const helpers = [
       <Split ratio="1-1" gap="lg" align="center">
         <div>
           <div class="hero-badges">
-            <span class="trust-badge trust-badge--verified">v0.4.17</span>
+            <span class="trust-badge trust-badge--verified">{productBadge(surveyStatus)}</span>
             <span class="install-hint">npm install -D @kontourai/survey</span>
           </div>
 

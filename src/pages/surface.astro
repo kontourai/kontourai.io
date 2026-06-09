@@ -10,7 +10,10 @@ import Card from '@/components/Card.astro';
 import Grid from '@/components/Grid.astro';
 import Split from '@/components/Split.astro';
 import QuestionGrid from '@/components/QuestionGrid.astro';
+import { getProductStatus, productBadge } from '@/lib/product-status';
 import type { Accent } from '@/lib/theme';
+
+const surfaceStatus = getProductStatus('surface');
 
 const answers: { q: string; accent?: Accent }[] = [
   { q: 'What does this product claim?' },
@@ -73,7 +76,7 @@ const moreThanStatus: { title: string; body: string; accent: Accent }[] = [
       <Split ratio="1-1" gap="lg" align="start">
         <div>
           <div class="hero-badges">
-            <span class="trust-badge trust-badge--verified">v0.5.1</span>
+            <span class="trust-badge trust-badge--verified">{productBadge(surfaceStatus)}</span>
             <span class="install-hint">npm install -D @kontourai/surface</span>
           </div>
 

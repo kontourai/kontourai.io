@@ -11,6 +11,8 @@
     "preview": "astro preview",
     "validate": "node scripts/check-content-boundary.cjs && node scripts/check-theme-tokens.mjs && node scripts/check-security-hardening.mjs && node scripts/validate.mjs",
     "test:rendered": "npm run build && playwright test",
+    "refresh:product-status": "node scripts/refresh-product-status.mjs",
+    "check:product-status": "node scripts/refresh-product-status.mjs --dry-run",
     "check:content-boundary": "node scripts/check-content-boundary.cjs",
     "check:theme-tokens": "node scripts/check-theme-tokens.mjs",
     "check:security-hardening": "node scripts/check-security-hardening.mjs"

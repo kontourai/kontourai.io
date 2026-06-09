@@ -6,6 +6,7 @@ import { fileURLToPath } from "node:url";
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const registryBaseUrl = "https://registry.npmjs.org";
+const statusData = JSON.parse(await readFile(path.join(rootDir, "src/data/product-status.json"), "utf8"));
 
 let errorCount = 0;
 
@@ -14,24 +15,35 @@ function error(message) {
   console.error(`ERROR ${message}`);
 }
 
-// Packages whose advertised version badge must match the real package. Each
-// reads a `vX.Y.Z` trust-badge from its product page and compares it against the
-// local sibling checkout (preferred) or the published npm version.
+function warn(message) {
+  console.log(`WARN  ${message}`);
+}
+
+// Packages whose advertised version badge must match the public metadata. The
+// metadata is then compared against the local sibling checkout (preferred) or,
+// when available, the published npm version.
 const versionedPackages = [
-  { name: "@kontourai/veritas", page: "src/pages/veritas.astro" },
-  { name: "@kontourai/surface", page: "src/pages/surface.astro" },
-  { name: "@kontourai/survey", page: "src/pages/survey.astro" },
-  { name: "@kontourai/flow", page: "src/pages/flow.astro" },
+  { key: "veritas", name: "@kontourai/veritas", page: "src/pages/veritas.astro" },
+  { key: "surface", name: "@kontourai/surface", page: "src/pages/surface.astro" },
+  { key: "survey", name: "@kontourai/survey", page: "src/pages/survey.astro" },
+  { key: "flow", name: "@kontourai/flow", page: "src/pages/flow.astro" },
 ];
 
-async function readAdvertisedVersion(pageFile, packageName) {
+async function assertPageUsesProductStatus(pageFile, key) {
   const source = await readFile(path.join(rootDir, pageFile), "utf8");
-  const match = source.match(/trust-badge[^>]*>v([0-9]+\.[0-9]+\.[0-9]+)</);
-  if (!match) {
-    error(`${pageFile}: could not find advertised ${packageName} version badge (expected a vX.Y.Z trust-badge)`);
-    return null;
+  if (!source.includes("product-status") || !source.includes(`getProductStatus('${key}')`)) {
+    error(`${pageFile}: does not derive ${key} status from src/data/product-status.json`);
   }
-  return match[1];
+}
+
+async function checkProductRegistryCoverage() {
+  const productsSource = await readFile(path.join(rootDir, "src/lib/products.ts"), "utf8");
+  const keys = [...productsSource.matchAll(/key: "([^"]+)"/g)].map((match) => match[1]);
+  for (const key of keys) {
+    if (!statusData.products[key]) {
+      error(`src/data/product-status.json: missing product status for ${key}`);
+    }
+  }
 }
 
 async function readLocalSiblingVersion(packageName) {
@@ -67,39 +79,51 @@ async function fetchNpmLatest(packageName) {
   return { published: true, latest };
 }
 
-async function checkVersionedPackage({ name, page }) {
-  const advertised = await readAdvertisedVersion(page, name);
-  if (!advertised) {
+async function checkVersionedPackage({ key, name, page }) {
+  await assertPageUsesProductStatus(page, key);
+
+  const status = statusData.products[key];
+  if (!status) {
+    error(`src/data/product-status.json: missing ${key}`);
+    return;
+  }
+  if (status.packageName !== name) {
+    error(`${key}: expected packageName ${name}, found ${status.packageName ?? "null"}`);
+    return;
+  }
+  if (!status.version) {
+    error(`${key}: missing public version for ${name}`);
     return;
   }
 
+  const advertised = status.version;
   const localVersion = await readLocalSiblingVersion(name);
   if (localVersion && localVersion === advertised) {
-    console.log(`PASS  ${name}: advertised v${advertised} matches local sibling`);
+    console.log(`PASS  ${name}: metadata v${advertised} matches local sibling`);
+    return;
+  }
+  if (localVersion && localVersion !== advertised) {
+    error(`${name}: metadata v${advertised} does not match local sibling v${localVersion}`);
     return;
   }
 
   try {
     const result = await fetchNpmLatest(name);
     if (result.error) {
-      error(`${name}: ${result.error}`);
+      warn(`${name}: ${result.error}`);
       return;
     }
     if (!result.published) {
-      if (localVersion) {
-        error(`${name}: advertised v${advertised} does not match local sibling v${localVersion}`);
-      } else {
-        console.log(`WARN  ${name}: not yet published and no local sibling to confirm advertised v${advertised}`);
-      }
+      warn(`${name}: not yet published and no local sibling to confirm metadata v${advertised}`);
       return;
     }
     if (result.latest !== advertised) {
-      error(`${name}: advertised v${advertised} does not match npm latest v${result.latest}`);
+      error(`${name}: metadata v${advertised} does not match npm latest v${result.latest}`);
       return;
     }
-    console.log(`PASS  ${name}: advertised v${advertised} matches npm latest`);
+    console.log(`PASS  ${name}: metadata v${advertised} matches npm latest`);
   } catch (err) {
-    error(`${name}: registry check failed (${err.message})`);
+    warn(`${name}: registry check skipped (${err.message})`);
   }
 }
 
@@ -111,6 +135,14 @@ async function checkFlowAgents() {
   const name = "@kontourai/flow-agents";
   const pageFile = "src/pages/flow-agents.astro";
   const source = await readFile(path.join(rootDir, pageFile), "utf8");
+  const status = statusData.products["flow-agents"];
+
+  if (!status || status.packageName !== name || status.version !== null || status.phase !== "early access") {
+    error(`src/data/product-status.json: Flow Agents must stay GitHub-only early access until public npm publish is reviewed`);
+  }
+  if (!source.includes("product-status") || !source.includes("getProductStatus('flow-agents')")) {
+    error(`${pageFile}: does not derive Flow Agents status from src/data/product-status.json`);
+  }
 
   if (/coming soon/i.test(source)) {
     error(`${pageFile}: still says "coming soon" but Flow Agents is installable today`);
@@ -123,12 +155,12 @@ async function checkFlowAgents() {
   try {
     result = await fetchNpmLatest(name);
   } catch (err) {
-    console.log(`WARN  ${name}: registry check skipped (${err.message})`);
+    warn(`${name}: registry check skipped (${err.message})`);
     return;
   }
 
   if (result.error) {
-    error(`${name}: ${result.error}`);
+    warn(`${name}: ${result.error}`);
     return;
   }
 
@@ -148,6 +180,19 @@ async function checkFlowAgents() {
   console.log(`PASS  ${name}: unpublished, page advertises GitHub install (install.sh)`);
 }
 
+async function checkConsole() {
+  const pageFile = "src/pages/console.astro";
+  const source = await readFile(path.join(rootDir, pageFile), "utf8");
+  const status = statusData.products.console;
+
+  if (!status || status.packageName !== null || status.version !== null || status.phase !== "early preview") {
+    error("src/data/product-status.json: Console must stay a manual early-preview status until a public package is reviewed");
+  }
+  if (!source.includes("product-status") || !source.includes("getProductStatus('console')")) {
+    error(`${pageFile}: does not derive Console status from src/data/product-status.json`);
+  }
+}
+
 async function checkDist() {
   const distDir = path.join(rootDir, "dist");
   try {
@@ -158,10 +203,12 @@ async function checkDist() {
   }
 }
 
+await checkProductRegistryCoverage();
 for (const pkg of versionedPackages) {
   await checkVersionedPackage(pkg);
 }
 await checkFlowAgents();
+await checkConsole();
 await checkDist();
 
 if (errorCount > 0) {

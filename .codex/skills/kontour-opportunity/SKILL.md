@@ -29,15 +29,48 @@ The workflow is intentionally simple to pick up:
 
 Before doing any analysis, read:
 
-1. `docs/kontour-vision-and-opportunities.md`
-2. `docs/opportunity-index.md` if it exists
-3. Existing files under `docs/opportunities/` when synthesizing or when the new link appears related to an existing entry
+1. `docs/product-line-vision.md`
+2. `docs/ideation/kontour-vision-and-opportunities.md`
+3. `docs/ideation/opportunity-index.md` if it exists
+4. Existing files under `docs/ideation/opportunities/` when synthesizing or when the new link appears related to an existing entry
 
 If the current working directory is not `kontourai.io`, locate the repo before editing. The canonical repo-local corpus lives in:
 
-- `/Users/brian/dev/github/kontourai/kontourai.io/docs/kontour-vision-and-opportunities.md`
-- `/Users/brian/dev/github/kontourai/kontourai.io/docs/opportunity-index.md`
-- `/Users/brian/dev/github/kontourai/kontourai.io/docs/opportunities/`
+- `/Users/brian/dev/github/kontourai/kontourai.io/docs/product-line-vision.md`
+- `/Users/brian/dev/github/kontourai/kontourai.io/docs/ideation/kontour-vision-and-opportunities.md`
+- `/Users/brian/dev/github/kontourai/kontourai.io/docs/ideation/opportunity-index.md`
+- `/Users/brian/dev/github/kontourai/kontourai.io/docs/ideation/opportunities/`
+
+## Mode: Product Refresh
+
+Use when checking whether `kontourai.io` reflects current public Kontour product state: package versions, install paths, public examples, missing/unclear product information, stale badges, or public-safe product status notes.
+
+Required reads:
+
+1. `docs/product-line-vision.md`
+2. `src/lib/products.ts`
+3. `src/data/product-status.json`
+4. `src/lib/product-status.ts`
+5. relevant files under `src/pages/`
+6. `scripts/refresh-product-status.mjs`
+7. `docs/ideation/kontour-vision-and-opportunities.md` only as archived ideation context, not current public positioning
+
+Public repo boundary:
+
+- Use only explicit public allowlists for package, repository, and product sources.
+- Do not publish private repo names, customer examples, prototype names, unreleased roadmap, secrets, or non-public package information.
+- Keep uncertain, missing, stale, and private follow-up notes under `.flow-agents/product-audits/`, not in public site copy.
+- Promote only reviewed, public-safe facts into `src/data/product-status.json` or marketing pages.
+
+Workflow:
+
+1. Run `npm run check:product-status` for a dry-run audit when network/local sources are available.
+2. Inspect the generated `.flow-agents/product-audits/` report.
+3. Compare public metadata and page copy against the current product-line vision and public package/repo sources.
+4. Identify missing, unclear, stale, or duplicated public information and examples.
+5. Update `src/data/product-status.json` through `npm run refresh:product-status` only when the source is public and allowlisted.
+6. Update marketing pages only with public-safe reviewed facts.
+7. Run `npm run check:content-boundary`, `npm run validate`, and relevant rendered-site tests before claiming the refresh is complete.
 
 ## Mode: Analyze A Link
 
@@ -63,14 +96,14 @@ Workflow:
    - wedge product
    - separate company category
    - research reference only
-10. Write a markdown entry in `docs/opportunities/YYYY-MM-DD-project-slug.md`.
-11. Update `docs/opportunity-index.md`.
-12. Update the synthesis section of `docs/kontour-vision-and-opportunities.md` only when the new project changes or sharpens the general foundation.
+10. Write a markdown entry in `docs/ideation/opportunities/YYYY-MM-DD-project-slug.md`.
+11. Update `docs/ideation/opportunity-index.md`.
+12. Update the synthesis section of `docs/ideation/kontour-vision-and-opportunities.md` only when the new project changes or sharpens the general foundation.
 
 If `--with-claude` is requested, insert a critique pass before steps 10-12:
 
 1. Draft the analysis locally first.
-2. Build a grounded Claude prompt that includes the current Kontour vision/goals from `docs/kontour-vision-and-opportunities.md`, the opportunity index, and the draft analysis.
+2. Build a grounded Claude prompt that includes the current Kontour vision/goals from `docs/product-line-vision.md`, archived ideation context from `docs/ideation/kontour-vision-and-opportunities.md`, the opportunity index, and the draft analysis.
 3. Ask Claude Opus to challenge the draft using the `ask-claude` skill conventions.
 4. Save the Claude artifact under `.omx/artifacts/`.
 5. Record Codex's final judgment:
@@ -127,10 +160,10 @@ Use when the user asks what the collected project list says about the company vi
 
 Workflow:
 
-1. Read the vision doc, opportunity index, and all opportunity entries.
+1. Read the product-line vision doc, ideation vision doc, opportunity index, and all opportunity entries.
 2. Group projects by workflow archetype and repeated trust pattern.
 3. Identify which lessons are repeated and which are one-off curiosities.
-4. Update `docs/kontour-vision-and-opportunities.md` with:
+4. Update `docs/ideation/kontour-vision-and-opportunities.md` with:
    - repeated patterns
    - workflow archetypes
    - sharpened product principles
@@ -152,7 +185,7 @@ Use when the user wants the next product iteration.
 
 Workflow:
 
-1. Read the opportunity corpus.
+1. Read `docs/product-line-vision.md` and the opportunity corpus.
 2. Inspect current state of `../veritas`, `../surface`, and current `kontourai.io`.
 3. Compare the corpus against shipped behavior, docs, schemas, CLI, tests, and website copy.
 4. Propose the next iteration as concrete work:
@@ -186,8 +219,8 @@ claude -p --model opus "<prompt>"
 
 Prompt Claude as an external architecture/product critic, not as the owner of the answer. Include:
 
-- the current Kontour thesis, goals, product principles, reusable foundation, workflow archetypes, and current synthesis from `docs/kontour-vision-and-opportunities.md`
-- the opportunity index from `docs/opportunity-index.md`
+- the current Kontour thesis, goals, and product principles from `docs/product-line-vision.md`, plus reusable foundation, workflow archetypes, and current synthesis from `docs/ideation/kontour-vision-and-opportunities.md`
+- the opportunity index from `docs/ideation/opportunity-index.md`
 - relevant existing opportunity entries when they share an archetype or pattern
 - the project draft, synthesis draft, or plan draft being critiqued
 - the relevant workflow archetypes

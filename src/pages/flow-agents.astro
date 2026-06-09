@@ -9,7 +9,10 @@ import Eyebrow from '@/components/Eyebrow.astro';
 import Card from '@/components/Card.astro';
 import Grid from '@/components/Grid.astro';
 import Split from '@/components/Split.astro';
+import { getProductStatus, productBadge } from '@/lib/product-status';
 import type { Accent } from '@/lib/theme';
+
+const flowAgentsStatus = getProductStatus('flow-agents');
 
 const steps = ['Idea', 'Backlog', 'Plan', 'Build', 'Review', 'Verify', 'Evidence', 'Release', 'Learn'];
 
@@ -59,7 +62,7 @@ const honest: { title: string; body: string; accent: Accent }[] = [
       <Split ratio="1-1" gap="lg" align="center">
         <div>
           <div class="hero-badges">
-            <span class="trust-badge trust-badge--proposed">early access</span>
+            <span class="trust-badge trust-badge--proposed">{productBadge(flowAgentsStatus)}</span>
             <span class="install-hint">bash install.sh /path/to/workspace</span>
           </div>
 

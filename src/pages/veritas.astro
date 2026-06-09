@@ -9,7 +9,10 @@ import Eyebrow from '@/components/Eyebrow.astro';
 import Card from '@/components/Card.astro';
 import Grid from '@/components/Grid.astro';
 import Split from '@/components/Split.astro';
+import { getProductStatus, productBadge } from '@/lib/product-status';
 import type { Accent } from '@/lib/theme';
+
+const veritasStatus = getProductStatus('veritas');
 
 const boundaries: { label: string; detail: string; accent: Accent }[] = [
   { label: 'Work Area', detail: 'Where the change belongs', accent: 'gold' },
@@ -56,7 +59,7 @@ const cli = [
       <Split ratio="1-1" gap="lg" align="center">
         <div>
           <div class="hero-badges">
-            <span class="trust-badge trust-badge--verified">v0.4.0</span>
+            <span class="trust-badge trust-badge--verified">{productBadge(veritasStatus)}</span>
             <span class="install-hint">npm install -D @kontourai/veritas</span>
           </div>
 
@@ -82,7 +85,7 @@ const cli = [
         <Terminal class="animate-fade-in delay-300" title="veritas readiness">
           <p><span class="prompt">$ </span><span class="cmd">npx veritas readiness --working-tree</span></p>
           <br />
-          <p class="info">  veritas 0.4.0 — readiness</p>
+          <p class="info">  veritas {veritasStatus.version} — readiness</p>
           <p class="muted">  repo map:      loaded</p>
           <p class="muted">  repo standards: loaded</p>
           <br />

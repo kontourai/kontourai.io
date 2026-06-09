@@ -1,0 +1,59 @@
+{
+  "checkedAt": "2026-06-09",
+  "products": {
+    "surface": {
+      "key": "surface",
+      "label": "Surface",
+      "packageName": "@kontourai/surface",
+      "version": "0.5.1",
+      "phase": "current package",
+      "sourceUrl": "https://www.npmjs.com/package/@kontourai/surface",
+      "publicNotes": ""
+    },
+    "survey": {
+      "key": "survey",
+      "label": "Survey",
+      "packageName": "@kontourai/survey",
+      "version": "0.4.19",
+      "phase": "current package",
+      "sourceUrl": "https://www.npmjs.com/package/@kontourai/survey",
+      "publicNotes": "Proof-stage library, not an ingestion platform."
+    },
+    "flow": {
+      "key": "flow",
+      "label": "Flow",
+      "packageName": "@kontourai/flow",
+      "version": "0.1.9",
+      "phase": "current package",
+      "sourceUrl": "https://www.npmjs.com/package/@kontourai/flow",
+      "publicNotes": "Local CLI plus a loopback Flow Console."
+    },
+    "veritas": {
+      "key": "veritas",
+      "label": "Veritas",
+      "packageName": "@kontourai/veritas",
+      "version": "0.4.0",
+      "phase": "current package",
+      "sourceUrl": "https://www.npmjs.com/package/@kontourai/veritas",
+      "publicNotes": ""
+    },
+    "flow-agents": {
+      "key": "flow-agents",
+      "label": "Flow Agents",
+      "packageName": "@kontourai/flow-agents",
+      "version": null,
+      "phase": "early access",
+      "sourceUrl": "https://github.com/kontourai/flow-agents",
+      "publicNotes": "Installable today from GitHub via install.sh; pre-1.0, GitHub-only (not yet on npm)."
+    },
+    "console": {
+      "key": "console",
+      "label": "Console",
+      "packageName": null,
+      "version": null,
+      "phase": "early preview",
+      "sourceUrl": null,
+      "publicNotes": "Portable contracts, a local read-only fixture inspector, and a local UI over a loopback SSE hub. Not a hosted service."
+    }
+  }
+}

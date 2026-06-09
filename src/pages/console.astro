@@ -10,7 +10,10 @@ import Card from '@/components/Card.astro';
 import Grid from '@/components/Grid.astro';
 import Split from '@/components/Split.astro';
 import QuestionGrid from '@/components/QuestionGrid.astro';
+import { getProductStatus, productBadge } from '@/lib/product-status';
 import type { Accent } from '@/lib/theme';
+
+const consoleStatus = getProductStatus('console');
 
 const questions: { q: string; accent?: Accent }[] = [
   { q: 'What claims are true, and how fresh are they?', accent: 'gold' },
@@ -51,7 +54,7 @@ const boundary: { title: string; accent: Accent; items: string[] }[] = [
       <Split ratio="1-1" gap="lg" align="center">
         <div>
           <div class="hero-badges">
-            <span class="trust-badge badge-preview">early preview</span>
+            <span class="trust-badge badge-preview">{productBadge(consoleStatus)}</span>
             <span class="install-hint">github.com/kontourai/kontour-console</span>
           </div>
 
