@@ -32,7 +32,7 @@ Transparency gaps: 3`,
     now: 'Current package: @kontourai/survey v0.4.8. Proof-stage library, not an ingestion platform.',
     coming: 'Generic review workbench hardening; richer result-to-Surface projection helpers; first vertical adapters.',
     demo: `import {
-  buildReviewWorkbenchResultsFromSession,
+  buildReviewWorkbenchSessionExportForSnapshot,
   createPersistentReviewSessionEventStore,
   mountReviewWorkbench,
 } from "@kontourai/survey/review-workbench";
@@ -45,9 +45,13 @@ mountReviewWorkbench(reviewRoot, session, {
   }),
 });
 
-const results = buildReviewWorkbenchResultsFromSession(session);
+const exported = buildReviewWorkbenchSessionExportForSnapshot(
+  reviewedSnapshot,
+  persistedEvents,
+);
 
-// proposed changes -> review events -> selected claim candidates`,
+// proposed changes -> reviewed snapshot -> replayed events
+// -> selected claim candidates; product server owns apply`,
   },
   {
     name: 'Flow',

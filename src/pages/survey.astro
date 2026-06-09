@@ -30,6 +30,8 @@ const helpers = [
   { fn: 'repeatedObservation', desc: 'A repeated field or entity list described as one aggregate observation.' },
   { fn: 'candidateReviewRecord', desc: 'Multiple candidates for one target, assembled into a shared candidate set with links.' },
   { fn: 'reviewedCandidateResolution', desc: 'Attaches a review outcome to the selected candidate and supersedes the rest.' },
+  { fn: 'buildReviewWorkbenchSessionExportForSnapshot', desc: 'Replays persisted review events against the reviewed snapshot before deriving selected candidates.' },
+  { fn: 'validateReviewSessionEventsForSnapshot', desc: 'Reports stale item or candidate references before a producer applies review results.' },
   { fn: 'uploadedDocumentSource', desc: 'A stable RawSource for a document a producer already retrieved.' },
   { fn: 'apiRecordSource', desc: 'A stable RawSource for a structured record pulled from an API.' },
   { fn: 'webPageSource', desc: 'A stable RawSource for a crawled web page, with locator scheme and checksum.' },
@@ -74,7 +76,7 @@ const helpers = [
 
         <Terminal class="animate-fade-in delay-300" title="quickstart.ts">
 <pre class="code"><span class="t-com">// proposed claim changes in → auditable review results out</span>
-<span class="t-kw">import</span> {'{'} buildReviewWorkbenchResultsFromSession,
+<span class="t-kw">import</span> {'{'} buildReviewWorkbenchSessionExportForSnapshot,
          createPersistentReviewSessionEventStore,
          mountReviewWorkbench {'}'} <span class="t-kw">from</span> <span class="t-str">"@kontourai/survey/review-workbench"</span>;
 
@@ -95,7 +97,12 @@ const helpers = [
   {'}'}),
 {'}'});
 
-<span class="t-kw">const</span> results = <span class="t-fn">buildReviewWorkbenchResultsFromSession</span>(session);</pre>
+<span class="t-kw">const</span> exported = <span class="t-fn">buildReviewWorkbenchSessionExportForSnapshot</span>(
+  reviewedSnapshot,
+  persistedEvents,
+);
+
+<span class="t-kw">const</span> results = exported.results;</pre>
         </Terminal>
       </Split>
     </div>
@@ -167,6 +174,53 @@ const helpers = [
           </div>
         ))}
       </Grid>
+    </div>
+  </Section>
+
+  <!-- Apply contract -->
+  <Section borderTop>
+    <div class="container">
+      <Split ratio="1-1" gap="md" align="center">
+        <div>
+          <Eyebrow accent="gold-2">Review apply contract</Eyebrow>
+          <h2 class="display-md apply__title">Survey can derive the review result. Your product still owns the write.</h2>
+          <p class="body apply__copy">
+            The workbench gives downstream products the same session, event,
+            decision, and selected-candidate mechanics. That removes boilerplate
+            from review flows without turning Survey into a product-specific
+            approval engine.
+          </p>
+          <p class="body apply__copy apply__copy--last">
+            A server apply path should load the current product record, replay
+            persisted review events against the reviewed snapshot, derive
+            results with Survey, validate that the target is still current, and
+            stamp the mutating actor from authenticated product context. Browser
+            exports are display and audit data, not write authority.
+          </p>
+        </div>
+
+        <Terminal title="server-apply.ts">
+<pre class="code"><span class="t-kw">import</span> {'{'} buildReviewWorkbenchSessionExportForSnapshot {'}'} <span class="t-kw">from</span> <span class="t-str">"@kontourai/survey/review-workbench"</span>;
+
+<span class="t-kw">const</span> current = <span class="t-kw">await</span> <span class="t-fn">loadProductRecord</span>(recordId);
+<span class="t-kw">const</span> snapshot = <span class="t-kw">await</span> <span class="t-fn">loadReviewedSnapshot</span>(reviewId);
+<span class="t-kw">const</span> events = <span class="t-kw">await</span> <span class="t-fn">loadPersistedReviewEvents</span>(reviewId);
+
+<span class="t-kw">const</span> exported = <span class="t-fn">buildReviewWorkbenchSessionExportForSnapshot</span>(
+  snapshot,
+  events,
+);
+
+<span class="t-kw">for</span> (<span class="t-kw">const</span> result <span class="t-kw">of</span> exported.results) {'{'}
+  <span class="t-fn">assertTargetStillMatches</span>(current, result);
+  <span class="t-kw">await</span> <span class="t-fn">applyProductPolicy</span>({'{'}
+    selectedCandidateId: result.selectedCandidateId,
+    selectedValue: result.selectedValue,
+    actor: auth.user.id,
+  {'}'});
+{'}'}</pre>
+        </Terminal>
+      </Split>
     </div>
   </Section>
 
