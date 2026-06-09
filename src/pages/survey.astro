@@ -30,6 +30,9 @@ const helpers = [
   { fn: 'repeatedObservation', desc: 'A repeated field or entity list described as one aggregate observation.' },
   { fn: 'candidateReviewRecord', desc: 'Multiple candidates for one target, assembled into a shared candidate set with links.' },
   { fn: 'reviewedCandidateResolution', desc: 'Attaches a review outcome to the selected candidate and supersedes the rest.' },
+  { fn: 'ReviewPresentationAdapter', call: false, desc: 'Product-owned labels, value summaries, and source/trace links for generic Survey review records.' },
+  { fn: 'buildReviewItemPresentation', desc: 'Turns a ReviewItem plus adapter hooks into human-readable review copy without changing canonical data.' },
+  { fn: 'buildReviewResultPresentation', desc: 'Explains a derived review result and selected value while keeping write authority on the product server.' },
   { fn: 'buildReviewWorkbenchSessionExportForSnapshot', desc: 'Replays persisted review events against the reviewed snapshot before deriving selected candidates.' },
   { fn: 'validateReviewSessionEventsForSnapshot', desc: 'Reports stale item or candidate references before a producer applies review results.' },
   { fn: 'uploadedDocumentSource', desc: 'A stable RawSource for a document a producer already retrieved.' },
@@ -41,7 +44,7 @@ const helpers = [
 
 <Layout
   title="Survey — Inspectable producer-side provenance for Surface · Kontour AI"
-  description="Kontour Survey makes the producer side of claims inspectable before Surface: sources, extractions, candidates, reviews, and provenance."
+  description="Kontour Survey gives producers a review workflow for trustworthy Surface-ready claims: sources, extractions, candidates, reviews, and provenance."
 >
   <Nav active="survey" />
 
@@ -52,19 +55,20 @@ const helpers = [
       <Split ratio="1-1" gap="lg" align="center">
         <div>
           <div class="hero-badges">
-            <span class="trust-badge trust-badge--verified">v0.4.9</span>
+            <span class="trust-badge trust-badge--verified">v0.4.16</span>
             <span class="install-hint">npm install -D @kontourai/survey</span>
           </div>
 
           <h1 class="product-title animate-fade-up">Survey</h1>
-          <p class="product-tagline animate-fade-up delay-100" data-accent="gold-2">producer-side provenance for Surface-ready claims</p>
+          <p class="product-tagline animate-fade-up delay-100" data-accent="gold-2">review workflow for producing trustworthy Surface-ready claims</p>
 
           <p class="hero-copy animate-fade-up delay-200">
             Before a claim reaches Surface, someone has to form it — from a
             source, an extraction, competing candidates, and a review. Survey
             is the small contract for that producer side: it makes those
-            observations inspectable and projects them into Surface-ready claims
-            with provenance attached, without crawling, parsing, ranking, or
+            observations inspectable, gives reviewers a durable workflow, and
+            projects the reviewed records into Surface-ready claims with
+            provenance attached, without crawling, parsing, ranking, or
             absorbing your domain policy.
           </p>
 
@@ -158,6 +162,58 @@ const helpers = [
     </div>
   </Section>
 
+  <!-- Consumer adapter -->
+  <Section borderTop>
+    <div class="container">
+      <Split ratio="1-1" gap="md" align="center">
+        <div>
+          <Eyebrow accent="gold-2">Consumer adapter contract</Eyebrow>
+          <h2 class="display-md apply__title">Products keep their policy. Survey standardizes the review trail.</h2>
+          <p class="body apply__copy">
+            A producer builds <code class="codechip" data-accent="gold-2">ReviewItem</code>
+            records from its own queue, supplies a
+            <code class="codechip" data-accent="gold-2">ReviewPresentationAdapter</code>
+            for readable labels and links, persists
+            <code class="codechip" data-accent="gold-2">ReviewSessionEvent</code>
+            resources, and replays those events on the server before applying a
+            decision.
+          </p>
+          <p class="body apply__copy apply__copy--last">
+            That gives future producers a clear checklist for trustworthy
+            claims: source identity, extraction locator, candidate history,
+            reviewer action, actor/time, and the Surface projection are all
+            explicit before the claim is published.
+          </p>
+          <a href="https://github.com/kontourai/survey/blob/main/docs/consumer-integration-guide.md" target="_blank" rel="noopener" data-umami-event="survey-consumer-guide" class="handoff__link">Read the integration guide →</a>
+        </div>
+
+        <Terminal title="consumer-adapter.ts">
+<pre class="code"><span class="t-kw">import</span> {'{'} buildReviewItemPresentation,
+         buildReviewWorkbenchSessionExportForSnapshot,
+         type ReviewPresentationAdapter {'}'} <span class="t-kw">from</span> <span class="t-str">"@kontourai/survey/review-workbench"</span>;
+
+<span class="t-kw">const</span> adapter = {'{'}
+  labelForTarget: (target) =>
+    target === <span class="t-str">"registrationStatus"</span> ? <span class="t-str">"Registration status"</span> : undefined,
+  summarizeValue: (value) => <span class="t-fn">humanizeProductValue</span>(value),
+  linkForReviewItem: (item) => ({'{'}
+    label: item.metadata.producer?.displayName,
+    href: <span class="t-str">"/review/"</span> + <span class="t-fn">encodeURIComponent</span>(item.metadata.name),
+  {'}'}),
+  linkForTraceRef: (ref) =>
+    ref.kind === <span class="t-str">"claim"</span> ? {'{'} href: <span class="t-str">"/claims/"</span> + ref.value {'}'} : undefined,
+{'}'} <span class="t-kw">satisfies</span> ReviewPresentationAdapter;
+
+<span class="t-kw">const</span> readable = <span class="t-fn">buildReviewItemPresentation</span>(reviewItem, adapter);
+<span class="t-kw">const</span> exported = <span class="t-fn">buildReviewWorkbenchSessionExportForSnapshot</span>(
+  reviewedSnapshot,
+  persistedEvents,
+);</pre>
+        </Terminal>
+      </Split>
+    </div>
+  </Section>
+
   <!-- Authoring helpers -->
   <Section size="lg">
     <div class="container">
@@ -167,10 +223,10 @@ const helpers = [
       </h2>
 
       <Grid min="300" gap="md">
-        {helpers.map(({ fn, desc }) => (
+        {helpers.map((helper) => (
           <div class="helper">
-            <code class="helper__fn">{fn}()</code>
-            <span class="helper__desc">{desc}</span>
+            <code class="helper__fn">{helper.fn}{helper.call === false ? '' : '()'}</code>
+            <span class="helper__desc">{helper.desc}</span>
           </div>
         ))}
       </Grid>

@@ -171,6 +171,7 @@ The shared foundation under Kontour's products. One shape for claims, evidence, 
 ### Survey
 
 Producer-side trust for Surface. Survey turns sources, extractions, candidates, and reviews into Surface-ready claims with provenance attached — without absorbing producer domain policy.
+The consumer contract is `ReviewItem` plus product-owned presentation, persisted review events, server-side apply, and normal Survey-to-Surface projection.
 
 ### Flow
 
