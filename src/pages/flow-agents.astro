@@ -63,7 +63,7 @@ const honest: { title: string; body: string; accent: Accent }[] = [
         <div>
           <div class="hero-badges">
             <span class="trust-badge trust-badge--proposed">{productBadge(flowAgentsStatus)}</span>
-            <span class="install-hint">bash install.sh /path/to/workspace</span>
+            <span class="install-hint">npx @kontourai/flow-agents init</span>
           </div>
 
           <h1 class="product-title animate-fade-up">Flow Agents</h1>
@@ -81,13 +81,15 @@ const honest: { title: string; body: string; accent: Accent }[] = [
           </p>
 
           <div class="hero-actions animate-fade-up delay-300">
-            <a href="https://github.com/kontourai/flow-agents" target="_blank" rel="noopener" class="btn-primary" data-umami-event="flow-agents-hero-github">View on GitHub →</a>
+            <a href="https://kontourai.github.io/flow-agents/" target="_blank" rel="noopener" class="btn-primary" data-umami-event="flow-agents-hero-docs">Read the docs →</a>
+            <a href="https://github.com/kontourai/flow-agents" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="flow-agents-hero-github">GitHub</a>
             <a href="/flow" class="btn-ghost" data-umami-event="flow-agents-hero-flow">Built on Flow</a>
           </div>
         </div>
 
         <Terminal class="animate-fade-in delay-300" title="install Flow Agents">
-          <p><span class="prompt">$ </span><span class="cmd">bash install.sh ~/dev/my-project</span></p>
+          <p><span class="prompt">$ </span><span class="cmd">npx @kontourai/flow-agents init --dest ~/dev/my-project</span></p>
+          <p class="muted">  # or, from a checkout: bash install.sh ~/dev/my-project</p>
           <br />
           <p class="muted">  installing Flow Agents bundle…</p>
           <p class="pass">  ✓ agents      Claude Code, Codex, Kiro, CI</p>
@@ -271,13 +273,11 @@ const honest: { title: string; body: string; accent: Accent }[] = [
             phased rollout toward richer just-in-time guidance, more work modes,
             and deeper governance.
           </p>
-          <a href="https://github.com/kontourai/flow-agents" target="_blank" rel="noopener" data-umami-event="flow-agents-bottom-github" class="today__link">Read the docs on GitHub →</a>
+          <a href="https://kontourai.github.io/flow-agents/" target="_blank" rel="noopener" data-umami-event="flow-agents-bottom-docs" class="today__link">Read the docs →</a>
         </div>
 
         <Terminal title="quickstart">
-          <p><span class="prompt">$ </span><span class="cmd">git clone github.com/kontourai/flow-agents</span></p>
-          <p><span class="prompt">$ </span><span class="cmd">cd flow-agents</span></p>
-          <p><span class="prompt">$ </span><span class="cmd">bash install.sh ~/dev/my-project</span></p>
+          <p><span class="prompt">$ </span><span class="cmd">npx @kontourai/flow-agents init --dest ~/dev/my-project</span></p>
           <br />
           <p class="muted">  then, in your agent:</p>
           <p>  <span class="muted">"Use idea-to-backlog for this feature</span></p>

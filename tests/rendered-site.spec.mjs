@@ -313,7 +313,7 @@ test("flow agents page presents agent-tool discipline and status", async ({ page
   await expect(page.locator(".label-sm").filter({ hasText: "Builder Kit" }).first()).toBeVisible();
   await expect(page.getByText("Claude Code").first()).toBeVisible();
   await expect(page.getByText("idea-to-backlog").first()).toBeVisible();
-  await expect(page.getByText("bash install.sh").first()).toBeVisible();
+  await expect(page.getByText("npx @kontourai/flow-agents init").first()).toBeVisible();
   await expect(page.locator(".label-sm").filter({ hasText: "Example use case" })).toBeVisible();
   await expect(page.getByText("from idea to backlog to plan")).toBeVisible();
 

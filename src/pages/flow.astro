@@ -80,7 +80,8 @@ const consoleFeatures = [
           </p>
 
           <div class="hero-actions animate-fade-up delay-300">
-            <a href="https://github.com/kontourai/flow" target="_blank" rel="noopener" class="btn-primary" data-umami-event="flow-hero-github">View on GitHub →</a>
+            <a href="https://kontourai.github.io/flow/" target="_blank" rel="noopener" class="btn-primary" data-umami-event="flow-hero-docs">Read the docs →</a>
+            <a href="https://github.com/kontourai/flow" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="flow-hero-github">GitHub</a>
             <a href="/surface" class="btn-ghost" data-umami-event="flow-hero-surface">Built with Surface</a>
           </div>
         </div>
@@ -110,11 +111,10 @@ const consoleFeatures = [
       <Eyebrow accent="cobalt-2">Quickstart</Eyebrow>
       <Terminal title="flow quickstart">
         <p><span class="prompt">$ </span><span class="cmd">npm install -D @kontourai/flow</span></p>
-        <p><span class="prompt">$ </span><span class="cmd">npx flow init</span></p>
-        <p><span class="prompt">$ </span><span class="cmd">npx flow start examples/agent-dev-flow.json --run-id dev-1847</span></p>
-        <p><span class="prompt">$ </span><span class="cmd">npx flow attach-evidence dev-1847 --gate verify-gate \</span></p>
-        <p><span class="cmd">    --file ./test-output.json --kind command</span></p>
-        <p><span class="prompt">$ </span><span class="cmd">npx flow report dev-1847</span></p>
+        <p><span class="prompt">$ </span><span class="cmd">npx flow init --demo</span></p>
+        <p><span class="prompt">$ </span><span class="cmd">npx flow status demo</span></p>
+        <p><span class="prompt">$ </span><span class="cmd">npx flow evaluate demo --exit-code</span></p>
+        <p><span class="prompt">$ </span><span class="cmd">npx flow resume demo</span></p>
       </Terminal>
     </div>
   </Section>
