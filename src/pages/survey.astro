@@ -38,6 +38,9 @@ const helpers = [
   { fn: 'buildReviewResultPresentation', desc: 'Explains a derived review result and selected value while keeping write authority on the product server.' },
   { fn: 'buildReviewWorkbenchSessionExportForSnapshot', desc: 'Replays persisted review events against the reviewed snapshot before deriving selected candidates.' },
   { fn: 'validateReviewSessionEventsForSnapshot', desc: 'Reports stale item or candidate references before a producer applies review results.' },
+  { fn: 'createServerReviewSessionRecord', desc: 'Stores the reviewed snapshot on the server so browser decisions can be replayed against the exact source state.' },
+  { fn: 'assertServerReviewSessionFreshness', desc: 'Checks that a submitted review still matches the server-owned snapshot before apply.' },
+  { fn: 'assertServerReviewSessionEvents', desc: 'Validates persisted review events for the reviewed snapshot before deriving write results.' },
   { fn: 'uploadedDocumentSource', desc: 'A stable RawSource for a document a producer already retrieved.' },
   { fn: 'apiRecordSource', desc: 'A stable RawSource for a structured record pulled from an API.' },
   { fn: 'webPageSource', desc: 'A stable RawSource for a crawled web page, with locator scheme and checksum.' },
@@ -250,23 +253,29 @@ const helpers = [
             approval engine.
           </p>
           <p class="body apply__copy apply__copy--last">
-            A server apply path should load the current product record, replay
-            persisted review events against the reviewed snapshot, derive
-            results with Survey, validate that the target is still current, and
-            stamp the mutating actor from authenticated product context. Browser
-            exports are display and audit data, not write authority.
+            A server apply path should keep the reviewed snapshot server-owned,
+            accept browser-submitted review events, assert freshness against
+            that snapshot, derive results with Survey, validate that the target
+            is still current, and stamp the mutating actor from authenticated
+            product context. Browser exports are display and audit data, not
+            write authority.
           </p>
         </div>
 
         <Terminal title="server-apply.ts">
 <pre class="code"><span class="t-kw">import</span> {'{'} buildReviewWorkbenchSessionExportForSnapshot {'}'} <span class="t-kw">from</span> <span class="t-str">"@kontourai/survey/review-workbench"</span>;
+<span class="t-kw">import</span> {'{'} assertServerReviewSessionEvents,
+         assertServerReviewSessionFreshness {'}'} <span class="t-kw">from</span> <span class="t-str">"@kontourai/survey/review-workbench/server-review-session"</span>;
 
 <span class="t-kw">const</span> current = <span class="t-kw">await</span> <span class="t-fn">loadProductRecord</span>(recordId);
-<span class="t-kw">const</span> snapshot = <span class="t-kw">await</span> <span class="t-fn">loadReviewedSnapshot</span>(reviewId);
+<span class="t-kw">const</span> session = <span class="t-kw">await</span> <span class="t-fn">loadServerReviewSession</span>(reviewId);
 <span class="t-kw">const</span> events = <span class="t-kw">await</span> <span class="t-fn">loadPersistedReviewEvents</span>(reviewId);
 
+<span class="t-fn">assertServerReviewSessionFreshness</span>(session, browserSubmission);
+<span class="t-fn">assertServerReviewSessionEvents</span>(session, events);
+
 <span class="t-kw">const</span> exported = <span class="t-fn">buildReviewWorkbenchSessionExportForSnapshot</span>(
-  snapshot,
+  session.snapshot,
   events,
 );
 
