@@ -1,7 +1,7 @@
 # Survey Proof Slice V0
 
 Status: implementation proof artifact. Created 2026-05-31; refreshed
-2026-06-10 after `@kontourai/survey@0.4.21` shipped.
+2026-06-10 after `@kontourai/survey@0.4.23` shipped.
 
 This document records how the original Survey proof evolved into a published
 package and two downstream dogfood integrations. It is intentionally narrower
@@ -13,9 +13,9 @@ Current implementation state:
 
 - `kontourai/survey` exists as the standalone TypeScript package
   `@kontourai/survey`.
-- Version `0.4.21` includes producer records, Survey-to-Surface projection
+- Version `0.4.23` includes producer records, Survey-to-Surface projection
   helpers, Review Workbench resources, server-owned review session helpers, and
-  `deriveServerReviewSessionApplyResult`.
+  server-side review-result-to-apply-action mapping helpers.
 - The public-directory and regulated-rule proof consumers use the package
   through their own product adapters. Survey stays generic; product servers own
   storage, auth, target freshness, and final writes.
@@ -199,13 +199,14 @@ The original proof was sufficient to justify real implementation work when:
 
 The proof has now advanced to package-level acceptance:
 
-- `@kontourai/survey@0.4.21` is published.
+- `@kontourai/survey@0.4.23` is published.
 - A public-directory consumer replays persisted `ReviewSessionEvent` resources
   against a server-owned review snapshot before applying approved/rejected
-  fields.
+  fields, and now uses the generic Survey apply-action mapper while retaining
+  product-owned field writes.
 - A regulated-rule consumer stores server-owned Survey review sessions and uses
   Survey apply derivation for rule conflict review actions while preserving an
-  explicitly internal legacy decision path.
+  explicitly internal legacy decision path and rule-specific validation.
 - Both consumers keep product-specific source acquisition, review policy,
   target freshness, authorization, and writes outside Survey.
 - CI gates should keep those downstream proofs from regressing.

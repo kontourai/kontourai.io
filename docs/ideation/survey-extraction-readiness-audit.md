@@ -1,8 +1,8 @@
 # Survey Extraction Readiness Audit
 
 Status: extraction-readiness analysis. Created 2026-05-31. Updated
-2026-06-02 after the standalone Survey package and the two vertical helper
-adoptions.
+2026-06-10 after the standalone Survey package and the vertical review-apply
+helper adoptions.
 
 This audit follows the Surface derive work and the two vertical proof PRs:
 
@@ -39,27 +39,29 @@ materiality, and review UX in the vertical products.
 Do not extract the current adapters wholesale. Extract only the concepts the
 adapters repeatedly prove.
 
-## 2026-06-02 Proof Update
+## 2026-06-10 Proof Update
 
 Survey is now a standalone npm package consumed by both proof verticals.
 
-- Public-directory product consumes `@kontourai/survey@^0.4.21` and uses
+- Public-directory product consumes `@kontourai/survey@^0.4.23` and uses
   Review Workbench resources plus server-owned review-session apply checks for
   crawl proposal review: current value versus proposed value, accepted or
-  rejected by a reviewer.
-- Regulated-document workflows consume `@kontourai/survey@^0.4.21` and use the
+  rejected by a reviewer. It also uses Survey's generic review-result mapper to
+  derive approve/reject field actions without moving public-directory
+  persistence into Survey.
+- Regulated-document workflows consume `@kontourai/survey@^0.4.23` and use the
   same server-owned session/apply boundary for rule conflict review: the rule
   source candidate and current managed value stay product-owned while Survey
-  supplies replayable review semantics.
+  supplies replayable review semantics and result validation helpers.
 - Both integrations preserve product-owned observation authoring, source
   references, claim type, domain status policy, materiality, and metadata.
 - Survey adds shared candidate/review wiring and candidate-role metadata that
   flows through Surface evidence, making the review decision inspectable by the
   Surface Console or any downstream trust panel.
 
-This proves the first code-removal path: verticals can replace bespoke reviewed
-candidate wiring with a Survey helper while preserving their Surface report
-behavior. It does not prove that Survey should own parsing, crawling,
+This proves the next code-removal path: verticals can replace bespoke reviewed
+candidate and apply-result wiring with Survey helpers while preserving their
+Surface report behavior. It does not prove that Survey should own parsing, crawling,
 regulated-rule logic, directory policy, canonical claim storage, or long-term
 history.
 
