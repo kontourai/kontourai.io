@@ -773,3 +773,23 @@ h1, h2, h3, h4, h5, h6 {
   outline-offset: 3px;
   border-radius: 2px;
 }
+
+/* Real product screenshots on product pages */
+.product-shot {
+  margin: 0;
+}
+
+.product-shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line, rgba(120, 140, 160, 0.25));
+  border-radius: 14px;
+  box-shadow: 0 26px 60px -42px rgba(0, 0, 0, 0.85);
+}
+
+.product-shot figcaption {
+  margin-top: 12px;
+  font-size: 0.9em;
+  opacity: 0.75;
+}
