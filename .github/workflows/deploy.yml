@@ -86,23 +86,23 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
     steps:
-      - name: Check homepage
+      - name: Check public routes
         run: |
-          STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://kontourai.io/)
-          echo "kontourai.io → $STATUS"
-          [ "$STATUS" = "200" ] || exit 1
-
-      - name: Check /veritas
-        run: |
-          STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://kontourai.io/veritas/)
-          echo "kontourai.io/veritas → $STATUS"
-          [ "$STATUS" = "200" ] || exit 1
-
-      - name: Check /surface
-        run: |
-          STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://kontourai.io/surface/)
-          echo "kontourai.io/surface → $STATUS"
-          [ "$STATUS" = "200" ] || exit 1
+          for path in \
+            / \
+            /veritas/ \
+            /surface/ \
+            /survey/ \
+            /flow/ \
+            /flow-agents/ \
+            /console/ \
+            /developers/ \
+            /early-access/
+          do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" "https://kontourai.io${path}")
+            echo "kontourai.io${path} → $STATUS"
+            [ "$STATUS" = "200" ] || exit 1
+          done
 
       - name: Check kontourai.com redirects to kontourai.io
         run: |
