@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-06-09",
+  "checkedAt": "2026-06-10",
   "products": {
     "surface": {
       "key": "surface",
@@ -23,7 +23,7 @@
       "key": "flow",
       "label": "Flow",
       "packageName": "@kontourai/flow",
-      "version": "0.1.14",
+      "version": "0.1.15",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/flow",
       "publicNotes": "Local CLI plus a loopback Flow Console."
