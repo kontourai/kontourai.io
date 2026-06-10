@@ -41,6 +41,7 @@ const helpers = [
   { fn: 'createServerReviewSessionRecord', desc: 'Stores the reviewed snapshot on the server so browser decisions can be replayed against the exact source state.' },
   { fn: 'assertServerReviewSessionFreshness', desc: 'Checks that a submitted review still matches the server-owned snapshot before apply.' },
   { fn: 'assertServerReviewSessionEvents', desc: 'Validates persisted review events for the reviewed snapshot before deriving write results.' },
+  { fn: 'deriveServerReviewSessionApplyResult', desc: 'Composes server-owned freshness, event replay, and apply-result derivation for product write paths.' },
   { fn: 'uploadedDocumentSource', desc: 'A stable RawSource for a document a producer already retrieved.' },
   { fn: 'apiRecordSource', desc: 'A stable RawSource for a structured record pulled from an API.' },
   { fn: 'webPageSource', desc: 'A stable RawSource for a crawled web page, with locator scheme and checksum.' },
@@ -254,32 +255,30 @@ const helpers = [
           </p>
           <p class="body apply__copy apply__copy--last">
             A server apply path should keep the reviewed snapshot server-owned,
-            accept browser-submitted review events, assert freshness against
-            that snapshot, derive results with Survey, validate that the target
-            is still current, and stamp the mutating actor from authenticated
-            product context. Browser exports are display and audit data, not
-            write authority.
+            accept browser-submitted review events, derive results with Survey's
+            server helper, validate that the target is still current, and stamp
+            the mutating actor from authenticated product context. Browser
+            exports are display and audit data, not write authority.
           </p>
         </div>
 
         <Terminal title="server-apply.ts">
-<pre class="code"><span class="t-kw">import</span> {'{'} buildReviewWorkbenchSessionExportForSnapshot {'}'} <span class="t-kw">from</span> <span class="t-str">"@kontourai/survey/review-workbench"</span>;
-<span class="t-kw">import</span> {'{'} assertServerReviewSessionEvents,
-         assertServerReviewSessionFreshness {'}'} <span class="t-kw">from</span> <span class="t-str">"@kontourai/survey/review-workbench/server-review-session"</span>;
+<pre class="code"><span class="t-kw">import</span> {'{'} deriveServerReviewSessionApplyResult {'}'} <span class="t-kw">from</span> <span class="t-str">"@kontourai/survey/review-workbench/server-review-session"</span>;
 
 <span class="t-kw">const</span> current = <span class="t-kw">await</span> <span class="t-fn">loadProductRecord</span>(recordId);
 <span class="t-kw">const</span> session = <span class="t-kw">await</span> <span class="t-fn">loadServerReviewSession</span>(reviewId);
 <span class="t-kw">const</span> events = <span class="t-kw">await</span> <span class="t-fn">loadPersistedReviewEvents</span>(reviewId);
 
-<span class="t-fn">assertServerReviewSessionFreshness</span>(session, browserSubmission);
-<span class="t-fn">assertServerReviewSessionEvents</span>(session, events);
-
-<span class="t-kw">const</span> exported = <span class="t-fn">buildReviewWorkbenchSessionExportForSnapshot</span>(
-  session.snapshot,
+<span class="t-kw">const</span> apply = <span class="t-fn">deriveServerReviewSessionApplyResult</span>({'{'}
+  record: session,
+  currentSnapshot: <span class="t-kw">await</span> <span class="t-fn">rebuildCurrentReviewSnapshot</span>(recordId),
   events,
-);
+  requiredResolvedItems: <span class="t-str">"all"</span>,
+{'}'});
 
-<span class="t-kw">for</span> (<span class="t-kw">const</span> result <span class="t-kw">of</span> exported.results) {'{'}
+<span class="t-kw">if</span> (!apply.ok) <span class="t-kw">throw</span> <span class="t-kw">new</span> <span class="t-fn">Error</span>(apply.issues[0]?.message);
+
+<span class="t-kw">for</span> (<span class="t-kw">const</span> result <span class="t-kw">of</span> apply.results) {'{'}
   <span class="t-fn">assertTargetStillMatches</span>(current, result);
   <span class="t-kw">await</span> <span class="t-fn">applyProductPolicy</span>({'{'}
     selectedCandidateId: result.selectedCandidateId,

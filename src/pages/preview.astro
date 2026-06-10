@@ -40,10 +40,10 @@ Transparency gaps: 3`,
     now: currentPackageLine(surveyStatus),
     coming: 'Broader consumer examples and richer result-to-Surface projection helpers.',
     demo: `import {
-  buildReviewWorkbenchSessionExportForSnapshot,
   createPersistentReviewSessionEventStore,
   mountReviewWorkbench,
 } from "@kontourai/survey/review-workbench";
+import { deriveServerReviewSessionApplyResult } from "@kontourai/survey/review-workbench/server-review-session";
 
 mountReviewWorkbench(reviewRoot, session, {
   eventStore: createPersistentReviewSessionEventStore({
@@ -53,10 +53,12 @@ mountReviewWorkbench(reviewRoot, session, {
   }),
 });
 
-const exported = buildReviewWorkbenchSessionExportForSnapshot(
-  reviewedSnapshot,
-  persistedEvents,
-);
+const apply = deriveServerReviewSessionApplyResult({
+  record: serverReviewSession,
+  currentSnapshot,
+  events: persistedEvents,
+  requiredResolvedItems: "all",
+});
 
 // proposed changes -> reviewed snapshot -> replayed events
 // -> selected claim candidates; product server owns apply`,

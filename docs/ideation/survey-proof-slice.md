@@ -1,12 +1,24 @@
 # Survey Proof Slice V0
 
-Status: proof artifact. Created 2026-05-31.
+Status: implementation proof artifact. Created 2026-05-31; refreshed
+2026-06-10 after `@kontourai/survey@0.4.21` shipped.
 
-This document turns the Survey idea into a small, testable contract without
-creating a standalone Survey repo yet. It is intentionally narrower than the
-full product: prove that regulated documents and public-directory crawls can both emit
-the same raw-to-reviewed claim shape, then let Surface derive and explain
-downstream trust from those claims.
+This document records how the original Survey proof evolved into a published
+package and two downstream dogfood integrations. It is intentionally narrower
+than the full product: prove that regulated documents and public-directory
+crawls can both emit the same raw-to-reviewed claim shape, then let Surface
+derive and explain downstream trust from those claims.
+
+Current implementation state:
+
+- `kontourai/survey` exists as the standalone TypeScript package
+  `@kontourai/survey`.
+- Version `0.4.21` includes producer records, Survey-to-Surface projection
+  helpers, Review Workbench resources, server-owned review session helpers, and
+  `deriveServerReviewSessionApplyResult`.
+- The public-directory and regulated-rule proof consumers use the package
+  through their own product adapters. Survey stays generic; product servers own
+  storage, auth, target freshness, and final writes.
 
 ## Boundary
 
@@ -33,8 +45,10 @@ Vertical products own:
 
 ## Minimal Contract
 
-The first proof should use this producer-neutral shape. It is not yet a public
-package API.
+The first proof used this producer-neutral shape. The public package has since
+grown into resource-shaped ReviewItem, ReviewDecision, ReviewSession, and
+ReviewSessionEvent contracts plus Survey observation/projection helpers, but the
+original boundary remains useful context.
 
 ```ts
 type LocatorScheme = "pdf" | "text" | "html" | "structured-field";
@@ -171,7 +185,7 @@ regulated document.
 
 ## Acceptance Criteria
 
-The proof is sufficient to justify real implementation work when:
+The original proof was sufficient to justify real implementation work when:
 
 - The regulated fixture validates against current Surface input schema.
 - The Public-directory product fixture validates against current Surface input schema.
@@ -179,14 +193,33 @@ The proof is sufficient to justify real implementation work when:
   behavior obvious without inventing it inside Survey.
 - At least one follow-up Surface issue is refined from "add derivation" to
   "formalize structured derivation edges and recompute records."
-- No standalone `survey` repo is needed to understand the first implementation
-  boundary.
+- The first implementation boundary is clear enough to promote Survey without
+  making it own crawling, parsing, ranking, domain policy, or final product
+  writes.
+
+The proof has now advanced to package-level acceptance:
+
+- `@kontourai/survey@0.4.21` is published.
+- A public-directory consumer replays persisted `ReviewSessionEvent` resources
+  against a server-owned review snapshot before applying approved/rejected
+  fields.
+- A regulated-rule consumer stores server-owned Survey review sessions and uses
+  Survey apply derivation for rule conflict review actions while preserving an
+  explicitly internal legacy decision path.
+- Both consumers keep product-specific source acquisition, review policy,
+  target freshness, authorization, and writes outside Survey.
+- CI gates should keep those downstream proofs from regressing.
 
 ## Next Implementation Moves
 
-1. Add Surface Phase 0 bake-ins: support-strength, `assumed`, materiality alias
-   or decision.
-2. Add structured derivation edges while preserving `derivedFrom: string[]`.
-3. Implement the source document fixture path inside the regulated-document proof.
-4. Implement the Public-directory product scalar-field mapping against `public-directory`.
-5. Extract shared producer contract only after those two paths converge in code.
+1. Keep downstream CI gates on the Survey proof paths: public-directory review
+   session/apply/browser checks and regulated-rule session/apply tests.
+2. Continue deleting consumer boilerplate only when Survey can provide a generic
+   helper without product branches.
+3. Keep the server apply contract explicit: browser-submitted events are replay
+   material, not write authority.
+4. Use the next proof to decide whether Survey needs shared queue/session APIs
+   beyond the current package helpers.
+5. Keep Surface-derived trust behavior in Surface. Survey produces reviewed
+   claims and provenance; Surface owns derived claim dependencies, freshness,
+   and trust reports.

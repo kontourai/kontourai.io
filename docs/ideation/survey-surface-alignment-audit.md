@@ -241,8 +241,10 @@ The existing Surface code suggests a sharper order:
 
 ## Survey Contract Candidate
 
-Do not create the Survey repo yet. First prove this minimal contract in
-prototype code or fixtures:
+Historical note: this was the minimal contract candidate before Survey was
+promoted to `kontourai/survey`. The package now exists, but the shape below
+still documents the producer-neutral boundary that the implementation must not
+outgrow:
 
 ```ts
 type RawSource = {

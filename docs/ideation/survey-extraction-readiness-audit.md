@@ -43,13 +43,14 @@ adapters repeatedly prove.
 
 Survey is now a standalone npm package consumed by both proof verticals.
 
-- Public-directory product consumes `@kontourai/survey@^0.4.0` and uses
-  `reviewedCurrentProposedResolution` for crawl proposal review: current value
-  versus proposed value, accepted or rejected by a reviewer.
-- Regulated-document workflows consume `@kontourai/survey@^0.4.0` and use the
-  same helper for the exact reviewed two-candidate W-2 correction case: original
-  document as `current`, corrected document as `proposed`, and reviewer-selected
-  source as the promoted claim.
+- Public-directory product consumes `@kontourai/survey@^0.4.21` and uses
+  Review Workbench resources plus server-owned review-session apply checks for
+  crawl proposal review: current value versus proposed value, accepted or
+  rejected by a reviewer.
+- Regulated-document workflows consume `@kontourai/survey@^0.4.21` and use the
+  same server-owned session/apply boundary for rule conflict review: the rule
+  source candidate and current managed value stay product-owned while Survey
+  supplies replayable review semantics.
 - Both integrations preserve product-owned observation authoring, source
   references, claim type, domain status policy, materiality, and metadata.
 - Survey adds shared candidate/review wiring and candidate-role metadata that
