@@ -41,10 +41,10 @@
       "key": "flow-agents",
       "label": "Flow Agents",
       "packageName": "@kontourai/flow-agents",
-      "version": null,
-      "phase": "early access",
-      "sourceUrl": "https://github.com/kontourai/flow-agents",
-      "publicNotes": "Installable today from GitHub via install.sh; pre-1.0, GitHub-only (not yet on npm)."
+      "version": "0.1.1",
+      "phase": "current package",
+      "sourceUrl": "https://www.npmjs.com/package/@kontourai/flow-agents",
+      "publicNotes": "Installable today with npx @kontourai/flow-agents init; pre-1.0."
     },
     "console": {
       "key": "console",

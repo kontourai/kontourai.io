@@ -110,18 +110,18 @@ async function checkVersionedPackage({ key, name, page }) {
   }
 }
 
-// Flow Agents is intentionally unpublished and installed from GitHub, so it has
-// no version badge to check. Guard the drift that actually matters instead:
-// the page must stop calling itself "coming soon" now that it ships, and the
-// advertised install path must stay in step with its npm publish status.
+// Flow Agents publishes to npm like the other packages, so its metadata
+// version is checked against the registry. Additionally guard the drift that
+// matters for its page: no "coming soon" framing, and the advertised install
+// path must stay in step with its npm publish status.
 async function checkFlowAgents() {
   const name = "@kontourai/flow-agents";
   const pageFile = "src/pages/flow-agents.astro";
   const source = await readFile(path.join(rootDir, pageFile), "utf8");
   const status = statusData.products["flow-agents"];
 
-  if (!status || status.packageName !== name || status.version !== null || status.phase !== "early access") {
-    error(`src/data/product-status.json: Flow Agents must stay GitHub-only early access until public npm publish is reviewed`);
+  if (!status || status.packageName !== name || !status.version) {
+    error(`src/data/product-status.json: Flow Agents is published; metadata must carry packageName and the released version`);
   }
   if (!source.includes("product-status") || !source.includes("getProductStatus('flow-agents')")) {
     error(`${pageFile}: does not derive Flow Agents status from src/data/product-status.json`);
