@@ -132,7 +132,7 @@ async function checkFlowAgents() {
   }
 
   const advertisesGithubInstall = /install\.sh/.test(source);
-  const advertisesNpmInstall = /npm install[^<]*flow-agents/.test(source);
+  const advertisesNpmInstall = /(npm install|npx)[^<]*flow-agents/.test(source);
 
   let result;
   try {
