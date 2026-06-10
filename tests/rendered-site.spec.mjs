@@ -1,3 +1,4 @@
+import { readFile } from "node:fs/promises";
 import { expect, test } from "@playwright/test";
 
 test("homepage renders the teaser hero and six-product line without product links", async ({ page }) => {
@@ -306,8 +307,11 @@ test("flow agents page presents agent-tool discipline and status", async ({ page
   await expect(page.getByRole("heading", { name: "Flow Agents", exact: true })).toBeVisible();
   await expect(page.getByText("Flow and Veritas discipline inside the agents you already use").first()).toBeVisible();
 
-  // Early-access status, not vapor
-  await expect(page.getByText("early access").first()).toBeVisible();
+  // Published status, not vapor: badge shows the released version from metadata
+  const { products } = JSON.parse(
+    await readFile(new URL("../src/data/product-status.json", import.meta.url), "utf8"),
+  );
+  await expect(page.getByText(`v${products["flow-agents"].version}`).first()).toBeVisible();
 
   // Real capabilities: runtimes, the Builder Kit, and an install path
   await expect(page.locator(".label-sm").filter({ hasText: "Builder Kit" }).first()).toBeVisible();
