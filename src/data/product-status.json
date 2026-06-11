@@ -52,7 +52,7 @@
       "packageName": null,
       "version": null,
       "phase": "early preview",
-      "sourceUrl": "https://github.com/kontourai/kontour-console",
+      "sourceUrl": "https://github.com/kontourai/console",
       "publicNotes": "Open-source foundation: portable contracts, a local read-only fixture inspector, local telemetry storage, and a local UI over a loopback SSE hub. The hosted console at console.kontourai.io is a private production deployment of it."
     }
   }
