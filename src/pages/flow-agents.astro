@@ -173,24 +173,43 @@ const honest: { title: string; body: string; accent: Accent }[] = [
     </div>
   </Section>
 
-  <!-- Builder Kit -->
+  <!-- Flow Kits -->
   <Section tone="alt" borderTop>
     <div class="container">
+      <Eyebrow accent="chalk-2" gap="sm">Flow Kits</Eyebrow>
+      <h2 class="display-md bk__title">Workflows you install,<br />not rewrite.</h2>
+      <p class="body bk__copy bk__copy--intro">
+        A Flow Kit is a portable workflow bundle: a validated <code>kit.json</code>
+        manifest, one or more Flow Definitions, and optional skills, docs, adapters,
+        evals, and assets — installed as a unit into any workspace. Kits are the
+        extension model: you package a workflow once and the same validated path runs
+        across runtimes without per-tool rewrites.
+      </p>
+
       <Split ratio="1-1" gap="md" align="start">
         <div>
-          <Eyebrow accent="chalk-2">Builder Kit</Eyebrow>
-          <h2 class="display-md bk__title">Opinionated building,<br />installed as a kit.</h2>
+          <p class="bk__kit-label">Builder Kit — first Kontour-authored kit</p>
           <p class="body bk__copy">
-            The Builder Kit is the first Kontour-authored Flow Kit. It owns the
-            Build path end to end — shaping, probing, planning, execution,
-            verification, PR readiness, merge readiness, and learning — as
-            workflows your agent invokes by name.
+            Builder Kit owns the Build path end to end — shaping, probing,
+            planning, execution, verification, PR readiness, merge readiness, and
+            learning — as two Flow Definitions your agent invokes by name:
+            <code>builder.shape</code> and <code>builder.build</code>. It installs
+            automatically with Flow Agents.
           </p>
-          <p class="body bk__copy bk__copy--last">
-            Flow Kits are tool-neutral and authorable, so the Build path is a
-            starting point — not the ceiling. Capture, Prepare, Understand, and
-            Follow&nbsp;Up round out the work-mode model Flow Agents routes
-            intent into.
+          <p class="body bk__copy">
+            You can author your own kit today: a directory with a
+            <code>kit.json</code>, at least one flow file, and a single
+            <code>install-local</code> command. Validation runs the same contract
+            as Builder Kit before anything is copied.
+          </p>
+          <Terminal class="bk__terminal" title="install a local kit">
+            <p><span class="prompt">$ </span><span class="cmd">npx @kontourai/flow-agents flow-kit install-local ./my-kit --dest .</span></p>
+            <p><span class="prompt">$ </span><span class="cmd">npx @kontourai/flow-agents flow-kit activate --dest .</span></p>
+          </Terminal>
+          <p class="bk__direction">
+            Direction — kits are designed to be shareable across teams. The
+            intended growth path: install from git remotes and a curated catalog of
+            Kontour-authored kits. Today install is local-path only.
           </p>
         </div>
 
@@ -401,6 +420,31 @@ const honest: { title: string; body: string; accent: Accent }[] = [
   .bk__copy--last,
   .ip__copy--last {
     margin-bottom: 0;
+  }
+  .bk__copy--intro {
+    max-width: 840px;
+    margin-bottom: 2rem;
+  }
+  .bk__kit-label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--color-chalk-2);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.75rem;
+  }
+  .bk__terminal {
+    margin-top: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  .bk__direction {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--color-chalk-3);
+    line-height: 1.6;
+    border-left: 2px solid var(--color-edge);
+    padding-left: 0.75rem;
+    margin-top: 0.5rem;
   }
   .today__copy {
     margin-bottom: 1.5rem;
