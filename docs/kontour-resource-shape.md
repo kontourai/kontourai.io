@@ -54,6 +54,14 @@ Use product-scoped API versions:
 - `flow.kontour.ai/v1alpha1`
 - `veritas.kontour.ai/v1alpha1`
 
+Core trust-format records — `TrustBundle`, `InquiryRecord`, `DerivationRule` —
+use the product-neutral namespace `trust.kontour.ai/v1` instead. The format is
+deliberately not named after any product: Surface is its reference
+implementation, and producers outside the Kontour suite can emit these records
+without adopting a product name into their wire format. Veritas evidence
+artifacts embed the projection under a `trust` block (`trust.bundle`,
+`trust.report`).
+
 Use explicit `kind` values such as `ClaimReviewRecord`, `IntegrityAnchor`,
 `TrustSnapshot`, `GateRun`, or `ReadinessReport`.
 
