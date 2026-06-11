@@ -4,14 +4,14 @@ Status: historical plan, partially shipped. Companion to
 `surface-derived-trust-primitives.md`.
 
 Current terminology: **Survey is the producer-side contract for turning producer
-observations into Surface-ready `TrustInput`; Surface owns Claim Dependency
+observations into Surface-ready `TrustBundle`; Surface owns Claim Dependency
 semantics.** Earlier drafts used "derived trust" and "derived claim"; read those
 as Surface Claim Dependency behavior, not a Survey-branded concept or separate
 claim kind.
 
 ## Goal
 
-Build **Survey** (producer observations → Surface `TrustInput`) as a foundation
+Build **Survey** (producer observations → Surface `TrustBundle`) as a foundation
 package, extend **Surface** with multi-hop Claim Dependency behavior, then prove
 both by shipping the regulated vertical and validating genericity with the sales
 vertical. The platform becomes three generic pieces — **Survey → Surface → Flow**
@@ -32,7 +32,7 @@ The test for a standalone product: does it cross a boundary Surface refuses to c
 have its own extensibility surface?
 
 - **Survey passes.** Input is raw, non-Surface material; output is Surface
-  `TrustInput`. It crosses the exact boundary Surface disclaims: producers
+  `TrustBundle`. It crosses the exact boundary Surface disclaims: producers
   collect and interpret their own evidence. Survey generalizes the producer-side
   source → extraction → candidate → review chain.
 - **Claim Dependency semantics fail both.** Input and output are Surface
@@ -54,8 +54,8 @@ without minting a separate product brand.
 | Repo / product | State | Role in this plan |
 | --- | --- | --- |
 | `kontourai/surface` (@kontourai/surface) | shipped | Owns Claim Dependency fields (`derivedFrom`, `derivationEdges`), dependency status ceilings, freshness cascade, recompute pressure, and trust reports. |
-| `kontourai/survey` (@kontourai/survey) | shipped | Producer-side source → extraction → candidate → review contracts, projection to Surface `TrustInput`, field/repeated observation helpers, raw source helpers, and contract fixtures. |
-| `kontourai/flow` (@kontourai/flow) | shipped | Can consume Survey-produced `TrustInput` and Surface claims as gate evidence. Not on the critical path. |
+| `kontourai/survey` (@kontourai/survey) | shipped | Producer-side source → extraction → candidate → review contracts, projection to Surface `TrustBundle`, field/repeated observation helpers, raw source helpers, and contract fixtures. |
+| `kontourai/flow` (@kontourai/flow) | shipped | Can consume Survey-produced `TrustBundle` and Surface claims as gate evidence. Not on the critical path. |
 | `kontourai/veritas` (@kontourai/veritas) | shipped | Already projects Repo Standards → Surface Claim Groups, requirements → claims. Becomes an early **Claim Dependency** proof: a readiness verdict is a claim that depends on requirement claims. |
 | `kontourai/flow-agents` | private, soon | Consumes Flow. Out of scope. |
 | `kontourai/kontourai.io` | shipped | Public story. Updates only after the products are real. |
@@ -64,7 +64,7 @@ without minting a separate product brand.
 
 The public-directory and regulated-document proof paths independently invented the same ingestion pipeline. That convergence is why Survey is a product, not a per-vertical feature.
 
-## Product: Survey (producer observations → Surface `TrustInput`)
+## Product: Survey (producer observations → Surface `TrustBundle`)
 
 The producer-side contract. Turns raw, messy, untrusted input into Surface-ready
 claims, evidence, and events with provenance.
@@ -80,7 +80,7 @@ claims, evidence, and events with provenance.
 **Boundary**
 - Surface says producers collect their own evidence — so this is out of Surface's scope *by
   design*. Survey is that producer, generalized.
-- Output contract = Surface `TrustInput`: Claim + Evidence (with `method` and
+- Output contract = Surface `TrustBundle`: Claim + Evidence (with `method` and
   source locator) + VerificationEvent. Survey does not store long-term trust
   state or decide truth; it hands producer-shaped input to Surface.
 
@@ -117,7 +117,7 @@ ignore the edge graph and see ordinary claims. No numeric scores.
 source document PDF ──Survey RawSource──────► RawSource(checksum)
         ──Survey Extraction─────► Extraction(box1=$X, locator=page1/box1, confidence)
         ──Survey CandidateSet───► CandidateSet (source document vs prior-year vs paystub candidates)
-        ──Survey ReviewOutcome──► ClaimTarget  ──► Surface TrustInput claim.regulated.wages = $X
+        ──Survey ReviewOutcome──► ClaimTarget  ──► Surface TrustBundle claim.regulated.wages = $X
                                                      Evidence{ method, source=source document page1/box1 }
 Surface claim ──Claim Dependency──► claim.regulated.position.band  (rule-application)
               ──Claim Dependency──► claim.regulated.strategy.adjustment     (model: band + balances)

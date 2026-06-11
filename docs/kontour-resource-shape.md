@@ -154,7 +154,7 @@ used to inspect them.
 
 Survey owns producer-side review and provenance records before the Surface
 boundary: raw source, extraction, candidate, review outcome, and projection to
-Surface-ready `TrustInput`.
+Surface-ready `TrustBundle`.
 
 Flow owns process and gate records.
 
@@ -184,7 +184,7 @@ type ClaimReviewRecord = KontourResource<
     reviewStatus: "proposed" | "assumed" | "verified" | "rejected";
     reviewedBy?: string;
     reviewedAt?: string;
-    projectedTrustInputId?: string;
+    projectedTrustBundleId?: string;
   }
 >;
 ```
@@ -203,7 +203,7 @@ or another Kontour product to prove where a trust record came from. Surface may
 store, query, and display those anchors without becoming the source of truth for
 the underlying domain.
 
-Surface may keep existing `TrustInput` and claim/evidence shapes stable while
+Surface may keep existing `TrustBundle` and claim/evidence shapes stable while
 adding resource-shaped exports or companion records. Existing integrations
 should not be forced through a breaking envelope migration.
 

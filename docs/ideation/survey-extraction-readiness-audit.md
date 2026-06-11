@@ -76,7 +76,7 @@ The main benefit is not line-count reduction. It is forcing every producer to
 declare the ingredients that make a claim trustworthy before the claim reaches a
 customer, operator, agent, or downstream product.
 
-Once a producer emits Survey-shaped records and Surface `TrustInput`, the rest
+Once a producer emits Survey-shaped records and Surface `TrustBundle`, the rest
 of the Kontour stack can reuse the same machinery:
 
 - Surface Console can manage claims, gaps, review queues, status counts, and
@@ -159,7 +159,7 @@ ones.
 
 ### Proven
 
-- Both verticals can emit real `@kontourai/surface` `TrustInput`.
+- Both verticals can emit real `@kontourai/surface` `TrustBundle`.
 - The same Surface validator and report builder can consume both outputs.
 - The trust lifecycle has common stages before it reaches Surface: source,
   extraction, candidate/proposal, review/promotion, and projection.
@@ -217,7 +217,7 @@ Move toward Survey:
 
 Likely code reduction:
 
-- `surface-adapter.ts` should shrink once Survey provides `toSurfaceTrustInput`
+- `surface-adapter.ts` should shrink once Survey provides `toSurfaceTrustBundle`
   helpers.
 - Parts of `ResolvedFact` and `VerifiedFact` may become adapters over Survey
   records instead of regulated-owned trust lifecycle records.
@@ -349,7 +349,7 @@ Survey should depend on Surface. Surface should not depend on Survey.
 
 Surface owns:
 
-- `TrustInput`, `Claim`, `Evidence`, `VerificationEvent`.
+- `TrustBundle`, `Claim`, `Evidence`, `VerificationEvent`.
 - Trust statuses, including `assumed`.
 - `derivationEdges` and support strength.
 - `changeRecords`, stale/recompute/report derivation.
@@ -371,7 +371,7 @@ This is why the proof PRs were updated to import Surface directly instead of
 recreating Surface-shaped local schemas. Local lookalike schemas are useful for
 the first sketch, but they are dangerous after Surface has the primitives:
 
-- They can drift from the real `TrustInput`.
+- They can drift from the real `TrustBundle`.
 - They hide breaking changes until integration time.
 - They make the proof weaker because it validates against a copy of the
   contract, not the contract.
@@ -547,7 +547,7 @@ That should be the next proving step:
 vertical fixture
   -> Survey records
   -> Survey projection helper
-  -> Surface TrustInput
+  -> Surface TrustBundle
   -> Surface report / console-ready read model
 ```
 

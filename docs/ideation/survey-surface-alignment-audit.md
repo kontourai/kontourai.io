@@ -286,7 +286,7 @@ type ReviewOutcome = {
 };
 ```
 
-Open question: whether Survey should emit Surface `TrustInput` directly or emit
+Open question: whether Survey should emit Surface `TrustBundle` directly or emit
 a smaller `VerifiedClaim` object that product adapters convert into Surface.
 For the first proof, prefer emitting Surface-compatible fixtures without
 committing to the final public API.
@@ -299,7 +299,7 @@ Build the first proof without creating `kontourai/survey`:
    support-strength, `assumed`, and materiality/impact decision.
 2. In the regulated-document proof, create or identify one fixture path for source document wages and federal
    retained amount.
-3. Write a tiny adapter or fixture that maps that fact into Surface `TrustInput`
+3. Write a tiny adapter or fixture that maps that fact into Surface `TrustBundle`
    with evidence method, source locator, and source identity.
 4. Add one derived claim representing a derived compliance position or derived result.
 5. Change the source fact in the fixture and show the derived claim becoming
@@ -336,7 +336,7 @@ Suggested issue refinement:
 
 - Is Surface `impactLevel` the materiality slot, or should the product expose a
   separate `materiality` field/alias?
-- Should Survey verified outputs be native Surface `TrustInput` or a smaller
+- Should Survey verified outputs be native Surface `TrustBundle` or a smaller
   producer-neutral object?
 - What locator grammar handles PDF boxes, text lines, HTML excerpts, and
   structured fields without becoming domain-specific?
