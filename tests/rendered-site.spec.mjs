@@ -216,7 +216,10 @@ test("console page presents the suite operating plane and boundary", async ({ pa
 
   await expect(page.getByText("suite trust state made operable without becoming the source of truth").first()).toBeVisible();
   await expect(page.getByRole("heading", { name: "Console", exact: true })).toBeVisible();
-  await expect(page.getByText("early preview").first()).toBeVisible();
+  const consoleStatus = JSON.parse(
+    await readFile(new URL("../src/data/product-status.json", import.meta.url), "utf8"),
+  ).products.console;
+  await expect(page.getByText(`v${consoleStatus.version}`).first()).toBeVisible();
 
   // Operating state + plane
   await expect(page.locator(".label-sm").filter({ hasText: "What it's built to answer" })).toBeVisible();
