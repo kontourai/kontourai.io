@@ -5,7 +5,7 @@
       "key": "surface",
       "label": "Surface",
       "packageName": "@kontourai/surface",
-      "version": "0.5.2",
+      "version": "0.9.0",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/surface",
       "publicNotes": ""
@@ -14,7 +14,7 @@
       "key": "survey",
       "label": "Survey",
       "packageName": "@kontourai/survey",
-      "version": "0.4.24",
+      "version": "0.5.0",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/survey",
       "publicNotes": "Proof-stage library, not an ingestion platform."
