@@ -1,6 +1,6 @@
 # Trust Format Landscape: Standards, Competitors, Positioning, Naming
 
-Research snapshot dated 2026-06-10. This is a competitive and standards landscape for the Kontour trust format (claims + evidence + verification events + authority traces + inquiries; namespace `trust.kontour.ai/v1`) and its products (Surface, Survey, Flow, Veritas, Console). It covers: standards to align or interoperate with, adjacent competitors, positioning synthesis, and a name-collision sniff on three candidate format names. Web-sourced; key claims cite sources inline and in the Sources section. The trademark section is a sniff test, not legal advice.
+Research snapshot dated 2026-06-10. This is a competitive and standards landscape for the Kontour trust format (claims + evidence + verification events + authority traces + inquiries; namespace `hachure.org/v1`) and its products (Surface, Survey, Flow, Veritas, Console). It covers: standards to align or interoperate with, adjacent competitors, positioning synthesis, and a name-collision sniff on three candidate format names. Web-sourced; key claims cite sources inline and in the Sources section. The trademark section is a sniff test, not legal advice.
 
 ## How to read this
 
@@ -22,7 +22,7 @@ What they cover: VC Data Model 2.0 (W3C Recommendation, 15 May 2025, part of a s
 
 Overlap: VC claims are issuer-signed statements about subjects, but VC status is issuer-asserted mutable state (the issuer flips a revocation bit) — not recomputed from testimony by anyone. PROV's entity/activity/agent triad and `actedOnBehalfOf` map cleanly onto Kontour authority traces.
 
-Play nicely: emit verification events as VCs signed by the verifying authority; use DIDs/Controlled Identifiers for actor identity; publish a JSON-LD context so `trust.kontour.ai/v1` documents carry PROV-O terms (`prov:actedOnBehalfOf`, `prov:wasDerivedFrom`) for semantic-web interop — this is cheap and buys real credibility. Gap Kontour fills: VC has no evidence model and no inquiry primitive; PROV records what happened but has no concept of claims being verified, contested, or resolved.
+Play nicely: emit verification events as VCs signed by the verifying authority; use DIDs/Controlled Identifiers for actor identity; publish a JSON-LD context so `hachure.org/v1` documents carry PROV-O terms (`prov:actedOnBehalfOf`, `prov:wasDerivedFrom`) for semantic-web interop — this is cheap and buys real credibility. Gap Kontour fills: VC has no evidence model and no inquiry primitive; PROV records what happened but has no concept of claims being verified, contested, or resolved.
 
 ### in-toto / SLSA / DSSE / Sigstore
 
@@ -30,7 +30,7 @@ What they cover: the software supply-chain attestation stack. in-toto Statements
 
 Overlap: Kontour's closest architectural sibling. Signed attestations ≈ testimony; typed predicates ≈ claim/evidence schemas; Rekor ≈ append-only testimony log; SLSA policy verification ≈ a deterministic recomputable status function. The difference is domain: in-toto/SLSA attest how an artifact was built, keyed by content digest, with binary pass/fail at admission time.
 
-Play nicely — this is the highest-leverage interop in the report: define `trust.kontour.ai/v1` as an in-toto `predicateType`, instantly inheriting DSSE signing and the cosign toolchain; anchor testimony log entries in Rekor (or run a Tessera-based log) for third-party append-only witnessing; consume SLSA provenance as evidence on claims about software deliverables, which makes Veritas verdicts composable with GitHub's attestation story. Gap Kontour fills: no claim lifecycle (attestations are never disputed or superseded semantically), no human/authority dispute resolution, no inquiry primitive, and the whole stack is useless for claims about knowledge work and decisions that do not reduce to a hashable artifact.
+Play nicely — this is the highest-leverage interop in the report: define `hachure.org/v1` as an in-toto `predicateType`, instantly inheriting DSSE signing and the cosign toolchain; anchor testimony log entries in Rekor (or run a Tessera-based log) for third-party append-only witnessing; consume SLSA provenance as evidence on claims about software deliverables, which makes Veritas verdicts composable with GitHub's attestation story. Gap Kontour fills: no claim lifecycle (attestations are never disputed or superseded semantically), no human/authority dispute resolution, no inquiry primitive, and the whole stack is useless for claims about knowledge work and decisions that do not reduce to a hashable artifact.
 
 ### SARIF
 
@@ -108,7 +108,7 @@ CodeRabbit ($60M Series B; 2M+ connected repos), Greptile ($25M Series A, Benchm
 
 ### Interop (where adopting/emitting existing standards beats inventing)
 
-1. Ship `trust.kontour.ai/v1` as an in-toto predicate type with DSSE signing, and anchor the testimony log in a transparency log (Rekor or a Tessera-based log). This inherits a mature signing/verification toolchain and makes "append-only" independently witnessable instead of self-asserted. Do not invent an envelope or a log.
+1. Ship `hachure.org/v1` as an in-toto predicate type with DSSE signing, and anchor the testimony log in a transparency log (Rekor or a Tessera-based log). This inherits a mature signing/verification toolchain and makes "append-only" independently witnessable instead of self-asserted. Do not invent an envelope or a log.
 2. Adopt PROV-O vocabulary (via a JSON-LD context) for authority traces and emit verification events as W3C VCs where a portable, issuer-signed artifact is needed. Identity via DIDs/Controlled Identifiers; do not invent an identity or delegation vocabulary.
 3. Consume and emit SARIF for everything code-shaped. Ingestion gets every SAST tool for free; emission puts trust status inside GitHub code scanning. Do not define a parallel findings format.
 4. Treat OTel GenAI traces as the evidence drill-down, not a competing record. Reference trace IDs from evidence; map `gen_ai.agent.*`/MCP attributes into authority traces; emit status changes as OTel events. Do not build a tracing SDK.

@@ -60,7 +60,7 @@ the runway; it does not remove the obligations.
 ## Crosswalk
 
 Record types referenced below are defined in the Kontour Trust Format spec
-(`trust.kontour.ai/v1`): TrustBundle, Claim, Evidence, VerificationPolicy,
+(`hachure.org/v1`): TrustBundle, Claim, Evidence, VerificationPolicy,
 VerificationEvent, AuthorityTrace, InquiryRecord, DerivationRule.
 
 | Obligation | What the Act asks for | Kontour record(s), by construction | What the operator still owns |
