@@ -54,7 +54,7 @@ const boundary: { title: string; accent: Accent; items: string[] }[] = [
       <Split ratio="1-1" gap="lg" align="center">
         <div>
           <div class="hero-badges">
-            <span class="trust-badge badge-preview">{productBadge(consoleStatus)}</span>
+            <span class="trust-badge trust-badge--verified">{productBadge(consoleStatus)}</span>
             <span class="install-hint">github.com/kontourai/console</span>
           </div>
 
@@ -78,10 +78,10 @@ const boundary: { title: string; accent: Accent; items: string[] }[] = [
           </div>
         </div>
 
-        <Terminal class="animate-fade-in delay-300" title="console — fixture inspection">
-          <p><span class="prompt">$ </span><span class="cmd">npm run inspect:fixtures</span></p>
+        <Terminal class="animate-fade-in delay-300" title="console — operating-state inspection">
+          <p><span class="prompt">$ </span><span class="cmd">npx console-inspect</span></p>
           <br />
-          <p class="info">  Kontour Console fixture inspection</p>
+          <p class="info">  Kontour Console operating-state inspection</p>
           <br />
           <p class="muted">  Event streams: 3</p>
           <p class="muted">  Projection snapshots: 2</p>

@@ -49,11 +49,11 @@
     "console": {
       "key": "console",
       "label": "Console",
-      "packageName": null,
-      "version": null,
-      "phase": "early preview",
-      "sourceUrl": "https://github.com/kontourai/console",
-      "publicNotes": "Open-source foundation: portable contracts, a local read-only fixture inspector, local telemetry storage, and a local UI over a loopback SSE hub. The hosted console at console.kontourai.io is a private production deployment of it."
+      "packageName": "@kontourai/console",
+      "version": "0.1.0",
+      "phase": "current package",
+      "sourceUrl": "https://www.npmjs.com/package/@kontourai/console",
+      "publicNotes": "Open-source foundation on npm: the local hub, fixture inspector, Flow run bridge, and a local UI. The hosted console at console.kontourai.io is a private production deployment of it."
     }
   }
 }

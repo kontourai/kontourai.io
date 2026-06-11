@@ -27,6 +27,7 @@ const versionedPackages = [
   { key: "surface", name: "@kontourai/surface", page: "src/pages/surface.astro" },
   { key: "survey", name: "@kontourai/survey", page: "src/pages/survey.astro" },
   { key: "flow", name: "@kontourai/flow", page: "src/pages/flow.astro" },
+  { key: "console", name: "@kontourai/console", page: "src/pages/console.astro" },
 ];
 
 async function assertPageUsesProductStatus(pageFile, key, version) {
@@ -163,18 +164,7 @@ async function checkFlowAgents() {
   console.log(`PASS  ${name}: unpublished, page advertises GitHub install (install.sh)`);
 }
 
-async function checkConsole() {
-  const pageFile = "src/pages/console.astro";
-  const source = await readFile(path.join(rootDir, pageFile), "utf8");
-  const status = statusData.products.console;
 
-  if (!status || status.packageName !== null || status.version !== null || status.phase !== "early preview") {
-    error("src/data/product-status.json: Console must stay a manual early-preview status until a public package is reviewed");
-  }
-  if (!source.includes("product-status") || !source.includes("getProductStatus('console')")) {
-    error(`${pageFile}: does not derive Console status from src/data/product-status.json`);
-  }
-}
 
 async function checkDist() {
   const distDir = path.join(rootDir, "dist");
@@ -191,7 +181,6 @@ for (const pkg of versionedPackages) {
   await checkVersionedPackage(pkg);
 }
 await checkFlowAgents();
-await checkConsole();
 await checkDist();
 
 if (errorCount > 0) {
