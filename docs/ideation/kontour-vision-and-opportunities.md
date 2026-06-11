@@ -325,7 +325,7 @@ Shipped protocol concepts:
 - `VerificationPolicy.requiredMethods`: the minimum method or combination of methods needed for a claim type.
 - `VerificationPolicy.requiresCorroboration`: whether one evidence item is not enough.
 - `TrustReport.evidenceRequirementsByClaimId`: current technical field for report-derived requirement data without duplicating policy on every claim.
-- Claim Groups: checklists or requirement sets that group claims. The current Surface schema field is `TrustInput.claimGroups`.
+- Claim Groups: checklists or requirement sets that group claims. The current Surface schema field is `TrustBundle.claimGroups`.
 - `TrustReport.claimGroupRollups`: current technical name for report-derived Claim Group status from the underlying claim statuses.
 - Typed Transparency Gaps and Conflicts:
   - `contradiction`: two claims have incompatible values.

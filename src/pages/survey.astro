@@ -23,7 +23,7 @@ const pipeline = [
 ];
 
 const boundary: { title: string; accent: Accent; items: string[] }[] = [
-  { title: 'Survey owns', accent: 'gold-2', items: ['Raw source identity & retrieval context', 'Extraction observations & locators', 'Candidate sets and resolutions', 'Review outcomes', 'Projection into Surface TrustInput'] },
+  { title: 'Survey owns', accent: 'gold-2', items: ['Raw source identity & retrieval context', 'Extraction observations & locators', 'Candidate sets and resolutions', 'Review outcomes', 'Projection into Surface TrustBundle'] },
   { title: 'Producers own', accent: 'cobalt-2', items: ['Acquisition, crawling, and parsing', 'Candidate ranking and scoring', 'Review UX and policy', 'Materiality and domain rules', 'Whether a value is verified or assumed'] },
   { title: 'Surface owns', accent: 'gold', items: ['Claim status vocabulary', 'Evidence display & support strength', 'Claim dependencies & derived edges', 'Freshness and stale cascades', 'Trust reports and console views'] },
 ];
@@ -369,9 +369,9 @@ const helpers = [
           <Eyebrow accent="gold">Built for Surface</Eyebrow>
           <h2 class="display-md handoff__title">Survey produces.<br />Surface makes it inspectable.</h2>
           <p class="body handoff__copy">
-            <code class="codechip" data-accent="gold-2">buildSurveyTrustInput</code>
+            <code class="codechip" data-accent="gold-2">buildSurveyTrustBundle</code>
             projects Survey records into a Surface
-            <code class="codechip" data-accent="gold">TrustInput</code>.
+            <code class="codechip" data-accent="gold">TrustBundle</code>.
             From there, Surface owns claim status, evidence, dependencies,
             freshness, and the trust reports humans and agents inspect.
           </p>
@@ -382,9 +382,9 @@ const helpers = [
           <p class="muted">  Survey records</p>
           <p>  source → extraction → candidate → review → <span class="info">claim</span></p>
           <br />
-          <p class="muted">  buildSurveyTrustInput()</p>
+          <p class="muted">  buildSurveyTrustBundle()</p>
           <p class="rule">  ───────────────────────────────</p>
-          <p class="info">  Surface TrustInput</p>
+          <p class="info">  Surface TrustBundle</p>
           <p class="pass">  verified  registrationStatus = ACTIVE</p>
           <p class="muted">  evidence  web-page · css:#registration-status</p>
           <p class="muted">  freshness owned by Surface policy</p>

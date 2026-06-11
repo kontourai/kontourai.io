@@ -17,6 +17,16 @@ This is the connective tissue across the product line:
 - **Flow Agents** applies those primitives inside the agent tools people already use.
 - **Console** makes the suite operable — claim status, process state, proof, queues, decisions, and next actions across products in one operating plane.
 
+## The Three Verbs
+
+Every Kontour product is an implementation of three verbs over one ledger:
+
+- **Assert** — say what you believe, on the record. Claims, registered with subject, value, and impact.
+- **Observe** — attach what actually happened, append-only. Evidence, verification events, attestations, testimony that never mutates.
+- **Resolve** — ask anything; every answer comes with receipts or admits it has none. Inquiries that match a claim, derive through a named rule, or honestly report the gap.
+
+Assert and observe are the supply side: producers deposit trust state as Trust Bundles. Resolve is the demand side: humans and agents withdraw answers — including for statements nobody pre-registered. The discipline holding all three together: nothing inside the trust layer silently decides; models may propose, and proposals are records.
+
 ## Why This Is Different
 
 The market already has workflow engines, durable execution systems, agent frameworks, observability platforms, human approval tools, and policy engines.
@@ -40,8 +50,10 @@ Surface is the foundation. It owns claim/evidence transparency:
 - Evidence
 - Evidence Traces
 - Policies
+- Trust Bundles
 - Trust Snapshots
 - Trust Panels
+- Inquiries
 - Transparency Gaps
 - Conflicts
 
@@ -106,7 +118,7 @@ Surface
 
 Survey
   Producer-side contract built on Surface.
-  Source, extraction, candidate, review -> Surface-ready TrustInput.
+  Source, extraction, candidate, review -> Surface-ready Trust Bundles.
 
 Veritas
   AI-authored code vertical built on Surface.
