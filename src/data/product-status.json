@@ -8,7 +8,11 @@
       "version": "0.13.0",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/surface",
-      "publicNotes": ""
+      "publicNotes": "",
+      "marketingReviewed": {
+        "version": "0.13.0",
+        "date": "2026-06-12"
+      }
     },
     "survey": {
       "key": "survey",
@@ -17,7 +21,11 @@
       "version": "0.7.2",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/survey",
-      "publicNotes": "Proof-stage library, not an ingestion platform."
+      "publicNotes": "Proof-stage library, not an ingestion platform.",
+      "marketingReviewed": {
+        "version": "0.7.2",
+        "date": "2026-06-12"
+      }
     },
     "flow": {
       "key": "flow",
@@ -26,7 +34,11 @@
       "version": "0.1.20",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/flow",
-      "publicNotes": "Local CLI plus a loopback Flow Console."
+      "publicNotes": "Local CLI plus a loopback Flow Console.",
+      "marketingReviewed": {
+        "version": "0.1.20",
+        "date": "2026-06-12"
+      }
     },
     "veritas": {
       "key": "veritas",
@@ -35,7 +47,11 @@
       "version": "0.5.1",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/veritas",
-      "publicNotes": ""
+      "publicNotes": "",
+      "marketingReviewed": {
+        "version": "0.5.1",
+        "date": "2026-06-12"
+      }
     },
     "flow-agents": {
       "key": "flow-agents",
@@ -44,7 +60,11 @@
       "version": "0.4.0",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/flow-agents",
-      "publicNotes": "Installable today with npx @kontourai/flow-agents init; pre-1.0."
+      "publicNotes": "Installable today with npx @kontourai/flow-agents init; pre-1.0.",
+      "marketingReviewed": {
+        "version": "0.4.0",
+        "date": "2026-06-12"
+      }
     },
     "console": {
       "key": "console",
@@ -53,7 +73,11 @@
       "version": "0.1.0",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/console",
-      "publicNotes": "Open-source foundation on npm: the local hub, fixture inspector, Flow run bridge, and a local UI. The hosted console at console.kontourai.io is a private production deployment of it."
+      "publicNotes": "Open-source foundation on npm: the local hub, fixture inspector, Flow run bridge, and a local UI. The hosted console at console.kontourai.io is a private production deployment of it.",
+      "marketingReviewed": {
+        "version": "0.1.0",
+        "date": "2026-06-12"
+      }
     }
   }
 }
