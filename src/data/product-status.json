@@ -5,7 +5,7 @@
       "key": "surface",
       "label": "Surface",
       "packageName": "@kontourai/surface",
-      "version": "0.11.0",
+      "version": "0.12.1",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/surface",
       "publicNotes": ""
@@ -14,7 +14,7 @@
       "key": "survey",
       "label": "Survey",
       "packageName": "@kontourai/survey",
-      "version": "0.6.0",
+      "version": "0.7.1",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/survey",
       "publicNotes": "Proof-stage library, not an ingestion platform."
@@ -41,7 +41,7 @@
       "key": "flow-agents",
       "label": "Flow Agents",
       "packageName": "@kontourai/flow-agents",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/flow-agents",
       "publicNotes": "Installable today with npx @kontourai/flow-agents init; pre-1.0."
