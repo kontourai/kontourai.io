@@ -2,3 +2,7 @@
 https://kontourai.com/* https://kontourai.io/:splat 301
 https://www.kontourai.com/* https://kontourai.io/:splat 301
 https://www.kontourai.io/* https://kontourai.io/:splat 301
+
+# /preview → / (retired 2026-06-12; content migrated to homepage)
+/preview https://kontourai.io/ 301
+/preview/ https://kontourai.io/ 301
