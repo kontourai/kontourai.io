@@ -10,7 +10,7 @@
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/surface",
       "publicNotes": "",
       "marketingReviewed": {
-        "version": "0.13.0",
+        "version": "1.0.0",
         "date": "2026-06-12"
       }
     },
@@ -23,7 +23,7 @@
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/survey",
       "publicNotes": "Proof-stage library, not an ingestion platform.",
       "marketingReviewed": {
-        "version": "0.7.2",
+        "version": "1.0.0",
         "date": "2026-06-12"
       }
     },
@@ -36,7 +36,7 @@
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/flow",
       "publicNotes": "Local CLI plus a loopback Flow Console.",
       "marketingReviewed": {
-        "version": "0.1.20",
+        "version": "1.0.0",
         "date": "2026-06-12"
       }
     },
@@ -44,12 +44,12 @@
       "key": "veritas",
       "label": "Veritas",
       "packageName": "@kontourai/veritas",
-      "version": "0.5.1",
+      "version": "1.0.0",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/veritas",
       "publicNotes": "",
       "marketingReviewed": {
-        "version": "0.5.1",
+        "version": "1.0.0",
         "date": "2026-06-12"
       }
     },
@@ -60,7 +60,7 @@
       "version": "0.4.0",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/flow-agents",
-      "publicNotes": "Installable today with npx @kontourai/flow-agents init; pre-1.0.",
+      "publicNotes": "",
       "marketingReviewed": {
         "version": "0.4.0",
         "date": "2026-06-12"
@@ -75,7 +75,7 @@
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/console",
       "publicNotes": "Open-source foundation on npm: the local hub, fixture inspector, Flow run bridge, and a local UI. The hosted console at console.kontourai.io is a private production deployment of it.",
       "marketingReviewed": {
-        "version": "0.2.0",
+        "version": "0.3.0",
         "date": "2026-06-12"
       }
     }

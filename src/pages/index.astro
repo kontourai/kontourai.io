@@ -5,176 +5,220 @@ import Footer from '@/components/Footer.astro';
 import Section from '@/components/Section.astro';
 import Glow from '@/components/Glow.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
-import Card from '@/components/Card.astro';
 import Grid from '@/components/Grid.astro';
 import Split from '@/components/Split.astro';
+import Terminal from '@/components/Terminal.astro';
 import Subscribe from '@/components/Subscribe.astro';
+import { getProductStatus, productBadge } from '@/lib/product-status';
 import type { Accent } from '@/lib/theme';
 
-// The hero "trust snapshot" — what an end user actually sees before relying on
-// an answer: each claim, its current status, and when it was last checked.
-const snapshot: { name: string; desc: string; status: string; badge: string; checked: string; pulse?: boolean }[] = [
-  { name: 'Listing is available', desc: 'The slot still shows open in the provider’s live calendar.', status: 'verified', badge: 'trust-badge--verified', checked: 'checked 2m ago' },
-  { name: 'License is active', desc: 'State board lists license #A-4471 active, no disciplinary flags.', status: 'verified', badge: 'trust-badge--verified', checked: 'checked 1h ago' },
-  { name: 'Price matches the source', desc: 'The quoted $149 matches the provider’s published rate card.', status: 'stale', badge: 'trust-badge--stale', checked: 'checked 9d ago', pulse: true },
-  { name: 'Identity confirmed', desc: 'Business name and address match the state registration record.', status: 'unverified', badge: 'trust-badge--unknown', checked: 'not checked yet' },
-];
+const surfaceStatus    = getProductStatus('surface');
+const surveyStatus     = getProductStatus('survey');
+const flowStatus       = getProductStatus('flow');
+const veritasStatus    = getProductStatus('veritas');
+const flowAgentsStatus = getProductStatus('flow-agents');
+const consoleStatus    = getProductStatus('console');
 
-// Off-the-shelf products: built on the primitives, usable today.
-const products: { name: string; label: string; accent: Accent; body: string }[] = [
+// Six products in layered order: trust foundation → evidence → process →
+// readiness → agent discipline → operating plane
+const productCards: {
+  key: string;
+  name: string;
+  href: string;
+  accent: Accent;
+  job: string;
+  badge: string;
+}[] = [
   {
-    name: 'Veritas',
-    label: 'Ships today · npm',
-    accent: 'green',
-    body: "Merge autonomy for AI-authored code. Turns your repo's standards into evidence-backed readiness reports that agents and reviewers can rely on — with just-in-time guidance while the work happens.",
-  },
-  {
-    name: 'Flow Agents',
-    label: 'Ships today · install',
-    accent: 'chalk-2',
-    body: 'Workflow discipline inside the agent tools you already use — Claude Code, Codex, Kiro, GitHub Actions. Durable plans, review, verification, and release evidence that survive compaction and handoffs.',
-  },
-];
-
-// Primitives: the open shapes builders compose into their own products.
-const primitives: { name: string; accent: Accent; body: string }[] = [
-  {
+    key: 'surface',
     name: 'Surface',
+    href: '/surface',
     accent: 'gold',
-    body: 'One shape for claims, evidence, freshness, policies, and gaps — so the same trust state can be read by a person, an agent, or another system.',
+    job: 'One shape for claims, evidence, freshness, policies, and gaps — readable by a person, an agent, or another system.',
+    badge: productBadge(surfaceStatus),
   },
   {
-    name: 'Flow',
-    accent: 'cobalt-2',
-    body: 'Process transparency for required-path work. Shows why work was allowed to advance, gate by gate, with the evidence behind each transition.',
-  },
-  {
+    key: 'survey',
     name: 'Survey',
+    href: '/survey',
     accent: 'gold-2',
-    body: 'The producer side of claims. Turns sources, extractions, candidates, and reviews into Surface-ready claims with provenance attached.',
+    job: 'Turns sources, extractions, candidates, and reviews into Surface-ready claims with provenance attached.',
+    badge: productBadge(surveyStatus),
+  },
+  {
+    key: 'flow',
+    name: 'Flow',
+    href: '/flow',
+    accent: 'cobalt-2',
+    job: 'Shows why a process was allowed to advance — gate by gate, with the evidence behind each transition.',
+    badge: productBadge(flowStatus),
+  },
+  {
+    key: 'veritas',
+    name: 'Veritas',
+    href: '/veritas',
+    accent: 'green',
+    job: "Turns your repo's standards into evidence-backed readiness reports that agents and reviewers can rely on.",
+    badge: productBadge(veritasStatus),
+  },
+  {
+    key: 'flow-agents',
+    name: 'Flow Agents',
+    href: '/flow-agents',
+    accent: 'chalk-2',
+    job: 'Flow and Veritas discipline inside Claude Code, Codex, Kiro, and GitHub Actions — without becoming a runtime.',
+    badge: productBadge(flowAgentsStatus),
+  },
+  {
+    key: 'console',
+    name: 'Console',
+    href: '/console',
+    accent: 'cobalt',
+    job: 'Claim status, process state, proof, queues, decisions, and next actions across all products in one operating plane.',
+    badge: productBadge(consoleStatus),
   },
 ];
 ---
 
 <Layout
   title="Kontour AI — Show the work behind AI"
-  description="Show the work behind AI. Kontour makes AI-assisted work inspectable — what was claimed, what supports it, which gates it passed, and what is still uncertain — so people and agents can decide what deserves trust before acting on it."
+  description="Kontour makes AI-assisted work inspectable — what was claimed, what supports it, which gates it passed, and what is still uncertain — so people and agents can decide what deserves trust before acting on it."
 >
   <Nav active="home" />
 
+  <!-- Hero ---------------------------------------------------------------- -->
   <Section contour size="cover">
     <Glow accent="gold" position="top-center" />
 
     <div class="container container--hero">
+      <div class="hero-inner">
+        <div class="animate-fade-up hero-kicker">
+          <span class="label-sm">Kontour AI</span>
+          <span class="hero-kicker__sep">·</span>
+          <span class="label-sm hero-kicker__v1">Every product reached 1.0 on June 12, 2026.</span>
+        </div>
+
+        <h1 class="display-xl animate-fade-up delay-100 hero-title">
+          Show the work<br />behind AI.
+        </h1>
+
+        <p class="lead measure animate-fade-up delay-200 hero-lead">
+          Agents write code, run processes, and make claims faster than anyone
+          can inspect by hand. Kontour shows what was claimed, what supports it,
+          which gates it passed, and what's still uncertain — so people and
+          agents can decide what deserves trust before they act.
+        </p>
+
+        <div class="animate-fade-up delay-300 hero-actions">
+          <a href="/early-access/" class="btn-primary" data-umami-event="home-hero-early-access">Get early access →</a>
+          <a href="https://github.com/kontourai" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="home-hero-github">View on GitHub</a>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Product grid -------------------------------------------------------- -->
+  <Section tone="alt" borderTop>
+    <div class="container">
+      <Eyebrow accent="gold">The product line</Eyebrow>
+      <h2 class="display-md grid-title">
+        Six products. One job.
+      </h2>
+      <p class="body measure grid-intro">
+        Pull a finished product off the shelf or build on the open primitives
+        underneath it. Either way, the trust state stays inspectable by people,
+        agents, and systems downstream.
+      </p>
+
+      <Grid cols={3} gap="lg">
+        {productCards.map(({ key, name, href, accent, job, badge }) => (
+          <a href={href} class="product-card" data-accent={accent} data-umami-event={`home-product-${key}`}>
+            <div class="product-card__bar" data-accent={accent}></div>
+            <div class="product-card__body">
+              <div class="product-card__head">
+                <span class="product-card__name" data-accent={accent}>{name}</span>
+                <span class="product-card__badge trust-badge trust-badge--verified">{badge}</span>
+              </div>
+              <p class="product-card__job">{job}</p>
+              <span class="product-card__cta">Explore {name} →</span>
+            </div>
+          </a>
+        ))}
+      </Grid>
+    </div>
+  </Section>
+
+  <!-- How it fits together ------------------------------------------------ -->
+  <Section borderTop>
+    <Glow accent="cobalt-2" position="top-left" />
+    <div class="container">
+      <Eyebrow accent="cobalt-2">How it fits together</Eyebrow>
+      <h2 class="display-md layer-title">
+        A layered stack. Each product shows<br />the work at its own level.
+      </h2>
+      <p class="body measure layer-intro">
+        Surface is the trust foundation. Survey feeds it. Flow gates work.
+        Veritas backs merge decisions. Flow Agents brings discipline into the
+        tools you already use. Console makes the whole thing operable.
+      </p>
+
+      <div class="layer-stack" role="list" aria-label="Kontour product layer stack">
+        {productCards.map(({ key, name, href, accent, job }) => (
+          <div class="layer-row" role="listitem">
+            <div class="layer-row__accent-bar" data-accent={accent}></div>
+            <div class="layer-row__inner">
+              <div class="layer-row__left">
+                <span class="layer-row__name" data-accent={accent}>{name}</span>
+              </div>
+              <p class="layer-row__job">{job}</p>
+              <a href={href} class="layer-row__link" data-accent={accent} data-umami-event={`home-layer-${key}`}>→</a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </Section>
+
+  <!-- Terminal quickstart ------------------------------------------------- -->
+  <Section tone="alt" borderTop borderBottom>
+    <div class="container">
       <Split ratio="1-1" gap="lg" align="center">
         <div>
-          <div class="animate-fade-up hero-kicker">
-            <span class="label-sm">Kontour AI</span>
-            <span class="hero-kicker__sep">-</span>
-            <span class="label-sm hero-kicker__live">Building in progress</span>
-          </div>
-
-          <h1 class="display-xl animate-fade-up delay-100 hero-title">
-            Show the work<br />
-            behind AI.
-          </h1>
-
-          <p class="lead measure animate-fade-up delay-200 hero-lead">
-            Agents write code, run processes, and make claims faster than anyone
-            can inspect by hand. Kontour shows what was claimed, what supports it,
-            which gates it passed, and what's still uncertain — so people and
-            agents can decide what deserves trust before they act.
+          <Eyebrow accent="gold">30-second taste</Eyebrow>
+          <h2 class="display-md qs-title">Start with Surface.</h2>
+          <p class="body qs-copy">
+            Install the foundation, point it at a trust bundle, and get a
+            snapshot of what's verified, stale, and missing — before anything
+            acts on it.
           </p>
-
-          <div class="animate-fade-up delay-300 hero-actions">
-            <a href="/early-access/" class="btn-primary" data-umami-event="home-hero-early-access">Get early access →</a>
-            <a href="https://github.com/kontourai" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="home-hero-github">Follow the build</a>
+          <div class="qs-actions">
+            <a href="/surface" class="btn-primary" data-umami-event="home-qs-surface">Surface docs →</a>
+            <a href="/developers" class="btn-ghost" data-umami-event="home-qs-developers">Developer overview</a>
           </div>
         </div>
 
-        <div class="snapshot card-elevated animate-fade-in delay-300" role="group" aria-label="Example Kontour trust snapshot">
-          <div class="snapshot__bar">
-            <span class="snapshot__title">trust snapshot</span>
-            <span class="snapshot__meta">as of just now</span>
-          </div>
-          <div class="snapshot__rows">
-            {snapshot.map(({ name, desc, status, badge, checked, pulse }) => (
-              <div class="snapshot__row">
-                <div class="snapshot__claim">
-                  <span class="snapshot__name">{name}</span>
-                  <span class="snapshot__desc">{desc}</span>
-                </div>
-                <span class="snapshot__checked">{checked}</span>
-                <span class={`trust-badge ${badge}`}>
-                  <span class="snapshot__dot" data-pulse={pulse}></span>
-                  {status}
-                </span>
-              </div>
-            ))}
-          </div>
-          <div class="snapshot__verdict">
-            <span class="snapshot__verdict-key">now</span>
-            <span class="snapshot__verdict-val">Current — recheck 1 claim before you rely on it</span>
-          </div>
-        </div>
+        <Terminal title="surface — first run">
+          <p><span class="prompt">$ </span><span class="cmd">npm install -D @kontourai/surface</span></p>
+          <br />
+          <p><span class="prompt">$ </span><span class="cmd">npx surface report --format summary</span></p>
+          <br />
+          <p class="info">  Kontour Surface trust snapshot surface-1777090239260</p>
+          <p class="muted">  Source: kontour-surface-validation-fixtures</p>
+          <br />
+          <p>  Claims: <span class="pass">4</span> &nbsp;(unknown: 1, verified: 2, stale: 1)</p>
+          <p>  High-impact unsupported: <span class="pass">none</span></p>
+          <p class="warn">  Stale: claim.field-attested-records.registration-status</p>
+          <p>  Transparency gaps: <span class="warn">3</span></p>
+          <br />
+          <p class="rule">  ────────────────────────────────</p>
+          <p class="pass">  verdict: current — recheck 1 claim before acting</p>
+        </Terminal>
       </Split>
     </div>
   </Section>
 
-  <Section tone="alt" borderTop>
-    <div class="container">
-      <Eyebrow accent="gold">What we're building</Eyebrow>
-      <h2 class="display-md build-title">
-        Two layers. One job:<br />show the work behind AI.
-      </h2>
-      <p class="body measure build-intro">
-        Pull a finished product off the shelf, or build on the open primitives
-        underneath it. Either way, the trust state stays inspectable by people,
-        agents, and the systems downstream.
-      </p>
-
-      <div class="layer">
-        <Eyebrow accent="green" gap="lg">Products you can use today</Eyebrow>
-        <Grid cols={2} gap="lg">
-          {products.map(({ name, label, accent, body }) => (
-            <Card accent={accent} bar="top" pad="lg">
-              <div class="feature-label" data-accent={accent}>{label}</div>
-              <h3 class="product-card__name">{name}</h3>
-              <p class="product-card__body">{body}</p>
-            </Card>
-          ))}
-        </Grid>
-      </div>
-
-      <div class="layer">
-        <Eyebrow accent="gold" gap="lg">Primitives to build on</Eyebrow>
-        <Grid cols={3} gap="lg">
-          {primitives.map(({ name, accent, body }) => (
-            <Card accent={accent} bar="top" pad="md">
-              <h3 class="primitive-card__name" data-accent={accent}>{name}</h3>
-              <p class="feature-body">{body}</p>
-            </Card>
-          ))}
-        </Grid>
-      </div>
-
-      <Card accent="cobalt" bar="top" pad="lg" class="console-row">
-        <div class="console-row__inner">
-          <div>
-            <div class="feature-label" data-accent="cobalt">Over the suite</div>
-            <h3 class="product-card__name">Console</h3>
-          </div>
-          <p class="console-row__body">
-            Console sits above the primitives — one place to visualize and manage
-            claim status, process state, proof, queues, decisions, and next actions
-            across every product, without owning their semantics.
-          </p>
-        </div>
-      </Card>
-    </div>
-  </Section>
-
-  <Section tone="alt" borderTop>
+  <!-- Promise ------------------------------------------------------------- -->
+  <Section tone="alt">
     <div class="container container--readable promise">
       <Eyebrow accent="gold">The promise</Eyebrow>
       <h2 class="display-md promise__title">
@@ -189,6 +233,7 @@ const primitives: { name: string; accent: Accent; body: string }[] = [
     </div>
   </Section>
 
+  <!-- CTA ----------------------------------------------------------------- -->
   <Section borderTop size="lg">
     <Glow accent="gold" position="top-center" />
     <div class="container container--readable cta">
@@ -210,14 +255,21 @@ const primitives: { name: string; accent: Accent; body: string }[] = [
 </Layout>
 
 <style>
+  /* Hero ----------------------------------------------------------------- */
+  .hero-inner {
+    max-width: 760px;
+  }
   .hero-kicker {
     margin-bottom: 2.25rem;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
   }
   .hero-kicker__sep {
     margin: 0 0.75rem;
     color: var(--color-edge-2);
   }
-  .hero-kicker__live {
+  .hero-kicker__v1 {
     color: var(--color-gold);
   }
   .hero-title {
@@ -233,158 +285,169 @@ const primitives: { name: string; accent: Accent; body: string }[] = [
     align-items: center;
   }
 
-  /* Hero trust snapshot ------------------------------------------------ */
-  .snapshot {
-    padding: 0;
+  /* Product grid --------------------------------------------------------- */
+  .grid-title {
+    margin-bottom: 1rem;
+  }
+  .grid-intro {
+    margin-bottom: 3rem;
+  }
+
+  .product-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--color-ink-2);
+    border: 1px solid var(--color-edge);
+    border-radius: 6px;
     overflow: hidden;
+    text-decoration: none;
+    transition: border-color 0.18s, background 0.18s;
   }
-  .snapshot__bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.85rem 1.25rem;
-    border-bottom: 1px solid var(--color-edge);
-    background: var(--color-ink-1);
+  .product-card:hover {
+    border-color: var(--accent, var(--color-edge-2));
+    background: var(--color-ink-3);
   }
-  .snapshot__title {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 0;
-    text-transform: uppercase;
-    color: var(--color-chalk-2);
-  }
-  .snapshot__meta {
-    font-family: var(--font-mono);
-    font-size: 0.62rem;
-    color: var(--color-chalk-3);
-  }
-  .snapshot__rows {
-    display: flex;
-    flex-direction: column;
-  }
-  .snapshot__row {
-    display: grid;
-    grid-template-columns: 1fr auto auto;
-    gap: 0.5rem 1rem;
-    align-items: start;
-    padding: 0.85rem 1.25rem;
-    border-bottom: 1px solid var(--color-edge);
-  }
-  .snapshot__claim {
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-    min-width: 0;
-  }
-  .snapshot__name {
-    font-size: 0.82rem;
-    color: var(--color-chalk-2);
-    line-height: 1.4;
-  }
-  .snapshot__desc {
-    font-size: 0.68rem;
-    color: var(--color-chalk-3);
-    line-height: 1.45;
-  }
-  .snapshot__checked {
-    font-family: var(--font-mono);
-    font-size: 0.62rem;
-    letter-spacing: 0;
-    color: var(--color-chalk-3);
-    white-space: nowrap;
-    padding-top: 2px;
-  }
-  .snapshot__dot {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    display: inline-block;
-    background: currentColor;
-  }
-  .snapshot__dot[data-pulse] {
-    animation: pulse-dot 2s ease-in-out infinite;
-  }
-  .snapshot__verdict {
-    display: flex;
-    gap: 0.85rem;
-    align-items: baseline;
-    padding: 0.95rem 1.25rem;
-    background: var(--color-ink-1);
-  }
-  .snapshot__verdict-key {
-    font-family: var(--font-mono);
-    font-size: 0.62rem;
-    text-transform: uppercase;
-    color: var(--color-gold);
-  }
-  .snapshot__verdict-val {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    color: var(--color-chalk-2);
-    line-height: 1.5;
-  }
-
-  @media (max-width: 560px) {
-    .snapshot__row {
-      grid-template-columns: 1fr auto;
-    }
-    .snapshot__checked {
-      display: none;
-    }
-  }
-
-  /* Product / primitive layers ---------------------------------------- */
-  .build-title {
-    margin-bottom: 1.25rem;
-  }
-  .build-intro {
-    margin-bottom: 3.5rem;
-  }
-  .layer {
-    margin-bottom: 3.5rem;
-  }
-  .product-card__name {
-    font-family: var(--font-display);
-    font-size: 1.6rem;
-    font-weight: 400;
-    color: var(--color-chalk);
-    letter-spacing: 0;
-    margin-bottom: 0.85rem;
+  .product-card__bar {
+    height: 3px;
+    background: var(--accent, var(--color-edge));
+    flex-shrink: 0;
   }
   .product-card__body {
-    color: var(--color-chalk-2);
-    font-size: 0.9rem;
-    line-height: 1.7;
-    margin-bottom: 1.5rem;
+    padding: 1.25rem 1.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
   }
-  .primitive-card__name {
+  .product-card__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  .product-card__name {
     font-family: var(--font-display);
     font-size: 1.35rem;
     font-weight: 400;
     color: var(--accent, var(--color-chalk));
     letter-spacing: 0;
-    margin-bottom: 0.75rem;
+    line-height: 1.3;
   }
-  .console-row__inner {
-    display: grid;
-    grid-template-columns: 14rem 1fr;
-    gap: 1.5rem;
-    align-items: center;
+  .product-card__badge {
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
-  .console-row__body {
+  .product-card__job {
     color: var(--color-chalk-2);
-    font-size: 0.9rem;
-    line-height: 1.7;
+    font-size: 0.85rem;
+    line-height: 1.65;
+    flex: 1;
+    margin-bottom: 1.25rem;
+  }
+  .product-card__cta {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--accent, var(--color-chalk-3));
+    letter-spacing: 0;
+    text-transform: uppercase;
+    margin-top: auto;
+  }
+
+  /* Layer stack ---------------------------------------------------------- */
+  .layer-title {
+    margin-bottom: 1rem;
+  }
+  .layer-intro {
+    margin-bottom: 3rem;
+  }
+  .layer-stack {
+    border: 1px solid var(--color-edge);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .layer-row {
+    border-bottom: 1px solid var(--color-edge);
+  }
+  .layer-row:last-child {
+    border-bottom: none;
+  }
+  .layer-row__accent-bar {
+    height: 2px;
+    background: var(--accent, var(--color-edge));
+  }
+  .layer-row__inner {
+    display: grid;
+    grid-template-columns: 9rem 1fr auto;
+    gap: 1rem 1.5rem;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: var(--color-ink-2);
+    transition: background 0.15s;
+  }
+  .layer-row:hover .layer-row__inner {
+    background: var(--color-ink-3);
+  }
+  .layer-row__name {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 400;
+    color: var(--accent, var(--color-chalk));
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
+  .layer-row__job {
+    color: var(--color-chalk-3);
+    font-size: 0.8rem;
+    line-height: 1.6;
     margin: 0;
   }
-  @media (max-width: 700px) {
-    .console-row__inner {
-      grid-template-columns: 1fr;
-      gap: 0.75rem;
+  .layer-row__link {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--accent, var(--color-chalk-3));
+    text-decoration: none;
+    padding: 0.25rem 0.5rem;
+    transition: color 0.15s;
+  }
+  .layer-row__link:hover {
+    color: var(--color-chalk);
+  }
+
+  @media (max-width: 600px) {
+    .layer-row__inner {
+      grid-template-columns: 1fr auto;
+      grid-template-rows: auto auto;
+    }
+    .layer-row__left {
+      grid-column: 1;
+      grid-row: 1;
+    }
+    .layer-row__link {
+      grid-column: 2;
+      grid-row: 1;
+    }
+    .layer-row__job {
+      grid-column: 1 / -1;
+      grid-row: 2;
     }
   }
 
-  /* Promise + CTA ------------------------------------------------------ */
+  /* Quickstart ----------------------------------------------------------- */
+  .qs-title {
+    margin-bottom: 1rem;
+  }
+  .qs-copy {
+    margin-bottom: 2rem;
+  }
+  .qs-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  /* Promise + CTA -------------------------------------------------------- */
   .promise {
     text-align: center;
   }

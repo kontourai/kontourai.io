@@ -1,28 +1,56 @@
 import { readFile } from "node:fs/promises";
 import { expect, test } from "@playwright/test";
 
-test("homepage renders the teaser hero and six-product line without product links", async ({ page }) => {
+test("homepage shows v1 landing: hero, six product cards with version badges, and the suite layering", async ({ page }) => {
   await page.goto("/");
 
+  // Hero
   await expect(page.locator(".label-sm").filter({ hasText: "Kontour AI" }).first()).toBeVisible();
   await expect(page.getByRole("heading", { name: "Show the work behind AI.", exact: true })).toBeVisible();
   await expect(page.getByText("Agents write code, run processes, and make claims faster than anyone").first()).toBeVisible();
-  await expect(page.getByText("trust snapshot").first()).toBeVisible();
+
+  // v1 milestone line
+  await expect(page.getByText("Every product reached 1.0 on June 12, 2026.").first()).toBeVisible();
+
+  // CTAs
   await expect(page.locator('[data-umami-event="home-hero-github"]')).toBeVisible();
   await expect(page.locator('[data-umami-event="home-hero-early-access"]')).toBeVisible();
   await expect(page.locator('[data-umami-event="home-hero-early-access"]')).toHaveAttribute("href", "/early-access/");
 
-  // Six-product line
-  await expect(page.locator(".label-sm").filter({ hasText: "What we're building" })).toBeVisible();
+  // Six product cards present with version badges from metadata
+  const { products } = JSON.parse(
+    await readFile(new URL("../src/data/product-status.json", import.meta.url), "utf8"),
+  );
+  for (const [key, status] of Object.entries(products)) {
+    const badge = `v${status.version}`;
+    await expect(page.getByText(badge).first()).toBeVisible();
+  }
+
+  // All six product names visible in the grid
   await expect(page.getByText("Surface").first()).toBeVisible();
   await expect(page.getByText("Survey", { exact: true }).first()).toBeVisible();
   await expect(page.getByText("Flow", { exact: true }).first()).toBeVisible();
   await expect(page.getByText("Veritas").first()).toBeVisible();
   await expect(page.getByText("Flow Agents").first()).toBeVisible();
   await expect(page.getByText("Console", { exact: true }).first()).toBeVisible();
-  await expect(page.locator('[data-umami-event="home-subscribe"]')).toBeVisible();
 
-  // Brand promise
+  // Product grid cards link to product pages (multiple links per product exist; first() picks the grid card)
+  await expect(page.locator('a[href="/surface"]').first()).toBeVisible();
+  await expect(page.locator('a[href="/survey"]').first()).toBeVisible();
+  await expect(page.locator('a[href="/flow"]').first()).toBeVisible();
+  await expect(page.locator('a[href="/veritas"]').first()).toBeVisible();
+  await expect(page.locator('a[href="/flow-agents"]').first()).toBeVisible();
+  await expect(page.locator('a[href="/console"]').first()).toBeVisible();
+
+  // "How it fits together" section with the layer stack
+  await expect(page.locator(".label-sm").filter({ hasText: "How it fits together" })).toBeVisible();
+  await expect(page.locator('[aria-label="Kontour product layer stack"]')).toBeVisible();
+
+  // Terminal quickstart present
+  await expect(page.getByText("npm install -D @kontourai/surface").first()).toBeVisible();
+
+  // Subscribe and brand promise
+  await expect(page.locator('[data-umami-event="home-subscribe"]')).toBeVisible();
   await expect(page.getByText("Evidence-backed confidence.").first()).toBeVisible();
   await expect(page.getByText("Not certainty theater.").first()).toBeVisible();
 
@@ -41,11 +69,22 @@ test("homepage renders the teaser hero and six-product line without product link
   await expect(page.locator('[data-umami-event="footer-github"]')).toBeVisible();
   await expect(page.locator('[data-umami-event="footer-contact"]')).toBeVisible();
   await expect(page.locator('[data-umami-event="footer-contact"]')).toHaveAttribute("href", "/early-access/");
-  await expect(page.locator('a[href="/surface"], a[href="/survey"], a[href="/flow"], a[href="/flow-agents"], a[href="/veritas"], a[href="/console"]')).toHaveCount(0);
 
   // Guard against leaked build-process / internal copy regressing back in
   await expect(page.getByText("still shaping")).toHaveCount(0);
   await expect(page.getByText("intentionally simple")).toHaveCount(0);
+});
+
+test("/preview no longer serves the old preview page", async ({ page }) => {
+  // In production (Cloudflare Pages), _redirects issues a 301 to /.
+  // In the local Vite preview server, the page is simply absent (404 served from 404.html).
+  // Both outcomes are correct: the old preview content must not be reachable.
+  await page.goto("/preview/", { waitUntil: "load" });
+  const finalUrl = page.url();
+  const redirectedAway = !finalUrl.includes("/preview");
+  const got404 = await page.getByText("PRODUCT LINE PREVIEW").count() === 0;
+  // Acceptable: redirected to home, or serving 404 without old preview content
+  expect(redirectedAway || got404, `Old /preview content is still accessible at ${finalUrl}`).toBe(true);
 });
 
 test("early access page gives static contact paths", async ({ page }) => {
@@ -89,19 +128,6 @@ test("production analytics scripts are configured defensively", async ({ page })
   await expect(umami).toHaveAttribute("data-domains", "kontourai.io,www.kontourai.io");
   await expect(umami).toHaveAttribute("data-do-not-track", "true");
   await expect(umami).toHaveAttribute("data-exclude-search", "true");
-});
-
-test("preview page keeps the fuller six-product story accessible", async ({ page }) => {
-  await page.goto("/preview/");
-
-  await expect(page.getByText("PRODUCT LINE PREVIEW").first()).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Kontour AI shows the work behind AI." })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Surface", exact: true })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Survey", exact: true })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Flow", exact: true })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Veritas", exact: true })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Flow Agents", exact: true })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Console", exact: true })).toBeVisible();
 });
 
 test("flow page explains process transparency and product boundaries", async ({ page }) => {
