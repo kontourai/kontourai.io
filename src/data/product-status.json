@@ -23,7 +23,7 @@
       "key": "flow",
       "label": "Flow",
       "packageName": "@kontourai/flow",
-      "version": "0.1.19",
+      "version": "0.1.20",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/flow",
       "publicNotes": "Local CLI plus a loopback Flow Console."
@@ -32,7 +32,7 @@
       "key": "veritas",
       "label": "Veritas",
       "packageName": "@kontourai/veritas",
-      "version": "0.5.0",
+      "version": "0.5.1",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/veritas",
       "publicNotes": ""
@@ -41,7 +41,7 @@
       "key": "flow-agents",
       "label": "Flow Agents",
       "packageName": "@kontourai/flow-agents",
-      "version": "0.3.0",
+      "version": "0.4.0",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/flow-agents",
       "publicNotes": "Installable today with npx @kontourai/flow-agents init; pre-1.0."
