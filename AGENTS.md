@@ -24,6 +24,7 @@ publishable.
 
 - Any change: `npm run build && npx playwright test` (13 rendered-site tests) and `node scripts/validate.mjs`.
 - After any Kontour package release: update `product-status.json` versions or the validator fails the next deploy.
+- After refreshing a product page's copy/screenshots: set that product's `marketingReviewed` to the version you reconciled against (`node scripts/check-marketing-freshness.mjs` is the advisory signal the ops desk watches).
 
 ## Useful Commands
 
