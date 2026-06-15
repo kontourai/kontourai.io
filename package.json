@@ -15,7 +15,9 @@
     "check:product-status": "node scripts/refresh-product-status.mjs --dry-run",
     "check:content-boundary": "node scripts/check-content-boundary.cjs",
     "check:theme-tokens": "node scripts/check-theme-tokens.mjs",
-    "check:security-hardening": "node scripts/check-security-hardening.mjs"
+    "check:security-hardening": "node scripts/check-security-hardening.mjs",
+    "sync-versions": "node scripts/sync-versions.mjs",
+    "sync-versions:check": "node scripts/sync-versions.mjs --check"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.0",
