@@ -10,6 +10,7 @@ import Card from '@/components/Card.astro';
 import Grid from '@/components/Grid.astro';
 import Split from '@/components/Split.astro';
 import QuestionGrid from '@/components/QuestionGrid.astro';
+import ProductMark from '@/components/ProductMark.astro';
 import { getProductStatus, productBadge } from '@/lib/product-status';
 import type { Accent } from '@/lib/theme';
 
@@ -58,6 +59,7 @@ const boundary: { title: string; accent: Accent; items: string[] }[] = [
             <span class="install-hint">github.com/kontourai/console</span>
           </div>
 
+          <ProductMark product="console" size={40} class="product-hero-mark animate-fade-up" data-accent="cobalt" />
           <h1 class="product-title animate-fade-up">Console</h1>
           <p class="product-tagline animate-fade-up delay-100" data-accent="cobalt">suite trust state made operable without becoming the source of truth</p>
 

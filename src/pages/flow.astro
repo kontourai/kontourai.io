@@ -10,6 +10,7 @@ import Card from '@/components/Card.astro';
 import Grid from '@/components/Grid.astro';
 import Split from '@/components/Split.astro';
 import QuestionGrid from '@/components/QuestionGrid.astro';
+import ProductMark from '@/components/ProductMark.astro';
 import { getProductStatus, productBadge } from '@/lib/product-status';
 import type { Accent } from '@/lib/theme';
 
@@ -65,6 +66,7 @@ const consoleFeatures = [
             <span class="install-hint">npm install -D @kontourai/flow</span>
           </div>
 
+          <ProductMark product="flow" size={40} class="product-hero-mark animate-fade-up" data-accent="cobalt-2" />
           <h1 class="product-title animate-fade-up">Flow</h1>
           <p class="product-tagline animate-fade-up delay-100" data-accent="cobalt-2">required paths, gates, evidence, and exceptions made inspectable</p>
 

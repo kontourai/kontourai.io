@@ -210,6 +210,14 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 2rem;
 }
 
+/* Product hero glyph — the per-product ProductMark sits just above the title,
+   taking the page's accent (or default text color when no accent cascades). */
+.product-hero-mark {
+  color: var(--accent, var(--color-chalk-2));
+  margin-bottom: 1rem;
+  display: block;
+}
+
 .product-title {
   font-family: var(--font-display);
   font-optical-sizing: auto;
