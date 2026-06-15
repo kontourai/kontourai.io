@@ -9,25 +9,19 @@ import Grid from '@/components/Grid.astro';
 import Split from '@/components/Split.astro';
 import Terminal from '@/components/Terminal.astro';
 import Subscribe from '@/components/Subscribe.astro';
-import { getProductStatus, productBadge } from '@/lib/product-status';
 import type { Accent } from '@/lib/theme';
 
-const surfaceStatus    = getProductStatus('surface');
-const surveyStatus     = getProductStatus('survey');
-const flowStatus       = getProductStatus('flow');
-const veritasStatus    = getProductStatus('veritas');
-const flowAgentsStatus = getProductStatus('flow-agents');
-const consoleStatus    = getProductStatus('console');
-
 // Six products in layered order: trust foundation → evidence → process →
-// readiness → agent discipline → operating plane
+// readiness → agent discipline → operating plane.
+// `job` describes what each product does on its own (the card grid);
+// `relation` describes how it connects to its neighbours (the layer stack).
 const productCards: {
   key: string;
   name: string;
   href: string;
   accent: Accent;
   job: string;
-  badge: string;
+  relation: string;
 }[] = [
   {
     key: 'surface',
@@ -35,7 +29,7 @@ const productCards: {
     href: '/surface',
     accent: 'gold',
     job: 'One shape for claims, evidence, freshness, policies, and gaps — readable by a person, an agent, or another system.',
-    badge: productBadge(surfaceStatus),
+    relation: 'The foundation: every other product reads and writes its trust state as one Surface shape.',
   },
   {
     key: 'survey',
@@ -43,7 +37,7 @@ const productCards: {
     href: '/survey',
     accent: 'gold-2',
     job: 'Turns sources, extractions, candidates, and reviews into Surface-ready claims with provenance attached.',
-    badge: productBadge(surveyStatus),
+    relation: 'Feeds Surface — turning raw sources, extractions, and reviews into claims with provenance attached.',
   },
   {
     key: 'flow',
@@ -51,7 +45,7 @@ const productCards: {
     href: '/flow',
     accent: 'cobalt-2',
     job: 'Shows why a process was allowed to advance — gate by gate, with the evidence behind each transition.',
-    badge: productBadge(flowStatus),
+    relation: 'Reads that evidence to gate work, advancing a process only when the proof for each step is there.',
   },
   {
     key: 'veritas',
@@ -59,7 +53,7 @@ const productCards: {
     href: '/veritas',
     accent: 'green',
     job: "Turns your repo's standards into evidence-backed readiness reports that agents and reviewers can rely on.",
-    badge: productBadge(veritasStatus),
+    relation: 'Brings the same evidence to merge — readiness reports a reviewer or agent can act on.',
   },
   {
     key: 'flow-agents',
@@ -67,7 +61,7 @@ const productCards: {
     href: '/flow-agents',
     accent: 'chalk-2',
     job: 'Flow and Veritas discipline inside Claude Code, Codex, Kiro, and GitHub Actions — without becoming a runtime.',
-    badge: productBadge(flowAgentsStatus),
+    relation: 'Carries Flow and Veritas discipline into the agent tools you already run, without becoming a runtime.',
   },
   {
     key: 'console',
@@ -75,7 +69,7 @@ const productCards: {
     href: '/console',
     accent: 'cobalt',
     job: 'Claim status, process state, proof, queues, decisions, and next actions across all products in one operating plane.',
-    badge: productBadge(consoleStatus),
+    relation: 'Sits over all of it — one operating plane for status, proof, queues, and decisions across the suite.',
   },
 ];
 ---
@@ -94,8 +88,6 @@ const productCards: {
       <div class="hero-inner">
         <div class="animate-fade-up hero-kicker">
           <span class="label-sm">Kontour AI</span>
-          <span class="hero-kicker__sep">·</span>
-          <span class="label-sm hero-kicker__v1">Every product reached 1.0 on June 12, 2026.</span>
         </div>
 
         <h1 class="display-xl animate-fade-up delay-100 hero-title">
@@ -131,13 +123,12 @@ const productCards: {
       </p>
 
       <Grid cols={3} gap="lg">
-        {productCards.map(({ key, name, href, accent, job, badge }) => (
+        {productCards.map(({ key, name, href, accent, job }) => (
           <a href={href} class="product-card" data-accent={accent} data-umami-event={`home-product-${key}`}>
             <div class="product-card__bar" data-accent={accent}></div>
             <div class="product-card__body">
               <div class="product-card__head">
                 <span class="product-card__name" data-accent={accent}>{name}</span>
-                <span class="product-card__badge trust-badge trust-badge--verified">{badge}</span>
               </div>
               <p class="product-card__job">{job}</p>
               <span class="product-card__cta">Explore {name} →</span>
@@ -163,14 +154,14 @@ const productCards: {
       </p>
 
       <div class="layer-stack" role="list" aria-label="Kontour product layer stack">
-        {productCards.map(({ key, name, href, accent, job }) => (
+        {productCards.map(({ key, name, href, accent, relation }) => (
           <div class="layer-row" role="listitem">
             <div class="layer-row__accent-bar" data-accent={accent}></div>
             <div class="layer-row__inner">
               <div class="layer-row__left">
                 <span class="layer-row__name" data-accent={accent}>{name}</span>
               </div>
-              <p class="layer-row__job">{job}</p>
+              <p class="layer-row__job">{relation}</p>
               <a href={href} class="layer-row__link" data-accent={accent} data-umami-event={`home-layer-${key}`}>→</a>
             </div>
           </div>
@@ -332,12 +323,6 @@ const productCards: {
     color: var(--accent, var(--color-chalk));
     letter-spacing: 0;
     line-height: 1.3;
-  }
-  .product-card__badge {
-    font-family: var(--font-mono);
-    font-size: 0.64rem;
-    white-space: nowrap;
-    flex-shrink: 0;
   }
   .product-card__job {
     color: var(--color-chalk-2);

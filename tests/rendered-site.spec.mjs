@@ -1,7 +1,7 @@
 import { readFile } from "node:fs/promises";
 import { expect, test } from "@playwright/test";
 
-test("homepage shows v1 landing: hero, six product cards with version badges, and the suite layering", async ({ page }) => {
+test("homepage shows the hero, six product cards, and the suite layering", async ({ page }) => {
   await page.goto("/");
 
   // Hero
@@ -9,22 +9,13 @@ test("homepage shows v1 landing: hero, six product cards with version badges, an
   await expect(page.getByRole("heading", { name: "Show the work behind AI.", exact: true })).toBeVisible();
   await expect(page.getByText("Agents write code, run processes, and make claims faster than anyone").first()).toBeVisible();
 
-  // v1 milestone line
-  await expect(page.getByText("Every product reached 1.0 on June 12, 2026.").first()).toBeVisible();
-
   // CTAs
   await expect(page.locator('[data-umami-event="home-hero-github"]')).toBeVisible();
   await expect(page.locator('[data-umami-event="home-hero-early-access"]')).toBeVisible();
   await expect(page.locator('[data-umami-event="home-hero-early-access"]')).toHaveAttribute("href", "/early-access/");
 
-  // Six product cards present with version badges from metadata
-  const { products } = JSON.parse(
-    await readFile(new URL("../src/data/product-status.json", import.meta.url), "utf8"),
-  );
-  for (const [key, status] of Object.entries(products)) {
-    const badge = `v${status.version}`;
-    await expect(page.getByText(badge).first()).toBeVisible();
-  }
+  // The v1 launch framing is intentionally retired from the hero and cards
+  await expect(page.getByText("Every product reached 1.0")).toHaveCount(0);
 
   // All six product names visible in the grid
   await expect(page.getByText("Surface").first()).toBeVisible();
