@@ -23,9 +23,11 @@ publishable.
 ## Match Checks To Change Type
 
 - Any change: `npm run build && npx playwright test` (13 rendered-site tests) and `node scripts/validate.mjs`.
-- After any Kontour package release: update `product-status.json` versions or the validator fails the next deploy.
+- After any Kontour package release: run `npm run sync-versions` to pull the latest npm versions into `product-status.json`, then commit. The validator enforces the match at deploy; `sync-versions --check` catches drift in CI.
 - After refreshing a product page's copy/screenshots: set that product's `marketingReviewed` to the version you reconciled against (`node scripts/check-marketing-freshness.mjs` is the advisory signal the ops desk watches).
 
 ## Useful Commands
 
 - `npm run build` · `npx playwright test` · `node scripts/validate.mjs` · `npm run check:content-boundary`
+- `npm run sync-versions` — refresh all version pins in `product-status.json` from npm after any release (idempotent; prints a diff of what changed)
+- `npm run sync-versions:check` — CI gate: exits non-zero if any pin is stale, prints which ones
