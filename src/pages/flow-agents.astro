@@ -202,6 +202,12 @@ const honest: { title: string; body: string; accent: Accent }[] = [
             <code>install-local</code> command. Validation runs the same contract
             as Builder Kit before anything is copied.
           </p>
+          <p class="body bk__copy">
+            A kit's gates can be evaluated <strong class="strong">agentlessly</strong> —
+            a deterministic check of the same path, no agent in the loop — so CI or a
+            person can verify a kit, not only the agent that ran it. Each kit declares
+            a conformance level, so you know what it guarantees before you install it.
+          </p>
           <Terminal class="bk__terminal" title="install a local kit">
             <p><span class="prompt">$ </span><span class="cmd">npx @kontourai/flow-agents flow-kit install-local ./my-kit --dest .</span></p>
             <p><span class="prompt">$ </span><span class="cmd">npx @kontourai/flow-agents flow-kit activate --dest .</span></p>
