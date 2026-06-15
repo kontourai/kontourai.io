@@ -10,6 +10,7 @@ import Card from '@/components/Card.astro';
 import Grid from '@/components/Grid.astro';
 import Split from '@/components/Split.astro';
 import QuestionGrid from '@/components/QuestionGrid.astro';
+import ProductMark from '@/components/ProductMark.astro';
 import { getProductStatus, productBadge } from '@/lib/product-status';
 import type { Accent } from '@/lib/theme';
 
@@ -80,6 +81,7 @@ const moreThanStatus: { title: string; body: string; accent: Accent }[] = [
             <span class="install-hint">npm install -D @kontourai/surface</span>
           </div>
 
+          <ProductMark product="surface" size={40} class="product-hero-mark animate-fade-up" data-accent="gold" />
           <h1 class="product-title animate-fade-up">Surface</h1>
           <p class="product-tagline animate-fade-up delay-100" data-accent="gold">claims, evidence, freshness, and gaps in one inspectable shape</p>
 

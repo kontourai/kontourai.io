@@ -9,6 +9,7 @@ import Eyebrow from '@/components/Eyebrow.astro';
 import Card from '@/components/Card.astro';
 import Grid from '@/components/Grid.astro';
 import Split from '@/components/Split.astro';
+import ProductMark from '@/components/ProductMark.astro';
 import { getProductStatus, productBadge } from '@/lib/product-status';
 import type { Accent } from '@/lib/theme';
 
@@ -63,6 +64,7 @@ const cli = [
             <span class="install-hint">npm install -D @kontourai/veritas</span>
           </div>
 
+          <ProductMark product="veritas" size={40} class="product-hero-mark animate-fade-up" data-accent="green" />
           <h1 class="product-title animate-fade-up">Veritas</h1>
           <p class="product-tagline animate-fade-up delay-100" data-accent="green">code and change readiness made inspectable</p>
 

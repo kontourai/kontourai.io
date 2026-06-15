@@ -1,5 +1,6 @@
 ---
 import { products, type ProductKey } from '@/lib/products';
+import ProductMark from '@/components/ProductMark.astro';
 
 type NavKey = 'home' | ProductKey;
 type SiteNavKey = NavKey | 'developers';
@@ -40,11 +41,11 @@ const hideProducts = teaser || active === 'home';
             {products.map(({ href, label, key, accent }) => (
               <a
                 href={href}
-                class="nav-link"
+                class="nav-link nav-link--product"
                 aria-current={active === key ? 'page' : undefined}
                 data-accent={active === key ? accent : undefined}
                 data-umami-event={`nav-${key}`}
-              >{label}</a>
+              ><ProductMark product={key} size={16} class="nav-link__mark" />{label}</a>
             ))}
 
             <div class="nav__divider"></div>
@@ -156,5 +157,25 @@ const hideProducts = teaser || active === 'home';
      global.css; this adds the per-product color). */
   .nav-link[aria-current="page"][data-accent] {
     color: var(--accent);
+  }
+
+  /* Product links carry their mark beside the label; align as one inline unit
+     and keep it on a single line even while the bar scrolls horizontally. */
+  .nav-link--product {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    white-space: nowrap;
+  }
+  .nav-link__mark {
+    flex-shrink: 0;
+    /* Resting state is dimmer than the label; brightens with the link on hover
+       and on the active page, inheriting the link's currentColor. */
+    color: var(--color-chalk-3);
+    transition: color 0.18s;
+  }
+  .nav-link:hover .nav-link__mark,
+  .nav-link[aria-current="page"] .nav-link__mark {
+    color: inherit;
   }
 </style>
