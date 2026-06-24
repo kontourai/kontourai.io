@@ -16,25 +16,25 @@ import type { Accent } from '@/lib/theme';
 const surveyStatus = getProductStatus('survey');
 
 const pipeline = [
-  { step: 'Source', body: 'Where the value came from — a page, a document, an API record, a manual entry — with its reference, time, and checksum.' },
-  { step: 'Extraction', body: 'The value pulled from that source, with a locator, an excerpt, the extractor, and a confidence.' },
+  { step: 'Raw Source', body: 'The observed material — a page, a document, an API record, a manual entry — with Source Reference, time, and checksum.' },
+  { step: 'Extraction', body: 'The value pulled from that Raw Source, with a locator, an excerpt, the extractor, and a confidence.' },
   { step: 'Candidate', body: 'Competing values for the same target, kept side by side instead of silently dropped.' },
-  { step: 'Review', body: 'The outcome a human or policy assigns — verified, assumed, rejected, or needs-review.' },
+  { step: 'Review', body: 'The outcome a human or policy assigns — verified, assumed, rejected, or Needs Review.' },
   { step: 'Claim', body: 'A Surface-ready claim with its full provenance trail attached, ready to be reported on.' },
 ];
 
 const boundary: { title: string; accent: Accent; items: string[] }[] = [
-  { title: 'Survey owns', accent: 'gold-2', items: ['Raw source identity & retrieval context', 'Extraction observations & locators', 'Candidate sets and resolutions', 'Review outcomes', 'Projection into Surface TrustBundle'] },
+  { title: 'Survey owns', accent: 'gold-2', items: ['Raw Source identity & retrieval context', 'Source Reference locations', 'Extraction observations & locators', 'Candidate sets and resolutions', 'Review outcomes', 'Projection into a Surface TrustBundle'] },
   { title: 'Producers own', accent: 'cobalt-2', items: ['Acquisition, crawling, and parsing', 'Candidate ranking and scoring', 'Review UX and policy', 'Materiality and domain rules', 'Whether a value is verified or assumed'] },
   { title: 'Surface owns', accent: 'gold', items: ['Claim status vocabulary', 'Evidence display & support strength', 'Claim dependencies & derived edges', 'Freshness and stale cascades', 'Trust reports and console views'] },
 ];
 
 const helpers = [
-  { fn: 'fieldObservation', desc: 'One scalar field value with its source, extraction, review, and claim defaults filled in.' },
+  { fn: 'fieldObservation', desc: 'One scalar field value with its Raw Source, Source Reference, extraction, review, and claim defaults filled in.' },
   { fn: 'repeatedObservation', desc: 'A repeated field or entity list described as one aggregate observation.' },
   { fn: 'candidateReviewRecord', desc: 'Multiple candidates for one target, assembled into a shared candidate set with links.' },
   { fn: 'reviewedCandidateResolution', desc: 'Attaches a review outcome to the selected candidate and supersedes the rest.' },
-  { fn: 'ReviewPresentationAdapter', call: false, desc: 'Product-owned labels, value summaries, and source/trace links for generic Survey review records.' },
+  { fn: 'ReviewPresentationAdapter', call: false, desc: 'Product-owned labels, value summaries, and Source Reference/trace links for generic Survey review records.' },
   { fn: 'buildReviewItemPresentation', desc: 'Turns a ReviewItem plus adapter hooks into human-readable review copy without changing canonical data.' },
   { fn: 'buildReviewResultPresentation', desc: 'Explains a derived review result and selected value while keeping write authority on the product server.' },
   { fn: 'buildReviewWorkbenchSessionExportForSnapshot', desc: 'Replays persisted review events against the reviewed snapshot before deriving selected candidates.' },
@@ -52,7 +52,7 @@ const helpers = [
 
 <Layout
   title="Survey — Inspectable producer-side provenance for Surface · Kontour AI"
-  description="Kontour Survey gives producers a review workflow for trustworthy Surface-ready claims: sources, extractions, candidates, reviews, and provenance."
+  description="Kontour Survey gives producers a review workflow for trustworthy Surface-ready claims: Raw Sources, Source References, extractions, candidates, reviews, and provenance."
 >
   <Nav active="survey" />
 
@@ -73,7 +73,7 @@ const helpers = [
 
           <p class="hero-copy animate-fade-up delay-200">
             Before a claim reaches Surface, someone has to form it — from a
-            source, an extraction, competing candidates, and a review. Survey
+            Raw Source, Source Reference, extraction, competing candidates, and a review. Survey
             is the small contract for that producer side: it makes those
             observations inspectable, gives reviewers a durable workflow, and
             projects the reviewed records into Surface-ready claims with
@@ -127,7 +127,7 @@ const helpers = [
     <div class="container">
       <Eyebrow accent="gold-2" gap="sm">The producer pipeline</Eyebrow>
       <h2 class="display-md measure-lg pipeline-title">
-        One path from raw source to a claim Surface can inspect.
+        One path from Raw Source to a claim Surface can inspect.
       </h2>
 
       <Grid cols={5} gap="sm">
@@ -149,8 +149,8 @@ const helpers = [
     <div class="container">
       <Eyebrow accent="gold-2" gap="sm">See it</Eyebrow>
       <figure class="product-shot">
-        <img src="/screenshots/survey-workbench.png" alt="Survey Review Workbench: a review queue, current versus proposed values, source evidence, decision controls, and a Surface preview" loading="lazy" />
-        <figcaption>The embeddable Review Workbench working a fixture queue — current vs proposed values, source evidence, decision effect, and the Surface projection preview. <a href="https://kontourai.github.io/survey/demo/" target="_blank" rel="noopener">Try the live demo →</a></figcaption>
+        <img src="/screenshots/survey-workbench.png" alt="Survey Review Workbench: a review queue, current versus proposed values, Raw Source details, decision controls, and a Surface TrustBundle preview" loading="lazy" />
+        <figcaption>The embeddable Review Workbench working a fixture queue — current vs proposed values, Raw Source and Source Reference details, decision effect, and the Surface TrustBundle projection preview. <a href="https://kontourai.github.io/survey/demo/" target="_blank" rel="noopener">Try the live demo →</a></figcaption>
       </figure>
     </div>
   </Section>
@@ -200,7 +200,7 @@ const helpers = [
           </p>
           <p class="body apply__copy apply__copy--last">
             That gives future producers a clear checklist for trustworthy
-            claims: source identity, extraction locator, candidate history,
+            claims: Raw Source identity, Source Reference, extraction locator, candidate history,
             reviewer action, actor/time, and the Surface projection are all
             explicit before the claim is published.
           </p>
@@ -315,12 +315,12 @@ const helpers = [
             A crawler reads a registration status off a public record and needs
             to preserve the extraction before it becomes a claim. With
             <code class="codechip" data-accent="gold-2">fieldObservation</code>,
-            the source, extraction, review outcome, and claim travel together —
+            the Raw Source, Source Reference, extraction, review outcome, and claim travel together —
             so Surface can report not just the value, but where it came from
             and how fresh it is.
           </p>
           <p class="body worked__copy worked__copy--last">
-            Conflicting candidates don't disappear. A losing source stays on the
+            Conflicting candidates don't disappear. A losing Raw Source stays on the
             trail as <code class="code-plain">superseded</code>,
             and an unresolved conflict projects to Surface as
             <code class="code-plain">disputed</code>.
@@ -382,7 +382,7 @@ const helpers = [
 
         <Terminal title="survey → surface">
           <p class="muted">  Survey records</p>
-          <p>  source → extraction → candidate → review → <span class="info">claim</span></p>
+          <p>  Raw Source → Source Reference → extraction → candidate → review → <span class="info">claim</span></p>
           <br />
           <p class="muted">  buildSurveyTrustBundle()</p>
           <p class="rule">  ───────────────────────────────</p>
