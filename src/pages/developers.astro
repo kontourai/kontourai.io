@@ -8,42 +8,7 @@ import Eyebrow from '@/components/Eyebrow.astro';
 import Card from '@/components/Card.astro';
 import Grid from '@/components/Grid.astro';
 import Terminal from '@/components/Terminal.astro';
-import type { Accent } from '@/lib/theme';
-
-const products: { name: string; owns: string; composes: string; href: string; repo: string; accent: Accent }[] = [
-  {
-    name: 'Surface',
-    accent: 'gold',
-    owns: 'portable claims, evidence, policies, status, Trust Reports, and trust vocabulary',
-    composes: 'makes product facts inspectable for Console, Flow gates, Veritas reports, and downstream operators',
-    href: '/surface/',
-    repo: 'https://github.com/kontourai/surface',
-  },
-  {
-    name: 'Flow',
-    accent: 'cobalt-2',
-    owns: 'process paths, transitions, gates, route-backs, exceptions, and next-action semantics',
-    composes: 'uses Surface or Veritas evidence as gate input without owning claim truth or repo policy',
-    href: '/flow/',
-    repo: 'https://github.com/kontourai/flow',
-  },
-  {
-    name: 'Veritas',
-    accent: 'green',
-    owns: 'repo standards, readiness checks, evidence findings, exceptions, and code-change governance',
-    composes: 'projects code-change readiness into evidence other products can inspect',
-    href: '/veritas/',
-    repo: 'https://github.com/kontourai/veritas',
-  },
-  {
-    name: 'Flow Agents',
-    accent: 'chalk-2',
-    owns: 'agent workflows, skills, kits, local sidecars, verification loops, and handoff discipline',
-    composes: 'coordinates Builder Kit work and can consume Flow, Veritas, and Surface signals',
-    href: '/flow-agents/',
-    repo: 'https://github.com/kontourai/flow-agents',
-  },
-];
+import { developerCompositionProducts } from '@/lib/products';
 
 const mapNodes = [
   { label: 'Flow Agents', sub: 'agent workflow coordination', accent: 'chalk-2' },
@@ -231,14 +196,14 @@ const states = [
     <div class="container">
       <Eyebrow gap="sm">Composition contracts</Eyebrow>
       <Grid min="280" gap="md">
-        {products.map(({ name, owns, composes, href, repo, accent }) => (
+        {developerCompositionProducts.map(({ key, label, href, repo, accent, developerComposition }) => (
           <Card accent={accent} bar="top" pad="md">
-            <h3 class="product-card__title">{name}</h3>
-            <p class="product-card__body"><strong>Owns:</strong> {owns}.</p>
-            <p class="product-card__body"><strong>Composes by:</strong> {composes}.</p>
+            <h3 class="product-card__title">{label}</h3>
+            <p class="product-card__body"><strong>Owns:</strong> {developerComposition.owns}.</p>
+            <p class="product-card__body"><strong>Composes by:</strong> {developerComposition.composes}.</p>
             <div class="product-card__links">
-              <a href={href} data-umami-event={`developers-${name.toLowerCase().replace(' ', '-')}-page`}>Product page</a>
-              <a href={repo} target="_blank" rel="noopener" data-umami-event={`developers-${name.toLowerCase().replace(' ', '-')}-repo`}>GitHub</a>
+              <a href={`${href}/`} data-umami-event={`developers-${key}-page`}>Product page</a>
+              <a href={repo} target="_blank" rel="noopener" data-umami-event={`developers-${key}-repo`}>GitHub</a>
             </div>
           </Card>
         ))}
