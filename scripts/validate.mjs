@@ -33,7 +33,7 @@ const versionedPackages = [
 ];
 
 const localWorkspacePackages = [
-  { key: "surface", packageFile: "../surface/package.json", expectedVersion: "1.2.1" },
+  { key: "surface", packageFile: "../surface/package.json", expectedVersion: "1.3.0" },
   { key: "survey", packageFile: "../survey/package.json", expectedVersion: "1.1.0" },
 ];
 
