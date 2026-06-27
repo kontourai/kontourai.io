@@ -3,6 +3,7 @@
 import { access, readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { createServer } from "vite";
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const registryBaseUrl = "https://registry.npmjs.org";
@@ -19,16 +20,34 @@ function warn(message) {
   console.log(`WARN  ${message}`);
 }
 
-// Packages whose advertised version badge must match the public metadata. The
-// metadata is compared against the public npm version when registry access is
-// available; local sibling checkouts are never public release evidence.
+// Packages whose advertised version badge must match public metadata when
+// registry access is available. Local workspace packages listed in
+// localWorkspacePackages must also match their sibling package manifests.
 const versionedPackages = [
   { key: "veritas", name: "@kontourai/veritas", page: "src/pages/veritas.astro" },
   { key: "surface", name: "@kontourai/surface", page: "src/pages/surface.astro" },
   { key: "survey", name: "@kontourai/survey", page: "src/pages/survey.astro" },
   { key: "flow", name: "@kontourai/flow", page: "src/pages/flow.astro" },
+  { key: "flow-agents", name: "@kontourai/flow-agents", page: "src/pages/flow-agents.astro" },
   { key: "console", name: "@kontourai/console", page: "src/pages/console.astro" },
 ];
+
+const localWorkspacePackages = [
+  { key: "surface", packageFile: "../surface/package.json", expectedVersion: "1.2.1" },
+  { key: "survey", packageFile: "../survey/package.json", expectedVersion: "1.1.0" },
+];
+
+let viteServer;
+
+async function loadProductCatalog() {
+  viteServer = await createServer({
+    root: rootDir,
+    logLevel: "silent",
+    server: { middlewareMode: true },
+    appType: "custom",
+  });
+  return viteServer.ssrLoadModule("/src/lib/products.ts");
+}
 
 async function assertPageUsesProductStatus(pageFile, key, version) {
   const source = await readFile(path.join(rootDir, pageFile), "utf8");
@@ -41,12 +60,57 @@ async function assertPageUsesProductStatus(pageFile, key, version) {
   }
 }
 
-async function checkProductRegistryCoverage() {
-  const productsSource = await readFile(path.join(rootDir, "src/lib/products.ts"), "utf8");
-  const keys = [...productsSource.matchAll(/key: "([^"]+)"/g)].map((match) => match[1]);
+function assertUniqueKeys(keys, label) {
+  const seen = new Set();
   for (const key of keys) {
+    if (seen.has(key)) {
+      error(`${label}: duplicate product key ${key}`);
+    }
+    seen.add(key);
+  }
+}
+
+async function checkProductCatalogCoverage(catalog) {
+  const catalogKeys = catalog.products.map((product) => product.key);
+  const statusKeys = Object.keys(statusData.products);
+  const homepageKeys = catalog.homepageProducts.map((product) => product.key);
+  const developerCompositionKeys = catalog.developerCompositionProducts.map((product) => product.key);
+
+  assertUniqueKeys(catalogKeys, "src/lib/products.ts products");
+  assertUniqueKeys(homepageKeys, "src/lib/products.ts homepageProducts");
+  assertUniqueKeys(developerCompositionKeys, "src/lib/products.ts developerCompositionProducts");
+
+  for (const key of catalogKeys) {
     if (!statusData.products[key]) {
       error(`src/data/product-status.json: missing product status for ${key}`);
+    }
+  }
+  for (const key of statusKeys) {
+    if (!catalogKeys.includes(key)) {
+      error(`src/lib/products.ts: missing catalog product for status entry ${key}`);
+    }
+  }
+  for (const key of catalogKeys) {
+    if (!homepageKeys.includes(key)) {
+      error(`src/lib/products.ts: homepageProducts omits catalog product ${key}`);
+    }
+  }
+  for (const product of catalog.developerCompositionProducts) {
+    if (!product.developerComposition) {
+      error(`src/lib/products.ts: developerCompositionProducts includes ${product.key} without composition copy`);
+    }
+  }
+
+  const intentionalDeveloperOmissions = ["survey", "console"];
+  for (const key of catalogKeys) {
+    const isOmitted = !developerCompositionKeys.includes(key);
+    if (isOmitted && !intentionalDeveloperOmissions.includes(key)) {
+      error(`src/lib/products.ts: developerCompositionProducts omits ${key} without an explicit validation allowance`);
+    }
+  }
+  for (const key of intentionalDeveloperOmissions) {
+    if (!catalogKeys.includes(key)) {
+      error(`src/lib/products.ts: intentional developer omission ${key} is not a catalog product`);
     }
   }
 }
@@ -111,6 +175,38 @@ async function checkVersionedPackage({ key, name, page }) {
   }
 }
 
+async function checkLocalWorkspacePackage({ key, packageFile, expectedVersion }) {
+  const status = statusData.products[key];
+  if (!status) {
+    error(`src/data/product-status.json: missing ${key}`);
+    return;
+  }
+
+  const packageJsonPath = path.resolve(rootDir, packageFile);
+  let packageJson;
+  try {
+    packageJson = JSON.parse(await readFile(packageJsonPath, "utf8"));
+  } catch (err) {
+    if (err?.code !== "ENOENT") {
+      throw err;
+    }
+    if (status.version !== expectedVersion) {
+      error(`${key}: status v${status.version ?? "null"} does not match committed local-workspace expectation v${expectedVersion}`);
+      return;
+    }
+    console.log(`PASS  ${key}: metadata v${status.version} matches committed local-workspace expectation (${packageFile} not present)`);
+    return;
+  }
+  if (status.packageName !== packageJson.name) {
+    error(`${key}: status packageName ${status.packageName ?? "null"} does not match ${packageFile} name ${packageJson.name}`);
+  }
+  if (status.version !== packageJson.version) {
+    error(`${key}: status v${status.version ?? "null"} does not match ${packageFile} v${packageJson.version}`);
+    return;
+  }
+  console.log(`PASS  ${key}: metadata v${status.version} matches ${packageFile}`);
+}
+
 // Flow Agents publishes to npm like the other packages, so its metadata
 // version is checked against the registry. Additionally guard the drift that
 // matters for its page: no "coming soon" framing, and the advertised install
@@ -121,9 +217,6 @@ async function checkFlowAgents() {
   const source = await readFile(path.join(rootDir, pageFile), "utf8");
   const status = statusData.products["flow-agents"];
 
-  if (!status || status.packageName !== name || !status.version) {
-    error(`src/data/product-status.json: Flow Agents is published; metadata must carry packageName and the released version`);
-  }
   if (!source.includes("product-status") || !source.includes("getProductStatus('flow-agents')")) {
     error(`${pageFile}: does not derive Flow Agents status from src/data/product-status.json`);
   }
@@ -176,12 +269,20 @@ async function checkDist() {
   }
 }
 
-await checkProductRegistryCoverage();
-for (const pkg of versionedPackages) {
-  await checkVersionedPackage(pkg);
+try {
+  const catalog = await loadProductCatalog();
+  await checkProductCatalogCoverage(catalog);
+  for (const pkg of localWorkspacePackages) {
+    await checkLocalWorkspacePackage(pkg);
+  }
+  for (const pkg of versionedPackages) {
+    await checkVersionedPackage(pkg);
+  }
+  await checkFlowAgents();
+  await checkDist();
+} finally {
+  await viteServer?.close();
 }
-await checkFlowAgents();
-await checkDist();
 
 if (errorCount > 0) {
   process.exitCode = 1;

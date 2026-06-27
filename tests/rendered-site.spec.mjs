@@ -203,11 +203,13 @@ test("survey page explains the producer pipeline and surface handoff", async ({ 
 
   // Producer pipeline
   await expect(page.locator(".label-sm").filter({ hasText: "The producer pipeline" })).toBeVisible();
-  await expect(page.getByText("Source", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("Raw Source", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("Source Reference").first()).toBeVisible();
   await expect(page.getByText("Extraction", { exact: true }).first()).toBeVisible();
   await expect(page.getByText("Candidate", { exact: true }).first()).toBeVisible();
   await expect(page.getByText("Review", { exact: true }).first()).toBeVisible();
   await expect(page.getByText("Claim", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("Needs Review").first()).toBeVisible();
 
   // Boundary and helpers
   await expect(page.getByRole("heading", { name: "Survey owns" })).toBeVisible();
@@ -226,6 +228,7 @@ test("survey page explains the producer pipeline and surface handoff", async ({ 
   // Surface handoff
   await expect(page.getByText("Survey produces.")).toBeVisible();
   await expect(page.getByText("Surface makes it inspectable.")).toBeVisible();
+  await expect(page.getByText("Surface TrustBundle").first()).toBeVisible();
 });
 
 test("console page presents the suite operating plane and boundary", async ({ page }) => {
