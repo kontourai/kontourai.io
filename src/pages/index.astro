@@ -11,69 +11,7 @@ import Terminal from '@/components/Terminal.astro';
 import Subscribe from '@/components/Subscribe.astro';
 import ProductMark from '@/components/ProductMark.astro';
 import type { ProductMarkSlug } from '@/components/ProductMark.astro';
-import type { Accent } from '@/lib/theme';
-
-// Six products in layered order: trust foundation → evidence → process →
-// readiness → agent discipline → operating plane.
-// `job` describes what each product does on its own (the card grid);
-// `relation` describes how it connects to its neighbours (the layer stack).
-const productCards: {
-  key: string;
-  name: string;
-  href: string;
-  accent: Accent;
-  job: string;
-  relation: string;
-}[] = [
-  {
-    key: 'surface',
-    name: 'Surface',
-    href: '/surface',
-    accent: 'gold',
-    job: 'One shape for claims, evidence, freshness, policies, and gaps — readable by a person, an agent, or another system.',
-    relation: 'The foundation: every other product reads and writes its trust state as one Surface shape.',
-  },
-  {
-    key: 'survey',
-    name: 'Survey',
-    href: '/survey',
-    accent: 'gold-2',
-    job: 'Turns sources, extractions, candidates, and reviews into Surface-ready claims with provenance attached.',
-    relation: 'Feeds Surface — turning raw sources, extractions, and reviews into claims with provenance attached.',
-  },
-  {
-    key: 'flow',
-    name: 'Flow',
-    href: '/flow',
-    accent: 'cobalt-2',
-    job: 'Shows why a process was allowed to advance — gate by gate, with the evidence behind each transition.',
-    relation: 'Reads that evidence to gate work, advancing a process only when the proof for each step is there.',
-  },
-  {
-    key: 'veritas',
-    name: 'Veritas',
-    href: '/veritas',
-    accent: 'green',
-    job: "Turns your repo's standards into evidence-backed readiness reports that agents and reviewers can rely on.",
-    relation: 'Brings the same evidence to merge — readiness reports a reviewer or agent can act on.',
-  },
-  {
-    key: 'flow-agents',
-    name: 'Flow Agents',
-    href: '/flow-agents',
-    accent: 'chalk-2',
-    job: 'Flow and Veritas discipline inside Claude Code, Codex, Kiro, and GitHub Actions — without becoming a runtime.',
-    relation: 'Carries Flow and Veritas discipline into the agent tools you already run, without becoming a runtime.',
-  },
-  {
-    key: 'console',
-    name: 'Console',
-    href: '/console',
-    accent: 'cobalt',
-    job: 'Claim status, process state, proof, queues, decisions, and next actions across all products in one operating plane.',
-    relation: 'Sits over all of it — one operating plane for status, proof, queues, and decisions across the suite.',
-  },
-];
+import { homepageProducts } from '@/lib/products';
 ---
 
 <Layout
@@ -125,18 +63,18 @@ const productCards: {
       </p>
 
       <Grid cols={3} gap="lg">
-        {productCards.map(({ key, name, href, accent, job }) => (
+        {homepageProducts.map(({ key, label, href, accent, homepage }) => (
           <a href={href} class="product-card" data-accent={accent} data-umami-event={`home-product-${key}`}>
             <div class="product-card__bar" data-accent={accent}></div>
             <div class="product-card__body">
               <div class="product-card__head">
                 <span class="product-card__name" data-accent={accent}>
                   <ProductMark product={key as ProductMarkSlug} size={20} class="product-card__mark" data-accent={accent} />
-                  {name}
+                  {label}
                 </span>
               </div>
-              <p class="product-card__job">{job}</p>
-              <span class="product-card__cta">Explore {name} →</span>
+              <p class="product-card__job">{homepage.job}</p>
+              <span class="product-card__cta">Explore {label} →</span>
             </div>
           </a>
         ))}
@@ -159,14 +97,14 @@ const productCards: {
       </p>
 
       <div class="layer-stack" role="list" aria-label="Kontour product layer stack">
-        {productCards.map(({ key, name, href, accent, relation }) => (
+        {homepageProducts.map(({ key, label, href, accent, homepage }) => (
           <div class="layer-row" role="listitem">
             <div class="layer-row__accent-bar" data-accent={accent}></div>
             <div class="layer-row__inner">
               <div class="layer-row__left">
-                <span class="layer-row__name" data-accent={accent}>{name}</span>
+                <span class="layer-row__name" data-accent={accent}>{label}</span>
               </div>
-              <p class="layer-row__job">{relation}</p>
+              <p class="layer-row__job">{homepage.relation}</p>
               <a href={href} class="layer-row__link" data-accent={accent} data-umami-event={`home-layer-${key}`}>→</a>
             </div>
           </div>

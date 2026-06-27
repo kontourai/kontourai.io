@@ -44,6 +44,7 @@ const skills = [
 ];
 
 const honest: { title: string; body: string; accent: Accent }[] = [
+  { title: "Done you can't fake", accent: 'chalk-2', body: "The agent can't mark work complete that isn't. The stop gate re-derives the verdict from captured evidence — not the agent's say-so — an external CI check re-runs the verification in a clean environment and blocks the merge on any divergence, and CI signs a tamper-evident record of what shipped." },
   { title: 'Durable artifacts', accent: 'green', body: 'Workflow state, acceptance, evidence, critique, release, and learning records persist as inspectable sidecars under .flow-agents/ — so a session can be resumed, audited, or handed off.' },
   { title: 'Optional governance', accent: 'cobalt-2', body: 'Wire Veritas readiness reports in as a governance adapter to back merge decisions with repo-standard evidence. Optional, never mandatory — Flow Agents does not own the policy.' },
   { title: 'Deliberate execution', accent: 'gold', body: 'Choose local, worktree, container, cloud, or privileged execution boundaries on purpose. Evals — static, integration, behavioral — keep the bundle honest as it changes.' },
@@ -79,7 +80,8 @@ const honest: { title: string; body: string; accent: Accent }[] = [
             so a loose request becomes shaped work, plans, review, verification,
             and a release decision — with evidence the agent and the developer
             can both read back. It does not replace the runtime or framework; it
-            gives the work a required path and inspectable evidence.
+            gives the work a required path, inspectable evidence, and a completion
+            the agent can't fake — verified in CI it can't disable, not asserted.
           </p>
 
           <div class="hero-actions animate-fade-up delay-300">
@@ -276,7 +278,7 @@ const honest: { title: string; body: string; accent: Accent }[] = [
   <Section tone="alt" borderTop>
     <div class="container">
       <Eyebrow gap="lg">What keeps it honest</Eyebrow>
-      <Grid cols={3} gap="lg">
+      <Grid cols={2} gap="lg">
         {honest.map(({ title, body, accent }) => (
           <Card accent={accent} bar="top" pad="md">
             <h3 class="feature-title">{title}</h3>
