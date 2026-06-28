@@ -1,0 +1,43 @@
+# Trust Verify — dogfoods the Flow Agents external trust anchor on this repo.
+#
+# On every PR, re-runs this repo's canonical verification FRESH in a clean CI
+# environment an agent does not control (build + the content/theme/security/validate
+# checks). If a Flow Agents session has published delivery/trust.bundle, it also
+# RECONCILES the agent's claimed passes against CI's own fresh results and fails on
+# any divergence. When no bundle is present, only the fresh verify is enforced
+# (fail-open on bundle absence; fail-closed on divergence when present).
+#
+# To ARM it: add "Trust Verify" as a required, no-bypass status check in this repo's
+# branch protection. Until then it runs and reports but does not block.
+#
+# Adoption guide: https://github.com/kontourai/flow-agents/blob/main/docs/trust-anchor-adoption.md
+name: Trust Verify
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  trust-verify:
+    name: Trust Verify
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+      # Install this repo's deps so the verify-command (astro build + validators) runs.
+      - run: npm ci
+      # The external anchor: re-run our real verify fresh + reconcile any delivered bundle.
+      # SHA-pinned (mutable tags are not trusted for a cross-repo action that gates merges).
+      #
+      # verify-command is `npm run build` for now. `npm run validate` is intentionally
+      # excluded until the product-catalog version-parity drift is resolved (the site
+      # metadata lags npm latest, e.g. @kontourai/flow-agents) — see the
+      # product-catalog-status-source workflow. Add `&& npm run validate` once it is green
+      # so the anchor enforces the full verify.
+      - uses: kontourai/flow-agents/.github/actions/trust-verify@bb167e93e7f6cc19baa88da613e96fe88a681c10 # flow-agents 2.0.0
+        with:
+          verify-command: "npm run build"
