@@ -33,11 +33,9 @@ jobs:
       # The external anchor: re-run our real verify fresh + reconcile any delivered bundle.
       # SHA-pinned (mutable tags are not trusted for a cross-repo action that gates merges).
       #
-      # verify-command runs build + the content-boundary, theme-token, and security-hardening
-      # validators. `scripts/validate.mjs` (the npm version-parity check) is intentionally
-      # excluded until the product-catalog drift is resolved (site metadata lags npm latest —
-      # e.g. @kontourai/flow-agents; see the product-catalog-status-source workflow). Switch to
-      # `npm run build && npm run validate` once that's green to enforce the full verify.
+      # verify-command is the full `npm run build && npm run validate` — build + content
+      # boundary + theme tokens + security hardening + npm version-parity. (The version-parity
+      # drift was resolved in the product-status sync, so validate is now enforced here.)
       - uses: kontourai/flow-agents/.github/actions/trust-verify@a75a6d28baf68b4be527a2e8cdff8f007af88bd5 # flow-agents @ trust-verify action-path fix
         with:
-          verify-command: "npm run build && npm run check:content-boundary && npm run check:theme-tokens && npm run check:security-hardening"
+          verify-command: "npm run build && npm run validate"
