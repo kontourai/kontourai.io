@@ -36,6 +36,6 @@ jobs:
       # verify-command is the full `npm run build && npm run validate` — build + content
       # boundary + theme tokens + security hardening + npm version-parity. (The version-parity
       # drift was resolved in the product-status sync, so validate is now enforced here.)
-      - uses: kontourai/flow-agents/.github/actions/trust-verify@a75a6d28baf68b4be527a2e8cdff8f007af88bd5 # flow-agents @ trust-verify action-path fix
+      - uses: kontourai/flow-agents/.github/actions/trust-verify@2aa332a723bf1b421863e39b2d998032d96bec85 # flow-agents @ trust-verify action-path fix
         with:
           verify-command: "npm run build && npm run validate"
