@@ -1,51 +1,62 @@
 import { readFile } from "node:fs/promises";
 import { expect, test } from "@playwright/test";
+import { validateTrustBundle } from "@kontourai/surface";
 
-test("homepage shows the hero, six product cards, and the suite layering", async ({ page }) => {
+test("homepage leads with a single Flow Agents headline and Survey as the proof story", async ({ page }) => {
   await page.goto("/");
 
-  // Hero
-  await expect(page.locator(".label-sm").filter({ hasText: "Kontour AI" }).first()).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Show the work behind AI.", exact: true })).toBeVisible();
-  await expect(page.getByText("Agents write code, run processes, and make claims faster than anyone").first()).toBeVisible();
+  // AC1: exactly one hero headline story — the Flow Agents wedge — above the fold.
+  await expect(page.locator(".label-sm").filter({ hasText: "Kontour · Flow Agents" }).first()).toBeVisible();
+  await expect(
+    page.getByRole("heading", { level: 1, name: "Ship AI-built code you can stand behind.", exact: true }),
+  ).toBeVisible();
+  await expect(page.locator("h1")).toHaveCount(1);
+  await expect(page.getByText("AI agents write more code than anyone can review by hand.").first()).toBeVisible();
 
-  // CTAs
-  await expect(page.locator('[data-umami-event="home-hero-github"]')).toBeVisible();
-  await expect(page.locator('[data-umami-event="home-hero-early-access"]')).toBeVisible();
+  // Hero CTAs
   await expect(page.locator('[data-umami-event="home-hero-early-access"]')).toHaveAttribute("href", "/early-access/");
+  await expect(page.locator('[data-umami-event="home-hero-flow-agents"]')).toHaveAttribute("href", "/flow-agents/");
+  await expect(page.locator('[data-umami-event="home-hero-github"]')).toBeVisible();
 
-  // The v1 launch framing is intentionally retired from the hero and cards
-  await expect(page.getByText("Every product reached 1.0")).toHaveCount(0);
+  // AC5: enforcement framing renders.
+  await expect(page.getByText("Prompts are advice.").first()).toBeVisible();
+  await expect(page.getByText("Gates are laws.").first()).toBeVisible();
 
-  // All six product names visible in the grid
-  await expect(page.getByText("Surface").first()).toBeVisible();
+  // AC2: Survey proof section, subordinate to the hero (an h2, not a second h1).
+  await expect(page.locator(".label-sm").filter({ hasText: "The proof" }).first()).toBeVisible();
+  await expect(
+    page.getByRole("heading", { level: 2, name: "Grounded claims, not confident guesses." }),
+  ).toBeVisible();
   await expect(page.getByText("Survey", { exact: true }).first()).toBeVisible();
-  await expect(page.getByText("Flow", { exact: true }).first()).toBeVisible();
-  await expect(page.getByText("Veritas").first()).toBeVisible();
-  await expect(page.getByText("Flow Agents").first()).toBeVisible();
-  await expect(page.getByText("Console", { exact: true }).first()).toBeVisible();
+  await expect(page.locator('[data-umami-event="home-proof-survey"]')).toHaveAttribute("href", "/survey/");
 
-  // Product grid cards link to product pages (multiple links per product exist; first() picks the grid card)
-  await expect(page.locator('a[href="/surface"]').first()).toBeVisible();
-  await expect(page.locator('a[href="/survey"]').first()).toBeVisible();
-  await expect(page.locator('a[href="/flow"]').first()).toBeVisible();
-  await expect(page.locator('a[href="/veritas"]').first()).toBeVisible();
-  await expect(page.locator('a[href="/flow-agents"]').first()).toBeVisible();
-  await expect(page.locator('a[href="/console"]').first()).toBeVisible();
+  // AC4: memory-vs-trust line renders.
+  await expect(page.getByText("Memory tells the agent what it knows.").first()).toBeVisible();
+  await expect(page.getByText("Kontour proves what its answers stood on.").first()).toBeVisible();
 
-  // "How it fits together" section with the layer stack
-  await expect(page.locator(".label-sm").filter({ hasText: "How it fits together" })).toBeVisible();
-  await expect(page.locator('[aria-label="Kontour product layer stack"]')).toBeVisible();
-
-  // Terminal quickstart present
-  await expect(page.getByText("npm install -D @kontourai/surface").first()).toBeVisible();
+  // AC3: the "Six products. One job." architecture tour is NOT on the index.
+  await expect(page.getByText("Six products. One job.")).toHaveCount(0);
+  await expect(page.locator('[aria-label="Kontour product layer stack"]')).toHaveCount(0);
+  // Old lead framing is retired.
+  await expect(page.getByText("Show the work behind AI.")).toHaveCount(0);
 
   // Subscribe and brand promise
   await expect(page.locator('[data-umami-event="home-subscribe"]')).toBeVisible();
   await expect(page.getByText("Evidence-backed confidence.").first()).toBeVisible();
   await expect(page.getByText("Not certainty theater.").first()).toBeVisible();
 
-  // Teaser: product nav/footer links are hidden on the public home
+  // AC6: the moved architecture tour stays reachable from the home teaser.
+  await expect(page.locator('[data-umami-event="nav-developers"]')).toHaveAttribute("href", "/developers/");
+  await expect(page.locator('[data-umami-event="home-cta-developers"]')).toHaveAttribute("href", "/developers/");
+  await expect(page.locator('[data-umami-event="footer-developers"]')).toBeVisible();
+
+  // #82: receipts are the proof story's evidence — reachable from the home
+  // proof section, the nav, and the footer even under the teaser rules.
+  await expect(page.locator('[data-umami-event="home-proof-receipts"]')).toHaveAttribute("href", "/receipts/");
+  await expect(page.locator('[data-umami-event="nav-receipts"]')).toHaveAttribute("href", "/receipts/");
+  await expect(page.locator('[data-umami-event="footer-receipts"]')).toHaveAttribute("href", "/receipts/");
+
+  // Teaser: product nav/footer links stay hidden on the public home
   await expect(page.locator('[data-umami-event="nav-flow"]')).toHaveCount(0);
   await expect(page.locator('[data-umami-event="nav-veritas"]')).toHaveCount(0);
   await expect(page.locator('[data-umami-event="nav-surface"]')).toHaveCount(0);
@@ -88,6 +99,10 @@ test("early access page gives static contact paths", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "Agent workflow team" })).toBeVisible();
   await expect(page.getByText("One concrete workflow is enough.")).toBeVisible();
   await expect(page.locator('[data-umami-event="early-access-hero-email"]')).toHaveAttribute("href", /mailto:hello@kontourai\.io/);
+
+  // #82: receipts stay reachable even on teaser pages (it is proof, not a product).
+  await expect(page.locator('[data-umami-event="nav-receipts"]')).toHaveAttribute("href", "/receipts/");
+  await expect(page.locator('[data-umami-event="footer-receipts"]')).toHaveAttribute("href", "/receipts/");
 
   // Teaser: product links are hidden here too (nav, footer, and inline)
   await expect(page.locator('[data-umami-event="nav-veritas"]')).toHaveCount(0);
@@ -268,6 +283,12 @@ test("developers page maps product ownership, lifecycle, and maturity on desktop
   await expect(page.locator('[data-umami-event="nav-developers"]')).toHaveAttribute("aria-current", "page");
   await expect(page.getByRole("heading", { name: "Kontour for developers" })).toBeVisible();
 
+  // AC3: the "Six products. One job." architecture tour now lives here.
+  await expect(page.getByRole("heading", { name: "Six products. One job." })).toBeVisible();
+  await expect(page.locator('[aria-label="Kontour product layer stack"]')).toBeVisible();
+  await expect(page.locator('[data-umami-event="developers-product-survey"]')).toHaveAttribute("href", "/survey");
+  await expect(page.locator('[data-umami-event="developers-product-console"]')).toHaveAttribute("href", "/console");
+
   await expect(page.getByText("Surface owns trust records.")).toBeVisible();
   await expect(page.getByText("Flow owns process semantics.")).toBeVisible();
   await expect(page.getByText("Veritas owns repo readiness.")).toBeVisible();
@@ -339,7 +360,7 @@ test("flow agents page presents agent-tool discipline and status", async ({ page
   // Real capabilities: runtimes, Flow Kits with the Builder Kit, and an install path
   await expect(page.locator(".label-sm").filter({ hasText: "Flow Kits" }).first()).toBeVisible();
   await expect(page.getByText("Builder Kit").first()).toBeVisible();
-  await expect(page.getByText("flow-kit install-local").first()).toBeVisible();
+  await expect(page.getByText("kit install-local").first()).toBeVisible();
   await expect(page.getByText("Claude Code").first()).toBeVisible();
   await expect(page.getByText("idea-to-backlog").first()).toBeVisible();
   await expect(page.getByText("npx @kontourai/flow-agents init").first()).toBeVisible();
@@ -348,4 +369,70 @@ test("flow agents page presents agent-tool discipline and status", async ({ page
 
   // Guard against the old "coming soon" framing regressing back in
   await expect(page.getByText("coming soon")).toHaveCount(0);
+});
+
+test("receipts index lists the real pipeline bundles with downloads", async ({ page }) => {
+  await page.goto("/receipts/");
+
+  await expect(page.getByRole("heading", { name: "Check the receipts yourself" })).toBeVisible();
+
+  // #82: the receipts nav link marks itself active on the receipts surface.
+  await expect(page.locator('[data-umami-event="nav-receipts"]')).toHaveAttribute("aria-current", "page");
+
+  // Honest framing (AC5): our own pipelines, no external-adoption claim.
+  await expect(page.getByText("Kontour's own pipeline receipts")).toBeVisible();
+  await expect(page.getByText(/an outside team has adopted it/)).toBeVisible();
+
+  // All three receipts are present.
+  await expect(page.getByRole("heading", { name: "Flow Agents delivery bundle" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Governance Kit readiness — ready verdict" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Governance Kit readiness — blocked verdict" })).toBeVisible();
+
+  // Each has a rendered-view link and a raw download link (AC2/AC3).
+  for (const slug of [
+    "flow-agents-delivery",
+    "governance-readiness-ready",
+    "governance-readiness-not-ready",
+  ]) {
+    await expect(page.locator(`a[href="/receipts/${slug}"]`)).toBeVisible();
+    await expect(page.locator(`a[href="/receipts/${slug}.trust.bundle"][download]`)).toBeVisible();
+  }
+});
+
+test("a receipt view renders the bundle's actual derived contents", async ({ page }) => {
+  await page.goto("/receipts/governance-readiness-not-ready/");
+
+  await expect(page.getByRole("heading", { name: "Governance Kit readiness — blocked verdict" })).toBeVisible();
+
+  // Status derived from the artifact, not hardcoded: this bundle's claim is disputed.
+  await expect(page.locator(".trust-badge--disputed").first()).toBeVisible();
+
+  // The actual claim type from the bundle is shown.
+  await expect(page.getByText("software-readiness-verdict").first()).toBeVisible();
+
+  // Provenance links to the immutable commit; download button points at the raw file.
+  await expect(
+    page.locator('a[href*="7a083966db47672ea552f13264ea3111e08fa06b"]'),
+  ).toBeVisible();
+  await expect(
+    page.locator('a[href="/receipts/governance-readiness-not-ready.trust.bundle"][download]'),
+  ).toBeVisible();
+
+  // Verify-it-yourself command names the validator.
+  await expect(page.getByText("npx @kontourai/surface").first()).toBeVisible();
+  await expect(page.getByText("validateTrustBundle").first()).toBeVisible();
+});
+
+test("published bundles download and validate under the named validator", async ({ page }) => {
+  for (const slug of [
+    "flow-agents-delivery",
+    "governance-readiness-ready",
+    "governance-readiness-not-ready",
+  ]) {
+    const response = await page.request.get(`/receipts/${slug}.trust.bundle`);
+    expect(response.status(), `${slug} download status`).toBe(200);
+    const parsed = JSON.parse(await response.text());
+    // AC4: the downloaded artifact passes the named validator.
+    expect(() => validateTrustBundle(parsed), `${slug} validates`).not.toThrow();
+  }
 });

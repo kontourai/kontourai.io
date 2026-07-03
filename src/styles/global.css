@@ -71,7 +71,11 @@ html {
 
 body {
   min-height: 100dvh;
-  overflow-x: hidden;
+  /* No body-level `overflow-x: hidden` mask. Horizontal overflow is contained at
+     its source instead: decorative glows clip to their section, genuinely wide
+     blocks (terminals, tables, receipt claim views) scroll within their own
+     element, and long unbroken tokens wrap. See launch-audit F9. A regression
+     spec asserts every built page fits its viewport at 360/768px. */
 }
 
 /* Contour pattern — the cartographic visual language */
@@ -397,6 +401,20 @@ h1, h2, h3, h4, h5, h6 {
   background: color-mix(in srgb, var(--accent, var(--color-gold)) 8%, transparent);
   padding: 0.1rem 0.35rem;
   border-radius: 2px;
+}
+
+/* Inline mono tokens carry the long unbroken strings on the site — commit
+   digests, bundle ids, source paths, package specifiers, CLI commands. Left to
+   default `overflow-wrap: normal` they refuse to break and force horizontal
+   overflow on narrow viewports. Allow them to break anywhere so they wrap
+   inside their column instead. (Genuinely wide *blocks* — terminals, tables —
+   scroll within their own element rather than wrapping; this only governs
+   inline tokens in prose.) */
+.mono-inline,
+.code-plain,
+.codechip,
+.codechip * {
+  overflow-wrap: anywhere;
 }
 
 /* ─────────────────────────────────────────────────────────────

@@ -3,7 +3,7 @@ import { products, type ProductKey } from '@/lib/products';
 import ProductMark from '@/components/ProductMark.astro';
 
 type NavKey = 'home' | ProductKey;
-type SiteNavKey = NavKey | 'developers';
+type SiteNavKey = NavKey | 'developers' | 'receipts';
 
 interface Props {
   active?: SiteNavKey;
@@ -52,7 +52,7 @@ const hideProducts = teaser || active === 'home';
           </>
         )}
 
-        {!hideProducts && (
+        {(!hideProducts || active === 'home') && (
           <a
             href="/developers/"
             class="nav-link"
@@ -60,6 +60,15 @@ const hideProducts = teaser || active === 'home';
             data-umami-event="nav-developers"
           >Developers</a>
         )}
+
+        {/* Receipts is public evidence for the proof story, not a product — it
+           stays visible even on teaser pages where product links are hidden. */}
+        <a
+          href="/receipts/"
+          class="nav-link"
+          aria-current={active === 'receipts' ? 'page' : undefined}
+          data-umami-event="nav-receipts"
+        >Receipts</a>
 
         <a
           href="https://github.com/kontourai"

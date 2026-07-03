@@ -5,164 +5,102 @@ import Footer from '@/components/Footer.astro';
 import Section from '@/components/Section.astro';
 import Glow from '@/components/Glow.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
-import Grid from '@/components/Grid.astro';
-import Split from '@/components/Split.astro';
-import Terminal from '@/components/Terminal.astro';
 import Subscribe from '@/components/Subscribe.astro';
-import ProductMark from '@/components/ProductMark.astro';
-import type { ProductMarkSlug } from '@/components/ProductMark.astro';
-import { homepageProducts } from '@/lib/products';
 ---
 
 <Layout
-  title="Kontour AI — Show the work behind AI"
-  description="Kontour makes AI-assisted work inspectable — what was claimed, what supports it, which gates it passed, and what is still uncertain — so people and agents can decide what deserves trust before acting on it."
+  title="Kontour AI — Ship AI-built code you can stand behind"
+  description="Flow Agents puts gates in the agent loop, so AI-built code earns its merge with evidence a human can check. Survey is the proof: real pipelines that turn raw sources into claims bound to what they stood on."
 >
   <Nav active="home" />
 
-  <!-- Hero ---------------------------------------------------------------- -->
+  <!-- Hero: single Flow Agents headline ----------------------------------- -->
   <Section contour size="cover">
     <Glow accent="gold" position="top-center" />
 
     <div class="container container--hero">
       <div class="hero-inner">
         <div class="animate-fade-up hero-kicker">
-          <span class="label-sm">Kontour AI</span>
+          <span class="label-sm">Kontour · Flow Agents</span>
         </div>
 
         <h1 class="display-xl animate-fade-up delay-100 hero-title">
-          Show the work<br />behind AI.
+          Ship AI-built code<br />you can stand behind.
         </h1>
 
         <p class="lead measure animate-fade-up delay-200 hero-lead">
-          Agents write code, run processes, and make claims faster than anyone
-          can inspect by hand. Kontour shows what was claimed, what supports it,
-          which gates it passed, and what's still uncertain — so people and
-          agents can decide what deserves trust before they act.
+          AI agents write more code than anyone can review by hand. Flow Agents
+          puts gates in the loop — every change has to earn its merge with
+          evidence a human can check, not a model's say-so.
         </p>
 
         <div class="animate-fade-up delay-300 hero-actions">
           <a href="/early-access/" class="btn-primary" data-umami-event="home-hero-early-access">Get early access →</a>
+          <a href="/flow-agents/" class="btn-ghost" data-umami-event="home-hero-flow-agents">How Flow Agents works</a>
           <a href="https://github.com/kontourai" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="home-hero-github">View on GitHub</a>
         </div>
       </div>
     </div>
   </Section>
 
-  <!-- Product grid -------------------------------------------------------- -->
+  <!-- Enforcement framing ------------------------------------------------- -->
   <Section tone="alt" borderTop>
-    <div class="container">
-      <Eyebrow accent="gold">The product line</Eyebrow>
-      <h2 class="display-md grid-title">
-        Six products. One job.
-      </h2>
-      <p class="body measure grid-intro">
-        Pull a finished product off the shelf or build on the open primitives
-        underneath it. Either way, the trust state stays inspectable by people,
-        agents, and systems downstream.
-      </p>
-
-      <Grid cols={3} gap="lg">
-        {homepageProducts.map(({ key, label, href, accent, homepage }) => (
-          <a href={href} class="product-card" data-accent={accent} data-umami-event={`home-product-${key}`}>
-            <div class="product-card__bar" data-accent={accent}></div>
-            <div class="product-card__body">
-              <div class="product-card__head">
-                <span class="product-card__name" data-accent={accent}>
-                  <ProductMark product={key as ProductMarkSlug} size={20} class="product-card__mark" data-accent={accent} />
-                  {label}
-                </span>
-              </div>
-              <p class="product-card__job">{homepage.job}</p>
-              <span class="product-card__cta">Explore {label} →</span>
-            </div>
-          </a>
-        ))}
-      </Grid>
-    </div>
-  </Section>
-
-  <!-- How it fits together ------------------------------------------------ -->
-  <Section borderTop>
     <Glow accent="cobalt-2" position="top-left" />
-    <div class="container">
-      <Eyebrow accent="cobalt-2">How it fits together</Eyebrow>
-      <h2 class="display-md layer-title">
-        A layered stack. Each product shows<br />the work at its own level.
+    <div class="container container--readable enforce">
+      <Eyebrow accent="cobalt-2">Enforcement, not suggestion</Eyebrow>
+      <h2 class="display-md enforce__title">
+        Prompts are advice.<br />Gates are laws.
       </h2>
-      <p class="body measure layer-intro">
-        Surface is the trust foundation. Survey feeds it. Flow gates work.
-        Veritas backs merge decisions. Flow Agents brings discipline into the
-        tools you already use. Console makes the whole thing operable.
+      <p class="body measure enforce__copy">
+        A prompt asks an agent to be careful. A gate refuses to let work pass
+        until the evidence is there. Flow Agents runs the plan → build → review →
+        verify loop against gates an agent can't talk its way past — so "done"
+        means checked, not claimed.
       </p>
-
-      <div class="layer-stack" role="list" aria-label="Kontour product layer stack">
-        {homepageProducts.map(({ key, label, href, accent, homepage }) => (
-          <div class="layer-row" role="listitem">
-            <div class="layer-row__accent-bar" data-accent={accent}></div>
-            <div class="layer-row__inner">
-              <div class="layer-row__left">
-                <span class="layer-row__name" data-accent={accent}>{label}</span>
-              </div>
-              <p class="layer-row__job">{homepage.relation}</p>
-              <a href={href} class="layer-row__link" data-accent={accent} data-umami-event={`home-layer-${key}`}>→</a>
-            </div>
-          </div>
-        ))}
+      <div class="enforce__actions">
+        <a href="/flow-agents/" class="btn-ghost" data-umami-event="home-enforce-flow-agents">See the Builder Kit loop →</a>
       </div>
     </div>
   </Section>
 
-  <!-- Terminal quickstart ------------------------------------------------- -->
-  <Section tone="alt" borderTop borderBottom>
-    <div class="container">
-      <Split ratio="1-1" gap="lg" align="center">
-        <div>
-          <Eyebrow accent="gold">30-second taste</Eyebrow>
-          <h2 class="display-md qs-title">Start with Surface.</h2>
-          <p class="body qs-copy">
-            Install the foundation, point it at a trust bundle, and get a
-            snapshot of what's verified, stale, and missing — before anything
-            acts on it.
-          </p>
-          <div class="qs-actions">
-            <a href="/surface" class="btn-primary" data-umami-event="home-qs-surface">Surface docs →</a>
-            <a href="/developers" class="btn-ghost" data-umami-event="home-qs-developers">Developer overview</a>
-          </div>
-        </div>
+  <!-- Survey proof story (subordinate to the hero) ------------------------ -->
+  <Section borderTop>
+    <div class="container proof">
+      <Eyebrow accent="gold">The proof</Eyebrow>
+      <h2 class="display-md proof__title">
+        Grounded claims, not confident guesses.
+      </h2>
+      <p class="body measure proof__copy">
+        Flow Agents is the discipline; <strong>Survey</strong> is the receipts.
+        Survey runs real pipelines — an outdoor-recreation directory and a
+        document-heavy public-filing workflow — that turn raw sources into
+        claims bound to their evidence, so every answer can show what it stood
+        on instead of asking you to trust the tone.
+      </p>
 
-        <Terminal title="surface — first run">
-          <p><span class="prompt">$ </span><span class="cmd">npm install -D @kontourai/surface</span></p>
-          <br />
-          <p><span class="prompt">$ </span><span class="cmd">npx surface report --format summary</span></p>
-          <br />
-          <p class="info">  Kontour Surface trust snapshot surface-1777090239260</p>
-          <p class="muted">  Source: kontour-surface-validation-fixtures</p>
-          <br />
-          <p>  Claims: <span class="pass">4</span> &nbsp;(unknown: 1, verified: 2, stale: 1)</p>
-          <p>  High-impact unsupported: <span class="pass">none</span></p>
-          <p class="warn">  Stale: claim.field-attested-records.registration-status</p>
-          <p>  Transparency gaps: <span class="warn">3</span></p>
-          <br />
-          <p class="rule">  ────────────────────────────────</p>
-          <p class="pass">  verdict: current — recheck 1 claim before acting</p>
-        </Terminal>
-      </Split>
+      <blockquote class="proof__pull">
+        Memory tells the agent what it knows. Kontour proves what its answers
+        stood on.
+      </blockquote>
+
+      <div class="proof__actions">
+        <a href="/survey/" class="btn-ghost" data-umami-event="home-proof-survey">How Survey produces claims →</a>
+        <a href="/receipts/" class="btn-ghost" data-umami-event="home-proof-receipts">Check the receipts yourself →</a>
+      </div>
     </div>
   </Section>
 
   <!-- Promise ------------------------------------------------------------- -->
-  <Section tone="alt">
+  <Section tone="alt" borderTop>
     <div class="container container--readable promise">
       <Eyebrow accent="gold">The promise</Eyebrow>
       <h2 class="display-md promise__title">
         Evidence-backed confidence.<br />Not certainty theater.
       </h2>
       <p class="body measure promise__copy">
-        AI can make any output look finished. Kontour shows the work behind it —
-        the claim, the evidence, the required path, the gate decisions, and the
-        gaps — so people and agents can tell what actually holds up before they
-        act on it.
+        We can't certify that an agent is right — no one can. What Kontour does
+        is make what an answer stood on, and what it skipped, visible and
+        attributable instead of hidden behind a green checkmark.
       </p>
     </div>
   </Section>
@@ -180,7 +118,8 @@ import { homepageProducts } from '@/lib/products';
       </p>
       <Subscribe source="home" cta="Get early access" event="home-subscribe" />
       <p class="cta__alt">
-        Prefer to talk specifics? <a href="/early-access/" class="cta__alt-link" data-umami-event="home-cta-early-access">Start a design-partner thread →</a>
+        Want the architecture tour? Six products, one job — on the
+        <a href="/developers/" class="cta__alt-link" data-umami-event="home-cta-developers">developers page →</a>
       </p>
     </div>
   </Section>
@@ -199,13 +138,6 @@ import { homepageProducts } from '@/lib/products';
     align-items: center;
     flex-wrap: wrap;
   }
-  .hero-kicker__sep {
-    margin: 0 0.75rem;
-    color: var(--color-edge-2);
-  }
-  .hero-kicker__v1 {
-    color: var(--color-gold);
-  }
   .hero-title {
     margin-bottom: 1.5rem;
   }
@@ -219,164 +151,42 @@ import { homepageProducts } from '@/lib/products';
     align-items: center;
   }
 
-  /* Product grid --------------------------------------------------------- */
-  .grid-title {
-    margin-bottom: 1rem;
-  }
-  .grid-intro {
-    margin-bottom: 3rem;
-  }
-
-  .product-card {
-    display: flex;
-    flex-direction: column;
-    background: var(--color-ink-2);
-    border: 1px solid var(--color-edge);
-    border-radius: 6px;
-    overflow: hidden;
-    text-decoration: none;
-    transition: border-color 0.18s, background 0.18s;
-  }
-  .product-card:hover {
-    border-color: var(--accent, var(--color-edge-2));
-    background: var(--color-ink-3);
-  }
-  .product-card__bar {
-    height: 3px;
-    background: var(--accent, var(--color-edge));
-    flex-shrink: 0;
-  }
-  .product-card__body {
-    padding: 1.25rem 1.5rem 1.5rem;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-  }
-  .product-card__head {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 0.75rem;
-    margin-bottom: 0.75rem;
-  }
-  .product-card__name {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.55rem;
-    font-family: var(--font-display);
-    font-size: 1.35rem;
-    font-weight: 400;
-    color: var(--accent, var(--color-chalk));
-    letter-spacing: 0;
-    line-height: 1.3;
-  }
-  .product-card__mark {
-    flex-shrink: 0;
-    /* Inherits the accent via currentColor from .product-card__name. */
-  }
-  .product-card__job {
-    color: var(--color-chalk-2);
-    font-size: 0.85rem;
-    line-height: 1.65;
-    flex: 1;
+  /* Enforcement ---------------------------------------------------------- */
+  .enforce__title {
     margin-bottom: 1.25rem;
   }
-  .product-card__cta {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    color: var(--accent, var(--color-chalk-3));
-    letter-spacing: 0;
-    text-transform: uppercase;
-    margin-top: auto;
-  }
-
-  /* Layer stack ---------------------------------------------------------- */
-  .layer-title {
-    margin-bottom: 1rem;
-  }
-  .layer-intro {
-    margin-bottom: 3rem;
-  }
-  .layer-stack {
-    border: 1px solid var(--color-edge);
-    border-radius: 6px;
-    overflow: hidden;
-  }
-  .layer-row {
-    border-bottom: 1px solid var(--color-edge);
-  }
-  .layer-row:last-child {
-    border-bottom: none;
-  }
-  .layer-row__accent-bar {
-    height: 2px;
-    background: var(--accent, var(--color-edge));
-  }
-  .layer-row__inner {
-    display: grid;
-    grid-template-columns: 9rem 1fr auto;
-    gap: 1rem 1.5rem;
-    align-items: center;
-    padding: 1rem 1.5rem;
-    background: var(--color-ink-2);
-    transition: background 0.15s;
-  }
-  .layer-row:hover .layer-row__inner {
-    background: var(--color-ink-3);
-  }
-  .layer-row__name {
-    font-family: var(--font-display);
-    font-size: 1.05rem;
-    font-weight: 400;
-    color: var(--accent, var(--color-chalk));
-    letter-spacing: 0;
-    white-space: nowrap;
-  }
-  .layer-row__job {
-    color: var(--color-chalk-3);
-    font-size: 0.8rem;
-    line-height: 1.6;
-    margin: 0;
-  }
-  .layer-row__link {
-    font-family: var(--font-mono);
-    font-size: 0.9rem;
-    color: var(--accent, var(--color-chalk-3));
-    text-decoration: none;
-    padding: 0.25rem 0.5rem;
-    transition: color 0.15s;
-  }
-  .layer-row__link:hover {
-    color: var(--color-chalk);
-  }
-
-  @media (max-width: 600px) {
-    .layer-row__inner {
-      grid-template-columns: 1fr auto;
-      grid-template-rows: auto auto;
-    }
-    .layer-row__left {
-      grid-column: 1;
-      grid-row: 1;
-    }
-    .layer-row__link {
-      grid-column: 2;
-      grid-row: 1;
-    }
-    .layer-row__job {
-      grid-column: 1 / -1;
-      grid-row: 2;
-    }
-  }
-
-  /* Quickstart ----------------------------------------------------------- */
-  .qs-title {
-    margin-bottom: 1rem;
-  }
-  .qs-copy {
+  .enforce__copy {
     margin-bottom: 2rem;
   }
-  .qs-actions {
+  .enforce__actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  /* Survey proof --------------------------------------------------------- */
+  .proof__title {
+    margin-bottom: 1.25rem;
+  }
+  .proof__copy {
+    margin-bottom: 2rem;
+  }
+  .proof__copy strong {
+    color: var(--color-chalk);
+    font-weight: 500;
+  }
+  .proof__pull {
+    margin: 0 0 2rem;
+    padding: 1.1rem 1.5rem;
+    border-left: 3px solid var(--color-gold);
+    background: var(--color-ink-2);
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    line-height: 1.5;
+    color: var(--color-chalk);
+    max-width: 680px;
+  }
+  .proof__actions {
     display: flex;
     gap: 0.75rem;
     flex-wrap: wrap;

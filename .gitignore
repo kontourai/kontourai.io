@@ -11,3 +11,5 @@ screenshot-*.png
 .wrangler/
 
 .flow-agents/
+
+.kontourai/
