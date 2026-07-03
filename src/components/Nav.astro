@@ -52,7 +52,7 @@ const hideProducts = teaser || active === 'home';
           </>
         )}
 
-        {!hideProducts && (
+        {(!hideProducts || active === 'home') && (
           <a
             href="/developers/"
             class="nav-link"

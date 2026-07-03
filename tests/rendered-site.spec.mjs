@@ -1,51 +1,55 @@
 import { readFile } from "node:fs/promises";
 import { expect, test } from "@playwright/test";
 
-test("homepage shows the hero, six product cards, and the suite layering", async ({ page }) => {
+test("homepage leads with a single Flow Agents headline and Survey as the proof story", async ({ page }) => {
   await page.goto("/");
 
-  // Hero
-  await expect(page.locator(".label-sm").filter({ hasText: "Kontour AI" }).first()).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Show the work behind AI.", exact: true })).toBeVisible();
-  await expect(page.getByText("Agents write code, run processes, and make claims faster than anyone").first()).toBeVisible();
+  // AC1: exactly one hero headline story — the Flow Agents wedge — above the fold.
+  await expect(page.locator(".label-sm").filter({ hasText: "Kontour · Flow Agents" }).first()).toBeVisible();
+  await expect(
+    page.getByRole("heading", { level: 1, name: "Ship AI-built code you can stand behind.", exact: true }),
+  ).toBeVisible();
+  await expect(page.locator("h1")).toHaveCount(1);
+  await expect(page.getByText("AI agents write more code than anyone can review by hand.").first()).toBeVisible();
 
-  // CTAs
-  await expect(page.locator('[data-umami-event="home-hero-github"]')).toBeVisible();
-  await expect(page.locator('[data-umami-event="home-hero-early-access"]')).toBeVisible();
+  // Hero CTAs
   await expect(page.locator('[data-umami-event="home-hero-early-access"]')).toHaveAttribute("href", "/early-access/");
+  await expect(page.locator('[data-umami-event="home-hero-flow-agents"]')).toHaveAttribute("href", "/flow-agents/");
+  await expect(page.locator('[data-umami-event="home-hero-github"]')).toBeVisible();
 
-  // The v1 launch framing is intentionally retired from the hero and cards
-  await expect(page.getByText("Every product reached 1.0")).toHaveCount(0);
+  // AC5: enforcement framing renders.
+  await expect(page.getByText("Prompts are advice.").first()).toBeVisible();
+  await expect(page.getByText("Gates are laws.").first()).toBeVisible();
 
-  // All six product names visible in the grid
-  await expect(page.getByText("Surface").first()).toBeVisible();
+  // AC2: Survey proof section, subordinate to the hero (an h2, not a second h1).
+  await expect(page.locator(".label-sm").filter({ hasText: "The proof" }).first()).toBeVisible();
+  await expect(
+    page.getByRole("heading", { level: 2, name: "Grounded claims, not confident guesses." }),
+  ).toBeVisible();
   await expect(page.getByText("Survey", { exact: true }).first()).toBeVisible();
-  await expect(page.getByText("Flow", { exact: true }).first()).toBeVisible();
-  await expect(page.getByText("Veritas").first()).toBeVisible();
-  await expect(page.getByText("Flow Agents").first()).toBeVisible();
-  await expect(page.getByText("Console", { exact: true }).first()).toBeVisible();
+  await expect(page.locator('[data-umami-event="home-proof-survey"]')).toHaveAttribute("href", "/survey/");
 
-  // Product grid cards link to product pages (multiple links per product exist; first() picks the grid card)
-  await expect(page.locator('a[href="/surface"]').first()).toBeVisible();
-  await expect(page.locator('a[href="/survey"]').first()).toBeVisible();
-  await expect(page.locator('a[href="/flow"]').first()).toBeVisible();
-  await expect(page.locator('a[href="/veritas"]').first()).toBeVisible();
-  await expect(page.locator('a[href="/flow-agents"]').first()).toBeVisible();
-  await expect(page.locator('a[href="/console"]').first()).toBeVisible();
+  // AC4: memory-vs-trust line renders.
+  await expect(page.getByText("Memory tells the agent what it knows.").first()).toBeVisible();
+  await expect(page.getByText("Kontour proves what its answers stood on.").first()).toBeVisible();
 
-  // "How it fits together" section with the layer stack
-  await expect(page.locator(".label-sm").filter({ hasText: "How it fits together" })).toBeVisible();
-  await expect(page.locator('[aria-label="Kontour product layer stack"]')).toBeVisible();
-
-  // Terminal quickstart present
-  await expect(page.getByText("npm install -D @kontourai/surface").first()).toBeVisible();
+  // AC3: the "Six products. One job." architecture tour is NOT on the index.
+  await expect(page.getByText("Six products. One job.")).toHaveCount(0);
+  await expect(page.locator('[aria-label="Kontour product layer stack"]')).toHaveCount(0);
+  // Old lead framing is retired.
+  await expect(page.getByText("Show the work behind AI.")).toHaveCount(0);
 
   // Subscribe and brand promise
   await expect(page.locator('[data-umami-event="home-subscribe"]')).toBeVisible();
   await expect(page.getByText("Evidence-backed confidence.").first()).toBeVisible();
   await expect(page.getByText("Not certainty theater.").first()).toBeVisible();
 
-  // Teaser: product nav/footer links are hidden on the public home
+  // AC6: the moved architecture tour stays reachable from the home teaser.
+  await expect(page.locator('[data-umami-event="nav-developers"]')).toHaveAttribute("href", "/developers/");
+  await expect(page.locator('[data-umami-event="home-cta-developers"]')).toHaveAttribute("href", "/developers/");
+  await expect(page.locator('[data-umami-event="footer-developers"]')).toBeVisible();
+
+  // Teaser: product nav/footer links stay hidden on the public home
   await expect(page.locator('[data-umami-event="nav-flow"]')).toHaveCount(0);
   await expect(page.locator('[data-umami-event="nav-veritas"]')).toHaveCount(0);
   await expect(page.locator('[data-umami-event="nav-surface"]')).toHaveCount(0);
@@ -267,6 +271,12 @@ test("developers page maps product ownership, lifecycle, and maturity on desktop
   await expect(page.locator('[data-umami-event="nav-developers"]')).toBeVisible();
   await expect(page.locator('[data-umami-event="nav-developers"]')).toHaveAttribute("aria-current", "page");
   await expect(page.getByRole("heading", { name: "Kontour for developers" })).toBeVisible();
+
+  // AC3: the "Six products. One job." architecture tour now lives here.
+  await expect(page.getByRole("heading", { name: "Six products. One job." })).toBeVisible();
+  await expect(page.locator('[aria-label="Kontour product layer stack"]')).toBeVisible();
+  await expect(page.locator('[data-umami-event="developers-product-survey"]')).toHaveAttribute("href", "/survey");
+  await expect(page.locator('[data-umami-event="developers-product-console"]')).toHaveAttribute("href", "/console");
 
   await expect(page.getByText("Surface owns trust records.")).toBeVisible();
   await expect(page.getByText("Flow owns process semantics.")).toBeVisible();
