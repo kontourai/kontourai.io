@@ -9,11 +9,12 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "validate": "node scripts/check-content-boundary.cjs && node scripts/check-theme-tokens.mjs && node scripts/check-security-hardening.mjs && node scripts/validate.mjs",
+    "validate": "node scripts/check-content-boundary.cjs && node scripts/check-theme-tokens.mjs && node scripts/check-security-hardening.mjs && node scripts/check-receipts.mjs && node scripts/validate.mjs",
     "test:rendered": "npm run build && playwright test",
     "refresh:product-status": "node scripts/refresh-product-status.mjs",
     "check:product-status": "node scripts/refresh-product-status.mjs --dry-run",
     "check:content-boundary": "node scripts/check-content-boundary.cjs",
+    "check:receipts": "node scripts/check-receipts.mjs",
     "check:theme-tokens": "node scripts/check-theme-tokens.mjs",
     "check:security-hardening": "node scripts/check-security-hardening.mjs",
     "sync-versions": "node scripts/sync-versions.mjs",
@@ -25,6 +26,7 @@
     "tailwindcss": "^4.3.0"
   },
   "devDependencies": {
+    "@kontourai/surface": "^2.1.2",
     "@kontourai/ui": "^1.11.0",
     "@playwright/test": "^1.60.0",
     "vite": "^7.3.3",
