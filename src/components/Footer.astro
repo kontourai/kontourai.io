@@ -11,14 +11,19 @@ const { active, teaser } = Astro.props;
 const teaserNav = teaser || active === 'home';
 
 const github = { href: 'https://github.com/kontourai', label: 'GitHub', external: true, event: 'footer-github' };
+// Receipts is public proof-story evidence, not a product, so it appears in both
+// the teaser and full footer (product links are still gated by teaserNav).
+const receipts = { href: '/receipts/', label: 'Receipts', event: 'footer-receipts' };
 const links = teaserNav
   ? [
       { href: '/developers/', label: 'Developers', event: 'footer-developers' },
+      receipts,
       github,
       { href: '/early-access/', label: 'Early access', event: 'footer-contact' },
     ]
   : [
       { href: '/developers/', label: 'Developers', event: 'footer-developers' },
+      receipts,
       ...products.map(({ href, label, key }) => ({ href, label, event: `footer-${key}` })),
       github,
     ];
