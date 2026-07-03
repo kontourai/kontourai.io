@@ -8,7 +8,9 @@ import Eyebrow from '@/components/Eyebrow.astro';
 import Card from '@/components/Card.astro';
 import Grid from '@/components/Grid.astro';
 import Terminal from '@/components/Terminal.astro';
-import { developerCompositionProducts } from '@/lib/products';
+import ProductMark from '@/components/ProductMark.astro';
+import type { ProductMarkSlug } from '@/components/ProductMark.astro';
+import { developerCompositionProducts, homepageProducts } from '@/lib/products';
 
 const mapNodes = [
   { label: 'Flow Agents', sub: 'agent workflow coordination', accent: 'chalk-2' },
@@ -107,6 +109,61 @@ const states = [
           <div class="mini-map__node" data-accent={accent}>
             <span class="mini-map__label">{label}</span>
             <span class="mini-map__sub">{sub}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </Section>
+
+  <!-- Architecture tour: the product line (moved off the index lead) ------ -->
+  <Section id="product-line" tone="alt" borderTop borderBottom>
+    <div class="container">
+      <Eyebrow gap="sm" accent="gold">The product line</Eyebrow>
+      <h2 class="display-md tour-title">Six products. One job.</h2>
+      <p class="body measure tour-intro">
+        Pull a finished product off the shelf or build on the open primitives
+        underneath it. Either way, the trust state stays inspectable by people,
+        agents, and systems downstream.
+      </p>
+
+      <Grid cols={3} gap="lg">
+        {homepageProducts.map(({ key, label, href, accent, homepage }) => (
+          <a href={href} class="tour-card" data-accent={accent} data-umami-event={`developers-product-${key}`}>
+            <div class="tour-card__bar" data-accent={accent}></div>
+            <div class="tour-card__body">
+              <div class="tour-card__head">
+                <span class="tour-card__name" data-accent={accent}>
+                  <ProductMark product={key as ProductMarkSlug} size={20} class="tour-card__mark" data-accent={accent} />
+                  {label}
+                </span>
+              </div>
+              <p class="tour-card__job">{homepage.job}</p>
+              <span class="tour-card__cta">Explore {label} →</span>
+            </div>
+          </a>
+        ))}
+      </Grid>
+
+      <h3 class="layer-heading">
+        A layered stack. Each product shows the work at its own level.
+      </h3>
+      <p class="fine measure layer-intro">
+        Surface is the trust foundation. Survey feeds it. Flow gates work.
+        Veritas backs merge decisions. Flow Agents brings discipline into the
+        tools you already use. Console makes the whole thing operable.
+      </p>
+
+      <div class="layer-stack" role="list" aria-label="Kontour product layer stack">
+        {homepageProducts.map(({ key, label, href, accent, homepage }) => (
+          <div class="layer-row" role="listitem">
+            <div class="layer-row__accent-bar" data-accent={accent}></div>
+            <div class="layer-row__inner">
+              <div class="layer-row__left">
+                <span class="layer-row__name" data-accent={accent}>{label}</span>
+              </div>
+              <p class="layer-row__job">{homepage.relation}</p>
+              <a href={href} class="layer-row__link" data-accent={accent} data-umami-event={`developers-layer-${key}`}>→</a>
+            </div>
           </div>
         ))}
       </div>
@@ -473,6 +530,139 @@ const states = [
     padding: 1rem 0;
   }
 
+  /* Product-line tour (moved off the index) ------------------------------ */
+  .tour-title {
+    margin-bottom: 1rem;
+  }
+  .tour-intro {
+    margin-bottom: 2.5rem;
+  }
+
+  .tour-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--color-ink-2);
+    border: 1px solid var(--color-edge);
+    border-radius: 6px;
+    overflow: hidden;
+    text-decoration: none;
+    transition: border-color 0.18s, background 0.18s;
+  }
+  .tour-card:hover {
+    border-color: var(--accent, var(--color-edge-2));
+    background: var(--color-ink-3);
+  }
+  .tour-card__bar {
+    height: 3px;
+    background: var(--accent, var(--color-edge));
+    flex-shrink: 0;
+  }
+  .tour-card__body {
+    padding: 1.25rem 1.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .tour-card__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  .tour-card__name {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 400;
+    color: var(--accent, var(--color-chalk));
+    letter-spacing: 0;
+    line-height: 1.3;
+  }
+  .tour-card__mark {
+    flex-shrink: 0;
+  }
+  .tour-card__job {
+    color: var(--color-chalk-2);
+    font-size: 0.85rem;
+    line-height: 1.65;
+    flex: 1;
+    margin-bottom: 1.25rem;
+  }
+  .tour-card__cta {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--accent, var(--color-chalk-3));
+    letter-spacing: 0;
+    text-transform: uppercase;
+    margin-top: auto;
+  }
+
+  .layer-heading {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--color-chalk);
+    margin: 3rem 0 1rem;
+  }
+  .layer-intro {
+    margin-bottom: 2rem;
+  }
+  .layer-stack {
+    border: 1px solid var(--color-edge);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .layer-row {
+    border-bottom: 1px solid var(--color-edge);
+  }
+  .layer-row:last-child {
+    border-bottom: none;
+  }
+  .layer-row__accent-bar {
+    height: 2px;
+    background: var(--accent, var(--color-edge));
+  }
+  .layer-row__inner {
+    display: grid;
+    grid-template-columns: 9rem 1fr auto;
+    gap: 1rem 1.5rem;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: var(--color-ink-2);
+    transition: background 0.15s;
+  }
+  .layer-row:hover .layer-row__inner {
+    background: var(--color-ink-3);
+  }
+  .layer-row__name {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 400;
+    color: var(--accent, var(--color-chalk));
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
+  .layer-row__job {
+    color: var(--color-chalk-3);
+    font-size: 0.8rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+  .layer-row__link {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--accent, var(--color-chalk-3));
+    text-decoration: none;
+    padding: 0.25rem 0.5rem;
+    transition: color 0.15s;
+  }
+  .layer-row__link:hover {
+    color: var(--color-chalk);
+  }
+
   @media (max-width: 980px) {
     .dev-hero {
       grid-template-columns: 1fr;
@@ -480,6 +670,25 @@ const states = [
 
     .lifecycle {
       grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 600px) {
+    .layer-row__inner {
+      grid-template-columns: 1fr auto;
+      grid-template-rows: auto auto;
+    }
+    .layer-row__left {
+      grid-column: 1;
+      grid-row: 1;
+    }
+    .layer-row__link {
+      grid-column: 2;
+      grid-row: 1;
+    }
+    .layer-row__job {
+      grid-column: 1 / -1;
+      grid-row: 2;
     }
   }
 
