@@ -1,5 +1,6 @@
 import { readFile } from "node:fs/promises";
 import { expect, test } from "@playwright/test";
+import { validateTrustBundle } from "@kontourai/surface";
 
 test("homepage leads with a single Flow Agents headline and Survey as the proof story", async ({ page }) => {
   await page.goto("/");
@@ -358,4 +359,67 @@ test("flow agents page presents agent-tool discipline and status", async ({ page
 
   // Guard against the old "coming soon" framing regressing back in
   await expect(page.getByText("coming soon")).toHaveCount(0);
+});
+
+test("receipts index lists the real pipeline bundles with downloads", async ({ page }) => {
+  await page.goto("/receipts/");
+
+  await expect(page.getByRole("heading", { name: "Check the receipts yourself" })).toBeVisible();
+
+  // Honest framing (AC5): our own pipelines, no external-adoption claim.
+  await expect(page.getByText("Kontour's own pipeline receipts")).toBeVisible();
+  await expect(page.getByText(/an outside team has adopted it/)).toBeVisible();
+
+  // All three receipts are present.
+  await expect(page.getByRole("heading", { name: "Flow Agents delivery bundle" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Governance Kit readiness — ready verdict" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Governance Kit readiness — blocked verdict" })).toBeVisible();
+
+  // Each has a rendered-view link and a raw download link (AC2/AC3).
+  for (const slug of [
+    "flow-agents-delivery",
+    "governance-readiness-ready",
+    "governance-readiness-not-ready",
+  ]) {
+    await expect(page.locator(`a[href="/receipts/${slug}"]`)).toBeVisible();
+    await expect(page.locator(`a[href="/receipts/${slug}.trust.bundle"][download]`)).toBeVisible();
+  }
+});
+
+test("a receipt view renders the bundle's actual derived contents", async ({ page }) => {
+  await page.goto("/receipts/governance-readiness-not-ready/");
+
+  await expect(page.getByRole("heading", { name: "Governance Kit readiness — blocked verdict" })).toBeVisible();
+
+  // Status derived from the artifact, not hardcoded: this bundle's claim is disputed.
+  await expect(page.locator(".trust-badge--disputed").first()).toBeVisible();
+
+  // The actual claim type from the bundle is shown.
+  await expect(page.getByText("software-readiness-verdict").first()).toBeVisible();
+
+  // Provenance links to the immutable commit; download button points at the raw file.
+  await expect(
+    page.locator('a[href*="7a083966db47672ea552f13264ea3111e08fa06b"]'),
+  ).toBeVisible();
+  await expect(
+    page.locator('a[href="/receipts/governance-readiness-not-ready.trust.bundle"][download]'),
+  ).toBeVisible();
+
+  // Verify-it-yourself command names the validator.
+  await expect(page.getByText("npx @kontourai/surface").first()).toBeVisible();
+  await expect(page.getByText("validateTrustBundle").first()).toBeVisible();
+});
+
+test("published bundles download and validate under the named validator", async ({ page }) => {
+  for (const slug of [
+    "flow-agents-delivery",
+    "governance-readiness-ready",
+    "governance-readiness-not-ready",
+  ]) {
+    const response = await page.request.get(`/receipts/${slug}.trust.bundle`);
+    expect(response.status(), `${slug} download status`).toBe(200);
+    const parsed = JSON.parse(await response.text());
+    // AC4: the downloaded artifact passes the named validator.
+    expect(() => validateTrustBundle(parsed), `${slug} validates`).not.toThrow();
+  }
 });
