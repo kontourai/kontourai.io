@@ -4,6 +4,7 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description?: string;
+  noindex?: boolean;
   og?: {
     title?: string;
     description?: string;
@@ -15,6 +16,7 @@ interface Props {
 const {
   title,
   description = 'Show the work behind AI. Kontour makes AI-assisted work inspectable — what was claimed, what supports it, which gates it passed, and what is still uncertain.',
+  noindex = false,
   og,
 } = Astro.props;
 
@@ -39,7 +41,11 @@ const shouldLoadCloudflareAnalytics = Boolean(cloudflareAnalyticsToken) && impor
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonicalUrl.href} />
+    {noindex ? (
+      <meta name="robots" content="noindex, follow" />
+    ) : (
+      <link rel="canonical" href={canonicalUrl.href} />
+    )}
 
     <!-- OG -->
     <meta property="og:title" content={ogTitle} />
