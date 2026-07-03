@@ -42,6 +42,12 @@ const {
   .section {
     position: relative;
     padding: 5rem var(--spacing-page);
+    /* Decorative Glow/contour layers are positioned relative to the section and
+       deliberately bleed past its edges. Clip that bleed to the section box so
+       an aria-hidden gradient can never push document width on narrow screens.
+       `clip` (not `hidden`) contains the horizontal overflow without creating a
+       scroll container or affecting vertical layout. */
+    overflow-x: clip;
   }
   .section.contour-bg {
     overflow: hidden;
