@@ -34,7 +34,7 @@ const versionedPackages = [
 
 const localWorkspacePackages = [
   { key: "surface", packageFile: "../surface/package.json", expectedVersion: "2.1.2" },
-  { key: "survey", packageFile: "../survey/package.json", expectedVersion: "1.5.0" },
+  { key: "survey", packageFile: "../survey/package.json", expectedVersion: "1.6.0" },
 ];
 
 let viteServer;
