@@ -1,0 +1,451 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import Section from '@/components/Section.astro';
+import Glow from '@/components/Glow.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+import Terminal from '@/components/Terminal.astro';
+import {
+  receipts,
+  statusCounts,
+  badgeVariant,
+  deriveGaps,
+  formatValue,
+} from '@/lib/receipts';
+
+export function getStaticPaths() {
+  return receipts.map((receipt) => ({
+    params: { slug: receipt.slug },
+    props: { receipt },
+  }));
+}
+
+const { receipt } = Astro.props;
+const { bundle, provenance } = receipt;
+const counts = statusCounts(bundle);
+const gaps = deriveGaps(bundle);
+const downloadPath = `/receipts/${receipt.slug}.trust.bundle`;
+const commitUrl = `https://github.com/${provenance.repo}/blob/${provenance.commit}/${provenance.path}`;
+
+function truncate(value: string, max = 220): string {
+  if (value.length <= max) return value;
+  return `${value.slice(0, max).trimEnd()}…`;
+}
+---
+
+<Layout
+  title={`${receipt.title} — trust receipt · Kontour AI`}
+  description={receipt.summary}
+>
+  <Nav />
+
+  <!-- Hero -->
+  <Section contour size="hero" borderBottom>
+    <Glow accent={receipt.accent} position="top-right" />
+    <div class="container container--readable" data-accent={receipt.accent}>
+      <a class="back-link" href="/receipts">← All receipts</a>
+      <Eyebrow accent={receipt.accent}>{receipt.pipeline}</Eyebrow>
+      <h1 class="receipt-h1">{receipt.title}</h1>
+      <p class="receipt-lead">{receipt.summary}</p>
+
+      <div class="hero-badges">
+        {counts.map((entry) => (
+          <span class={`trust-badge trust-badge--${badgeVariant(entry.status)}`}>
+            {entry.count} {entry.status}
+          </span>
+        ))}
+      </div>
+
+      <div class="hero-actions">
+        <a class="download-btn" href={downloadPath} download>Download raw .bundle</a>
+        <span class="hero-meta">
+          schemaVersion {bundle.schemaVersion} · {bundle.claims.length} claims ·
+          {bundle.evidence.length} evidence
+        </span>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Provenance -->
+  <Section size="md" borderBottom tone="alt">
+    <div class="container container--readable">
+      <Eyebrow accent={receipt.accent} gap="sm">Provenance</Eyebrow>
+      <p class="prov-note">{provenance.note}</p>
+      <dl class="prov-grid">
+        <dt>Repository</dt>
+        <dd class="mono-inline">{provenance.repo}</dd>
+        <dt>Source path</dt>
+        <dd class="mono-inline">{provenance.path}</dd>
+        <dt>Pinned commit</dt>
+        <dd class="mono-inline">
+          <a href={commitUrl}>{provenance.commit}</a>
+        </dd>
+        <dt>Bundle source</dt>
+        <dd class="mono-inline">{bundle.source}</dd>
+      </dl>
+    </div>
+  </Section>
+
+  <!-- Claims -->
+  <Section size="lg" borderBottom>
+    <div class="container container--readable">
+      <Eyebrow accent={receipt.accent} gap="sm">Claims</Eyebrow>
+      <h2 class="section-heading">What was gated, and how it landed</h2>
+      <p class="section-lead">
+        Each row is a claim the pipeline recorded — its type, the facet it
+        belongs to, the field or behavior it covers, its recorded value, and the
+        trust status the kernel derived. Read straight from the downloadable
+        artifact.
+      </p>
+      <div class="table-scroll">
+        <table class="claims-table">
+          <thead>
+            <tr>
+              <th>Status</th>
+              <th>Subject / field</th>
+              <th>Type · facet</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            {bundle.claims.map((claim) => (
+              <tr>
+                <td>
+                  <span class={`trust-badge trust-badge--${badgeVariant(claim.status)}`}>
+                    {claim.status}
+                  </span>
+                </td>
+                <td>
+                  <span class="claim-subject mono-inline">{claim.subjectId}</span>
+                  <span class="claim-field">{truncate(claim.fieldOrBehavior, 200)}</span>
+                </td>
+                <td>
+                  <span class="claim-type">{claim.claimType}</span>
+                  <span class="claim-facet mono-inline">{claim.facet}</span>
+                </td>
+                <td class="claim-value mono-inline">{truncate(formatValue(claim.value), 120)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Evidence -->
+  <Section size="lg" borderBottom tone="alt">
+    <div class="container container--readable">
+      <Eyebrow accent={receipt.accent} gap="sm">Evidence</Eyebrow>
+      <h2 class="section-heading">What supports the claims</h2>
+      <ul class="evidence-list">
+        {bundle.evidence.map((item) => (
+          <li class="evidence-item">
+            <div class="evidence-head">
+              <span class={`evidence-dot ${item.passing === false ? 'is-fail' : 'is-pass'}`}></span>
+              <span class="evidence-method mono-inline">{item.method}</span>
+              <span class="evidence-type">{item.evidenceType}</span>
+            </div>
+            <p class="evidence-summary">{truncate(item.excerptOrSummary ?? '', 320)}</p>
+            <p class="evidence-source mono-inline">{item.sourceRef}</p>
+          </li>
+        ))}
+        {bundle.evidence.length === 0 && (
+          <li class="evidence-item"><p class="evidence-summary">No evidence records in this bundle.</p></li>
+        )}
+      </ul>
+    </div>
+  </Section>
+
+  <!-- Gaps -->
+  <Section size="lg" borderBottom>
+    <div class="container container--readable">
+      <Eyebrow accent={receipt.accent} gap="sm">Open questions</Eyebrow>
+      <h2 class="section-heading">Gaps this receipt does not hide</h2>
+      {gaps.length === 0 ? (
+        <p class="section-lead">
+          No disputed claims, unsupported high-impact claims, or transparency
+          gaps were derived from this bundle. Every recorded claim carries
+          linked evidence.
+        </p>
+      ) : (
+        <ul class="gap-list">
+          {gaps.map((gap) => (
+            <li class="gap-item">
+              <span class={`trust-badge trust-badge--${gap.kind === 'disputed' ? 'disputed' : gap.kind === 'unsupported' ? 'stale' : 'unknown'}`}>
+                {gap.kind}
+              </span>
+              <span class="gap-detail">{gap.detail}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  </Section>
+
+  <!-- Recompute -->
+  <Section size="lg" tone="alt">
+    <div class="container container--readable">
+      <Eyebrow accent="green" gap="sm">Verify it yourself</Eyebrow>
+      <h2 class="section-heading">Recompute this exact file</h2>
+      <p class="section-lead">
+        Download the raw <span class="mono-inline">.bundle</span> above, then run
+        it through the named validator —
+        <span class="mono-inline">validateTrustBundle</span> from
+        <span class="mono-inline">@kontourai/surface</span>. The CLI wraps it and
+        exits non-zero if the artifact is not a well-formed trust.bundle.
+      </p>
+      <Terminal title="validate this receipt">
+        <div><span class="prompt">$</span> <span class="cmd">npx @kontourai/surface@2.1.2 report \</span></div>
+        <div><span class="cmd">    --input {receipt.slug}.trust.bundle --format summary</span></div>
+        <div class="muted"># exit 0 prints the trust summary; a broken file exits 1</div>
+      </Terminal>
+      <p class="section-lead recompute-foot">
+        Prefer the library directly? The CLI just calls it:
+      </p>
+      <Terminal title="node — the named validator">
+        <div><span class="t-kw">import</span> <span class="cmd">{'{ validateTrustBundle }'}</span> <span class="t-kw">from</span> <span class="t-str">"@kontourai/surface"</span>;</div>
+        <div><span class="t-kw">import</span> <span class="cmd">{'{ readFileSync }'}</span> <span class="t-kw">from</span> <span class="t-str">"node:fs"</span>;</div>
+        <div><span class="t-fn">validateTrustBundle</span>(<span class="t-fn">JSON.parse</span>(<span class="t-fn">readFileSync</span>(<span class="t-str">"{receipt.slug}.trust.bundle"</span>, <span class="t-str">"utf8"</span>)));</div>
+        <div class="muted"># throws if the bundle is invalid; returns the parsed bundle otherwise</div>
+      </Terminal>
+    </div>
+  </Section>
+
+  <Footer />
+</Layout>
+
+<style>
+  .container--readable {
+    margin-inline: auto;
+  }
+  .mono-inline {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    color: var(--color-chalk-2);
+  }
+  .back-link {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-chalk-3);
+    text-decoration: none;
+    margin-bottom: 1.5rem;
+  }
+  .back-link:hover {
+    color: var(--color-chalk-2);
+  }
+  .receipt-h1 {
+    font-size: clamp(1.9rem, 4vw, 2.6rem);
+    line-height: 1.1;
+    margin: 0 0 1rem;
+    color: var(--color-chalk);
+  }
+  .receipt-lead {
+    color: var(--color-chalk-2);
+    line-height: 1.7;
+    max-width: 68ch;
+    margin: 0 0 1.75rem;
+  }
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1.75rem;
+  }
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    align-items: center;
+  }
+  .download-btn {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--color-ink);
+    background: var(--accent, var(--color-gold));
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .download-btn:hover {
+    filter: brightness(1.08);
+  }
+  .hero-meta {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-chalk-3);
+  }
+  .prov-note {
+    color: var(--color-chalk-2);
+    line-height: 1.7;
+    max-width: 72ch;
+    margin: 0 0 1.5rem;
+  }
+  .prov-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.5rem 1.25rem;
+    margin: 0;
+  }
+  .prov-grid dt {
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 0.65rem;
+    color: var(--color-chalk-3);
+    align-self: start;
+    padding-top: 0.15rem;
+  }
+  .prov-grid dd {
+    margin: 0;
+    word-break: break-word;
+  }
+  .prov-grid a {
+    color: var(--accent, var(--color-gold));
+  }
+  .section-heading {
+    font-size: 1.6rem;
+    margin: 0 0 1rem;
+    color: var(--color-chalk);
+  }
+  .section-lead {
+    color: var(--color-chalk-2);
+    line-height: 1.7;
+    max-width: 70ch;
+    margin: 0 0 1.75rem;
+  }
+  .recompute-foot {
+    margin: 1.5rem 0 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  .table-scroll {
+    overflow-x: auto;
+    border: 1px solid var(--color-edge);
+    border-radius: 8px;
+  }
+  .claims-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8rem;
+  }
+  .claims-table th {
+    text-align: left;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 0.62rem;
+    color: var(--color-chalk-3);
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--color-edge);
+    background: var(--color-ink-2);
+    white-space: nowrap;
+  }
+  .claims-table td {
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid var(--color-edge);
+    vertical-align: top;
+    color: var(--color-chalk-2);
+  }
+  .claims-table tr:last-child td {
+    border-bottom: none;
+  }
+  .claim-subject {
+    display: block;
+    color: var(--color-chalk);
+    margin-bottom: 0.35rem;
+    word-break: break-word;
+  }
+  .claim-field {
+    display: block;
+    color: var(--color-chalk-3);
+    line-height: 1.5;
+  }
+  .claim-type {
+    display: block;
+    color: var(--color-chalk-2);
+    margin-bottom: 0.2rem;
+  }
+  .claim-facet {
+    display: block;
+    color: var(--color-chalk-3);
+  }
+  .claim-value {
+    word-break: break-word;
+    color: var(--accent, var(--color-chalk-2));
+  }
+
+  .evidence-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1rem;
+  }
+  .evidence-item {
+    background: var(--color-ink-1);
+    border: 1px solid var(--color-edge);
+    border-radius: 8px;
+    padding: 1.25rem;
+  }
+  .evidence-head {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.6rem;
+  }
+  .evidence-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+  .evidence-dot.is-pass {
+    background: var(--color-green);
+  }
+  .evidence-dot.is-fail {
+    background: var(--color-red);
+  }
+  .evidence-method {
+    color: var(--color-chalk);
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+  }
+  .evidence-type {
+    font-size: 0.72rem;
+    color: var(--color-chalk-3);
+    font-family: var(--font-mono);
+  }
+  .evidence-summary {
+    color: var(--color-chalk-2);
+    line-height: 1.6;
+    font-size: 0.85rem;
+    margin: 0 0 0.6rem;
+  }
+  .evidence-source {
+    color: var(--color-chalk-3);
+    font-size: 0.72rem;
+    margin: 0;
+    word-break: break-word;
+  }
+
+  .gap-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+  }
+  .gap-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  .gap-detail {
+    color: var(--color-chalk-2);
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+</style>

@@ -1,0 +1,220 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import Section from '@/components/Section.astro';
+import Glow from '@/components/Glow.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+import Card from '@/components/Card.astro';
+import Grid from '@/components/Grid.astro';
+import Terminal from '@/components/Terminal.astro';
+import { receipts, statusCounts, badgeVariant } from '@/lib/receipts';
+---
+
+<Layout
+  title="Trust receipts — real recomputable bundles · Kontour AI"
+  description="Open and download real Hachure trust.bundle artifacts produced by Kontour's own pipelines, then recompute them yourself with the named validator."
+>
+  <Nav />
+
+  <!-- Hero -->
+  <Section contour size="hero" borderBottom>
+    <Glow accent="gold" position="top-right" />
+    <div class="container container--readable">
+      <Eyebrow accent="gold">Receipts</Eyebrow>
+      <h1 class="product-title animate-fade-up">Check the receipts yourself</h1>
+      <p class="hero-copy animate-fade-up delay-200">
+        We claim Kontour makes AI-assisted work inspectable and recomputable.
+        Here are real <span class="mono-inline">trust.bundle</span> artifacts to
+        test that claim — each produced by one of our own pipelines, rendered
+        from its actual contents, downloadable as the raw file, and validated by
+        the same tool we tell you to run. Nothing here is a hand-written sample.
+      </p>
+      <p class="receipts-note animate-fade-up delay-200">
+        Honest framing: these are <strong>Kontour's own pipeline receipts</strong>
+        (dogfood). They demonstrate the format is real and checkable — not that
+        an outside team has adopted it. Landing an external team's receipt is an
+        open pursuit we track separately, not a claim this page makes.
+      </p>
+    </div>
+  </Section>
+
+  <!-- Receipt catalog -->
+  <Section size="lg" borderBottom>
+    <div class="container container--readable">
+      <Grid min="300" gap="lg">
+        {receipts.map((receipt) => {
+          const counts = statusCounts(receipt.bundle);
+          return (
+            <Card accent={receipt.accent} bar="top" pad="lg" data-accent={receipt.accent}>
+              <p class="label-sm receipt-pipeline">{receipt.pipeline}</p>
+              <h2 class="receipt-title">{receipt.title}</h2>
+              <p class="receipt-summary">{receipt.summary}</p>
+
+              <div class="receipt-badges">
+                {counts.map((entry) => (
+                  <span class={`trust-badge trust-badge--${badgeVariant(entry.status)}`}>
+                    {entry.count} {entry.status}
+                  </span>
+                ))}
+              </div>
+
+              <dl class="receipt-provenance">
+                <dt>Source</dt>
+                <dd class="mono-inline">{receipt.provenance.repo}</dd>
+                <dt>Pinned</dt>
+                <dd class="mono-inline">{receipt.provenance.commit.slice(0, 12)}</dd>
+              </dl>
+
+              <div class="receipt-actions">
+                <a class="receipt-link" href={`/receipts/${receipt.slug}`}>View receipt →</a>
+                <a
+                  class="receipt-download"
+                  href={`/receipts/${receipt.slug}.trust.bundle`}
+                  download
+                >
+                  Download .bundle
+                </a>
+              </div>
+            </Card>
+          );
+        })}
+      </Grid>
+    </div>
+  </Section>
+
+  <!-- Recompute -->
+  <Section tone="alt" borderTop size="lg">
+    <div class="container container--readable">
+      <Eyebrow accent="green">Recompute, don't trust</Eyebrow>
+      <h2 class="section-heading">Validate any of these yourself</h2>
+      <p class="section-lead">
+        Every bundle above is a Hachure trust.bundle. Download one and run it
+        through <span class="mono-inline">@kontourai/surface</span>'s
+        <span class="mono-inline">validateTrustBundle</span> — the named
+        validator. The CLI wraps it: a valid bundle prints its trust summary and
+        exits 0; a malformed one exits non-zero.
+      </p>
+      <Terminal title="verify a downloaded receipt">
+        <div><span class="prompt">$</span> <span class="cmd">npx @kontourai/surface@2.1.2 report \</span></div>
+        <div><span class="cmd">    --input flow-agents-delivery.trust.bundle --format summary</span></div>
+        <div class="muted">Kontour Surface report …</div>
+        <div class="pass">Claims: 34 (proposed: 1, assumed: 1, verified: 32)</div>
+        <div class="info">Facets: flow-agents.workflow: 34</div>
+        <div class="muted"># exit 0 — the bundle validated</div>
+      </Terminal>
+      <p class="section-lead recompute-foot">
+        Each receipt page repeats the exact command for its file and links the
+        provenance commit, so you can trace the artifact back to the run that
+        produced it.
+      </p>
+    </div>
+  </Section>
+
+  <Footer />
+</Layout>
+
+<style>
+  .container--readable {
+    margin-inline: auto;
+  }
+  .mono-inline {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    color: var(--color-chalk-2);
+  }
+  .receipts-note {
+    margin-top: 1.5rem;
+    max-width: 60ch;
+    color: var(--color-chalk-2);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    border-left: 2px solid var(--color-edge-2);
+    padding-left: 1rem;
+  }
+  .receipt-pipeline {
+    color: var(--accent, var(--color-chalk-3));
+    margin-bottom: 0.75rem;
+  }
+  .receipt-title {
+    font-size: 1.25rem;
+    line-height: 1.25;
+    margin: 0 0 0.75rem;
+    color: var(--color-chalk);
+  }
+  .receipt-summary {
+    color: var(--color-chalk-2);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin: 0 0 1.25rem;
+  }
+  .receipt-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1.25rem;
+  }
+  .receipt-provenance {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.25rem 0.75rem;
+    margin: 0 0 1.5rem;
+    font-size: 0.8rem;
+  }
+  .receipt-provenance dt {
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 0.65rem;
+    color: var(--color-chalk-3);
+    align-self: center;
+  }
+  .receipt-provenance dd {
+    margin: 0;
+    color: var(--color-chalk-2);
+  }
+  .receipt-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+  }
+  .receipt-link {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--accent, var(--color-gold));
+    text-decoration: none;
+  }
+  .receipt-link:hover {
+    text-decoration: underline;
+  }
+  .receipt-download {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--color-chalk-2);
+    text-decoration: none;
+    border: 1px solid var(--color-edge-2);
+    border-radius: 4px;
+    padding: 0.3rem 0.7rem;
+  }
+  .receipt-download:hover {
+    border-color: var(--accent, var(--color-edge-2));
+    color: var(--color-chalk);
+  }
+  .section-heading {
+    font-size: 1.75rem;
+    margin: 0 0 1rem;
+    color: var(--color-chalk);
+  }
+  .section-lead {
+    color: var(--color-chalk-2);
+    line-height: 1.7;
+    max-width: 68ch;
+    margin: 0 0 1.5rem;
+  }
+  .recompute-foot {
+    margin-top: 1.5rem;
+    margin-bottom: 0;
+    font-size: 0.9rem;
+  }
+</style>

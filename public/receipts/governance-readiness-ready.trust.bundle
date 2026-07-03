@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 5,
+  "source": "veritas-governance-kit/readiness-adapter",
+  "claims": [
+    {
+      "id": "working-tree-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.veritas-readiness.mergereadiness",
+      "subjectType": "repository-change",
+      "subjectId": "working-tree:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "facet": "veritas.readiness",
+      "claimType": "software-readiness-verdict",
+      "fieldOrBehavior": "mergeReadiness",
+      "value": {
+        "verdict": "ready",
+        "sourceRef": "working-tree:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "blocking": {
+          "failedRequirements": [],
+          "failedEvidenceChecks": []
+        }
+      },
+      "createdAt": "2026-07-02T14:14:45.088Z",
+      "updatedAt": "2026-07-02T14:14:45.088Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:software-readiness-verdict",
+      "currentIntegrityRef": "working-tree:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "metadata": {
+        "producer": "veritas",
+        "source": "readiness",
+        "runId": "veritas-1783001685088"
+      },
+      "status": "verified"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev:working-tree-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.veritas-readiness.mergereadiness",
+      "claimId": "working-tree-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.veritas-readiness.mergereadiness",
+      "evidenceType": "policy_rule",
+      "method": "auditability",
+      "sourceRef": "veritas:readiness:veritas-1783001685088",
+      "excerptOrSummary": "Veritas readiness verdict is ready (run veritas-1783001685088); no blocking requirements or evidence failed.",
+      "observedAt": "2026-07-02T14:14:45.088Z",
+      "collectedBy": "veritas-governance-kit/readiness-adapter",
+      "passing": true
+    }
+  ],
+  "events": [
+    {
+      "id": "evt:working-tree-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.veritas-readiness.mergereadiness",
+      "claimId": "working-tree-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.veritas-readiness.mergereadiness",
+      "status": "verified",
+      "actor": "veritas-governance-kit/readiness-adapter",
+      "method": "auditability",
+      "evidenceIds": [
+        "ev:working-tree-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.veritas-readiness.mergereadiness"
+      ],
+      "createdAt": "2026-07-02T14:14:45.088Z",
+      "verifiedAt": "2026-07-02T14:14:45.088Z"
+    }
+  ],
+  "policies": [
+    {
+      "id": "policy:software-readiness-verdict",
+      "claimType": "software-readiness-verdict",
+      "requiredEvidence": [
+        "policy_rule"
+      ],
+      "acceptanceCriteria": [
+        "A verified Veritas readiness evidence event supports the readiness verdict."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "high"
+    }
+  ]
+}
