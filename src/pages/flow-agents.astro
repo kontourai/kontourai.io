@@ -45,7 +45,7 @@ const skills = [
 
 const honest: { title: string; body: string; accent: Accent }[] = [
   { title: "Done you can't fake", accent: 'chalk-2', body: "The agent can't mark work complete that isn't. The stop gate re-derives the verdict from captured evidence — not the agent's say-so — an external CI check re-runs the verification in a clean environment and blocks the merge on any divergence, and CI signs a tamper-evident record of what shipped." },
-  { title: 'Durable artifacts', accent: 'green', body: 'Workflow state, acceptance, evidence, critique, release, and learning records persist as inspectable sidecars under .flow-agents/ — so a session can be resumed, audited, or handed off.' },
+  { title: 'Durable artifacts', accent: 'green', body: 'Workflow state, acceptance, evidence, critique, release, and learning records persist as inspectable sidecars under .kontourai/flow-agents/ — so a session can be resumed, audited, or handed off.' },
   { title: 'Optional governance', accent: 'cobalt-2', body: 'Wire Veritas readiness reports in as a governance adapter to back merge decisions with repo-standard evidence. Optional, never mandatory — Flow Agents does not own the policy.' },
   { title: 'Deliberate execution', accent: 'gold', body: 'Choose local, worktree, container, cloud, or privileged execution boundaries on purpose. Evals — static, integration, behavioral — keep the bundle honest as it changes.' },
 ];
@@ -102,7 +102,7 @@ const honest: { title: string; body: string; accent: Accent }[] = [
           <p class="pass">  ✓ context     contracts, settings, hooks</p>
           <p class="pass">  ✓ evals       static · integration · behavioral</p>
           <br />
-          <p class="muted">  workflow artifacts → .flow-agents/</p>
+          <p class="muted">  workflow artifacts → .kontourai/flow-agents/</p>
           <p class="rule">  ───────────────────────────────</p>
           <p class="info">  ready. ask your agent:</p>
           <p>  <span class="muted">"Use deliver for this issue."</span></p>
@@ -203,7 +203,7 @@ const honest: { title: string; body: string; accent: Accent }[] = [
           <p class="body bk__copy">
             You can author your own kit today: a directory with a
             <code>kit.json</code>, at least one flow file, and a single
-            <code>install-local</code> command. Validation runs the same contract
+            <code>install</code> command. Validation runs the same contract
             as Builder Kit before anything is copied.
           </p>
           <p class="body bk__copy">
@@ -213,13 +213,13 @@ const honest: { title: string; body: string; accent: Accent }[] = [
             a conformance level, so you know what it guarantees before you install it.
           </p>
           <Terminal class="bk__terminal" title="install a local kit">
-            <p><span class="prompt">$ </span><span class="cmd">npx @kontourai/flow-agents kit install-local ./my-kit --dest .</span></p>
+            <p><span class="prompt">$ </span><span class="cmd">npx @kontourai/flow-agents kit install ./my-kit --dest .</span></p>
             <p><span class="prompt">$ </span><span class="cmd">npx @kontourai/flow-agents kit activate --dest .</span></p>
           </Terminal>
           <p class="bk__direction">
-            Direction — kits are designed to be shareable across teams. The
-            intended growth path: install from git remotes and a curated catalog of
-            Kontour-authored kits. Today install is local-path only.
+            Direction — kits are designed to be shareable across teams. Install
+            from a local path or a git remote today; the intended growth path adds
+            a curated catalog of Kontour-authored kits.
           </p>
         </div>
 
@@ -268,7 +268,7 @@ const honest: { title: string; body: string; accent: Accent }[] = [
           <br />
           <p>  stopped at <span class="warn">evidence-gate</span></p>
           <p class="muted">  next: capture a browser check, then resume</p>
-          <p class="muted">  state → .flow-agents/runs/deliver-214/</p>
+          <p class="muted">  state → .kontourai/flow-agents/deliver-214/</p>
         </Terminal>
       </Split>
     </div>

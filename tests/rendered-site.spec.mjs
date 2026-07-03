@@ -169,7 +169,7 @@ test("surface page presents inspectable claims and trust vocabulary", async ({ p
 
   // Trust report output
   await expect(page.getByText("Transparency gaps:")).toBeVisible();
-  await expect(page.getByText("Claim Groups:")).toBeVisible();
+  await expect(page.getByText("Claim groups:")).toBeVisible();
 
   // Trust vocabulary
   await expect(page.locator(".label-sm").filter({ hasText: "Trust vocabulary" })).toBeVisible();
@@ -360,7 +360,7 @@ test("flow agents page presents agent-tool discipline and status", async ({ page
   // Real capabilities: runtimes, Flow Kits with the Builder Kit, and an install path
   await expect(page.locator(".label-sm").filter({ hasText: "Flow Kits" }).first()).toBeVisible();
   await expect(page.getByText("Builder Kit").first()).toBeVisible();
-  await expect(page.getByText("kit install-local").first()).toBeVisible();
+  await expect(page.getByText("kit install").first()).toBeVisible();
   await expect(page.getByText("Claude Code").first()).toBeVisible();
   await expect(page.getByText("idea-to-backlog").first()).toBeVisible();
   await expect(page.getByText("npx @kontourai/flow-agents init").first()).toBeVisible();

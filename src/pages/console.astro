@@ -291,7 +291,7 @@ const boundary: { title: string; accent: Accent; items: string[] }[] = [
         <Terminal title="local-producer.js">
 <pre class="code code--cobalt"><span class="t-com">// write control-plane records locally — no network</span>
 <span class="t-kw">const</span> {'{'} KontourEmitter, LocalFileSink {'}'} =
-  <span class="t-fn">require</span>(<span class="t-str">"./src/console-foundation"</span>);
+  <span class="t-fn">require</span>(<span class="t-str">"@kontourai/console"</span>);
 
 <span class="t-kw">const</span> emitter = <span class="t-kw">new</span> <span class="t-fn">KontourEmitter</span>({'{'}
   sink: <span class="t-kw">new</span> <span class="t-fn">LocalFileSink</span>({'{'} root: <span class="t-str">".kontour"</span> {'}'}),
