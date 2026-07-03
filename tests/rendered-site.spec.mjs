@@ -50,6 +50,12 @@ test("homepage leads with a single Flow Agents headline and Survey as the proof 
   await expect(page.locator('[data-umami-event="home-cta-developers"]')).toHaveAttribute("href", "/developers/");
   await expect(page.locator('[data-umami-event="footer-developers"]')).toBeVisible();
 
+  // #82: receipts are the proof story's evidence — reachable from the home
+  // proof section, the nav, and the footer even under the teaser rules.
+  await expect(page.locator('[data-umami-event="home-proof-receipts"]')).toHaveAttribute("href", "/receipts/");
+  await expect(page.locator('[data-umami-event="nav-receipts"]')).toHaveAttribute("href", "/receipts/");
+  await expect(page.locator('[data-umami-event="footer-receipts"]')).toHaveAttribute("href", "/receipts/");
+
   // Teaser: product nav/footer links stay hidden on the public home
   await expect(page.locator('[data-umami-event="nav-flow"]')).toHaveCount(0);
   await expect(page.locator('[data-umami-event="nav-veritas"]')).toHaveCount(0);
@@ -93,6 +99,10 @@ test("early access page gives static contact paths", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "Agent workflow team" })).toBeVisible();
   await expect(page.getByText("One concrete workflow is enough.")).toBeVisible();
   await expect(page.locator('[data-umami-event="early-access-hero-email"]')).toHaveAttribute("href", /mailto:hello@kontourai\.io/);
+
+  // #82: receipts stay reachable even on teaser pages (it is proof, not a product).
+  await expect(page.locator('[data-umami-event="nav-receipts"]')).toHaveAttribute("href", "/receipts/");
+  await expect(page.locator('[data-umami-event="footer-receipts"]')).toHaveAttribute("href", "/receipts/");
 
   // Teaser: product links are hidden here too (nav, footer, and inline)
   await expect(page.locator('[data-umami-event="nav-veritas"]')).toHaveCount(0);
@@ -365,6 +375,9 @@ test("receipts index lists the real pipeline bundles with downloads", async ({ p
   await page.goto("/receipts/");
 
   await expect(page.getByRole("heading", { name: "Check the receipts yourself" })).toBeVisible();
+
+  // #82: the receipts nav link marks itself active on the receipts surface.
+  await expect(page.locator('[data-umami-event="nav-receipts"]')).toHaveAttribute("aria-current", "page");
 
   // Honest framing (AC5): our own pipelines, no external-adoption claim.
   await expect(page.getByText("Kontour's own pipeline receipts")).toBeVisible();
