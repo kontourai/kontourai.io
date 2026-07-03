@@ -245,14 +245,14 @@ const consoleFeatures = [
         <Terminal title="flow console">
           <p><span class="prompt">$ </span><span class="cmd">npx @kontourai/flow console --run dev-1847</span></p>
           <br />
-          <p class="info">  Flow Console running at http://127.0.0.1:4317</p>
+          <p class="info">  Flow Console: http://127.0.0.1:4317/</p>
           <br />
           <p class="muted">  Reading: .flow/runs/dev-1847/</p>
           <p class="muted">  run: agent-dev-flow / feature-search-filters</p>
           <br />
-          <p class="muted">  GET /              200  console shell</p>
-          <p class="muted">  GET /api/run         200  run graph + timeline</p>
-          <p class="muted">  GET /api/gates       200  gate detail + evidence</p>
+          <p class="muted">  GET /                 200  console shell</p>
+          <p class="muted">  GET /api/projection   200  run graph, timeline, gates, evidence</p>
+          <p class="muted">  GET /api/stream       200  live updates (SSE)</p>
           <br />
           <p class="rule">  ───────────────────────────────</p>
           <p class="pass">  PASS  plan · implementation</p>
