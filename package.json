@@ -13,6 +13,7 @@
     "test:rendered": "npm run build && playwright test",
     "refresh:product-status": "node scripts/refresh-product-status.mjs",
     "check:product-status": "node scripts/refresh-product-status.mjs --dry-run",
+    "check:pin-drift": "node scripts/detect-pin-drift.mjs",
     "check:content-boundary": "node scripts/check-content-boundary.cjs",
     "check:sitemap": "node scripts/check-sitemap.mjs",
     "check:playwright-pin": "node scripts/check-playwright-pin.mjs",
