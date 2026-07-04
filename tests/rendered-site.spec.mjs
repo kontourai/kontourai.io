@@ -108,7 +108,7 @@ test("early access page gives static contact paths", async ({ page }) => {
   await expect(page.locator('[data-umami-event="nav-veritas"]')).toHaveCount(0);
   await expect(page.locator('[data-umami-event="footer-surface"]')).toHaveCount(0);
   await expect(
-    page.locator('a[href="/surface"], a[href="/survey"], a[href="/flow"], a[href="/flow-agents"], a[href="/veritas"], a[href="/console"]')
+    page.locator('a[href="/surface/"], a[href="/survey/"], a[href="/flow/"], a[href="/flow-agents/"], a[href="/veritas/"], a[href="/console/"]')
   ).toHaveCount(0);
 });
 
@@ -286,8 +286,8 @@ test("developers page maps product ownership, lifecycle, and maturity on desktop
   // AC3: the "Six products. One job." architecture tour now lives here.
   await expect(page.getByRole("heading", { name: "Six products. One job." })).toBeVisible();
   await expect(page.locator('[aria-label="Kontour product layer stack"]')).toBeVisible();
-  await expect(page.locator('[data-umami-event="developers-product-survey"]')).toHaveAttribute("href", "/survey");
-  await expect(page.locator('[data-umami-event="developers-product-console"]')).toHaveAttribute("href", "/console");
+  await expect(page.locator('[data-umami-event="developers-product-survey"]')).toHaveAttribute("href", "/survey/");
+  await expect(page.locator('[data-umami-event="developers-product-console"]')).toHaveAttribute("href", "/console/");
 
   await expect(page.getByText("Surface owns trust records.")).toBeVisible();
   await expect(page.getByText("Flow owns process semantics.")).toBeVisible();
@@ -383,18 +383,20 @@ test("receipts index lists the real pipeline bundles with downloads", async ({ p
   await expect(page.getByText("Kontour's own pipeline receipts")).toBeVisible();
   await expect(page.getByText(/an outside team has adopted it/)).toBeVisible();
 
-  // All three receipts are present.
+  // All four receipts are present.
   await expect(page.getByRole("heading", { name: "Flow Agents delivery bundle" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Governance Kit readiness — ready verdict" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Governance Kit readiness — blocked verdict" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Flow Agents ownership-guard bundle" })).toBeVisible();
 
   // Each has a rendered-view link and a raw download link (AC2/AC3).
   for (const slug of [
     "flow-agents-delivery",
     "governance-readiness-ready",
     "governance-readiness-not-ready",
+    "flow-agents-ownership-guard",
   ]) {
-    await expect(page.locator(`a[href="/receipts/${slug}"]`)).toBeVisible();
+    await expect(page.locator(`a[href="/receipts/${slug}/"]`)).toBeVisible();
     await expect(page.locator(`a[href="/receipts/${slug}.trust.bundle"][download]`)).toBeVisible();
   }
 });
@@ -423,11 +425,28 @@ test("a receipt view renders the bundle's actual derived contents", async ({ pag
   await expect(page.getByText("validateTrustBundle").first()).toBeVisible();
 });
 
+test("the ownership-guard receipt discloses its waived pre-existing-failure gap", async ({ page }) => {
+  await page.goto("/receipts/flow-agents-ownership-guard/");
+
+  await expect(page.getByRole("heading", { name: "Flow Agents ownership-guard bundle" })).toBeVisible();
+
+  // AC: the gaps section is visible and names the waived claim from the bundle
+  // (subjectId ends with pre-existing-failure-baseline) rather than hiding it.
+  await expect(page.getByRole("heading", { name: "Gaps this receipt does not hide" })).toBeVisible();
+  await expect(
+    page
+      .locator(".gap-item")
+      .filter({ hasText: "Three eval suites carry failures independently reproduced as pre-existing baselines" }),
+  ).toBeVisible();
+  await expect(page.getByText('high-impact but status is "assumed"').first()).toBeVisible();
+});
+
 test("published bundles download and validate under the named validator", async ({ page }) => {
   for (const slug of [
     "flow-agents-delivery",
     "governance-readiness-ready",
     "governance-readiness-not-ready",
+    "flow-agents-ownership-guard",
   ]) {
     const response = await page.request.get(`/receipts/${slug}.trust.bundle`);
     expect(response.status(), `${slug} download status`).toBe(200);

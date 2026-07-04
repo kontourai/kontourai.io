@@ -2,8 +2,6 @@
  * Single source of truth for the product line shown across the site.
  *
  * Defined once so order, casing, and accents stay consistent across the site.
- * Order follows the homepage layering: products you can use today, then the
- * foundational primitives, then Console (the operating plane over the suite).
  */
 import type { Accent } from "./theme";
 
@@ -34,7 +32,7 @@ export type Product = {
 export const products: Product[] = [
   {
     key: "veritas",
-    href: "/veritas",
+    href: "/veritas/",
     label: "Veritas",
     accent: "green",
     repo: "https://github.com/kontourai/veritas",
@@ -49,7 +47,7 @@ export const products: Product[] = [
   },
   {
     key: "flow-agents",
-    href: "/flow-agents",
+    href: "/flow-agents/",
     label: "Flow Agents",
     accent: "chalk-2",
     repo: "https://github.com/kontourai/flow-agents",
@@ -64,7 +62,7 @@ export const products: Product[] = [
   },
   {
     key: "surface",
-    href: "/surface",
+    href: "/surface/",
     label: "Surface",
     accent: "gold",
     repo: "https://github.com/kontourai/surface",
@@ -79,7 +77,7 @@ export const products: Product[] = [
   },
   {
     key: "flow",
-    href: "/flow",
+    href: "/flow/",
     label: "Flow",
     accent: "cobalt-2",
     repo: "https://github.com/kontourai/flow",
@@ -94,7 +92,7 @@ export const products: Product[] = [
   },
   {
     key: "survey",
-    href: "/survey",
+    href: "/survey/",
     label: "Survey",
     accent: "gold-2",
     repo: "https://github.com/kontourai/survey",
@@ -105,7 +103,7 @@ export const products: Product[] = [
   },
   {
     key: "console",
-    href: "/console",
+    href: "/console/",
     label: "Console",
     accent: "cobalt",
     repo: "https://github.com/kontourai/console",
@@ -116,6 +114,9 @@ export const products: Product[] = [
   },
 ];
 
+// Homepage layering: foundational primitives first (Surface, Survey, Flow),
+// then products usable today (Veritas, Flow Agents), then Console last (the
+// operating plane over the suite).
 const homepageProductOrder: ProductKey[] = ["surface", "survey", "flow", "veritas", "flow-agents", "console"];
 const developerCompositionOrder: ProductKey[] = ["surface", "flow", "veritas", "flow-agents"];
 
