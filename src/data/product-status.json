@@ -1,11 +1,11 @@
 {
-  "checkedAt": "2026-07-03",
+  "checkedAt": "2026-07-04",
   "products": {
     "surface": {
       "key": "surface",
       "label": "Surface",
       "packageName": "@kontourai/surface",
-      "version": "2.1.2",
+      "version": "2.2.0",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/surface",
       "publicNotes": "",
@@ -57,7 +57,7 @@
       "key": "flow-agents",
       "label": "Flow Agents",
       "packageName": "@kontourai/flow-agents",
-      "version": "2.4.0",
+      "version": "3.0.0",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/flow-agents",
       "publicNotes": "",
