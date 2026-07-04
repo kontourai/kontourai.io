@@ -32,9 +32,17 @@ const versionedPackages = [
   { key: "console", name: "@kontourai/console", page: "src/pages/console.astro" },
 ];
 
+// Local workspace packages. Their version expectation is DERIVED from
+// src/data/product-status.json — the single generated source of truth that
+// scripts/refresh-product-status.mjs refreshes from npm. There is intentionally
+// no separately-committed expectedVersion literal here: that duplicated copy is
+// exactly what drifted out of lockstep and broke CI fleet-wide (issue #87).
+// When a sibling workspace checkout is present we still assert the sibling
+// package.json agrees with the generated metadata; when it is absent (the normal
+// CI case) npm parity is enforced independently in versionedPackages below.
 const localWorkspacePackages = [
-  { key: "surface", packageFile: "../surface/package.json", expectedVersion: "2.2.0" },
-  { key: "survey", packageFile: "../survey/package.json", expectedVersion: "1.6.0" },
+  { key: "surface", packageFile: "../surface/package.json" },
+  { key: "survey", packageFile: "../survey/package.json" },
 ];
 
 let viteServer;
@@ -175,7 +183,7 @@ async function checkVersionedPackage({ key, name, page }) {
   }
 }
 
-async function checkLocalWorkspacePackage({ key, packageFile, expectedVersion }) {
+async function checkLocalWorkspacePackage({ key, packageFile }) {
   const status = statusData.products[key];
   if (!status) {
     error(`src/data/product-status.json: missing ${key}`);
@@ -190,11 +198,10 @@ async function checkLocalWorkspacePackage({ key, packageFile, expectedVersion })
     if (err?.code !== "ENOENT") {
       throw err;
     }
-    if (status.version !== expectedVersion) {
-      error(`${key}: status v${status.version ?? "null"} does not match committed local-workspace expectation v${expectedVersion}`);
-      return;
-    }
-    console.log(`PASS  ${key}: metadata v${status.version} matches committed local-workspace expectation (${packageFile} not present)`);
+    // Sibling checkout absent (normal in CI). product-status.json is the single
+    // source of truth for this expectation and npm parity is enforced separately
+    // in versionedPackages, so there is nothing to reconcile here.
+    console.log(`PASS  ${key}: expectation derived from product-status.json v${status.version} (${packageFile} not present)`);
     return;
   }
   if (status.packageName !== packageJson.name) {

@@ -1,0 +1,146 @@
+# Automated product-status pin refresh (issue #87).
+#
+# The fleet's release cadence outpaces manual pin refreshes: version drift broke
+# "Build, Test & Validate" + "Trust Verify" fleet-wide multiple times in a single
+# day (PRs #79, #86, #94). This workflow moves the mechanical case out of the
+# human loop: it regenerates src/data/product-status.json from the public npm
+# registry and opens a pull request ONLY when a version pin actually drifted.
+#
+# One source of truth: scripts/validate.mjs derives its localWorkspacePackages
+# expectations from product-status.json (no separate committed literal), so this
+# workflow never has to bump a second lockstep copy — that class of drift is gone.
+#
+# HARD INVARIANT (issue #87): this automation handles version strings ONLY. It
+# must NEVER auto-bump the human-owned `marketingReviewed` markers. Two guards
+# enforce that: (1) refresh-product-status.mjs only writes `version`/`checkedAt`,
+# and (2) detect-pin-drift.mjs hard-fails if any `marketingReviewed` block changed.
+# When a bump crosses a semver MAJOR, the PR body flags "MAJOR crossed — claims
+# re-check needed" prominently and leaves marketingReviewed for human review.
+name: Pin Refresh
+
+on:
+  schedule:
+    # Daily at 13:00 UTC. Drift historically landed mid-day and broke every open
+    # PR; a daily sweep keeps the pins current without a human on freeze watch.
+    - cron: "0 13 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run: detect + report drift but do NOT push a branch or open a PR."
+        type: boolean
+        default: true
+
+concurrency:
+  group: pin-refresh
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  refresh:
+    name: Refresh product-status pins
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          # A PAT (secrets.PIN_REFRESH_TOKEN) lets the auto-PR trigger Deploy /
+          # Trust Verify; the default GITHUB_TOKEN cannot (GitHub suppresses
+          # workflow triggers on token-authored events). Falls back gracefully.
+          token: ${{ secrets.PIN_REFRESH_TOKEN || secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Resolve run mode
+        id: mode
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.dry_run }}" = "true" ]; then
+            echo "dry_run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "dry_run=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Refresh product-status metadata from npm
+        run: npm run refresh:product-status
+
+      - name: Detect pin drift
+        id: drift
+        # Compares regenerated pins against committed HEAD (version fields only,
+        # ignoring checkedAt) and HARD-FAILS if marketingReviewed changed.
+        run: node scripts/detect-pin-drift.mjs
+
+      - name: Report (dry run)
+        if: steps.mode.outputs.dry_run == 'true'
+        run: |
+          echo "DRY RUN — no branch pushed, no PR opened."
+          echo "drift=${{ steps.drift.outputs.drift }} major=${{ steps.drift.outputs.major }}"
+          {
+            echo "## Pin Refresh — dry run"
+            echo ""
+            echo "\`drift=${{ steps.drift.outputs.drift }}\` \`major=${{ steps.drift.outputs.major }}\`"
+            echo ""
+            cat .flow-agents/product-audits/pin-drift-summary.md
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: No drift — nothing to do
+        if: steps.mode.outputs.dry_run != 'true' && steps.drift.outputs.drift != 'true'
+        run: |
+          echo "No version drift against committed pins. Reverting checkedAt-only change."
+          git checkout -- src/data/product-status.json
+
+      - name: Verify regenerated pins build and validate
+        if: steps.mode.outputs.dry_run != 'true' && steps.drift.outputs.drift == 'true'
+        run: |
+          npm run build
+          npm run validate
+        env:
+          PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN: ${{ vars.PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN }}
+          PUBLIC_CLOUDFLARE_WEB_ANALYTICS_URL: ${{ vars.PUBLIC_CLOUDFLARE_WEB_ANALYTICS_URL }}
+
+      - name: Open or update pull request
+        if: steps.mode.outputs.dry_run != 'true' && steps.drift.outputs.drift == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.PIN_REFRESH_TOKEN || secrets.GITHUB_TOKEN }}
+          IS_MAJOR: ${{ steps.drift.outputs.major }}
+        run: |
+          set -euo pipefail
+          BRANCH="automation/pin-refresh"
+          git config user.name "kontourai-pins[bot]"
+          git config user.email "kontourai-pins@users.noreply.github.com"
+
+          # Only the metadata file — audit output under .flow-agents/ is gitignored.
+          git checkout -B "$BRANCH"
+          git add src/data/product-status.json
+          git commit -m "chore(pins): automated product-status refresh (#87)"
+          git push --force origin "$BRANCH"
+
+          TITLE="chore(pins): automated product-status refresh"
+          if [ "$IS_MAJOR" = "true" ]; then
+            TITLE="[MAJOR] $TITLE — claims re-check needed"
+          fi
+
+          BODY_FILE=".flow-agents/product-audits/pin-drift-summary.md"
+          {
+            echo ""
+            echo "---"
+            echo "Closes #87 mechanical case. \`marketingReviewed\` markers are intentionally untouched."
+            echo "Generated by \`.github/workflows/pin-refresh.yml\`."
+          } >> "$BODY_FILE"
+
+          EXISTING=$(gh pr list --head "$BRANCH" --state open --json number -q '.[0].number' || true)
+          if [ -n "$EXISTING" ]; then
+            gh pr edit "$EXISTING" --title "$TITLE" --body-file "$BODY_FILE"
+            echo "Updated PR #$EXISTING"
+          else
+            gh pr create --base main --head "$BRANCH" --title "$TITLE" --body-file "$BODY_FILE"
+            echo "Opened new PR"
+          fi
