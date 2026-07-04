@@ -59,7 +59,7 @@ const useCases = [
 const states = [
   {
     label: 'Current state',
-    body: 'Product pages, open repositories, local workflow artifacts, Surface trust reports, Veritas readiness evidence, Flow Agents workflows, and early Console projections are all inspectable now.',
+    body: 'Product pages, open repositories, local workflow artifacts, Surface Trust Reports, Veritas readiness evidence, Flow Agents workflows, and early Console projections are all inspectable now.',
     accent: 'green',
   },
   {
@@ -71,6 +71,30 @@ const states = [
     label: 'Future possibilities',
     body: 'Kubernetes-style operators, hosted coordination, and broader runtime adapters are possible future integrations. They are not current requirements for using the products.',
     accent: 'gold',
+  },
+] as const;
+
+const labRepos = [
+  {
+    slug: 'datum',
+    label: 'Datum',
+    repo: 'https://github.com/kontourai/datum',
+    description:
+      'Portfolio AI provider/model registry: define providers, models, roles once; resolve which backend, which model, whose key, what base URL. Never makes model calls.',
+  },
+  {
+    slug: 'traverse',
+    label: 'Traverse',
+    repo: 'https://github.com/kontourai/traverse',
+    description:
+      "Schema-directed content extraction that produces provenance-bearing, review-ready extraction proposals in Survey's shape.",
+  },
+  {
+    slug: 'ephemeris',
+    label: 'Ephemeris',
+    repo: 'https://github.com/kontourai/ephemeris',
+    description:
+      'External freshness scheduler / event-bridge for the Kontour suite. Turns time into a trigger.',
   },
 ] as const;
 ---
@@ -259,7 +283,7 @@ const states = [
             <p class="product-card__body"><strong>Owns:</strong> {developerComposition.owns}.</p>
             <p class="product-card__body"><strong>Composes by:</strong> {developerComposition.composes}.</p>
             <div class="product-card__links">
-              <a href={`${href}/`} data-umami-event={`developers-${key}-page`}>Product page</a>
+              <a href={href} data-umami-event={`developers-${key}-page`}>Product page</a>
               <a href={repo} target="_blank" rel="noopener" data-umami-event={`developers-${key}-repo`}>GitHub</a>
             </div>
           </Card>
@@ -330,6 +354,29 @@ const states = [
     </div>
   </Section>
 
+  <Section borderTop>
+    <div class="container">
+      <Eyebrow gap="sm">More from the lab</Eyebrow>
+      <p class="fine measure lab-intro">
+        A few smaller, early public repos in the Kontour org that the product
+        line above builds on — nested building blocks, not top-level
+        products, published as-is for anyone who wants to look under the
+        hood.
+      </p>
+      <Grid min="280" gap="md">
+        {labRepos.map(({ slug, label, repo, description }) => (
+          <Card accent="chalk-2" pad="md">
+            <h3 class="product-card__title">{label}</h3>
+            <p class="product-card__body">{description}</p>
+            <div class="product-card__links">
+              <a href={repo} target="_blank" rel="noopener" data-umami-event={`developers-lab-${slug}-repo`}>GitHub →</a>
+            </div>
+          </Card>
+        ))}
+      </Grid>
+    </div>
+  </Section>
+
   <Footer active="developers" />
 </Layout>
 
@@ -387,7 +434,8 @@ const states = [
   }
 
   .ownership-note,
-  .lifecycle-note {
+  .lifecycle-note,
+  .lab-intro {
     margin: 0.8rem 0 2rem;
   }
 

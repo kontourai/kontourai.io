@@ -22,6 +22,39 @@
 /surface/
   Cache-Control: public, max-age=3600, must-revalidate
 
+/flow-agents/
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/flow/
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/survey/
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/console/
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/developers/
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/early-access/
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/receipts/
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/receipts/flow-agents-delivery/
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/receipts/governance-readiness-ready/
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/receipts/governance-readiness-not-ready/
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/receipts/flow-agents-ownership-guard/
+  Cache-Control: public, max-age=3600, must-revalidate
+
 # 404
 /404.html
   Cache-Control: public, max-age=300, must-revalidate

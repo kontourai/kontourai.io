@@ -38,13 +38,13 @@ const producers: { product: string; detail: string; accent: Accent }[] = [
 const boundary: { title: string; accent: Accent; items: string[] }[] = [
   { title: 'Console owns', accent: 'cobalt', items: ['Suite navigation & workspace structure', 'Cross-product aggregation & correlation', 'Unified queues & action routing', 'Identity links across product objects', 'Extension composition across consoles'] },
   { title: 'Console does not own', accent: 'chalk-2', items: ['Surface trust derivation', 'Flow gate & transition semantics', 'Survey fact-review semantics', 'Veritas governance policy', 'Any hosted-infrastructure requirement'] },
-  { title: 'Primitives stay portable', accent: 'gold', items: ['Adopt Surface, Flow, Survey, or Veritas alone', 'Event streams are the durable contract', 'Projections are cached, product-owned views', 'Actions execute through the owning product', 'No `.kontour` dependency for verticals'] },
+  { title: 'Primitives stay portable', accent: 'gold', items: ['Adopt Surface, Flow, Survey, or Veritas alone', 'Event streams are the durable contract', 'Projections are cached, product-owned views', 'Actions execute through the owning product', 'No .kontour dependency for verticals'] },
 ];
 ---
 
 <Layout
-  title="Kontour Console — One operating plane for the suite · Kontour AI"
-  description="Kontour Console makes the suite operable by aggregating claim status, process state, proof, and next actions without owning product semantics."
+  title="Console — One operating plane for the suite · Kontour AI"
+  description="Console makes the suite operable by aggregating claim status, process state, proof, and next actions without owning product semantics."
 >
   <Nav active="console" />
 
@@ -56,7 +56,7 @@ const boundary: { title: string; accent: Accent; items: string[] }[] = [
         <div>
           <div class="hero-badges">
             <span class="trust-badge trust-badge--verified">{productBadge(consoleStatus)}</span>
-            <span class="install-hint">github.com/kontourai/console</span>
+            <span class="install-hint">npm install -D @kontourai/console</span>
           </div>
 
           <ProductMark product="console" size={40} class="product-hero-mark animate-fade-up" data-accent="cobalt" />
@@ -76,7 +76,7 @@ const boundary: { title: string; accent: Accent; items: string[] }[] = [
 
           <div class="hero-actions animate-fade-up delay-300">
             <a href="https://github.com/kontourai/console" target="_blank" rel="noopener" class="btn-primary" data-umami-event="console-hero-github">View on GitHub →</a>
-            <a href="/surface" class="btn-ghost" data-umami-event="console-hero-surface">Built on the primitives</a>
+            <a href="/surface/" class="btn-ghost" data-umami-event="console-hero-surface">Built on the primitives</a>
           </div>
         </div>
 
@@ -322,12 +322,6 @@ const boundary: { title: string; accent: Accent; items: string[] }[] = [
 </Layout>
 
 <style>
-  .badge-preview {
-    border-color: rgba(90, 144, 200, 0.3);
-    background: rgba(90, 144, 200, 0.08);
-    color: var(--color-cobalt);
-  }
-
   .hero-copy--wide {
     max-width: 500px;
   }

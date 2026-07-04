@@ -16,6 +16,7 @@ import type { Accent } from "@/lib/theme";
 import flowAgentsDelivery from "@/data/receipts/flow-agents-delivery.trust.bundle.json";
 import governanceReady from "@/data/receipts/governance-readiness-ready.trust.bundle.json";
 import governanceNotReady from "@/data/receipts/governance-readiness-not-ready.trust.bundle.json";
+import flowAgentsOwnershipGuard from "@/data/receipts/flow-agents-ownership-guard.trust.bundle.json";
 
 export interface Claim {
   id: string;
@@ -141,6 +142,22 @@ export const receipts: Receipt[] = [
         "Produced by running the kit's readiness-to-trust-bundle.mjs adapter (commit 1948639) over the committed not-ready readiness record above; the projection is deterministic and re-runnable.",
     },
     bundle: governanceNotReady as unknown as TrustBundle,
+  },
+  {
+    slug: "flow-agents-ownership-guard",
+    title: "Flow Agents ownership-guard bundle",
+    pipeline: "Kontour Flow Agents — ensure-session ownership guard",
+    accent: "chalk-2",
+    summary:
+      "A Flow Agents workflow run's own receipt for its ensure-session ownership guard: two agents claiming the same work item are kept from colliding, recorded as claims with their evidence — including one pre-existing, unrelated test-suite gap the run discloses and waives rather than hides.",
+    provenance: {
+      repo: "kontourai/flow-agents",
+      commit: "20eed88f025980eab845ff588ed4cd188f6b0d2a",
+      path: "delivery/trust.bundle",
+      note:
+        "Merged to main via kontourai/flow-agents#377 ('#291: ensure-session ownership guard + per-actor current.json'); taken verbatim from delivery/trust.bundle at the merge commit.",
+    },
+    bundle: flowAgentsOwnershipGuard as unknown as TrustBundle,
   },
 ];
 

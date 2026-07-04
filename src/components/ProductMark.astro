@@ -15,13 +15,12 @@
 import consoleSvg from "@kontourai/ui/icons/console.svg?raw";
 import flowAgentsSvg from "@kontourai/ui/icons/flow-agents.svg?raw";
 import flowSvg from "@kontourai/ui/icons/flow.svg?raw";
-import stationSvg from "@kontourai/ui/icons/station.svg?raw";
 import surfaceSvg from "@kontourai/ui/icons/surface.svg?raw";
 import surveySvg from "@kontourai/ui/icons/survey.svg?raw";
 import veritasSvg from "@kontourai/ui/icons/veritas.svg?raw";
 
 export type ProductMarkSlug =
-  "station" | "surface" | "flow" | "veritas" | "survey" | "console" | "flow-agents";
+  "surface" | "flow" | "veritas" | "survey" | "console" | "flow-agents";
 
 type Props = {
   /** Product slug selecting which glyph to render. */
@@ -48,7 +47,6 @@ function extractInner(rawSvg: string): string {
 }
 
 const inner: Record<ProductMarkSlug, string> = {
-  station: extractInner(stationSvg),
   surface: extractInner(surfaceSvg),
   flow: extractInner(flowSvg),
   veritas: extractInner(veritasSvg),
