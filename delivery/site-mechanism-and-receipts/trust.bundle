@@ -1,0 +1,461 @@
+{
+  "schemaVersion": 5,
+  "source": "flow-agents/workflow-sidecar;statusFunctionVersion=2",
+  "claims": [
+    {
+      "id": "site-mechanism-and-receipts-ac1-homepage-mechanism-section.flow-agents-workflow.npm-run-test-rendered-passed-49-49-including-new-homepage-assertions-for-eyebrow-how-a-gate-knows-headline-dont-ask-the-agent-check-the-toothbrush-and-recompute-affordance-dist-index-html-confirmed-to-contain-the-strings",
+      "subjectType": "workflow-check",
+      "subjectId": "site-mechanism-and-receipts/ac1-homepage-mechanism-section",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.check.external",
+      "fieldOrBehavior": "npm run test:rendered passed (49/49) including new homepage assertions for eyebrow How a gate knows, headline Dont ask the agent / Check the toothbrush, and recompute affordance; dist/index.html confirmed to contain the strings.",
+      "value": "pass",
+      "createdAt": "2026-07-07T07:15:33Z",
+      "updatedAt": "2026-07-07T07:15:33Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:workflow.check.external:attestation",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "external"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "site-mechanism-and-receipts-ac2-receipts-rederive-affordance.flow-agents-workflow.playwright-asserts-4x-check-it-yourself-commands-on-receipts-index-and-relabeled-check-it-yourself-eyebrow-on-receipts-slug-dist-output-confirms-all-4-per-receipt-npx-kontourai-surface-2-1-2-report-commands-plus-slug-page-validatetrustbundle-block",
+      "subjectType": "workflow-check",
+      "subjectId": "site-mechanism-and-receipts/ac2-receipts-rederive-affordance",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.check.external",
+      "fieldOrBehavior": "Playwright asserts 4x Check it yourself commands on receipts/index and relabeled Check it yourself eyebrow on receipts/[slug]; dist output confirms all 4 per-receipt npx @kontourai/surface@2.1.2 report commands plus slug-page validateTrustBundle block.",
+      "value": "pass",
+      "createdAt": "2026-07-07T07:15:33Z",
+      "updatedAt": "2026-07-07T07:15:33Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:workflow.check.external:attestation",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "external"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "site-mechanism-and-receipts-ac3-category-line-seeding.flow-agents-workflow.the-receipt-layer-for-ai-work-present-in-layout-astro-default-description-og-twitter-fallback-and-footer-astro-footer-category-confirmed-in-dist-404-html-meta-tags-and-dist-index-html-footer-hero-h1-diff-confirmed-unchanged-git-diff-origin-main-src-pages-index-astro-shows-only-additive-hunks-below-the-hero-manual-scan-of-all-new-copy-in-the-diff-found-no-economics-performance-claims",
+      "subjectType": "workflow-check",
+      "subjectId": "site-mechanism-and-receipts/ac3-category-line-seeding",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.check.external",
+      "fieldOrBehavior": "The receipt layer for AI work. present in Layout.astro default description (og/twitter fallback) and Footer.astro footer__category; confirmed in dist/404.html meta tags and dist/index.html footer. Hero h1 diff-confirmed unchanged (git diff origin/main -- src/pages/index.astro shows only additive hunks below the hero). Manual scan of all new copy in the diff found no economics/performance claims.",
+      "value": "pass",
+      "createdAt": "2026-07-07T07:15:33Z",
+      "updatedAt": "2026-07-07T07:15:33Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:workflow.check.external:attestation",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "external"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "site-mechanism-and-receipts-ac4-validate-and-tests-pass.flow-agents-workflow.npm-run-validate-all-7-sub-checks-content-boundary-theme-tokens-security-hardening-receipts-playwright-pin-validate-mjs-incl-trust-bundle-checks-sitemap-passed-npm-run-test-rendered-astro-build-15-pages-playwright-49-49-passed-including-mobile-overflow-at-360-768px",
+      "subjectType": "workflow-check",
+      "subjectId": "site-mechanism-and-receipts/ac4-validate-and-tests-pass",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.check.external",
+      "fieldOrBehavior": "npm run validate: all 7 sub-checks (content-boundary, theme-tokens, security-hardening, receipts, playwright-pin, validate.mjs incl. trust.bundle checks, sitemap) passed. npm run test:rendered: astro build (15 pages) + Playwright 49/49 passed including mobile-overflow at 360/768px.",
+      "value": "pass",
+      "createdAt": "2026-07-07T07:15:33Z",
+      "updatedAt": "2026-07-07T07:15:33Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:workflow.check.external:attestation",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "external"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "site-mechanism-and-receipts-gate-build-validate.flow-agents-workflow.manifest-gate-re-run-fresh-by-tool-verifier-and-final-reviewer-in-the-worktree-build-15-pages-all-validators-pass-content-boundary-theme-tokens-security-hardening-4-4-receipts-playwright-pin-product-versions-incl-console-1-12-0-sitemap-14-14",
+      "subjectType": "workflow-check",
+      "subjectId": "site-mechanism-and-receipts/gate-build-validate",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.check.command",
+      "fieldOrBehavior": "Manifest gate re-run fresh by tool-verifier and final reviewer in the worktree: build 15 pages; all validators pass (content-boundary, theme tokens, security hardening, 4/4 receipts, playwright pin, product versions incl console 1.12.0, sitemap 14/14).",
+      "value": "pass",
+      "createdAt": "2026-07-07T07:15:33Z",
+      "updatedAt": "2026-07-07T07:15:33Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:workflow.check.command:test_output",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "command"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "site-mechanism-and-receipts-playwright-rendered.flow-agents-workflow.full-playwright-suite-rendered-site-spec-mjs-mobile-overflow-spec-mjs-49-49-passed-on-the-final-diff-re-run-independently-by-tool-verifier-and-by-the-final-publish-check-reviewer-includes-new-mechanism-section-receipts-affordance-meta-default-footer-category-and-tone-order-assertions",
+      "subjectType": "workflow-check",
+      "subjectId": "site-mechanism-and-receipts/playwright-rendered",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.check.external",
+      "fieldOrBehavior": "Full Playwright suite (rendered-site.spec.mjs + mobile-overflow.spec.mjs) 49/49 passed on the final diff, re-run independently by tool-verifier and by the final publish-check reviewer; includes new mechanism-section, receipts-affordance, meta-default, footer-category, and tone-order assertions.",
+      "value": "pass",
+      "createdAt": "2026-07-07T07:15:33Z",
+      "updatedAt": "2026-07-07T07:15:33Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:workflow.check.external:attestation",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "external"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "site-mechanism-and-receipts-criteria-evidence.flow-agents-workflow.per-criterion-evidence-mechanism-section-inserted-between-enforcement-and-proof-with-hero-untouched-2-pure-insertion-hunks-4x-check-it-yourself-commands-grep-confirmed-in-dist-receipts-default-meta-og-description-and-footer-category-line-grep-confirmed-in-dist-404-index-zero-economics-claims-in-added-copy-manual-scan-rendered-tone-sequence-strictly-alternates-base-alt-across-all-six-sections-browser-evidence-at-1280w-390w-with-no-horizontal-overflow-screenshots-in-session-evidence",
+      "subjectType": "workflow-check",
+      "subjectId": "site-mechanism-and-receipts/criteria-evidence",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.check.external",
+      "fieldOrBehavior": "Per-criterion evidence: mechanism section inserted between enforcement and proof with hero untouched (2 pure-insertion hunks); 4x Check-it-yourself commands grep-confirmed in dist/receipts; default meta/OG description and footer category line grep-confirmed in dist (404 + index); zero economics claims in added copy (manual scan); rendered tone sequence strictly alternates base/alt across all six sections; browser evidence at 1280w/390w with no horizontal overflow (screenshots in session evidence/).",
+      "value": "pass",
+      "createdAt": "2026-07-07T07:15:33Z",
+      "updatedAt": "2026-07-07T07:15:33Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:workflow.check.external:attestation",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "external"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "site-mechanism-and-receipts-ac1-homepage-mechanism-section.flow-agents-workflow.homepage-gains-a-mechanism-section-between-the-enforcement-and-the-proof-sections-built-from-the-page-s-existing-component-idioms-section-eyebrow-glow-container-display-md-body-measure-scoped-style-with-rendered-site-spec-mjs-assertions-updated-in-the-same-change-to-pin-the-eyebrow-how-a-gate-knows-the-headline-don-t-ask-the-agent-check-the-toothbrush-and-the-recompute-affordance",
+      "subjectType": "workflow-acceptance-criterion",
+      "subjectId": "site-mechanism-and-receipts/ac1-homepage-mechanism-section",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.acceptance.criterion",
+      "fieldOrBehavior": "Homepage gains a mechanism section between the Enforcement and The proof sections, built from the page's existing component idioms (Section/Eyebrow/Glow/container/display-md/body measure + scoped style), with rendered-site.spec.mjs assertions updated in the same change to pin the eyebrow 'How a gate knows', the headline 'Don't ask the agent. Check the toothbrush.', and the recompute affordance.",
+      "value": "pass",
+      "createdAt": "2026-07-07T07:15:33Z",
+      "updatedAt": "2026-07-07T07:15:33Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:workflow.acceptance.criterion",
+      "metadata": {
+        "origin": "acceptance"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "site-mechanism-and-receipts-ac2-receipts-rederive-affordance.flow-agents-workflow.receipts-index-astro-and-receipts-slug-astro-each-carry-a-compact-check-it-yourself-re-derive-validate-affordance-per-receipt-using-the-honestly-advertised-tool-kontourai-surface-report-validatetrustbundle-pinned-in-rendered-site-spec-mjs",
+      "subjectType": "workflow-acceptance-criterion",
+      "subjectId": "site-mechanism-and-receipts/ac2-receipts-rederive-affordance",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.acceptance.criterion",
+      "fieldOrBehavior": "receipts/index.astro and receipts/[slug].astro each carry a compact 'Check it yourself' re-derive/validate affordance per receipt using the honestly-advertised tool (@kontourai/surface report / validateTrustBundle), pinned in rendered-site.spec.mjs.",
+      "value": "pass",
+      "createdAt": "2026-07-07T07:15:33Z",
+      "updatedAt": "2026-07-07T07:15:33Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:workflow.acceptance.criterion",
+      "metadata": {
+        "origin": "acceptance"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "site-mechanism-and-receipts-ac3-category-line-seeding.flow-agents-workflow.the-receipt-layer-for-ai-work-appears-in-the-site-wide-default-meta-og-description-layout-astro-and-the-footer-footer-astro-without-replacing-the-hero-and-no-economics-performance-claim-is-introduced-anywhere",
+      "subjectType": "workflow-acceptance-criterion",
+      "subjectId": "site-mechanism-and-receipts/ac3-category-line-seeding",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.acceptance.criterion",
+      "fieldOrBehavior": "'The receipt layer for AI work.' appears in the site-wide default meta/OG description (Layout.astro) and the footer (Footer.astro) without replacing the hero, and no economics/performance claim is introduced anywhere.",
+      "value": "pass",
+      "createdAt": "2026-07-07T07:15:33Z",
+      "updatedAt": "2026-07-07T07:15:33Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:workflow.acceptance.criterion",
+      "metadata": {
+        "origin": "acceptance"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "site-mechanism-and-receipts-ac4-validate-and-tests-pass.flow-agents-workflow.npm-run-validate-and-npm-run-test-rendered-both-fully-pass-in-the-worktree-including-mobile-overflow-spec-mjs-no-horizontal-overflow-at-360-768px-from-the-new-section",
+      "subjectType": "workflow-acceptance-criterion",
+      "subjectId": "site-mechanism-and-receipts/ac4-validate-and-tests-pass",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.acceptance.criterion",
+      "fieldOrBehavior": "npm run validate and npm run test:rendered both fully pass in the worktree, including mobile-overflow.spec.mjs (no horizontal overflow at 360/768px from the new section).",
+      "value": "pass",
+      "createdAt": "2026-07-07T07:15:33Z",
+      "updatedAt": "2026-07-07T07:15:33Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:workflow.acceptance.criterion",
+      "metadata": {
+        "origin": "acceptance"
+      },
+      "status": "verified"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev:site-mechanism-and-receipts-ac1-homepage-mechanism-section.flow-agents-workflow.npm-run-test-rendered-passed-49-49-including-new-homepage-assertions-for-eyebrow-how-a-gate-knows-headline-dont-ask-the-agent-check-the-toothbrush-and-recompute-affordance-dist-index-html-confirmed-to-contain-the-strings",
+      "claimId": "site-mechanism-and-receipts-ac1-homepage-mechanism-section.flow-agents-workflow.npm-run-test-rendered-passed-49-49-including-new-homepage-assertions-for-eyebrow-how-a-gate-knows-headline-dont-ask-the-agent-check-the-toothbrush-and-recompute-affordance-dist-index-html-confirmed-to-contain-the-strings",
+      "evidenceType": "attestation",
+      "method": "corroboration",
+      "sourceRef": "site-mechanism-and-receipts/evidence.json",
+      "excerptOrSummary": "npm run test:rendered passed (49/49) including new homepage assertions for eyebrow How a gate knows, headline Dont ask the agent / Check the toothbrush, and recompute affordance; dist/index.html confirmed to contain the strings.",
+      "observedAt": "2026-07-07T07:15:33Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true
+    },
+    {
+      "id": "ev:site-mechanism-and-receipts-ac2-receipts-rederive-affordance.flow-agents-workflow.playwright-asserts-4x-check-it-yourself-commands-on-receipts-index-and-relabeled-check-it-yourself-eyebrow-on-receipts-slug-dist-output-confirms-all-4-per-receipt-npx-kontourai-surface-2-1-2-report-commands-plus-slug-page-validatetrustbundle-block",
+      "claimId": "site-mechanism-and-receipts-ac2-receipts-rederive-affordance.flow-agents-workflow.playwright-asserts-4x-check-it-yourself-commands-on-receipts-index-and-relabeled-check-it-yourself-eyebrow-on-receipts-slug-dist-output-confirms-all-4-per-receipt-npx-kontourai-surface-2-1-2-report-commands-plus-slug-page-validatetrustbundle-block",
+      "evidenceType": "attestation",
+      "method": "corroboration",
+      "sourceRef": "site-mechanism-and-receipts/evidence.json",
+      "excerptOrSummary": "Playwright asserts 4x Check it yourself commands on receipts/index and relabeled Check it yourself eyebrow on receipts/[slug]; dist output confirms all 4 per-receipt npx @kontourai/surface@2.1.2 report commands plus slug-page validateTrustBundle block.",
+      "observedAt": "2026-07-07T07:15:33Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true
+    },
+    {
+      "id": "ev:site-mechanism-and-receipts-ac3-category-line-seeding.flow-agents-workflow.the-receipt-layer-for-ai-work-present-in-layout-astro-default-description-og-twitter-fallback-and-footer-astro-footer-category-confirmed-in-dist-404-html-meta-tags-and-dist-index-html-footer-hero-h1-diff-confirmed-unchanged-git-diff-origin-main-src-pages-index-astro-shows-only-additive-hunks-below-the-hero-manual-scan-of-all-new-copy-in-the-diff-found-no-economics-performance-claims",
+      "claimId": "site-mechanism-and-receipts-ac3-category-line-seeding.flow-agents-workflow.the-receipt-layer-for-ai-work-present-in-layout-astro-default-description-og-twitter-fallback-and-footer-astro-footer-category-confirmed-in-dist-404-html-meta-tags-and-dist-index-html-footer-hero-h1-diff-confirmed-unchanged-git-diff-origin-main-src-pages-index-astro-shows-only-additive-hunks-below-the-hero-manual-scan-of-all-new-copy-in-the-diff-found-no-economics-performance-claims",
+      "evidenceType": "attestation",
+      "method": "corroboration",
+      "sourceRef": "site-mechanism-and-receipts/evidence.json",
+      "excerptOrSummary": "The receipt layer for AI work. present in Layout.astro default description (og/twitter fallback) and Footer.astro footer__category; confirmed in dist/404.html meta tags and dist/index.html footer. Hero h1 diff-confirmed unchanged (git diff origin/main -- src/pages/index.astro shows only additive hunks below the hero). Manual scan of all new copy in the diff found no economics/performance claims.",
+      "observedAt": "2026-07-07T07:15:33Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true
+    },
+    {
+      "id": "ev:site-mechanism-and-receipts-ac4-validate-and-tests-pass.flow-agents-workflow.npm-run-validate-all-7-sub-checks-content-boundary-theme-tokens-security-hardening-receipts-playwright-pin-validate-mjs-incl-trust-bundle-checks-sitemap-passed-npm-run-test-rendered-astro-build-15-pages-playwright-49-49-passed-including-mobile-overflow-at-360-768px",
+      "claimId": "site-mechanism-and-receipts-ac4-validate-and-tests-pass.flow-agents-workflow.npm-run-validate-all-7-sub-checks-content-boundary-theme-tokens-security-hardening-receipts-playwright-pin-validate-mjs-incl-trust-bundle-checks-sitemap-passed-npm-run-test-rendered-astro-build-15-pages-playwright-49-49-passed-including-mobile-overflow-at-360-768px",
+      "evidenceType": "attestation",
+      "method": "corroboration",
+      "sourceRef": "site-mechanism-and-receipts/evidence.json",
+      "excerptOrSummary": "npm run validate: all 7 sub-checks (content-boundary, theme-tokens, security-hardening, receipts, playwright-pin, validate.mjs incl. trust.bundle checks, sitemap) passed. npm run test:rendered: astro build (15 pages) + Playwright 49/49 passed including mobile-overflow at 360/768px.",
+      "observedAt": "2026-07-07T07:15:33Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true
+    },
+    {
+      "id": "ev:site-mechanism-and-receipts-gate-build-validate.flow-agents-workflow.manifest-gate-re-run-fresh-by-tool-verifier-and-final-reviewer-in-the-worktree-build-15-pages-all-validators-pass-content-boundary-theme-tokens-security-hardening-4-4-receipts-playwright-pin-product-versions-incl-console-1-12-0-sitemap-14-14",
+      "claimId": "site-mechanism-and-receipts-gate-build-validate.flow-agents-workflow.manifest-gate-re-run-fresh-by-tool-verifier-and-final-reviewer-in-the-worktree-build-15-pages-all-validators-pass-content-boundary-theme-tokens-security-hardening-4-4-receipts-playwright-pin-product-versions-incl-console-1-12-0-sitemap-14-14",
+      "evidenceType": "test_output",
+      "method": "validation",
+      "sourceRef": "site-mechanism-and-receipts/evidence.json",
+      "excerptOrSummary": "Manifest gate re-run fresh by tool-verifier and final reviewer in the worktree: build 15 pages; all validators pass (content-boundary, theme tokens, security hardening, 4/4 receipts, playwright pin, product versions incl console 1.12.0, sitemap 14/14).",
+      "observedAt": "2026-07-07T07:15:33Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true,
+      "execution": {
+        "runner": "bash",
+        "label": "npm run build && npm run validate",
+        "isError": false
+      }
+    },
+    {
+      "id": "ev:site-mechanism-and-receipts-playwright-rendered.flow-agents-workflow.full-playwright-suite-rendered-site-spec-mjs-mobile-overflow-spec-mjs-49-49-passed-on-the-final-diff-re-run-independently-by-tool-verifier-and-by-the-final-publish-check-reviewer-includes-new-mechanism-section-receipts-affordance-meta-default-footer-category-and-tone-order-assertions",
+      "claimId": "site-mechanism-and-receipts-playwright-rendered.flow-agents-workflow.full-playwright-suite-rendered-site-spec-mjs-mobile-overflow-spec-mjs-49-49-passed-on-the-final-diff-re-run-independently-by-tool-verifier-and-by-the-final-publish-check-reviewer-includes-new-mechanism-section-receipts-affordance-meta-default-footer-category-and-tone-order-assertions",
+      "evidenceType": "attestation",
+      "method": "corroboration",
+      "sourceRef": "site-mechanism-and-receipts/evidence.json",
+      "excerptOrSummary": "Full Playwright suite (rendered-site.spec.mjs + mobile-overflow.spec.mjs) 49/49 passed on the final diff, re-run independently by tool-verifier and by the final publish-check reviewer; includes new mechanism-section, receipts-affordance, meta-default, footer-category, and tone-order assertions.",
+      "observedAt": "2026-07-07T07:15:33Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true
+    },
+    {
+      "id": "ev:site-mechanism-and-receipts-criteria-evidence.flow-agents-workflow.per-criterion-evidence-mechanism-section-inserted-between-enforcement-and-proof-with-hero-untouched-2-pure-insertion-hunks-4x-check-it-yourself-commands-grep-confirmed-in-dist-receipts-default-meta-og-description-and-footer-category-line-grep-confirmed-in-dist-404-index-zero-economics-claims-in-added-copy-manual-scan-rendered-tone-sequence-strictly-alternates-base-alt-across-all-six-sections-browser-evidence-at-1280w-390w-with-no-horizontal-overflow-screenshots-in-session-evidence",
+      "claimId": "site-mechanism-and-receipts-criteria-evidence.flow-agents-workflow.per-criterion-evidence-mechanism-section-inserted-between-enforcement-and-proof-with-hero-untouched-2-pure-insertion-hunks-4x-check-it-yourself-commands-grep-confirmed-in-dist-receipts-default-meta-og-description-and-footer-category-line-grep-confirmed-in-dist-404-index-zero-economics-claims-in-added-copy-manual-scan-rendered-tone-sequence-strictly-alternates-base-alt-across-all-six-sections-browser-evidence-at-1280w-390w-with-no-horizontal-overflow-screenshots-in-session-evidence",
+      "evidenceType": "attestation",
+      "method": "corroboration",
+      "sourceRef": "site-mechanism-and-receipts/evidence.json",
+      "excerptOrSummary": "Per-criterion evidence: mechanism section inserted between enforcement and proof with hero untouched (2 pure-insertion hunks); 4x Check-it-yourself commands grep-confirmed in dist/receipts; default meta/OG description and footer category line grep-confirmed in dist (404 + index); zero economics claims in added copy (manual scan); rendered tone sequence strictly alternates base/alt across all six sections; browser evidence at 1280w/390w with no horizontal overflow (screenshots in session evidence/).",
+      "observedAt": "2026-07-07T07:15:33Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true
+    }
+  ],
+  "policies": [
+    {
+      "id": "policy:workflow.check.external:attestation",
+      "claimType": "workflow.check.external",
+      "requiredEvidence": [
+        "attestation"
+      ],
+      "acceptanceCriteria": [
+        "A verified verification event must support a workflow.check.external claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "high"
+    },
+    {
+      "id": "policy:workflow.check.command:test_output",
+      "claimType": "workflow.check.command",
+      "requiredEvidence": [
+        "test_output"
+      ],
+      "acceptanceCriteria": [
+        "A verified verification event must support a workflow.check.command claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "high"
+    },
+    {
+      "id": "policy:workflow.acceptance.criterion",
+      "claimType": "workflow.acceptance.criterion",
+      "requiredEvidence": [],
+      "acceptanceCriteria": [
+        "A verified verification event must support a workflow.acceptance.criterion claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "high"
+    }
+  ],
+  "events": [
+    {
+      "id": "evt:site-mechanism-and-receipts-ac1-homepage-mechanism-section.flow-agents-workflow.npm-run-test-rendered-passed-49-49-including-new-homepage-assertions-for-eyebrow-how-a-gate-knows-headline-dont-ask-the-agent-check-the-toothbrush-and-recompute-affordance-dist-index-html-confirmed-to-contain-the-strings",
+      "claimId": "site-mechanism-and-receipts-ac1-homepage-mechanism-section.flow-agents-workflow.npm-run-test-rendered-passed-49-49-including-new-homepage-assertions-for-eyebrow-how-a-gate-knows-headline-dont-ask-the-agent-check-the-toothbrush-and-recompute-affordance-dist-index-html-confirmed-to-contain-the-strings",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:site-mechanism-and-receipts-ac1-homepage-mechanism-section.flow-agents-workflow.npm-run-test-rendered-passed-49-49-including-new-homepage-assertions-for-eyebrow-how-a-gate-knows-headline-dont-ask-the-agent-check-the-toothbrush-and-recompute-affordance-dist-index-html-confirmed-to-contain-the-strings"
+      ],
+      "createdAt": "2026-07-07T07:15:33Z",
+      "verifiedAt": "2026-07-07T07:15:33Z"
+    },
+    {
+      "id": "evt:site-mechanism-and-receipts-ac2-receipts-rederive-affordance.flow-agents-workflow.playwright-asserts-4x-check-it-yourself-commands-on-receipts-index-and-relabeled-check-it-yourself-eyebrow-on-receipts-slug-dist-output-confirms-all-4-per-receipt-npx-kontourai-surface-2-1-2-report-commands-plus-slug-page-validatetrustbundle-block",
+      "claimId": "site-mechanism-and-receipts-ac2-receipts-rederive-affordance.flow-agents-workflow.playwright-asserts-4x-check-it-yourself-commands-on-receipts-index-and-relabeled-check-it-yourself-eyebrow-on-receipts-slug-dist-output-confirms-all-4-per-receipt-npx-kontourai-surface-2-1-2-report-commands-plus-slug-page-validatetrustbundle-block",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:site-mechanism-and-receipts-ac2-receipts-rederive-affordance.flow-agents-workflow.playwright-asserts-4x-check-it-yourself-commands-on-receipts-index-and-relabeled-check-it-yourself-eyebrow-on-receipts-slug-dist-output-confirms-all-4-per-receipt-npx-kontourai-surface-2-1-2-report-commands-plus-slug-page-validatetrustbundle-block"
+      ],
+      "createdAt": "2026-07-07T07:15:33Z",
+      "verifiedAt": "2026-07-07T07:15:33Z"
+    },
+    {
+      "id": "evt:site-mechanism-and-receipts-ac3-category-line-seeding.flow-agents-workflow.the-receipt-layer-for-ai-work-present-in-layout-astro-default-description-og-twitter-fallback-and-footer-astro-footer-category-confirmed-in-dist-404-html-meta-tags-and-dist-index-html-footer-hero-h1-diff-confirmed-unchanged-git-diff-origin-main-src-pages-index-astro-shows-only-additive-hunks-below-the-hero-manual-scan-of-all-new-copy-in-the-diff-found-no-economics-performance-claims",
+      "claimId": "site-mechanism-and-receipts-ac3-category-line-seeding.flow-agents-workflow.the-receipt-layer-for-ai-work-present-in-layout-astro-default-description-og-twitter-fallback-and-footer-astro-footer-category-confirmed-in-dist-404-html-meta-tags-and-dist-index-html-footer-hero-h1-diff-confirmed-unchanged-git-diff-origin-main-src-pages-index-astro-shows-only-additive-hunks-below-the-hero-manual-scan-of-all-new-copy-in-the-diff-found-no-economics-performance-claims",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:site-mechanism-and-receipts-ac3-category-line-seeding.flow-agents-workflow.the-receipt-layer-for-ai-work-present-in-layout-astro-default-description-og-twitter-fallback-and-footer-astro-footer-category-confirmed-in-dist-404-html-meta-tags-and-dist-index-html-footer-hero-h1-diff-confirmed-unchanged-git-diff-origin-main-src-pages-index-astro-shows-only-additive-hunks-below-the-hero-manual-scan-of-all-new-copy-in-the-diff-found-no-economics-performance-claims"
+      ],
+      "createdAt": "2026-07-07T07:15:33Z",
+      "verifiedAt": "2026-07-07T07:15:33Z"
+    },
+    {
+      "id": "evt:site-mechanism-and-receipts-ac4-validate-and-tests-pass.flow-agents-workflow.npm-run-validate-all-7-sub-checks-content-boundary-theme-tokens-security-hardening-receipts-playwright-pin-validate-mjs-incl-trust-bundle-checks-sitemap-passed-npm-run-test-rendered-astro-build-15-pages-playwright-49-49-passed-including-mobile-overflow-at-360-768px",
+      "claimId": "site-mechanism-and-receipts-ac4-validate-and-tests-pass.flow-agents-workflow.npm-run-validate-all-7-sub-checks-content-boundary-theme-tokens-security-hardening-receipts-playwright-pin-validate-mjs-incl-trust-bundle-checks-sitemap-passed-npm-run-test-rendered-astro-build-15-pages-playwright-49-49-passed-including-mobile-overflow-at-360-768px",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:site-mechanism-and-receipts-ac4-validate-and-tests-pass.flow-agents-workflow.npm-run-validate-all-7-sub-checks-content-boundary-theme-tokens-security-hardening-receipts-playwright-pin-validate-mjs-incl-trust-bundle-checks-sitemap-passed-npm-run-test-rendered-astro-build-15-pages-playwright-49-49-passed-including-mobile-overflow-at-360-768px"
+      ],
+      "createdAt": "2026-07-07T07:15:33Z",
+      "verifiedAt": "2026-07-07T07:15:33Z"
+    },
+    {
+      "id": "evt:site-mechanism-and-receipts-gate-build-validate.flow-agents-workflow.manifest-gate-re-run-fresh-by-tool-verifier-and-final-reviewer-in-the-worktree-build-15-pages-all-validators-pass-content-boundary-theme-tokens-security-hardening-4-4-receipts-playwright-pin-product-versions-incl-console-1-12-0-sitemap-14-14",
+      "claimId": "site-mechanism-and-receipts-gate-build-validate.flow-agents-workflow.manifest-gate-re-run-fresh-by-tool-verifier-and-final-reviewer-in-the-worktree-build-15-pages-all-validators-pass-content-boundary-theme-tokens-security-hardening-4-4-receipts-playwright-pin-product-versions-incl-console-1-12-0-sitemap-14-14",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:site-mechanism-and-receipts-gate-build-validate.flow-agents-workflow.manifest-gate-re-run-fresh-by-tool-verifier-and-final-reviewer-in-the-worktree-build-15-pages-all-validators-pass-content-boundary-theme-tokens-security-hardening-4-4-receipts-playwright-pin-product-versions-incl-console-1-12-0-sitemap-14-14"
+      ],
+      "createdAt": "2026-07-07T07:15:33Z",
+      "verifiedAt": "2026-07-07T07:15:33Z"
+    },
+    {
+      "id": "evt:site-mechanism-and-receipts-playwright-rendered.flow-agents-workflow.full-playwright-suite-rendered-site-spec-mjs-mobile-overflow-spec-mjs-49-49-passed-on-the-final-diff-re-run-independently-by-tool-verifier-and-by-the-final-publish-check-reviewer-includes-new-mechanism-section-receipts-affordance-meta-default-footer-category-and-tone-order-assertions",
+      "claimId": "site-mechanism-and-receipts-playwright-rendered.flow-agents-workflow.full-playwright-suite-rendered-site-spec-mjs-mobile-overflow-spec-mjs-49-49-passed-on-the-final-diff-re-run-independently-by-tool-verifier-and-by-the-final-publish-check-reviewer-includes-new-mechanism-section-receipts-affordance-meta-default-footer-category-and-tone-order-assertions",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:site-mechanism-and-receipts-playwright-rendered.flow-agents-workflow.full-playwright-suite-rendered-site-spec-mjs-mobile-overflow-spec-mjs-49-49-passed-on-the-final-diff-re-run-independently-by-tool-verifier-and-by-the-final-publish-check-reviewer-includes-new-mechanism-section-receipts-affordance-meta-default-footer-category-and-tone-order-assertions"
+      ],
+      "createdAt": "2026-07-07T07:15:33Z",
+      "verifiedAt": "2026-07-07T07:15:33Z"
+    },
+    {
+      "id": "evt:site-mechanism-and-receipts-criteria-evidence.flow-agents-workflow.per-criterion-evidence-mechanism-section-inserted-between-enforcement-and-proof-with-hero-untouched-2-pure-insertion-hunks-4x-check-it-yourself-commands-grep-confirmed-in-dist-receipts-default-meta-og-description-and-footer-category-line-grep-confirmed-in-dist-404-index-zero-economics-claims-in-added-copy-manual-scan-rendered-tone-sequence-strictly-alternates-base-alt-across-all-six-sections-browser-evidence-at-1280w-390w-with-no-horizontal-overflow-screenshots-in-session-evidence",
+      "claimId": "site-mechanism-and-receipts-criteria-evidence.flow-agents-workflow.per-criterion-evidence-mechanism-section-inserted-between-enforcement-and-proof-with-hero-untouched-2-pure-insertion-hunks-4x-check-it-yourself-commands-grep-confirmed-in-dist-receipts-default-meta-og-description-and-footer-category-line-grep-confirmed-in-dist-404-index-zero-economics-claims-in-added-copy-manual-scan-rendered-tone-sequence-strictly-alternates-base-alt-across-all-six-sections-browser-evidence-at-1280w-390w-with-no-horizontal-overflow-screenshots-in-session-evidence",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:site-mechanism-and-receipts-criteria-evidence.flow-agents-workflow.per-criterion-evidence-mechanism-section-inserted-between-enforcement-and-proof-with-hero-untouched-2-pure-insertion-hunks-4x-check-it-yourself-commands-grep-confirmed-in-dist-receipts-default-meta-og-description-and-footer-category-line-grep-confirmed-in-dist-404-index-zero-economics-claims-in-added-copy-manual-scan-rendered-tone-sequence-strictly-alternates-base-alt-across-all-six-sections-browser-evidence-at-1280w-390w-with-no-horizontal-overflow-screenshots-in-session-evidence"
+      ],
+      "createdAt": "2026-07-07T07:15:33Z",
+      "verifiedAt": "2026-07-07T07:15:33Z"
+    },
+    {
+      "id": "evt:site-mechanism-and-receipts-ac1-homepage-mechanism-section.flow-agents-workflow.homepage-gains-a-mechanism-section-between-the-enforcement-and-the-proof-sections-built-from-the-page-s-existing-component-idioms-section-eyebrow-glow-container-display-md-body-measure-scoped-style-with-rendered-site-spec-mjs-assertions-updated-in-the-same-change-to-pin-the-eyebrow-how-a-gate-knows-the-headline-don-t-ask-the-agent-check-the-toothbrush-and-the-recompute-affordance",
+      "claimId": "site-mechanism-and-receipts-ac1-homepage-mechanism-section.flow-agents-workflow.homepage-gains-a-mechanism-section-between-the-enforcement-and-the-proof-sections-built-from-the-page-s-existing-component-idioms-section-eyebrow-glow-container-display-md-body-measure-scoped-style-with-rendered-site-spec-mjs-assertions-updated-in-the-same-change-to-pin-the-eyebrow-how-a-gate-knows-the-headline-don-t-ask-the-agent-check-the-toothbrush-and-the-recompute-affordance",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [],
+      "createdAt": "2026-07-07T07:15:33Z",
+      "verifiedAt": "2026-07-07T07:15:33Z"
+    },
+    {
+      "id": "evt:site-mechanism-and-receipts-ac2-receipts-rederive-affordance.flow-agents-workflow.receipts-index-astro-and-receipts-slug-astro-each-carry-a-compact-check-it-yourself-re-derive-validate-affordance-per-receipt-using-the-honestly-advertised-tool-kontourai-surface-report-validatetrustbundle-pinned-in-rendered-site-spec-mjs",
+      "claimId": "site-mechanism-and-receipts-ac2-receipts-rederive-affordance.flow-agents-workflow.receipts-index-astro-and-receipts-slug-astro-each-carry-a-compact-check-it-yourself-re-derive-validate-affordance-per-receipt-using-the-honestly-advertised-tool-kontourai-surface-report-validatetrustbundle-pinned-in-rendered-site-spec-mjs",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [],
+      "createdAt": "2026-07-07T07:15:33Z",
+      "verifiedAt": "2026-07-07T07:15:33Z"
+    },
+    {
+      "id": "evt:site-mechanism-and-receipts-ac3-category-line-seeding.flow-agents-workflow.the-receipt-layer-for-ai-work-appears-in-the-site-wide-default-meta-og-description-layout-astro-and-the-footer-footer-astro-without-replacing-the-hero-and-no-economics-performance-claim-is-introduced-anywhere",
+      "claimId": "site-mechanism-and-receipts-ac3-category-line-seeding.flow-agents-workflow.the-receipt-layer-for-ai-work-appears-in-the-site-wide-default-meta-og-description-layout-astro-and-the-footer-footer-astro-without-replacing-the-hero-and-no-economics-performance-claim-is-introduced-anywhere",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [],
+      "createdAt": "2026-07-07T07:15:33Z",
+      "verifiedAt": "2026-07-07T07:15:33Z"
+    },
+    {
+      "id": "evt:site-mechanism-and-receipts-ac4-validate-and-tests-pass.flow-agents-workflow.npm-run-validate-and-npm-run-test-rendered-both-fully-pass-in-the-worktree-including-mobile-overflow-spec-mjs-no-horizontal-overflow-at-360-768px-from-the-new-section",
+      "claimId": "site-mechanism-and-receipts-ac4-validate-and-tests-pass.flow-agents-workflow.npm-run-validate-and-npm-run-test-rendered-both-fully-pass-in-the-worktree-including-mobile-overflow-spec-mjs-no-horizontal-overflow-at-360-768px-from-the-new-section",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [],
+      "createdAt": "2026-07-07T07:15:33Z",
+      "verifiedAt": "2026-07-07T07:15:33Z"
+    }
+  ]
+}
