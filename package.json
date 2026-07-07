@@ -25,6 +25,9 @@
     "workflow:sidecar": "flow-agents-workflow-sidecar",
     "workflow:validate-artifacts": "flow-agents-validate-artifacts"
   },
+  "trust-reconcile-manifest": [
+    { "id": "site-verify", "command": "npm run build && npm run validate" }
+  ],
   "dependencies": {
     "@tailwindcss/vite": "^4.3.2",
     "astro": "^6.4.4",

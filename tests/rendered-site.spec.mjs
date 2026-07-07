@@ -22,6 +22,28 @@ test("homepage leads with a single Flow Agents headline and Survey as the proof 
   await expect(page.getByText("Prompts are advice.").first()).toBeVisible();
   await expect(page.getByText("Gates are laws.").first()).toBeVisible();
 
+  // Mechanism section: "how a gate knows" the claim from the capture, sitting
+  // between enforcement ("Prompts are advice.") and the proof section.
+  await expect(page.locator(".label-sm").filter({ hasText: "How a gate knows" }).first()).toBeVisible();
+  const mechanismHeading = page.getByRole("heading", { level: 2 }).filter({ hasText: "Don't ask the agent." });
+  await expect(mechanismHeading).toBeVisible();
+  await expect(mechanismHeading).toContainText("Check the toothbrush.");
+  await expect(page.getByText("1 · The claim")).toBeVisible();
+  await expect(page.getByText("2 · The capture")).toBeVisible();
+  await expect(page.getByText("3 · The recompute")).toBeVisible();
+  await expect(page.locator('[data-umami-event="home-mechanism-receipts"]')).toHaveAttribute("href", "/receipts/");
+
+  const enforceBox = await page.getByText("Prompts are advice.").first().boundingBox();
+  const mechanismBox = await page.locator(".label-sm").filter({ hasText: "How a gate knows" }).first().boundingBox();
+  const proofBox = await page.locator(".label-sm").filter({ hasText: "The proof" }).first().boundingBox();
+  expect(enforceBox).not.toBeNull();
+  expect(mechanismBox).not.toBeNull();
+  expect(proofBox).not.toBeNull();
+  if (enforceBox && mechanismBox && proofBox) {
+    expect(enforceBox.y).toBeLessThan(mechanismBox.y);
+    expect(mechanismBox.y).toBeLessThan(proofBox.y);
+  }
+
   // AC2: Survey proof section, subordinate to the hero (an h2, not a second h1).
   await expect(page.locator(".label-sm").filter({ hasText: "The proof" }).first()).toBeVisible();
   await expect(
@@ -71,6 +93,7 @@ test("homepage leads with a single Flow Agents headline and Survey as the proof 
   await expect(page.locator('[data-umami-event="footer-github"]')).toBeVisible();
   await expect(page.locator('[data-umami-event="footer-contact"]')).toBeVisible();
   await expect(page.locator('[data-umami-event="footer-contact"]')).toHaveAttribute("href", "/early-access/");
+  await expect(page.locator("p.footer__category")).toHaveText("The receipt layer for AI work.");
 
   // Guard against leaked build-process / internal copy regressing back in
   await expect(page.getByText("still shaping")).toHaveCount(0);
@@ -124,6 +147,18 @@ test("default social metadata includes canonical and share image", async ({ page
   await expect(page.locator('meta[property="og:image:alt"]')).toHaveAttribute("content", /Kontour AI share card/);
   await expect(page.locator('meta[name="twitter:image"]')).toHaveAttribute("content", "https://kontourai.io/og/kontour-share.png");
   await expect(page.locator('meta[name="twitter:image:alt"]')).toHaveAttribute("content", /Kontour AI share card/);
+});
+
+test("pages without a custom description fall back to the receipt-layer default", async ({ page }) => {
+  await page.goto("/404/");
+
+  const defaultDescription =
+    "The receipt layer for AI work. Kontour makes AI-assisted work inspectable — what was claimed, what supports it, which gates it passed, and what is still uncertain.";
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute("content", defaultDescription);
+  await expect(page.locator('meta[property="og:description"]')).toHaveAttribute("content", defaultDescription);
+
+  // Old lead framing is retired from the default description too.
+  await expect(page.locator('meta[name="description"]')).not.toHaveAttribute("content", /Show the work behind AI\./);
 });
 
 test("production analytics scripts are configured defensively", async ({ page }) => {
@@ -399,6 +434,19 @@ test("receipts index lists the real pipeline bundles with downloads", async ({ p
     await expect(page.locator(`a[href="/receipts/${slug}/"]`)).toBeVisible();
     await expect(page.locator(`a[href="/receipts/${slug}.trust.bundle"][download]`)).toBeVisible();
   }
+
+  // Each card names its own exact "check it yourself" command.
+  await expect(page.getByText("Check it yourself")).toHaveCount(4);
+  for (const slug of [
+    "flow-agents-delivery",
+    "governance-readiness-ready",
+    "governance-readiness-not-ready",
+    "flow-agents-ownership-guard",
+  ]) {
+    await expect(
+      page.getByText(`npx @kontourai/surface@2.1.2 report --input ${slug}.trust.bundle --format summary`),
+    ).toBeVisible();
+  }
 });
 
 test("a receipt view renders the bundle's actual derived contents", async ({ page }) => {
@@ -420,7 +468,10 @@ test("a receipt view renders the bundle's actual derived contents", async ({ pag
     page.locator('a[href="/receipts/governance-readiness-not-ready.trust.bundle"][download]'),
   ).toBeVisible();
 
-  // Verify-it-yourself command names the validator.
+  // The eyebrow above the command block was relabeled "Check it yourself"
+  // (was "Verify it yourself"); this command names the validator.
+  await expect(page.locator(".label-sm").filter({ hasText: "Check it yourself" }).first()).toBeVisible();
+  await expect(page.getByText("Verify it yourself")).toHaveCount(0);
   await expect(page.getByText("npx @kontourai/surface").first()).toBeVisible();
   await expect(page.getByText("validateTrustBundle").first()).toBeVisible();
 });

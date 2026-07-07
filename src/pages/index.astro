@@ -63,8 +63,54 @@ import Subscribe from '@/components/Subscribe.astro';
     </div>
   </Section>
 
-  <!-- Survey proof story (subordinate to the hero) ------------------------ -->
+  <!-- Mechanism: claim, capture, recompute ------------------------------- -->
   <Section borderTop>
+    <Glow accent="cobalt-2" position="top-right" />
+    <div class="container container--readable mechanism">
+      <Eyebrow accent="cobalt-2">How a gate knows</Eyebrow>
+      <h2 class="display-md mechanism__title">
+        Don't ask the agent.<br />Check the toothbrush.
+      </h2>
+      <p class="body measure mechanism__copy">
+        A kid can say "I brushed my teeth" for free. The toothbrush either got
+        wet or it didn't. Flow Agents treats an agent's "tests passed" the same
+        way: the claim costs nothing, so it's never what a gate checks.
+      </p>
+
+      <ol class="mechanism__steps stack-mobile">
+        <li class="mechanism__step">
+          <span class="label-sm mechanism__step-label">1 · The claim</span>
+          <p class="body mechanism__step-copy">The agent says "tests passed."</p>
+        </li>
+        <li class="mechanism__step">
+          <span class="label-sm mechanism__step-label">2 · The capture</span>
+          <p class="body mechanism__step-copy">
+            The harness already wrote the log while the command ran — real
+            exit codes, a tamper-evident record, never the model's narration.
+          </p>
+        </li>
+        <li class="mechanism__step">
+          <span class="label-sm mechanism__step-label">3 · The recompute</span>
+          <p class="body mechanism__step-copy">
+            Status is recomputed from the evidence. When the claim and the
+            capture disagree, the turn is blocked.
+          </p>
+        </li>
+      </ol>
+
+      <p class="body measure mechanism__foot">
+        You don't have to take our word for the recompute either — the
+        published receipts re-derive to the same verdict on any machine, or
+        it's a bug.
+      </p>
+      <div class="mechanism__actions">
+        <a href="/receipts/" class="btn-ghost" data-umami-event="home-mechanism-receipts">Recompute a receipt yourself →</a>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Survey proof story (subordinate to the hero) ------------------------ -->
+  <Section tone="alt" borderTop>
     <div class="container proof">
       <Eyebrow accent="gold">The proof</Eyebrow>
       <h2 class="display-md proof__title">
@@ -91,7 +137,7 @@ import Subscribe from '@/components/Subscribe.astro';
   </Section>
 
   <!-- Promise ------------------------------------------------------------- -->
-  <Section tone="alt" borderTop>
+  <Section borderTop>
     <div class="container container--readable promise">
       <Eyebrow accent="gold">The promise</Eyebrow>
       <h2 class="display-md promise__title">
@@ -106,7 +152,7 @@ import Subscribe from '@/components/Subscribe.astro';
   </Section>
 
   <!-- CTA ----------------------------------------------------------------- -->
-  <Section borderTop size="lg">
+  <Section tone="alt" borderTop size="lg">
     <Glow accent="gold" position="top-center" />
     <div class="container container--readable cta">
       <Eyebrow accent="gold">Early access</Eyebrow>
@@ -164,6 +210,37 @@ import Subscribe from '@/components/Subscribe.astro';
     flex-wrap: wrap;
   }
 
+  /* Mechanism -------------------------------------------------------------- */
+  .mechanism__title {
+    margin-bottom: 1.25rem;
+  }
+  .mechanism__copy {
+    margin-bottom: 2rem;
+  }
+  .mechanism__steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.75rem;
+    margin: 0 0 2.5rem;
+    padding: 0;
+    list-style: none;
+  }
+  .mechanism__step-label {
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+  .mechanism__step-copy {
+    margin: 0;
+  }
+  .mechanism__foot {
+    margin-bottom: 2rem;
+  }
+  .mechanism__actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
   /* Survey proof --------------------------------------------------------- */
   .proof__title {
     margin-bottom: 1.25rem;
@@ -208,6 +285,12 @@ import Subscribe from '@/components/Subscribe.astro';
   }
   .cta__copy {
     margin-bottom: 2rem;
+  }
+  /* CTA now sits on the alt (ink-1) ground; Subscribe's input fill defaults to
+     ink-1 too (tuned for a base-tone section), so bump it to ink-2 here or the
+     field disappears into the section background. */
+  .cta :global(.subscribe__input) {
+    background: var(--color-ink-2);
   }
   .cta__alt {
     font-family: var(--font-mono);
