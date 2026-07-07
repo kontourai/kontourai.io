@@ -40,6 +40,12 @@ const boundary: { title: string; accent: Accent; items: string[] }[] = [
   { title: 'Console does not own', accent: 'chalk-2', items: ['Surface trust derivation', 'Flow gate & transition semantics', 'Survey fact-review semantics', 'Veritas governance policy', 'Any hosted-infrastructure requirement'] },
   { title: 'Primitives stay portable', accent: 'gold', items: ['Adopt Surface, Flow, Survey, or Veritas alone', 'Event streams are the durable contract', 'Projections are cached, product-owned views', 'Actions execute through the owning product', 'No .kontour dependency for verticals'] },
 ];
+
+const provenance: { title: string; accent: Accent; body: string }[] = [
+  { title: 'Un-fakeable at merge', accent: 'green', body: 'The trust gate fires at PR time and re-runs verification in an environment the agent never controls. "I verified everything" stops being unfalsifiable.' },
+  { title: 'Permanent in git', accent: 'cobalt', body: 'The signed bundle is committed and pinned to the merge commit — distributed, tamper-evident, and outliving any dashboard. Git is the authority; Console is the rebuildable index.' },
+  { title: 'Queryable forever', accent: 'gold', body: 'Ask across every repo: which deliveries shipped with an accepted exception, what proof backed a claim, what is overdue for reverification. Git-blame tells you who changed a line; the ledger tells you what was verified and how.' },
+];
 ---
 
 <Layout
@@ -234,6 +240,30 @@ const boundary: { title: string; accent: Accent; items: string[] }[] = [
           <p class="muted">  route readiness evidence → Veritas</p>
         </Terminal>
       </Split>
+    </div>
+  </Section>
+
+  <!-- Provenance -->
+  <Section borderTop borderBottom>
+    <div class="container">
+      <Eyebrow accent="green" gap="sm">Provenance</Eyebrow>
+      <h2 class="display-md measure-lg">Trust you can query. Not trust you take on faith.</h2>
+      <p class="fine ans-note">
+        Every delivery ships a signed trust bundle — the claims that were made,
+        how they were verified, and a fresh CI reconciliation the agent never
+        controls — pinned to the merge commit. The agent proposes, CI disposes,
+        git remembers, and Console indexes. Months later you can still ask what
+        was verified, how, and by whom — across every repo, in one place.
+      </p>
+
+      <Grid cols={3} gap="lg">
+        {provenance.map(({ title, accent, body }) => (
+          <Card accent={accent} pad="md">
+            <h3 class="boundary__title">{title}</h3>
+            <p class="body">{body}</p>
+          </Card>
+        ))}
+      </Grid>
     </div>
   </Section>
 
