@@ -34,8 +34,8 @@
     "tailwindcss": "^4.3.0"
   },
   "devDependencies": {
-    "@kontourai/flow-agents": "^3.1.0",
-    "@kontourai/surface": "^2.1.2",
+    "@kontourai/flow-agents": "^3.3.0",
+    "@kontourai/surface": "^2.3.0",
     "@kontourai/ui": "^1.11.0",
     "@playwright/test": "^1.61.1",
     "vite": "^7.3.3",
