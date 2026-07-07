@@ -1,0 +1,552 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import Section from '@/components/Section.astro';
+import Glow from '@/components/Glow.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+import Card from '@/components/Card.astro';
+import Grid from '@/components/Grid.astro';
+import type { Accent } from '@/lib/theme';
+
+const guarantees = [
+  {
+    label: 'Recomputable',
+    body: "Every verdict re-derives from published evidence to the same answer on any machine, or it's a bug. No LLM judge, no score, no vibes.",
+  },
+  {
+    label: 'Captured, not narrated',
+    body: "Results come from the log the harness wrote while the command ran (real exit codes), never from the model's story about the run.",
+  },
+  {
+    label: 'Refuses or escalates',
+    body: 'A turn structurally cannot end on unbacked "done": it refuses, or it escalates to you. It never silently proceeds.',
+  },
+];
+
+const dialLevels: { level: string; title: string; accent: Accent; body: string }[] = [
+  {
+    level: 'L0',
+    title: 'L0 — Unsigned, local.',
+    accent: 'chalk-2',
+    body: 'Recomputes identically to any other bundle; provenance is unverified. Five minutes to your first receipt.',
+  },
+  {
+    level: 'L1',
+    title: 'L1 — Keyless CI identity + transparency log.',
+    accent: 'cobalt-2',
+    body: 'CI signs its own fresh results with a short-lived OIDC identity, anchored in a public transparency log anyone can inspect.',
+  },
+  {
+    level: 'L2',
+    title: 'L2 — Organization-held keys.',
+    accent: 'gold',
+    body: 'Signing bound to keys your organization controls, for the highest-stakes work.',
+  },
+];
+
+type RuntimeVariant = 'verified' | 'stale' | 'unknown';
+const runtimeRows: { runtime: string; badge: string; variant: RuntimeVariant; meaning: string }[] = [
+  { runtime: 'Claude Code', badge: 'Blocking (L2)', variant: 'verified', meaning: 'The Stop hook refuses or escalates on unbacked "done."' },
+  { runtime: 'Codex', badge: 'Blocking (L2)', variant: 'verified', meaning: 'Same blocking path, mapped to Codex agent definitions.' },
+  { runtime: 'Kiro', badge: 'Blocking (L2)', variant: 'verified', meaning: 'Same blocking path, wired to Kiro sessions.' },
+  { runtime: 'opencode', badge: 'Advisory / partial', variant: 'stale', meaning: "Stop-goal-fit reports but can't block there; config protection still blocks at tool-call time." },
+  { runtime: 'pi', badge: 'Advisory / partial', variant: 'stale', meaning: "No stop hook — the done-check can't run; config protection still blocks at tool-call time." },
+  { runtime: 'Everywhere else', badge: 'Spec-only', variant: 'unknown', meaning: 'The open format runs; no runtime hook yet.' },
+];
+
+const ADR_0017_URL = 'https://github.com/kontourai/flow-agents/blob/main/docs/adr/0017-anti-gaming-trust-security-model.md';
+const ANTI_GAMING_SUITE_URL = 'https://github.com/kontourai/flow-agents/blob/main/evals/ci/antigaming-suite.sh';
+const RUNTIME_HOOK_SPEC_URL = 'https://github.com/kontourai/flow-agents/blob/main/docs/spec/runtime-hook-surface.md';
+const PR_475_URL = 'https://github.com/kontourai/flow-agents/pull/475';
+---
+
+<Layout
+  title="Trust — the honest ceiling and the bypass list · Kontour AI"
+  description="We don't sell proof of correctness. We publish the bypass list, badge enforcement honestly per runtime, and make every trust verdict recomputable instead of claimed."
+>
+  <Nav />
+
+  <!-- Section 1: Hero — the honest ceiling -->
+  <Section contour size="hero" borderBottom>
+    <Glow accent="chalk-2" position="top-right" />
+    <div class="container container--readable">
+      <Eyebrow accent="chalk-2">For the skeptic</Eyebrow>
+      <h1 class="product-title animate-fade-up">We can't certify an agent is right. No one can.</h1>
+      <p class="hero-copy trust-hero-copy animate-fade-up delay-200">
+        So we don't sell proof of correctness. We make what an answer stood on — and what it
+        skipped — visible, recomputable, and attributable, instead of hidden behind a checkmark the
+        model gave itself. Trust status is a pure function of the evidence:
+        <code class="mono-inline">status = f(evidence, …)</code>, recomputable by anyone, at a
+        boundary the agent can't cross.
+      </p>
+
+      <Grid cols={3} gap="md" class="guarantee-grid animate-fade-up delay-300">
+        {guarantees.map(({ label, body }) => (
+          <div class="minicard">
+            <div class="minicard__label">{label}</div>
+            <p class="minicard__body">{body}</p>
+          </div>
+        ))}
+      </Grid>
+
+      <div class="hero-actions animate-fade-up delay-300">
+        <a href="/early-access/" class="btn-primary" data-umami-event="trust-hero-early-access">Get early access →</a>
+        <a href="/receipts/" class="btn-ghost" data-umami-event="trust-hero-receipts">Check the receipts yourself →</a>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Section 2: The bypass list -->
+  <Section tone="alt" size="lg" borderBottom>
+    <Glow accent="cobalt-2" position="top-left" />
+    <div class="container container--readable">
+      <Eyebrow accent="cobalt-2">The bypass list</Eyebrow>
+      <h2 class="section-heading">Three ways to cheat it — and who catches each one.</h2>
+      <p class="section-lead">
+        Nobody else in the category publishes their bypass list. We do — because "trust the
+        boundaries, not the claimants" only means something if you can see where the boundaries are.
+      </p>
+
+      <div class="bypass-list">
+        <div class="bypass-row" data-accent="green">
+          <div class="bypass-row__head">
+            <span class="bypass-row__num">01</span>
+            <h3 class="bypass-row__title">Tamper with it locally.</h3>
+            <span class="trust-badge trust-badge--verified">Caught</span>
+          </div>
+          <p class="body bypass-row__body">
+            Edit the bundle, the logs, or the workflow state on your own machine. Locally, the
+            evidence is a tamper-evident hash chain — break a link and the chain no longer
+            verifies. But the authoritative catch isn't local: on every pull request, CI re-runs
+            the real verification fresh in a clean environment it can't pre-disable, and
+            reconciles your bundle against its own results. CI never trusts your bundle as a
+            source of truth — it only uses it to detect divergence. A claimed pass that CI shows
+            failing, or a command CI never ran, fails the job.
+          </p>
+          <p class="fine bypass-row__residual">
+            <em>Honest residual: a determined agent can still flip a local kill-switch through its
+            own shell. That's exactly why the authority lives in CI, not in the local gate.</em>
+          </p>
+        </div>
+
+        <div class="bypass-row" data-accent="green">
+          <div class="bypass-row__head">
+            <span class="bypass-row__num">02</span>
+            <h3 class="bypass-row__title">Forge the content.</h3>
+            <span class="trust-badge trust-badge--verified">Caught</span>
+          </div>
+          <p class="body bypass-row__body">
+            Fabricate a green result, or launder the exit code (<code class="mono-inline">npm test || true</code>).
+            The local gate rejects a verify command carrying <code class="mono-inline">||</code>,
+            and CI re-runs your declared checks itself, then signs the result with a keyless
+            Sigstore identity that only exists inside CI. An agent on your laptop has no such
+            identity — it cannot mint that signature, no matter how clever the prompt. A
+            fabricated "green" simply can't be signed.
+          </p>
+          <p class="fine bypass-row__residual">
+            <em>Precise words: tamper-evident locally, tamper-resistant up to the CI identity
+            boundary — never "tamper-proof."</em>
+          </p>
+        </div>
+
+        <div class="bypass-row" data-accent="red">
+          <div class="bypass-row__head">
+            <span class="bypass-row__num">03</span>
+            <h3 class="bypass-row__title">Bypass as an admin.</h3>
+            <span class="trust-badge trust-badge--disputed">Named, not caught</span>
+          </div>
+          <p class="body bypass-row__body">
+            Force-merge past branch protection, or approve your own malicious change. Nothing
+            machine-side stops this. It is the irreducible human boundary — the one place the
+            whole model depends on trusting a person, not a proof. We name it in the open instead
+            of hiding it. The mitigation is ordinary and honest: branch protection with enforced
+            admins, code-owner review on the gate and CI config, and a human who declines the
+            <code class="mono-inline">--admin</code> shortcut.
+          </p>
+        </div>
+      </div>
+
+      <p class="fine receipt-line">
+        Receipt: the layered defense and this exact residuals list are published in Flow Agents'
+        anti-gaming trust security model (<a href={ADR_0017_URL} target="_blank" rel="noopener">ADR 0017</a>),
+        and enforced by a required <a href={ANTI_GAMING_SUITE_URL} target="_blank" rel="noopener">anti-gaming regression suite</a> that
+        turns CI red if any gate is weakened.
+      </p>
+    </div>
+  </Section>
+
+  <!-- Section 3: Objection handler — isn't this what CI does -->
+  <Section size="lg" borderBottom>
+    <div class="container container--readable">
+      <Eyebrow accent="cobalt-2">The objection</Eyebrow>
+      <h2 class="section-heading">But isn't that what CI does?</h2>
+      <p class="section-lead">
+        For a code change that has a test, CI is a real backstop — it reruns the suite fresh and
+        the PR goes red on a failure. We don't claim otherwise. The gap is around that.
+      </p>
+
+      <div class="bypass-list">
+        <div class="bypass-row" data-accent="chalk-2">
+          <div class="bypass-row__head">
+            <span class="bypass-row__num">01</span>
+            <h3 class="bypass-row__title">CI is green on what nobody wrote a check for.</h3>
+          </div>
+          <p class="body bypass-row__body">
+            CI answers exactly one question — did the declared checks pass? — and is silent on
+            the claim with no test behind it ("added validation and tested it," "verified the
+            migration is reversible," "no security regression"). CI can't turn red on a claim it
+            can't execute. We surface what was skipped, not just what passed.
+          </p>
+        </div>
+
+        <div class="bypass-row" data-accent="cobalt-2">
+          <div class="bypass-row__head">
+            <span class="bypass-row__num">02</span>
+            <h3 class="bypass-row__title">We run inside CI too.</h3>
+          </div>
+          <p class="body bypass-row__body">
+            A required job re-runs your declared checks and reconciles them against what the
+            agent claimed it ran — if they diverge, CI goes red on the discrepancy itself — then
+            signs the result with an identity that only exists inside CI, which an agent on a
+            laptop cannot forge. CI's ephemeral green becomes a portable, independently
+            recomputable receipt of what passed and what it stood on.
+          </p>
+        </div>
+
+        <div class="bypass-row" data-accent="gold">
+          <div class="bypass-row__head">
+            <span class="bypass-row__num">03</span>
+            <h3 class="bypass-row__title">Before CI, in the loop.</h3>
+          </div>
+          <p class="body bypass-row__body">
+            The check fires while the agent works, not after a push, a PR, and a CI cycle — so a
+            real failure surfaces before anything leaves the laptop. If the agent claims a check
+            passed but nothing captured shows it ran, the gate doesn't take the claim on faith —
+            it re-runs the project's own declared check itself, right there, and a real result
+            stands in place of the claim. And if the agent tries to launder the exit code
+            (<code class="mono-inline">npm test || true</code>), the local gate rejects it as
+            evidence on the spot — the same thing CI would catch on the PR, just earlier, before
+            a push ever happens.
+          </p>
+        </div>
+      </div>
+
+      <p class="dial-closing">
+        And every objection here assumes there's a CI at all. Research agents, support agents,
+        records agents — none have one. For any agent that isn't code, this is the only check
+        there is.
+      </p>
+    </div>
+  </Section>
+
+  <!-- Section 4: The assurance dial -->
+  <Section size="lg" borderBottom>
+    <div class="container container--readable">
+      <Eyebrow accent="green">Signing is a dial, not a gate</Eyebrow>
+      <h2 class="section-heading">Turn up assurance as the stakes rise.</h2>
+      <p class="section-lead">
+        Start unsigned and local in five minutes. Turn the dial to keyless CI identity, then to
+        organization-held keys, as the stakes rise. The dial changes how much you can trust
+        <em>where a bundle came from</em> — never how it was <em>derived</em>. An unsigned bundle
+        recomputes to exactly the same verdict as a signed one.
+      </p>
+
+      <Grid cols={3} gap="lg" class="dial-grid">
+        {dialLevels.map(({ title, accent, body }) => (
+          <Card accent={accent} bar="top" pad="lg">
+            <h3 class="dial-card__title">{title}</h3>
+            <p class="dial-card__body">{body}</p>
+          </Card>
+        ))}
+      </Grid>
+
+      <p class="dial-closing">Assurance caps trust in provenance, never in derivation.</p>
+
+      <p class="fine receipt-line">
+        Receipt: the L0/L1/L2 assurance levels are defined in the open
+        <a href="https://github.com/hachure-org/spec/blob/main/assurance.md" target="_blank" rel="noopener">Hachure specification</a>,
+        with in-toto/DSSE and transparency-log interop.
+      </p>
+    </div>
+  </Section>
+
+  <!-- Section 5: Honest badging of runtime enforcement -->
+  <Section tone="alt" size="lg" borderBottom>
+    <Glow accent="cobalt-2" position="top-right" />
+    <div class="container container--readable">
+      <Eyebrow accent="cobalt-2">Honest badging</Eyebrow>
+      <h2 class="section-heading">Enforcement isn't uniform. Here's exactly where it blocks.</h2>
+      <p class="section-lead">
+        "Gates are laws" is only true where a runtime actually hands the gate real exit codes.
+        Where it doesn't yet, we say so. A plain table, not a green blur.
+      </p>
+
+      <div class="table-scroll">
+        <table class="enforcement-table">
+          <thead>
+            <tr>
+              <th scope="col">Runtime</th>
+              <th scope="col">Enforcement</th>
+              <th scope="col">What it means</th>
+            </tr>
+          </thead>
+          <tbody>
+            {runtimeRows.map(({ runtime, badge, variant, meaning }) => (
+              <tr>
+                <td class="enforcement-table__runtime">{runtime}</td>
+                <td>
+                  <span class={`trust-badge trust-badge--${variant}`}>{badge}</span>
+                </td>
+                <td class="enforcement-table__meaning">{meaning}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <p class="body enforcement-closing">
+        Blocking means the turn cannot end on unproven work — it refuses or escalates to you,
+        never silently proceeds. Advisory means the same evidence is computed and surfaced, but
+        the decision stays with you. We badge the difference; we don't blur it.
+      </p>
+
+      <p class="fine receipt-line">
+        Receipt: the runtime hook surface is documented in the Flow Agents README /
+        <a href={RUNTIME_HOOK_SPEC_URL} target="_blank" rel="noopener">runtime-hook-surface spec</a>.
+      </p>
+    </div>
+  </Section>
+
+  <!-- Section 6: Two receipt-linked stories + CTA pair -->
+  <Section size="lg" borderTop>
+    <div class="container container--readable">
+      <Eyebrow accent="gold">When it mattered</Eyebrow>
+      <h2 class="section-heading">Two times the boundary held.</h2>
+
+      <Grid cols={2} gap="lg" class="story-grid">
+        <Card accent="chalk-2" bar="top" pad="lg">
+          <h3 class="story-card__title">The agent that refused its own admin powers</h3>
+          <p class="body story-card__body">
+            Two green pull requests couldn't merge because branch protection demanded up-to-date
+            branches, and the tooling offered <code class="mono-inline">--admin</code> to force
+            it. The agent declined — admin bypass is the one boundary the whole trust model names
+            as irreducible, and an agent using it would hollow out every other guarantee. The
+            branches were updated properly and CI re-certified before merge. Slower, and the only
+            version of the story worth telling.
+          </p>
+          <p class="fine receipt-line">
+            Receipt: the session's merge transcripts; <a href={ADR_0017_URL} target="_blank" rel="noopener">ADR 0017</a>'s
+            residuals naming admin bypass as the irreducible human boundary.
+          </p>
+        </Card>
+
+        <Card accent="gold" bar="top" pad="lg">
+          <h3 class="story-card__title">The security fix that almost shipped its own backdoor</h3>
+          <p class="body story-card__body">
+            Fixing a capture bug (failing commands recorded as passes on one runtime), the first
+            patch opened a <em>new</em> critical hole: its parser could be fooled by a command
+            that merely printed "Process exited with code 0." The mandatory adversarial re-review
+            built a working exploit, confirmed it, and blocked the delivery before commit. The fix
+            was re-planned, hardened, re-attacked (five fresh bypass attempts, all defeated), and
+            merged only after CI independently re-ran and reconciled every claim.
+          </p>
+          <p class="fine receipt-line">
+            Receipt: <a href={PR_475_URL} target="_blank" rel="noopener">Flow Agents PR #475</a>;
+            the review artifacts show iteration-1 FAIL → iteration-2 PASS, with the Trust
+            Reconcile check green.
+          </p>
+        </Card>
+      </Grid>
+
+      <div class="hero-actions story-actions">
+        <a href="/receipts/" class="btn-ghost" data-umami-event="trust-cta-receipts">Check the receipts yourself →</a>
+        <a href="/early-access/" class="btn-primary" data-umami-event="trust-cta-early-access">Get early access →</a>
+      </div>
+    </div>
+  </Section>
+
+  <Footer />
+</Layout>
+
+<style>
+  .container--readable {
+    margin-inline: auto;
+  }
+  .trust-hero-copy {
+    max-width: 68ch;
+    margin-bottom: 2.5rem;
+  }
+  .mono-inline {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    color: var(--color-chalk-2);
+  }
+
+  .guarantee-grid {
+    margin-bottom: 2.5rem;
+  }
+  .minicard__body {
+    font-size: 0.82rem;
+    color: var(--color-chalk-2);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    align-items: center;
+  }
+
+  .section-heading {
+    font-size: 1.75rem;
+    margin: 0 0 1rem;
+    color: var(--color-chalk);
+    max-width: 40ch;
+  }
+  .section-lead {
+    color: var(--color-chalk-2);
+    line-height: 1.7;
+    max-width: 70ch;
+    margin: 0 0 2rem;
+  }
+  .receipt-line {
+    color: var(--color-chalk-3);
+    line-height: 1.6;
+    max-width: 72ch;
+    margin: 1.75rem 0 0;
+  }
+  .receipt-line a {
+    color: var(--color-chalk-2);
+  }
+
+  /* Bypass list */
+  .bypass-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .bypass-row {
+    background: var(--color-ink-2);
+    border: 1px solid var(--color-edge);
+    border-left: 2px solid var(--accent, var(--color-edge-2));
+    border-radius: 6px;
+    padding: 1.5rem 1.75rem;
+  }
+  .bypass-row__head {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 0.85rem;
+  }
+  .bypass-row__num {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-chalk-3);
+  }
+  .bypass-row__title {
+    font-size: 1.15rem;
+    color: var(--color-chalk);
+    margin: 0;
+    flex: 1 1 auto;
+  }
+  .bypass-row__body {
+    margin: 0 0 0.85rem;
+  }
+  .bypass-row__residual {
+    margin: 0;
+    color: var(--color-chalk-3);
+    max-width: 72ch;
+  }
+
+  /* Assurance dial */
+  .dial-grid {
+    margin: 2rem 0;
+  }
+  .dial-card__title {
+    font-size: 1.1rem;
+    color: var(--color-chalk);
+    margin: 0 0 0.75rem;
+  }
+  .dial-card__body {
+    font-size: 0.88rem;
+    color: var(--color-chalk-2);
+    line-height: 1.65;
+    margin: 0;
+  }
+  .dial-closing {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    color: var(--color-gold);
+    border-left: 2px solid var(--color-edge-2);
+    padding-left: 1rem;
+    margin: 0 0 1.5rem;
+  }
+
+  /* Enforcement table */
+  .table-scroll {
+    overflow-x: auto;
+    border: 1px solid var(--color-edge);
+    border-radius: 8px;
+    margin-bottom: 1.75rem;
+  }
+  .enforcement-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+  .enforcement-table th {
+    text-align: left;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 0.62rem;
+    color: var(--color-chalk-3);
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--color-edge);
+    background: var(--color-ink-2);
+    white-space: nowrap;
+  }
+  .enforcement-table td {
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid var(--color-edge);
+    vertical-align: top;
+    color: var(--color-chalk-2);
+  }
+  .enforcement-table tr:last-child td {
+    border-bottom: none;
+  }
+  .enforcement-table__runtime {
+    color: var(--color-chalk);
+    white-space: nowrap;
+  }
+  .enforcement-table__meaning {
+    color: var(--color-chalk-3);
+  }
+  .enforcement-closing {
+    max-width: 70ch;
+    margin: 0;
+  }
+
+  /* Stories */
+  .story-grid {
+    margin: 2rem 0;
+  }
+  .story-card__title {
+    font-size: 1.15rem;
+    color: var(--color-chalk);
+    margin: 0 0 0.85rem;
+  }
+  .story-card__body {
+    margin: 0;
+  }
+  .story-card__body + .receipt-line {
+    margin-top: 1.25rem;
+  }
+  .story-actions {
+    margin-top: 1rem;
+  }
+</style>

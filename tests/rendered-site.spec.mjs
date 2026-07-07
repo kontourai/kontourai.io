@@ -32,6 +32,7 @@ test("homepage leads with a single Flow Agents headline and Survey as the proof 
   await expect(page.getByText("2 · The capture")).toBeVisible();
   await expect(page.getByText("3 · The recompute")).toBeVisible();
   await expect(page.locator('[data-umami-event="home-mechanism-receipts"]')).toHaveAttribute("href", "/receipts/");
+  await expect(page.locator('[data-umami-event="home-mechanism-trust"]')).toHaveAttribute("href", "/trust/");
 
   const enforceBox = await page.getByText("Prompts are advice.").first().boundingBox();
   const mechanismBox = await page.locator(".label-sm").filter({ hasText: "How a gate knows" }).first().boundingBox();
@@ -77,6 +78,7 @@ test("homepage leads with a single Flow Agents headline and Survey as the proof 
   await expect(page.locator('[data-umami-event="home-proof-receipts"]')).toHaveAttribute("href", "/receipts/");
   await expect(page.locator('[data-umami-event="nav-receipts"]')).toHaveAttribute("href", "/receipts/");
   await expect(page.locator('[data-umami-event="footer-receipts"]')).toHaveAttribute("href", "/receipts/");
+  await expect(page.locator('[data-umami-event="footer-trust"]')).toHaveAttribute("href", "/trust/");
 
   // Teaser: product nav/footer links stay hidden on the public home
   await expect(page.locator('[data-umami-event="nav-flow"]')).toHaveCount(0);
@@ -490,6 +492,90 @@ test("the ownership-guard receipt discloses its waived pre-existing-failure gap"
       .filter({ hasText: "Three eval suites carry failures independently reproduced as pre-existing baselines" }),
   ).toBeVisible();
   await expect(page.getByText('high-impact but status is "assumed"').first()).toBeVisible();
+});
+
+test("trust page states the honest ceiling, the bypass list, the assurance dial, and honest runtime badging", async ({ page }) => {
+  await page.goto("/trust/");
+
+  // Section 1 — hero: the honest ceiling. Exactly one h1 on the page.
+  await expect(
+    page.getByRole("heading", { level: 1, name: "We can't certify an agent is right. No one can.", exact: true }),
+  ).toBeVisible();
+  await expect(page.locator("h1")).toHaveCount(1);
+  await expect(page.getByText("status = f(evidence, …)").first()).toBeVisible();
+  await expect(page.getByText("Recomputable", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("Captured, not narrated").first()).toBeVisible();
+  await expect(page.getByText("Refuses or escalates", { exact: true }).first()).toBeVisible();
+  await expect(page.locator('[data-umami-event="trust-hero-receipts"]')).toHaveAttribute("href", "/receipts/");
+  await expect(page.locator('[data-umami-event="trust-hero-early-access"]')).toHaveAttribute("href", "/early-access/");
+
+  // Section 2 — the bypass list: three cheat rows, each badged.
+  await expect(
+    page.getByRole("heading", { level: 2, name: "Three ways to cheat it — and who catches each one." }),
+  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Tamper with it locally." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Forge the content." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Bypass as an admin." })).toBeVisible();
+  await expect(page.getByText("Caught", { exact: true })).toHaveCount(2);
+  await expect(page.getByText("Named, not caught")).toBeVisible();
+  await expect(page.getByText("never \"tamper-proof.\"")).toBeVisible();
+  await expect(page.getByText("It is the irreducible human boundary").first()).toBeVisible();
+
+  // Section 3 — objection handler: "isn't that what CI does?"
+  await expect(
+    page.getByRole("heading", { level: 2, name: "But isn't that what CI does?" }),
+  ).toBeVisible();
+  // The opening concession must stay intact -- house rule, never silently drop it.
+  await expect(page.getByText("We don't claim otherwise.")).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "CI is green on what nobody wrote a check for." }),
+  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "We run inside CI too." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Before CI, in the loop." })).toBeVisible();
+
+  // Section 4 — the assurance dial (L0/L1/L2), the load-bearing distinction.
+  await expect(page.getByRole("heading", { name: "Turn up assurance as the stakes rise." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "L0 — Unsigned, local." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "L1 — Keyless CI identity + transparency log." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "L2 — Organization-held keys." })).toBeVisible();
+  await expect(page.getByText("Assurance caps trust in provenance, never in derivation.")).toBeVisible();
+  await expect(page.getByRole("link", { name: "Hachure specification" })).toHaveAttribute(
+    "href",
+    "https://github.com/hachure-org/spec/blob/main/assurance.md",
+  );
+
+  // Section 5 — runtime enforcement, badged honestly (L2 blocking vs advisory).
+  await expect(
+    page.getByRole("heading", { name: "Enforcement isn't uniform. Here's exactly where it blocks." }),
+  ).toBeVisible();
+  const runtimeTable = page.locator(".enforcement-table");
+  await expect(runtimeTable.getByRole("row", { name: /Claude Code/ }).locator(".trust-badge--verified")).toHaveText("Blocking (L2)");
+  await expect(runtimeTable.getByRole("row", { name: /Codex/ }).locator(".trust-badge--verified")).toHaveText("Blocking (L2)");
+  await expect(runtimeTable.getByRole("row", { name: /Kiro/ }).locator(".trust-badge--verified")).toHaveText("Blocking (L2)");
+  await expect(runtimeTable.getByRole("row", { name: /opencode/ }).locator(".trust-badge--stale")).toHaveText("Advisory / partial");
+  await expect(runtimeTable.getByRole("row", { name: /^pi\s/ }).locator(".trust-badge--stale")).toHaveText("Advisory / partial");
+  await expect(runtimeTable.getByRole("row", { name: /Everywhere else/ }).locator(".trust-badge--unknown")).toHaveText("Spec-only");
+  await expect(page.getByText("it refuses or escalates to you, never silently proceeds.")).toBeVisible();
+
+  // Section 6 — two receipt-linked stories + CTA pair.
+  await expect(page.getByRole("heading", { name: "Two times the boundary held." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "The agent that refused its own admin powers" })).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "The security fix that almost shipped its own backdoor" }),
+  ).toBeVisible();
+  await expect(page.getByRole("link", { name: "ADR 0017" }).first()).toHaveAttribute(
+    "href",
+    "https://github.com/kontourai/flow-agents/blob/main/docs/adr/0017-anti-gaming-trust-security-model.md",
+  );
+  await expect(page.getByRole("link", { name: "Flow Agents PR #475" })).toHaveAttribute(
+    "href",
+    "https://github.com/kontourai/flow-agents/pull/475",
+  );
+  await expect(page.locator('[data-umami-event="trust-cta-receipts"]')).toHaveAttribute("href", "/receipts/");
+  await expect(page.locator('[data-umami-event="trust-cta-early-access"]')).toHaveAttribute("href", "/early-access/");
+
+  // Footer + mechanism seed link both resolve to /trust/ from this page too.
+  await expect(page.locator('[data-umami-event="footer-trust"]')).toHaveAttribute("href", "/trust/");
 });
 
 test("published bundles download and validate under the named validator", async ({ page }) => {

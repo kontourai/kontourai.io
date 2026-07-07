@@ -13,5 +13,6 @@
   <url><loc>https://kontourai.io/receipts/governance-readiness-ready/</loc><priority>0.6</priority></url>
   <url><loc>https://kontourai.io/receipts/governance-readiness-not-ready/</loc><priority>0.6</priority></url>
   <url><loc>https://kontourai.io/receipts/flow-agents-ownership-guard/</loc><priority>0.6</priority></url>
+  <url><loc>https://kontourai.io/trust/</loc><priority>0.7</priority></url>
   <url><loc>https://kontourai.io/early-access/</loc><priority>0.7</priority></url>
 </urlset>
