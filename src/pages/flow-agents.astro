@@ -15,49 +15,33 @@ import type { Accent } from '@/lib/theme';
 
 const flowAgentsStatus = getProductStatus('flow-agents');
 
-const steps = ['Idea', 'Backlog', 'Plan', 'Build', 'Review', 'Verify', 'Evidence', 'Release', 'Learn'];
-
-const promises: { title: string; body: string; accent: Accent }[] = [
-  { title: 'Stay on the path', accent: 'cobalt-2', body: 'Loose requests turn into shaped work, plans, implementation waves, review, verification, and release decisions — without writing a perfect prompt every time.' },
-  { title: 'Show the evidence', accent: 'green', body: 'Acceptance criteria, test results, browser checks, governance reports, and gaps live in durable workflow artifacts the agent reads back — not in chat memory.' },
-  { title: 'Use your agent tool', accent: 'chalk-2', body: 'Install one bundle across Claude Code, Codex, Kiro, and CI. The same workflow, without rewriting it for each tool.' },
+const engineParts: { title: string; body: string; accent: Accent }[] = [
+  { title: 'FlowDefinition interpreter', accent: 'cobalt-2', body: 'Reads required paths, steps, transitions, gates, route-backs, exceptions, and continuation state from declared flows.' },
+  { title: 'Gate runtime', accent: 'green', body: 'Turns evidence expectations into local advisory stops, CI reruns, and resumable next actions instead of chat-only promises.' },
+  { title: 'Harness adapters', accent: 'chalk-2', body: 'Maps the same flow into Claude Code, Codex, Kiro, GitHub Actions, and future agent or non-agent runners.' },
+  { title: 'Trust primitives', accent: 'gold', body: 'Carries SDK, evidence, Trust Bundle, command-log chain, and kit-validation records so every claim can point at public artifacts.' },
 ];
 
-const runtimes = [
-  { rt: 'Claude Code', detail: 'Agents, skills, and hooks wired into the Claude Code harness.' },
-  { rt: 'Codex', detail: 'The same workflow path mapped to Codex agent definitions.' },
-  { rt: 'Kiro', detail: 'Runtime-specific hook wiring for Kiro sessions.' },
-  { rt: 'GitHub Actions', detail: 'Carry the workflow and its evidence into CI agents.' },
+const kits: { name: string; href: string; job: string; proof: string; accent: Accent }[] = [
+  { name: 'Builder Kit', href: '/builder-kit/', accent: 'chalk-2', job: 'Agent delivery: shape -> build -> publish -> learn.', proof: 'The first-party build path for verifiable agent work.' },
+  { name: 'Knowledge Kit', href: '/knowledge-kit/', accent: 'gold', job: 'Durable, provenance-gated knowledge store.', proof: 'Keeps reusable memory tied to sources, owners, and freshness.' },
+  { name: 'Release-Evidence Kit', href: 'https://kontourai.github.io/flow-agents/', accent: 'green', job: 'Agentless, flows-only release evidence.', proof: 'Proof that the engine runs solutions that ship no agent.' },
+  { name: 'Veritas-Governance Kit', href: 'https://kontourai.github.io/flow-agents/', accent: 'cobalt-2', job: 'Agentless, flows-only governance gates.', proof: 'Feeds repo readiness evidence into Flow without giving one kit runtime privilege.' },
 ];
 
-const skills = [
-  { skill: 'idea-to-backlog', desc: 'Shape a raw idea into executable issues' },
-  { skill: 'pull-work', desc: 'Select the next ready issue and hand it off' },
-  { skill: 'plan-work', desc: 'Turn a goal into a structured execution plan' },
-  { skill: 'execute-plan', desc: 'Run implementation in parallel waves' },
-  { skill: 'review-work', desc: 'Critique before verification' },
-  { skill: 'verify-work', desc: 'Prove the change actually works' },
-  { skill: 'evidence-gate', desc: 'Decide if the work is trustworthy' },
-  { skill: 'release-readiness', desc: 'Merge, release, or hold — with reasons' },
-  { skill: 'deliver', desc: 'The full chain, end to end' },
-  { skill: 'fix-bug', desc: 'Diagnose → fix → verify the regression' },
-];
-
-const honest: { title: string; body: string; accent: Accent }[] = [
-  { title: "Done you can't fake", accent: 'chalk-2', body: "The agent can't mark work complete that isn't. The stop gate re-derives the verdict from captured evidence — not the agent's say-so — an external CI check re-runs the verification in a clean environment and blocks the merge on any divergence, and CI signs a tamper-evident record of what shipped." },
-  { title: 'Durable artifacts', accent: 'green', body: 'Workflow state, acceptance, evidence, critique, release, and learning records persist as inspectable sidecars under .kontourai/flow-agents/ — so a session can be resumed, audited, or handed off.' },
-  { title: 'Optional governance', accent: 'cobalt-2', body: 'Wire Veritas readiness reports in as a governance adapter to back merge decisions with repo-standard evidence. Optional, never mandatory — Flow Agents does not own the policy.' },
-  { title: 'Deliberate execution', accent: 'gold', body: 'Choose local, worktree, container, cloud, or privileged execution boundaries on purpose. Evals — static, integration, behavioral — keep the bundle honest as it changes.' },
+const trustTiers: { title: string; body: string; accent: Accent }[] = [
+  { title: 'Local advisory runtime gate', accent: 'chalk-2', body: 'The agent sees the required next action and can be stopped or routed back when evidence is missing. Local state is advisory and inspectable.' },
+  { title: 'Controlled CI rerun', accent: 'green', body: 'CI reruns the checks in a cleaner environment, compares against git ground truth, and anchors the result outside the agent session.' },
+  { title: 'Refuse or escalate', accent: 'gold', body: 'When the evidence is not there, the flow says so. A human can accept a gap, but the exception stays in the record.' },
 ];
 ---
 
 <Layout
-  title="Flow Agents — Flow and Veritas discipline inside coding agents · Kontour AI"
-  description="Flow Agents applies Flow-backed workflows and optional Veritas governance inside Claude Code, Codex, Kiro, and GitHub Actions without becoming an agent runtime."
+  title="Flow Agents - Trust runtime and kit marketplace for agent work · Kontour AI"
+  description="Flow Agents is a product-neutral trust runtime for the agents and workflow kits you already run: FlowDefinition interpretation, gates, runtime adapters, evidence, and kit validation."
 >
   <Nav active="flow-agents" />
 
-  <!-- Hero -->
   <Section contour size="hero" borderBottom>
     <Glow accent="chalk-2" position="top-right" />
     <div class="container">
@@ -70,216 +54,131 @@ const honest: { title: string; body: string; accent: Accent }[] = [
 
           <ProductMark product="flow-agents" size={40} class="product-hero-mark animate-fade-up" data-accent="chalk-2" />
           <h1 class="product-title animate-fade-up">Flow Agents</h1>
-          <p class="product-tagline animate-fade-up delay-100" data-accent="chalk-2">Flow and Veritas discipline inside the agents you already use</p>
+          <p class="product-tagline animate-fade-up delay-100" data-accent="chalk-2">trust machinery for the agent you already run</p>
 
           <p class="hero-copy hero-copy--wide animate-fade-up delay-200">
-            Agents are useful out of the box. They get fragile when work is
-            long, parallel, risky, or knowledge-heavy — they skip verification,
-            call partial work done, and lose the thread after compaction. Flow
-            Agents installs one structured path into the agent tool you already use,
-            so a loose request becomes shaped work, plans, review, verification,
-            and a release decision — with evidence the agent and the developer
-            can both read back. It does not replace the runtime or framework; it
-            gives the work a required path, inspectable evidence, and a completion
-            the agent can't fake — verified in CI it can't disable, not asserted.
+            Flow Agents is the engine under Kontour's agent work: a
+            product-neutral runtime for Flow Definitions, gates, harness
+            adapters, SDK evidence, Trust Bundles, and kit validation. It is not
+            the Builder Kit. Builder is one kit on top. The engine stays
+            kit-neutral so teams can install the workflows they want, bring
+            their own kits, and still get evidence a reviewer can inspect.
           </p>
 
           <div class="hero-actions animate-fade-up delay-300">
-            <a href="https://kontourai.github.io/flow-agents/" target="_blank" rel="noopener" class="btn-primary" data-umami-event="flow-agents-hero-docs">Read the docs →</a>
-            <a href="https://github.com/kontourai/flow-agents" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="flow-agents-hero-github">GitHub</a>
-            <a href="/flow/" class="btn-ghost" data-umami-event="flow-agents-hero-flow">Built on Flow</a>
+            <a href="https://kontourai.github.io/flow-agents/" target="_blank" rel="noopener" class="btn-primary" data-umami-event="flow-agents-hero-docs">Read the docs -></a>
+            <a href="/builder-kit/" class="btn-ghost" data-umami-event="flow-agents-hero-builder">Builder Kit</a>
+            <a href="/knowledge-kit/" class="btn-ghost" data-umami-event="flow-agents-hero-knowledge">Knowledge Kit</a>
           </div>
         </div>
 
-        <Terminal class="animate-fade-in delay-300" title="install Flow Agents">
+        <Terminal class="animate-fade-in delay-300" title="engine + kit install">
           <p><span class="prompt">$ </span><span class="cmd">npx @kontourai/flow-agents init --dest ~/dev/my-project</span></p>
-          <p class="muted">  # or, from a checkout: bash install.sh ~/dev/my-project</p>
           <br />
-          <p class="muted">  installing Flow Agents bundle…</p>
-          <p class="pass">  ✓ agents      Claude Code, Codex, Kiro, CI</p>
-          <p class="pass">  ✓ skills      idea-to-backlog … learning-review</p>
-          <p class="pass">  ✓ kits        Builder Kit</p>
-          <p class="pass">  ✓ context     contracts, settings, hooks</p>
-          <p class="pass">  ✓ evals       static · integration · behavioral</p>
+          <p class="pass">  ✓ engine      FlowDefinition interpreter</p>
+          <p class="pass">  ✓ gates       local advisory + CI rerun hooks</p>
+          <p class="pass">  ✓ adapters    Codex · Claude Code · Kiro · GitHub Actions</p>
+          <p class="pass">  ✓ primitives  SDK · evidence · trust bundles</p>
+          <p class="pass">  ✓ catalog     kits/catalog.json + kit.json manifests</p>
           <br />
-          <p class="muted">  workflow artifacts → .kontourai/flow-agents/</p>
-          <p class="rule">  ───────────────────────────────</p>
-          <p class="info">  ready. ask your agent:</p>
-          <p>  <span class="muted">"Use deliver for this issue."</span></p>
+          <p><span class="prompt">$ </span><span class="cmd">npx @kontourai/flow-agents kit list</span></p>
+          <p class="info">  Builder · Knowledge · Release-Evidence · Veritas-Governance</p>
         </Terminal>
       </Split>
     </div>
   </Section>
 
-  <!-- The workflow -->
   <Section size="lg">
     <div class="container">
-      <Eyebrow gap="sm">One structured path</Eyebrow>
-      <h2 class="display-md measure-lg path-title">
-        From a loose request to a release decision — gate by gate.
-      </h2>
-      <p class="fine measure path-note">
-        Skills choose the right workflow, sidecars preserve state across
-        compaction, gates catch stop-short behavior, and a finding or gap routes
-        the work back instead of waving it through.
+      <Eyebrow gap="sm">The engine</Eyebrow>
+      <h2 class="display-md measure-lg engine-title">The same trust machinery for every kit — not one blessed workflow.</h2>
+      <p class="fine measure engine-note">
+        The engine interprets structured triggers and renders tool-native
+        instructions. No kit gets runtime privilege. "Official" and
+        "first-party" are marketplace labels, not engine authority.
       </p>
 
-      <Grid cols={9} gap="xs">
-        {steps.map((step, i) => (
-          <div class="fstep">
-            <span class="fstep__n">0{i + 1}</span>
-            <span class="fstep__name">{step}</span>
-          </div>
-        ))}
-      </Grid>
-
-      <p class="path-routes">
-        review → finding routes back to build · verify → gap routes back to build · evidence → not-verified routes back to plan
-      </p>
-    </div>
-  </Section>
-
-  <!-- Three promises -->
-  <Section tone="alt" borderTop borderBottom>
-    <div class="container">
-      <Grid cols={3} gap="lg">
-        {promises.map(({ title, body, accent }) => (
-          <Card accent={accent} bar="top" pad="lg">
-            <h3 class="promo__title">{title}</h3>
-            <p class="promo__body">{body}</p>
+      <Grid cols={4} gap="md">
+        {engineParts.map(({ title, body, accent }) => (
+          <Card accent={accent} bar="top" pad="sm">
+            <h3 class="feature-title">{title}</h3>
+            <p class="feature-body">{body}</p>
           </Card>
         ))}
       </Grid>
     </div>
   </Section>
 
-  <!-- Runtimes -->
-  <Section size="lg">
+  <Section tone="alt" borderTop borderBottom>
     <div class="container">
-      <Eyebrow gap="sm">Runs in the tools you already use</Eyebrow>
-      <h2 class="display-md measure-lg runtimes-title">One bundle. Every tool maps to its native shape.</h2>
+      <Eyebrow accent="chalk-2" gap="sm">Kit portfolio</Eyebrow>
+      <h2 class="display-md kit-title">Builder is important. It is not the whole product.</h2>
+      <p class="body measure kit-copy">
+        Kits are swappable solutions declared in <code>kit.json</code> and
+        registered in <code>kits/catalog.json</code>. Install what you want.
+        Leave the rest out.
+      </p>
 
-      <Grid min="260" gap="md">
-        {runtimes.map(({ rt, detail }) => (
-          <div class="rt">
-            <div class="rt__name">{rt}</div>
-            <p class="rt__detail">{detail}</p>
-          </div>
+      <Grid cols={4} gap="md">
+        {kits.map(({ name, href, job, proof, accent }) => (
+          <a class="kit-card" href={href} data-accent={accent}>
+            <span class="kit-card__name">{name}</span>
+            <span class="kit-card__job">{job}</span>
+            <span class="kit-card__proof">{proof}</span>
+          </a>
         ))}
       </Grid>
-
-      <p class="rt-note">
-        Tool adapters translate one source configuration into each tool's
-        native shape — so adding a tool doesn't fork the workflow. Framework
-        adapters for API-based agents (LangGraph, VoltAgent, and OpenAI Agents
-        SDK) are on the roadmap.
-      </p>
     </div>
   </Section>
 
-  <!-- Flow Kits -->
-  <Section tone="alt" borderTop>
-    <div class="container">
-      <Eyebrow accent="chalk-2" gap="sm">Flow Kits</Eyebrow>
-      <h2 class="display-md bk__title">Workflows you install,<br />not rewrite.</h2>
-      <p class="body bk__copy bk__copy--intro">
-        A Flow Kit is a portable workflow bundle: a validated <code>kit.json</code>
-        manifest, one or more Flow Definitions, and optional skills, docs, adapters,
-        evals, and assets — installed as a unit into any workspace. Kits are the
-        extension model: you package a workflow once and the same validated path runs
-        across runtimes without per-tool rewrites.
-      </p>
-
-      <Split ratio="1-1" gap="md" align="start">
-        <div>
-          <p class="bk__kit-label">Builder Kit — first Kontour-authored kit</p>
-          <p class="body bk__copy">
-            Builder Kit owns the Build path end to end — shaping, probing,
-            planning, execution, verification, PR readiness, merge readiness, and
-            learning — as two Flow Definitions your agent invokes by name:
-            <code>builder.shape</code> and <code>builder.build</code>. It installs
-            automatically with Flow Agents.
-          </p>
-          <p class="body bk__copy">
-            You can author your own kit today: a directory with a
-            <code>kit.json</code>, at least one flow file, and a single
-            <code>install</code> command. Validation runs the same contract
-            as Builder Kit before anything is copied.
-          </p>
-          <p class="body bk__copy">
-            A kit's gates can be evaluated <strong class="strong">agentlessly</strong> —
-            a deterministic check of the same path, no agent in the loop — so CI or a
-            person can verify a kit, not only the agent that ran it. Each kit declares
-            a conformance level, so you know what it guarantees before you install it.
-          </p>
-          <Terminal class="bk__terminal" title="install a local kit">
-            <p><span class="prompt">$ </span><span class="cmd">npx @kontourai/flow-agents kit install ./my-kit --dest .</span></p>
-            <p><span class="prompt">$ </span><span class="cmd">npx @kontourai/flow-agents kit activate --dest .</span></p>
-          </Terminal>
-          <p class="bk__direction">
-            Direction — kits are designed to be shareable across teams. Install
-            from a local path or a git remote today; the intended growth path adds
-            a curated catalog of Kontour-authored kits.
-          </p>
-        </div>
-
-        <Grid cols={2} gap="sm">
-          {skills.map(({ skill, desc }) => (
-            <div class="skill">
-              <code class="skill__fn">{skill}</code>
-              <span class="skill__desc">{desc}</span>
-            </div>
-          ))}
-        </Grid>
-      </Split>
-    </div>
-  </Section>
-
-  <!-- Example use case -->
-  <Section borderTop size="lg">
+  <Section borderBottom>
     <div class="container">
       <Split ratio="1-1" gap="md" align="center">
         <div>
-          <Eyebrow>Example use case</Eyebrow>
-          <h2 class="display-md ip__title">You ask for the outcome.<br />Flow Agents handles the scaffolding.</h2>
-          <p class="body ip__copy">
-            No new CLI to memorize. You describe a feature request in plain
-            language; Flow Agents routes it from idea to backlog to plan,
-            implementation, review, and verify evidence while keeping the state
-            and next action durable — even across compaction, branch switches,
-            and delegated subagents.
+          <Eyebrow accent="gold">Marketplace direction</Eyebrow>
+          <h2 class="display-md market-title">A catalog for trust-bearing workflows.</h2>
+          <p class="body market-copy">
+            The growth path is a marketplace: official kits, community kits, and
+            bring-your-own-kit workflows that declare their triggers, flows,
+            adapters, skills, docs, dependencies, and validation requirements
+            up front.
           </p>
-          <p class="body ip__copy ip__copy--last">
-            When evidence is missing, the workflow stops and says so, instead of
-            summarizing unfinished work as done.
+          <p class="body market-copy market-copy--last">
+            A kit can be first-party and still have no special runtime powers.
+            The engine only follows the manifest and the structured triggers the
+            kit declares.
           </p>
         </div>
 
-        <Terminal title="ask the agent">
-          <p class="muted">  You</p>
-          <p>  Use deliver for issue #214. Plan it, implement it,</p>
-          <p>  verify it, and stop if evidence is missing.</p>
+        <Terminal title="catalog + manifest">
+          <p><span class="cmd">kits/catalog.json</span></p>
+          <p class="muted">  id: builder</p>
+          <p class="muted">  name: Builder Kit</p>
+          <p class="muted">  path: kits/builder</p>
           <br />
-          <p class="muted">  Flow Agents</p>
-          <p class="pass">  ✓ plan-work     execution plan → 3 waves</p>
-          <p class="pass">  ✓ execute-plan  implementation complete</p>
-          <p class="pass">  ✓ review-work   1 finding → routed back → fixed</p>
-          <p class="warn">  ✗ verify-work   browser check missing</p>
-          <br />
-          <p>  stopped at <span class="warn">evidence-gate</span></p>
-          <p class="muted">  next: capture a browser check, then resume</p>
-          <p class="muted">  state → .kontourai/flow-agents/deliver-214/</p>
+          <p><span class="cmd">kit.json</span></p>
+          <p class="pass">  ✓ flows</p>
+          <p class="pass">  ✓ workflow_triggers</p>
+          <p class="pass">  ✓ dependencies (knowledge)</p>
+          <p class="pass">  ✓ validated against contract</p>
+          <p class="muted">  privilege: none</p>
         </Terminal>
       </Split>
     </div>
   </Section>
 
-  <!-- Evidence, governance, safety -->
   <Section tone="alt" borderTop>
     <div class="container">
-      <Eyebrow gap="lg">What keeps it honest</Eyebrow>
-      <Grid cols={2} gap="lg">
-        {honest.map(({ title, body, accent }) => (
+      <Eyebrow gap="lg">Trust posture</Eyebrow>
+      <h2 class="display-md measure-lg trust-title">Tamper-evident. Not magic.</h2>
+      <p class="fine measure trust-note">
+        Flow Agents does not claim agent behavior is impossible to manipulate.
+        It records what the agent claimed, what evidence exists, what git says
+        changed, and what a controlled rerun could verify.
+      </p>
+
+      <Grid cols={3} gap="lg">
+        {trustTiers.map(({ title, body, accent }) => (
           <Card accent={accent} bar="top" pad="md">
             <h3 class="feature-title">{title}</h3>
             <p class="feature-body">{body}</p>
@@ -289,42 +188,12 @@ const honest: { title: string; body: string; accent: Accent }[] = [
     </div>
   </Section>
 
-  <!-- Where it is today -->
-  <Section borderTop>
-    <div class="container">
-      <Split ratio="1-1" gap="md" align="center">
-        <div>
-          <Eyebrow accent="chalk-2">Where it is today</Eyebrow>
-          <h2 class="display-md today__title">Usable now.<br />Built to grow.</h2>
-          <p class="body today__copy">
-            The core Build workflows are live. Install it into any workspace
-            with <code class="codechip">npx @kontourai/flow-agents init</code> —
-            and expect a phased rollout from here toward richer just-in-time
-            guidance, more work modes, and deeper governance.
-          </p>
-          <a href="https://kontourai.github.io/flow-agents/" target="_blank" rel="noopener" data-umami-event="flow-agents-bottom-docs" class="today__link">Read the docs →</a>
-        </div>
-
-        <Terminal title="quickstart">
-          <p><span class="prompt">$ </span><span class="cmd">npx @kontourai/flow-agents init --dest ~/dev/my-project</span></p>
-          <br />
-          <p class="muted">  then, in your agent:</p>
-          <p>  <span class="muted">"Use idea-to-backlog for this feature</span></p>
-          <p>  <span class="muted"> and create executable GitHub issues."</span></p>
-          <br />
-          <p>  <span class="muted">"Use fix-bug. Reproduce it, find root cause,</span></p>
-          <p>  <span class="muted"> fix it, and verify the regression path."</span></p>
-        </Terminal>
-      </Split>
-    </div>
-  </Section>
-
   <Section size="note" borderTop>
     <div class="container">
       <p class="closing-note">
-        Flow Agents applies Kontour Flow inside existing agent tools. Flow owns the
-        gates, transitions, and evidence; Flow Agents brings them — and optional
-        Veritas governance — into the coding agents you already use.
+        Flow Agents is the engine. Builder, Knowledge, Release-Evidence, and
+        Veritas-Governance are kits. The engine stays neutral so the marketplace
+        can grow without turning one workflow into the runtime's authority.
       </p>
     </div>
   </Section>
@@ -334,163 +203,55 @@ const honest: { title: string; body: string; accent: Accent }[] = [
 
 <style>
   .hero-copy--wide {
-    max-width: 520px;
+    max-width: 540px;
   }
-
-  .path-title {
+  .engine-title,
+  .kit-title,
+  .market-title,
+  .trust-title {
     margin-bottom: 1rem;
   }
-  .path-note {
-    margin-bottom: 2.5rem;
+  .engine-note,
+  .trust-note {
+    margin-bottom: 2.25rem;
   }
-  .fstep {
-    position: relative;
-    padding: 1.1rem 0.75rem;
-    background: var(--color-ink-1);
-    border: 1px solid var(--color-edge);
-    border-radius: 6px;
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-    text-align: center;
-  }
-  .fstep__n {
-    font-family: var(--font-mono);
-    font-size: 0.58rem;
-    color: var(--color-chalk-3);
-  }
-  .fstep__name {
-    font-family: var(--font-display);
-    font-size: 0.92rem;
-    color: var(--color-chalk-2);
-    letter-spacing: 0;
-  }
-  .path-routes {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: var(--color-chalk-3);
-    letter-spacing: 0;
-    margin-top: 1rem;
-  }
-
-  .promo__title {
-    font-family: var(--font-display);
-    font-size: 1.35rem;
-    font-weight: 400;
-    color: var(--color-chalk);
-    margin-bottom: 0.75rem;
-    letter-spacing: 0;
-  }
-  .promo__body {
-    font-size: 0.85rem;
-    color: var(--color-chalk-3);
-    line-height: 1.7;
-  }
-
-  .runtimes-title {
-    margin-bottom: 2.5rem;
-  }
-  .rt {
-    padding: 1.5rem;
-    background: var(--color-ink-1);
-    border: 1px solid var(--color-edge);
-    border-radius: 6px;
-  }
-  .rt__name {
-    font-family: var(--font-display);
-    font-size: 1.15rem;
-    color: var(--color-chalk);
-    margin-bottom: 0.5rem;
-    letter-spacing: 0;
-  }
-  .rt__detail {
-    font-size: 0.8rem;
-    color: var(--color-chalk-3);
-    line-height: 1.6;
-    margin: 0;
-  }
-  .rt-note {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    color: var(--color-chalk-3);
-    line-height: 1.6;
-    margin-top: 1.5rem;
-    max-width: 720px;
-  }
-
-  .bk__title,
-  .ip__title,
-  .today__title {
-    margin-bottom: 1.25rem;
-  }
-  .bk__copy,
-  .ip__copy {
+  .kit-copy,
+  .market-copy {
     margin-bottom: 1.5rem;
   }
-  .bk__copy--last,
-  .ip__copy--last {
+  .market-copy--last {
     margin-bottom: 0;
   }
-  .bk__copy--intro {
-    max-width: 840px;
-    margin-bottom: 2rem;
-  }
-  .bk__kit-label {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    color: var(--color-chalk-2);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    margin-bottom: 0.75rem;
-  }
-  .bk__terminal {
-    margin-top: 1.25rem;
-    margin-bottom: 1rem;
-  }
-  .bk__direction {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    color: var(--color-chalk-3);
-    line-height: 1.6;
-    border-left: 2px solid var(--color-edge);
-    padding-left: 0.75rem;
-    margin-top: 0.5rem;
-  }
-  .today__copy {
-    margin-bottom: 1.5rem;
-  }
-  .today__link {
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: var(--color-chalk-2);
-    text-decoration: none;
-  }
-
-  .skill {
+  .kit-card {
     display: flex;
+    min-height: 220px;
     flex-direction: column;
-    gap: 0.3rem;
-    padding: 0.9rem 1rem;
-    background: var(--color-ink-2);
+    gap: 1rem;
+    padding: 1.25rem;
+    color: inherit;
+    text-decoration: none;
+    background: var(--color-ink-1);
     border: 1px solid var(--color-edge);
-    border-radius: 4px;
+    border-top: 2px solid var(--accent);
+    border-radius: 6px;
   }
-  .skill__fn {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    color: var(--color-chalk-2);
+  .kit-card:hover {
+    border-color: color-mix(in srgb, var(--accent) 52%, var(--color-edge));
   }
-  .skill__desc {
-    font-size: 0.72rem;
+  .kit-card__name {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    color: var(--accent);
+    letter-spacing: 0;
+  }
+  .kit-card__job {
+    color: var(--color-chalk);
+    line-height: 1.55;
+  }
+  .kit-card__proof {
+    margin-top: auto;
     color: var(--color-chalk-3);
-    line-height: 1.4;
-  }
-
-  .closing-note {
-    color: var(--color-chalk-3);
-    font-size: 0.95rem;
-    line-height: 1.7;
-    font-style: italic;
-    margin: 0;
+    font-size: 0.82rem;
+    line-height: 1.6;
   }
 </style>
