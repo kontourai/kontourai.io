@@ -1,0 +1,167 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import Terminal from '@/components/Terminal.astro';
+import Section from '@/components/Section.astro';
+import Glow from '@/components/Glow.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+import Card from '@/components/Card.astro';
+import Grid from '@/components/Grid.astro';
+import Split from '@/components/Split.astro';
+import { getProductStatus, productBadge } from '@/lib/product-status';
+import type { Accent } from '@/lib/theme';
+
+const flowAgentsStatus = getProductStatus('flow-agents');
+
+const records: { title: string; body: string; accent: Accent }[] = [
+  { title: 'Source', accent: 'gold', body: 'Where the knowledge came from: file, issue, docs page, human decision, PR, or generated artifact.' },
+  { title: 'Provenance', accent: 'green', body: 'Who captured it, when it was observed, what changed, and which evidence backs the statement.' },
+  { title: 'Freshness', accent: 'cobalt-2', body: 'Whether the record is current enough to reuse, stale enough to recheck, or disputed enough to block reuse.' },
+  { title: 'Authority', accent: 'chalk-2', body: 'Whether the record is advisory, owner-reviewed, CI-backed, or an accepted exception.' },
+];
+
+const promises: { title: string; body: string; accent: Accent }[] = [
+  { title: 'Memory with receipts', accent: 'gold', body: 'The agent can reuse prior knowledge only when the record still carries usable source and provenance.' },
+  { title: 'Gated promotion', accent: 'green', body: 'Draft notes do not silently become durable guidance. The kit routes uncertain knowledge through review or recheck.' },
+  { title: 'Engine underneath', accent: 'chalk-2', body: 'Flow Agents supplies triggers, gates, adapters, evidence records, and Trust Bundle shape. Knowledge supplies the store workflow.' },
+];
+---
+
+<Layout
+  title="Knowledge Kit - Provenance-gated memory on Flow Agents · Kontour AI"
+  description="Knowledge Kit is the Flow Agents kit for durable, provenance-gated knowledge: reusable memory with sources, freshness, authority, and evidence."
+>
+  <Nav active="flow-agents" />
+
+  <Section contour size="hero" borderBottom>
+    <Glow accent="gold" position="top-right" />
+    <div class="container">
+      <Split ratio="1-1" gap="lg" align="center">
+        <div>
+          <div class="hero-badges">
+            <span class="trust-badge trust-badge--verified">Flow Agents {productBadge(flowAgentsStatus)}</span>
+            <span class="install-hint">kit: Knowledge</span>
+          </div>
+
+          <h1 class="product-title animate-fade-up">Knowledge Kit</h1>
+          <p class="product-tagline animate-fade-up delay-100" data-accent="gold">durable memory that has to show where it came from</p>
+
+          <p class="hero-copy hero-copy--wide animate-fade-up delay-200">
+            Knowledge Kit turns useful session memory into a durable,
+            provenance-gated knowledge store. It is for the facts, decisions,
+            repo conventions, product boundaries, and lessons an agent should be
+            able to reuse later without pretending chat history is evidence.
+            Flow Agents provides the engine underneath: structured triggers,
+            gates, adapters, sidecars, evidence, and trust records.
+          </p>
+
+          <div class="hero-actions animate-fade-up delay-300">
+            <a href="/flow-agents/" class="btn-primary" data-umami-event="knowledge-kit-hero-engine">Flow Agents engine -></a>
+            <a href="https://kontourai.github.io/flow-agents/" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="knowledge-kit-hero-docs">Docs</a>
+          </div>
+        </div>
+
+        <Terminal class="animate-fade-in delay-300" title="knowledge capture">
+          <p><span class="prompt">$ </span><span class="cmd">flow-agents kit activate knowledge</span></p>
+          <br />
+          <p class="info">  candidate: repo convention</p>
+          <p class="muted">  source: AGENTS.md + current diff</p>
+          <p class="muted">  subject: public-copy-boundary</p>
+          <br />
+          <p class="pass">  ✓ provenance present</p>
+          <p class="pass">  ✓ freshness checked</p>
+          <p class="warn">  REVIEW  authority required before durable promotion</p>
+          <br />
+          <p class="muted">  store: .kontourai/flow-agents/knowledge/</p>
+        </Terminal>
+      </Split>
+    </div>
+  </Section>
+
+  <Section size="lg">
+    <div class="container">
+      <Eyebrow gap="lg">Knowledge record</Eyebrow>
+      <Grid cols={4} gap="md">
+        {records.map(({ title, body, accent }) => (
+          <Card accent={accent} bar="top" pad="md">
+            <h3 class="feature-title">{title}</h3>
+            <p class="feature-body">{body}</p>
+          </Card>
+        ))}
+      </Grid>
+    </div>
+  </Section>
+
+  <Section tone="alt" borderTop borderBottom>
+    <div class="container">
+      <Split ratio="1-1" gap="md" align="center">
+        <div>
+          <Eyebrow accent="gold">The job</Eyebrow>
+          <h2 class="display-md knowledge-title">Stop treating memory as proof.</h2>
+          <p class="body knowledge-copy">
+            Agents need reusable context. They also need to know when context is
+            stale, private, disputed, source-less, or too weak to guide the next
+            change. Knowledge Kit makes that boundary explicit.
+          </p>
+          <p class="body knowledge-copy knowledge-copy--last">
+            A useful note can be captured. A promoted record needs provenance.
+            A stale record asks for recheck. A disputed record blocks or
+            escalates instead of silently steering the next session.
+          </p>
+        </div>
+
+        <Terminal title="knowledge gate">
+          <p class="pass">  PASS  source link exists</p>
+          <p class="pass">  PASS  public-boundary check clean</p>
+          <p class="pass">  PASS  owner label present</p>
+          <p class="warn">  BLOCK promotion: freshness expired</p>
+          <br />
+          <p class="muted">  next action: re-read source, then refresh record</p>
+          <p class="muted">  result: advisory until refreshed</p>
+        </Terminal>
+      </Split>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="container">
+      <Eyebrow gap="lg">What keeps memory useful</Eyebrow>
+      <Grid cols={3} gap="lg">
+        {promises.map(({ title, body, accent }) => (
+          <Card accent={accent} bar="top" pad="md">
+            <h3 class="feature-title">{title}</h3>
+            <p class="feature-body">{body}</p>
+          </Card>
+        ))}
+      </Grid>
+    </div>
+  </Section>
+
+  <Section size="note" borderTop>
+    <div class="container">
+      <p class="closing-note">
+        Knowledge Kit is a Flow Agents kit, not a privileged runtime feature.
+        It steers through declared triggers and gates like every other kit in
+        the catalog.
+      </p>
+    </div>
+  </Section>
+
+  <Footer active="flow-agents" />
+</Layout>
+
+<style>
+  .hero-copy--wide {
+    max-width: 535px;
+  }
+  .knowledge-title {
+    margin-bottom: 1.25rem;
+  }
+  .knowledge-copy {
+    margin-bottom: 1.5rem;
+  }
+  .knowledge-copy--last {
+    margin-bottom: 0;
+  }
+</style>

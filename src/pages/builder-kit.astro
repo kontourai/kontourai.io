@@ -1,0 +1,179 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import Terminal from '@/components/Terminal.astro';
+import Section from '@/components/Section.astro';
+import Glow from '@/components/Glow.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+import Card from '@/components/Card.astro';
+import Grid from '@/components/Grid.astro';
+import Split from '@/components/Split.astro';
+import { getProductStatus, productBadge } from '@/lib/product-status';
+import type { Accent } from '@/lib/theme';
+
+const flowAgentsStatus = getProductStatus('flow-agents');
+
+const path: { step: string; title: string; body: string; accent: Accent }[] = [
+  { step: '01', title: 'Shape', accent: 'gold', body: 'Turn a raw request into a backlog item with boundaries, acceptance criteria, and a reason to exist.' },
+  { step: '02', title: 'Build', accent: 'chalk-2', body: 'Plan the work, execute scoped waves, and route findings back instead of hiding them in a summary.' },
+  { step: '03', title: 'Publish', accent: 'green', body: 'Move from local evidence to PR, CI, release readiness, and explicit hold or merge decisions.' },
+  { step: '04', title: 'Learn', accent: 'cobalt-2', body: 'Capture corrections and repeated misses so the next run starts sharper than the last one.' },
+];
+
+const gates: { title: string; body: string; accent: Accent }[] = [
+  { title: 'Plan before code', accent: 'gold', body: 'Builder separates shaping, probing, and planning from implementation so the agent has a route, not just a prompt.' },
+  { title: 'Review before verify', accent: 'chalk-2', body: 'Critique happens before the proof pass, so obvious bugs and architecture misses route back early.' },
+  { title: 'Evidence before done', accent: 'green', body: 'Tests, browser checks, source inspection, CI state, and known gaps become durable artifacts under the Flow Agents engine.' },
+];
+---
+
+<Layout
+  title="Builder Kit - Verifiable agent delivery on Flow Agents · Kontour AI"
+  description="Builder Kit is the Flow Agents kit for verifiable agent delivery: shape work, build it, publish with evidence, and learn from corrections."
+>
+  <Nav active="flow-agents" />
+
+  <Section contour size="hero" borderBottom>
+    <Glow accent="chalk-2" position="top-right" />
+    <div class="container">
+      <Split ratio="1-1" gap="lg" align="center">
+        <div>
+          <div class="hero-badges">
+            <span class="trust-badge trust-badge--verified">Flow Agents {productBadge(flowAgentsStatus)}</span>
+            <span class="install-hint">kit: Builder</span>
+          </div>
+
+          <h1 class="product-title animate-fade-up">Builder Kit</h1>
+          <p class="product-tagline animate-fade-up delay-100" data-accent="chalk-2">verifiable agent delivery, from idea to learning</p>
+
+          <p class="hero-copy hero-copy--wide animate-fade-up delay-200">
+            Builder Kit is the agent-delivery kit on top of the Flow Agents
+            engine. It gives the agent a required path: shape the work, probe
+            the repo, plan the change, build it, review it, verify it, publish
+            with evidence, and learn from what reviewers correct. The engine
+            underneath supplies FlowDefinition interpretation, gates, adapters,
+            sidecars, and Trust Bundle evidence. Builder supplies the delivery
+            job.
+          </p>
+
+          <div class="hero-actions animate-fade-up delay-300">
+            <a href="/flow-agents/" class="btn-primary" data-umami-event="builder-kit-hero-engine">Flow Agents engine -></a>
+            <a href="https://kontourai.github.io/flow-agents/" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="builder-kit-hero-docs">Docs</a>
+          </div>
+        </div>
+
+        <Terminal class="animate-fade-in delay-300" title="builder.build">
+          <p><span class="prompt">$ </span><span class="cmd">flow-agents kit activate builder</span></p>
+          <p><span class="prompt">$ </span><span class="cmd">Use deliver for issue #214.</span></p>
+          <br />
+          <p class="pass">  ✓ pull-work</p>
+          <p class="pass">  ✓ pickup-probe</p>
+          <p class="pass">  ✓ plan-work</p>
+          <p class="pass">  ✓ execute-plan</p>
+          <p class="pass">  ✓ review-work</p>
+          <p class="warn">  BLOCK verify-work: rendered evidence missing</p>
+          <br />
+          <p class="muted">  next action: capture browser evidence, then resume</p>
+          <p class="muted">  state: .kontourai/flow-agents/builder.build/</p>
+        </Terminal>
+      </Split>
+    </div>
+  </Section>
+
+  <Section size="lg">
+    <div class="container">
+      <Eyebrow gap="lg">Delivery path</Eyebrow>
+      <Grid cols={4} gap="md">
+        {path.map(({ step, title, body, accent }) => (
+          <Card accent={accent} bar="top" pad="md">
+            <div class="step">{step}</div>
+            <h3 class="feature-title">{title}</h3>
+            <p class="feature-body">{body}</p>
+          </Card>
+        ))}
+      </Grid>
+    </div>
+  </Section>
+
+  <Section tone="alt" borderTop borderBottom>
+    <div class="container">
+      <Split ratio="1-1" gap="md" align="center">
+        <div>
+          <Eyebrow accent="chalk-2">What Builder sells</Eyebrow>
+          <h2 class="display-md builder-title">The agent can move fast. The workflow decides when it is allowed to advance.</h2>
+          <p class="body builder-copy">
+            Builder is not a new coding agent. It is the delivery discipline
+            around the one you already use. The kit tells the engine which flow
+            to run, what evidence each gate expects, where findings route back,
+            and when a human decision is required.
+          </p>
+          <p class="body builder-copy builder-copy--last">
+            That makes "done" a verifiable state: not a vibe, not a summary, not
+            a memory artifact from the last context window.
+          </p>
+        </div>
+
+        <Terminal title="builder.shape -> builder.build">
+          <p class="info">  builder.shape</p>
+          <p class="muted">  raw idea -> clarified backlog -> executable issue</p>
+          <br />
+          <p class="info">  builder.build</p>
+          <p class="muted">  selected work -> plan -> implementation -> evidence</p>
+          <br />
+          <p class="pass">  PASS  scoped implementation</p>
+          <p class="pass">  PASS  review finding resolved</p>
+          <p class="pass">  PASS  CI rerun matched git ground truth</p>
+          <p class="muted">  Trust Bundle: claims, evidence, gaps, exceptions</p>
+        </Terminal>
+      </Split>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="container">
+      <Eyebrow gap="lg">What keeps delivery honest</Eyebrow>
+      <Grid cols={3} gap="lg">
+        {gates.map(({ title, body, accent }) => (
+          <Card accent={accent} bar="top" pad="md">
+            <h3 class="feature-title">{title}</h3>
+            <p class="feature-body">{body}</p>
+          </Card>
+        ))}
+      </Grid>
+    </div>
+  </Section>
+
+  <Section size="note" borderTop>
+    <div class="container">
+      <p class="closing-note">
+        Builder Kit is one first-party kit. Flow Agents remains the neutral
+        engine underneath it, and other kits can run beside Builder without
+        inheriting Builder's delivery assumptions.
+      </p>
+    </div>
+  </Section>
+
+  <Footer active="flow-agents" />
+</Layout>
+
+<style>
+  .hero-copy--wide {
+    max-width: 535px;
+  }
+  .step {
+    font-family: var(--font-mono);
+    color: var(--accent);
+    font-size: 0.7rem;
+    margin-bottom: 1rem;
+  }
+  .builder-title {
+    margin-bottom: 1.25rem;
+  }
+  .builder-copy {
+    margin-bottom: 1.5rem;
+  }
+  .builder-copy--last {
+    margin-bottom: 0;
+  }
+</style>

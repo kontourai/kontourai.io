@@ -386,7 +386,7 @@ test("flow agents page presents agent-tool discipline and status", async ({ page
   await page.goto("/flow-agents/");
 
   await expect(page.getByRole("heading", { name: "Flow Agents", exact: true })).toBeVisible();
-  await expect(page.getByText("Flow and Veritas discipline inside the agents you already use").first()).toBeVisible();
+  await expect(page.getByText("trust machinery for the agent you already run").first()).toBeVisible();
 
   // Published status, not vapor: badge shows the released version from metadata
   const { products } = JSON.parse(
@@ -394,15 +394,17 @@ test("flow agents page presents agent-tool discipline and status", async ({ page
   );
   await expect(page.getByText(`v${products["flow-agents"].version}`).first()).toBeVisible();
 
-  // Real capabilities: runtimes, Flow Kits with the Builder Kit, and an install path
-  await expect(page.locator(".label-sm").filter({ hasText: "Flow Kits" }).first()).toBeVisible();
+  // Real capabilities: engine discipline, kit portfolio, runtime adapters, and an install path
+  await expect(page.getByText("product-neutral runtime for Flow Definitions, gates")).toBeVisible();
+  await expect(page.getByText("The engine", { exact: true })).toBeVisible();
+  await expect(page.getByText("Kit portfolio", { exact: true })).toBeVisible();
   await expect(page.getByText("Builder Kit").first()).toBeVisible();
-  await expect(page.getByText("kit install").first()).toBeVisible();
+  await expect(page.getByText("Knowledge Kit").first()).toBeVisible();
+  await expect(page.getByText("kits/catalog.json").first()).toBeVisible();
   await expect(page.getByText("Claude Code").first()).toBeVisible();
-  await expect(page.getByText("idea-to-backlog").first()).toBeVisible();
+  await expect(page.getByText("Codex").first()).toBeVisible();
   await expect(page.getByText("npx @kontourai/flow-agents init").first()).toBeVisible();
-  await expect(page.locator(".label-sm").filter({ hasText: "Example use case" })).toBeVisible();
-  await expect(page.getByText("from idea to backlog to plan")).toBeVisible();
+  await expect(page.getByText("not one blessed workflow")).toBeVisible();
 
   // Guard against the old "coming soon" framing regressing back in
   await expect(page.getByText("coming soon")).toHaveCount(0);
