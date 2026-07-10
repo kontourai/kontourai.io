@@ -7,6 +7,24 @@ import { createServer } from "vite";
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const registryBaseUrl = "https://registry.npmjs.org";
+
+// Registry-parity mode (issue #3): "strict" (default) treats an advertised
+// version that lags npm latest as an ERROR; "warn" downgrades ONLY that
+// live-registry mismatch to a warning. PR validation runs in warn mode so an
+// out-of-band package release (e.g. console 2.0.0 -> 2.0.1 in one day) can't
+// turn every open PR red — keeping drift-chasing where it belongs, in the
+// scheduled Pin Refresh automation and the strict main/deploy lane. All
+// repo-internal checks (missing metadata, page/metadata mismatch, sibling
+// manifest drift) stay errors in both modes.
+const registryParityMode = process.env.VALIDATE_REGISTRY_PARITY === "warn" ? "warn" : "strict";
+
+function registryParityIssue(message) {
+  if (registryParityMode === "warn") {
+    warn(`${message} (non-blocking: VALIDATE_REGISTRY_PARITY=warn; the scheduled Pin Refresh lane owns drift)`);
+  } else {
+    error(message);
+  }
+}
 const statusData = JSON.parse(await readFile(path.join(rootDir, "src/data/product-status.json"), "utf8"));
 
 let errorCount = 0;
@@ -174,7 +192,7 @@ async function checkVersionedPackage({ key, name, page }) {
       return;
     }
     if (result.latest !== advertised) {
-      error(`${name}: metadata v${advertised} does not match npm latest v${result.latest}`);
+      registryParityIssue(`${name}: metadata v${advertised} does not match npm latest v${result.latest}`);
       return;
     }
     console.log(`PASS  ${name}: metadata v${advertised} matches npm latest`);
@@ -252,13 +270,15 @@ async function checkFlowAgents() {
     if (advertisesNpmInstall) {
       console.log(`PASS  ${name}: published v${result.latest} and page advertises npm install`);
     } else {
-      error(`${name}: now published to npm (v${result.latest}); update ${pageFile} to advertise the npm install`);
+      // Live-registry state change (unpublished -> published), same class as
+      // version drift: warn on PRs, block on the strict lane.
+      registryParityIssue(`${name}: now published to npm (v${result.latest}); update ${pageFile} to advertise the npm install`);
     }
     return;
   }
 
   if (!advertisesGithubInstall) {
-    error(`${pageFile}: Flow Agents is unpublished but the page does not show the install.sh path`);
+    registryParityIssue(`${pageFile}: Flow Agents is unpublished but the page does not show the install.sh path`);
     return;
   }
   console.log(`PASS  ${name}: unpublished, page advertises GitHub install (install.sh)`);

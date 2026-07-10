@@ -13,6 +13,12 @@ import {
   deriveGaps,
   formatValue,
 } from '@/lib/receipts';
+import pkg from '../../../package.json';
+
+// Second re-derive path (#111): versions rendered from the package.json pins,
+// which check-receipts.mjs enforces and exercises on every validate run.
+const hachurePin = pkg.devDependencies.hachure;
+const ajvPin = pkg.devDependencies.ajv;
 
 export function getStaticPaths() {
   return receipts.map((receipt) => ({
@@ -200,6 +206,17 @@ function truncate(value: string, max = 220): string {
         <div><span class="cmd">    --input {receipt.slug}.trust.bundle --format summary</span></div>
         <div class="muted"># exit 0 prints the trust summary; a broken file exits 1</div>
       </Terminal>
+      <p class="section-lead recompute-second">
+        Want a second opinion from a separate implementation? The
+        <span class="mono-inline">hachure</span> reference CLI validates the same
+        file — two implementations, same verdict (both currently
+        Kontour-maintained):
+      </p>
+      <Terminal title="second opinion — the reference CLI">
+        <div><span class="prompt">$</span> <span class="cmd">npx -y -p ajv@{ajvPin} -p hachure@{hachurePin} hachure validate \</span></div>
+        <div><span class="cmd">    {receipt.slug}.trust.bundle</span></div>
+        <div class="pass">valid TrustBundle (schemaVersion {receipt.bundle.schemaVersion})</div>
+      </Terminal>
       <p class="section-lead recompute-foot">
         Prefer the library directly? The CLI just calls it:
       </p>
@@ -319,6 +336,9 @@ function truncate(value: string, max = 220): string {
   .recompute-foot {
     margin: 1.5rem 0 0.75rem;
     font-size: 0.9rem;
+  }
+  .recompute-second {
+    margin: 1.75rem 0 0.75rem;
   }
 
   .table-scroll {

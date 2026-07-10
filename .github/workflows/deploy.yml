@@ -1,3 +1,14 @@
+# Evidence lanes (issue #3):
+#   - PR VALIDATION EVIDENCE = the "Build, Test & Validate" check on a pull
+#     request (plus "Trust Verify"). Hermetic with one exception: npm-registry
+#     parity runs in warn mode on PRs so out-of-band package releases can't
+#     turn open PRs red.
+#   - DEPLOY/RELEASE READINESS EVIDENCE = the same "Build, Test & Validate"
+#     check on the main push (strict registry parity: a stale advertised
+#     version blocks publishing) plus "Deploy to Cloudflare Pages" and the
+#     post-deploy "Smoke Test" jobs, which only run on main.
+#   - VERSION DRIFT is owned by the scheduled Pin Refresh workflow, which
+#     regenerates product-status.json and opens the bump PR.
 name: Deploy
 
 on:
@@ -12,6 +23,8 @@ concurrency:
 
 permissions:
   contents: read
+  # Needed by the parity-mode guard to list a PR's changed files.
+  pull-requests: read
 
 jobs:
   verify:
@@ -23,6 +36,23 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+
+      # Issue #3: authoritative registry-parity gate. Dependency-free node
+      # script (no gh/jq — the job container lacks them) against the pristine
+      # checkout, BEFORE npm ci / build / tests — before any PR-controlled
+      # code executes — so in-job code (src modules, tests, npm lifecycle,
+      # .npmrc) cannot rewrite the compared inputs or the validator first.
+      # The script itself resolves warn|strict: warn only on pull_request
+      # events whose changed files (fetched from the API, fail-closed) avoid
+      # every parity-sensitive path; push/main is always strict. Residual
+      # (disclosed on /trust, tracked in issue #126): a PR editing this
+      # workflow or the gate script defeats any in-repo check; only
+      # owner-review protection on CI files closes that class.
+      - name: Registry parity (pre-install gate)
+        id: parity
+        run: node scripts/check-registry-parity.mjs
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
 
       - name: Setup Node
         uses: actions/setup-node@v6
@@ -44,6 +74,10 @@ jobs:
 
       - name: Validate
         run: npm run validate
+        env:
+          # Defense-in-depth re-run of the same parity set inside validate;
+          # the pre-install gate above is the authoritative one. Same mode.
+          VALIDATE_REGISTRY_PARITY: ${{ steps.parity.outputs.mode || 'strict' }}
 
   deploy:
     name: Deploy to Cloudflare Pages
