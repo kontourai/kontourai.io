@@ -378,9 +378,43 @@ test("developers page maps product ownership, lifecycle, and maturity on desktop
 
   // AC3: the "Six products. One job." architecture tour now lives here.
   await expect(page.getByRole("heading", { name: "Six products. One job." })).toBeVisible();
-  await expect(page.locator('[aria-label="Kontour product layer stack"]')).toBeVisible();
+  // Content refresh: the layer stack (a third restatement of ownership) is
+  // gone; the tour cards remain the product index.
+  await expect(page.locator('[aria-label="Kontour product layer stack"]')).toHaveCount(0);
   await expect(page.locator('[data-umami-event="developers-product-survey"]')).toHaveAttribute("href", "/survey/");
   await expect(page.locator('[data-umami-event="developers-product-console"]')).toHaveAttribute("href", "/console/");
+
+  // Content refresh: quickstart with REAL commands + verify-us links, pins
+  // rendered from package.json so the advertised stack can't drift from CI.
+  await expect(page.getByRole("heading", { name: "Two commands, then the diagrams." })).toBeVisible();
+  // Honest per-runtime scoping in the install comment: blocking vs advisory.
+  await expect(page.getByText("advisory on the rest (matrix on /trust)")).toBeVisible();
+  // Quickstart renders before the product tour (examples first).
+  const quickstartBox = await page.getByRole("heading", { name: "Two commands, then the diagrams." }).boundingBox();
+  const tourBox = await page.getByRole("heading", { name: "Six products. One job." }).boundingBox();
+  expect(quickstartBox).not.toBeNull();
+  expect(tourBox).not.toBeNull();
+  expect(quickstartBox.y).toBeLessThan(tourBox.y);
+  // products.ts runtime list is current (also renders on this page's tour card).
+  await expect(page.getByText("Claude Code, Codex, Kiro, opencode, pi, and GitHub Actions").first()).toBeVisible();
+  await expect(page.getByText("npx @kontourai/flow-agents init")).toBeVisible();
+  const devPins = JSON.parse(
+    await readFile(new URL("../package.json", import.meta.url), "utf8"),
+  ).devDependencies;
+  await expect(page.getByText(`npx -y -p ajv@${devPins.ajv} -p hachure@${devPins.hachure}`)).toBeVisible();
+  await expect(page.locator('[data-umami-event="developers-quickstart-receipts"]')).toHaveAttribute("href", "/receipts/");
+  await expect(page.locator('[data-umami-event="developers-quickstart-trust"]')).toHaveAttribute("href", "/trust/");
+
+  // Engine + kits framing is current (post-#116 positioning).
+  await expect(page.getByText("with Builder and Knowledge as installable kits on top")).toBeVisible();
+
+  // Maturity cards reflect shipped reality, honestly scoped.
+  await expect(page.getByText("recompute under two validators").first()).toBeVisible();
+  await expect(page.getByText("AWS Strands framework-adapter previews")).toBeVisible();
+
+  // Where-to-go-next includes the receipts and trust surfaces.
+  await expect(page.locator('[data-umami-event="developers-next-receipts"]')).toHaveAttribute("href", "/receipts/");
+  await expect(page.locator('[data-umami-event="developers-next-trust"]')).toHaveAttribute("href", "/trust/");
 
   await expect(page.getByText("Surface owns trust records.")).toBeVisible();
   await expect(page.getByText("Flow owns process semantics.")).toBeVisible();
