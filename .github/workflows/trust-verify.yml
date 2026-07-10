@@ -41,10 +41,20 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           files=$(gh api "repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files" --paginate --jq '.[].filename')
+          # ALLOWLIST, fail-closed: warn only when every changed file is
+          # provably parity-irrelevant content. A denylist kept losing to new
+          # execution-influencing files (package.json scripts, .npmrc
+          # script-shell, helper scripts) — anything not recognized below,
+          # including a brand-new file type, defaults to strict.
           mode=warn
-          if echo "$files" | grep -qE '^(src/data/product-status\.json|src/pages/flow-agents\.astro|scripts/validate\.mjs|\.github/workflows/)'; then
-            mode=strict
-          fi
+          while IFS= read -r f; do
+            [ -z "$f" ] && continue
+            case "$f" in
+              src/pages/flow-agents.astro) mode=strict; break ;;
+              src/pages/*|src/components/*|src/styles/*|src/lib/*|src/layouts/*|src/data/receipts/*|public/*|tests/*|docs/*|*.md) ;;
+              *) mode=strict; break ;;
+            esac
+          done <<<"$files"
           echo "parity-sensitive file check -> mode=$mode"
           echo "mode=$mode" >> "$GITHUB_OUTPUT"
       # The external anchor: re-run our real verify fresh + reconcile any delivered bundle.
