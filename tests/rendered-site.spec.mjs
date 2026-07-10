@@ -31,6 +31,27 @@ test("homepage leads with a single Flow Agents headline and Survey as the proof 
   await expect(page.getByText("1 · The claim")).toBeVisible();
   await expect(page.getByText("2 · The capture")).toBeVisible();
   await expect(page.getByText("3 · The recompute")).toBeVisible();
+
+  // #113: recognition moments — examples first, mechanism second.
+  await expect(page.getByRole("heading", { name: "You've watched this happen." })).toBeVisible();
+  // Credibility ordering: the backstop/memory case leads (believable AND implemented).
+  await expect(page.getByText('"Said done — never actually ran it."')).toBeVisible();
+  await expect(page.getByText('"The summary said pass; the log said fail."')).toBeVisible();
+  await expect(page.getByText('"Masked the exit code."')).toBeVisible();
+  await expect(page.getByText('"Edited the evidence record."')).toBeVisible();
+  await expect(page.getByText('"Made the gate green under pressure."')).toBeVisible();
+  await expect(page.locator(".narrator__moment")).toHaveCount(5);
+  const firstMoment = page.locator(".narrator__moment").first();
+  await expect(firstMoment.locator(".narrator__quote")).toHaveText('"Said done — never actually ran it."');
+  // Residuals stated as gaps, never as catches (marketing-hooks house rule).
+  await expect(page.getByText("Honest residuals:")).toBeVisible();
+  await expect(page.locator('[data-umami-event="home-narrator-trust"]')).toHaveAttribute("href", "/trust/");
+  // Examples-first placement: the recognition block renders above the mechanism.
+  const narratorBox = await page.getByRole("heading", { name: "You've watched this happen." }).boundingBox();
+  const toothbrushBox = await page.getByRole("heading", { name: "Don't ask the agent. Check the toothbrush." }).boundingBox();
+  expect(narratorBox).not.toBeNull();
+  expect(toothbrushBox).not.toBeNull();
+  expect(narratorBox.y).toBeLessThan(toothbrushBox.y);
   await expect(page.locator('[data-umami-event="home-mechanism-receipts"]')).toHaveAttribute("href", "/receipts/");
   await expect(page.locator('[data-umami-event="home-mechanism-trust"]')).toHaveAttribute("href", "/trust/");
 

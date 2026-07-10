@@ -6,6 +6,48 @@ import Section from '@/components/Section.astro';
 import Glow from '@/components/Glow.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
 import Subscribe from '@/components/Subscribe.astro';
+
+// Recognition moments (#113), ground-truthed against the flow-agents runtime
+// (ops/strategy/marketing-hooks.md, 2026-07-07): every "caught by" below is a
+// catch that actually exists in the shipped hooks. Ordering is deliberate —
+// the backstop/memory case leads because it is both believable and
+// implemented. Do NOT add moments whose catch is a named residual (stale
+// pass after later edits, narrowed scope, edited tests) — those are
+// disclosed as gaps in the residual line, never as catches.
+const narratorMoments = [
+  {
+    moment: 'Said done — never actually ran it.',
+    detail:
+      "Long session, compacted context. The agent reports the check it remembers intending to run. Not a liar — an unreliable narrator trusting its own memory.",
+    caught:
+      "no capture exists for that command, so the gate re-runs the project's own declared check itself — not the agent's story. A real failure surfaces here.",
+  },
+  {
+    moment: 'The summary said pass; the log said fail.',
+    detail:
+      'The prose wrap-up claims green; the harness-written capture recorded exit 1 while the command actually ran.',
+    caught:
+      'claim and capture disagree, so the turn is blocked as a caught false-completion. The narration never outranks the log.',
+  },
+  {
+    moment: 'Masked the exit code.',
+    detail: 'npm test || true, a trailing exit 0 — the command can no longer fail.',
+    caught:
+      'the laundering screen rejects the command as evidence before the claim is even recorded — at the local gate and again in CI.',
+  },
+  {
+    moment: 'Edited the evidence record.',
+    detail: 'Hand-fix the stored result to say pass.',
+    caught:
+      'editing a record breaks its self-hash; the tamper-evident chain flags it.',
+  },
+  {
+    moment: 'Made the gate green under pressure.',
+    detail: 'Write whatever record turns the gate green.',
+    caught:
+      "status is recomputed from evidence the agent doesn't author, and CI re-runs the declared checks fresh — an identity the agent can't mint.",
+  },
+];
 ---
 
 <Layout
@@ -60,6 +102,40 @@ import Subscribe from '@/components/Subscribe.astro';
       <div class="enforce__actions">
         <a href="/flow-agents/" class="btn-ghost" data-umami-event="home-enforce-flow-agents">See the Builder Kit loop →</a>
       </div>
+    </div>
+  </Section>
+
+  <!-- Recognition moments: the unreliable narrator (#113) ------------------ -->
+  <Section borderTop>
+    <div class="container container--readable narrator">
+      <Eyebrow accent="gold">The unreliable narrator</Eyebrow>
+      <h2 class="display-md narrator__title">You've watched this happen.</h2>
+      <p class="body measure narrator__copy">
+        Agents rarely lie — they narrate. Long session, compacted context, and
+        the story drifts from the log. Five moments every agent user
+        recognizes, and how each one gets caught:
+      </p>
+
+      <ul class="narrator__moments">
+        {narratorMoments.map(({ moment, detail, caught }) => (
+          <li class="narrator__moment">
+            <p class="narrator__quote">"{moment}"</p>
+            <p class="body narrator__detail">{detail}</p>
+            <p class="narrator__caught"><span class="label-sm narrator__caught-label">Caught by</span> {caught}</p>
+          </li>
+        ))}
+      </ul>
+
+      <p class="fine narrator__residual">
+        Honest residuals: a genuinely-passed check isn't auto-invalidated when
+        the code changes afterward, a narrowed test scope isn't detected, and
+        an edited test slips the runtime gate. We name what isn't caught —
+        <a href="/trust/" data-umami-event="home-narrator-trust">the full list is on the trust page</a>.
+      </p>
+
+      <p class="body measure narrator__handoff">
+        The mechanism below is just the answer to "so how was that caught?"
+      </p>
     </div>
   </Section>
 
@@ -233,6 +309,57 @@ import Subscribe from '@/components/Subscribe.astro';
     display: flex;
     gap: 0.75rem;
     flex-wrap: wrap;
+  }
+
+  /* Recognition moments (#113) ------------------------------------------- */
+  .narrator__title {
+    margin-bottom: 1rem;
+  }
+  .narrator__copy {
+    margin-bottom: 2.25rem;
+  }
+  .narrator__moments {
+    list-style: none;
+    margin: 0 0 2rem;
+    padding: 0;
+    display: grid;
+    gap: 1.6rem;
+  }
+  .narrator__moment {
+    border-left: 2px solid var(--color-edge-2);
+    padding-left: 1.25rem;
+  }
+  .narrator__quote {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--color-chalk);
+    margin: 0 0 0.4rem;
+  }
+  .narrator__detail {
+    margin: 0 0 0.5rem;
+    max-width: 66ch;
+  }
+  .narrator__caught {
+    font-size: 0.9rem;
+    color: var(--color-chalk-2);
+    margin: 0;
+    max-width: 70ch;
+  }
+  .narrator__caught-label {
+    color: var(--color-green);
+    margin-right: 0.35rem;
+  }
+  .narrator__residual {
+    margin: 0 0 1.75rem;
+    max-width: 72ch;
+    color: var(--color-chalk-2);
+  }
+  .narrator__residual a {
+    color: var(--color-chalk-2);
+  }
+  .narrator__handoff {
+    margin: 0;
+    color: var(--color-chalk-2);
   }
 
   /* Mechanism -------------------------------------------------------------- */
