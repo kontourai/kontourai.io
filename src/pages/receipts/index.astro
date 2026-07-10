@@ -8,7 +8,19 @@ import Eyebrow from '@/components/Eyebrow.astro';
 import Card from '@/components/Card.astro';
 import Grid from '@/components/Grid.astro';
 import Terminal from '@/components/Terminal.astro';
-import { receipts, statusCounts, badgeVariant } from '@/lib/receipts';
+import { receipts, statusCounts, badgeVariant, getReceipt } from '@/lib/receipts';
+
+// Lead exhibit (#107): the blocked run opens the page. Everything shown about
+// it is derived from the committed bundle, same as the cards below — the story
+// beats read the claim/evidence/policy objects, not hand-authored copy.
+const blocked = getReceipt('governance-readiness-not-ready')!;
+const blockedClaim = blocked.bundle.claims[0];
+const blockedVerdict = blockedClaim.value as {
+  verdict: string;
+  blocking: { failedRequirements: string[] };
+};
+const blockedEvidence = blocked.bundle.evidence[0];
+const blockedPolicy = blocked.bundle.policies[0];
 ---
 
 <Layout
@@ -39,9 +51,74 @@ import { receipts, statusCounts, badgeVariant } from '@/lib/receipts';
     </div>
   </Section>
 
+  <!-- Lead exhibit: the blocked run (demo, not archive) -->
+  <Section tone="alt" size="lg" borderBottom>
+    <Glow accent="red" position="top-left" />
+    <div class="container container--readable">
+      <Eyebrow accent="red">Lead exhibit — a blocked run</Eyebrow>
+      <h2 class="section-heading">The receipt that says no.</h2>
+      <p class="section-lead">
+        Green receipts prove the format works. This one proves the <em>gate</em> works:
+        a real readiness evaluation where the evidence came back failing and the verdict
+        refused to pass. Every fact below is read from the bundle itself — open it and
+        check.
+      </p>
+
+      <div class="blocked-story">
+        <div class="blocked-beat" data-accent="chalk-2">
+          <p class="label-sm blocked-beat__label">The claim on the table</p>
+          <p class="body blocked-beat__body">
+            A <span class="mono-inline">{blockedClaim.claimType}</span> on a pinned
+            working tree, impact <span class="mono-inline">{blockedClaim.impactLevel}</span>.
+            Policy: {blockedPolicy.acceptanceCriteria[0]}
+          </p>
+        </div>
+        <div class="blocked-beat" data-accent="gold">
+          <p class="label-sm blocked-beat__label">What the capture showed</p>
+          <p class="body blocked-beat__body">
+            "{blockedEvidence.excerptOrSummary}" — recorded with
+            <span class="mono-inline">passing: {String(blockedEvidence.passing)}</span> by
+            <span class="mono-inline">{blockedEvidence.collectedBy}</span>. The required
+            artifacts weren't there, so no verified evidence event exists.
+          </p>
+        </div>
+        <div class="blocked-beat" data-accent="red">
+          <p class="label-sm blocked-beat__label">Why the gate refused</p>
+          <p class="body blocked-beat__body">
+            The verdict derives to <span class="mono-inline">{blockedVerdict.verdict}</span> and
+            the claim's status to <span class="mono-inline">{blockedClaim.status}</span> —
+            computed from the evidence, not narrated by the agent. Anything consuming this
+            bundle refuses on <span class="mono-inline">{blockedVerdict.blocking.failedRequirements[0]}</span>;
+            nothing depends on the agent telling the truth about its own work.
+          </p>
+        </div>
+      </div>
+
+      <div class="blocked-actions">
+        <a
+          class="btn-ghost"
+          href={`/receipts/${blocked.slug}/`}
+          data-umami-event="receipts-lead-blocked"
+        >
+          Open the blocked receipt →
+        </a>
+        <a
+          class="receipt-download"
+          href={`/receipts/${blocked.slug}.trust.bundle`}
+          download
+          data-umami-event="receipts-lead-download"
+        >
+          Download .bundle
+        </a>
+      </div>
+    </div>
+  </Section>
+
   <!-- Receipt catalog -->
   <Section size="lg" borderBottom>
     <div class="container container--readable">
+      <Eyebrow accent="gold">The archive</Eyebrow>
+      <h2 class="section-heading archive-heading">Every published receipt, green or not.</h2>
       <Grid min="300" gap="lg">
         {receipts.map((receipt) => {
           const counts = statusCounts(receipt.bundle);
@@ -242,5 +319,33 @@ import { receipts, statusCounts, badgeVariant } from '@/lib/receipts';
     margin-top: 1.5rem;
     margin-bottom: 0;
     font-size: 0.9rem;
+  }
+
+  /* Lead exhibit: the blocked run */
+  .blocked-story {
+    display: grid;
+    gap: 1.25rem;
+    margin: 2rem 0;
+  }
+  .blocked-beat {
+    border-left: 2px solid var(--accent, var(--color-edge-2));
+    padding-left: 1.1rem;
+  }
+  .blocked-beat__label {
+    color: var(--accent, var(--color-chalk-3));
+    margin: 0 0 0.4rem;
+  }
+  .blocked-beat__body {
+    margin: 0;
+    max-width: 72ch;
+  }
+  .blocked-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+  }
+  .archive-heading {
+    margin-bottom: 2rem;
   }
 </style>

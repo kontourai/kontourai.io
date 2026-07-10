@@ -422,6 +422,25 @@ test("receipts index lists the real pipeline bundles with downloads", async ({ p
   await expect(page.getByText("Kontour's own pipeline receipts")).toBeVisible();
   await expect(page.getByText(/an outside team has adopted it/)).toBeVisible();
 
+  // #107: the page LEADS with the blocked run — demo, not archive.
+  await expect(page.getByRole("heading", { name: "The receipt that says no." })).toBeVisible();
+  // The story beats are derived from the bundle, not hand-authored.
+  await expect(page.getByText("software-readiness-verdict").first()).toBeVisible();
+  await expect(page.getByText("required-veritas-cli-artifacts").first()).toBeVisible();
+  await expect(page.getByText("passing: false")).toBeVisible();
+  await expect(page.locator('[data-umami-event="receipts-lead-blocked"]')).toHaveAttribute(
+    "href",
+    "/receipts/governance-readiness-not-ready/",
+  );
+  await expect(page.locator('[data-umami-event="receipts-lead-download"]')).toHaveAttribute(
+    "href",
+    "/receipts/governance-readiness-not-ready.trust.bundle",
+  );
+  // The blocked exhibit renders ABOVE the archive grid.
+  const blockedBox = await page.getByRole("heading", { name: "The receipt that says no." }).boundingBox();
+  const archiveBox = await page.getByRole("heading", { name: "Every published receipt, green or not." }).boundingBox();
+  expect(blockedBox.y).toBeLessThan(archiveBox.y);
+
   // All four receipts are present.
   await expect(page.getByRole("heading", { name: "Flow Agents delivery bundle" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Governance Kit readiness — ready verdict" })).toBeVisible();
@@ -435,8 +454,9 @@ test("receipts index lists the real pipeline bundles with downloads", async ({ p
     "governance-readiness-not-ready",
     "flow-agents-ownership-guard",
   ]) {
-    await expect(page.locator(`a[href="/receipts/${slug}/"]`)).toBeVisible();
-    await expect(page.locator(`a[href="/receipts/${slug}.trust.bundle"][download]`)).toBeVisible();
+    // .first(): the not-ready receipt's links also appear in the lead exhibit (#107).
+    await expect(page.locator(`a[href="/receipts/${slug}/"]`).first()).toBeVisible();
+    await expect(page.locator(`a[href="/receipts/${slug}.trust.bundle"][download]`).first()).toBeVisible();
   }
 
   // Each card names its own exact "check it yourself" command.
