@@ -191,6 +191,12 @@ test("production analytics scripts are configured defensively", async ({ page })
 test("flow page explains process transparency and product boundaries", async ({ page }) => {
   await page.goto("/flow/");
 
+  // #91 F12: published packages link their npmjs page (parity with Surface/Survey/Veritas).
+  await expect(page.locator('[data-umami-event="flow-hero-npm"]')).toHaveAttribute(
+    "href",
+    "https://www.npmjs.com/package/@kontourai/flow",
+  );
+
   await expect(page.getByText("required paths, gates, evidence, and exceptions made inspectable")).toBeVisible();
   await expect(page.getByText("A trace says what happened.")).toBeVisible();
   await expect(page.getByText("Flow says why it was enough.")).toBeVisible();
@@ -424,6 +430,12 @@ test("flow agents page presents agent-tool discipline and status", async ({ page
   // Guard against the old "coming soon" framing regressing back in
   await expect(page.getByText("coming soon")).toHaveCount(0);
 
+  // #91 F12: published packages link their npmjs page (parity with Surface/Survey/Veritas).
+  await expect(page.locator('[data-umami-event="flow-agents-hero-npm"]')).toHaveAttribute(
+    "href",
+    "https://www.npmjs.com/package/@kontourai/flow-agents",
+  );
+
   // #110: the shared enforcement matrix is applied here — badges come from
   // EnforcementBadge (data-enforcement fingerprint), not hand-rolled spans.
   await expect(page.getByRole("heading", { name: "Where the gate actually blocks, per runtime" })).toBeVisible();
@@ -597,6 +609,10 @@ test("trust page states the honest ceiling, the bypass list, the assurance dial,
   // CI authority is scoped to repos with the required check configured — never universal.
   await expect(page.getByText("with the Trust Verify job wired in").first()).toBeVisible();
   await expect(page.getByText("installing the tool doesn't configure your branch protection")).toBeVisible();
+  // Site-parity claim stays exactly as strong as the branch-protection fact:
+  // required + no-bypass, with the workflow-protection gap disclosed.
+  await expect(page.getByText("This site's own repo now requires the check too")).toBeVisible();
+  await expect(page.getByText("workflow definition isn't yet owner-review-protected")).toBeVisible();
   await expect(page.getByText("on where we build Flow Agents, off by default")).toBeVisible();
   await expect(page.getByText("It is the irreducible human boundary").first()).toBeVisible();
 
