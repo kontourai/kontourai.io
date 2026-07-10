@@ -11,11 +11,12 @@ import Terminal from '@/components/Terminal.astro';
 import { receipts, statusCounts, badgeVariant, getReceipt } from '@/lib/receipts';
 import pkg from '../../../package.json';
 
-// Second re-derive path (#111): the advertised hachure command renders the
-// exact pinned version from package.json, and check-receipts.mjs runs that
-// same pinned CLI over every bundle in `validate` — the copy below may only
-// exist while that check is green.
+// Second re-derive path (#111): the advertised hachure/ajv commands render
+// the exact pinned versions from package.json, and check-receipts.mjs runs
+// that same pinned stack over every bundle in `validate` — the copy below may
+// only exist while that check is green.
 const hachurePin = pkg.devDependencies.hachure;
+const ajvPin = pkg.devDependencies.ajv;
 
 // Lead exhibit (#107): the blocked verdict opens the page. Everything shown
 // about it is derived from the committed bundle, same as the cards below — the
@@ -228,12 +229,15 @@ if (!blockedPolicy?.acceptanceCriteria?.length) {
       </Terminal>
       <p class="section-lead recompute-second">
         Don't take one implementation's word for it either. Every bundle here
-        also validates under the independent <span class="mono-inline">hachure</span> reference
-        CLI — two implementations, same verdict — and our CI runs both validators
-        over every bundle on every change:
+        also validates under the separate <span class="mono-inline">hachure</span> reference
+        CLI — two implementations, same verdict. A green check on this repo
+        means every published bundle passed both validators. Honest scope:
+        the implementations are separate (a handwritten validator vs the
+        spec's normative schemas), but both are currently Kontour-maintained —
+        implementation-independent, not yet organizationally independent.
       </p>
       <Terminal title="second opinion — the reference CLI">
-        <div><span class="prompt">$</span> <span class="cmd">npx -y -p ajv -p hachure@{hachurePin} hachure validate \</span></div>
+        <div><span class="prompt">$</span> <span class="cmd">npx -y -p ajv@{ajvPin} -p hachure@{hachurePin} hachure validate \</span></div>
         <div><span class="cmd">    governance-readiness-not-ready.trust.bundle</span></div>
         <div class="pass">valid TrustBundle (schemaVersion 5)</div>
       </Terminal>

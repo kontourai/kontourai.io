@@ -43,6 +43,13 @@ if (!/^\d+\.\d+\.\d+$/.test(hachurePin)) {
     `package.json: hachure devDependency must be an exact semver pin (found "${hachurePin || "none"}")`,
   );
 }
+// ajv is hachure validate's runtime engine; the advertised visitor command
+// pins it too, so the pin must be exact and direct for CI to exercise the
+// same stack a visitor runs.
+const ajvPin = pkg.devDependencies?.ajv ?? "";
+if (!/^\d+\.\d+\.\d+$/.test(ajvPin)) {
+  error(`package.json: ajv devDependency must be an exact semver pin (found "${ajvPin || "none"}")`);
+}
 const hachureBin = path.join(
   rootDir,
   "node_modules",
