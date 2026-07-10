@@ -386,7 +386,17 @@ test("developers page maps product ownership, lifecycle, and maturity on desktop
 
   // Content refresh: quickstart with REAL commands + verify-us links, pins
   // rendered from package.json so the advertised stack can't drift from CI.
-  await expect(page.getByRole("heading", { name: "Two commands before any diagram." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Two commands, then the diagrams." })).toBeVisible();
+  // Honest per-runtime scoping in the install comment: blocking vs advisory.
+  await expect(page.getByText("advisory (no stop hook) on the rest")).toBeVisible();
+  // Quickstart renders before the product tour (examples first).
+  const quickstartBox = await page.getByRole("heading", { name: "Two commands, then the diagrams." }).boundingBox();
+  const tourBox = await page.getByRole("heading", { name: "Six products. One job." }).boundingBox();
+  expect(quickstartBox).not.toBeNull();
+  expect(tourBox).not.toBeNull();
+  expect(quickstartBox.y).toBeLessThan(tourBox.y);
+  // products.ts runtime list is current (also renders on this page's tour card).
+  await expect(page.getByText("Claude Code, Codex, Kiro, opencode, pi, and GitHub Actions").first()).toBeVisible();
   await expect(page.getByText("npx @kontourai/flow-agents init")).toBeVisible();
   const devPins = JSON.parse(
     await readFile(new URL("../package.json", import.meta.url), "utf8"),

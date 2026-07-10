@@ -52,7 +52,7 @@ export const products: Product[] = [
     accent: "chalk-2",
     repo: "https://github.com/kontourai/flow-agents",
     homepage: {
-      job: "Flow and Veritas discipline inside Claude Code, Codex, Kiro, and GitHub Actions — without becoming a runtime.",
+      job: "Flow and Veritas discipline inside Claude Code, Codex, Kiro, opencode, pi, and GitHub Actions — without becoming a runtime.",
       relation: "Carries Flow and Veritas discipline into the agent tools you already run, without becoming a runtime.",
     },
     developerComposition: {

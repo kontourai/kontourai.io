@@ -115,7 +115,7 @@ const labRepos = [
 
 <Layout
   title="Developers — Kontour product map and ownership boundaries · Kontour AI"
-  description="A developer-focused map of how Surface, Flow, Veritas, Flow Agents, Builder Kit, and Console compose without conflating ownership or maturity."
+  description="A developer-focused map of how Surface, Flow, Veritas, the Flow Agents engine with its kits, and Console compose without conflating ownership or maturity."
 >
   <Nav active="developers" />
 
@@ -155,6 +155,39 @@ const labRepos = [
     </div>
   </Section>
 
+  <!-- Quickstart: real commands first, diagrams after (content refresh) ---- -->
+  <Section borderBottom>
+    <div class="container">
+      <Eyebrow gap="sm" accent="green">Start here</Eyebrow>
+      <h2 class="display-md measure-lg">Two commands, then the diagrams.</h2>
+      <p class="body measure quickstart-intro">
+        Install the engine into a workspace you already use, then check our
+        receipts before you believe our copy — every published bundle
+        recomputes under two validators, and the same commands run in this
+        site's own CI on every change.
+      </p>
+      <Grid cols={2} gap="lg" align="start">
+        <Terminal title="install the engine + kits">
+          <p><span class="prompt">$ </span><span class="cmd">npx @kontourai/flow-agents init</span></p>
+          <p class="muted"># hooks + adapters for Claude Code, Codex, Kiro,</p>
+          <p class="muted"># opencode, and pi — blocking gates on the first</p>
+          <p class="muted"># three; advisory (no stop hook) on the rest</p>
+        </Terminal>
+        <Terminal title="verify a receipt, second opinion included">
+          <p class="muted"># grab the bundle from /receipts/ first</p>
+          <p><span class="prompt">$ </span><span class="cmd">npx -y -p ajv@{ajvPin} -p hachure@{hachurePin} \</span></p>
+          <p><span class="cmd">    hachure validate flow-agents-delivery.trust.bundle</span></p>
+          <p class="pass">valid TrustBundle (schemaVersion 5)</p>
+        </Terminal>
+      </Grid>
+      <div class="quickstart-links">
+        <a href="/receipts/" class="btn-ghost" data-umami-event="developers-quickstart-receipts">Download real receipts →</a>
+        <a href="/trust/" class="btn-ghost" data-umami-event="developers-quickstart-trust">Read the bypass list →</a>
+        <a href="https://kontourai.github.io/flow-agents/" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="developers-quickstart-docs">Engine docs →</a>
+      </div>
+    </div>
+  </Section>
+
   <!-- Architecture tour: the product line (moved off the index lead) ------ -->
   <Section id="product-line" tone="alt" borderTop borderBottom>
     <div class="container">
@@ -187,36 +220,6 @@ const labRepos = [
     </div>
   </Section>
 
-  <!-- Quickstart: real commands, verifiable claims (content refresh) ------- -->
-  <Section borderBottom>
-    <div class="container">
-      <Eyebrow gap="sm" accent="green">Start here</Eyebrow>
-      <h2 class="display-md measure-lg">Two commands before any diagram.</h2>
-      <p class="body measure quickstart-intro">
-        Install the engine into a workspace you already use, then check our
-        receipts before you believe our copy — every published bundle
-        recomputes under two validators, and the same commands run in this
-        site's own CI on every change.
-      </p>
-      <Grid cols={2} gap="lg" align="start">
-        <Terminal title="install the engine + kits">
-          <p><span class="prompt">$ </span><span class="cmd">npx @kontourai/flow-agents init</span></p>
-          <p class="muted"># wires gates, adapters, and kit validation into</p>
-          <p class="muted"># Claude Code, Codex, Kiro, opencode, or pi</p>
-        </Terminal>
-        <Terminal title="verify a receipt, second opinion included">
-          <p><span class="prompt">$ </span><span class="cmd">npx -y -p ajv@{ajvPin} -p hachure@{hachurePin} \</span></p>
-          <p><span class="cmd">    hachure validate flow-agents-delivery.trust.bundle</span></p>
-          <p class="pass">valid TrustBundle (schemaVersion 5)</p>
-        </Terminal>
-      </Grid>
-      <div class="quickstart-links">
-        <a href="/receipts/" class="btn-ghost" data-umami-event="developers-quickstart-receipts">Download real receipts →</a>
-        <a href="/trust/" class="btn-ghost" data-umami-event="developers-quickstart-trust">Read the bypass list →</a>
-        <a href="https://kontourai.github.io/flow-agents/" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="developers-quickstart-docs">Engine docs →</a>
-      </div>
-    </div>
-  </Section>
 
   <Section id="ownership" size="lg">
     <div class="container">
@@ -355,29 +358,18 @@ const labRepos = [
 
   <Section tone="alt" borderTop>
     <div class="container">
-      <Grid cols={2} gap="lg" align="start">
-        <Terminal title="inspect the product line">
-          <p><span class="prompt">$ </span><span class="cmd">open /developers</span></p>
-          <br />
-          <p class="pass">  ✓ Surface      trust records and reports</p>
-          <p class="pass">  ✓ Flow         paths, gates, route-backs</p>
-          <p class="pass">  ✓ Veritas      repo readiness evidence</p>
-          <p class="pass">  ✓ Flow Agents  engine + kits, runtime hooks</p>
-          <p class="pass">  ✓ Receipts     recomputable trust bundles</p>
-          <p class="info">  → Console      operating view, not authority</p>
-        </Terminal>
-
-        <div class="next-links">
-          <Eyebrow>Where to go next</Eyebrow>
-          <a href="/surface/" data-umami-event="developers-next-surface">Inspect Surface trust records</a>
-          <a href="/flow/" data-umami-event="developers-next-flow">Inspect Flow gates</a>
-          <a href="/veritas/" data-umami-event="developers-next-veritas">Inspect Veritas readiness</a>
-          <a href="/flow-agents/" data-umami-event="developers-next-flow-agents">Inspect Flow Agents workflows</a>
-          <a href="/receipts/" data-umami-event="developers-next-receipts">Recompute a published receipt</a>
-          <a href="/trust/" data-umami-event="developers-next-trust">Read the honest ceiling</a>
-          <a href="/console/" data-umami-event="developers-next-console">Inspect Console framing</a>
-        </div>
-      </Grid>
+      <!-- Content refresh: the stylized terminal recap was one more ownership
+           restatement — the links carry the same routes without the echo. -->
+      <div class="next-links">
+        <Eyebrow>Where to go next</Eyebrow>
+        <a href="/surface/" data-umami-event="developers-next-surface">Inspect Surface trust records</a>
+        <a href="/flow/" data-umami-event="developers-next-flow">Inspect Flow gates</a>
+        <a href="/veritas/" data-umami-event="developers-next-veritas">Inspect Veritas readiness</a>
+        <a href="/flow-agents/" data-umami-event="developers-next-flow-agents">Inspect Flow Agents workflows</a>
+        <a href="/receipts/" data-umami-event="developers-next-receipts">Recompute a published receipt</a>
+        <a href="/trust/" data-umami-event="developers-next-trust">Read the honest ceiling</a>
+        <a href="/console/" data-umami-event="developers-next-console">Inspect Console framing</a>
+      </div>
     </div>
   </Section>
 
@@ -693,25 +685,6 @@ const labRepos = [
 
     .lifecycle {
       grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-  }
-
-  @media (max-width: 600px) {
-    .layer-row__inner {
-      grid-template-columns: 1fr auto;
-      grid-template-rows: auto auto;
-    }
-    .layer-row__left {
-      grid-column: 1;
-      grid-row: 1;
-    }
-    .layer-row__link {
-      grid-column: 2;
-      grid-row: 1;
-    }
-    .layer-row__job {
-      grid-column: 1 / -1;
-      grid-row: 2;
     }
   }
 
