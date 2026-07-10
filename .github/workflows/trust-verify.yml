@@ -27,34 +27,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      # Issue #3: same parity-mode guard as deploy.yml's verify job — warn is
-      # only for out-of-band registry drift; a PR that touches the compared
-      # metadata, the checked page, the scripts, or CI definitions stays
-      # strict. Sound because the authoritative parity gate below runs before
-      # npm ci — before any PR-controlled code executes in this job.
-      - name: Determine registry-parity mode
-        id: parity
-        shell: bash
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          files=$(gh api "repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files" --paginate --jq '.[].filename')
-          mode=warn
-          # Herestring (not a pipe): grep -q on a pipe can SIGPIPE and fail open.
-          if grep -qE '^(src/data/product-status\.json|src/pages/flow-agents\.astro|scripts/|package\.json|package-lock\.json|\.npmrc|\.github/)' <<<"$files"; then
-            mode=strict
-          fi
-          echo "parity-sensitive file check -> mode=$mode"
-          echo "mode=$mode" >> "$GITHUB_OUTPUT"
       - uses: actions/setup-node@v6
         with:
           node-version: 24
-      # Authoritative parity gate: dependency-free, pristine checkout, before
-      # npm ci or any other PR-controlled execution.
+      # Issue #3: authoritative registry-parity gate — same script and mode
+      # resolution as deploy.yml's verify job (warn only for pull_requests
+      # whose changed files avoid every parity-sensitive path; fail-closed).
+      # Runs before npm ci, before any PR-controlled code executes.
       - name: Registry parity (pre-install gate)
+        id: parity
         run: node scripts/check-registry-parity.mjs
         env:
-          VALIDATE_REGISTRY_PARITY: ${{ steps.parity.outputs.mode }}
+          GITHUB_TOKEN: ${{ github.token }}
       # Install this repo's deps so the verify-command (astro build + validators) runs.
       - run: npm ci
       # The external anchor: re-run our real verify fresh + reconcile any delivered bundle.
@@ -67,6 +51,6 @@ jobs:
       # lives in the main/deploy verify run and the scheduled Pin Refresh lane.
       - uses: kontourai/flow-agents/.github/actions/trust-verify@2aa332a723bf1b421863e39b2d998032d96bec85 # flow-agents @ trust-verify action-path fix
         env:
-          VALIDATE_REGISTRY_PARITY: ${{ steps.parity.outputs.mode }}
+          VALIDATE_REGISTRY_PARITY: ${{ steps.parity.outputs.mode || 'strict' }}
         with:
           verify-command: "npm run build && npm run validate"

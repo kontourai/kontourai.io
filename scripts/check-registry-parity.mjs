@@ -26,13 +26,65 @@
  * defeat any in-repo check; that boundary predates this gate and can only be
  * closed by owner-review protection on CI files, not by more checks.
  */
-import { readFileSync } from "node:fs";
+import { appendFileSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const registryBaseUrl = "https://registry.npmjs.org";
-const mode = process.env.VALIDATE_REGISTRY_PARITY === "warn" ? "warn" : "strict";
+
+// Paths a PR may NOT touch and still get the warn lane: the parity-compared
+// inputs, this script (and siblings), package/npm config, and CI definitions.
+const PARITY_SENSITIVE =
+  /^(src\/data\/product-status\.json|src\/pages\/flow-agents\.astro|scripts\/|package\.json|package-lock\.json|\.npmrc|\.github\/)/;
+
+/**
+ * Resolve warn|strict. Explicit VALIDATE_REGISTRY_PARITY env wins (local
+ * runs, tests). In CI: push/schedule/dispatch are strict; a pull_request may
+ * earn warn only if none of its changed files are parity-sensitive, fetched
+ * straight from the GitHub API with node's own fetch (the playwright job
+ * container has no gh CLI — exit 127 taught us that). Any fetch problem is
+ * strict: fail closed, never open.
+ */
+async function resolveMode() {
+  const explicit = process.env.VALIDATE_REGISTRY_PARITY;
+  if (explicit === "warn" || explicit === "strict") return explicit;
+  if (process.env.GITHUB_EVENT_NAME !== "pull_request") return "strict";
+  try {
+    const event = JSON.parse(readFileSync(process.env.GITHUB_EVENT_PATH, "utf8"));
+    const prNumber = event?.pull_request?.number;
+    const repo = process.env.GITHUB_REPOSITORY;
+    const token = process.env.GITHUB_TOKEN;
+    if (!prNumber || !repo || !token) return "strict";
+    for (let page = 1; page <= 30; page += 1) {
+      const response = await fetch(
+        `https://api.github.com/repos/${repo}/pulls/${prNumber}/files?per_page=100&page=${page}`,
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+            accept: "application/vnd.github+json",
+          },
+        },
+      );
+      if (!response.ok) return "strict";
+      const files = await response.json();
+      if (!Array.isArray(files)) return "strict";
+      if (files.some((f) => PARITY_SENSITIVE.test(f.filename))) return "strict";
+      if (files.length < 100) break;
+    }
+    return "warn";
+  } catch {
+    return "strict";
+  }
+}
+
+const mode = await resolveMode();
+console.log(`registry-parity mode: ${mode}`);
+// Expose the resolved mode to later steps (the in-validate defense-in-depth
+// re-run uses the same mode).
+if (process.env.GITHUB_OUTPUT) {
+  appendFileSync(process.env.GITHUB_OUTPUT, `mode=${mode}\n`);
+}
 
 let errorCount = 0;
 function issue(message) {

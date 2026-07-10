@@ -37,38 +37,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
 
-      # Issue #3: warn mode exists ONLY for out-of-band registry drift. A PR
-      # touching the parity-compared inputs, the parity gate, or CI
-      # definitions faces the strict gate. This small denylist is sound
-      # because the authoritative parity step below runs BEFORE npm ci /
-      # build / tests — before any PR-controlled code executes — so in-job
-      # code (src modules, tests, npm lifecycle, .npmrc) cannot rewrite the
-      # compared inputs or the validator first. Residual (disclosed on
-      # /trust, tracked in the follow-up issue): a PR editing this workflow
-      # or the gate script defeats any in-repo check; only owner-review
-      # protection on CI files closes that class.
-      - name: Determine registry-parity mode
-        id: parity
-        if: github.event_name == 'pull_request'
-        shell: bash
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          files=$(gh api "repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files" --paginate --jq '.[].filename')
-          mode=warn
-          # Herestring (not a pipe): grep -q on a pipe can SIGPIPE and fail open.
-          if grep -qE '^(src/data/product-status\.json|src/pages/flow-agents\.astro|scripts/|package\.json|package-lock\.json|\.npmrc|\.github/)' <<<"$files"; then
-            mode=strict
-          fi
-          echo "parity-sensitive file check -> mode=$mode"
-          echo "mode=$mode" >> "$GITHUB_OUTPUT"
-
-      # Authoritative parity gate: dependency-free node script against the
-      # pristine checkout, before any PR-controlled code has run.
+      # Issue #3: authoritative registry-parity gate. Dependency-free node
+      # script (no gh/jq — the job container lacks them) against the pristine
+      # checkout, BEFORE npm ci / build / tests — before any PR-controlled
+      # code executes — so in-job code (src modules, tests, npm lifecycle,
+      # .npmrc) cannot rewrite the compared inputs or the validator first.
+      # The script itself resolves warn|strict: warn only on pull_request
+      # events whose changed files (fetched from the API, fail-closed) avoid
+      # every parity-sensitive path; push/main is always strict. Residual
+      # (disclosed on /trust, tracked in issue #126): a PR editing this
+      # workflow or the gate script defeats any in-repo check; only
+      # owner-review protection on CI files closes that class.
       - name: Registry parity (pre-install gate)
+        id: parity
         run: node scripts/check-registry-parity.mjs
         env:
-          VALIDATE_REGISTRY_PARITY: ${{ github.event_name == 'pull_request' && steps.parity.outputs.mode || 'strict' }}
+          GITHUB_TOKEN: ${{ github.token }}
 
       - name: Setup Node
         uses: actions/setup-node@v6
@@ -93,7 +77,7 @@ jobs:
         env:
           # Defense-in-depth re-run of the same parity set inside validate;
           # the pre-install gate above is the authoritative one. Same mode.
-          VALIDATE_REGISTRY_PARITY: ${{ github.event_name == 'pull_request' && steps.parity.outputs.mode || 'strict' }}
+          VALIDATE_REGISTRY_PARITY: ${{ steps.parity.outputs.mode || 'strict' }}
 
   deploy:
     name: Deploy to Cloudflare Pages
