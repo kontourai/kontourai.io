@@ -41,10 +41,24 @@ test("homepage leads with a single Flow Agents headline and Survey as the proof 
   await expect(page.getByText('"Edited the evidence record."')).toBeVisible();
   await expect(page.getByText('"Made the gate green under pressure."')).toBeVisible();
   await expect(page.locator(".narrator__moment")).toHaveCount(5);
-  const firstMoment = page.locator(".narrator__moment").first();
-  await expect(firstMoment.locator(".narrator__quote")).toHaveText('"Said done — never actually ran it."');
-  // Residuals stated as gaps, never as catches (marketing-hooks house rule).
+  // Doctrine ordering pinned in full (marketing-hooks credibility ordering).
+  await expect(page.locator(".narrator__moment .narrator__quote")).toHaveText([
+    '"Said done — never actually ran it."',
+    '"The summary said pass; the log said fail."',
+    '"Masked the exit code."',
+    '"Edited the evidence record."',
+    '"Made the gate green under pressure."',
+  ]);
+  // The hero's catch is the backstop re-run — the doctrine's load-bearing claim.
+  await expect(page.getByText("re-runs the project's own declared check itself")).toBeVisible();
+  // Moment 5 must NOT imply an unconditional CI identity (signing is opt-in;
+  // scope lives on /trust) — it claims only the fresh, untouched-env re-run.
+  await expect(page.getByText("in an environment the agent never touched")).toBeVisible();
+  // Residuals stated as gaps, never as catches — all three named.
   await expect(page.getByText("Honest residuals:")).toBeVisible();
+  await expect(page.getByText("isn't auto-invalidated when the code changes afterward")).toBeVisible();
+  await expect(page.getByText("a narrowed test scope isn't detected")).toBeVisible();
+  await expect(page.getByText("an edited test slips the runtime gate")).toBeVisible();
   await expect(page.locator('[data-umami-event="home-narrator-trust"]')).toHaveAttribute("href", "/trust/");
   // Examples-first placement: the recognition block renders above the mechanism.
   const narratorBox = await page.getByRole("heading", { name: "You've watched this happen." }).boundingBox();
