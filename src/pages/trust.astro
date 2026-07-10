@@ -33,9 +33,9 @@ const dialLevels: { level: string; title: string; accent: Accent; body: string }
   },
   {
     level: 'L1',
-    title: 'L1 — Keyless CI identity + transparency log.',
+    title: 'L1 — Keyless CI identity.',
     accent: 'cobalt-2',
-    body: 'CI signs its own fresh results with a short-lived OIDC identity, anchored in a public transparency log anyone can inspect.',
+    body: 'CI signs its own fresh results with a short-lived OIDC identity — optionally anchored in a public transparency log anyone can inspect.',
   },
   {
     level: 'L2',
@@ -47,9 +47,9 @@ const dialLevels: { level: string; title: string; accent: Accent; body: string }
 
 type RuntimeVariant = 'verified' | 'stale' | 'unknown';
 const runtimeRows: { runtime: string; badge: string; variant: RuntimeVariant; meaning: string }[] = [
-  { runtime: 'Claude Code', badge: 'Blocking (L2)', variant: 'verified', meaning: 'The Stop hook refuses or escalates on unbacked "done."' },
-  { runtime: 'Codex', badge: 'Blocking (L2)', variant: 'verified', meaning: 'Same blocking path, mapped to Codex agent definitions.' },
-  { runtime: 'Kiro', badge: 'Blocking (L2)', variant: 'verified', meaning: 'Same blocking path, wired to Kiro sessions.' },
+  { runtime: 'Claude Code', badge: 'Blocking', variant: 'verified', meaning: 'The Stop hook refuses or escalates on unbacked "done."' },
+  { runtime: 'Codex', badge: 'Blocking', variant: 'verified', meaning: 'Same blocking path, mapped to Codex agent definitions.' },
+  { runtime: 'Kiro', badge: 'Blocking', variant: 'verified', meaning: 'Same blocking path, wired to Kiro sessions.' },
   { runtime: 'opencode', badge: 'Advisory / partial', variant: 'stale', meaning: "Stop-goal-fit reports but can't block there; config protection still blocks at tool-call time." },
   { runtime: 'pi', badge: 'Advisory / partial', variant: 'stale', meaning: "No stop hook — the done-check can't run; config protection still blocks at tool-call time." },
   { runtime: 'Everywhere else', badge: 'Spec-only', variant: 'unknown', meaning: 'The open format runs; no runtime hook yet.' },
@@ -104,8 +104,8 @@ const PR_475_URL = 'https://github.com/kontourai/flow-agents/pull/475';
       <Eyebrow accent="cobalt-2">The bypass list</Eyebrow>
       <h2 class="section-heading">Three ways to cheat it — and who catches each one.</h2>
       <p class="section-lead">
-        Nobody else in the category publishes their bypass list. We do — because "trust the
-        boundaries, not the claimants" only means something if you can see where the boundaries are.
+        We publish our bypass list — because "trust the boundaries, not the claimants" only
+        means something if you can see where the boundaries are.
       </p>
 
       <div class="bypass-list">
@@ -118,15 +118,18 @@ const PR_475_URL = 'https://github.com/kontourai/flow-agents/pull/475';
           <p class="body bypass-row__body">
             Edit the bundle, the logs, or the workflow state on your own machine. Locally, the
             evidence is a tamper-evident hash chain — break a link and the chain no longer
-            verifies. But the authoritative catch isn't local: on every pull request, CI re-runs
-            the real verification fresh in a clean environment it can't pre-disable, and
+            verifies. But the authoritative catch isn't local: with the Trust Verify job wired in
+            as a required check — the way the Flow Agents repo itself runs it — every pull request re-runs
+            the real verification fresh in a clean environment the agent can't pre-disable, and
             reconciles your bundle against its own results. CI never trusts your bundle as a
             source of truth — it only uses it to detect divergence. A claimed pass that CI shows
             failing, or a command CI never ran, fails the job.
           </p>
           <p class="fine bypass-row__residual">
             <em>Honest residual: a determined agent can still flip a local kill-switch through its
-            own shell. That's exactly why the authority lives in CI, not in the local gate.</em>
+            own shell. That's exactly why the authority lives in CI, not in the local gate. And
+            the CI catch is only authoritative once you make the check required — installing the
+            tool doesn't configure your branch protection for you.</em>
           </p>
         </div>
 
@@ -139,7 +142,8 @@ const PR_475_URL = 'https://github.com/kontourai/flow-agents/pull/475';
           <p class="body bypass-row__body">
             Fabricate a green result, or launder the exit code (<code class="mono-inline">npm test || true</code>).
             The local gate rejects a verify command carrying <code class="mono-inline">||</code>,
-            and CI re-runs your declared checks itself, then signs the result with a keyless
+            and CI re-runs your declared checks itself — then, with signing enabled (one flag on
+            the action; on where we build Flow Agents, off by default), signs the result with a keyless
             Sigstore identity that only exists inside CI. An agent on your laptop has no such
             identity — it cannot mint that signature, no matter how clever the prompt. A
             fabricated "green" simply can't be signed.
@@ -206,11 +210,12 @@ const PR_475_URL = 'https://github.com/kontourai/flow-agents/pull/475';
             <h3 class="bypass-row__title">We run inside CI too.</h3>
           </div>
           <p class="body bypass-row__body">
-            A required job re-runs your declared checks and reconciles them against what the
-            agent claimed it ran — if they diverge, CI goes red on the discrepancy itself — then
-            signs the result with an identity that only exists inside CI, which an agent on a
-            laptop cannot forge. CI's ephemeral green becomes a portable, independently
-            recomputable receipt of what passed and what it stood on.
+            Wire the reconcile job in as a required check and it re-runs your declared checks,
+            reconciling them against what the agent claimed it ran — if they diverge, CI goes red
+            on the discrepancy itself — and, with signing on, signs the result with an identity
+            that only exists inside CI, which an agent on a laptop cannot forge. CI's ephemeral
+            green becomes a portable, independently recomputable receipt of what passed and what
+            it stood on.
           </p>
         </div>
 
@@ -314,6 +319,8 @@ const PR_475_URL = 'https://github.com/kontourai/flow-agents/pull/475';
       <p class="fine receipt-line">
         Receipt: the runtime hook surface is documented in the Flow Agents README /
         <a href={RUNTIME_HOOK_SPEC_URL} target="_blank" rel="noopener">runtime-hook-surface spec</a>.
+        That spec grades adapters on its own L0–L2 conformance scale — a different dial from the
+        signing assurance levels above.
       </p>
     </div>
   </Section>
@@ -458,7 +465,8 @@ const PR_475_URL = 'https://github.com/kontourai/flow-agents/pull/475';
   }
   .bypass-row__residual {
     margin: 0;
-    color: var(--color-chalk-3);
+    /* Residuals carry the honest caveats — keep them readable, not decorative. */
+    color: var(--color-chalk-2);
     max-width: 72ch;
   }
 
@@ -504,7 +512,7 @@ const PR_475_URL = 'https://github.com/kontourai/flow-agents/pull/475';
     text-transform: uppercase;
     letter-spacing: 0.06em;
     font-size: 0.62rem;
-    color: var(--color-chalk-3);
+    color: var(--color-chalk-2);
     padding: 0.75rem 1rem;
     border-bottom: 1px solid var(--color-edge);
     background: var(--color-ink-2);
@@ -524,7 +532,7 @@ const PR_475_URL = 'https://github.com/kontourai/flow-agents/pull/475';
     white-space: nowrap;
   }
   .enforcement-table__meaning {
-    color: var(--color-chalk-3);
+    color: var(--color-chalk-2);
   }
   .enforcement-closing {
     max-width: 70ch;

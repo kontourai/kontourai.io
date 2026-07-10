@@ -521,6 +521,10 @@ test("trust page states the honest ceiling, the bypass list, the assurance dial,
   await expect(page.getByText("Caught", { exact: true })).toHaveCount(2);
   await expect(page.getByText("Named, not caught")).toBeVisible();
   await expect(page.getByText("never \"tamper-proof.\"")).toBeVisible();
+  // CI authority is scoped to repos with the required check configured — never universal.
+  await expect(page.getByText("with the Trust Verify job wired in").first()).toBeVisible();
+  await expect(page.getByText("installing the tool doesn't configure your branch protection")).toBeVisible();
+  await expect(page.getByText("on where we build Flow Agents, off by default")).toBeVisible();
   await expect(page.getByText("It is the irreducible human boundary").first()).toBeVisible();
 
   // Section 3 — objection handler: "isn't that what CI does?"
@@ -538,7 +542,9 @@ test("trust page states the honest ceiling, the bypass list, the assurance dial,
   // Section 4 — the assurance dial (L0/L1/L2), the load-bearing distinction.
   await expect(page.getByRole("heading", { name: "Turn up assurance as the stakes rise." })).toBeVisible();
   await expect(page.getByRole("heading", { name: "L0 — Unsigned, local." })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "L1 — Keyless CI identity + transparency log." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "L1 — Keyless CI identity." })).toBeVisible();
+  // Transparency-log anchoring is optional for L1 (Hachure spec) — the copy must not imply it's intrinsic.
+  await expect(page.getByText("optionally anchored in a public transparency log")).toBeVisible();
   await expect(page.getByRole("heading", { name: "L2 — Organization-held keys." })).toBeVisible();
   await expect(page.getByText("Assurance caps trust in provenance, never in derivation.")).toBeVisible();
   await expect(page.getByRole("link", { name: "Hachure specification" })).toHaveAttribute(
@@ -546,18 +552,20 @@ test("trust page states the honest ceiling, the bypass list, the assurance dial,
     "https://github.com/hachure-org/spec/blob/main/assurance.md",
   );
 
-  // Section 5 — runtime enforcement, badged honestly (L2 blocking vs advisory).
+  // Section 5 — runtime enforcement, badged honestly (blocking vs advisory).
   await expect(
     page.getByRole("heading", { name: "Enforcement isn't uniform. Here's exactly where it blocks." }),
   ).toBeVisible();
   const runtimeTable = page.locator(".enforcement-table");
-  await expect(runtimeTable.getByRole("row", { name: /Claude Code/ }).locator(".trust-badge--verified")).toHaveText("Blocking (L2)");
-  await expect(runtimeTable.getByRole("row", { name: /Codex/ }).locator(".trust-badge--verified")).toHaveText("Blocking (L2)");
-  await expect(runtimeTable.getByRole("row", { name: /Kiro/ }).locator(".trust-badge--verified")).toHaveText("Blocking (L2)");
+  await expect(runtimeTable.getByRole("row", { name: /Claude Code/ }).locator(".trust-badge--verified")).toHaveText("Blocking");
+  await expect(runtimeTable.getByRole("row", { name: /Codex/ }).locator(".trust-badge--verified")).toHaveText("Blocking");
+  await expect(runtimeTable.getByRole("row", { name: /Kiro/ }).locator(".trust-badge--verified")).toHaveText("Blocking");
   await expect(runtimeTable.getByRole("row", { name: /opencode/ }).locator(".trust-badge--stale")).toHaveText("Advisory / partial");
   await expect(runtimeTable.getByRole("row", { name: /^pi\s/ }).locator(".trust-badge--stale")).toHaveText("Advisory / partial");
   await expect(runtimeTable.getByRole("row", { name: /Everywhere else/ }).locator(".trust-badge--unknown")).toHaveText("Spec-only");
   await expect(page.getByText("it refuses or escalates to you, never silently proceeds.")).toBeVisible();
+  // The hook-conformance scale must stay visibly distinct from the signing assurance dial.
+  await expect(page.getByText("a different dial from the signing assurance levels above")).toBeVisible();
 
   // Section 6 — two receipt-linked stories + CTA pair.
   await expect(page.getByRole("heading", { name: "Two times the boundary held." })).toBeVisible();
