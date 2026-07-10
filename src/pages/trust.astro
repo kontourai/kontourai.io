@@ -7,6 +7,7 @@ import Glow from '@/components/Glow.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
 import Card from '@/components/Card.astro';
 import Grid from '@/components/Grid.astro';
+import EnforcementMatrix from '@/components/EnforcementMatrix.astro';
 import type { Accent } from '@/lib/theme';
 
 const guarantees = [
@@ -45,15 +46,8 @@ const dialLevels: { level: string; title: string; accent: Accent; body: string }
   },
 ];
 
-type RuntimeVariant = 'verified' | 'stale' | 'unknown';
-const runtimeRows: { runtime: string; badge: string; variant: RuntimeVariant; meaning: string }[] = [
-  { runtime: 'Claude Code', badge: 'Blocking', variant: 'verified', meaning: 'The Stop hook refuses or escalates on unbacked "done."' },
-  { runtime: 'Codex', badge: 'Blocking', variant: 'verified', meaning: 'Same blocking path, mapped to Codex agent definitions.' },
-  { runtime: 'Kiro', badge: 'Blocking', variant: 'verified', meaning: 'Same blocking path, wired to Kiro sessions.' },
-  { runtime: 'opencode', badge: 'Advisory / partial', variant: 'stale', meaning: "Stop-goal-fit reports but can't block there; config protection still blocks at tool-call time." },
-  { runtime: 'pi', badge: 'Advisory / partial', variant: 'stale', meaning: "No stop hook — the done-check can't run; config protection still blocks at tool-call time." },
-  { runtime: 'Everywhere else', badge: 'Spec-only', variant: 'unknown', meaning: 'The open format runs; no runtime hook yet.' },
-];
+// Runtime rows render through the shared EnforcementMatrix (#110) so this
+// table and the flow-agents page can't drift apart.
 
 const ADR_0017_URL = 'https://github.com/kontourai/flow-agents/blob/main/docs/adr/0017-anti-gaming-trust-security-model.md';
 const ANTI_GAMING_SUITE_URL = 'https://github.com/kontourai/flow-agents/blob/main/evals/ci/antigaming-suite.sh';
@@ -287,28 +281,7 @@ const PR_475_URL = 'https://github.com/kontourai/flow-agents/pull/475';
         Where it doesn't yet, we say so. A plain table, not a green blur.
       </p>
 
-      <div class="table-scroll">
-        <table class="enforcement-table">
-          <thead>
-            <tr>
-              <th scope="col">Runtime</th>
-              <th scope="col">Enforcement</th>
-              <th scope="col">What it means</th>
-            </tr>
-          </thead>
-          <tbody>
-            {runtimeRows.map(({ runtime, badge, variant, meaning }) => (
-              <tr>
-                <td class="enforcement-table__runtime">{runtime}</td>
-                <td>
-                  <span class={`trust-badge trust-badge--${variant}`}>{badge}</span>
-                </td>
-                <td class="enforcement-table__meaning">{meaning}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <EnforcementMatrix />
 
       <p class="body enforcement-closing">
         Blocking means the turn cannot end on unproven work — it refuses or escalates to you,
@@ -494,46 +467,7 @@ const PR_475_URL = 'https://github.com/kontourai/flow-agents/pull/475';
     margin: 0 0 1.5rem;
   }
 
-  /* Enforcement table */
-  .table-scroll {
-    overflow-x: auto;
-    border: 1px solid var(--color-edge);
-    border-radius: 8px;
-    margin-bottom: 1.75rem;
-  }
-  .enforcement-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.85rem;
-  }
-  .enforcement-table th {
-    text-align: left;
-    font-family: var(--font-mono);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    font-size: 0.62rem;
-    color: var(--color-chalk-2);
-    padding: 0.75rem 1rem;
-    border-bottom: 1px solid var(--color-edge);
-    background: var(--color-ink-2);
-    white-space: nowrap;
-  }
-  .enforcement-table td {
-    padding: 0.85rem 1rem;
-    border-bottom: 1px solid var(--color-edge);
-    vertical-align: top;
-    color: var(--color-chalk-2);
-  }
-  .enforcement-table tr:last-child td {
-    border-bottom: none;
-  }
-  .enforcement-table__runtime {
-    color: var(--color-chalk);
-    white-space: nowrap;
-  }
-  .enforcement-table__meaning {
-    color: var(--color-chalk-2);
-  }
+  /* Enforcement table lives in EnforcementMatrix.astro (#110). */
   .enforcement-closing {
     max-width: 70ch;
     margin: 0;

@@ -10,6 +10,7 @@ import Card from '@/components/Card.astro';
 import Grid from '@/components/Grid.astro';
 import Split from '@/components/Split.astro';
 import ProductMark from '@/components/ProductMark.astro';
+import EnforcementMatrix from '@/components/EnforcementMatrix.astro';
 import { getProductStatus, productBadge } from '@/lib/product-status';
 import type { Accent } from '@/lib/theme';
 
@@ -185,6 +186,13 @@ const trustTiers: { title: string; body: string; accent: Accent }[] = [
           </Card>
         ))}
       </Grid>
+
+      <h3 class="enforcement-heading">Where the gate actually blocks, per runtime</h3>
+      <p class="fine measure enforcement-note">
+        Enforcement isn't uniform across harnesses, and we badge the difference
+        instead of blurring it — the same table the <a href="/trust/">trust page</a> leads with.
+      </p>
+      <EnforcementMatrix />
     </div>
   </Section>
 
@@ -214,6 +222,14 @@ const trustTiers: { title: string; body: string; accent: Accent }[] = [
   .engine-note,
   .trust-note {
     margin-bottom: 2.25rem;
+  }
+  .enforcement-heading {
+    font-size: 1.15rem;
+    color: var(--color-chalk);
+    margin: 3rem 0 0.75rem;
+  }
+  .enforcement-note {
+    margin-bottom: 1.5rem;
   }
   .kit-copy,
   .market-copy {

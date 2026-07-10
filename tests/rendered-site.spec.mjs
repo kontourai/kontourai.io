@@ -423,6 +423,14 @@ test("flow agents page presents agent-tool discipline and status", async ({ page
 
   // Guard against the old "coming soon" framing regressing back in
   await expect(page.getByText("coming soon")).toHaveCount(0);
+
+  // #110: the shared enforcement matrix is applied here — badges come from
+  // EnforcementBadge (data-enforcement fingerprint), not hand-rolled spans.
+  await expect(page.getByRole("heading", { name: "Where the gate actually blocks, per runtime" })).toBeVisible();
+  const faMatrix = page.locator(".enforcement-table");
+  await expect(faMatrix.getByRole("row", { name: /Claude Code/ }).locator('[data-enforcement="blocking"]')).toHaveText("Blocking");
+  await expect(faMatrix.getByRole("row", { name: /opencode/ }).locator('[data-enforcement="advisory"]')).toHaveText("Advisory / partial");
+  await expect(faMatrix.getByRole("row", { name: /Everywhere else/ }).locator('[data-enforcement="spec-only"]')).toHaveText("Spec-only");
 });
 
 test("receipts index lists the real pipeline bundles with downloads", async ({ page }) => {
