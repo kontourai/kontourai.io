@@ -18,17 +18,13 @@ on:
 
 permissions:
   contents: read
+  # Needed by the parity-mode guard to list a PR's changed files.
+  pull-requests: read
 
 jobs:
   trust-verify:
     name: Trust Verify
     runs-on: ubuntu-latest
-    env:
-      # Issue #3: this workflow only runs on pull_request, which is the
-      # hermetic change-evidence lane — live npm registry drift warns instead
-      # of blocking here. The strict parity gate lives in the main/deploy
-      # verify run and the scheduled Pin Refresh lane.
-      VALIDATE_REGISTRY_PARITY: warn
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v6
@@ -36,12 +32,31 @@ jobs:
           node-version: 24
       # Install this repo's deps so the verify-command (astro build + validators) runs.
       - run: npm ci
+      # Issue #3: same parity-mode guard as deploy.yml's verify job — warn is
+      # only for out-of-band registry drift; a PR that touches the compared
+      # metadata, the checked install copy, or validation policy stays strict.
+      - name: Determine registry-parity mode
+        id: parity
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          files=$(gh api "repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files" --paginate --jq '.[].filename')
+          mode=warn
+          if echo "$files" | grep -qE '^(src/data/product-status\.json|src/pages/flow-agents\.astro|scripts/validate\.mjs|\.github/workflows/)'; then
+            mode=strict
+          fi
+          echo "parity-sensitive file check -> mode=$mode"
+          echo "mode=$mode" >> "$GITHUB_OUTPUT"
       # The external anchor: re-run our real verify fresh + reconcile any delivered bundle.
       # SHA-pinned (mutable tags are not trusted for a cross-repo action that gates merges).
       #
       # verify-command is the full `npm run build && npm run validate` — build + content
-      # boundary + theme tokens + security hardening + npm version-parity. (The version-parity
-      # drift was resolved in the product-status sync, so validate is now enforced here.)
+      # boundary + theme tokens + security hardening + npm version-parity. On this
+      # pull_request-only anchor, registry parity is OBSERVED (warn) rather than gated
+      # unless the PR itself touched parity-sensitive inputs; the strict parity gate
+      # lives in the main/deploy verify run and the scheduled Pin Refresh lane.
       - uses: kontourai/flow-agents/.github/actions/trust-verify@2aa332a723bf1b421863e39b2d998032d96bec85 # flow-agents @ trust-verify action-path fix
+        env:
+          VALIDATE_REGISTRY_PARITY: ${{ steps.parity.outputs.mode }}
         with:
           verify-command: "npm run build && npm run validate"

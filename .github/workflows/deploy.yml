@@ -23,6 +23,8 @@ concurrency:
 
 permissions:
   contents: read
+  # Needed by the parity-mode guard to list a PR's changed files.
+  pull-requests: read
 
 jobs:
   verify:
@@ -53,14 +55,33 @@ jobs:
       - name: Rendered tests
         run: npx playwright test
 
+      # Issue #3: warn mode exists ONLY for out-of-band registry drift. If the
+      # PR itself touches the parity-sensitive inputs — the compared metadata,
+      # the page whose install copy is checked, or the validation policy — it
+      # must face the strict gate, or a PR could author a stale version /
+      # remove install copy and merge on a warning (PR #122 review, HIGH).
+      - name: Determine registry-parity mode
+        id: parity
+        if: github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          files=$(gh api "repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files" --paginate --jq '.[].filename')
+          mode=warn
+          if echo "$files" | grep -qE '^(src/data/product-status\.json|src/pages/flow-agents\.astro|scripts/validate\.mjs|\.github/workflows/)'; then
+            mode=strict
+          fi
+          echo "parity-sensitive file check -> mode=$mode"
+          echo "mode=$mode" >> "$GITHUB_OUTPUT"
+
       - name: Validate
         run: npm run validate
         env:
-          # Issue #3: PR validation is the hermetic change-evidence lane — a
-          # package releasing on npm mid-review must not turn PRs red. The
-          # main/deploy run stays strict so a stale advertised version blocks
-          # publishing; the scheduled Pin Refresh lane owns the version bump.
-          VALIDATE_REGISTRY_PARITY: ${{ github.event_name == 'pull_request' && 'warn' || 'strict' }}
+          # PR lane: warn (unless the guard above says the PR touched
+          # parity-sensitive inputs). Main lane: always strict — a stale
+          # advertised version blocks publishing; the scheduled Pin Refresh
+          # lane owns the version bump.
+          VALIDATE_REGISTRY_PARITY: ${{ github.event_name == 'pull_request' && steps.parity.outputs.mode || 'strict' }}
 
   deploy:
     name: Deploy to Cloudflare Pages
