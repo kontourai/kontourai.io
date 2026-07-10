@@ -11,10 +11,16 @@ import Terminal from '@/components/Terminal.astro';
 import ProductMark from '@/components/ProductMark.astro';
 import type { ProductMarkSlug } from '@/components/ProductMark.astro';
 import { developerCompositionProducts, homepageProducts } from '@/lib/products';
+import pkg from '../../package.json';
+
+// Second-validator pins rendered from package.json, same as the receipts
+// pages (#111) — the advertised command can't drift from what CI exercises.
+const hachurePin = pkg.devDependencies.hachure;
+const ajvPin = pkg.devDependencies.ajv;
 
 const mapNodes = [
-  { label: 'Flow Agents', sub: 'agent workflow coordination', accent: 'chalk-2' },
-  { label: 'Builder Kit', sub: 'build path, verification, release readiness', accent: 'chalk-2' },
+  { label: 'Flow Agents', sub: 'the engine: gates, adapters, evidence, kit validation', accent: 'chalk-2' },
+  { label: 'Kits', sub: 'Builder, Knowledge, and more — installable workflows on the engine, none with runtime privilege', accent: 'chalk-2' },
   { label: 'Veritas', sub: 'repo readiness and evidence findings', accent: 'green' },
   { label: 'Flow', sub: 'process gates and route-backs', accent: 'cobalt-2' },
   { label: 'Surface', sub: 'claims, evidence, status, trust reports', accent: 'gold' },
@@ -23,7 +29,7 @@ const mapNodes = [
 const lifecycle = [
   { step: '01', label: 'Work item', detail: 'idea, issue, customer promise, or operational change', accent: 'chalk-2' },
   { step: '02', label: 'Flow path', detail: 'required states, gates, evidence, and route-backs', accent: 'cobalt-2' },
-  { step: '03', label: 'Agent work', detail: 'Builder Kit or local workflow executes with sidecar state', accent: 'chalk-2' },
+  { step: '03', label: 'Agent work', detail: 'a kit or local workflow executes with sidecar state under .kontourai/', accent: 'chalk-2' },
   { step: '04', label: 'Readiness evidence', detail: 'Veritas checks repo standards and change evidence', accent: 'green' },
   { step: '05', label: 'Trust projection', detail: 'Surface packages claims, evidence, status, and gaps', accent: 'gold' },
   { step: '06', label: 'Decision view', detail: 'Console or a gate shows what is ready, blocked, stale, or missing', accent: 'cobalt' },
@@ -36,7 +42,8 @@ const useCases = [
   },
   {
     title: 'Software delivery',
-    detail: 'Make code-change readiness, release gates, browser checks, and missing evidence visible before merge.',
+    detail:
+      "Make code-change readiness, release gates, browser checks, and missing evidence visible before merge. Live example: this site's own PRs merge behind a required Trust Verify check, and the receipts page publishes the resulting bundles.",
   },
   {
     title: 'Public data and records',
@@ -59,22 +66,29 @@ const useCases = [
 const states = [
   {
     label: 'Current state',
-    body: 'Product pages, open repositories, local workflow artifacts, Surface Trust Reports, Veritas readiness evidence, Flow Agents workflows, and early Console projections are all inspectable now.',
+    body: 'Published trust receipts you can recompute under two validators, the /trust bypass list, Veritas readiness evidence, the Flow Agents engine with Builder and Knowledge kits, runtime hooks across Claude Code / Codex / Kiro / opencode / pi, AWS Strands framework-adapter previews, and Console 2.x projections — all inspectable now.',
     accent: 'green',
   },
   {
     label: 'Near-term direction',
-    body: 'Tighter cross-product handoffs, more published examples, clearer resource-shaped contracts, and richer Console projections are being wired in product by product.',
+    body: 'Kit-marketplace conformance certification, richer Console projections (hosted mode grew a durable economics store), and tighter cross-product handoffs are being wired in product by product.',
     accent: 'cobalt-2',
   },
   {
     label: 'Future possibilities',
-    body: 'Kubernetes-style operators, hosted coordination, and broader runtime adapters are possible future integrations. They are not current requirements for using the products.',
+    body: 'Kubernetes-style operators and hosted coordination are possible future integrations. They are not current requirements for using the products.',
     accent: 'gold',
   },
 ] as const;
 
 const labRepos = [
+  {
+    slug: 'hachure',
+    label: 'Hachure (spec)',
+    repo: 'https://github.com/hachure-org/spec',
+    description:
+      'The open trust.bundle format: normative schemas, conformance vectors, and the L0–L2 signing assurance levels. Surface and the hachure reference CLI are two implementations of it — the receipts page shows both validating the same artifacts.',
+  },
   {
     slug: 'datum',
     label: 'Datum',
@@ -119,8 +133,10 @@ const labRepos = [
           Kontour is a product line for making AI-assisted and human-operated
           work inspectable. Surface owns trust records. Flow owns process
           semantics. Veritas owns repo readiness. Flow Agents brings those
-          disciplines into local agent workflows. Console makes the resulting
-          state operable without taking over the products it observes.
+          disciplines into local agent workflows — an engine that stays
+          kit-neutral, with Builder and Knowledge as installable kits on top.
+          Console makes the resulting state operable without taking over the
+          products it observes.
         </p>
         <div class="hero-actions animate-fade-up delay-300">
           <a href="#ownership" class="btn-primary" data-umami-event="developers-hero-ownership">Start with ownership →</a>
@@ -168,28 +184,36 @@ const labRepos = [
         ))}
       </Grid>
 
-      <h3 class="layer-heading">
-        A layered stack. Each product shows the work at its own level.
-      </h3>
-      <p class="fine measure layer-intro">
-        Surface is the trust foundation. Survey feeds it. Flow gates work.
-        Veritas backs merge decisions. Flow Agents brings discipline into the
-        tools you already use. Console makes the whole thing operable.
-      </p>
+    </div>
+  </Section>
 
-      <div class="layer-stack" role="list" aria-label="Kontour product layer stack">
-        {homepageProducts.map(({ key, label, href, accent, homepage }) => (
-          <div class="layer-row" role="listitem">
-            <div class="layer-row__accent-bar" data-accent={accent}></div>
-            <div class="layer-row__inner">
-              <div class="layer-row__left">
-                <span class="layer-row__name" data-accent={accent}>{label}</span>
-              </div>
-              <p class="layer-row__job">{homepage.relation}</p>
-              <a href={href} class="layer-row__link" data-accent={accent} data-umami-event={`developers-layer-${key}`}>→</a>
-            </div>
-          </div>
-        ))}
+  <!-- Quickstart: real commands, verifiable claims (content refresh) ------- -->
+  <Section borderBottom>
+    <div class="container">
+      <Eyebrow gap="sm" accent="green">Start here</Eyebrow>
+      <h2 class="display-md measure-lg">Two commands before any diagram.</h2>
+      <p class="body measure quickstart-intro">
+        Install the engine into a workspace you already use, then check our
+        receipts before you believe our copy — every published bundle
+        recomputes under two validators, and the same commands run in this
+        site's own CI on every change.
+      </p>
+      <Grid cols={2} gap="lg" align="start">
+        <Terminal title="install the engine + kits">
+          <p><span class="prompt">$ </span><span class="cmd">npx @kontourai/flow-agents init</span></p>
+          <p class="muted"># wires gates, adapters, and kit validation into</p>
+          <p class="muted"># Claude Code, Codex, Kiro, opencode, or pi</p>
+        </Terminal>
+        <Terminal title="verify a receipt, second opinion included">
+          <p><span class="prompt">$ </span><span class="cmd">npx -y -p ajv@{ajvPin} -p hachure@{hachurePin} \</span></p>
+          <p><span class="cmd">    hachure validate flow-agents-delivery.trust.bundle</span></p>
+          <p class="pass">valid TrustBundle (schemaVersion 5)</p>
+        </Terminal>
+      </Grid>
+      <div class="quickstart-links">
+        <a href="/receipts/" class="btn-ghost" data-umami-event="developers-quickstart-receipts">Download real receipts →</a>
+        <a href="/trust/" class="btn-ghost" data-umami-event="developers-quickstart-trust">Read the bypass list →</a>
+        <a href="https://kontourai.github.io/flow-agents/" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="developers-quickstart-docs">Engine docs →</a>
       </div>
     </div>
   </Section>
@@ -338,7 +362,8 @@ const labRepos = [
           <p class="pass">  ✓ Surface      trust records and reports</p>
           <p class="pass">  ✓ Flow         paths, gates, route-backs</p>
           <p class="pass">  ✓ Veritas      repo readiness evidence</p>
-          <p class="pass">  ✓ Flow Agents  local workflow coordination</p>
+          <p class="pass">  ✓ Flow Agents  engine + kits, runtime hooks</p>
+          <p class="pass">  ✓ Receipts     recomputable trust bundles</p>
           <p class="info">  → Console      operating view, not authority</p>
         </Terminal>
 
@@ -348,6 +373,8 @@ const labRepos = [
           <a href="/flow/" data-umami-event="developers-next-flow">Inspect Flow gates</a>
           <a href="/veritas/" data-umami-event="developers-next-veritas">Inspect Veritas readiness</a>
           <a href="/flow-agents/" data-umami-event="developers-next-flow-agents">Inspect Flow Agents workflows</a>
+          <a href="/receipts/" data-umami-event="developers-next-receipts">Recompute a published receipt</a>
+          <a href="/trust/" data-umami-event="developers-next-trust">Read the honest ceiling</a>
           <a href="/console/" data-umami-event="developers-next-console">Inspect Console framing</a>
         </div>
       </Grid>
@@ -648,67 +675,15 @@ const labRepos = [
     margin-top: auto;
   }
 
-  .layer-heading {
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    font-weight: 400;
-    color: var(--color-chalk);
-    margin: 3rem 0 1rem;
-  }
-  .layer-intro {
+  /* Quickstart (content refresh): real commands before diagrams. */
+  .quickstart-intro {
     margin-bottom: 2rem;
   }
-  .layer-stack {
-    border: 1px solid var(--color-edge);
-    border-radius: 6px;
-    overflow: hidden;
-  }
-  .layer-row {
-    border-bottom: 1px solid var(--color-edge);
-  }
-  .layer-row:last-child {
-    border-bottom: none;
-  }
-  .layer-row__accent-bar {
-    height: 2px;
-    background: var(--accent, var(--color-edge));
-  }
-  .layer-row__inner {
-    display: grid;
-    grid-template-columns: 9rem 1fr auto;
-    gap: 1rem 1.5rem;
-    align-items: center;
-    padding: 1rem 1.5rem;
-    background: var(--color-ink-2);
-    transition: background 0.15s;
-  }
-  .layer-row:hover .layer-row__inner {
-    background: var(--color-ink-3);
-  }
-  .layer-row__name {
-    font-family: var(--font-display);
-    font-size: 1.05rem;
-    font-weight: 400;
-    color: var(--accent, var(--color-chalk));
-    letter-spacing: 0;
-    white-space: nowrap;
-  }
-  .layer-row__job {
-    color: var(--color-chalk-3);
-    font-size: 0.8rem;
-    line-height: 1.6;
-    margin: 0;
-  }
-  .layer-row__link {
-    font-family: var(--font-mono);
-    font-size: 0.9rem;
-    color: var(--accent, var(--color-chalk-3));
-    text-decoration: none;
-    padding: 0.25rem 0.5rem;
-    transition: color 0.15s;
-  }
-  .layer-row__link:hover {
-    color: var(--color-chalk);
+  .quickstart-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2rem;
   }
 
   @media (max-width: 980px) {
