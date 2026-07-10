@@ -31,6 +31,41 @@ test("homepage leads with a single Flow Agents headline and Survey as the proof 
   await expect(page.getByText("1 · The claim")).toBeVisible();
   await expect(page.getByText("2 · The capture")).toBeVisible();
   await expect(page.getByText("3 · The recompute")).toBeVisible();
+
+  // #113: recognition moments — examples first, mechanism second.
+  await expect(page.getByRole("heading", { name: "You've watched this happen." })).toBeVisible();
+  // Credibility ordering: the backstop/memory case leads (believable AND implemented).
+  await expect(page.getByText('"Said done — never actually ran it."')).toBeVisible();
+  await expect(page.getByText('"The summary said pass; the log said fail."')).toBeVisible();
+  await expect(page.getByText('"Masked the exit code."')).toBeVisible();
+  await expect(page.getByText('"Edited the evidence record."')).toBeVisible();
+  await expect(page.getByText('"Made the gate green under pressure."')).toBeVisible();
+  await expect(page.locator(".narrator__moment")).toHaveCount(5);
+  // Doctrine ordering pinned in full (marketing-hooks credibility ordering).
+  await expect(page.locator(".narrator__moment .narrator__quote")).toHaveText([
+    '"Said done — never actually ran it."',
+    '"The summary said pass; the log said fail."',
+    '"Masked the exit code."',
+    '"Edited the evidence record."',
+    '"Made the gate green under pressure."',
+  ]);
+  // The hero's catch is the backstop re-run — the doctrine's load-bearing claim.
+  await expect(page.getByText("re-runs the project's own declared check itself")).toBeVisible();
+  // Moment 5 must NOT imply an unconditional CI identity (signing is opt-in;
+  // scope lives on /trust) — it claims only the fresh, untouched-env re-run.
+  await expect(page.getByText("in an environment the agent never touched")).toBeVisible();
+  // Residuals stated as gaps, never as catches — all three named.
+  await expect(page.getByText("Honest residuals:")).toBeVisible();
+  await expect(page.getByText("isn't auto-invalidated when the code changes afterward")).toBeVisible();
+  await expect(page.getByText("a narrowed test scope isn't detected")).toBeVisible();
+  await expect(page.getByText("an edited test slips the runtime gate")).toBeVisible();
+  await expect(page.locator('[data-umami-event="home-narrator-trust"]')).toHaveAttribute("href", "/trust/");
+  // Examples-first placement: the recognition block renders above the mechanism.
+  const narratorBox = await page.getByRole("heading", { name: "You've watched this happen." }).boundingBox();
+  const toothbrushBox = await page.getByRole("heading", { name: "Don't ask the agent. Check the toothbrush." }).boundingBox();
+  expect(narratorBox).not.toBeNull();
+  expect(toothbrushBox).not.toBeNull();
+  expect(narratorBox.y).toBeLessThan(toothbrushBox.y);
   await expect(page.locator('[data-umami-event="home-mechanism-receipts"]')).toHaveAttribute("href", "/receipts/");
   await expect(page.locator('[data-umami-event="home-mechanism-trust"]')).toHaveAttribute("href", "/trust/");
 
