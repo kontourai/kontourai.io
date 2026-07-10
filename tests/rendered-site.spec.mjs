@@ -436,9 +436,13 @@ test("receipts index lists the real pipeline bundles with downloads", async ({ p
     "href",
     "/receipts/governance-readiness-not-ready.trust.bundle",
   );
+  // Honest framing on the lead exhibit: a fixture projection, not a live stopped run.
+  await expect(page.getByText("not a live delivery stopped mid-run")).toBeVisible();
   // The blocked exhibit renders ABOVE the archive grid.
   const blockedBox = await page.getByRole("heading", { name: "The receipt that says no." }).boundingBox();
   const archiveBox = await page.getByRole("heading", { name: "Every published receipt, green or not." }).boundingBox();
+  expect(blockedBox).not.toBeNull();
+  expect(archiveBox).not.toBeNull();
   expect(blockedBox.y).toBeLessThan(archiveBox.y);
 
   // All four receipts are present.
@@ -454,9 +458,11 @@ test("receipts index lists the real pipeline bundles with downloads", async ({ p
     "governance-readiness-not-ready",
     "flow-agents-ownership-guard",
   ]) {
-    // .first(): the not-ready receipt's links also appear in the lead exhibit (#107).
-    await expect(page.locator(`a[href="/receipts/${slug}/"]`).first()).toBeVisible();
-    await expect(page.locator(`a[href="/receipts/${slug}.trust.bundle"][download]`).first()).toBeVisible();
+    // Scoped to the archive grid so the lead exhibit's duplicate links (#107)
+    // can't satisfy these on a card's behalf.
+    const archiveGrid = page.locator(".archive-grid");
+    await expect(archiveGrid.locator(`a[href="/receipts/${slug}/"]`)).toBeVisible();
+    await expect(archiveGrid.locator(`a[href="/receipts/${slug}.trust.bundle"][download]`)).toBeVisible();
   }
 
   // Each card names its own exact "check it yourself" command.

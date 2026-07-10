@@ -12,6 +12,7 @@ export type Accent =
   | "gold-2"
   | "green"
   | "red"
+  | "red-2"
   | "cobalt"
   | "cobalt-2"
   | "chalk-2"

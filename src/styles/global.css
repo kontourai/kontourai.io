@@ -31,6 +31,8 @@
   --color-gold-3:  #f0d090;
   --color-green:   #52c47e;
   --color-red:     #c45a51;
+  /* red-2: red lifted to >=4.5:1 on ink-1/ink-2 for small text (labels, eyebrows). */
+  --color-red-2:   #d06c63;
   --color-cobalt:  #5a90c8;
   --color-cobalt-2:#7eb3e8;
 
@@ -51,6 +53,7 @@
 [data-accent="gold-2"]   { --accent: var(--color-gold-2); }
 [data-accent="green"]    { --accent: var(--color-green); }
 [data-accent="red"]      { --accent: var(--color-red); }
+[data-accent="red-2"]    { --accent: var(--color-red-2); }
 [data-accent="cobalt"]   { --accent: var(--color-cobalt); }
 [data-accent="cobalt-2"] { --accent: var(--color-cobalt-2); }
 [data-accent="chalk-2"]  { --accent: var(--color-chalk-2); }

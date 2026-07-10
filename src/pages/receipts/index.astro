@@ -10,17 +10,30 @@ import Grid from '@/components/Grid.astro';
 import Terminal from '@/components/Terminal.astro';
 import { receipts, statusCounts, badgeVariant, getReceipt } from '@/lib/receipts';
 
-// Lead exhibit (#107): the blocked run opens the page. Everything shown about
-// it is derived from the committed bundle, same as the cards below — the story
-// beats read the claim/evidence/policy objects, not hand-authored copy.
-const blocked = getReceipt('governance-readiness-not-ready')!;
-const blockedClaim = blocked.bundle.claims[0];
+// Lead exhibit (#107): the blocked verdict opens the page. Everything shown
+// about it is derived from the committed bundle, same as the cards below — the
+// story beats read the claim/evidence/policy objects, not hand-authored copy.
+// Records are selected by type/id (not position) and guarded so a refreshed
+// bundle that no longer carries the expected shape fails the static build
+// loudly instead of rendering mismatched facts.
+const blocked = getReceipt('governance-readiness-not-ready');
+if (!blocked) throw new Error('receipts lead exhibit: governance-readiness-not-ready missing from catalog');
+const blockedClaim = blocked.bundle.claims.find((c) => c.claimType === 'software-readiness-verdict');
+if (!blockedClaim) throw new Error('receipts lead exhibit: software-readiness-verdict claim missing from bundle');
 const blockedVerdict = blockedClaim.value as {
-  verdict: string;
-  blocking: { failedRequirements: string[] };
+  verdict?: string;
+  blocking?: { failedRequirements?: string[] };
 };
-const blockedEvidence = blocked.bundle.evidence[0];
-const blockedPolicy = blocked.bundle.policies[0];
+const blockedRequirements = blockedVerdict.blocking?.failedRequirements ?? [];
+if (typeof blockedVerdict.verdict !== 'string' || blockedRequirements.length === 0) {
+  throw new Error('receipts lead exhibit: bundle claim value lacks verdict/blocking requirements');
+}
+const blockedEvidence = blocked.bundle.evidence.find((e) => e.claimId === blockedClaim.id);
+if (!blockedEvidence) throw new Error('receipts lead exhibit: evidence for the blocked claim missing from bundle');
+const blockedPolicy = blocked.bundle.policies.find((p) => p.claimType === blockedClaim.claimType);
+if (!blockedPolicy?.acceptanceCriteria?.length) {
+  throw new Error('receipts lead exhibit: policy acceptance criteria missing from bundle');
+}
 ---
 
 <Layout
@@ -55,13 +68,14 @@ const blockedPolicy = blocked.bundle.policies[0];
   <Section tone="alt" size="lg" borderBottom>
     <Glow accent="red" position="top-left" />
     <div class="container container--readable">
-      <Eyebrow accent="red">Lead exhibit — a blocked run</Eyebrow>
+      <Eyebrow accent="red-2">Lead exhibit — a blocked verdict</Eyebrow>
       <h2 class="section-heading">The receipt that says no.</h2>
       <p class="section-lead">
-        Green receipts prove the format works. This one proves the <em>gate</em> works:
-        a real readiness evaluation where the evidence came back failing and the verdict
-        refused to pass. Every fact below is read from the bundle itself — open it and
-        check.
+        Green receipts prove the format works. This one shows what a <em>refusal</em> looks
+        like: a readiness record whose evidence failed, projected into the same recomputable
+        format. The verdict isn't narrated — it derives from the artifact, and recomputing
+        the bundle yields the same refusal. Every fact below is read from the bundle itself —
+        open it and check.
       </p>
 
       <div class="blocked-story">
@@ -74,25 +88,34 @@ const blockedPolicy = blocked.bundle.policies[0];
           </p>
         </div>
         <div class="blocked-beat" data-accent="gold">
-          <p class="label-sm blocked-beat__label">What the capture showed</p>
+          <p class="label-sm blocked-beat__label">What the record showed</p>
           <p class="body blocked-beat__body">
             "{blockedEvidence.excerptOrSummary}" — recorded with
             <span class="mono-inline">passing: {String(blockedEvidence.passing)}</span> by
-            <span class="mono-inline">{blockedEvidence.collectedBy}</span>. The required
-            artifacts weren't there, so no verified evidence event exists.
+            <span class="mono-inline">{blockedEvidence.collectedBy}</span>. The blocking
+            requirement went unmet, so no verified evidence event exists.
           </p>
         </div>
-        <div class="blocked-beat" data-accent="red">
-          <p class="label-sm blocked-beat__label">Why the gate refused</p>
+        <div class="blocked-beat" data-accent="red-2">
+          <p class="label-sm blocked-beat__label">Why the verdict refuses</p>
           <p class="body blocked-beat__body">
             The verdict derives to <span class="mono-inline">{blockedVerdict.verdict}</span> and
             the claim's status to <span class="mono-inline">{blockedClaim.status}</span> —
-            computed from the evidence, not narrated by the agent. Anything consuming this
-            bundle refuses on <span class="mono-inline">{blockedVerdict.blocking.failedRequirements[0]}</span>;
-            nothing depends on the agent telling the truth about its own work.
+            computed from the failing evidence on
+            <span class="mono-inline">{blockedRequirements.join(', ')}</span>, not narrated.
+            Recompute the bundle and you get the same answer; rendering this green would
+            take a different artifact, not a different story.
           </p>
         </div>
       </div>
+
+      <p class="fine blocked-framing">
+        Honest framing: this exhibit is the Governance Kit's committed not-ready readiness
+        record run through its deterministic adapter — it demonstrates the refusal shape in
+        the real format, not a live delivery stopped mid-run. Publishing a stop-gate receipt
+        from a live blocked delivery is an open pursuit we track in the backlog, not a claim
+        this page makes.
+      </p>
 
       <div class="blocked-actions">
         <a
@@ -119,13 +142,13 @@ const blockedPolicy = blocked.bundle.policies[0];
     <div class="container container--readable">
       <Eyebrow accent="gold">The archive</Eyebrow>
       <h2 class="section-heading archive-heading">Every published receipt, green or not.</h2>
-      <Grid min="300" gap="lg">
+      <Grid min="300" gap="lg" class="archive-grid">
         {receipts.map((receipt) => {
           const counts = statusCounts(receipt.bundle);
           return (
             <Card accent={receipt.accent} bar="top" pad="lg" data-accent={receipt.accent}>
               <p class="label-sm receipt-pipeline">{receipt.pipeline}</p>
-              <h2 class="receipt-title">{receipt.title}</h2>
+              <h3 class="receipt-title">{receipt.title}</h3>
               <p class="receipt-summary">{receipt.summary}</p>
 
               <div class="receipt-badges">
@@ -344,6 +367,10 @@ const blockedPolicy = blocked.bundle.policies[0];
     flex-wrap: wrap;
     gap: 1rem;
     align-items: center;
+  }
+  .blocked-framing {
+    margin: 1.75rem 0 0;
+    max-width: 72ch;
   }
   .archive-heading {
     margin-bottom: 2rem;
