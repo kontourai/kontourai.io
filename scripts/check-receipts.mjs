@@ -10,7 +10,7 @@
  *   2. The downloadable copy served from public/receipts/<slug>.trust.bundle is
  *      byte-identical to its canonical source, so the artifact a visitor
  *      downloads is exactly the one the rendered view derives from.
- *   3. (issue #111) Every bundle ALSO validates under the independent hachure
+ *   3. (issue #111) Every bundle ALSO validates under the separate hachure
  *      reference CLI at its pinned version — two implementations, one verdict —
  *      which is what lets the receipts pages honestly advertise the second
  *      re-derive path. The pin must be exact so the advertised command and the
