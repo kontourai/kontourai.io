@@ -26,7 +26,10 @@
     "workflow:validate-artifacts": "flow-agents-validate-artifacts"
   },
   "trust-reconcile-manifest": [
-    { "id": "site-verify", "command": "npm run build && npm run validate" }
+    {
+      "id": "site-verify",
+      "command": "npm run build && npm run validate"
+    }
   ],
   "dependencies": {
     "@tailwindcss/vite": "^4.3.2",
@@ -38,6 +41,8 @@
     "@kontourai/surface": "^2.1.2",
     "@kontourai/ui": "^1.11.0",
     "@playwright/test": "^1.61.1",
+    "ajv": "8.20.0",
+    "hachure": "0.11.0",
     "vite": "^7.3.3",
     "wrangler": "4.107.0"
   }

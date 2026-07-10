@@ -501,6 +501,18 @@ test("receipts index lists the real pipeline bundles with downloads", async ({ p
     await expect(archiveGrid.locator(`a[href="/receipts/${slug}.trust.bundle"][download]`)).toBeVisible();
   }
 
+  // #111: the second-validator affordance shows the exact pinned hachure+ajv
+  // stack from package.json (check-receipts enforces the pins + runs the CLI).
+  const { devDependencies } = JSON.parse(
+    await readFile(new URL("../package.json", import.meta.url), "utf8"),
+  );
+  await expect(page.getByText("two implementations, same verdict")).toBeVisible();
+  // Honest independence scope: separate implementations, shared maintainer.
+  await expect(page.getByText("not yet organizationally independent")).toBeVisible();
+  await expect(
+    page.getByText(`npx -y -p ajv@${devDependencies.ajv} -p hachure@${devDependencies.hachure} hachure validate`).first(),
+  ).toBeVisible();
+
   // Each card names its own exact "check it yourself" command.
   await expect(page.getByText("Check it yourself")).toHaveCount(4);
   for (const slug of [
@@ -525,6 +537,17 @@ test("a receipt view renders the bundle's actual derived contents", async ({ pag
 
   // The actual claim type from the bundle is shown.
   await expect(page.getByText("software-readiness-verdict").first()).toBeVisible();
+
+  // #111: the per-file second-opinion command names the exact pinned stack
+  // and THIS receipt's file — a hardcoded version or wrong slug fails here.
+  const slugPagePins = JSON.parse(
+    await readFile(new URL("../package.json", import.meta.url), "utf8"),
+  ).devDependencies;
+  await expect(
+    page.getByText(`npx -y -p ajv@${slugPagePins.ajv} -p hachure@${slugPagePins.hachure} hachure validate`),
+  ).toBeVisible();
+  await expect(page.getByText("governance-readiness-not-ready.trust.bundle").first()).toBeVisible();
+  await expect(page.getByText("second opinion — the reference CLI")).toBeVisible();
 
   // Provenance links to the immutable commit; download button points at the raw file.
   await expect(
