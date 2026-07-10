@@ -1,3 +1,14 @@
+# Evidence lanes (issue #3):
+#   - PR VALIDATION EVIDENCE = the "Build, Test & Validate" check on a pull
+#     request (plus "Trust Verify"). Hermetic with one exception: npm-registry
+#     parity runs in warn mode on PRs so out-of-band package releases can't
+#     turn open PRs red.
+#   - DEPLOY/RELEASE READINESS EVIDENCE = the same "Build, Test & Validate"
+#     check on the main push (strict registry parity: a stale advertised
+#     version blocks publishing) plus "Deploy to Cloudflare Pages" and the
+#     post-deploy "Smoke Test" jobs, which only run on main.
+#   - VERSION DRIFT is owned by the scheduled Pin Refresh workflow, which
+#     regenerates product-status.json and opens the bump PR.
 name: Deploy
 
 on:
@@ -44,6 +55,12 @@ jobs:
 
       - name: Validate
         run: npm run validate
+        env:
+          # Issue #3: PR validation is the hermetic change-evidence lane — a
+          # package releasing on npm mid-review must not turn PRs red. The
+          # main/deploy run stays strict so a stale advertised version blocks
+          # publishing; the scheduled Pin Refresh lane owns the version bump.
+          VALIDATE_REGISTRY_PARITY: ${{ github.event_name == 'pull_request' && 'warn' || 'strict' }}
 
   deploy:
     name: Deploy to Cloudflare Pages

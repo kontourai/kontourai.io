@@ -23,6 +23,12 @@ jobs:
   trust-verify:
     name: Trust Verify
     runs-on: ubuntu-latest
+    env:
+      # Issue #3: this workflow only runs on pull_request, which is the
+      # hermetic change-evidence lane — live npm registry drift warns instead
+      # of blocking here. The strict parity gate lives in the main/deploy
+      # verify run and the scheduled Pin Refresh lane.
+      VALIDATE_REGISTRY_PARITY: warn
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v6
