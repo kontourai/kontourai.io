@@ -586,6 +586,10 @@ test("trust page states the honest ceiling, the bypass list, the assurance dial,
   // CI authority is scoped to repos with the required check configured — never universal.
   await expect(page.getByText("with the Trust Verify job wired in").first()).toBeVisible();
   await expect(page.getByText("installing the tool doesn't configure your branch protection")).toBeVisible();
+  // Site-parity claim stays exactly as strong as the branch-protection fact:
+  // required + no-bypass, with the workflow-protection gap disclosed.
+  await expect(page.getByText("This site's own repo now requires the check too")).toBeVisible();
+  await expect(page.getByText("workflow definition isn't yet owner-review-protected")).toBeVisible();
   await expect(page.getByText("on where we build Flow Agents, off by default")).toBeVisible();
   await expect(page.getByText("It is the irreducible human boundary").first()).toBeVisible();
 

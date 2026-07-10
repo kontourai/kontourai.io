@@ -113,7 +113,7 @@ const PR_475_URL = 'https://github.com/kontourai/flow-agents/pull/475';
             Edit the bundle, the logs, or the workflow state on your own machine. Locally, the
             evidence is a tamper-evident hash chain — break a link and the chain no longer
             verifies. But the authoritative catch isn't local: with the Trust Verify job wired in
-            as a required check — the way the Flow Agents repo and this site's own repo run it — every pull request re-runs
+            as a required check — the way the Flow Agents repo itself runs it — every pull request re-runs
             the real verification fresh in a clean environment the agent can't pre-disable, and
             reconciles your bundle against its own results. CI never trusts your bundle as a
             source of truth — it only uses it to detect divergence. A claimed pass that CI shows
@@ -123,7 +123,9 @@ const PR_475_URL = 'https://github.com/kontourai/flow-agents/pull/475';
             <em>Honest residual: a determined agent can still flip a local kill-switch through its
             own shell. That's exactly why the authority lives in CI, not in the local gate. And
             the CI catch is only authoritative once you make the check required — installing the
-            tool doesn't configure your branch protection for you.</em>
+            tool doesn't configure your branch protection for you. (This site's own repo now
+            requires the check too, no-bypass — though unlike Flow Agents, its workflow
+            definition isn't yet owner-review-protected.)</em>
           </p>
         </div>
 
