@@ -18,18 +18,29 @@ import { receipts, statusCounts, badgeVariant, getReceipt } from '@/lib/receipts
 // loudly instead of rendering mismatched facts.
 const blocked = getReceipt('governance-readiness-not-ready');
 if (!blocked) throw new Error('receipts lead exhibit: governance-readiness-not-ready missing from catalog');
-const blockedClaim = blocked.bundle.claims.find((c) => c.claimType === 'software-readiness-verdict');
-if (!blockedClaim) throw new Error('receipts lead exhibit: software-readiness-verdict claim missing from bundle');
+const blockedClaims = blocked.bundle.claims.filter((c) => c.claimType === 'software-readiness-verdict');
+if (blockedClaims.length !== 1) {
+  throw new Error(`receipts lead exhibit: expected exactly one software-readiness-verdict claim, found ${blockedClaims.length}`);
+}
+const blockedClaim = blockedClaims[0];
+// The exhibit's whole point is a refusal — if a refreshed bundle stops being
+// one, fail the build rather than render refusal copy over passing facts.
+if (blockedClaim.status !== 'disputed') {
+  throw new Error(`receipts lead exhibit: claim status is ${blockedClaim.status}, expected disputed`);
+}
 const blockedVerdict = blockedClaim.value as {
   verdict?: string;
   blocking?: { failedRequirements?: string[] };
 };
 const blockedRequirements = blockedVerdict.blocking?.failedRequirements ?? [];
-if (typeof blockedVerdict.verdict !== 'string' || blockedRequirements.length === 0) {
-  throw new Error('receipts lead exhibit: bundle claim value lacks verdict/blocking requirements');
+if (blockedVerdict.verdict !== 'not-ready' || blockedRequirements.length === 0) {
+  throw new Error('receipts lead exhibit: claim value is not a blocked not-ready verdict with failed requirements');
 }
-const blockedEvidence = blocked.bundle.evidence.find((e) => e.claimId === blockedClaim.id);
-if (!blockedEvidence) throw new Error('receipts lead exhibit: evidence for the blocked claim missing from bundle');
+const blockedEvidenceRecords = blocked.bundle.evidence.filter((e) => e.claimId === blockedClaim.id);
+if (blockedEvidenceRecords.length !== 1 || blockedEvidenceRecords[0].passing !== false) {
+  throw new Error('receipts lead exhibit: expected exactly one failing evidence record for the blocked claim');
+}
+const blockedEvidence = blockedEvidenceRecords[0];
 const blockedPolicy = blocked.bundle.policies.find((p) => p.claimType === blockedClaim.claimType);
 if (!blockedPolicy?.acceptanceCriteria?.length) {
   throw new Error('receipts lead exhibit: policy acceptance criteria missing from bundle');
