@@ -137,6 +137,30 @@ import Subscribe from '@/components/Subscribe.astro';
     </div>
   </Section>
 
+  <!-- Peak-conviction dual CTA (#109): after the proof, fork both readers -- -->
+  <Section borderTop>
+    <div class="container container--readable fork">
+      <div class="fork__paths">
+        <div class="fork__path" data-accent="gold">
+          <p class="label-sm fork__label">Convinced?</p>
+          <p class="body fork__copy">
+            Bring the workflow you want to make inspectable — we're building in
+            public with design partners.
+          </p>
+          <a href="/early-access/" class="btn-primary" data-umami-event="home-fork-early-access">Get early access →</a>
+        </div>
+        <div class="fork__path" data-accent="cobalt-2">
+          <p class="label-sm fork__label">Skeptical? Good.</p>
+          <p class="body fork__copy">
+            The trust page leads with what we <em>can't</em> certify — the honest
+            ceiling, and three ways to cheat the gate.
+          </p>
+          <a href="/trust/" class="btn-ghost" data-umami-event="home-fork-trust">See how to cheat it →</a>
+        </div>
+      </div>
+    </div>
+  </Section>
+
   <!-- Promise ------------------------------------------------------------- -->
   <Section borderTop>
     <div class="container container--readable promise">
@@ -268,6 +292,25 @@ import Subscribe from '@/components/Subscribe.astro';
     display: flex;
     gap: 0.75rem;
     flex-wrap: wrap;
+  }
+
+  /* Peak-conviction fork (#109) ------------------------------------------ */
+  .fork__paths {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem;
+  }
+  .fork__path {
+    border-left: 2px solid var(--accent, var(--color-edge-2));
+    padding-left: 1.25rem;
+  }
+  .fork__label {
+    color: var(--accent, var(--color-chalk-3));
+    margin: 0 0 0.6rem;
+  }
+  .fork__copy {
+    margin: 0 0 1.25rem;
+    max-width: 46ch;
   }
 
   /* Promise + CTA -------------------------------------------------------- */
