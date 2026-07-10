@@ -388,7 +388,7 @@ test("developers page maps product ownership, lifecycle, and maturity on desktop
   // rendered from package.json so the advertised stack can't drift from CI.
   await expect(page.getByRole("heading", { name: "Two commands, then the diagrams." })).toBeVisible();
   // Honest per-runtime scoping in the install comment: blocking vs advisory.
-  await expect(page.getByText("advisory (no stop hook) on the rest")).toBeVisible();
+  await expect(page.getByText("advisory on the rest (matrix on /trust)")).toBeVisible();
   // Quickstart renders before the product tour (examples first).
   const quickstartBox = await page.getByRole("heading", { name: "Two commands, then the diagrams." }).boundingBox();
   const tourBox = await page.getByRole("heading", { name: "Six products. One job." }).boundingBox();
