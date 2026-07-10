@@ -10,9 +10,15 @@
  *   2. The downloadable copy served from public/receipts/<slug>.trust.bundle is
  *      byte-identical to its canonical source, so the artifact a visitor
  *      downloads is exactly the one the rendered view derives from.
+ *   3. (issue #111) Every bundle ALSO validates under the independent hachure
+ *      reference CLI at its pinned version — two implementations, one verdict —
+ *      which is what lets the receipts pages honestly advertise the second
+ *      re-derive path. The pin must be exact so the advertised command and the
+ *      checked binary can't drift apart.
  *
  * Run standalone (`npm run check:receipts`) or as part of `npm run validate`.
  */
+import { execFileSync } from "node:child_process";
 import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -29,6 +35,20 @@ function error(message) {
   errorCount += 1;
   console.error(`ERROR ${message}`);
 }
+
+const pkg = JSON.parse(readFileSync(path.join(rootDir, "package.json"), "utf8"));
+const hachurePin = pkg.devDependencies?.hachure ?? "";
+if (!/^\d+\.\d+\.\d+$/.test(hachurePin)) {
+  error(
+    `package.json: hachure devDependency must be an exact semver pin (found "${hachurePin || "none"}")`,
+  );
+}
+const hachureBin = path.join(
+  rootDir,
+  "node_modules",
+  ".bin",
+  process.platform === "win32" ? "hachure.cmd" : "hachure",
+);
 
 const sources = readdirSync(srcDir).filter((name) => name.endsWith(SRC_SUFFIX));
 
@@ -77,6 +97,19 @@ for (const sourceName of sources.sort()) {
     continue;
   }
   console.log(`PASS  ${slug}: downloadable copy matches canonical source`);
+
+  // 3. Second, independent validator: the pinned hachure reference CLI
+  //    (issue #111). Fail-closed: a missing binary or non-zero exit is an
+  //    error, never a skip — the "two implementations, same verdict"
+  //    affordance on the receipts pages is only honest while this passes.
+  try {
+    execFileSync(hachureBin, ["validate", srcPath], { stdio: "pipe" });
+    console.log(`PASS  ${slug}: second validator agrees (hachure@${hachurePin} validate)`);
+  } catch (err) {
+    const detail = err.stderr?.toString().trim() || err.stdout?.toString().trim() || err.message;
+    error(`${sourceName}: hachure validate failed — ${detail}`);
+    continue;
+  }
 }
 
 if (errorCount > 0) {

@@ -9,6 +9,13 @@ import Card from '@/components/Card.astro';
 import Grid from '@/components/Grid.astro';
 import Terminal from '@/components/Terminal.astro';
 import { receipts, statusCounts, badgeVariant, getReceipt } from '@/lib/receipts';
+import pkg from '../../../package.json';
+
+// Second re-derive path (#111): the advertised hachure command renders the
+// exact pinned version from package.json, and check-receipts.mjs runs that
+// same pinned CLI over every bundle in `validate` — the copy below may only
+// exist while that check is green.
+const hachurePin = pkg.devDependencies.hachure;
 
 // Lead exhibit (#107): the blocked verdict opens the page. Everything shown
 // about it is derived from the committed bundle, same as the cards below — the
@@ -219,6 +226,17 @@ if (!blockedPolicy?.acceptanceCriteria?.length) {
         <div class="info">Facets: flow-agents.workflow: 34</div>
         <div class="muted"># exit 0 — the bundle validated</div>
       </Terminal>
+      <p class="section-lead recompute-second">
+        Don't take one implementation's word for it either. Every bundle here
+        also validates under the independent <span class="mono-inline">hachure</span> reference
+        CLI — two implementations, same verdict — and our CI runs both validators
+        over every bundle on every change:
+      </p>
+      <Terminal title="second opinion — the reference CLI">
+        <div><span class="prompt">$</span> <span class="cmd">npx -y -p ajv -p hachure@{hachurePin} hachure validate \</span></div>
+        <div><span class="cmd">    governance-readiness-not-ready.trust.bundle</span></div>
+        <div class="pass">valid TrustBundle (schemaVersion 5)</div>
+      </Terminal>
       <p class="section-lead recompute-foot">
         Each receipt page repeats the exact command for its file and links the
         provenance commit, so you can trace the artifact back to the run that
@@ -353,6 +371,9 @@ if (!blockedPolicy?.acceptanceCriteria?.length) {
     margin-top: 1.5rem;
     margin-bottom: 0;
     font-size: 0.9rem;
+  }
+  .recompute-second {
+    margin-top: 2rem;
   }
 
   /* Lead exhibit: the blocked run */
