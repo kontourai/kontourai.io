@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-07-07",
+  "checkedAt": "2026-07-10",
   "products": {
     "surface": {
       "key": "surface",
@@ -70,7 +70,7 @@
       "key": "console",
       "label": "Console",
       "packageName": "@kontourai/console",
-      "version": "1.12.0",
+      "version": "2.0.0",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/console",
       "publicNotes": "Open-source foundation on npm: the local hub, fixture inspector, Flow run bridge, and a local UI. The hosted console at console.kontourai.io is a private production deployment of it.",
