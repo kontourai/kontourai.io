@@ -78,6 +78,21 @@ test("homepage leads with a single Flow Agents headline and Survey as the proof 
   await expect(page.locator('[data-umami-event="home-proof-receipts"]')).toHaveAttribute("href", "/receipts/");
   await expect(page.locator('[data-umami-event="nav-receipts"]')).toHaveAttribute("href", "/receipts/");
   await expect(page.locator('[data-umami-event="footer-receipts"]')).toHaveAttribute("href", "/receipts/");
+
+  // #109: peak-conviction fork right after the proof story — both paths.
+  await expect(page.locator('[data-umami-event="home-fork-early-access"]')).toHaveAttribute("href", "/early-access/");
+  await expect(page.locator('[data-umami-event="home-fork-trust"]')).toHaveAttribute("href", "/trust/");
+  await expect(page.getByText("Skeptical? Good.")).toBeVisible();
+  await expect(page.getByText("See how to cheat it →")).toBeVisible();
+  // Placement: proof pull-quote above the fork, fork above the promise.
+  const proofPullBox = await page.getByText("Memory tells the agent what it knows.").boundingBox();
+  const forkBox = await page.getByText("Skeptical? Good.").boundingBox();
+  const promiseBox = await page.getByRole("heading", { name: "Evidence-backed confidence." }).boundingBox();
+  expect(proofPullBox).not.toBeNull();
+  expect(forkBox).not.toBeNull();
+  expect(promiseBox).not.toBeNull();
+  expect(proofPullBox.y).toBeLessThan(forkBox.y);
+  expect(forkBox.y).toBeLessThan(promiseBox.y);
   await expect(page.locator('[data-umami-event="footer-trust"]')).toHaveAttribute("href", "/trust/");
 
   // Teaser: product nav/footer links stay hidden on the public home
