@@ -59,6 +59,8 @@ export interface Policy {
   id: string;
   claimType: string;
   impactLevel?: string;
+  requiredEvidence?: string[];
+  acceptanceCriteria?: string[];
 }
 
 export interface TrustBundle {

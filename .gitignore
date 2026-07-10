@@ -13,3 +13,6 @@ screenshot-*.png
 .flow-agents/
 
 .kontourai/
+
+# a symlinked node_modules (worktree setup) is not matched by node_modules/
+node_modules
