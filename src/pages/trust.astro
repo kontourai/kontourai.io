@@ -113,7 +113,7 @@ const PR_475_URL = 'https://github.com/kontourai/flow-agents/pull/475';
             Edit the bundle, the logs, or the workflow state on your own machine. Locally, the
             evidence is a tamper-evident hash chain — break a link and the chain no longer
             verifies. But the authoritative catch isn't local: with the Trust Verify job wired in
-            as a required check — the way the Flow Agents repo itself runs it — every pull request re-runs
+            as a required check — the way the Flow Agents repo and this site's own repo run it — every pull request re-runs
             the real verification fresh in a clean environment the agent can't pre-disable, and
             reconciles your bundle against its own results. CI never trusts your bundle as a
             source of truth — it only uses it to detect divergence. A claimed pass that CI shows

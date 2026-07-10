@@ -191,6 +191,12 @@ test("production analytics scripts are configured defensively", async ({ page })
 test("flow page explains process transparency and product boundaries", async ({ page }) => {
   await page.goto("/flow/");
 
+  // #91 F12: published packages link their npmjs page (parity with Surface/Survey/Veritas).
+  await expect(page.locator('[data-umami-event="flow-hero-npm"]')).toHaveAttribute(
+    "href",
+    "https://www.npmjs.com/package/@kontourai/flow",
+  );
+
   await expect(page.getByText("required paths, gates, evidence, and exceptions made inspectable")).toBeVisible();
   await expect(page.getByText("A trace says what happened.")).toBeVisible();
   await expect(page.getByText("Flow says why it was enough.")).toBeVisible();
@@ -423,6 +429,12 @@ test("flow agents page presents agent-tool discipline and status", async ({ page
 
   // Guard against the old "coming soon" framing regressing back in
   await expect(page.getByText("coming soon")).toHaveCount(0);
+
+  // #91 F12: published packages link their npmjs page (parity with Surface/Survey/Veritas).
+  await expect(page.locator('[data-umami-event="flow-agents-hero-npm"]')).toHaveAttribute(
+    "href",
+    "https://www.npmjs.com/package/@kontourai/flow-agents",
+  );
 
   // #110: the shared enforcement matrix is applied here — badges come from
   // EnforcementBadge (data-enforcement fingerprint), not hand-rolled spans.
