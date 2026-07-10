@@ -429,8 +429,9 @@ test("flow agents page presents agent-tool discipline and status", async ({ page
   await expect(page.getByRole("heading", { name: "Where the gate actually blocks, per runtime" })).toBeVisible();
   const faMatrix = page.locator(".enforcement-table");
   await expect(faMatrix.getByRole("row", { name: /Claude Code/ }).locator('[data-enforcement="blocking"]')).toHaveText("Blocking");
+  await expect(faMatrix.getByRole("row", { name: /Kiro/ }).locator('[data-enforcement="advisory"]')).toHaveText("Advisory / opt-in block");
   await expect(faMatrix.getByRole("row", { name: /opencode/ }).locator('[data-enforcement="advisory"]')).toHaveText("Advisory / partial");
-  await expect(faMatrix.getByRole("row", { name: /Everywhere else/ }).locator('[data-enforcement="spec-only"]')).toHaveText("Spec-only");
+  await expect(faMatrix.getByRole("row", { name: /Other harnesses/ }).locator('[data-enforcement="spec-only"]')).toHaveText("Spec-only");
 });
 
 test("receipts index lists the real pipeline bundles with downloads", async ({ page }) => {
@@ -608,10 +609,13 @@ test("trust page states the honest ceiling, the bypass list, the assurance dial,
   const runtimeTable = page.locator(".enforcement-table");
   await expect(runtimeTable.getByRole("row", { name: /Claude Code/ }).locator(".trust-badge--verified")).toHaveText("Blocking");
   await expect(runtimeTable.getByRole("row", { name: /Codex/ }).locator(".trust-badge--verified")).toHaveText("Blocking");
-  await expect(runtimeTable.getByRole("row", { name: /Kiro/ }).locator(".trust-badge--verified")).toHaveText("Blocking");
+  // Kiro ships the engine's warn default (only Claude Code/Codex ship block) —
+  // badging it "Blocking" was an overclaim, fixed in #110.
+  await expect(runtimeTable.getByRole("row", { name: /Kiro/ }).locator(".trust-badge--stale")).toHaveText("Advisory / opt-in block");
   await expect(runtimeTable.getByRole("row", { name: /opencode/ }).locator(".trust-badge--stale")).toHaveText("Advisory / partial");
   await expect(runtimeTable.getByRole("row", { name: /^pi\s/ }).locator(".trust-badge--stale")).toHaveText("Advisory / partial");
-  await expect(runtimeTable.getByRole("row", { name: /Everywhere else/ }).locator(".trust-badge--unknown")).toHaveText("Spec-only");
+  await expect(runtimeTable.getByRole("row", { name: /AWS Strands/ }).locator(".trust-badge--stale")).toHaveText("Advisory / partial");
+  await expect(runtimeTable.getByRole("row", { name: /Other harnesses/ }).locator(".trust-badge--unknown")).toHaveText("Spec-only");
   await expect(page.getByText("it refuses or escalates to you, never silently proceeds.")).toBeVisible();
   // The hook-conformance scale must stay visibly distinct from the signing assurance dial.
   await expect(page.getByText("a different dial from the signing assurance levels above")).toBeVisible();

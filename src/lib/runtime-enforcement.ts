@@ -29,9 +29,15 @@ export const runtimeEnforcement: RuntimeEnforcement[] = [
     meaning: "Same blocking path, mapped to Codex agent definitions.",
   },
   {
+    // Kiro's adapter has the full blocking capability (hook-surface L2), but
+    // unlike Claude Code and Codex its shipped config leaves the engine's
+    // canonical `warn` default — badging it "Blocking" would overclaim the
+    // out-of-the-box behavior (runtime-hook-surface spec, Decision contract).
     runtime: "Kiro",
-    level: "blocking",
-    meaning: "Same blocking path, wired to Kiro sessions.",
+    level: "advisory",
+    label: "Advisory / opt-in block",
+    meaning:
+      "Full blocking capability is wired, but the shipped default warns instead of blocking — set FLOW_AGENTS_GOAL_FIT_MODE=block to enforce.",
   },
   {
     runtime: "opencode",
@@ -48,7 +54,14 @@ export const runtimeEnforcement: RuntimeEnforcement[] = [
       "No stop hook — the done-check can't run; config protection still blocks at tool-call time.",
   },
   {
-    runtime: "Everywhere else",
+    runtime: "AWS Strands (Python & TS)",
+    level: "advisory",
+    label: "Advisory / partial",
+    meaning:
+      "Official framework adapters: config protection blocks at tool-call time; steering, quality, and stop policies are telemetry- or shim-only so far.",
+  },
+  {
+    runtime: "Other harnesses",
     level: "spec-only",
     meaning: "The open format runs; no runtime hook yet.",
   },

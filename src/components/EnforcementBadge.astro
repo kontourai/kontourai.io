@@ -34,6 +34,14 @@ const VARIANTS: Record<EnforcementLevel, { variant: string; label: string }> = {
 const { level, label, class: className, ...rest } = Astro.props;
 const mapped = VARIANTS[level];
 if (!mapped) throw new Error(`EnforcementBadge: unknown level "${level}"`);
+// A label may qualify its level ("Advisory / partial") but never rename it —
+// the visible text must lead with the canonical level word so the badge can't
+// visually claim one level while data-enforcement says another.
+if (label && !label.startsWith(mapped.label)) {
+  throw new Error(
+    `EnforcementBadge: label "${label}" must start with the canonical level label "${mapped.label}"`,
+  );
+}
 ---
 
 <span
