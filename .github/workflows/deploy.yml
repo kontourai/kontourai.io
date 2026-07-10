@@ -50,6 +50,7 @@ jobs:
       - name: Determine registry-parity mode
         id: parity
         if: github.event_name == 'pull_request'
+        shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
