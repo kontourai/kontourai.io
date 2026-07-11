@@ -1,0 +1,171 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import Section from '@/components/Section.astro';
+import Glow from '@/components/Glow.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+import Card from '@/components/Card.astro';
+import Grid from '@/components/Grid.astro';
+
+// Positioning note (#71): the recorded stance is architectural — Kontour
+// builds no memory platform and certifies no vendor integration. Examples
+// below are named as instances of the pattern, never as tested integrations.
+const patterns = [
+  {
+    title: 'A knowledge-format layer',
+    example: 'e.g. OKF (Open Knowledge Format)',
+    accent: 'cobalt-2',
+    body: "Standardizes the knowledge an agent consumes — context going in. It is deliberately silent on trust: no integrity, provenance, or freshness semantics. That's the seam, not a conflict: a knowledge bundle is a clean source for grounding, and the trust layer supplies what the format leaves out.",
+  },
+  {
+    title: 'A memory platform',
+    example: 'e.g. Context Lattice',
+    accent: 'gold',
+    body: 'Owns what the agent remembers across sessions — retrieval, salience, forgetting. Kontour never sees or stores that memory. It records what the work stood on when the agent acted, whatever memory system fed it.',
+  },
+  {
+    title: 'Hook-based external memory',
+    example: 'harness hooks writing to your own store',
+    accent: 'green',
+    body: "Rolls memory by hand with runtime hooks. Kontour's hooks ride the same harness surfaces without claiming them — sidecar state is workflow evidence under .kontourai/, not a memory store, and it stays out of your context budget.",
+  },
+] as const;
+---
+
+<Layout
+  title="Works with your memory layer — interoperability stance · Kontour AI"
+  description="Kontour builds no memory platform. Sidecar state and trust bundles record what work stood on, alongside whatever memory layer — OKF, Context Lattice, or hook-based — your agents already use."
+>
+  <Nav active="developers" />
+
+  <Section contour size="hero" borderBottom>
+    <Glow accent="cobalt-2" position="top-right" />
+    <div class="container container--readable">
+      <Eyebrow accent="cobalt-2">Interoperability stance</Eyebrow>
+      <h1 class="product-title animate-fade-up">Works with your memory layer</h1>
+      <p class="hero-copy animate-fade-up delay-200">
+        Agent memory is a crowded, fast-moving market — and Kontour is not in
+        it. <strong>We build no memory platform.</strong> That's a recorded
+        do-not-build guard, not a roadmap gap: sidecar state and trust bundles
+        are evidence about work, not memory about the world, and they operate
+        alongside whatever memory stack your agents already run.
+      </p>
+      <blockquote class="memory-pull animate-fade-up delay-200">
+        Memory tells the agent what it knows. Kontour proves what its answers
+        stood on.
+      </blockquote>
+    </div>
+  </Section>
+
+  <Section tone="alt" size="lg" borderBottom>
+    <div class="container container--readable">
+      <Eyebrow accent="gold">The two layers</Eyebrow>
+      <h2 class="section-heading">Different questions, different artifacts.</h2>
+      <p class="section-lead">
+        A memory layer answers "what does the agent know going in?" Kontour
+        answers "what did the answer stand on coming out?" The first is a
+        context concern; the second is a trust concern. Standardizing the
+        first — as knowledge formats now do — makes the second question more
+        acute, not less: once everyone can assemble context, "but is the
+        answer grounded?" is the question left standing.
+      </p>
+
+      <Grid cols={3} gap="lg">
+        {patterns.map(({ title, example, accent, body }) => (
+          <Card accent={accent} bar="top" pad="lg">
+            <h3 class="memory-card__title">{title}</h3>
+            <p class="label-sm memory-card__example" data-accent={accent}>{example}</p>
+            <p class="memory-card__body">{body}</p>
+          </Card>
+        ))}
+      </Grid>
+
+      <p class="fine memory-note">
+        Honest scope: these are examples of the architectural pattern, not
+        tested integrations or partnership claims. We describe how the layers
+        compose; we don't certify vendors.
+      </p>
+    </div>
+  </Section>
+
+  <Section size="lg" borderBottom>
+    <div class="container container--readable">
+      <Eyebrow accent="green">How they compose</Eyebrow>
+      <h2 class="section-heading">Your memory feeds the agent. Kontour receipts the work.</h2>
+      <p class="section-lead">
+        In practice the seam is simple: your memory layer decides what context
+        the agent sees; the harness does the work; Kontour's hooks capture
+        what actually ran and what the claims stood on — real exit codes,
+        tamper-evident records, recomputable
+        <span class="mono-inline">trust.bundle</span> artifacts. Swap the
+        memory layer and nothing on the trust side changes, because nothing on
+        the trust side ever depended on it.
+      </p>
+      <div class="memory-actions">
+        <a href="/trust/" class="btn-ghost" data-umami-event="memory-trust">How the trust layer works →</a>
+        <a href="/receipts/" class="btn-ghost" data-umami-event="memory-receipts">See real receipts →</a>
+        <a href="/flow-agents/" class="btn-ghost" data-umami-event="memory-flow-agents">The engine that captures →</a>
+      </div>
+    </div>
+  </Section>
+
+  <Footer />
+</Layout>
+
+<style>
+  .container--readable {
+    margin-inline: auto;
+  }
+  .mono-inline {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    color: var(--color-chalk-2);
+  }
+  .memory-pull {
+    margin: 2rem 0 0;
+    padding-left: 1.25rem;
+    border-left: 2px solid var(--color-cobalt-2);
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    line-height: 1.5;
+    color: var(--color-chalk);
+    max-width: 680px;
+  }
+  .section-heading {
+    font-size: 1.75rem;
+    margin: 0 0 1rem;
+    color: var(--color-chalk);
+  }
+  .section-lead {
+    color: var(--color-chalk-2);
+    line-height: 1.7;
+    max-width: 68ch;
+    margin: 0 0 1.75rem;
+  }
+  .memory-card__title {
+    font-size: 1.15rem;
+    color: var(--color-chalk);
+    margin: 0 0 0.35rem;
+  }
+  .memory-card__example {
+    color: var(--accent, var(--color-chalk-3));
+    margin: 0 0 0.75rem;
+  }
+  .memory-card__body {
+    color: var(--color-chalk-2);
+    font-size: 0.9rem;
+    line-height: 1.65;
+    margin: 0;
+  }
+  .memory-note {
+    margin: 2rem 0 0;
+    max-width: 72ch;
+    color: var(--color-chalk-2);
+  }
+  .memory-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+</style>
