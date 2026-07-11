@@ -18,6 +18,7 @@ import pkg from '../../../package.json';
 // Second re-derive path (#111): versions rendered from the package.json pins,
 // which check-receipts.mjs enforces and exercises on every validate run.
 const hachurePin = pkg.devDependencies.hachure;
+const surfacePin = pkg.dependencies['@kontourai/surface'];
 const ajvPin = pkg.devDependencies.ajv;
 
 export function getStaticPaths() {
@@ -202,7 +203,7 @@ function truncate(value: string, max = 220): string {
         exits non-zero if the artifact is not a well-formed trust.bundle.
       </p>
       <Terminal title="validate this receipt">
-        <div><span class="prompt">$</span> <span class="cmd">npx @kontourai/surface@2.1.2 report \</span></div>
+        <div><span class="prompt">$</span> <span class="cmd">npx @kontourai/surface@{surfacePin} report \</span></div>
         <div><span class="cmd">    --input {receipt.slug}.trust.bundle --format summary</span></div>
         <div class="muted"># exit 0 prints the trust summary; a broken file exits 1</div>
       </Terminal>

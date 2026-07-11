@@ -32,13 +32,13 @@
     }
   ],
   "dependencies": {
+    "@kontourai/surface": "2.4.0",
     "@tailwindcss/vite": "^4.3.2",
     "astro": "^6.4.4",
     "tailwindcss": "^4.3.0"
   },
   "devDependencies": {
     "@kontourai/flow-agents": "^3.5.0",
-    "@kontourai/surface": "^2.4.0",
     "@kontourai/ui": "^1.11.0",
     "@playwright/test": "^1.61.1",
     "ajv": "8.20.0",

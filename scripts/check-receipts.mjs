@@ -50,6 +50,16 @@ const ajvPin = pkg.devDependencies?.ajv ?? "";
 if (!/^\d+\.\d+\.\d+$/.test(ajvPin)) {
   error(`package.json: ajv devDependency must be an exact semver pin (found "${ajvPin || "none"}")`);
 }
+// The named validator itself: the receipts pages advertise
+// `npx @kontourai/surface@<pin>` rendered from this dependency, and this
+// script imports validateTrustBundle from the same install — exact pin keeps
+// the advertised command and the CI-exercised validator identical.
+const surfacePin = pkg.dependencies?.["@kontourai/surface"] ?? "";
+if (!/^\d+\.\d+\.\d+$/.test(surfacePin)) {
+  error(
+    `package.json: @kontourai/surface dependency must be an exact semver pin (found "${surfacePin || "none"}")`,
+  );
+}
 const hachureBin = path.join(
   rootDir,
   "node_modules",
