@@ -1,0 +1,14 @@
+[
+  {
+    "scope": "author:dependabot[bot] branch-prefix:dependabot/",
+    "reason": "dependabot dependency-bump PR; no agent delivery involved. Compound scope binds the platform-set actor identity to the bot's branch namespace per ADR 0022's fork-PR guidance.",
+    "approved_by": "briananderson1222",
+    "declared_at": "2026-07-11T16:00:00Z"
+  },
+  {
+    "scope": "author:github-actions[bot] branch-prefix:automation/pin-refresh",
+    "reason": "scheduled Pin Refresh product-status parity PR; no agent delivery involved. Compound scope binds the platform-set actor identity to the automation's branch namespace.",
+    "approved_by": "briananderson1222",
+    "declared_at": "2026-07-11T16:00:00Z"
+  }
+]
