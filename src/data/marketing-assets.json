@@ -1,0 +1,40 @@
+{
+  "$comment": "Marketing visual-asset manifest: every product screenshot/video on the site, bound to the product version it was captured against. check-marketing-freshness.mjs flags per-asset staleness when the product's npm latest moves a minor/major beyond capturedAgainstVersion. Refreshing an asset = recapture against the released product, human-review the visual, then bump capturedAgainstVersion + capturedAt here (human-owned, like marketingReviewed).",
+  "assets": [
+    {
+      "asset": "public/screenshots/console-environment.png",
+      "page": "src/pages/console.astro",
+      "product": "console",
+      "capturedAgainstVersion": "1.11.0",
+      "capturedAt": "2026-07-03"
+    },
+    {
+      "asset": "public/screenshots/console-operating-plane.png",
+      "page": "src/pages/console.astro",
+      "product": "console",
+      "capturedAgainstVersion": "1.11.0",
+      "capturedAt": "2026-07-03"
+    },
+    {
+      "asset": "public/screenshots/survey-workbench.png",
+      "page": "src/pages/survey.astro",
+      "product": "survey",
+      "capturedAgainstVersion": "1.6.0",
+      "capturedAt": "2026-07-03"
+    },
+    {
+      "asset": "public/screenshots/surface-console.png",
+      "page": "src/pages/surface.astro",
+      "product": "surface",
+      "capturedAgainstVersion": "2.1.2",
+      "capturedAt": "2026-07-03"
+    },
+    {
+      "asset": "public/screenshots/flow-demo.gif",
+      "page": "src/pages/flow.astro",
+      "product": "flow",
+      "capturedAgainstVersion": "2.0.0",
+      "capturedAt": "2026-07-03"
+    }
+  ]
+}

@@ -23,7 +23,8 @@
     "sync-versions": "node scripts/sync-versions.mjs",
     "sync-versions:check": "node scripts/sync-versions.mjs --check",
     "workflow:sidecar": "flow-agents-workflow-sidecar",
-    "workflow:validate-artifacts": "flow-agents-validate-artifacts"
+    "workflow:validate-artifacts": "flow-agents-validate-artifacts",
+    "check:marketing-freshness": "node scripts/check-marketing-freshness.mjs"
   },
   "trust-reconcile-manifest": [
     {
