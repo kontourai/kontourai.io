@@ -387,6 +387,32 @@ test("survey page explains the producer pipeline and surface handoff", async ({ 
   await expect(page.getByText("Surface TrustBundle").first()).toBeVisible();
 });
 
+test("reference story: LLM proposes, structure verifies (#74)", async ({ page }) => {
+  await page.goto("/writing/llm-proposes-structure-verifies/");
+
+  await expect(page.getByRole("heading", { level: 1, name: "LLM proposes, structure verifies" })).toBeVisible();
+  // The spine and the structural claim.
+  await expect(page.getByText("extracted → resolved → verified")).toBeVisible();
+  await expect(page.getByText("can only read verified facts.")).toBeVisible();
+  // The honesty block: no LLM-in-production overclaim, no competitor named.
+  await expect(page.getByRole("heading", { name: "What we're not claiming" })).toBeVisible();
+  await expect(page.getByText("deterministic parsers, not LLMs")).toBeVisible();
+  await expect(page.getByText(/TaxHacker/i)).toHaveCount(0);
+  // Private-repo boundary: mechanics described, internals never linked.
+  await expect(page.getByText("a private household repo")).toBeVisible();
+  await expect(page.locator('a[href*="briananderson1222"]')).toHaveCount(0);
+  // Product links out.
+  await expect(page.locator('a[href="/survey/"]').first()).toBeVisible();
+  await expect(page.locator('a[href="/receipts/"]').first()).toBeVisible();
+
+  // Discovery: the survey page links the story.
+  await page.goto("/survey/");
+  await expect(page.locator('[data-umami-event="survey-writing-story"]')).toHaveAttribute(
+    "href",
+    "/writing/llm-proposes-structure-verifies/",
+  );
+});
+
 test("console page presents the suite operating plane and boundary", async ({ page }) => {
   await page.goto("/console/");
 
