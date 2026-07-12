@@ -13,12 +13,12 @@ const bannedTerms = [
     pattern: new RegExp(["c", "a", "m", "p", "f", "i", "t"].join(""), "i"),
   },
   {
-    label: "private regulated vertical repository name",
-    pattern: new RegExp("\\b" + ["t", "a", "x", "e", "s"].join("") + "\\b", "i"),
-  },
-  {
-    label: "private regulated vertical term",
-    pattern: new RegExp("\\b" + ["t", "a", "x"].join("") + "\\b", "i"),
+    // Owner decision 2026-07-12 (#74): the bare domain words are allowed —
+    // they made the reference story unwritable. What stays private is the
+    // repo identity itself (owner/name slug), banned in any spelling that
+    // would leak it.
+    label: "private regulated vertical repository slug",
+    pattern: new RegExp(["brian", "anderson", "1222"].join("") + "/" + ["t", "a", "x", "e", "s"].join(""), "i"),
   },
   {
     label: "internal preview route copy",

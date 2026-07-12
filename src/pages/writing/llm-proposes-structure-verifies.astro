@@ -1,0 +1,213 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import Section from '@/components/Section.astro';
+import Glow from '@/components/Glow.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+---
+
+<Layout
+  title="LLM proposes, structure verifies · Kontour AI"
+  description="Self-hosted document organizers let a model extract your records and trust whatever comes back. A reference implementation of the opposite architecture: no fact reaches the math until it survives a gate."
+>
+  <Nav active="developers" />
+
+  <Section contour size="hero" borderBottom>
+    <Glow accent="gold" position="top-right" />
+    <div class="container container--readable">
+      <Eyebrow accent="gold">Writing</Eyebrow>
+      <h1 class="product-title animate-fade-up">LLM proposes, structure verifies</h1>
+      <p class="hero-copy animate-fade-up delay-200">
+        There's a popular class of self-hosted tools right now: upload your
+        documents, a model extracts the fields, the fields get saved. It
+        feels like magic until you notice what never happened — nothing ever
+        checked the extraction. We built a tax pipeline on the opposite
+        architecture, and the difference shows up exactly where it hurts:
+        the numbers you file.
+      </p>
+    </div>
+  </Section>
+
+  <Section tone="alt" size="lg" borderBottom>
+    <div class="container container--readable">
+      <h2 class="section-heading">The pattern everyone ships</h2>
+      <p class="body measure-lg prose">
+        The extract-and-trust pattern is easy to build and demos beautifully:
+        the model reads a PDF, returns structured fields, and the fields go
+        straight into your database. The extraction <em>is</em> the record.
+        When the model reads a wage box correctly, you saved twenty minutes.
+        When it hallucinates one digit, you saved twenty minutes and filed a
+        wrong number — and nothing in the system can tell you which of those
+        two things happened, because the output was trusted the moment it
+        appeared.
+      </p>
+      <p class="body measure-lg prose">
+        That's not an LLM problem. It's an architecture problem: the proposer
+        and the record-keeper are the same step. Any extractor — a model, a
+        regex, a person having a bad day — will sometimes be wrong. The
+        question is whether the system is built to notice.
+      </p>
+    </div>
+  </Section>
+
+  <Section size="lg" borderBottom>
+    <div class="container container--readable">
+      <h2 class="section-heading">The inversion: every proposal is untrusted</h2>
+      <p class="body measure-lg prose">
+        Our reference implementation is a household tax workspace — a real
+        one, filing real returns. Its extraction seam is built on
+        <a href="https://github.com/kontourai/traverse">Traverse</a>, and
+        Traverse's contract is blunt: an extraction is a <em>proposal</em>,
+        and a proposal must carry a verbatim excerpt of the source text it
+        claims to come from. The pipeline checks that the excerpt actually
+        occurs in the document. If it doesn't — because the extractor
+        paraphrased, summarized, or invented — the proposal is dropped.
+        Surviving proposals don't even get to keep their own source
+        locations: the pipeline recomputes every locator from the verified
+        match, so "where this fact came from" is never taken on the
+        extractor's word.
+      </p>
+      <p class="body measure-lg prose">
+        Note what the contract doesn't care about: <strong>who proposed.</strong>
+        A hallucination-prone model and a deterministic parser go through the
+        same check, because the check costs the same either way and the
+        failure it prevents is identical.
+      </p>
+    </div>
+  </Section>
+
+  <Section tone="alt" size="lg" borderBottom>
+    <div class="container container--readable">
+      <h2 class="section-heading">Four states, one direction</h2>
+      <p class="body measure-lg prose">
+        Past extraction, every fact moves through an explicit spine:
+        <strong>extracted → resolved → verified</strong> — three separate
+        stores, not a status column someone remembers to update. Extracted
+        facts carry their excerpt, locator, confidence, and rationale.
+        Resolution collapses competing candidates into one winner by a
+        deterministic precedence order — a user's correction beats a
+        corrected form, which beats the original document — and keeps every
+        losing candidate on the record. Verification is the gate: a fact
+        that's medium-confidence, or OCR-derived, or has more than one
+        candidate, is held with a recorded reason until a person resolves
+        it.
+      </p>
+      <p class="body measure-lg prose">
+        The part that makes it structural rather than aspirational: the tax
+        math <strong>can only read verified facts.</strong> Withholding
+        analysis, the return package, year-over-year diffs — all of it
+        queries the verified store and nothing else. An unverified fact
+        isn't flagged for caution; it's invisible to the engine. And the
+        gate swings both ways: when a new document makes an old fact
+        ambiguous, the old fact is <em>demoted</em> — pulled back out of the
+        verified store, with both candidates preserved — rather than left to
+        coast on a stale approval.
+      </p>
+    </div>
+  </Section>
+
+  <Section size="lg" borderBottom>
+    <div class="container container--readable">
+      <h2 class="section-heading">Two moments where it mattered</h2>
+      <p class="body measure-lg prose">
+        <strong>The corrected W-2.</strong> A W-2 comes in and its six wage
+        fields extract cleanly — verbatim excerpts verified, single
+        candidates, promoted. Later a corrected W-2 arrives from the same
+        employer. In the extract-and-trust pattern the new numbers would
+        overwrite the old, or worse, coexist silently. Here, both versions
+        become candidates for the same fact keys, promotion is blocked, and
+        the pipeline refuses to verify until a person picks — recording the
+        choice, and keeping the losing original visible as a
+        <em>superseded</em> claim instead of deleting it.
+      </p>
+      <p class="body measure-lg prose">
+        <strong>The duplicate interest statement.</strong> Two interest
+        statements from the same bank, different account labels, different
+        amounts, land on the same fact key. Resolution holds one conflicting
+        fact at the gate with both candidates preserved; the year's readiness
+        flips to needs-review; and exactly zero of those dollars reach the
+        tax engine until the conflict is explicitly resolved. The failure
+        mode of the trusting pattern — two numbers, one silently wins — is
+        structurally unrepresentable.
+      </p>
+    </div>
+  </Section>
+
+  <Section tone="alt" size="lg" borderBottom>
+    <div class="container container--readable">
+      <h2 class="section-heading">What we're not claiming</h2>
+      <p class="body measure-lg prose">
+        Honesty is the product, so: the reference implementation's production
+        extractors are currently <strong>deterministic parsers, not LLMs</strong> —
+        the seam is LLM-shaped and hallucination-proofed, and a model provider
+        plugs into the same verified-excerpt contract, but today's facts come
+        from regex that gets the same distrust. Only some document paths run
+        the full Traverse machinery; the rest use direct parsers whose
+        provenance is recorded but not excerpt-verified. High-confidence,
+        single-candidate facts auto-promote as system-verified — the gate
+        holds the ambiguous residue for humans, it doesn't make a person
+        stare at every number. And the gate checks structure and provenance,
+        not arithmetic: nothing in it recomputes your return against an
+        oracle. One household, federal plus one state, sixteen document
+        types. A reference implementation, not a product.
+      </p>
+    </div>
+  </Section>
+
+  <Section size="lg" borderBottom>
+    <div class="container container--readable">
+      <h2 class="section-heading">The receipts</h2>
+      <p class="body measure-lg prose">
+        Because every stage is Survey-shaped on the way in and
+        Surface-shaped on the way out, the pipeline's whole trust state
+        exports as one inspectable record: documents, extractions,
+        resolutions, verified and superseded claims, each with provenance
+        and status. The same architecture this site publishes for its own
+        deliveries — <a href="/receipts/">recomputable receipts</a> — applied
+        to a domain where a wrong number has a filing deadline. The
+        implementation is a private household repo (it holds real financial
+        records), so this story describes its mechanics rather than linking
+        its internals; the products it composes are public:
+        <a href="/survey/">Survey</a> for extraction review,
+        <a href="https://github.com/kontourai/traverse">Traverse</a> for
+        verified extraction, <a href="/surface/">Surface</a> for the trust
+        state itself.
+      </p>
+      <p class="body measure-lg prose">
+        If you're building on the extract-and-trust pattern, the upgrade
+        path isn't a better model. It's a gate the model can't talk its way
+        past.
+      </p>
+    </div>
+  </Section>
+
+  <Footer active="developers" />
+</Layout>
+
+<style>
+  .section-heading {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 400;
+    color: var(--color-chalk);
+    margin-bottom: 1.4rem;
+  }
+
+  .prose {
+    margin-bottom: 1.4rem;
+  }
+
+  .prose:last-child {
+    margin-bottom: 0;
+  }
+
+  .prose a {
+    color: var(--color-gold);
+  }
+
+  .prose strong {
+    color: var(--color-chalk);
+    font-weight: 500;
+  }
+</style>
