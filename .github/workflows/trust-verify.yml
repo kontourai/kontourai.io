@@ -26,7 +26,13 @@ jobs:
     name: Trust Verify
     runs-on: ubuntu-latest
     steps:
+      # fetch-depth 0: the reconciler binds delivery bundles to commits via
+      # `git merge-base --is-ancestor`, which cannot walk a shallow clone —
+      # with the default depth-1 checkout every committed bundle looks stale
+      # in CI (sealed commit never equals the synthetic merge SHA).
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v6
         with:
           node-version: 24
@@ -49,7 +55,7 @@ jobs:
       # pull_request-only anchor, registry parity is OBSERVED (warn) rather than gated
       # unless the PR itself touched parity-sensitive inputs; the strict parity gate
       # lives in the main/deploy verify run and the scheduled Pin Refresh lane.
-      - uses: kontourai/flow-agents/.github/actions/trust-verify@2aa332a723bf1b421863e39b2d998032d96bec85 # flow-agents @ trust-verify action-path fix
+      - uses: kontourai/flow-agents/.github/actions/trust-verify@12f12e3d0a32b398e47a9ac01604179c58bf14ba # flow-agents @ trust-verify action-path fix
         env:
           VALIDATE_REGISTRY_PARITY: ${{ steps.parity.outputs.mode || 'strict' }}
         with:
