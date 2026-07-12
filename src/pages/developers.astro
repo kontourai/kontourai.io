@@ -8,9 +8,8 @@ import Eyebrow from '@/components/Eyebrow.astro';
 import Card from '@/components/Card.astro';
 import Grid from '@/components/Grid.astro';
 import Terminal from '@/components/Terminal.astro';
-import ProductMark from '@/components/ProductMark.astro';
-import type { ProductMarkSlug } from '@/components/ProductMark.astro';
-import { developerCompositionProducts, homepageProducts } from '@/lib/products';
+import { kits } from '@/lib/products';
+import type { Accent } from '@/lib/theme';
 import pkg from '../../package.json';
 
 // Second-validator pins rendered from package.json, same as the receipts
@@ -18,22 +17,14 @@ import pkg from '../../package.json';
 const hachurePin = pkg.devDependencies.hachure;
 const ajvPin = pkg.devDependencies.ajv;
 
-const mapNodes = [
-  { label: 'Flow Agents', sub: 'the engine: gates, adapters, evidence, kit validation', accent: 'chalk-2' },
-  { label: 'Kits', sub: 'Builder, Knowledge, and more — installable workflows on the engine, none with runtime privilege', accent: 'chalk-2' },
-  { label: 'Veritas', sub: 'repo readiness and evidence findings', accent: 'green' },
-  { label: 'Flow', sub: 'process gates and route-backs', accent: 'cobalt-2' },
-  { label: 'Surface', sub: 'claims, evidence, status, trust reports', accent: 'gold' },
-] as const;
-
-const lifecycle = [
-  { step: '01', label: 'Work item', detail: 'idea, issue, customer promise, or operational change', accent: 'chalk-2' },
-  { step: '02', label: 'Flow path', detail: 'required states, gates, evidence, and route-backs', accent: 'cobalt-2' },
-  { step: '03', label: 'Agent work', detail: 'a kit or local workflow executes with sidecar state under .kontourai/', accent: 'chalk-2' },
-  { step: '04', label: 'Readiness evidence', detail: 'Veritas checks repo standards and change evidence', accent: 'green' },
-  { step: '05', label: 'Trust projection', detail: 'Surface packages claims, evidence, status, and gaps', accent: 'gold' },
-  { step: '06', label: 'Decision view', detail: 'Console or a gate shows what is ready, blocked, stale, or missing', accent: 'cobalt' },
-] as const;
+// The two paged kits come from the shared catalog copy; the two agentless
+// kits ship in the same engine repo and link to the engine docs.
+const kitCards: { name: string; href: string; job: string; note: string; accent: Accent; external?: boolean; event: string }[] = [
+  { name: 'Builder Kit', href: '/builder-kit/', accent: 'chalk-2', event: 'developers-kit-builder', job: kits[0].job, note: 'The first-party delivery path: gated states, review and verify loops, receipts on the way out.' },
+  { name: 'Knowledge Kit', href: '/knowledge-kit/', accent: 'gold', event: 'developers-kit-knowledge', job: kits[1].job, note: 'Durable knowledge with provenance, freshness, and gated promotion — memory that carries receipts.' },
+  { name: 'Release Evidence Kit', href: 'https://kontourai.github.io/flow-agents/', accent: 'green', external: true, event: 'developers-kit-release-evidence', job: 'Agentless, flows-only release evidence.', note: 'Proof the engine runs solutions that ship no agent at all.' },
+  { name: 'Veritas Governance Kit', href: 'https://kontourai.github.io/flow-agents/', accent: 'cobalt-2', external: true, event: 'developers-kit-veritas-governance', job: 'Agentless, flows-only governance gates.', note: 'Feeds repo readiness evidence into Flow gates.' },
+];
 
 const useCases = [
   {
@@ -104,59 +95,70 @@ const labRepos = [
       "Schema-directed content extraction that produces provenance-bearing, review-ready extraction proposals in Survey's shape.",
   },
   {
+    slug: 'lookout',
+    label: 'Lookout',
+    repo: 'https://github.com/kontourai/lookout',
+    description:
+      'Web source monitoring: a source registry plus a drift-check runner over Traverse snapshots, authoring provenance-bearing Survey inputs when watched sources change.',
+  },
+  {
     slug: 'ephemeris',
     label: 'Ephemeris',
     repo: 'https://github.com/kontourai/ephemeris',
     description:
       'External freshness scheduler / event-bridge for the Kontour suite. Turns time into a trigger.',
   },
+  {
+    slug: 'kit-research',
+    label: 'Research Kit',
+    repo: 'https://github.com/kontourai/kit-research',
+    description:
+      'A Flow Agents kit for source-traced research — capture, compile, recall with provenance gates. Also our own test of the third-party kit-authoring path.',
+  },
+  {
+    slug: 'ui',
+    label: 'Console Kit (UI)',
+    repo: 'https://github.com/kontourai/ui',
+    description:
+      'Shared design tokens and React/web-component primitives for Kontour consoles. You only need this if you are building a console surface.',
+  },
 ] as const;
 ---
 
 <Layout
-  title="Developers — Kontour product map and ownership boundaries · Kontour AI"
-  description="A developer-focused map of how Surface, Flow, Veritas, the Flow Agents engine with its kits, and Console compose without conflating ownership or maturity."
+  title="Developers — Install the Flow Agents engine, add kits, keep the receipts · Kontour AI"
+  description="Start with the Flow Agents engine and its kits — Builder, Knowledge, and the agentless evidence kits — then go deeper into the disciplines it wires in: Surface trust records, Flow gates, Veritas readiness, Console projections."
 >
   <Nav active="developers" />
 
   <Section contour size="hero" borderBottom>
     <Glow accent="gold" position="top-right" />
     <div class="container dev-hero">
-      <div class="dev-hero__copy">
-        <div class="hero-badges">
-          <span class="trust-badge trust-badge--proposed">developer map</span>
-          <span class="install-hint">products compose by evidence, gates, and ownership</span>
-        </div>
-        <h1 class="product-title animate-fade-up">Kontour for developers</h1>
-        <p class="product-tagline animate-fade-up delay-100" data-accent="gold">which product owns what, and how the pieces fit</p>
-        <p class="hero-copy hero-copy--wide animate-fade-up delay-200">
-          Kontour is a product line for making AI-assisted and human-operated
-          work inspectable. Surface owns trust records. Flow owns process
-          semantics. Veritas owns repo readiness. Flow Agents brings those
-          disciplines into local agent workflows — an engine that stays
-          kit-neutral, with Builder and Knowledge as installable kits on top.
-          Console makes the resulting state operable without taking over the
-          products it observes.
-        </p>
-        <div class="hero-actions animate-fade-up delay-300">
-          <a href="#ownership" class="btn-primary" data-umami-event="developers-hero-ownership">Start with ownership →</a>
-          <a href="https://github.com/kontourai" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="developers-hero-github">Open repositories</a>
-        </div>
+      <div class="hero-badges">
+        <span class="trust-badge trust-badge--proposed">developer start</span>
+        <span class="install-hint">npx @kontourai/flow-agents init</span>
       </div>
-
-      <div class="mini-map animate-fade-in delay-300" aria-label="Kontour product relationship summary">
-        {mapNodes.map(({ label, sub, accent }) => (
-          <div class="mini-map__node" data-accent={accent}>
-            <span class="mini-map__label">{label}</span>
-            <span class="mini-map__sub">{sub}</span>
-          </div>
-        ))}
+      <h1 class="product-title animate-fade-up">Kontour for developers</h1>
+      <p class="product-tagline animate-fade-up delay-100" data-accent="gold">install the engine, add a kit, keep the receipts</p>
+      <p class="hero-copy hero-copy--wide animate-fade-up delay-200">
+        One engine — <a href="/flow-agents/">Flow Agents</a> — installs into
+        the coding agent you already run and gates its work on evidence
+        instead of promises. Kits are the workflows you install on top:
+        Builder for delivery, Knowledge for durable memory, plus agentless
+        kits that run with no agent at all. Everything the engine gates
+        comes out the other side as a recomputable trust receipt. The rest of
+        the product line supplies the disciplines the engine wires in — and
+        each piece stays independently adoptable when you want it alone.
+      </p>
+      <div class="hero-actions animate-fade-up delay-300">
+        <a href="#quickstart" class="btn-primary" data-umami-event="developers-hero-quickstart">Install the engine →</a>
+        <a href="https://github.com/kontourai" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="developers-hero-github">Open repositories</a>
       </div>
     </div>
   </Section>
 
-  <!-- Quickstart: real commands first, diagrams after (content refresh) ---- -->
-  <Section borderBottom>
+  <!-- Quickstart: real commands first, diagrams after ---------------------- -->
+  <Section id="quickstart" borderBottom>
     <div class="container">
       <Eyebrow gap="sm" accent="green">Start here</Eyebrow>
       <h2 class="display-md measure-lg">Two commands, then the diagrams.</h2>
@@ -188,46 +190,46 @@ const labRepos = [
     </div>
   </Section>
 
-  <!-- Architecture tour: the product line (moved off the index lead) ------ -->
-  <Section id="product-line" tone="alt" borderTop borderBottom>
+  <!-- The kits: what you actually install on the engine ------------------- -->
+  <Section id="kits" tone="alt" borderTop borderBottom>
     <div class="container">
-      <Eyebrow gap="sm" accent="gold">The product line</Eyebrow>
-      <h2 class="display-md tour-title">Six products. One job.</h2>
-      <p class="body measure tour-intro">
-        Pull a finished product off the shelf or build on the open primitives
-        underneath it. Either way, the trust state stays inspectable by people,
-        agents, and systems downstream.
+      <Eyebrow gap="sm" accent="chalk-2">The kits</Eyebrow>
+      <h2 class="display-md measure-lg">Kits are the workflows. The engine treats them all the same.</h2>
+      <p class="body measure kits-intro">
+        A kit declares its flows, triggers, and validation requirements in a
+        manifest; the engine runs it with no special privilege — first-party
+        or bring-your-own.
       </p>
-
-      <Grid cols={3} gap="lg">
-        {homepageProducts.map(({ key, label, href, accent, homepage }) => (
-          <a href={href} class="tour-card" data-accent={accent} data-umami-event={`developers-product-${key}`}>
-            <div class="tour-card__bar" data-accent={accent}></div>
-            <div class="tour-card__body">
-              <div class="tour-card__head">
-                <span class="tour-card__name" data-accent={accent}>
-                  <ProductMark product={key as ProductMarkSlug} size={20} class="tour-card__mark" data-accent={accent} />
-                  {label}
-                </span>
-              </div>
-              <p class="tour-card__job">{homepage.job}</p>
-              <span class="tour-card__cta">Explore {label} →</span>
-            </div>
+      <Grid min="260" gap="md">
+        {kitCards.map(({ name, href, job, note, accent, external, event }) => (
+          <a
+            href={href}
+            class="kit-card"
+            data-accent={accent}
+            target={external ? '_blank' : undefined}
+            rel={external ? 'noopener' : undefined}
+            data-umami-event={event}
+          >
+            <span class="kit-card__name">{name}</span>
+            <span class="kit-card__job">{job}</span>
+            <span class="kit-card__note">{note}</span>
+            <span class="kit-card__cta">{external ? 'Engine docs →' : `Explore ${name} →`}</span>
           </a>
         ))}
       </Grid>
-
     </div>
   </Section>
 
+  <!-- The one ownership artifact: the disciplines the engine wires in ------ -->
   <Section id="ownership" size="lg">
     <div class="container">
-      <Eyebrow gap="sm">Ownership boundaries</Eyebrow>
-      <h2 class="display-md measure-lg">Each product owns one layer of the work.</h2>
+      <Eyebrow gap="sm">How it composes</Eyebrow>
+      <h2 class="display-md measure-lg">The disciplines the engine wires in.</h2>
       <p class="fine measure ownership-note">
-        Composition is intentionally one-way: product layers can consume trust
-        and process evidence, but the evidence substrate does not depend on a
-        specific agent, workflow, or application.
+        Each product owns one layer and stays independently adoptable.
+        Composition is intentionally one-way: tools and workflows consume
+        trust and process evidence, but the evidence substrate never depends
+        on a specific agent, workflow, or application.
       </p>
 
       <div class="ownership-map" aria-label="Product relationship layer map">
@@ -235,11 +237,11 @@ const labRepos = [
           <span class="lane-label">Tools and workflows</span>
           <div class="lane-grid lane-grid--two">
             <div class="map-card" data-accent="chalk-2">
-              <strong>Flow Agents</strong>
+              <strong><a href="/flow-agents/" data-umami-event="developers-map-flow-agents">Flow Agents</a></strong>
               <span>runs local agent workflows, skills, sidecars, and kits</span>
             </div>
             <div class="map-card" data-accent="chalk-2">
-              <strong>Builder Kit</strong>
+              <strong><a href="/builder-kit/" data-umami-event="developers-map-builder-kit">Builder Kit</a></strong>
               <span>consumes Flow, Veritas, and Surface signals for build work</span>
             </div>
           </div>
@@ -249,11 +251,11 @@ const labRepos = [
           <span class="lane-label">Governance and process</span>
           <div class="lane-grid lane-grid--two">
             <div class="map-card" data-accent="green">
-              <strong>Veritas</strong>
+              <strong><a href="/veritas/" data-umami-event="developers-map-veritas">Veritas</a></strong>
               <span>owns repo standards, readiness, evidence findings, and exceptions</span>
             </div>
             <div class="map-card" data-accent="cobalt-2">
-              <strong>Flow</strong>
+              <strong><a href="/flow/" data-umami-event="developers-map-flow">Flow</a></strong>
               <span>owns paths, transitions, gates, route-backs, and next action</span>
             </div>
           </div>
@@ -261,60 +263,26 @@ const labRepos = [
 
         <div class="ownership-map__lane ownership-map__lane--trust">
           <span class="lane-label">Trust substrate</span>
-          <div class="map-card map-card--wide" data-accent="gold">
-            <strong>Surface</strong>
-            <span>owns portable claims, evidence, policies, status, Trust Reports, and transparency gaps</span>
+          <div class="lane-grid lane-grid--two">
+            <div class="map-card" data-accent="gold">
+              <strong><a href="/surface/" data-umami-event="developers-map-surface">Surface</a></strong>
+              <span>owns portable claims, evidence, policies, status, Trust Reports, and transparency gaps</span>
+            </div>
+            <div class="map-card" data-accent="gold-2">
+              <strong><a href="/survey/" data-umami-event="developers-map-survey">Survey</a></strong>
+              <span>feeds Surface — sources, extractions, and reviews become claims with provenance</span>
+            </div>
           </div>
         </div>
 
         <div class="ownership-map__lane ownership-map__lane--view">
           <span class="lane-label">Operating view</span>
           <div class="map-card map-card--wide" data-accent="cobalt">
-            <strong>Console</strong>
+            <strong><a href="/console/" data-umami-event="developers-map-console">Console</a></strong>
             <span>aggregates product-owned projections and routes attention back to the owner</span>
           </div>
         </div>
       </div>
-    </div>
-  </Section>
-
-  <Section tone="alt" borderTop borderBottom>
-    <div class="container">
-      <Eyebrow gap="sm" accent="cobalt-2">Evidence lifecycle</Eyebrow>
-      <h2 class="display-md measure-lg">A change moves by gates, evidence, and state handoffs.</h2>
-      <p class="fine measure lifecycle-note">
-        This is the intended composition model. The exact integration depends
-        on which products a team adopts, but ownership stays stable.
-      </p>
-
-      <div class="lifecycle" aria-label="Evidence lifecycle flow">
-        {lifecycle.map(({ step, label, detail, accent }) => (
-          <div class="life-step" data-accent={accent}>
-            <span class="life-step__n">{step}</span>
-            <strong>{label}</strong>
-            <span>{detail}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  </Section>
-
-  <Section size="lg">
-    <div class="container">
-      <Eyebrow gap="sm">Composition contracts</Eyebrow>
-      <Grid min="280" gap="md">
-        {developerCompositionProducts.map(({ key, label, href, repo, accent, developerComposition }) => (
-          <Card accent={accent} bar="top" pad="md">
-            <h3 class="product-card__title">{label}</h3>
-            <p class="product-card__body"><strong>Owns:</strong> {developerComposition.owns}.</p>
-            <p class="product-card__body"><strong>Composes by:</strong> {developerComposition.composes}.</p>
-            <div class="product-card__links">
-              <a href={href} data-umami-event={`developers-${key}-page`}>Product page</a>
-              <a href={repo} target="_blank" rel="noopener" data-umami-event={`developers-${key}-repo`}>GitHub</a>
-            </div>
-          </Card>
-        ))}
-      </Grid>
     </div>
   </Section>
 
@@ -357,18 +325,18 @@ const labRepos = [
 
   <Section tone="alt" borderTop>
     <div class="container">
-      <!-- Content refresh: the stylized terminal recap was one more ownership
-           restatement — the links carry the same routes without the echo. -->
       <div class="next-links">
         <Eyebrow>Where to go next</Eyebrow>
+        <a href="/flow-agents/" data-umami-event="developers-next-flow-agents">Install the Flow Agents engine</a>
+        <a href="/builder-kit/" data-umami-event="developers-next-builder-kit">Run delivery with Builder Kit</a>
+        <a href="/knowledge-kit/" data-umami-event="developers-next-knowledge-kit">Keep durable memory with Knowledge Kit</a>
+        <a href="/receipts/" data-umami-event="developers-next-receipts">Recompute a published receipt</a>
         <a href="/surface/" data-umami-event="developers-next-surface">Inspect Surface trust records</a>
         <a href="/flow/" data-umami-event="developers-next-flow">Inspect Flow gates</a>
         <a href="/veritas/" data-umami-event="developers-next-veritas">Inspect Veritas readiness</a>
-        <a href="/flow-agents/" data-umami-event="developers-next-flow-agents">Inspect Flow Agents workflows</a>
-        <a href="/receipts/" data-umami-event="developers-next-receipts">Recompute a published receipt</a>
+        <a href="/console/" data-umami-event="developers-next-console">Inspect Console framing</a>
         <a href="/memory/" data-umami-event="developers-next-memory">How Kontour composes with your memory layer</a>
         <a href="/trust/" data-umami-event="developers-next-trust">Read the honest ceiling</a>
-        <a href="/console/" data-umami-event="developers-next-console">Inspect Console framing</a>
       </div>
     </div>
   </Section>
@@ -401,66 +369,25 @@ const labRepos = [
 
 <style>
   .dev-hero {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(360px, 0.92fr);
-    gap: clamp(2rem, 5vw, 4rem);
-    align-items: center;
+    max-width: 820px;
   }
 
-  .mini-map,
-  .ownership-map,
-  .lifecycle {
+  .ownership-map {
     position: relative;
     z-index: 1;
-  }
-
-  .mini-map {
     display: grid;
-    gap: 0.75rem;
-    padding: 1rem;
-    border: 1px solid var(--color-edge);
-    background: rgba(12, 15, 25, 0.72);
+    gap: 0.8rem;
   }
 
-  .mini-map__node,
   .map-card,
-  .life-step,
   .use-case {
     border: 1px solid var(--color-edge);
     background: linear-gradient(135deg, rgba(18, 22, 35, 0.92), rgba(12, 15, 25, 0.86));
   }
 
-  .mini-map__node {
-    display: grid;
-    grid-template-columns: minmax(120px, 0.42fr) 1fr;
-    gap: 1rem;
-    align-items: center;
-    min-height: 68px;
-    padding: 0.9rem 1rem;
-    border-left: 3px solid var(--accent, var(--color-edge-2));
-  }
-
-  .mini-map__label {
-    font-family: var(--font-mono);
-    font-size: 0.76rem;
-    color: var(--accent, var(--color-chalk));
-  }
-
-  .mini-map__sub {
-    font-size: 0.86rem;
-    color: var(--color-chalk-2);
-    line-height: 1.45;
-  }
-
   .ownership-note,
-  .lifecycle-note,
   .lab-intro {
     margin: 0.8rem 0 2rem;
-  }
-
-  .ownership-map {
-    display: grid;
-    gap: 0.8rem;
   }
 
   .ownership-map__lane {
@@ -503,39 +430,26 @@ const labRepos = [
     border-left: 3px solid var(--accent, var(--color-edge-2));
   }
 
-  .map-card strong,
-  .life-step strong {
+  .map-card strong {
     color: var(--accent, var(--color-chalk));
     font-family: var(--font-mono);
     font-size: 0.82rem;
   }
 
-  .map-card span,
-  .life-step span {
+  .map-card strong a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .map-card strong a:hover {
+    text-decoration: underline;
+  }
+
+  .map-card span {
     color: var(--color-chalk-2);
     font-size: 0.86rem;
     line-height: 1.5;
     margin-top: 0.35rem;
-  }
-
-  .lifecycle {
-    display: grid;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: 0.75rem;
-  }
-
-  .life-step {
-    min-height: 190px;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    border-top: 3px solid var(--accent, var(--color-edge-2));
-  }
-
-  .life-step__n {
-    color: var(--color-chalk-3);
-    font-family: var(--font-mono);
-    font-size: 0.65rem;
   }
 
   .product-card__title,
@@ -554,11 +468,6 @@ const labRepos = [
     color: var(--color-chalk-2);
     font-size: 0.9rem;
     line-height: 1.65;
-  }
-
-  .product-card__body strong {
-    color: var(--color-chalk);
-    font-weight: 500;
   }
 
   .product-card__links,
@@ -597,77 +506,56 @@ const labRepos = [
     padding: 1rem 0;
   }
 
-  /* Product-line tour (moved off the index) ------------------------------ */
-  .tour-title {
-    margin-bottom: 1rem;
-  }
-  .tour-intro {
-    margin-bottom: 2.5rem;
+  /* Kits section ---------------------------------------------------------- */
+  .kits-intro {
+    margin-bottom: 2rem;
   }
 
-  .tour-card {
+  .kit-card {
     display: flex;
     flex-direction: column;
-    background: var(--color-ink-2);
+    gap: 0.5rem;
+    padding: 1.25rem;
     border: 1px solid var(--color-edge);
-    border-radius: 6px;
-    overflow: hidden;
+    border-left: 3px solid var(--accent, var(--color-edge-2));
+    background: linear-gradient(135deg, rgba(18, 22, 35, 0.92), rgba(12, 15, 25, 0.86));
     text-decoration: none;
     transition: border-color 0.18s, background 0.18s;
   }
-  .tour-card:hover {
+
+  .kit-card:hover {
     border-color: var(--accent, var(--color-edge-2));
-    background: var(--color-ink-3);
   }
-  .tour-card__bar {
-    height: 3px;
-    background: var(--accent, var(--color-edge));
-    flex-shrink: 0;
-  }
-  .tour-card__body {
-    padding: 1.25rem 1.5rem 1.5rem;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-  }
-  .tour-card__head {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 0.75rem;
-    margin-bottom: 0.75rem;
-  }
-  .tour-card__name {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.55rem;
+
+  .kit-card__name {
     font-family: var(--font-display);
-    font-size: 1.35rem;
-    font-weight: 400;
+    font-size: 1.2rem;
     color: var(--accent, var(--color-chalk));
+  }
+
+  .kit-card__job {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--color-chalk);
     letter-spacing: 0;
-    line-height: 1.3;
   }
-  .tour-card__mark {
-    flex-shrink: 0;
-  }
-  .tour-card__job {
+
+  .kit-card__note {
     color: var(--color-chalk-2);
-    font-size: 0.85rem;
-    line-height: 1.65;
+    font-size: 0.86rem;
+    line-height: 1.55;
     flex: 1;
-    margin-bottom: 1.25rem;
   }
-  .tour-card__cta {
+
+  .kit-card__cta {
     font-family: var(--font-mono);
     font-size: 0.68rem;
     color: var(--accent, var(--color-chalk-3));
-    letter-spacing: 0;
     text-transform: uppercase;
-    margin-top: auto;
+    margin-top: 0.4rem;
   }
 
-  /* Quickstart (content refresh): real commands before diagrams. */
+  /* Quickstart: real commands before diagrams. */
   .quickstart-intro {
     margin-bottom: 2rem;
   }
@@ -676,16 +564,6 @@ const labRepos = [
     flex-wrap: wrap;
     gap: 1rem;
     margin-top: 2rem;
-  }
-
-  @media (max-width: 980px) {
-    .dev-hero {
-      grid-template-columns: 1fr;
-    }
-
-    .lifecycle {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
   }
 
   @media (max-width: 720px) {
@@ -699,17 +577,10 @@ const labRepos = [
       text-align: left;
     }
 
-    .lane-grid--two,
-    .lifecycle {
+    .lane-grid--two {
       grid-template-columns: 1fr;
     }
 
-    .mini-map__node {
-      grid-template-columns: 1fr;
-      gap: 0.25rem;
-    }
-
-    .life-step,
     .use-case {
       min-height: auto;
     }

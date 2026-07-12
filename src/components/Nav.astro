@@ -1,9 +1,13 @@
 ---
-import { products, type ProductKey } from '@/lib/products';
+import { products, kits, type ProductKey, type KitKey } from '@/lib/products';
 import ProductMark from '@/components/ProductMark.astro';
 
-type NavKey = 'home' | ProductKey;
+type NavKey = 'home' | ProductKey | KitKey;
 type SiteNavKey = NavKey | 'developers' | 'receipts';
+
+// The engine leads and its two paged kits ride directly behind it; the
+// disciplines it wires in sit past the divider (single-story IA).
+const [engine, ...disciplines] = products;
 
 interface Props {
   active?: SiteNavKey;
@@ -38,7 +42,27 @@ const hideProducts = teaser || active === 'home';
       <div class="nav-links nav__links">
         {!hideProducts && (
           <>
-            {products.map(({ href, label, key, accent }) => (
+            <a
+              href={engine.href}
+              class="nav-link nav-link--product"
+              aria-current={active === engine.key ? 'page' : undefined}
+              data-accent={active === engine.key ? engine.accent : undefined}
+              data-umami-event={`nav-${engine.key}`}
+            ><ProductMark product={engine.key} size={16} class="nav-link__mark" />{engine.label}</a>
+
+            {kits.map(({ href, label, key, accent }) => (
+              <a
+                href={href}
+                class="nav-link nav-link--product nav-link--kit"
+                aria-current={active === key ? 'page' : undefined}
+                data-accent={active === key ? accent : undefined}
+                data-umami-event={`nav-${key}`}
+              >{label}</a>
+            ))}
+
+            <div class="nav__divider"></div>
+
+            {disciplines.map(({ href, label, key, accent }) => (
               <a
                 href={href}
                 class="nav-link nav-link--product"
@@ -176,6 +200,12 @@ const hideProducts = teaser || active === 'home';
     gap: 0.4rem;
     white-space: nowrap;
   }
+  /* Kits ride behind the engine as a lead group; slightly quieter than the
+     engine link itself so the row reads engine-first, kits-attached. */
+  .nav-link--kit {
+    font-size: 0.9em;
+  }
+
   .nav-link__mark {
     flex-shrink: 0;
     /* Resting state is dimmer than the label; brightens with the link on hover

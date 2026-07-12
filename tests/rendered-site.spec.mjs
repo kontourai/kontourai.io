@@ -136,11 +136,15 @@ test("homepage leads with a single Flow Agents headline and Survey as the proof 
   await expect(page.locator('[data-umami-event="nav-surface"]')).toHaveCount(0);
   await expect(page.locator('[data-umami-event="nav-survey"]')).toHaveCount(0);
   await expect(page.locator('[data-umami-event="nav-flow-agents"]')).toHaveCount(0);
+  await expect(page.locator('[data-umami-event="nav-builder-kit"]')).toHaveCount(0);
+  await expect(page.locator('[data-umami-event="nav-knowledge-kit"]')).toHaveCount(0);
   await expect(page.locator('[data-umami-event="nav-console"]')).toHaveCount(0);
   await expect(page.locator('[data-umami-event="footer-flow"]')).toHaveCount(0);
   await expect(page.locator('[data-umami-event="footer-veritas"]')).toHaveCount(0);
   await expect(page.locator('[data-umami-event="footer-surface"]')).toHaveCount(0);
   await expect(page.locator('[data-umami-event="footer-survey"]')).toHaveCount(0);
+  await expect(page.locator('[data-umami-event="footer-builder-kit"]')).toHaveCount(0);
+  await expect(page.locator('[data-umami-event="footer-knowledge-kit"]')).toHaveCount(0);
   await expect(page.locator('[data-umami-event="footer-console"]')).toHaveCount(0);
   await expect(page.locator('[data-umami-event="footer-github"]')).toBeVisible();
   await expect(page.locator('[data-umami-event="footer-contact"]')).toBeVisible();
@@ -368,7 +372,7 @@ test("console page presents the suite operating plane and boundary", async ({ pa
   await expect(page.getByRole("heading", { name: "Primitives stay portable" })).toBeVisible();
 });
 
-test("developers page maps product ownership, lifecycle, and maturity on desktop", async ({ page }) => {
+test("developers page leads with the engine and kits, states ownership once", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1100 });
   await page.goto("/developers/");
 
@@ -376,28 +380,24 @@ test("developers page maps product ownership, lifecycle, and maturity on desktop
   await expect(page.locator('[data-umami-event="nav-developers"]')).toHaveAttribute("aria-current", "page");
   await expect(page.getByRole("heading", { name: "Kontour for developers" })).toBeVisible();
 
-  // AC3: the "Six products. One job." architecture tour now lives here.
-  await expect(page.getByRole("heading", { name: "Six products. One job." })).toBeVisible();
-  // Content refresh: the layer stack (a third restatement of ownership) is
-  // gone; the tour cards remain the product index.
-  await expect(page.locator('[aria-label="Kontour product layer stack"]')).toHaveCount(0);
-  await expect(page.locator('[data-umami-event="developers-product-survey"]')).toHaveAttribute("href", "/survey/");
-  await expect(page.locator('[data-umami-event="developers-product-console"]')).toHaveAttribute("href", "/console/");
+  // Single-story restructure: engine+kits lead; the six-product tour, the
+  // hero mini-map, the lifecycle strip, and the composition-contracts grid
+  // (four restatements of the same ownership idea) are gone.
+  await expect(page.getByText("Six products. One job.")).toHaveCount(0);
+  await expect(page.getByLabel("Kontour product relationship summary")).toHaveCount(0);
+  await expect(page.getByLabel("Evidence lifecycle flow")).toHaveCount(0);
+  await expect(page.getByText("Composes by:")).toHaveCount(0);
 
-  // Content refresh: quickstart with REAL commands + verify-us links, pins
-  // rendered from package.json so the advertised stack can't drift from CI.
+  // Hero sells the engine+kits story and routes straight to install.
+  await expect(page.getByText("install the engine, add a kit, keep the receipts")).toBeVisible();
+  await expect(page.locator('[data-umami-event="developers-hero-quickstart"]')).toHaveAttribute("href", "#quickstart");
+
+  // Quickstart with REAL commands + verify-us links, pins rendered from
+  // package.json so the advertised stack can't drift from CI.
   await expect(page.getByRole("heading", { name: "Two commands, then the diagrams." })).toBeVisible();
-  // Honest per-runtime scoping in the install comment: blocking vs advisory.
   await expect(page.getByText("advisory on the rest (matrix on /trust)")).toBeVisible();
-  // Quickstart renders before the product tour (examples first).
-  const quickstartBox = await page.getByRole("heading", { name: "Two commands, then the diagrams." }).boundingBox();
-  const tourBox = await page.getByRole("heading", { name: "Six products. One job." }).boundingBox();
-  expect(quickstartBox).not.toBeNull();
-  expect(tourBox).not.toBeNull();
-  expect(quickstartBox.y).toBeLessThan(tourBox.y);
-  // products.ts runtime list is current (also renders on this page's tour card).
-  await expect(page.getByText("Claude Code, Codex, Kiro, opencode, pi, and GitHub Actions").first()).toBeVisible();
-  await expect(page.getByText("npx @kontourai/flow-agents init")).toBeVisible();
+  // Appears twice by design: the hero install-hint badge and the quickstart terminal.
+  await expect(page.getByText("npx @kontourai/flow-agents init").first()).toBeVisible();
   const devPins = JSON.parse(
     await readFile(new URL("../package.json", import.meta.url), "utf8"),
   ).devDependencies;
@@ -405,43 +405,49 @@ test("developers page maps product ownership, lifecycle, and maturity on desktop
   await expect(page.locator('[data-umami-event="developers-quickstart-receipts"]')).toHaveAttribute("href", "/receipts/");
   await expect(page.locator('[data-umami-event="developers-quickstart-trust"]')).toHaveAttribute("href", "/trust/");
 
-  // Engine + kits framing is current (post-#116 positioning).
-  await expect(page.getByText("with Builder and Knowledge as installable kits on top")).toBeVisible();
+  // The kits section: all four catalog kits, the two paged ones linking to
+  // their own pages, quickstart above them (install first, catalog second).
+  await expect(page.getByRole("heading", { name: "Kits are the workflows. The engine treats them all the same." })).toBeVisible();
+  await expect(page.locator('[data-umami-event="developers-kit-builder"]')).toHaveAttribute("href", "/builder-kit/");
+  await expect(page.locator('[data-umami-event="developers-kit-knowledge"]')).toHaveAttribute("href", "/knowledge-kit/");
+  await expect(page.getByText("Release Evidence Kit")).toBeVisible();
+  await expect(page.getByText("Veritas Governance Kit")).toBeVisible();
+  const quickstartBox = await page.getByRole("heading", { name: "Two commands, then the diagrams." }).boundingBox();
+  const kitsBox = await page.getByRole("heading", { name: "Kits are the workflows. The engine treats them all the same." }).boundingBox();
+  expect(quickstartBox).not.toBeNull();
+  expect(kitsBox).not.toBeNull();
+  expect(quickstartBox.y).toBeLessThan(kitsBox.y);
 
-  // Maturity cards reflect shipped reality, honestly scoped.
-  await expect(page.getByText("recompute under two validators").first()).toBeVisible();
-  await expect(page.getByText("AWS Strands framework-adapter previews")).toBeVisible();
-
-  // Where-to-go-next includes the receipts and trust surfaces.
-  await expect(page.locator('[data-umami-event="developers-next-receipts"]')).toHaveAttribute("href", "/receipts/");
-  await expect(page.locator('[data-umami-event="developers-next-trust"]')).toHaveAttribute("href", "/trust/");
-
-  await expect(page.getByText("Surface owns trust records.")).toBeVisible();
-  await expect(page.getByText("Flow owns process semantics.")).toBeVisible();
-  await expect(page.getByText("Veritas owns repo readiness.")).toBeVisible();
-  await expect(page.getByText("Flow Agents brings those disciplines")).toBeVisible();
-
+  // The ONE ownership artifact: the layer map, now covering all six products
+  // (Survey joined the trust-substrate lane when the tour cards left).
   await expect(page.getByLabel("Product relationship layer map")).toBeVisible();
   await expect(page.getByLabel("Product relationship layer map").getByText("Trust substrate")).toBeVisible();
   await expect(page.getByLabel("Product relationship layer map").getByText("Builder Kit")).toBeVisible();
-  await expect(page.getByLabel("Evidence lifecycle flow")).toBeVisible();
-  await expect(page.getByLabel("Evidence lifecycle flow").getByText("Readiness evidence")).toBeVisible();
-  await expect(page.getByLabel("Evidence lifecycle flow").getByText("Trust projection")).toBeVisible();
+  await expect(page.getByLabel("Product relationship layer map").getByText("Survey")).toBeVisible();
+  await expect(page.locator('[data-umami-event="developers-map-surface"]')).toHaveAttribute("href", "/surface/");
+  await expect(page.locator('[data-umami-event="developers-map-console"]')).toHaveAttribute("href", "/console/");
 
+  // Use cases and maturity framing stay.
   await expect(page.getByRole("heading", { name: "Sales / RevOps" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Software delivery" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Public data and records" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Regulated advisory review" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Support and customer operations" })).toBeVisible();
-
   await expect(page.getByRole("heading", { name: "Current state", exact: true })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Near-term direction", exact: true })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Future possibilities", exact: true })).toBeVisible();
+  await expect(page.getByText("recompute under two validators").first()).toBeVisible();
+  await expect(page.getByText("AWS Strands framework-adapter previews")).toBeVisible();
   await expect(page.getByText("Kubernetes-style operators")).toBeVisible();
   await expect(page.getByText("They are not current requirements")).toBeVisible();
 
-  await expect(page.getByRole("link", { name: "Product page" }).first()).toHaveAttribute("href", "/surface/");
-  await expect(page.locator('[data-umami-event="developers-surface-repo"]')).toHaveAttribute("href", "https://github.com/kontourai/surface");
+  // Where-to-go-next leads with the engine and kits, then the disciplines.
+  await expect(page.locator('[data-umami-event="developers-next-flow-agents"]')).toHaveAttribute("href", "/flow-agents/");
+  await expect(page.locator('[data-umami-event="developers-next-builder-kit"]')).toHaveAttribute("href", "/builder-kit/");
+  await expect(page.locator('[data-umami-event="developers-next-knowledge-kit"]')).toHaveAttribute("href", "/knowledge-kit/");
+  await expect(page.locator('[data-umami-event="developers-next-receipts"]')).toHaveAttribute("href", "/receipts/");
+  await expect(page.locator('[data-umami-event="developers-next-trust"]')).toHaveAttribute("href", "/trust/");
+
+  // Lab section covers the public building blocks, including the new ones.
+  await expect(page.locator('[data-umami-event="developers-lab-lookout-repo"]')).toHaveAttribute("href", "https://github.com/kontourai/lookout");
+  await expect(page.locator('[data-umami-event="developers-lab-kit-research-repo"]')).toHaveAttribute("href", "https://github.com/kontourai/kit-research");
   await expect(page.locator('[data-umami-event="footer-developers"]')).toBeVisible();
 
   await expect(page.getByText("raw internal critique")).toHaveCount(0);
@@ -455,20 +461,15 @@ test("developers page keeps visual maps readable on mobile", async ({ page }) =>
 
   await expect(page.getByRole("heading", { name: "Kontour for developers" })).toBeVisible();
   await expect(page.getByLabel("Product relationship layer map")).toBeVisible();
-  await expect(page.getByLabel("Evidence lifecycle flow")).toBeVisible();
   await expect(page.locator(".ownership-map")).toHaveCSS("display", "grid");
 
   const viewport = page.viewportSize();
   const mapBox = await page.locator(".ownership-map").boundingBox();
-  const lifecycleBox = await page.locator(".lifecycle").boundingBox();
   expect(viewport).not.toBeNull();
   expect(mapBox).not.toBeNull();
-  expect(lifecycleBox).not.toBeNull();
-  if (viewport && mapBox && lifecycleBox) {
+  if (viewport && mapBox) {
     expect(mapBox.x).toBeGreaterThanOrEqual(0);
-    expect(lifecycleBox.x).toBeGreaterThanOrEqual(0);
     expect(mapBox.x + mapBox.width).toBeLessThanOrEqual(viewport.width + 1);
-    expect(lifecycleBox.x + lifecycleBox.width).toBeLessThanOrEqual(viewport.width + 1);
   }
 });
 
@@ -485,7 +486,8 @@ test("flow agents page presents agent-tool discipline and status", async ({ page
   await expect(page.getByText(`v${products["flow-agents"].version}`).first()).toBeVisible();
 
   // Real capabilities: engine discipline, kit portfolio, runtime adapters, and an install path
-  await expect(page.getByText("product-neutral runtime for Flow Definitions, gates")).toBeVisible();
+  await expect(page.getByText("Install the engine into the coding agent you already run")).toBeVisible();
+  await expect(page.getByText("Builder for delivery, Knowledge")).toBeVisible();
   await expect(page.getByText("The engine", { exact: true })).toBeVisible();
   await expect(page.getByText("Kit portfolio", { exact: true })).toBeVisible();
   await expect(page.getByText("Builder Kit").first()).toBeVisible();
