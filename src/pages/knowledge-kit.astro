@@ -93,6 +93,37 @@ const promises: { title: string; body: string; accent: Accent }[] = [
     </div>
   </Section>
 
+  <!-- Store adapters (#164): the README calls the output-shape story "the
+       core reason kits matter" — the page never mentioned it. -->
+  <Section tone="alt" borderTop borderBottom>
+    <div class="container">
+      <Eyebrow accent="gold" gap="sm">Your store, your shape</Eyebrow>
+      <h2 class="display-md measure-lg store-title">The knowledge lands where you already work.</h2>
+      <p class="body measure store-intro">
+        The store is an adapter, not a destination the kit imposes. The
+        default writes plain markdown with frontmatter and a graph index —
+        readable without any tool. The Obsidian adapter writes vault-native
+        notes. A vector-similarity adapter (local, Ollama-backed) powers
+        recall and contradiction checks without shipping your knowledge to
+        a service.
+      </p>
+      <Grid cols={3} gap="lg">
+        <Card accent="chalk-2" bar="top" pad="md">
+          <h3 class="feature-title">Markdown + graph index</h3>
+          <p class="feature-body">The default store: frontmatter records, supersede chains preserved, greppable and diffable like the rest of your repo.</p>
+        </Card>
+        <Card accent="gold" bar="top" pad="md">
+          <h3 class="feature-title">Obsidian vault</h3>
+          <p class="feature-body">The same gated records as vault-native notes — your existing knowledge tooling keeps working on provenance-bearing content.</p>
+        </Card>
+        <Card accent="green" bar="top" pad="md">
+          <h3 class="feature-title">Hygiene flows</h3>
+          <p class="feature-body">Contradiction detection, glossary sync, freshness audits, and consolidation run as flows with the same gates — the store earns trust by being maintained, not just written.</p>
+        </Card>
+      </Grid>
+    </div>
+  </Section>
+
   <Section tone="alt" borderTop borderBottom>
     <div class="container">
       <Split ratio="1-1" gap="md" align="center">
@@ -163,5 +194,11 @@ const promises: { title: string; body: string; accent: Accent }[] = [
   }
   .knowledge-copy--last {
     margin-bottom: 0;
+  }
+  .store-title {
+    margin-bottom: 1rem;
+  }
+  .store-intro {
+    margin-bottom: 2rem;
   }
 </style>
