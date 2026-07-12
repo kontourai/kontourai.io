@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "slug": "marketing-assets",
+  "work_item": null,
+  "status": "planned",
+  "phase": "planning",
+  "sealed_at": "2026-07-12T15:11:39Z",
+  "commit_sha": "e23d06cbbd12ee2984117e468434d829444e2edd",
+  "checkpoint": {
+    "asOf": "2026-07-12T15:11:39.119Z",
+    "statusByClaimId": {
+      "marketing-assets-site-build.flow-agents-workflow.npm-run-build-passed": "verified",
+      "marketing-assets-site-validate.flow-agents-workflow.npm-run-validate-passed": "verified"
+    },
+    "throughEventCreatedAt": "2026-07-12T15:11:36Z",
+    "throughEventCreatedAtByClaimId": {
+      "marketing-assets-site-build.flow-agents-workflow.npm-run-build-passed": "2026-07-12T15:11:36Z",
+      "marketing-assets-site-validate.flow-agents-workflow.npm-run-validate-passed": "2026-07-12T15:11:36Z"
+    },
+    "statusFunctionVersion": "2"
+  }
+}
