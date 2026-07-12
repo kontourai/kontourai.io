@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "slug": "content-facts",
+  "work_item": null,
+  "status": "planned",
+  "phase": "planning",
+  "sealed_at": "2026-07-12T17:22:10Z",
+  "commit_sha": "b76edb184cebed42d56883bf5b3376472d532870",
+  "checkpoint": {
+    "asOf": "2026-07-12T17:22:10.057Z",
+    "statusByClaimId": {
+      "content-facts-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-facts": "verified"
+    },
+    "throughEventCreatedAt": "2026-07-12T17:22:06Z",
+    "throughEventCreatedAtByClaimId": {
+      "content-facts-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-facts": "2026-07-12T17:22:06Z"
+    },
+    "statusFunctionVersion": "2"
+  }
+}

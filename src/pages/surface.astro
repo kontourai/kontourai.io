@@ -40,11 +40,13 @@ const vocab: { term: string; def: string; accent: Accent }[] = [
 const statuses: { status: string; badge: string; label: string; pulse?: boolean }[] = [
   { status: 'unknown', badge: 'trust-badge--unknown', label: 'No prior verification exists.' },
   { status: 'proposed', badge: 'trust-badge--proposed', label: 'Submitted but not yet verified.' },
+  { status: 'assumed', badge: 'trust-badge--proposed', label: 'Accepted without verification — an explicit accepted gap, not evidence.' },
   { status: 'verified', badge: 'trust-badge--verified', label: 'Evidence supports it. Currently valid.' },
   { status: 'stale', badge: 'trust-badge--stale', label: 'Was valid. Freshness window exceeded.', pulse: true },
   { status: 'disputed', badge: 'trust-badge--disputed', label: 'Conflicting evidence or policy.' },
-  { status: 'rejected', badge: 'trust-badge--disputed', label: 'Explicitly failed verification.' },
   { status: 'superseded', badge: 'trust-badge--unknown', label: 'Replaced by a newer verified claim.' },
+  { status: 'rejected', badge: 'trust-badge--disputed', label: 'Explicitly failed verification.' },
+  { status: 'revoked', badge: 'trust-badge--disputed', label: 'Withdrawn by an authority-gated dispute resolution.' },
 ];
 
 const consoleFeatures = [
@@ -104,7 +106,7 @@ const moreThanStatus: { title: string; body: string; accent: Accent }[] = [
           <p><span class="prompt">$ </span><span class="cmd">npx @kontourai/surface report --input trust-bundle.json --format summary</span></p>
           <br />
           <p class="info">  Kontour Surface report surface-1777090239260</p>
-          <p class="muted">  Source: kontour-surface-validation-fixtures</p>
+          <p class="muted">  Source: kontour-surface-validation-examples</p>
           <br />
           <p>  Claims: <span class="pass">4</span> &nbsp;(unknown: 1, verified: 2, stale: 1)</p>
           <p class="muted">  Facets: repo-governance.developer-evidence: 1, field-attested-records.public-data: 1,</p>
@@ -226,7 +228,10 @@ const moreThanStatus: { title: string; body: string; accent: Accent }[] = [
           <p class="body console__copy">
             <code class="codechip">surface console</code> serves a live view from
             <code class="codechip codechip--muted">.surface/runs/latest.json</code>.
-            Each new run updates automatically. Runs locally — no account,
+            Each new run updates automatically. It can also merge multiple
+            producer bundles (repeatable <code class="codechip codechip--muted">--input</code>)
+            into one view, attributing every claim to its producer and showing
+            merge collisions instead of dropping them. Runs locally — no account,
             nothing to host.
           </p>
 

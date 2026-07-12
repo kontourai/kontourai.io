@@ -43,7 +43,7 @@ const cli = [
   { cmd: 'veritas claim list', desc: 'Author and inspect Surface claims for the repo' },
   { cmd: 'veritas feedback summary', desc: 'Review whether standards are helping across prior runs' },
   { cmd: 'veritas recommendation list', desc: 'Review data-driven standards recommendations' },
-  { cmd: 'veritas integrations claude-code install', desc: 'Wire agent hooks where supported' },
+  { cmd: 'veritas integrations <tool> install', desc: 'Wire agent hooks — codex, claude-code, cursor, or copilot' },
 ];
 ---
 
@@ -246,7 +246,7 @@ const cli = [
 
   <Section size="note">
     <div class="container">
-      <p class="closing-note">Attestations record how authorization was collected — the channel, the environment, and the human's verbatim authorizing words — so delegated approvals stay reviewable after the fact.</p>
+      <p class="closing-note">Attestations can record how authorization was collected — the human's verbatim authorizing words or the prompt-and-response exchange, with their source when captured — so delegated approvals stay reviewable after the fact.</p>
     </div>
   </Section>
   <Footer active="veritas" />

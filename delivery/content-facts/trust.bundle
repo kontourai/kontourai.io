@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 5,
+  "source": "flow-agents/workflow-sidecar;statusFunctionVersion=2",
+  "claims": [
+    {
+      "id": "content-facts-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-facts",
+      "subjectType": "workflow-check",
+      "subjectId": "content-facts/site-verify",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.check.command",
+      "fieldOrBehavior": "canonical verify passed on content-facts",
+      "value": "pass",
+      "createdAt": "2026-07-12T17:22:06Z",
+      "updatedAt": "2026-07-12T17:22:06Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:workflow.check.command:test_output",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "command",
+        "output_digest": {
+          "algorithm": "sha256",
+          "hex": "e28ed2bb193f5414a6e20795f0cb3a3fc889e801a998f53f85f3c66b78ebcb23"
+        }
+      },
+      "status": "verified"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev:content-facts-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-facts",
+      "claimId": "content-facts-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-facts",
+      "evidenceType": "test_output",
+      "method": "validation",
+      "sourceRef": "content-facts/evidence.json",
+      "excerptOrSummary": "canonical verify passed on content-facts",
+      "observedAt": "2026-07-12T17:22:06Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true,
+      "execution": {
+        "runner": "bash",
+        "label": "npm run build && npm run validate",
+        "isError": false
+      }
+    }
+  ],
+  "policies": [
+    {
+      "id": "policy:workflow.check.command:test_output",
+      "claimType": "workflow.check.command",
+      "requiredEvidence": [
+        "test_output"
+      ],
+      "acceptanceCriteria": [
+        "A verified verification event must support a workflow.check.command claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "high"
+    }
+  ],
+  "events": [
+    {
+      "id": "evt:content-facts-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-facts",
+      "claimId": "content-facts-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-facts",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:content-facts-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-facts"
+      ],
+      "createdAt": "2026-07-12T17:22:06Z",
+      "verifiedAt": "2026-07-12T17:22:06Z"
+    }
+  ]
+}

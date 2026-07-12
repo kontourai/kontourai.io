@@ -19,7 +19,7 @@ const pipeline = [
   { step: 'Raw Source', body: 'The observed material — a page, a document, an API record, a manual entry — with Source Reference, time, and checksum.' },
   { step: 'Extraction', body: 'The value pulled from that Raw Source, with a locator, an excerpt, the extractor, and a confidence.' },
   { step: 'Candidate', body: 'Competing values for the same target, kept side by side instead of silently dropped.' },
-  { step: 'Review', body: 'The outcome a human or policy assigns — verified, assumed, rejected, or Needs Review.' },
+  { step: 'Review', body: 'The outcome a human or policy assigns — verified, assumed, rejected, or proposed.' },
   { step: 'Claim', body: 'A Surface-ready claim with its full provenance trail attached, ready to be reported on.' },
 ];
 
@@ -64,7 +64,7 @@ const helpers = [
         <div>
           <div class="hero-badges">
             <span class="trust-badge trust-badge--verified">{productBadge(surveyStatus)}</span>
-            <span class="install-hint">npm install -D @kontourai/survey</span>
+            <span class="install-hint">npm install @kontourai/survey @kontourai/surface</span>
           </div>
 
           <ProductMark product="survey" size={40} class="product-hero-mark animate-fade-up" data-accent="gold-2" />
@@ -352,7 +352,9 @@ const helpers = [
     claim: {'{'}
       subjectType: <span class="t-str">"public-record.entity"</span>,
       subjectId: <span class="t-str">"entity-123"</span>,
+      facet: <span class="t-str">"public-record.profile"</span>,
       claimType: <span class="t-str">"public-data.field"</span>,
+      fieldOrBehavior: <span class="t-str">"registrationStatus"</span>,
       impactLevel: <span class="t-str">"medium"</span>,
       collectedBy: <span class="t-str">"example-crawler"</span>,
     {'}'},
