@@ -287,15 +287,15 @@ const moreThanStatus: { title: string; body: string; accent: Accent }[] = [
         <Card accent="cobalt-2" bar="top" pad="md">
           <h3 class="feature-title">Snapshot viewer</h3>
           <p class="feature-body">
-            Publish a Trust Snapshot and hand anyone a link — the hosted
-            viewer renders it read-only, so a skeptic can inspect your trust
-            state without installing anything.
+            Export a derived report and anyone can open it in the hosted
+            viewer — paste or load the JSON; it parses entirely in the
+            browser and never leaves the page.
           </p>
         </Card>
         <Card accent="green" bar="top" pad="md">
           <h3 class="feature-title">Built with Surface badge</h3>
           <p class="feature-body">
-            A spec'd badge that links your product to its published trust
+            A spec'd badge that links your product to its inspectable trust
             state — a claim of inspectability that is itself inspectable.
           </p>
         </Card>
@@ -329,8 +329,9 @@ const moreThanStatus: { title: string; body: string; accent: Accent }[] = [
         shape humans and agents can inspect.
         Surface is the reference implementation of the <a href="https://hachure.org" target="_blank" rel="noopener">Hachure open trust format</a> —
         the portable, recomputable trust format anyone can implement independently.
-        A conformance suite ships with Surface, so an alternate implementation
-        can prove it derives the same trust state from the same bundle.
+        A conformance suite lives in the Surface repo, so an alternate
+        implementation can verify it derives the same trust state from the
+        same bundle.
       </p>
 
       <Grid cols={2} gap="lg">

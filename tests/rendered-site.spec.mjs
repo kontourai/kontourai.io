@@ -306,7 +306,8 @@ test("surface page presents inspectable claims and trust vocabulary", async ({ p
   await expect(page.getByText("<surface-trust-panel>")).toBeVisible();
   await expect(page.getByRole("heading", { name: "Snapshot viewer" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Built with Surface badge" })).toBeVisible();
-  await expect(page.getByText("A conformance suite ships with Surface")).toBeVisible();
+  await expect(page.getByText("A conformance suite lives in the Surface repo")).toBeVisible();
+  await expect(page.getByText("never leaves the page")).toBeVisible();
 
   // Products built with Surface
   await expect(page.locator(".label-sm").filter({ hasText: "Products built with Surface" }).first()).toBeVisible();
