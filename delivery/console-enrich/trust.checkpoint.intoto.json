@@ -4,7 +4,7 @@
     {
       "name": "trust.checkpoint.json",
       "digest": {
-        "sha256": "3a5b46556be6b33f6b8fd0f14cb095b20eada490bf449c147efc2d0e18f600c6"
+        "sha256": "a8d91fad8560530269096087d419910823a3eaea10270eb477b3822747ec0302"
       }
     }
   ],
@@ -14,15 +14,15 @@
     "source": "flow-agents/workflow-sidecar;statusFunctionVersion=2",
     "claims": [
       {
-        "id": "console-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-console-enrich",
+        "id": "console-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-console-enrich-post-review",
         "subjectType": "workflow-check",
         "subjectId": "console-enrich/site-verify",
         "facet": "flow-agents.workflow",
         "claimType": "workflow.check.command",
-        "fieldOrBehavior": "canonical verify passed on console-enrich",
+        "fieldOrBehavior": "canonical verify passed on console-enrich (post-review)",
         "value": "pass",
-        "createdAt": "2026-07-12T22:15:10Z",
-        "updatedAt": "2026-07-12T22:15:10Z",
+        "createdAt": "2026-07-12T22:19:43Z",
+        "updatedAt": "2026-07-12T22:19:43Z",
         "impactLevel": "high",
         "verificationPolicyId": "policy:workflow.check.command:test_output",
         "metadata": {
@@ -30,7 +30,7 @@
           "check_kind": "command",
           "output_digest": {
             "algorithm": "sha256",
-            "hex": "9a007dc06f34511f465c9622889caf94e8eec23bad4cc9968b25b7dcb3aaa8a6"
+            "hex": "4ba92f98735e7b871cf035069e8332d34fb7fdc51e24b0655273c071b2dc451f"
           }
         },
         "status": "verified"
@@ -38,13 +38,13 @@
     ],
     "evidence": [
       {
-        "id": "ev:console-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-console-enrich",
-        "claimId": "console-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-console-enrich",
+        "id": "ev:console-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-console-enrich-post-review",
+        "claimId": "console-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-console-enrich-post-review",
         "evidenceType": "test_output",
         "method": "validation",
         "sourceRef": "console-enrich/evidence.json",
-        "excerptOrSummary": "canonical verify passed on console-enrich",
-        "observedAt": "2026-07-12T22:15:10Z",
+        "excerptOrSummary": "canonical verify passed on console-enrich (post-review)",
+        "observedAt": "2026-07-12T22:19:43Z",
         "collectedBy": "flow-agents/workflow-sidecar",
         "passing": true,
         "execution": {
@@ -75,16 +75,16 @@
     ],
     "events": [
       {
-        "id": "evt:console-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-console-enrich",
-        "claimId": "console-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-console-enrich",
+        "id": "evt:console-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-console-enrich-post-review",
+        "claimId": "console-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-console-enrich-post-review",
         "status": "verified",
         "actor": "flow-agents/workflow-sidecar",
         "method": "validation",
         "evidenceIds": [
-          "ev:console-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-console-enrich"
+          "ev:console-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-console-enrich-post-review"
         ],
-        "createdAt": "2026-07-12T22:15:10Z",
-        "verifiedAt": "2026-07-12T22:15:10Z"
+        "createdAt": "2026-07-12T22:19:43Z",
+        "verifiedAt": "2026-07-12T22:19:43Z"
       }
     ]
   }

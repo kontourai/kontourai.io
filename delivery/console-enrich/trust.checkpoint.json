@@ -4,16 +4,16 @@
   "work_item": null,
   "status": "planned",
   "phase": "planning",
-  "sealed_at": "2026-07-12T22:15:12Z",
-  "commit_sha": "2b4019ca00bbd86b2e486c9cb7048bd5f4a400bb",
+  "sealed_at": "2026-07-12T22:19:46Z",
+  "commit_sha": "8536aa4b2045a1a4f230c54c3d786400ba27a68d",
   "checkpoint": {
-    "asOf": "2026-07-12T22:15:12.614Z",
+    "asOf": "2026-07-12T22:19:46.921Z",
     "statusByClaimId": {
-      "console-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-console-enrich": "verified"
+      "console-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-console-enrich-post-review": "verified"
     },
-    "throughEventCreatedAt": "2026-07-12T22:15:10Z",
+    "throughEventCreatedAt": "2026-07-12T22:19:43Z",
     "throughEventCreatedAtByClaimId": {
-      "console-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-console-enrich": "2026-07-12T22:15:10Z"
+      "console-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-console-enrich-post-review": "2026-07-12T22:19:43Z"
     },
     "statusFunctionVersion": "2"
   }
