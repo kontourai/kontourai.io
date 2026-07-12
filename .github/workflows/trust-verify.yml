@@ -25,6 +25,13 @@ jobs:
   trust-verify:
     name: Trust Verify
     runs-on: ubuntu-latest
+    # Same pinned playwright image as deploy.yml's verify job (lockstep
+    # enforced by check-playwright-pin) so delivery bundles claiming the
+    # rendered suite reconcile here instead of being unreconcilable on a
+    # bare runner (#156). Container lacks gh/jq — the parity gate already
+    # avoids both.
+    container:
+      image: mcr.microsoft.com/playwright:v1.61.1-noble
     steps:
       # fetch-depth 0: the reconciler binds delivery bundles to commits via
       # `git merge-base --is-ancestor`, which cannot walk a shallow clone —
