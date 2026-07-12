@@ -6,9 +6,9 @@
     "declared_at": "2026-07-11T16:00:00Z"
   },
   {
-    "scope": "author:github-actions[bot] branch-prefix:automation/pin-refresh",
-    "reason": "scheduled Pin Refresh product-status parity PR; no agent delivery involved. Compound scope binds the platform-set actor identity to the automation's branch namespace.",
+    "scope": "author:briananderson1222 branch-prefix:automation/pin-refresh",
+    "reason": "scheduled Pin Refresh product-status parity PR, authored via the owner-held PIN_REFRESH_TOKEN PAT (#134); no agent delivery involved. Compound scope binds the PAT identity to the automation branch namespace.",
     "approved_by": "briananderson1222",
-    "declared_at": "2026-07-11T16:00:00Z"
+    "declared_at": "2026-07-12T16:00:00Z"
   }
 ]
