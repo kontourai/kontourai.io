@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "slug": "parity-s29",
+  "work_item": null,
+  "status": "planned",
+  "phase": "planning",
+  "sealed_at": "2026-07-12T23:18:30Z",
+  "commit_sha": "b9a7e9fba437d28148121eb02446c5882489fa98",
+  "checkpoint": {
+    "asOf": "2026-07-12T23:18:30.506Z",
+    "statusByClaimId": {
+      "parity-s29-site-verify.flow-agents-workflow.canonical-verify-passed-on-parity-s29": "verified"
+    },
+    "throughEventCreatedAt": "2026-07-12T23:18:27Z",
+    "throughEventCreatedAtByClaimId": {
+      "parity-s29-site-verify.flow-agents-workflow.canonical-verify-passed-on-parity-s29": "2026-07-12T23:18:27Z"
+    },
+    "statusFunctionVersion": "2"
+  }
+}
