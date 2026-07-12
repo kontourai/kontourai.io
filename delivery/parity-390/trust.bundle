@@ -1,0 +1,129 @@
+{
+  "schemaVersion": 5,
+  "source": "flow-agents/workflow-sidecar;statusFunctionVersion=2",
+  "claims": [
+    {
+      "id": "parity-390-site-build.flow-agents-workflow.npm-run-build-passed",
+      "subjectType": "workflow-check",
+      "subjectId": "parity-390/site-build",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.check.command",
+      "fieldOrBehavior": "npm run build passed",
+      "value": "pass",
+      "createdAt": "2026-07-12T15:33:12Z",
+      "updatedAt": "2026-07-12T15:33:12Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:workflow.check.command:test_output",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "command",
+        "output_digest": {
+          "algorithm": "sha256",
+          "hex": "f0914dfc093c7e168281cd26f63643ad0c8709fecd27a98d1963db608b161581"
+        }
+      },
+      "status": "verified"
+    },
+    {
+      "id": "parity-390-site-validate.flow-agents-workflow.npm-run-validate-passed",
+      "subjectType": "workflow-check",
+      "subjectId": "parity-390/site-validate",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.check.command",
+      "fieldOrBehavior": "npm run validate passed",
+      "value": "pass",
+      "createdAt": "2026-07-12T15:33:12Z",
+      "updatedAt": "2026-07-12T15:33:12Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:workflow.check.command:test_output",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "command",
+        "output_digest": {
+          "algorithm": "sha256",
+          "hex": "0408e7e00e3a443455142f186bcf98993d9b94f9b1165ed775b76443f86f92b8"
+        }
+      },
+      "status": "verified"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev:parity-390-site-build.flow-agents-workflow.npm-run-build-passed",
+      "claimId": "parity-390-site-build.flow-agents-workflow.npm-run-build-passed",
+      "evidenceType": "test_output",
+      "method": "validation",
+      "sourceRef": "parity-390/evidence.json",
+      "excerptOrSummary": "npm run build passed",
+      "observedAt": "2026-07-12T15:33:12Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true,
+      "execution": {
+        "runner": "bash",
+        "label": "npm run build",
+        "isError": false
+      }
+    },
+    {
+      "id": "ev:parity-390-site-validate.flow-agents-workflow.npm-run-validate-passed",
+      "claimId": "parity-390-site-validate.flow-agents-workflow.npm-run-validate-passed",
+      "evidenceType": "test_output",
+      "method": "validation",
+      "sourceRef": "parity-390/evidence.json",
+      "excerptOrSummary": "npm run validate passed",
+      "observedAt": "2026-07-12T15:33:12Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true,
+      "execution": {
+        "runner": "bash",
+        "label": "npm run validate",
+        "isError": false
+      }
+    }
+  ],
+  "policies": [
+    {
+      "id": "policy:workflow.check.command:test_output",
+      "claimType": "workflow.check.command",
+      "requiredEvidence": [
+        "test_output"
+      ],
+      "acceptanceCriteria": [
+        "A verified verification event must support a workflow.check.command claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "high"
+    }
+  ],
+  "events": [
+    {
+      "id": "evt:parity-390-site-build.flow-agents-workflow.npm-run-build-passed",
+      "claimId": "parity-390-site-build.flow-agents-workflow.npm-run-build-passed",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:parity-390-site-build.flow-agents-workflow.npm-run-build-passed"
+      ],
+      "createdAt": "2026-07-12T15:33:12Z",
+      "verifiedAt": "2026-07-12T15:33:12Z"
+    },
+    {
+      "id": "evt:parity-390-site-validate.flow-agents-workflow.npm-run-validate-passed",
+      "claimId": "parity-390-site-validate.flow-agents-workflow.npm-run-validate-passed",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:parity-390-site-validate.flow-agents-workflow.npm-run-validate-passed"
+      ],
+      "createdAt": "2026-07-12T15:33:12Z",
+      "verifiedAt": "2026-07-12T15:33:12Z"
+    }
+  ]
+}
