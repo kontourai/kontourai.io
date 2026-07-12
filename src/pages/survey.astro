@@ -253,6 +253,28 @@ const helpers = [
     </div>
   </Section>
 
+  <!-- Review surfaces (#164): the review queue meets the reviewer where they are -->
+  <Section borderTop tone="alt">
+    <div class="container">
+      <Eyebrow accent="gold-2" gap="sm">Review anywhere</Eyebrow>
+      <h2 class="display-md measure-lg surfaces__title">The queue meets the reviewer where they already are.</h2>
+      <Grid cols={3} gap="lg">
+        <Card accent="gold-2" bar="top" pad="md">
+          <h3 class="feature-title">Review MCP</h3>
+          <p class="feature-body"><code class="code-plain">npx survey-review-mcp</code> drives the queue from any MCP host — three tools with embedded review cards carrying Accept / Hold / Reject, decisions validated by the same apply contract.</p>
+        </Card>
+        <Card accent="cobalt-2" bar="top" pad="md">
+          <h3 class="feature-title">Review Console</h3>
+          <p class="feature-body">A standalone local dashboard over the same session file. An SSE stream keeps the browser and any concurrent MCP agent converged on one event queue — no refresh, no divergence.</p>
+        </Card>
+        <Card accent="green" bar="top" pad="md">
+          <h3 class="feature-title">Reviewed learning updates</h3>
+          <p class="feature-body">Producer profiles can auto-accept what has earned it, provenance records how each value was resolved, and the 1.8 flywheel contract turns review outcomes into proposed learning updates — themselves reviewed before anything durable changes.</p>
+        </Card>
+      </Grid>
+    </div>
+  </Section>
+
   <!-- Apply contract -->
   <Section borderTop>
     <div class="container">
@@ -495,4 +517,5 @@ const helpers = [
     color: var(--color-gold);
     text-decoration: none;
   }
+  .surfaces__title { margin-bottom: 2rem; }
 </style>

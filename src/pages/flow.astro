@@ -204,6 +204,36 @@ const consoleFeatures = [
     </div>
   </Section>
 
+  <!-- Run authority + distribution (#164) -->
+  <Section borderTop tone="alt">
+    <div class="container">
+      <Split ratio="1-1" gap="md" align="center">
+        <div>
+          <Eyebrow accent="cobalt-2" gap="sm">Authority over a run</Eyebrow>
+          <h2 class="display-md authority__title">Pausing a run is a decision, and it says who decided.</h2>
+          <p class="body authority__copy">
+            <code class="code-plain">flow pause</code>,
+            <code class="code-plain">flow resume-run</code>, and
+            <code class="code-plain">flow cancel</code> each take a structured
+            request — the lifecycle change is recorded with its reason and
+            requester, not just done. And flows travel as kits:
+            <code class="code-plain">flow kit validate</code>,
+            <code class="code-plain">install</code>, and
+            <code class="code-plain">inspect</code> make a declared process a
+            distributable, checkable unit instead of a wiki page.
+          </p>
+        </div>
+        <Terminal title="run lifecycle">
+          <p><span class="prompt">$ </span><span class="cmd">flow pause dev-1847 --request pause-request.json</span></p>
+          <p class="muted">  recorded: who, why, when — in the run's history</p>
+          <br />
+          <p><span class="prompt">$ </span><span class="cmd">flow kit validate ./release-kit</span></p>
+          <p class="pass">  ✓ kit contract valid</p>
+        </Terminal>
+      </Split>
+    </div>
+  </Section>
+
   <!-- What Flow does not replace -->
   <Section borderTop>
     <div class="container">
@@ -333,4 +363,6 @@ const consoleFeatures = [
     min-width: 130px;
     padding-top: 1px;
   }
+  .authority__title { margin-bottom: 1.25rem; }
+  .authority__copy { margin-bottom: 0; }
 </style>
