@@ -3,15 +3,15 @@
   "source": "flow-agents/workflow-sidecar;statusFunctionVersion=2",
   "claims": [
     {
-      "id": "surface-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-surface-enrich",
+      "id": "surface-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-surface-enrich-post-review",
       "subjectType": "workflow-check",
       "subjectId": "surface-enrich/site-verify",
       "facet": "flow-agents.workflow",
       "claimType": "workflow.check.command",
-      "fieldOrBehavior": "canonical verify passed on surface-enrich",
+      "fieldOrBehavior": "canonical verify passed on surface-enrich (post-review)",
       "value": "pass",
-      "createdAt": "2026-07-12T18:10:38Z",
-      "updatedAt": "2026-07-12T18:10:38Z",
+      "createdAt": "2026-07-12T18:16:20Z",
+      "updatedAt": "2026-07-12T18:16:20Z",
       "impactLevel": "high",
       "verificationPolicyId": "policy:workflow.check.command:test_output",
       "metadata": {
@@ -19,7 +19,7 @@
         "check_kind": "command",
         "output_digest": {
           "algorithm": "sha256",
-          "hex": "ac8c2a57597963ef946df854157490c3dd4dcd54cc7ef2578929d82962fa8953"
+          "hex": "4cf774313a56f94ebe7273367097315b11ccdc33ab280c6d872f4dc8a94c7917"
         }
       },
       "status": "verified"
@@ -27,13 +27,13 @@
   ],
   "evidence": [
     {
-      "id": "ev:surface-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-surface-enrich",
-      "claimId": "surface-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-surface-enrich",
+      "id": "ev:surface-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-surface-enrich-post-review",
+      "claimId": "surface-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-surface-enrich-post-review",
       "evidenceType": "test_output",
       "method": "validation",
       "sourceRef": "surface-enrich/evidence.json",
-      "excerptOrSummary": "canonical verify passed on surface-enrich",
-      "observedAt": "2026-07-12T18:10:38Z",
+      "excerptOrSummary": "canonical verify passed on surface-enrich (post-review)",
+      "observedAt": "2026-07-12T18:16:20Z",
       "collectedBy": "flow-agents/workflow-sidecar",
       "passing": true,
       "execution": {
@@ -64,16 +64,16 @@
   ],
   "events": [
     {
-      "id": "evt:surface-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-surface-enrich",
-      "claimId": "surface-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-surface-enrich",
+      "id": "evt:surface-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-surface-enrich-post-review",
+      "claimId": "surface-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-surface-enrich-post-review",
       "status": "verified",
       "actor": "flow-agents/workflow-sidecar",
       "method": "validation",
       "evidenceIds": [
-        "ev:surface-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-surface-enrich"
+        "ev:surface-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-surface-enrich-post-review"
       ],
-      "createdAt": "2026-07-12T18:10:38Z",
-      "verifiedAt": "2026-07-12T18:10:38Z"
+      "createdAt": "2026-07-12T18:16:20Z",
+      "verifiedAt": "2026-07-12T18:16:20Z"
     }
   ]
 }
