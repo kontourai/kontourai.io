@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "slug": "trust-container",
+  "work_item": null,
+  "status": "planned",
+  "phase": "planning",
+  "sealed_at": "2026-07-12T20:46:44Z",
+  "commit_sha": "49d746cdb61b02df80ef368658ed434d838a13a7",
+  "checkpoint": {
+    "asOf": "2026-07-12T20:46:44.678Z",
+    "statusByClaimId": {
+      "trust-container-site-verify.flow-agents-workflow.canonical-verify-passed-on-trust-container-install-step-approach": "verified",
+      "trust-container-site-rendered.flow-agents-workflow.rendered-suite-passed-on-trust-container-install-step-approach": "verified"
+    },
+    "throughEventCreatedAt": "2026-07-12T20:46:11Z",
+    "throughEventCreatedAtByClaimId": {
+      "trust-container-site-verify.flow-agents-workflow.canonical-verify-passed-on-trust-container-install-step-approach": "2026-07-12T20:46:11Z",
+      "trust-container-site-rendered.flow-agents-workflow.rendered-suite-passed-on-trust-container-install-step-approach": "2026-07-12T20:46:11Z"
+    },
+    "statusFunctionVersion": "2"
+  }
+}
