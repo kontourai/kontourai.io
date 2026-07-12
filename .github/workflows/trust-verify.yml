@@ -26,7 +26,13 @@ jobs:
     name: Trust Verify
     runs-on: ubuntu-latest
     steps:
+      # fetch-depth 0: the reconciler binds delivery bundles to commits via
+      # `git merge-base --is-ancestor`, which cannot walk a shallow clone —
+      # with the default depth-1 checkout every committed bundle looks stale
+      # in CI (sealed commit never equals the synthetic merge SHA).
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v6
         with:
           node-version: 24
