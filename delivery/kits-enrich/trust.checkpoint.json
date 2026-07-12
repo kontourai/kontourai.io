@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "slug": "kits-enrich",
+  "work_item": null,
+  "status": "planned",
+  "phase": "planning",
+  "sealed_at": "2026-07-12T22:24:51Z",
+  "commit_sha": "b36141632dc84b56757d5d98c9894f33659e4004",
+  "checkpoint": {
+    "asOf": "2026-07-12T22:24:51.872Z",
+    "statusByClaimId": {
+      "kits-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-kits-enrich": "verified"
+    },
+    "throughEventCreatedAt": "2026-07-12T22:24:48Z",
+    "throughEventCreatedAtByClaimId": {
+      "kits-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-kits-enrich": "2026-07-12T22:24:48Z"
+    },
+    "statusFunctionVersion": "2"
+  }
+}
