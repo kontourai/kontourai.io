@@ -33,6 +33,12 @@ const cloudflareAnalyticsToken = import.meta.env.PUBLIC_CLOUDFLARE_WEB_ANALYTICS
 const cloudflareAnalyticsUrl = import.meta.env.PUBLIC_CLOUDFLARE_WEB_ANALYTICS_URL ?? 'https://static.cloudflareinsights.com/beacon.min.js';
 const shouldLoadUmami = Boolean(umamiWebsiteId) && import.meta.env.PROD;
 const shouldLoadCloudflareAnalytics = Boolean(cloudflareAnalyticsToken) && import.meta.env.PROD;
+// PostHog runs alongside umami during the evaluation period (owner decision
+// 2026-07-12): anonymous mode, localStorage-only, masked replays — config
+// lives in public/analytics.js (same-origin loader; strict CSP blocks the
+// standard inline snippet). Activates only when a project key is present.
+const posthogKey = import.meta.env.PUBLIC_POSTHOG_KEY ?? 'phc_CHJNDjZiwbeYDEgr5ZqFPnRNoJKu8RoicudYSqFLCJP9';
+const shouldLoadPosthog = Boolean(posthogKey) && import.meta.env.PROD;
 ---
 
 <!doctype html>
@@ -86,6 +92,11 @@ const shouldLoadCloudflareAnalytics = Boolean(cloudflareAnalyticsToken) && impor
           data-do-not-track="true"
           data-exclude-search="true"
         />
+      )
+    }
+    {
+      shouldLoadPosthog && (
+        <script defer src="/analytics.js" data-posthog-key={posthogKey} />
       )
     }
     {
