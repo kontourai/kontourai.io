@@ -3,15 +3,15 @@
   "source": "flow-agents/workflow-sidecar;statusFunctionVersion=2",
   "claims": [
     {
-      "id": "copy-drift-site-verify.flow-agents-workflow.canonical-verify-passed-on-copy-drift",
+      "id": "copy-drift-site-verify.flow-agents-workflow.canonical-verify-passed-on-copy-drift-post-review",
       "subjectType": "workflow-check",
       "subjectId": "copy-drift/site-verify",
       "facet": "flow-agents.workflow",
       "claimType": "workflow.check.command",
-      "fieldOrBehavior": "canonical verify passed on copy-drift",
+      "fieldOrBehavior": "canonical verify passed on copy-drift (post-review)",
       "value": "pass",
-      "createdAt": "2026-07-12T18:06:03Z",
-      "updatedAt": "2026-07-12T18:06:03Z",
+      "createdAt": "2026-07-12T18:12:28Z",
+      "updatedAt": "2026-07-12T18:12:28Z",
       "impactLevel": "high",
       "verificationPolicyId": "policy:workflow.check.command:test_output",
       "metadata": {
@@ -19,7 +19,7 @@
         "check_kind": "command",
         "output_digest": {
           "algorithm": "sha256",
-          "hex": "c778d02b238644d0cc9e1b8f0a657fae459a7c1caab5f6cca97fcdc8500d8982"
+          "hex": "630eb8fc3458c9d3f0f2457357146a4d24acfa53987017ba28b5f54dccc75752"
         }
       },
       "status": "verified"
@@ -27,13 +27,13 @@
   ],
   "evidence": [
     {
-      "id": "ev:copy-drift-site-verify.flow-agents-workflow.canonical-verify-passed-on-copy-drift",
-      "claimId": "copy-drift-site-verify.flow-agents-workflow.canonical-verify-passed-on-copy-drift",
+      "id": "ev:copy-drift-site-verify.flow-agents-workflow.canonical-verify-passed-on-copy-drift-post-review",
+      "claimId": "copy-drift-site-verify.flow-agents-workflow.canonical-verify-passed-on-copy-drift-post-review",
       "evidenceType": "test_output",
       "method": "validation",
       "sourceRef": "copy-drift/evidence.json",
-      "excerptOrSummary": "canonical verify passed on copy-drift",
-      "observedAt": "2026-07-12T18:06:03Z",
+      "excerptOrSummary": "canonical verify passed on copy-drift (post-review)",
+      "observedAt": "2026-07-12T18:12:28Z",
       "collectedBy": "flow-agents/workflow-sidecar",
       "passing": true,
       "execution": {
@@ -64,16 +64,16 @@
   ],
   "events": [
     {
-      "id": "evt:copy-drift-site-verify.flow-agents-workflow.canonical-verify-passed-on-copy-drift",
-      "claimId": "copy-drift-site-verify.flow-agents-workflow.canonical-verify-passed-on-copy-drift",
+      "id": "evt:copy-drift-site-verify.flow-agents-workflow.canonical-verify-passed-on-copy-drift-post-review",
+      "claimId": "copy-drift-site-verify.flow-agents-workflow.canonical-verify-passed-on-copy-drift-post-review",
       "status": "verified",
       "actor": "flow-agents/workflow-sidecar",
       "method": "validation",
       "evidenceIds": [
-        "ev:copy-drift-site-verify.flow-agents-workflow.canonical-verify-passed-on-copy-drift"
+        "ev:copy-drift-site-verify.flow-agents-workflow.canonical-verify-passed-on-copy-drift-post-review"
       ],
-      "createdAt": "2026-07-12T18:06:03Z",
-      "verifiedAt": "2026-07-12T18:06:03Z"
+      "createdAt": "2026-07-12T18:12:28Z",
+      "verifiedAt": "2026-07-12T18:12:28Z"
     }
   ]
 }
