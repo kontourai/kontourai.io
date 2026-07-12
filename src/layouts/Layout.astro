@@ -37,7 +37,7 @@ const shouldLoadCloudflareAnalytics = Boolean(cloudflareAnalyticsToken) && impor
 // 2026-07-12): anonymous mode, localStorage-only, masked replays — config
 // lives in public/analytics.js (same-origin loader; strict CSP blocks the
 // standard inline snippet). Activates only when a project key is present.
-const posthogKey = import.meta.env.PUBLIC_POSTHOG_KEY ?? '';
+const posthogKey = import.meta.env.PUBLIC_POSTHOG_KEY ?? 'phc_CHJNDjZiwbeYDEgr5ZqFPnRNoJKu8RoicudYSqFLCJP9';
 const shouldLoadPosthog = Boolean(posthogKey) && import.meta.env.PROD;
 ---
 

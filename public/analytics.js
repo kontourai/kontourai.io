@@ -75,12 +75,15 @@
 
   posthog.init(KEY, {
     api_host: API_HOST,
+    // Current defaults preset (owner's setup wizard, docs 2026-05-30):
+    // history-change pageviews, storage splitting, persistence debounce.
+    defaults: "2026-05-30",
     person_profiles: "identified_only",
     persistence: "localStorage",
     autocapture: true,
-    capture_pageview: true,
     capture_pageleave: true,
     disable_surveys: true,
+    respect_dnt: true,
     session_recording: {
       maskAllInputs: true,
     },
