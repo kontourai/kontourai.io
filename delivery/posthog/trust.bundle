@@ -3,15 +3,15 @@
   "source": "flow-agents/workflow-sidecar;statusFunctionVersion=2",
   "claims": [
     {
-      "id": "posthog-site-verify.flow-agents-workflow.canonical-verify-passed-on-posthog-lane",
+      "id": "posthog-site-verify.flow-agents-workflow.canonical-verify-passed-on-posthog-key-defaults-wired",
       "subjectType": "workflow-check",
       "subjectId": "posthog/site-verify",
       "facet": "flow-agents.workflow",
       "claimType": "workflow.check.command",
-      "fieldOrBehavior": "canonical verify passed on posthog lane",
+      "fieldOrBehavior": "canonical verify passed on posthog (key + defaults wired)",
       "value": "pass",
-      "createdAt": "2026-07-12T21:10:44Z",
-      "updatedAt": "2026-07-12T21:10:44Z",
+      "createdAt": "2026-07-12T21:12:33Z",
+      "updatedAt": "2026-07-12T21:12:33Z",
       "impactLevel": "high",
       "verificationPolicyId": "policy:workflow.check.command:test_output",
       "metadata": {
@@ -19,7 +19,7 @@
         "check_kind": "command",
         "output_digest": {
           "algorithm": "sha256",
-          "hex": "5bdcf73e28459fb4648d841f56f2580fdfe3adfa7a191ed97527d70f1940b899"
+          "hex": "55ea4e2397584c7308580122b14857c859af869b8df2c3ea81f2c550fcd66443"
         }
       },
       "status": "verified"
@@ -27,13 +27,13 @@
   ],
   "evidence": [
     {
-      "id": "ev:posthog-site-verify.flow-agents-workflow.canonical-verify-passed-on-posthog-lane",
-      "claimId": "posthog-site-verify.flow-agents-workflow.canonical-verify-passed-on-posthog-lane",
+      "id": "ev:posthog-site-verify.flow-agents-workflow.canonical-verify-passed-on-posthog-key-defaults-wired",
+      "claimId": "posthog-site-verify.flow-agents-workflow.canonical-verify-passed-on-posthog-key-defaults-wired",
       "evidenceType": "test_output",
       "method": "validation",
       "sourceRef": "posthog/evidence.json",
-      "excerptOrSummary": "canonical verify passed on posthog lane",
-      "observedAt": "2026-07-12T21:10:44Z",
+      "excerptOrSummary": "canonical verify passed on posthog (key + defaults wired)",
+      "observedAt": "2026-07-12T21:12:33Z",
       "collectedBy": "flow-agents/workflow-sidecar",
       "passing": true,
       "execution": {
@@ -64,16 +64,16 @@
   ],
   "events": [
     {
-      "id": "evt:posthog-site-verify.flow-agents-workflow.canonical-verify-passed-on-posthog-lane",
-      "claimId": "posthog-site-verify.flow-agents-workflow.canonical-verify-passed-on-posthog-lane",
+      "id": "evt:posthog-site-verify.flow-agents-workflow.canonical-verify-passed-on-posthog-key-defaults-wired",
+      "claimId": "posthog-site-verify.flow-agents-workflow.canonical-verify-passed-on-posthog-key-defaults-wired",
       "status": "verified",
       "actor": "flow-agents/workflow-sidecar",
       "method": "validation",
       "evidenceIds": [
-        "ev:posthog-site-verify.flow-agents-workflow.canonical-verify-passed-on-posthog-lane"
+        "ev:posthog-site-verify.flow-agents-workflow.canonical-verify-passed-on-posthog-key-defaults-wired"
       ],
-      "createdAt": "2026-07-12T21:10:44Z",
-      "verifiedAt": "2026-07-12T21:10:44Z"
+      "createdAt": "2026-07-12T21:12:33Z",
+      "verifiedAt": "2026-07-12T21:12:33Z"
     }
   ]
 }

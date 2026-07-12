@@ -4,16 +4,16 @@
   "work_item": null,
   "status": "planned",
   "phase": "planning",
-  "sealed_at": "2026-07-12T21:10:48Z",
-  "commit_sha": "2afa29f3e14f0324b4dc7aab1e5906e20978d188",
+  "sealed_at": "2026-07-12T21:12:35Z",
+  "commit_sha": "927075dd893de623afe7c5ce2102997d5e2a3849",
   "checkpoint": {
-    "asOf": "2026-07-12T21:10:48.283Z",
+    "asOf": "2026-07-12T21:12:35.942Z",
     "statusByClaimId": {
-      "posthog-site-verify.flow-agents-workflow.canonical-verify-passed-on-posthog-lane": "verified"
+      "posthog-site-verify.flow-agents-workflow.canonical-verify-passed-on-posthog-key-defaults-wired": "verified"
     },
-    "throughEventCreatedAt": "2026-07-12T21:10:44Z",
+    "throughEventCreatedAt": "2026-07-12T21:12:33Z",
     "throughEventCreatedAtByClaimId": {
-      "posthog-site-verify.flow-agents-workflow.canonical-verify-passed-on-posthog-lane": "2026-07-12T21:10:44Z"
+      "posthog-site-verify.flow-agents-workflow.canonical-verify-passed-on-posthog-key-defaults-wired": "2026-07-12T21:12:33Z"
     },
     "statusFunctionVersion": "2"
   }
