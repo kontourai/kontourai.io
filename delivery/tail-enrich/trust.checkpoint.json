@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "slug": "tail-enrich",
+  "work_item": null,
+  "status": "planned",
+  "phase": "planning",
+  "sealed_at": "2026-07-12T22:38:39Z",
+  "commit_sha": "027e8d6bf0e22398b47dc7c64d02ed2d72e74403",
+  "checkpoint": {
+    "asOf": "2026-07-12T22:38:39.372Z",
+    "statusByClaimId": {
+      "tail-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-tail-enrich": "verified"
+    },
+    "throughEventCreatedAt": "2026-07-12T22:38:37Z",
+    "throughEventCreatedAtByClaimId": {
+      "tail-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-tail-enrich": "2026-07-12T22:38:37Z"
+    },
+    "statusFunctionVersion": "2"
+  }
+}
