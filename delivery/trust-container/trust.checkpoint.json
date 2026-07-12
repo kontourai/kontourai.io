@@ -4,18 +4,18 @@
   "work_item": null,
   "status": "planned",
   "phase": "planning",
-  "sealed_at": "2026-07-12T20:43:25Z",
-  "commit_sha": "3ea026d69eeb10862d8eb75dd813c80787eb8f26",
+  "sealed_at": "2026-07-12T20:46:44Z",
+  "commit_sha": "49d746cdb61b02df80ef368658ed434d838a13a7",
   "checkpoint": {
-    "asOf": "2026-07-12T20:43:25.230Z",
+    "asOf": "2026-07-12T20:46:44.678Z",
     "statusByClaimId": {
-      "trust-container-site-verify.flow-agents-workflow.canonical-verify-passed-on-trust-container": "verified",
-      "trust-container-site-rendered.flow-agents-workflow.rendered-suite-passed-on-trust-container": "verified"
+      "trust-container-site-verify.flow-agents-workflow.canonical-verify-passed-on-trust-container-install-step-approach": "verified",
+      "trust-container-site-rendered.flow-agents-workflow.rendered-suite-passed-on-trust-container-install-step-approach": "verified"
     },
-    "throughEventCreatedAt": "2026-07-12T20:42:54Z",
+    "throughEventCreatedAt": "2026-07-12T20:46:11Z",
     "throughEventCreatedAtByClaimId": {
-      "trust-container-site-verify.flow-agents-workflow.canonical-verify-passed-on-trust-container": "2026-07-12T20:42:54Z",
-      "trust-container-site-rendered.flow-agents-workflow.rendered-suite-passed-on-trust-container": "2026-07-12T20:42:54Z"
+      "trust-container-site-verify.flow-agents-workflow.canonical-verify-passed-on-trust-container-install-step-approach": "2026-07-12T20:46:11Z",
+      "trust-container-site-rendered.flow-agents-workflow.rendered-suite-passed-on-trust-container-install-step-approach": "2026-07-12T20:46:11Z"
     },
     "statusFunctionVersion": "2"
   }
