@@ -16,7 +16,7 @@ const patterns = [
     title: 'A knowledge-format layer',
     example: 'e.g. OKF (Open Knowledge Format)',
     accent: 'cobalt-2',
-    body: "Standardizes the knowledge an agent consumes — context going in. It is deliberately silent on trust: no integrity, provenance, or freshness semantics. That's the seam, not a conflict: a knowledge bundle is a clean source for grounding, and the trust layer supplies what the format leaves out.",
+    body: "Standardizes the knowledge an agent consumes — context going in. It is deliberately silent on trust: no integrity, provenance, or freshness semantics. That's the seam, not a conflict: a knowledge bundle is a clean source for grounding, and a trust layer is built to supply what any such format leaves out.",
   },
   {
     title: 'A memory platform',
@@ -28,7 +28,7 @@ const patterns = [
     title: 'Hook-based external memory',
     example: 'harness hooks writing to your own store',
     accent: 'green',
-    body: "Rolls memory by hand with runtime hooks. Kontour's hooks ride the same harness surfaces without claiming them — sidecar state is workflow evidence under .kontourai/, not a memory store, and it stays out of your context budget.",
+    body: "Rolls memory by hand with runtime hooks. Kontour's hooks ride the same harness surfaces without claiming them — sidecar state is workflow evidence under .kontourai/, not a memory retrieval index. What the hooks inject is workflow steering, never remembered knowledge.",
   },
 ] as const;
 ---
