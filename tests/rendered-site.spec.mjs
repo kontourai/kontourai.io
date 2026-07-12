@@ -630,6 +630,17 @@ test("receipts index lists the real pipeline bundles with downloads", async ({ p
     "href",
     "/receipts/governance-readiness-not-ready.trust.bundle",
   );
+  // Every archive-grid view/download link is instrumented (the live event
+  // sweep found only the lead download tracked — 4 of 5 downloads invisible).
+  await expect(page.locator('[data-umami-event="receipts-download-flow-agents-delivery"]')).toHaveAttribute(
+    "href",
+    "/receipts/flow-agents-delivery.trust.bundle",
+  );
+  await expect(page.locator('[data-umami-event="receipts-view-flow-agents-delivery"]')).toHaveAttribute(
+    "href",
+    "/receipts/flow-agents-delivery/",
+  );
+  await expect(page.locator(".receipt-download:not([data-umami-event])")).toHaveCount(0);
   // Honest framing on the lead exhibit: a fixture projection, not a live stopped run.
   await expect(page.getByText("not a live delivery stopped mid-run")).toBeVisible();
   // The blocked exhibit renders ABOVE the archive grid.

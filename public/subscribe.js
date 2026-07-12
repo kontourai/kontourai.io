@@ -59,6 +59,12 @@
           if (res.ok && data.ok) {
             form.reset();
             setStatus(status, "ok", "You're on the list. We'll be in touch.");
+            // The button's click event fires even when validation blocks the
+            // submit, so it measures intent; this one measures completion.
+            var evt = button.getAttribute("data-umami-event");
+            if (evt && window.umami && typeof window.umami.track === "function") {
+              window.umami.track(evt + "-success", { source: form.dataset.source || "site" });
+            }
           } else {
             setStatus(status, "error", MESSAGES[data.error] || MESSAGES.default);
           }

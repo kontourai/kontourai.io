@@ -1,0 +1,55 @@
+{
+  "comment": "Page-copy freshness manifest (#163). Each page maps to the products whose repos its prose claims depend on, with the version the copy was last editorially reconciled against. Stamped by humans/editors after each content pass — the freshness check flags pages whose mapped products moved a minor/major beyond the reviewed version. Advisory desk signal, not a gate.",
+  "pages": [
+    {
+      "page": "src/pages/flow-agents.astro",
+      "products": { "flow-agents": "3.9.0" },
+      "reviewedDate": "2026-07-12"
+    },
+    {
+      "page": "src/pages/builder-kit.astro",
+      "products": { "flow-agents": "3.9.0" },
+      "reviewedDate": "2026-07-12"
+    },
+    {
+      "page": "src/pages/knowledge-kit.astro",
+      "products": { "flow-agents": "3.9.0" },
+      "reviewedDate": "2026-07-12"
+    },
+    {
+      "page": "src/pages/developers.astro",
+      "products": { "flow-agents": "3.9.0" },
+      "reviewedDate": "2026-07-12"
+    },
+    {
+      "page": "src/pages/index.astro",
+      "products": { "flow-agents": "3.9.0", "survey": "1.8.0" },
+      "reviewedDate": "2026-07-12"
+    },
+    {
+      "page": "src/pages/surface.astro",
+      "products": { "surface": "2.5.0" },
+      "reviewedDate": "2026-07-12"
+    },
+    {
+      "page": "src/pages/veritas.astro",
+      "products": { "veritas": "1.3.0" },
+      "reviewedDate": "2026-07-12"
+    },
+    {
+      "page": "src/pages/flow.astro",
+      "products": { "flow": "3.1.4" },
+      "reviewedDate": "2026-07-12"
+    },
+    {
+      "page": "src/pages/survey.astro",
+      "products": { "survey": "1.8.0" },
+      "reviewedDate": "2026-07-12"
+    },
+    {
+      "page": "src/pages/console.astro",
+      "products": { "console": "2.6.0" },
+      "reviewedDate": "2026-07-12"
+    }
+  ]
+}

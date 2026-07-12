@@ -99,3 +99,74 @@ if (summaryFlag !== -1 && process.argv[summaryFlag + 1]) {
       : '',
   );
 }
+
+// ── Per-page copy freshness (#163) ────────────────────────────────────────
+// src/data/page-reviews.json binds each content page's PROSE to the product
+// versions it was last editorially reconciled against. The 2026-07-12 audit
+// found pages whose version badges were current while the copy was releases
+// behind ("No hosted service. No login." with a v2.6.0 badge) — badges are
+// data-driven, prose is not. Same advisory posture (exit 0): copy review
+// needs a human; this names exactly which pages owe one. `--pages-summary
+// <path>` writes a markdown table for the scheduled desk-signal issue.
+const pageManifest = JSON.parse(readFileSync(new URL('../src/data/page-reviews.json', import.meta.url), 'utf8'));
+const latestCache = new Map();
+const lookupLatest = (packageName) => {
+  if (!latestCache.has(packageName)) {
+    try {
+      latestCache.set(packageName, execFileSync('npm', ['view', packageName, 'version'], { encoding: 'utf8', timeout: 30000 }).trim());
+    } catch {
+      latestCache.set(packageName, null);
+    }
+  }
+  return latestCache.get(packageName);
+};
+
+const stalePages = [];
+for (const entry of pageManifest.pages ?? []) {
+  const staleFor = [];
+  for (const [productKey, reviewed] of Object.entries(entry.products ?? {})) {
+    const product = products[productKey];
+    if (!product?.packageName) {
+      console.log(`WARN  page ${entry.page}: unknown product "${productKey}"`);
+      continue;
+    }
+    const latest = lookupLatest(product.packageName);
+    if (!latest) {
+      console.log(`WARN  page ${entry.page}: npm lookup failed for ${productKey}`);
+      continue;
+    }
+    const [lMaj, lMin] = parse(latest);
+    const [rMaj, rMin] = parse(reviewed);
+    if (lMaj > rMaj || (lMaj === rMaj && lMin > rMin)) {
+      staleFor.push({ productKey, reviewed, latest });
+    }
+  }
+  if (staleFor.length) {
+    stalePages.push({ ...entry, staleFor });
+    const detail = staleFor.map((s) => `${s.productKey} ${s.reviewed} -> ${s.latest}`).join(', ');
+    console.log(`STALE page ${entry.page}: copy reviewed ${entry.reviewedDate}; product moved since (${detail})`);
+  } else {
+    console.log(`ok    page ${entry.page}: copy current (reviewed ${entry.reviewedDate})`);
+  }
+}
+
+console.log(
+  stalePages.length
+    ? `${stalePages.length} page(s) owe an editorial copy pass.`
+    : 'All page copy marketing-current.',
+);
+
+const pagesFlag = process.argv.indexOf('--pages-summary');
+if (pagesFlag !== -1 && process.argv[pagesFlag + 1]) {
+  const rows = stalePages
+    .map((p) => {
+      const route = p.page.replace('src/pages/', '/').replace('index.astro', '').replace('.astro', '/');
+      const drift = p.staleFor.map((s) => `${s.productKey}@${s.reviewed} → ${s.latest}`).join('<br>');
+      return `| ${route} | ${p.reviewedDate} | ${drift} |`;
+    })
+    .join('\n');
+  writeFileSync(
+    process.argv[pagesFlag + 1],
+    stalePages.length ? `| Page | Copy reviewed | Product drift since |\n|---|---|---|\n${rows}\n` : '',
+  );
+}
