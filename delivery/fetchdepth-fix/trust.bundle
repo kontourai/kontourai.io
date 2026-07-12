@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 5,
+  "source": "flow-agents/workflow-sidecar;statusFunctionVersion=2",
+  "claims": [
+    {
+      "id": "fetchdepth-fix-site-verify.flow-agents-workflow.canonical-verify-passed",
+      "subjectType": "workflow-check",
+      "subjectId": "fetchdepth-fix/site-verify",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.check.command",
+      "fieldOrBehavior": "canonical verify passed",
+      "value": "pass",
+      "createdAt": "2026-07-12T15:01:06Z",
+      "updatedAt": "2026-07-12T15:01:06Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:workflow.check.command:test_output",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "command",
+        "output_digest": {
+          "algorithm": "sha256",
+          "hex": "dc0cd9c7a30b8a1a13cc76b9077f94c1c79379fd55263ac1056b90955225c38d"
+        }
+      },
+      "status": "verified"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev:fetchdepth-fix-site-verify.flow-agents-workflow.canonical-verify-passed",
+      "claimId": "fetchdepth-fix-site-verify.flow-agents-workflow.canonical-verify-passed",
+      "evidenceType": "test_output",
+      "method": "validation",
+      "sourceRef": "fetchdepth-fix/evidence.json",
+      "excerptOrSummary": "canonical verify passed",
+      "observedAt": "2026-07-12T15:01:06Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true,
+      "execution": {
+        "runner": "bash",
+        "label": "npm run build && npm run validate",
+        "isError": false
+      }
+    }
+  ],
+  "policies": [
+    {
+      "id": "policy:workflow.check.command:test_output",
+      "claimType": "workflow.check.command",
+      "requiredEvidence": [
+        "test_output"
+      ],
+      "acceptanceCriteria": [
+        "A verified verification event must support a workflow.check.command claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "high"
+    }
+  ],
+  "events": [
+    {
+      "id": "evt:fetchdepth-fix-site-verify.flow-agents-workflow.canonical-verify-passed",
+      "claimId": "fetchdepth-fix-site-verify.flow-agents-workflow.canonical-verify-passed",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:fetchdepth-fix-site-verify.flow-agents-workflow.canonical-verify-passed"
+      ],
+      "createdAt": "2026-07-12T15:01:06Z",
+      "verifiedAt": "2026-07-12T15:01:06Z"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "slug": "fetchdepth-fix",
+  "work_item": null,
+  "status": "planned",
+  "phase": "planning",
+  "sealed_at": "2026-07-12T15:01:08Z",
+  "commit_sha": "41e3b5c04da8f2846329d8bd36d74d88076a59a2",
+  "checkpoint": {
+    "asOf": "2026-07-12T15:01:08.620Z",
+    "statusByClaimId": {
+      "fetchdepth-fix-site-verify.flow-agents-workflow.canonical-verify-passed": "verified"
+    },
+    "throughEventCreatedAt": "2026-07-12T15:01:06Z",
+    "throughEventCreatedAtByClaimId": {
+      "fetchdepth-fix-site-verify.flow-agents-workflow.canonical-verify-passed": "2026-07-12T15:01:06Z"
+    },
+    "statusFunctionVersion": "2"
+  }
+}
