@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "slug": "umami-csp",
+  "work_item": null,
+  "status": "planned",
+  "phase": "planning",
+  "sealed_at": "2026-07-12T17:25:06Z",
+  "commit_sha": "f4af048ad2cc5cc356aad28623fab3da6ed9804a",
+  "checkpoint": {
+    "asOf": "2026-07-12T17:25:06.478Z",
+    "statusByClaimId": {
+      "umami-csp-site-verify.flow-agents-workflow.canonical-verify-passed-on-umami-csp": "verified"
+    },
+    "throughEventCreatedAt": "2026-07-12T17:25:04Z",
+    "throughEventCreatedAtByClaimId": {
+      "umami-csp-site-verify.flow-agents-workflow.canonical-verify-passed-on-umami-csp": "2026-07-12T17:25:04Z"
+    },
+    "statusFunctionVersion": "2"
+  }
+}
