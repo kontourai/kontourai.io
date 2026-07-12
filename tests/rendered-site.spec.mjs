@@ -341,7 +341,7 @@ test("veritas page shows the promise, a concrete catch, and the surface handoff"
   await expect(page.getByText("Veritas is built with Surface.")).toBeVisible();
   // #164 enrichment: exceptions are first-class and attributed.
   await expect(page.getByText("authority-backed decision to accept")).toBeVisible();
-  await expect(page.getByText("accepted by\u00a0exception", { exact: false }).or(page.getByText("accepted by")).first()).toBeVisible();
+  await expect(page.getByText("accepted by exception").first()).toBeVisible();
 
   // Integrations name all four supported runtimes, not just claude-code.
   await expect(page.getByText("codex, claude-code, cursor, or copilot")).toBeVisible();
