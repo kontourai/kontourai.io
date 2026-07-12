@@ -8,6 +8,7 @@ const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..")
 const headersPath = path.join(rootDir, "public/_headers");
 const workflowPath = path.join(rootDir, ".github/workflows/deploy.yml");
 const astroConfigPath = path.join(rootDir, "astro.config.mjs");
+const layoutPath = path.join(rootDir, "src/layouts/Layout.astro");
 
 let errorCount = 0;
 
@@ -22,10 +23,11 @@ function requireIncludes(source, needle, fileLabel) {
   }
 }
 
-const [headers, workflow, astroConfig] = await Promise.all([
+const [headers, workflow, astroConfig, layout] = await Promise.all([
   readFile(headersPath, "utf8"),
   readFile(workflowPath, "utf8"),
   readFile(astroConfigPath, "utf8"),
+  readFile(layoutPath, "utf8"),
 ]);
 
 const globalHeadersMatch = headers.match(/^\/\*\n(?<block>(?:  .+\n)+)/m);
@@ -51,6 +53,17 @@ if (!globalHeadersMatch) {
   }
   if (globalHeaders.includes("'unsafe-inline'")) {
     error("public/_headers global /* block: avoid unsafe-inline in CSP");
+  }
+
+  // Umami Cloud serves its script from cloud.umami.is but the script sends
+  // beacons to gateway.umami.is — a CSP that allows only the script host
+  // silently blocks every pageview/event in the browser (found live 2026-07-12:
+  // the dashboard read zero while the site looked instrumented).
+  const connectSrc = globalHeaders.match(/connect-src[^;]*/)?.[0] ?? "";
+  if (layout.includes("cloud.umami.is/script.js") && !connectSrc.includes("https://gateway.umami.is")) {
+    error(
+      "public/_headers connect-src: Layout loads Umami Cloud's script, so the beacon host https://gateway.umami.is must be allowed (cloud.umami.is alone only covers the script download)"
+    );
   }
 }
 

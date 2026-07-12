@@ -18,7 +18,7 @@ const records: { title: string; body: string; accent: Accent }[] = [
   { title: 'Source', accent: 'gold', body: 'Where the knowledge came from: file, issue, docs page, human decision, PR, or generated artifact.' },
   { title: 'Provenance', accent: 'green', body: 'Who captured it, when it was observed, what changed, and which evidence backs the statement.' },
   { title: 'Freshness', accent: 'cobalt-2', body: 'Whether the record is current enough to reuse, stale enough to recheck, or disputed enough to block reuse.' },
-  { title: 'Authority', accent: 'chalk-2', body: 'Whether the record is advisory, owner-reviewed, CI-backed, or an accepted exception.' },
+  { title: 'Record type', accent: 'chalk-2', body: 'Whether it is a raw capture, a compiled note, a named concept, or a consolidated topic snapshot — superseded records stay queryable, never deleted.' },
 ];
 
 const promises: { title: string; body: string; accent: Accent }[] = [
@@ -30,7 +30,7 @@ const promises: { title: string; body: string; accent: Accent }[] = [
 
 <Layout
   title="Knowledge Kit - Provenance-gated memory on Flow Agents · Kontour AI"
-  description="Knowledge Kit is the Flow Agents kit for durable, provenance-gated knowledge: reusable memory with sources, freshness, authority, and evidence."
+  description="Knowledge Kit is the Flow Agents kit for durable, provenance-gated knowledge: reusable memory with sources, freshness, provenance, and evidence."
 >
   <Nav active="knowledge-kit" />
 
@@ -71,9 +71,9 @@ const promises: { title: string; body: string; accent: Accent }[] = [
           <br />
           <p class="pass">  ✓ provenance present</p>
           <p class="pass">  ✓ freshness checked</p>
-          <p class="warn">  REVIEW  authority required before durable promotion</p>
+          <p class="warn">  REVIEW  compile gate: source refs to every raw required</p>
           <br />
-          <p class="muted">  store: .kontourai/flow-agents/knowledge/</p>
+          <p class="muted">  store: ./knowledge-store/ — root you configure</p>
         </Terminal>
       </Split>
     </div>
@@ -114,7 +114,7 @@ const promises: { title: string; body: string; accent: Accent }[] = [
         <Terminal title="knowledge gate">
           <p class="pass">  PASS  source link exists</p>
           <p class="pass">  PASS  public-boundary check clean</p>
-          <p class="pass">  PASS  owner label present</p>
+          <p class="pass">  PASS  mutation log intact</p>
           <p class="warn">  BLOCK promotion: freshness expired</p>
           <br />
           <p class="muted">  next action: re-read source, then refresh record</p>
