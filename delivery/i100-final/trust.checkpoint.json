@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "slug": "i100-final",
+  "work_item": null,
+  "status": "planned",
+  "phase": "planning",
+  "sealed_at": "2026-07-12T15:06:42Z",
+  "commit_sha": "1ee261a6088c1619e1a676e94b0e3c3b713a32f3",
+  "checkpoint": {
+    "asOf": "2026-07-12T15:06:42.494Z",
+    "statusByClaimId": {
+      "i100-final-site-build.flow-agents-workflow.npm-run-build-passed": "verified",
+      "i100-final-site-validate.flow-agents-workflow.npm-run-validate-passed": "verified"
+    },
+    "throughEventCreatedAt": "2026-07-12T15:06:40Z",
+    "throughEventCreatedAtByClaimId": {
+      "i100-final-site-build.flow-agents-workflow.npm-run-build-passed": "2026-07-12T15:06:40Z",
+      "i100-final-site-validate.flow-agents-workflow.npm-run-validate-passed": "2026-07-12T15:06:40Z"
+    },
+    "statusFunctionVersion": "2"
+  }
+}
