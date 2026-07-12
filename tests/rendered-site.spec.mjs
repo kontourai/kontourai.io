@@ -430,6 +430,9 @@ test("developers page leads with the engine and kits, states ownership once", as
   // Use cases and maturity framing stay.
   await expect(page.getByRole("heading", { name: "Sales / RevOps" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Software delivery" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Public data and records" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Regulated advisory review" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Support and customer operations" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Current state", exact: true })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Near-term direction", exact: true })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Future possibilities", exact: true })).toBeVisible();
