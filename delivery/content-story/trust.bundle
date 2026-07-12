@@ -3,15 +3,15 @@
   "source": "flow-agents/workflow-sidecar;statusFunctionVersion=2",
   "claims": [
     {
-      "id": "content-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-story-post-review",
+      "id": "content-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-story-post-merge-of-main",
       "subjectType": "workflow-check",
       "subjectId": "content-story/site-verify",
       "facet": "flow-agents.workflow",
       "claimType": "workflow.check.command",
-      "fieldOrBehavior": "canonical verify passed on content-story (post-review)",
+      "fieldOrBehavior": "canonical verify passed on content-story (post-merge of main)",
       "value": "pass",
-      "createdAt": "2026-07-12T17:31:02Z",
-      "updatedAt": "2026-07-12T17:31:02Z",
+      "createdAt": "2026-07-12T17:43:19Z",
+      "updatedAt": "2026-07-12T17:43:19Z",
       "impactLevel": "high",
       "verificationPolicyId": "policy:workflow.check.command:test_output",
       "metadata": {
@@ -19,7 +19,7 @@
         "check_kind": "command",
         "output_digest": {
           "algorithm": "sha256",
-          "hex": "ef3de6891166d2843b0c912b31bb390cc8761929e115fac7d1a0797d39328fbd"
+          "hex": "19b425833f0856a10b50c4ff135aa9d85765ac996e77250b3f3e6dffbec7a318"
         }
       },
       "status": "verified"
@@ -27,13 +27,13 @@
   ],
   "evidence": [
     {
-      "id": "ev:content-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-story-post-review",
-      "claimId": "content-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-story-post-review",
+      "id": "ev:content-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-story-post-merge-of-main",
+      "claimId": "content-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-story-post-merge-of-main",
       "evidenceType": "test_output",
       "method": "validation",
       "sourceRef": "content-story/evidence.json",
-      "excerptOrSummary": "canonical verify passed on content-story (post-review)",
-      "observedAt": "2026-07-12T17:31:02Z",
+      "excerptOrSummary": "canonical verify passed on content-story (post-merge of main)",
+      "observedAt": "2026-07-12T17:43:19Z",
       "collectedBy": "flow-agents/workflow-sidecar",
       "passing": true,
       "execution": {
@@ -64,16 +64,16 @@
   ],
   "events": [
     {
-      "id": "evt:content-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-story-post-review",
-      "claimId": "content-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-story-post-review",
+      "id": "evt:content-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-story-post-merge-of-main",
+      "claimId": "content-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-story-post-merge-of-main",
       "status": "verified",
       "actor": "flow-agents/workflow-sidecar",
       "method": "validation",
       "evidenceIds": [
-        "ev:content-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-story-post-review"
+        "ev:content-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-story-post-merge-of-main"
       ],
-      "createdAt": "2026-07-12T17:31:02Z",
-      "verifiedAt": "2026-07-12T17:31:02Z"
+      "createdAt": "2026-07-12T17:43:19Z",
+      "verifiedAt": "2026-07-12T17:43:19Z"
     }
   ]
 }
