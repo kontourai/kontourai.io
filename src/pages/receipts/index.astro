@@ -189,11 +189,12 @@ if (!blockedPolicy?.acceptanceCriteria?.length) {
               </dl>
 
               <div class="receipt-actions">
-                <a class="receipt-link" href={`/receipts/${receipt.slug}/`}>View receipt →</a>
+                <a class="receipt-link" href={`/receipts/${receipt.slug}/`} data-umami-event={`receipts-view-${receipt.slug}`}>View receipt →</a>
                 <a
                   class="receipt-download"
                   href={`/receipts/${receipt.slug}.trust.bundle`}
                   download
+                  data-umami-event={`receipts-download-${receipt.slug}`}
                 >
                   Download .bundle
                 </a>
