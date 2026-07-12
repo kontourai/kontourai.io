@@ -23,11 +23,12 @@ function requireIncludes(source, needle, fileLabel) {
   }
 }
 
-const [headers, workflow, astroConfig, layout] = await Promise.all([
+const [headers, workflow, astroConfig, layout, analyticsLoader] = await Promise.all([
   readFile(headersPath, "utf8"),
   readFile(workflowPath, "utf8"),
   readFile(astroConfigPath, "utf8"),
   readFile(layoutPath, "utf8"),
+  readFile(path.join(rootDir, "public/analytics.js"), "utf8").catch(() => ""),
 ]);
 
 const globalHeadersMatch = headers.match(/^\/\*\n(?<block>(?:  .+\n)+)/m);
@@ -64,6 +65,24 @@ if (!globalHeadersMatch) {
     error(
       "public/_headers connect-src: Layout loads Umami Cloud's script, so the beacon host https://gateway.umami.is must be allowed (cloud.umami.is alone only covers the script download)"
     );
+  }
+
+  // Same script-host/beacon-host consistency for PostHog: the same-origin
+  // loader (public/analytics.js) injects the bundle from us-assets and
+  // sends events to us.i — both must be allowed or analytics silently die
+  // the way umami's did before #161.
+  const scriptSrc = globalHeaders.match(/script-src[^;]*/)?.[0] ?? "";
+  if (layout.includes('src="/analytics.js"') || analyticsLoader.includes("posthog")) {
+    if (!scriptSrc.includes("https://us-assets.i.posthog.com")) {
+      error(
+        "public/_headers script-src: the PostHog loader injects https://us-assets.i.posthog.com/static/array.full.js — allow the asset host"
+      );
+    }
+    if (!connectSrc.includes("https://us.i.posthog.com")) {
+      error(
+        "public/_headers connect-src: PostHog sends events/replays to https://us.i.posthog.com — allow the ingestion host"
+      );
+    }
   }
 }
 
