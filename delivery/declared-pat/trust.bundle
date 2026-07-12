@@ -1,0 +1,129 @@
+{
+  "schemaVersion": 5,
+  "source": "flow-agents/workflow-sidecar;statusFunctionVersion=2",
+  "claims": [
+    {
+      "id": "declared-pat-site-build.flow-agents-workflow.npm-run-build-passed",
+      "subjectType": "workflow-check",
+      "subjectId": "declared-pat/site-build",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.check.command",
+      "fieldOrBehavior": "npm run build passed",
+      "value": "pass",
+      "createdAt": "2026-07-12T15:50:32Z",
+      "updatedAt": "2026-07-12T15:50:32Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:workflow.check.command:test_output",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "command",
+        "output_digest": {
+          "algorithm": "sha256",
+          "hex": "50a09bf690eb4d408be932cdb6d89c89f799947b49ba8778e791e8500053b8f1"
+        }
+      },
+      "status": "verified"
+    },
+    {
+      "id": "declared-pat-site-validate.flow-agents-workflow.npm-run-validate-passed",
+      "subjectType": "workflow-check",
+      "subjectId": "declared-pat/site-validate",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.check.command",
+      "fieldOrBehavior": "npm run validate passed",
+      "value": "pass",
+      "createdAt": "2026-07-12T15:50:32Z",
+      "updatedAt": "2026-07-12T15:50:32Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:workflow.check.command:test_output",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "command",
+        "output_digest": {
+          "algorithm": "sha256",
+          "hex": "0408e7e00e3a443455142f186bcf98993d9b94f9b1165ed775b76443f86f92b8"
+        }
+      },
+      "status": "verified"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev:declared-pat-site-build.flow-agents-workflow.npm-run-build-passed",
+      "claimId": "declared-pat-site-build.flow-agents-workflow.npm-run-build-passed",
+      "evidenceType": "test_output",
+      "method": "validation",
+      "sourceRef": "declared-pat/evidence.json",
+      "excerptOrSummary": "npm run build passed",
+      "observedAt": "2026-07-12T15:50:32Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true,
+      "execution": {
+        "runner": "bash",
+        "label": "npm run build",
+        "isError": false
+      }
+    },
+    {
+      "id": "ev:declared-pat-site-validate.flow-agents-workflow.npm-run-validate-passed",
+      "claimId": "declared-pat-site-validate.flow-agents-workflow.npm-run-validate-passed",
+      "evidenceType": "test_output",
+      "method": "validation",
+      "sourceRef": "declared-pat/evidence.json",
+      "excerptOrSummary": "npm run validate passed",
+      "observedAt": "2026-07-12T15:50:32Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true,
+      "execution": {
+        "runner": "bash",
+        "label": "npm run validate",
+        "isError": false
+      }
+    }
+  ],
+  "policies": [
+    {
+      "id": "policy:workflow.check.command:test_output",
+      "claimType": "workflow.check.command",
+      "requiredEvidence": [
+        "test_output"
+      ],
+      "acceptanceCriteria": [
+        "A verified verification event must support a workflow.check.command claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "high"
+    }
+  ],
+  "events": [
+    {
+      "id": "evt:declared-pat-site-build.flow-agents-workflow.npm-run-build-passed",
+      "claimId": "declared-pat-site-build.flow-agents-workflow.npm-run-build-passed",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:declared-pat-site-build.flow-agents-workflow.npm-run-build-passed"
+      ],
+      "createdAt": "2026-07-12T15:50:32Z",
+      "verifiedAt": "2026-07-12T15:50:32Z"
+    },
+    {
+      "id": "evt:declared-pat-site-validate.flow-agents-workflow.npm-run-validate-passed",
+      "claimId": "declared-pat-site-validate.flow-agents-workflow.npm-run-validate-passed",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:declared-pat-site-validate.flow-agents-workflow.npm-run-validate-passed"
+      ],
+      "createdAt": "2026-07-12T15:50:32Z",
+      "verifiedAt": "2026-07-12T15:50:32Z"
+    }
+  ]
+}

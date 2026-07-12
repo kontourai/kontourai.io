@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "slug": "declared-pat",
+  "work_item": null,
+  "status": "planned",
+  "phase": "planning",
+  "sealed_at": "2026-07-12T15:50:34Z",
+  "commit_sha": "009d4c1e2a71035c5c1166ee3bb6367372abd190",
+  "checkpoint": {
+    "asOf": "2026-07-12T15:50:34.306Z",
+    "statusByClaimId": {
+      "declared-pat-site-build.flow-agents-workflow.npm-run-build-passed": "verified",
+      "declared-pat-site-validate.flow-agents-workflow.npm-run-validate-passed": "verified"
+    },
+    "throughEventCreatedAt": "2026-07-12T15:50:32Z",
+    "throughEventCreatedAtByClaimId": {
+      "declared-pat-site-build.flow-agents-workflow.npm-run-build-passed": "2026-07-12T15:50:32Z",
+      "declared-pat-site-validate.flow-agents-workflow.npm-run-validate-passed": "2026-07-12T15:50:32Z"
+    },
+    "statusFunctionVersion": "2"
+  }
+}
