@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "slug": "visuals",
+  "work_item": null,
+  "status": "planned",
+  "phase": "planning",
+  "sealed_at": "2026-07-12T21:17:38Z",
+  "commit_sha": "928d1686ca033e972329b7eeede5174d3cf0f1a7",
+  "checkpoint": {
+    "asOf": "2026-07-12T21:17:38.968Z",
+    "statusByClaimId": {
+      "visuals-site-verify.flow-agents-workflow.canonical-verify-passed-on-visuals-lane": "verified"
+    },
+    "throughEventCreatedAt": "2026-07-12T21:17:36Z",
+    "throughEventCreatedAtByClaimId": {
+      "visuals-site-verify.flow-agents-workflow.canonical-verify-passed-on-visuals-lane": "2026-07-12T21:17:36Z"
+    },
+    "statusFunctionVersion": "2"
+  }
+}
