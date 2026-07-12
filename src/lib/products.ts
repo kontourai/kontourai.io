@@ -13,6 +13,36 @@ export type ProductKey =
   | "survey"
   | "console";
 
+export type KitKey = "builder-kit" | "knowledge-kit";
+
+export type Kit = {
+  key: KitKey;
+  href: string;
+  label: string;
+  accent: Accent;
+  job: string;
+};
+
+// The two kits with dedicated site pages. They ride the Flow Agents engine —
+// nav and footer surface them right after it so the engine+kits story is the
+// primary reading path (GTM direction 2026-07-03: single-story, wedge-first).
+export const kits: Kit[] = [
+  {
+    key: "builder-kit",
+    href: "/builder-kit/",
+    label: "Builder Kit",
+    accent: "chalk-2",
+    job: "Agent delivery on the engine: shape, build, publish, learn.",
+  },
+  {
+    key: "knowledge-kit",
+    href: "/knowledge-kit/",
+    label: "Knowledge Kit",
+    accent: "gold",
+    job: "Durable, provenance-gated knowledge on the engine.",
+  },
+];
+
 export type Product = {
   key: ProductKey;
   href: string;
@@ -29,22 +59,9 @@ export type Product = {
   };
 };
 
+// Order is nav/footer order: the Flow Agents engine leads, the disciplines it
+// wires in follow (see kits above for the engine's installable workflows).
 export const products: Product[] = [
-  {
-    key: "veritas",
-    href: "/veritas/",
-    label: "Veritas",
-    accent: "green",
-    repo: "https://github.com/kontourai/veritas",
-    homepage: {
-      job: "Turns your repo's standards into evidence-backed readiness reports that agents and reviewers can rely on.",
-      relation: "Brings the same evidence to merge — readiness reports a reviewer or agent can act on.",
-    },
-    developerComposition: {
-      owns: "repo standards, readiness checks, evidence findings, exceptions, and code-change governance",
-      composes: "projects code-change readiness into evidence other products can inspect",
-    },
-  },
   {
     key: "flow-agents",
     href: "/flow-agents/",
@@ -58,6 +75,21 @@ export const products: Product[] = [
     developerComposition: {
       owns: "agent workflows, skills, kits, local sidecars, verification loops, and handoff discipline",
       composes: "coordinates Builder Kit work and can consume Flow, Veritas, and Surface signals",
+    },
+  },
+  {
+    key: "veritas",
+    href: "/veritas/",
+    label: "Veritas",
+    accent: "green",
+    repo: "https://github.com/kontourai/veritas",
+    homepage: {
+      job: "Turns your repo's standards into evidence-backed readiness reports that agents and reviewers can rely on.",
+      relation: "Brings the same evidence to merge — readiness reports a reviewer or agent can act on.",
+    },
+    developerComposition: {
+      owns: "repo standards, readiness checks, evidence findings, exceptions, and code-change governance",
+      composes: "projects code-change readiness into evidence other products can inspect",
     },
   },
   {

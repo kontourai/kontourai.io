@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "slug": "content-story",
+  "work_item": null,
+  "status": "planned",
+  "phase": "planning",
+  "sealed_at": "2026-07-12T17:46:00Z",
+  "commit_sha": "7a94acbe78f685e12d543d9772ad3ee33101d4bf",
+  "checkpoint": {
+    "asOf": "2026-07-12T17:46:00.953Z",
+    "statusByClaimId": {
+      "content-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-story-incl-surface-2-6-0-parity": "verified"
+    },
+    "throughEventCreatedAt": "2026-07-12T17:45:57Z",
+    "throughEventCreatedAtByClaimId": {
+      "content-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-story-incl-surface-2-6-0-parity": "2026-07-12T17:45:57Z"
+    },
+    "statusFunctionVersion": "2"
+  }
+}

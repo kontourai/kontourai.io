@@ -19,15 +19,15 @@ const flowAgentsStatus = getProductStatus('flow-agents');
 const engineParts: { title: string; body: string; accent: Accent }[] = [
   { title: 'FlowDefinition interpreter', accent: 'cobalt-2', body: 'Reads required paths, steps, transitions, gates, route-backs, exceptions, and continuation state from declared flows.' },
   { title: 'Gate runtime', accent: 'green', body: 'Turns evidence expectations into local advisory stops, CI reruns, and resumable next actions instead of chat-only promises.' },
-  { title: 'Harness adapters', accent: 'chalk-2', body: 'Maps the same flow into Claude Code, Codex, Kiro, GitHub Actions, and future agent or non-agent runners.' },
+  { title: 'Harness adapters', accent: 'chalk-2', body: 'Maps the same flow into Claude Code, Codex, Kiro, opencode, pi, and GitHub Actions — with AWS Strands framework adapters in preview.' },
   { title: 'Trust primitives', accent: 'gold', body: 'Carries SDK, evidence, Trust Bundle, command-log chain, and kit-validation records so every claim can point at public artifacts.' },
 ];
 
 const kits: { name: string; href: string; job: string; proof: string; accent: Accent }[] = [
   { name: 'Builder Kit', href: '/builder-kit/', accent: 'chalk-2', job: 'Agent delivery: shape -> build -> publish -> learn.', proof: 'The first-party build path for verifiable agent work.' },
   { name: 'Knowledge Kit', href: '/knowledge-kit/', accent: 'gold', job: 'Durable, provenance-gated knowledge store.', proof: 'Keeps reusable memory tied to sources, owners, and freshness.' },
-  { name: 'Release-Evidence Kit', href: 'https://kontourai.github.io/flow-agents/', accent: 'green', job: 'Agentless, flows-only release evidence.', proof: 'Proof that the engine runs solutions that ship no agent.' },
-  { name: 'Veritas-Governance Kit', href: 'https://kontourai.github.io/flow-agents/', accent: 'cobalt-2', job: 'Agentless, flows-only governance gates.', proof: 'Feeds repo readiness evidence into Flow without giving one kit runtime privilege.' },
+  { name: 'Release Evidence Kit', href: 'https://kontourai.github.io/flow-agents/', accent: 'green', job: 'Agentless, flows-only release evidence.', proof: 'Proof that the engine runs solutions that ship no agent.' },
+  { name: 'Veritas Governance Kit', href: 'https://kontourai.github.io/flow-agents/', accent: 'cobalt-2', job: 'Agentless, flows-only governance gates.', proof: 'Feeds repo readiness evidence into Flow gates.' },
 ];
 
 const trustTiers: { title: string; body: string; accent: Accent }[] = [
@@ -38,8 +38,8 @@ const trustTiers: { title: string; body: string; accent: Accent }[] = [
 ---
 
 <Layout
-  title="Flow Agents - Trust runtime and kit marketplace for agent work · Kontour AI"
-  description="Flow Agents is a product-neutral trust runtime for the agents and workflow kits you already run: FlowDefinition interpretation, gates, runtime adapters, evidence, and kit validation."
+  title="Flow Agents - Ship agent work you can stand behind · Kontour AI"
+  description="Flow Agents is the trust engine for the coding agents you already run: install it, add kits like Builder and Knowledge, and every gate, route-back, and claim comes out as recomputable evidence."
 >
   <Nav active="flow-agents" />
 
@@ -58,12 +58,11 @@ const trustTiers: { title: string; body: string; accent: Accent }[] = [
           <p class="product-tagline animate-fade-up delay-100" data-accent="chalk-2">trust machinery for the agent you already run</p>
 
           <p class="hero-copy hero-copy--wide animate-fade-up delay-200">
-            Flow Agents is the engine under Kontour's agent work: a
-            product-neutral runtime for Flow Definitions, gates, harness
-            adapters, SDK evidence, Trust Bundles, and kit validation. It is not
-            the Builder Kit. Builder is one kit on top. The engine stays
-            kit-neutral so teams can install the workflows they want, bring
-            their own kits, and still get evidence a reviewer can inspect.
+            Install the engine into the coding agent you already run, then add
+            the workflows you want as kits — Builder for delivery, Knowledge
+            for durable memory. The engine interprets declared flows, gates
+            the work on evidence instead of promises, and leaves behind Trust
+            Bundles a reviewer, a CI job, or a skeptic can recompute.
           </p>
 
           <div class="hero-actions animate-fade-up delay-300">
@@ -79,12 +78,12 @@ const trustTiers: { title: string; body: string; accent: Accent }[] = [
           <br />
           <p class="pass">  ✓ engine      FlowDefinition interpreter</p>
           <p class="pass">  ✓ gates       local advisory + CI rerun hooks</p>
-          <p class="pass">  ✓ adapters    Codex · Claude Code · Kiro · GitHub Actions</p>
+          <p class="pass">  ✓ adapters    Claude Code · Codex · Kiro · opencode · pi · GH Actions</p>
           <p class="pass">  ✓ primitives  SDK · evidence · trust bundles</p>
           <p class="pass">  ✓ catalog     kits/catalog.json + kit.json manifests</p>
           <br />
           <p><span class="prompt">$ </span><span class="cmd">npx @kontourai/flow-agents kit list</span></p>
-          <p class="info">  Builder · Knowledge · Release-Evidence · Veritas-Governance</p>
+          <p class="info">  Builder · Knowledge · Release Evidence · Veritas Governance</p>
         </Terminal>
       </Split>
     </div>
@@ -96,8 +95,9 @@ const trustTiers: { title: string; body: string; accent: Accent }[] = [
       <h2 class="display-md measure-lg engine-title">The same trust machinery for every kit — not one blessed workflow.</h2>
       <p class="fine measure engine-note">
         The engine interprets structured triggers and renders tool-native
-        instructions. No kit gets runtime privilege. "Official" and
-        "first-party" are marketplace labels, not engine authority.
+        instructions across four policy classes — workflow steering, quality
+        gates, stop goal-fit, and config protection — the same way for every
+        kit it runs.
       </p>
 
       <Grid cols={4} gap="md">
@@ -111,14 +111,15 @@ const trustTiers: { title: string; body: string; accent: Accent }[] = [
     </div>
   </Section>
 
-  <Section tone="alt" borderTop borderBottom>
+  <Section id="kits" tone="alt" borderTop borderBottom>
     <div class="container">
       <Eyebrow accent="chalk-2" gap="sm">Kit portfolio</Eyebrow>
-      <h2 class="display-md kit-title">Builder is important. It is not the whole product.</h2>
+      <h2 class="display-md kit-title">Install the workflows you need. The engine treats them all the same.</h2>
       <p class="body measure kit-copy">
         Kits are swappable solutions declared in <code>kit.json</code> and
-        registered in <code>kits/catalog.json</code>. Install what you want.
-        Leave the rest out.
+        registered in <code>kits/catalog.json</code>. Install what you want,
+        leave the rest out — and bring your own: "first-party" is a catalog
+        label, not runtime authority.
       </p>
 
       <Grid cols={4} gap="md">
@@ -139,16 +140,12 @@ const trustTiers: { title: string; body: string; accent: Accent }[] = [
         <div>
           <Eyebrow accent="gold">Marketplace direction</Eyebrow>
           <h2 class="display-md market-title">A catalog for trust-bearing workflows.</h2>
-          <p class="body market-copy">
+          <p class="body market-copy market-copy--last">
             The growth path is a marketplace: official kits, community kits, and
             bring-your-own-kit workflows that declare their triggers, flows,
             adapters, skills, docs, dependencies, and validation requirements
-            up front.
-          </p>
-          <p class="body market-copy market-copy--last">
-            A kit can be first-party and still have no special runtime powers.
-            The engine only follows the manifest and the structured triggers the
-            kit declares.
+            up front. The engine only follows the manifest and the structured
+            triggers a kit declares.
           </p>
         </div>
 
@@ -200,8 +197,8 @@ const trustTiers: { title: string; body: string; accent: Accent }[] = [
   <Section size="note" borderTop>
     <div class="container">
       <p class="closing-note">
-        Flow Agents is the engine. Builder, Knowledge, Release-Evidence, and
-        Veritas-Governance are kits. The engine stays neutral so the marketplace
+        Flow Agents is the engine. Builder, Knowledge, Release Evidence, and
+        Veritas Governance are kits. The engine stays neutral so the catalog
         can grow without turning one workflow into the runtime's authority.
       </p>
     </div>

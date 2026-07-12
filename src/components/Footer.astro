@@ -1,8 +1,8 @@
 ---
-import { products, type ProductKey } from '@/lib/products';
+import { products, kits, type ProductKey, type KitKey } from '@/lib/products';
 
 interface Props {
-  active?: 'home' | 'developers' | ProductKey;
+  active?: 'home' | 'developers' | ProductKey | KitKey;
   /** Hide product links regardless of active page (teaser pages like home/early access). */
   teaser?: boolean;
 }
@@ -29,7 +29,10 @@ const links = teaserNav
       { href: '/developers/', label: 'Developers', event: 'footer-developers' },
       receipts,
       trust,
-      ...products.map(({ href, label, key }) => ({ href, label, event: `footer-${key}` })),
+      // Engine first, its paged kits directly behind it, then the disciplines.
+      ...products.slice(0, 1).map(({ href, label, key }) => ({ href, label, event: `footer-${key}` })),
+      ...kits.map(({ href, label, key }) => ({ href, label, event: `footer-${key}` })),
+      ...products.slice(1).map(({ href, label, key }) => ({ href, label, event: `footer-${key}` })),
       github,
     ];
 ---
