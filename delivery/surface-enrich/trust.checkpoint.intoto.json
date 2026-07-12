@@ -1,0 +1,91 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "trust.checkpoint.json",
+      "digest": {
+        "sha256": "68f911876128dbc4ec240fc1fe690f403741d03ae1c91fea490d1a1b28642104"
+      }
+    }
+  ],
+  "predicateType": "https://hachure.org/v1/bundle",
+  "predicate": {
+    "schemaVersion": 5,
+    "source": "flow-agents/workflow-sidecar;statusFunctionVersion=2",
+    "claims": [
+      {
+        "id": "surface-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-surface-enrich",
+        "subjectType": "workflow-check",
+        "subjectId": "surface-enrich/site-verify",
+        "facet": "flow-agents.workflow",
+        "claimType": "workflow.check.command",
+        "fieldOrBehavior": "canonical verify passed on surface-enrich",
+        "value": "pass",
+        "createdAt": "2026-07-12T18:10:38Z",
+        "updatedAt": "2026-07-12T18:10:38Z",
+        "impactLevel": "high",
+        "verificationPolicyId": "policy:workflow.check.command:test_output",
+        "metadata": {
+          "origin": "check",
+          "check_kind": "command",
+          "output_digest": {
+            "algorithm": "sha256",
+            "hex": "ac8c2a57597963ef946df854157490c3dd4dcd54cc7ef2578929d82962fa8953"
+          }
+        },
+        "status": "verified"
+      }
+    ],
+    "evidence": [
+      {
+        "id": "ev:surface-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-surface-enrich",
+        "claimId": "surface-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-surface-enrich",
+        "evidenceType": "test_output",
+        "method": "validation",
+        "sourceRef": "surface-enrich/evidence.json",
+        "excerptOrSummary": "canonical verify passed on surface-enrich",
+        "observedAt": "2026-07-12T18:10:38Z",
+        "collectedBy": "flow-agents/workflow-sidecar",
+        "passing": true,
+        "execution": {
+          "runner": "bash",
+          "label": "npm run build && npm run validate",
+          "isError": false
+        }
+      }
+    ],
+    "policies": [
+      {
+        "id": "policy:workflow.check.command:test_output",
+        "claimType": "workflow.check.command",
+        "requiredEvidence": [
+          "test_output"
+        ],
+        "acceptanceCriteria": [
+          "A verified verification event must support a workflow.check.command claim."
+        ],
+        "reviewAuthority": "system",
+        "validityRule": {
+          "kind": "manual"
+        },
+        "stalenessTriggers": [],
+        "conflictRules": [],
+        "impactLevel": "high"
+      }
+    ],
+    "events": [
+      {
+        "id": "evt:surface-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-surface-enrich",
+        "claimId": "surface-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-surface-enrich",
+        "status": "verified",
+        "actor": "flow-agents/workflow-sidecar",
+        "method": "validation",
+        "evidenceIds": [
+          "ev:surface-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-surface-enrich"
+        ],
+        "createdAt": "2026-07-12T18:10:38Z",
+        "verifiedAt": "2026-07-12T18:10:38Z"
+      }
+    ]
+  }
+}
