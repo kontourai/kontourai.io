@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 5,
+  "source": "flow-agents/workflow-sidecar;statusFunctionVersion=2",
+  "claims": [
+    {
+      "id": "tax-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-tax-story-sitemap-console-parity",
+      "subjectType": "workflow-check",
+      "subjectId": "tax-story/site-verify",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.check.command",
+      "fieldOrBehavior": "canonical verify passed on tax-story (sitemap + console parity)",
+      "value": "pass",
+      "createdAt": "2026-07-12T20:59:02Z",
+      "updatedAt": "2026-07-12T20:59:02Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:workflow.check.command:test_output",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "command",
+        "output_digest": {
+          "algorithm": "sha256",
+          "hex": "e388d0f8c8195df1cfdffaf4d21dc7c522ac7bd1776a60e7c29d919ad41a1d9e"
+        }
+      },
+      "status": "verified"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev:tax-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-tax-story-sitemap-console-parity",
+      "claimId": "tax-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-tax-story-sitemap-console-parity",
+      "evidenceType": "test_output",
+      "method": "validation",
+      "sourceRef": "tax-story/evidence.json",
+      "excerptOrSummary": "canonical verify passed on tax-story (sitemap + console parity)",
+      "observedAt": "2026-07-12T20:59:02Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true,
+      "execution": {
+        "runner": "bash",
+        "label": "npm run build && npm run validate",
+        "isError": false
+      }
+    }
+  ],
+  "policies": [
+    {
+      "id": "policy:workflow.check.command:test_output",
+      "claimType": "workflow.check.command",
+      "requiredEvidence": [
+        "test_output"
+      ],
+      "acceptanceCriteria": [
+        "A verified verification event must support a workflow.check.command claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "high"
+    }
+  ],
+  "events": [
+    {
+      "id": "evt:tax-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-tax-story-sitemap-console-parity",
+      "claimId": "tax-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-tax-story-sitemap-console-parity",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:tax-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-tax-story-sitemap-console-parity"
+      ],
+      "createdAt": "2026-07-12T20:59:02Z",
+      "verifiedAt": "2026-07-12T20:59:02Z"
+    }
+  ]
+}
