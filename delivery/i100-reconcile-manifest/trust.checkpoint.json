@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0",
+  "slug": "i100-reconcile-manifest",
+  "work_item": null,
+  "status": "planned",
+  "phase": "planning",
+  "sealed_at": "2026-07-12T00:21:52Z",
+  "commit_sha": "7387b063ee4f6c0b1cd64f9aeffff0d59d1c5f74",
+  "checkpoint": {
+    "asOf": "2026-07-12T00:21:52.397Z",
+    "statusByClaimId": {
+      "i100-reconcile-manifest-site-build.flow-agents-workflow.npm-run-build-passed": "verified",
+      "i100-reconcile-manifest-site-validate.flow-agents-workflow.npm-run-validate-passed": "verified",
+      "i100-reconcile-manifest-site-rendered.flow-agents-workflow.npm-run-test-rendered-passed": "verified"
+    },
+    "throughEventCreatedAt": "2026-07-12T00:04:21Z",
+    "throughEventCreatedAtByClaimId": {
+      "i100-reconcile-manifest-site-build.flow-agents-workflow.npm-run-build-passed": "2026-07-12T00:04:21Z",
+      "i100-reconcile-manifest-site-validate.flow-agents-workflow.npm-run-validate-passed": "2026-07-12T00:04:21Z",
+      "i100-reconcile-manifest-site-rendered.flow-agents-workflow.npm-run-test-rendered-passed": "2026-07-12T00:04:21Z"
+    },
+    "statusFunctionVersion": "2"
+  }
+}
