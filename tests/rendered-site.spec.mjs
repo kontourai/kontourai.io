@@ -594,7 +594,7 @@ test("receipts index lists the real pipeline bundles with downloads", async ({ p
 
   // #111: the second-validator affordance shows the exact pinned hachure+ajv
   // stack from package.json (check-receipts enforces the pins + runs the CLI).
-  const { devDependencies } = JSON.parse(
+  const { devDependencies, dependencies } = JSON.parse(
     await readFile(new URL("../package.json", import.meta.url), "utf8"),
   );
   await expect(page.getByText("two implementations, same verdict")).toBeVisible();
@@ -613,7 +613,7 @@ test("receipts index lists the real pipeline bundles with downloads", async ({ p
     "flow-agents-ownership-guard",
   ]) {
     await expect(
-      page.getByText(`npx @kontourai/surface@2.1.2 report --input ${slug}.trust.bundle --format summary`),
+      page.getByText(`npx @kontourai/surface@${dependencies["@kontourai/surface"]} report --input ${slug}.trust.bundle --format summary`),
     ).toBeVisible();
   }
 });

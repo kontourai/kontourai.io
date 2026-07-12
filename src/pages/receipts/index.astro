@@ -17,6 +17,9 @@ import pkg from '../../../package.json';
 // only exist while that check is green.
 const hachurePin = pkg.devDependencies.hachure;
 const ajvPin = pkg.devDependencies.ajv;
+// The named validator's advertised pin is the exact dependency CI exercises
+// (check-receipts imports validateTrustBundle from this very install).
+const surfacePin = pkg.dependencies['@kontourai/surface'];
 
 // Lead exhibit (#107): the blocked verdict opens the page. Everything shown
 // about it is derived from the committed bundle, same as the cards below — the
@@ -198,7 +201,7 @@ if (!blockedPolicy?.acceptanceCriteria?.length) {
 
               <div class="receipt-verify">
                 <p class="label-sm receipt-verify-label">Check it yourself</p>
-                <code class="receipt-verify-cmd">npx @kontourai/surface@2.1.2 report --input {receipt.slug}.trust.bundle --format summary</code>
+                <code class="receipt-verify-cmd">npx @kontourai/surface@{surfacePin} report --input {receipt.slug}.trust.bundle --format summary</code>
               </div>
             </Card>
           );
@@ -220,7 +223,7 @@ if (!blockedPolicy?.acceptanceCriteria?.length) {
         exits 0; a malformed one exits non-zero.
       </p>
       <Terminal title="verify a downloaded receipt">
-        <div><span class="prompt">$</span> <span class="cmd">npx @kontourai/surface@2.1.2 report \</span></div>
+        <div><span class="prompt">$</span> <span class="cmd">npx @kontourai/surface@{surfacePin} report \</span></div>
         <div><span class="cmd">    --input flow-agents-delivery.trust.bundle --format summary</span></div>
         <div class="muted">Kontour Surface report …</div>
         <div class="pass">Claims: 34 (proposed: 1, assumed: 1, verified: 32)</div>
