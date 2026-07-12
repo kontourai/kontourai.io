@@ -452,7 +452,7 @@ test("console page presents the suite operating plane and boundary", async ({ pa
   await expect(page.getByRole("heading", { name: "Two commands to a live operating plane." })).toBeVisible();
   await expect(page.getByText("kontour console serve")).toBeVisible();
   await expect(page.getByText("kontour-flow-bridge --flow-root .kontourai/flow --watch")).toBeVisible();
-  await expect(page.getByText("The same hub speaks MCP")).toBeVisible();
+  await expect(page.getByText("publishes an OpenAPI spec for everything the UI")).toBeVisible();
   // The stale "Shared UI later" framing is retired (UI ships in the package).
   await expect(page.getByText("Shared UI later.")).toHaveCount(0);
   await expect(page.getByText("The shared UI shipped on top.")).toBeVisible();
