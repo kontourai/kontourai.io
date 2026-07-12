@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "slug": "surface-enrich",
+  "work_item": null,
+  "status": "planned",
+  "phase": "planning",
+  "sealed_at": "2026-07-12T19:03:00Z",
+  "commit_sha": "8fa0bb20d3ee55a432442c67f03e809bf7d0d153",
+  "checkpoint": {
+    "asOf": "2026-07-12T19:03:00.177Z",
+    "statusByClaimId": {
+      "surface-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-surface-enrich-post-stamp": "verified"
+    },
+    "throughEventCreatedAt": "2026-07-12T19:02:58Z",
+    "throughEventCreatedAtByClaimId": {
+      "surface-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-surface-enrich-post-stamp": "2026-07-12T19:02:58Z"
+    },
+    "statusFunctionVersion": "2"
+  }
+}
