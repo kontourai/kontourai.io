@@ -4,7 +4,7 @@
     {
       "name": "trust.checkpoint.json",
       "digest": {
-        "sha256": "6f8c56fc5af7a79b53587c87671f93efa56c2f8770ff30911cdd8f534848a70c"
+        "sha256": "2c5029cd6c83ad43fd32fab7de3715014b901d28ae82ef1586e8c482079ceb48"
       }
     }
   ],
@@ -14,15 +14,15 @@
     "source": "flow-agents/workflow-sidecar;statusFunctionVersion=2",
     "claims": [
       {
-        "id": "content-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-story-post-merge-of-main",
+        "id": "content-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-story-incl-surface-2-6-0-parity",
         "subjectType": "workflow-check",
         "subjectId": "content-story/site-verify",
         "facet": "flow-agents.workflow",
         "claimType": "workflow.check.command",
-        "fieldOrBehavior": "canonical verify passed on content-story (post-merge of main)",
+        "fieldOrBehavior": "canonical verify passed on content-story (incl. surface 2.6.0 parity)",
         "value": "pass",
-        "createdAt": "2026-07-12T17:43:19Z",
-        "updatedAt": "2026-07-12T17:43:19Z",
+        "createdAt": "2026-07-12T17:45:57Z",
+        "updatedAt": "2026-07-12T17:45:57Z",
         "impactLevel": "high",
         "verificationPolicyId": "policy:workflow.check.command:test_output",
         "metadata": {
@@ -30,7 +30,7 @@
           "check_kind": "command",
           "output_digest": {
             "algorithm": "sha256",
-            "hex": "19b425833f0856a10b50c4ff135aa9d85765ac996e77250b3f3e6dffbec7a318"
+            "hex": "7359dd2e789aaba61bcd79ed75e8a8edba1f378e9d087a9070d8ff40e96f25eb"
           }
         },
         "status": "verified"
@@ -38,13 +38,13 @@
     ],
     "evidence": [
       {
-        "id": "ev:content-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-story-post-merge-of-main",
-        "claimId": "content-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-story-post-merge-of-main",
+        "id": "ev:content-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-story-incl-surface-2-6-0-parity",
+        "claimId": "content-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-story-incl-surface-2-6-0-parity",
         "evidenceType": "test_output",
         "method": "validation",
         "sourceRef": "content-story/evidence.json",
-        "excerptOrSummary": "canonical verify passed on content-story (post-merge of main)",
-        "observedAt": "2026-07-12T17:43:19Z",
+        "excerptOrSummary": "canonical verify passed on content-story (incl. surface 2.6.0 parity)",
+        "observedAt": "2026-07-12T17:45:57Z",
         "collectedBy": "flow-agents/workflow-sidecar",
         "passing": true,
         "execution": {
@@ -75,16 +75,16 @@
     ],
     "events": [
       {
-        "id": "evt:content-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-story-post-merge-of-main",
-        "claimId": "content-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-story-post-merge-of-main",
+        "id": "evt:content-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-story-incl-surface-2-6-0-parity",
+        "claimId": "content-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-story-incl-surface-2-6-0-parity",
         "status": "verified",
         "actor": "flow-agents/workflow-sidecar",
         "method": "validation",
         "evidenceIds": [
-          "ev:content-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-story-post-merge-of-main"
+          "ev:content-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-story-incl-surface-2-6-0-parity"
         ],
-        "createdAt": "2026-07-12T17:43:19Z",
-        "verifiedAt": "2026-07-12T17:43:19Z"
+        "createdAt": "2026-07-12T17:45:57Z",
+        "verifiedAt": "2026-07-12T17:45:57Z"
       }
     ]
   }
