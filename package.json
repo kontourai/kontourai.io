@@ -29,6 +29,18 @@
     {
       "id": "site-verify",
       "command": "npm run build && npm run validate"
+    },
+    {
+      "id": "site-build",
+      "command": "npm run build"
+    },
+    {
+      "id": "site-validate",
+      "command": "npm run validate"
+    },
+    {
+      "id": "site-rendered",
+      "command": "npm run test:rendered"
     }
   ],
   "dependencies": {
