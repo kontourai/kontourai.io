@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "slug": "console-enrich",
+  "work_item": null,
+  "status": "planned",
+  "phase": "planning",
+  "sealed_at": "2026-07-12T22:19:46Z",
+  "commit_sha": "8536aa4b2045a1a4f230c54c3d786400ba27a68d",
+  "checkpoint": {
+    "asOf": "2026-07-12T22:19:46.921Z",
+    "statusByClaimId": {
+      "console-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-console-enrich-post-review": "verified"
+    },
+    "throughEventCreatedAt": "2026-07-12T22:19:43Z",
+    "throughEventCreatedAtByClaimId": {
+      "console-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-console-enrich-post-review": "2026-07-12T22:19:43Z"
+    },
+    "statusFunctionVersion": "2"
+  }
+}

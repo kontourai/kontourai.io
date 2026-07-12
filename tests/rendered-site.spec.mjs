@@ -448,6 +448,15 @@ test("console page presents the suite operating plane and boundary", async ({ pa
   await expect(page.getByText("A release operator sees what needs attention.")).toBeVisible();
   await expect(page.getByText("release-browser-check missing")).toBeVisible();
 
+  // #164 enrichment: the run-it-locally quickstart with real suite-CLI commands.
+  await expect(page.getByRole("heading", { name: "Two commands to a live operating plane." })).toBeVisible();
+  await expect(page.getByText("kontour console serve")).toBeVisible();
+  await expect(page.getByText("kontour-flow-bridge --flow-root .kontourai/flow --watch")).toBeVisible();
+  await expect(page.getByText("publishes an OpenAPI spec for everything the UI")).toBeVisible();
+  // The stale "Shared UI later" framing is retired (UI ships in the package).
+  await expect(page.getByText("Shared UI later.")).toHaveCount(0);
+  await expect(page.getByText("The shared UI shipped on top.")).toBeVisible();
+
   // Boundary — Console owns / does not own / primitives stay portable
   await expect(page.getByRole("heading", { name: "Console owns" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Console does not own" })).toBeVisible();

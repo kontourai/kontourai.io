@@ -177,6 +177,40 @@ const provenance: { title: string; accent: Accent; body: string }[] = [
     </div>
   </Section>
 
+  <!-- Run it locally (#164): the reader couldn't tell this is npx-runnable today -->
+  <Section tone="alt" borderTop borderBottom>
+    <div class="container">
+      <Split ratio="1-1" gap="md" align="center">
+        <div>
+          <Eyebrow accent="cobalt" gap="sm">Run it locally</Eyebrow>
+          <h2 class="display-md run__title">Two commands to a live operating plane.</h2>
+          <p class="body run__copy">
+            The suite CLI starts the local hub with the bundled UI at
+            <code class="codechip" data-accent="cobalt">127.0.0.1:3737</code> —
+            loopback-only by default, token-gated beyond it, state under
+            <code class="codechip" data-accent="cobalt">.kontourai/console</code>.
+            Point the Flow bridge at a real run and the plane follows your
+            actual gated work, no demo scripting.
+          </p>
+          <p class="body run__copy run__copy--last">
+            The same hub publishes an OpenAPI spec for everything the UI
+            renders, and speaks MCP for its usage analytics — machine-readable
+            through the same contracts, no scraping.
+          </p>
+        </div>
+
+        <Terminal title="suite CLI">
+          <p><span class="prompt">$ </span><span class="cmd">npm install --global @kontourai/cli @kontourai/console</span></p>
+          <p><span class="prompt">$ </span><span class="cmd">kontour console serve</span></p>
+          <p class="pass">  hub + UI  http://127.0.0.1:3737/</p>
+          <br />
+          <p class="muted"># follow a live Flow run into the plane</p>
+          <p><span class="prompt">$ </span><span class="cmd">kontour-flow-bridge --flow-root .kontourai/flow --watch</span></p>
+        </Terminal>
+      </Split>
+    </div>
+  </Section>
+
 <Section size="lg">
     <div class="container">
       <Split ratio="1-1" gap="md" align="center">
@@ -305,12 +339,13 @@ const provenance: { title: string; accent: Accent; body: string }[] = [
       <Split ratio="1-1.15" gap="md" align="center">
         <div>
           <Eyebrow accent="cobalt">Where it stands</Eyebrow>
-          <h2 class="display-md cf__title">Contracts first.<br />Shared UI later.</h2>
+          <h2 class="display-md cf__title">Contracts first.<br />The shared UI shipped on top.</h2>
           <p class="body cf__copy">
-            Console starts with the contracts that make a suite plane possible —
+            Console started with the contracts that make a suite plane possible —
             event streams, projection boundaries, identity links, and a queue
-            and action vocabulary. A shared shell comes after Surface, Flow, and
-            Survey consoles prove which pieces are truly common.
+            and action vocabulary. The bundled UI now renders live suite state
+            over those same contracts; they stay the product, the shell stays
+            replaceable.
           </p>
           <p class="body cf__copy cf__copy--last">
             The repo ships a local read-only fixture inspector, a
@@ -374,16 +409,19 @@ const provenance: { title: string; accent: Accent; body: string }[] = [
 
   .plane__title,
   .queue__title,
+  .run__title,
   .cf__title {
     margin-bottom: 1.25rem;
   }
   .plane__copy,
   .queue__copy,
+  .run__copy,
   .cf__copy {
     margin-bottom: 1.5rem;
   }
   .plane__copy--last,
   .queue__copy--last,
+  .run__copy--last,
   .cf__copy--last {
     margin-bottom: 0;
   }
