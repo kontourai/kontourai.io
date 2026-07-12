@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "slug": "copy-drift",
+  "work_item": null,
+  "status": "planned",
+  "phase": "planning",
+  "sealed_at": "2026-07-12T18:06:05Z",
+  "commit_sha": "66248b29b982af12a0eb744b2ad0f4f3cad17d86",
+  "checkpoint": {
+    "asOf": "2026-07-12T18:06:05.788Z",
+    "statusByClaimId": {
+      "copy-drift-site-verify.flow-agents-workflow.canonical-verify-passed-on-copy-drift": "verified"
+    },
+    "throughEventCreatedAt": "2026-07-12T18:06:03Z",
+    "throughEventCreatedAtByClaimId": {
+      "copy-drift-site-verify.flow-agents-workflow.canonical-verify-passed-on-copy-drift": "2026-07-12T18:06:03Z"
+    },
+    "statusFunctionVersion": "2"
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "trust.checkpoint.json",
+      "digest": {
+        "sha256": "6b478a221dba3d1497981da99edf97930256df43505389dbf8dc316cc7ff971a"
+      }
+    }
+  ],
+  "predicateType": "https://hachure.org/v1/bundle",
+  "predicate": {
+    "schemaVersion": 5,
+    "source": "flow-agents/workflow-sidecar;statusFunctionVersion=2",
+    "claims": [
+      {
+        "id": "copy-drift-site-verify.flow-agents-workflow.canonical-verify-passed-on-copy-drift",
+        "subjectType": "workflow-check",
+        "subjectId": "copy-drift/site-verify",
+        "facet": "flow-agents.workflow",
+        "claimType": "workflow.check.command",
+        "fieldOrBehavior": "canonical verify passed on copy-drift",
+        "value": "pass",
+        "createdAt": "2026-07-12T18:06:03Z",
+        "updatedAt": "2026-07-12T18:06:03Z",
+        "impactLevel": "high",
+        "verificationPolicyId": "policy:workflow.check.command:test_output",
+        "metadata": {
+          "origin": "check",
+          "check_kind": "command",
+          "output_digest": {
+            "algorithm": "sha256",
+            "hex": "c778d02b238644d0cc9e1b8f0a657fae459a7c1caab5f6cca97fcdc8500d8982"
+          }
+        },
+        "status": "verified"
+      }
+    ],
+    "evidence": [
+      {
+        "id": "ev:copy-drift-site-verify.flow-agents-workflow.canonical-verify-passed-on-copy-drift",
+        "claimId": "copy-drift-site-verify.flow-agents-workflow.canonical-verify-passed-on-copy-drift",
+        "evidenceType": "test_output",
+        "method": "validation",
+        "sourceRef": "copy-drift/evidence.json",
+        "excerptOrSummary": "canonical verify passed on copy-drift",
+        "observedAt": "2026-07-12T18:06:03Z",
+        "collectedBy": "flow-agents/workflow-sidecar",
+        "passing": true,
+        "execution": {
+          "runner": "bash",
+          "label": "npm run build && npm run validate",
+          "isError": false
+        }
+      }
+    ],
+    "policies": [
+      {
+        "id": "policy:workflow.check.command:test_output",
+        "claimType": "workflow.check.command",
+        "requiredEvidence": [
+          "test_output"
+        ],
+        "acceptanceCriteria": [
+          "A verified verification event must support a workflow.check.command claim."
+        ],
+        "reviewAuthority": "system",
+        "validityRule": {
+          "kind": "manual"
+        },
+        "stalenessTriggers": [],
+        "conflictRules": [],
+        "impactLevel": "high"
+      }
+    ],
+    "events": [
+      {
+        "id": "evt:copy-drift-site-verify.flow-agents-workflow.canonical-verify-passed-on-copy-drift",
+        "claimId": "copy-drift-site-verify.flow-agents-workflow.canonical-verify-passed-on-copy-drift",
+        "status": "verified",
+        "actor": "flow-agents/workflow-sidecar",
+        "method": "validation",
+        "evidenceIds": [
+          "ev:copy-drift-site-verify.flow-agents-workflow.canonical-verify-passed-on-copy-drift"
+        ],
+        "createdAt": "2026-07-12T18:06:03Z",
+        "verifiedAt": "2026-07-12T18:06:03Z"
+      }
+    ]
+  }
+}
