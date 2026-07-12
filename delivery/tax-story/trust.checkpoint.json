@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "slug": "tax-story",
+  "work_item": null,
+  "status": "planned",
+  "phase": "planning",
+  "sealed_at": "2026-07-12T20:59:05Z",
+  "commit_sha": "5f36fd0cc2e555af69f6e8565ba9805f44241407",
+  "checkpoint": {
+    "asOf": "2026-07-12T20:59:05.626Z",
+    "statusByClaimId": {
+      "tax-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-tax-story-sitemap-console-parity": "verified"
+    },
+    "throughEventCreatedAt": "2026-07-12T20:59:02Z",
+    "throughEventCreatedAtByClaimId": {
+      "tax-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-tax-story-sitemap-console-parity": "2026-07-12T20:59:02Z"
+    },
+    "statusFunctionVersion": "2"
+  }
+}
