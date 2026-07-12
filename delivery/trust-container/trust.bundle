@@ -1,0 +1,129 @@
+{
+  "schemaVersion": 5,
+  "source": "flow-agents/workflow-sidecar;statusFunctionVersion=2",
+  "claims": [
+    {
+      "id": "trust-container-site-verify.flow-agents-workflow.canonical-verify-passed-on-trust-container-install-step-approach",
+      "subjectType": "workflow-check",
+      "subjectId": "trust-container/site-verify",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.check.command",
+      "fieldOrBehavior": "canonical verify passed on trust-container (install-step approach)",
+      "value": "pass",
+      "createdAt": "2026-07-12T20:46:11Z",
+      "updatedAt": "2026-07-12T20:46:11Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:workflow.check.command:test_output",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "command",
+        "output_digest": {
+          "algorithm": "sha256",
+          "hex": "2181d2ea108aa15e50b4eb08c773b7bbff220b341ecf610178c17382345f5f3a"
+        }
+      },
+      "status": "verified"
+    },
+    {
+      "id": "trust-container-site-rendered.flow-agents-workflow.rendered-suite-passed-on-trust-container-install-step-approach",
+      "subjectType": "workflow-check",
+      "subjectId": "trust-container/site-rendered",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.check.command",
+      "fieldOrBehavior": "rendered suite passed on trust-container (install-step approach)",
+      "value": "pass",
+      "createdAt": "2026-07-12T20:46:11Z",
+      "updatedAt": "2026-07-12T20:46:11Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:workflow.check.command:test_output",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "command",
+        "output_digest": {
+          "algorithm": "sha256",
+          "hex": "8a6ce635c68f82b549da61410af36197f2a256aa4c7d8295f3b7f050bcac2764"
+        }
+      },
+      "status": "verified"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev:trust-container-site-verify.flow-agents-workflow.canonical-verify-passed-on-trust-container-install-step-approach",
+      "claimId": "trust-container-site-verify.flow-agents-workflow.canonical-verify-passed-on-trust-container-install-step-approach",
+      "evidenceType": "test_output",
+      "method": "validation",
+      "sourceRef": "trust-container/evidence.json",
+      "excerptOrSummary": "canonical verify passed on trust-container (install-step approach)",
+      "observedAt": "2026-07-12T20:46:11Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true,
+      "execution": {
+        "runner": "bash",
+        "label": "npm run build && npm run validate",
+        "isError": false
+      }
+    },
+    {
+      "id": "ev:trust-container-site-rendered.flow-agents-workflow.rendered-suite-passed-on-trust-container-install-step-approach",
+      "claimId": "trust-container-site-rendered.flow-agents-workflow.rendered-suite-passed-on-trust-container-install-step-approach",
+      "evidenceType": "test_output",
+      "method": "validation",
+      "sourceRef": "trust-container/evidence.json",
+      "excerptOrSummary": "rendered suite passed on trust-container (install-step approach)",
+      "observedAt": "2026-07-12T20:46:11Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true,
+      "execution": {
+        "runner": "bash",
+        "label": "npm run test:rendered",
+        "isError": false
+      }
+    }
+  ],
+  "policies": [
+    {
+      "id": "policy:workflow.check.command:test_output",
+      "claimType": "workflow.check.command",
+      "requiredEvidence": [
+        "test_output"
+      ],
+      "acceptanceCriteria": [
+        "A verified verification event must support a workflow.check.command claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "high"
+    }
+  ],
+  "events": [
+    {
+      "id": "evt:trust-container-site-verify.flow-agents-workflow.canonical-verify-passed-on-trust-container-install-step-approach",
+      "claimId": "trust-container-site-verify.flow-agents-workflow.canonical-verify-passed-on-trust-container-install-step-approach",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:trust-container-site-verify.flow-agents-workflow.canonical-verify-passed-on-trust-container-install-step-approach"
+      ],
+      "createdAt": "2026-07-12T20:46:11Z",
+      "verifiedAt": "2026-07-12T20:46:11Z"
+    },
+    {
+      "id": "evt:trust-container-site-rendered.flow-agents-workflow.rendered-suite-passed-on-trust-container-install-step-approach",
+      "claimId": "trust-container-site-rendered.flow-agents-workflow.rendered-suite-passed-on-trust-container-install-step-approach",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:trust-container-site-rendered.flow-agents-workflow.rendered-suite-passed-on-trust-container-install-step-approach"
+      ],
+      "createdAt": "2026-07-12T20:46:11Z",
+      "verifiedAt": "2026-07-12T20:46:11Z"
+    }
+  ]
+}
