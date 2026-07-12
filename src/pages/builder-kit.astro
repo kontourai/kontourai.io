@@ -130,6 +130,31 @@ const gates: { title: string; body: string; accent: Accent }[] = [
     </div>
   </Section>
 
+  <Section borderBottom>
+    <div class="container">
+      <Eyebrow accent="chalk-2" gap="sm">Shipped in the 3.x line</Eyebrow>
+      <h2 class="display-md measure-lg builder-recent-title">The delivery discipline kept compounding.</h2>
+      <Grid min="260" gap="md">
+        <Card accent="green" bar="top" pad="md">
+          <h3 class="feature-title">Named closeout flow</h3>
+          <p class="feature-body"><code>builder.publish-learn</code> is a third first-class flow beside shape and build — publish evidence and capture corrections as one reusable closeout, not an afterthought.</p>
+        </Card>
+        <Card accent="gold" bar="top" pad="md">
+          <h3 class="feature-title">Model routing + escalation</h3>
+          <p class="feature-body">Steps carry model-routing hints, and a failed gate can escalate to a stronger model instead of retrying the same one harder.</p>
+        </Card>
+        <Card accent="cobalt-2" bar="top" pad="md">
+          <h3 class="feature-title">Canonical Flow runs</h3>
+          <p class="feature-body">Builder sessions can be driven by a canonical Flow run — the process engine's gates and route-backs, not a lookalike.</p>
+        </Card>
+        <Card accent="chalk-2" bar="top" pad="md">
+          <h3 class="feature-title">Bounded continuation</h3>
+          <p class="feature-body">Long work continues across driver invocations under an authority-aware driver with explicit bounds — resumable by contract, not by vibes.</p>
+        </Card>
+      </Grid>
+    </div>
+  </Section>
+
   <Section>
     <div class="container">
       <Eyebrow gap="lg">What keeps delivery honest</Eyebrow>
@@ -175,5 +200,8 @@ const gates: { title: string; body: string; accent: Accent }[] = [
   }
   .builder-copy--last {
     margin-bottom: 0;
+  }
+  .builder-recent-title {
+    margin-bottom: 2rem;
   }
 </style>

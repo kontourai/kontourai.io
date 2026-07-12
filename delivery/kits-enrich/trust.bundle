@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 5,
+  "source": "flow-agents/workflow-sidecar;statusFunctionVersion=2",
+  "claims": [
+    {
+      "id": "kits-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-kits-enrich-post-review",
+      "subjectType": "workflow-check",
+      "subjectId": "kits-enrich/site-verify",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.check.command",
+      "fieldOrBehavior": "canonical verify passed on kits-enrich (post-review)",
+      "value": "pass",
+      "createdAt": "2026-07-12T22:31:48Z",
+      "updatedAt": "2026-07-12T22:31:48Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:workflow.check.command:test_output",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "command",
+        "output_digest": {
+          "algorithm": "sha256",
+          "hex": "06e970eb266dbec2e0af1315e321bae268c573b1e280a3e6e4a935181a0336a7"
+        }
+      },
+      "status": "verified"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev:kits-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-kits-enrich-post-review",
+      "claimId": "kits-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-kits-enrich-post-review",
+      "evidenceType": "test_output",
+      "method": "validation",
+      "sourceRef": "kits-enrich/evidence.json",
+      "excerptOrSummary": "canonical verify passed on kits-enrich (post-review)",
+      "observedAt": "2026-07-12T22:31:48Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true,
+      "execution": {
+        "runner": "bash",
+        "label": "npm run build && npm run validate",
+        "isError": false
+      }
+    }
+  ],
+  "policies": [
+    {
+      "id": "policy:workflow.check.command:test_output",
+      "claimType": "workflow.check.command",
+      "requiredEvidence": [
+        "test_output"
+      ],
+      "acceptanceCriteria": [
+        "A verified verification event must support a workflow.check.command claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "high"
+    }
+  ],
+  "events": [
+    {
+      "id": "evt:kits-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-kits-enrich-post-review",
+      "claimId": "kits-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-kits-enrich-post-review",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:kits-enrich-site-verify.flow-agents-workflow.canonical-verify-passed-on-kits-enrich-post-review"
+      ],
+      "createdAt": "2026-07-12T22:31:48Z",
+      "verifiedAt": "2026-07-12T22:31:48Z"
+    }
+  ]
+}

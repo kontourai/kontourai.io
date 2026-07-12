@@ -479,6 +479,17 @@ test("kit pages show real sidecar/store shapes and record dimensions", async ({ 
   await expect(page.getByText("mutation log intact")).toBeVisible();
   // Store root is a constructor argument with no default path — shown as adopter-chosen.
   await expect(page.getByText("root you configure")).toBeVisible();
+  // #164 enrichment: store adapters + hygiene (verified vs kits/knowledge/adapters/).
+  await expect(page.getByRole("heading", { name: "The knowledge lands where you already work." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Obsidian vault" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Hygiene flows" })).toBeVisible();
+
+  // Builder 3.x capabilities strip (verified vs kits/builder/kit.json + changelog).
+  await page.goto("/builder-kit/");
+  await expect(page.getByRole("heading", { name: "The delivery discipline kept compounding." })).toBeVisible();
+  await expect(page.getByText("builder.publish-learn")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Model routing + escalation" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Bounded continuation" })).toBeVisible();
   await expect(page.getByText(".kontourai/flow-agents/knowledge/")).toHaveCount(0);
 });
 
