@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "slug": "posthog",
+  "work_item": null,
+  "status": "planned",
+  "phase": "planning",
+  "sealed_at": "2026-07-12T21:10:48Z",
+  "commit_sha": "2afa29f3e14f0324b4dc7aab1e5906e20978d188",
+  "checkpoint": {
+    "asOf": "2026-07-12T21:10:48.283Z",
+    "statusByClaimId": {
+      "posthog-site-verify.flow-agents-workflow.canonical-verify-passed-on-posthog-lane": "verified"
+    },
+    "throughEventCreatedAt": "2026-07-12T21:10:44Z",
+    "throughEventCreatedAtByClaimId": {
+      "posthog-site-verify.flow-agents-workflow.canonical-verify-passed-on-posthog-lane": "2026-07-12T21:10:44Z"
+    },
+    "statusFunctionVersion": "2"
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 5,
+  "source": "flow-agents/workflow-sidecar;statusFunctionVersion=2",
+  "claims": [
+    {
+      "id": "posthog-site-verify.flow-agents-workflow.canonical-verify-passed-on-posthog-lane",
+      "subjectType": "workflow-check",
+      "subjectId": "posthog/site-verify",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.check.command",
+      "fieldOrBehavior": "canonical verify passed on posthog lane",
+      "value": "pass",
+      "createdAt": "2026-07-12T21:10:44Z",
+      "updatedAt": "2026-07-12T21:10:44Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:workflow.check.command:test_output",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "command",
+        "output_digest": {
+          "algorithm": "sha256",
+          "hex": "5bdcf73e28459fb4648d841f56f2580fdfe3adfa7a191ed97527d70f1940b899"
+        }
+      },
+      "status": "verified"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev:posthog-site-verify.flow-agents-workflow.canonical-verify-passed-on-posthog-lane",
+      "claimId": "posthog-site-verify.flow-agents-workflow.canonical-verify-passed-on-posthog-lane",
+      "evidenceType": "test_output",
+      "method": "validation",
+      "sourceRef": "posthog/evidence.json",
+      "excerptOrSummary": "canonical verify passed on posthog lane",
+      "observedAt": "2026-07-12T21:10:44Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true,
+      "execution": {
+        "runner": "bash",
+        "label": "npm run build && npm run validate",
+        "isError": false
+      }
+    }
+  ],
+  "policies": [
+    {
+      "id": "policy:workflow.check.command:test_output",
+      "claimType": "workflow.check.command",
+      "requiredEvidence": [
+        "test_output"
+      ],
+      "acceptanceCriteria": [
+        "A verified verification event must support a workflow.check.command claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "high"
+    }
+  ],
+  "events": [
+    {
+      "id": "evt:posthog-site-verify.flow-agents-workflow.canonical-verify-passed-on-posthog-lane",
+      "claimId": "posthog-site-verify.flow-agents-workflow.canonical-verify-passed-on-posthog-lane",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:posthog-site-verify.flow-agents-workflow.canonical-verify-passed-on-posthog-lane"
+      ],
+      "createdAt": "2026-07-12T21:10:44Z",
+      "verifiedAt": "2026-07-12T21:10:44Z"
+    }
+  ]
+}
