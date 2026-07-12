@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "slug": "parity-390",
+  "work_item": null,
+  "status": "planned",
+  "phase": "planning",
+  "sealed_at": "2026-07-12T15:33:14Z",
+  "commit_sha": "691dbce99a4f224d6a664d21067943f5d142985c",
+  "checkpoint": {
+    "asOf": "2026-07-12T15:33:14.326Z",
+    "statusByClaimId": {
+      "parity-390-site-build.flow-agents-workflow.npm-run-build-passed": "verified",
+      "parity-390-site-validate.flow-agents-workflow.npm-run-validate-passed": "verified"
+    },
+    "throughEventCreatedAt": "2026-07-12T15:33:12Z",
+    "throughEventCreatedAtByClaimId": {
+      "parity-390-site-build.flow-agents-workflow.npm-run-build-passed": "2026-07-12T15:33:12Z",
+      "parity-390-site-validate.flow-agents-workflow.npm-run-validate-passed": "2026-07-12T15:33:12Z"
+    },
+    "statusFunctionVersion": "2"
+  }
+}
