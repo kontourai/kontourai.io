@@ -515,6 +515,28 @@ test("flow agents page presents agent-tool discipline and status", async ({ page
   await expect(faMatrix.getByRole("row", { name: /Other harnesses/ }).locator('[data-enforcement="spec-only"]')).toHaveText("Spec-only");
 });
 
+test("memory interop note states the do-not-build guard and the two-layer stance", async ({ page }) => {
+  await page.goto("/memory/");
+
+  await expect(page.getByRole("heading", { level: 1, name: "Works with your memory layer" })).toBeVisible();
+  // The recorded do-NOT-build guard, stated as a guard (not a deferral).
+  await expect(page.getByText("We build no memory platform.")).toBeVisible();
+  await expect(page.getByText("a recorded do-not-build guard, not a roadmap gap")).toBeVisible();
+  // The memory-vs-trust line (required by #71).
+  await expect(page.getByText("Memory tells the agent what it knows. Kontour proves what its answers")).toBeVisible();
+  // Named example categories/systems — as pattern examples only.
+  await expect(page.getByText("OKF (Open Knowledge Format)")).toBeVisible();
+  await expect(page.getByText("Context Lattice")).toBeVisible();
+  await expect(page.getByText("hooks writing to your own store")).toBeVisible();
+  // Honest scope: no vendor certification claims.
+  await expect(page.getByText("not tested integrations or partnership claims")).toBeVisible();
+  await expect(page.locator('[data-umami-event="memory-trust"]')).toHaveAttribute("href", "/trust/");
+
+  // Reachable from developer-facing navigation (R1 reachability).
+  await page.goto("/developers/");
+  await expect(page.locator('[data-umami-event="developers-next-memory"]')).toHaveAttribute("href", "/memory/");
+});
+
 test("receipts index lists the real pipeline bundles with downloads", async ({ page }) => {
   await page.goto("/receipts/");
 
