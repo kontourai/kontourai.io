@@ -4,7 +4,7 @@
     {
       "name": "trust.checkpoint.json",
       "digest": {
-        "sha256": "e125e88b52b28a32a455551288b7ab738241b0c7ecb61d9bda14cd95f15b2cb0"
+        "sha256": "9b8179a87f788956aec6262ef65364a624782ec7f8ed4e180beeeac5ed2f16cb"
       }
     }
   ],
@@ -14,15 +14,15 @@
     "source": "flow-agents/workflow-sidecar;statusFunctionVersion=2",
     "claims": [
       {
-        "id": "content-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-story",
+        "id": "content-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-story-post-review",
         "subjectType": "workflow-check",
         "subjectId": "content-story/site-verify",
         "facet": "flow-agents.workflow",
         "claimType": "workflow.check.command",
-        "fieldOrBehavior": "canonical verify passed on content-story",
+        "fieldOrBehavior": "canonical verify passed on content-story (post-review)",
         "value": "pass",
-        "createdAt": "2026-07-12T17:25:47Z",
-        "updatedAt": "2026-07-12T17:25:47Z",
+        "createdAt": "2026-07-12T17:31:02Z",
+        "updatedAt": "2026-07-12T17:31:02Z",
         "impactLevel": "high",
         "verificationPolicyId": "policy:workflow.check.command:test_output",
         "metadata": {
@@ -30,7 +30,7 @@
           "check_kind": "command",
           "output_digest": {
             "algorithm": "sha256",
-            "hex": "fac143f30f8a4acf354dbb884d17331a3b0102a2e5859b73c83e2d3e21c1ac4b"
+            "hex": "ef3de6891166d2843b0c912b31bb390cc8761929e115fac7d1a0797d39328fbd"
           }
         },
         "status": "verified"
@@ -38,13 +38,13 @@
     ],
     "evidence": [
       {
-        "id": "ev:content-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-story",
-        "claimId": "content-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-story",
+        "id": "ev:content-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-story-post-review",
+        "claimId": "content-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-story-post-review",
         "evidenceType": "test_output",
         "method": "validation",
         "sourceRef": "content-story/evidence.json",
-        "excerptOrSummary": "canonical verify passed on content-story",
-        "observedAt": "2026-07-12T17:25:47Z",
+        "excerptOrSummary": "canonical verify passed on content-story (post-review)",
+        "observedAt": "2026-07-12T17:31:02Z",
         "collectedBy": "flow-agents/workflow-sidecar",
         "passing": true,
         "execution": {
@@ -75,16 +75,16 @@
     ],
     "events": [
       {
-        "id": "evt:content-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-story",
-        "claimId": "content-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-story",
+        "id": "evt:content-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-story-post-review",
+        "claimId": "content-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-story-post-review",
         "status": "verified",
         "actor": "flow-agents/workflow-sidecar",
         "method": "validation",
         "evidenceIds": [
-          "ev:content-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-story"
+          "ev:content-story-site-verify.flow-agents-workflow.canonical-verify-passed-on-content-story-post-review"
         ],
-        "createdAt": "2026-07-12T17:25:47Z",
-        "verifiedAt": "2026-07-12T17:25:47Z"
+        "createdAt": "2026-07-12T17:31:02Z",
+        "verifiedAt": "2026-07-12T17:31:02Z"
       }
     ]
   }
