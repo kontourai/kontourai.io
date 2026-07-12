@@ -258,6 +258,10 @@ test("flow page explains process transparency and product boundaries", async ({ 
   await expect(page.getByText(/\.flow\/runs/)).toHaveCount(0);
   // Flow Agents runtime list matches src/lib/products.ts.
   await expect(page.getByText("Codex, Kiro, opencode, pi, and GitHub Actions").first()).toBeVisible();
+  // #164 enrichment: run lifecycle authority + kits as the distribution unit.
+  await expect(page.getByRole("heading", { name: "Pausing a run is a decision, and it says who decided." })).toBeVisible();
+  await expect(page.getByText("flow pause dev-1847 --request pause-request.json")).toBeVisible();
+  await expect(page.getByText("flow kit validate ./release-kit")).toBeVisible();
 
   // Guard against the old internal "the user sees" framing
   await expect(page.getByText("The user sees a useful workflow")).toHaveCount(0);
@@ -335,6 +339,9 @@ test("veritas page shows the promise, a concrete catch, and the surface handoff"
   // Current CLI and the Surface handoff
   await expect(page.locator(".label-sm").filter({ hasText: "Current CLI" })).toBeVisible();
   await expect(page.getByText("Veritas is built with Surface.")).toBeVisible();
+  // #164 enrichment: exceptions are first-class and attributed.
+  await expect(page.getByText("authority-backed decision to accept")).toBeVisible();
+  await expect(page.getByText("accepted by exception").first()).toBeVisible();
 
   // Integrations name all four supported runtimes, not just claude-code.
   await expect(page.getByText("codex, claude-code, cursor, or copilot")).toBeVisible();
@@ -380,6 +387,12 @@ test("survey page explains the producer pipeline and surface handoff", async ({ 
   await expect(page.getByText("fieldObservation()").first()).toBeVisible();
   await expect(page.locator(".label-sm").filter({ hasText: "Example use case" })).toBeVisible();
   await expect(page.getByText("public record and needs to preserve the extraction")).toBeVisible();
+
+  // #164 enrichment: review surfaces (MCP, standalone console, flywheel).
+  await expect(page.getByRole("heading", { name: "The queue meets the reviewer where they already are." })).toBeVisible();
+  await expect(page.getByText("npx survey-review-mcp")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Review Console" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Reviewed learning updates" })).toBeVisible();
 
   // Surface handoff
   await expect(page.getByText("Survey produces.")).toBeVisible();
