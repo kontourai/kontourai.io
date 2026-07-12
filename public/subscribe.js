@@ -63,7 +63,11 @@
             // submit, so it measures intent; this one measures completion.
             var evt = button.getAttribute("data-umami-event");
             if (evt && window.umami && typeof window.umami.track === "function") {
-              window.umami.track(evt + "-success", { source: form.dataset.source || "site" });
+              try {
+                window.umami.track(evt + "-success", { source: form.dataset.source || "site" });
+              } catch (_) {
+                /* analytics must never affect the signup UX */
+              }
             }
           } else {
             setStatus(status, "error", MESSAGES[data.error] || MESSAGES.default);

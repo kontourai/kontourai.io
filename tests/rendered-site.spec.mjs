@@ -641,6 +641,12 @@ test("receipts index lists the real pipeline bundles with downloads", async ({ p
     "/receipts/flow-agents-delivery/",
   );
   await expect(page.locator(".receipt-download:not([data-umami-event])")).toHaveCount(0);
+  // Umami silently truncates event names over 50 chars — keep slug-derived
+  // names inside the limit as new receipts are added.
+  const eventNames = await page.locator("[data-umami-event]").evaluateAll(
+    (els) => els.map((el) => el.getAttribute("data-umami-event")),
+  );
+  for (const name of eventNames) expect(name.length).toBeLessThanOrEqual(50);
   // Honest framing on the lead exhibit: a fixture projection, not a live stopped run.
   await expect(page.getByText("not a live delivery stopped mid-run")).toBeVisible();
   // The blocked exhibit renders ABOVE the archive grid.
