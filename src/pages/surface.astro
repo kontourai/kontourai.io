@@ -63,6 +63,8 @@ const moreThanStatus: { title: string; body: string; accent: Accent }[] = [
   { title: 'Claim dependencies', accent: 'cobalt-2', body: 'A claim can depend on supporting claims. When an upstream claim goes stale or disputed, that state propagates to everything built on it — no silent rot.' },
   { title: 'Reverification', accent: 'gold', body: 'Producers can advertise how to recheck a claim’s evidence, authority, freshness, or integrity — so a stale claim has a path back to verified instead of staying a dead end.' },
   { title: 'Analytics reports', accent: 'green', body: 'Beyond the human summary, an analytics format exposes evidence and gaps as queryable data for dashboards, audits, and trust intelligence.' },
+  { title: 'Agent-queryable (MCP)', accent: 'chalk-2', body: 'The built-in MCP server (npx surface mcp) answers agents directly — stale claims, missing evidence, waiver validity, policy gaps — the same guardrails the CLI and JSON report expose to humans.' },
+  { title: 'Waiver validity', accent: 'red', body: 'Accepted gaps are not hand-waves. Waivers carry a canonical, derived validity — schema-validated against the Hachure extension — so an exception that quietly expired stops passing as current.' },
 ];
 ---
 
@@ -266,12 +268,47 @@ const moreThanStatus: { title: string; body: string; accent: Accent }[] = [
     </div>
   </Section>
 
+  <!-- Show it to your users: the customer-facing surfaces behind the
+       "For your customers" role card above. -->
+  <Section tone="alt" borderTop>
+    <div class="container">
+      <Eyebrow gap="sm" accent="gold">Show it to your users</Eyebrow>
+      <h2 class="display-md measure-lg section-title">The same trust state, embeddable where your customers already are.</h2>
+      <Grid min="260" gap="lg">
+        <Card accent="gold" bar="top" pad="md">
+          <h3 class="feature-title">Trust Panel embed</h3>
+          <p class="feature-body">
+            A dependency-free <code>&lt;surface-trust-panel&gt;</code> element
+            drops the customer-facing view of a claim into your own product —
+            the claim, its evidence, freshness, and gaps, without shipping a
+            framework.
+          </p>
+        </Card>
+        <Card accent="cobalt-2" bar="top" pad="md">
+          <h3 class="feature-title">Snapshot viewer</h3>
+          <p class="feature-body">
+            Publish a Trust Snapshot and hand anyone a link — the hosted
+            viewer renders it read-only, so a skeptic can inspect your trust
+            state without installing anything.
+          </p>
+        </Card>
+        <Card accent="green" bar="top" pad="md">
+          <h3 class="feature-title">Built with Surface badge</h3>
+          <p class="feature-body">
+            A spec'd badge that links your product to its published trust
+            state — a claim of inspectability that is itself inspectable.
+          </p>
+        </Card>
+      </Grid>
+    </div>
+  </Section>
+
   <!-- More than a status -->
   <Section borderTop size="lg">
     <div class="container">
       <Eyebrow>More than a status</Eyebrow>
       <h2 class="display-md measure-lg section-title">Trust state that propagates, refreshes, and answers questions.</h2>
-      <Grid cols={3} gap="lg">
+      <Grid min="260" gap="lg">
         {moreThanStatus.map(({ title, body, accent }) => (
           <Card accent={accent} bar="top" pad="md">
             <h3 class="feature-title">{title}</h3>
@@ -292,6 +329,8 @@ const moreThanStatus: { title: string; body: string; accent: Accent }[] = [
         shape humans and agents can inspect.
         Surface is the reference implementation of the <a href="https://hachure.org" target="_blank" rel="noopener">Hachure open trust format</a> —
         the portable, recomputable trust format anyone can implement independently.
+        A conformance suite ships with Surface, so an alternate implementation
+        can prove it derives the same trust state from the same bundle.
       </p>
 
       <Grid cols={2} gap="lg">

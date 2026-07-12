@@ -296,6 +296,18 @@ test("surface page presents inspectable claims and trust vocabulary", async ({ p
   await expect(page.getByText("kontour-surface-validation-examples")).toBeVisible();
   await expect(page.getByText("kontour-surface-validation-fixtures")).toHaveCount(0);
 
+  // #164 enrichment: agent tooling, waiver validity, customer-facing surfaces,
+  // and the conformance suite — all shipped capabilities the page omitted.
+  await expect(page.getByRole("heading", { name: "Agent-queryable (MCP)" })).toBeVisible();
+  await expect(page.getByText("npx surface mcp")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Waiver validity" })).toBeVisible();
+  await expect(page.locator(".label-sm").filter({ hasText: "Show it to your users" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Trust Panel embed" })).toBeVisible();
+  await expect(page.getByText("<surface-trust-panel>")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Snapshot viewer" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Built with Surface badge" })).toBeVisible();
+  await expect(page.getByText("A conformance suite ships with Surface")).toBeVisible();
+
   // Products built with Surface
   await expect(page.locator(".label-sm").filter({ hasText: "Products built with Surface" }).first()).toBeVisible();
   await expect(page.getByRole("heading", { name: "Veritas" })).toBeVisible();
