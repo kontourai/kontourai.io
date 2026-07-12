@@ -38,13 +38,13 @@ const producers: { product: string; detail: string; accent: Accent }[] = [
 const boundary: { title: string; accent: Accent; items: string[] }[] = [
   { title: 'Console owns', accent: 'cobalt', items: ['Suite navigation & workspace structure', 'Cross-product aggregation & correlation', 'Unified queues & action routing', 'Identity links across product objects', 'Extension composition across consoles'] },
   { title: 'Console does not own', accent: 'chalk-2', items: ['Surface trust derivation', 'Flow gate & transition semantics', 'Survey fact-review semantics', 'Veritas governance policy', 'Any hosted-infrastructure requirement'] },
-  { title: 'Primitives stay portable', accent: 'gold', items: ['Adopt Surface, Flow, Survey, or Veritas alone', 'Event streams are the durable contract', 'Projections are cached, product-owned views', 'Actions execute through the owning product', 'No .kontour dependency for verticals'] },
+  { title: 'Primitives stay portable', accent: 'gold', items: ['Adopt Surface, Flow, Survey, or Veritas alone', 'Event streams are the durable contract', 'Projections are cached, product-owned views', 'Actions execute through the owning product', 'No .kontourai/console dependency for verticals'] },
 ];
 
 const provenance: { title: string; accent: Accent; body: string }[] = [
   { title: 'Un-fakeable at merge', accent: 'green', body: 'The trust gate fires at PR time and re-runs verification in an environment the agent never controls. "I verified everything" stops being unfalsifiable.' },
-  { title: 'Permanent in git', accent: 'cobalt', body: 'The signed bundle is committed and pinned to the merge commit — distributed, tamper-evident, and outliving any dashboard. Git is the authority; Console is the rebuildable index.' },
-  { title: 'Queryable forever', accent: 'gold', body: 'Ask across every repo: which deliveries shipped with an accepted exception, what proof backed a claim, what is overdue for reverification. Git-blame tells you who changed a line; the ledger tells you what was verified and how.' },
+  { title: 'Permanent in git', accent: 'cobalt', body: 'The signed bundle is committed and pinned to the merge commit — distributed, tamper-evident, and outliving any dashboard. Git stays the authority; Console never becomes it.' },
+  { title: 'Inspectable beside the run', accent: 'gold', body: 'The Flow bridge reads a run\'s trust-bundle evidence into Console\'s trust panel, so the proof behind each gate — what was verified, how, and by whom — sits next to the run it belongs to.' },
 ];
 ---
 
@@ -114,10 +114,11 @@ const provenance: { title: string; accent: Accent; body: string }[] = [
       <Eyebrow accent="cobalt" gap="sm">What it's built to answer</Eyebrow>
       <h2 class="display-md measure-lg ans-title">The cross-product questions a suite plane has to answer.</h2>
       <p class="fine ans-note">
-        These are the questions Console is designed around. Today it can answer
-        them from local fixtures and producer helpers; answering them from live
-        Surface, Flow, Survey, and Veritas data is what the contracts below are
-        being built toward.
+        These are the questions Console is designed around. Today it answers
+        them live for Flow — the bridge follows real runs, no demo scripting —
+        and from local fixtures and producer helpers for the rest; live Surface,
+        Survey, and Veritas feeds are what the contracts below are being built
+        toward.
       </p>
 
       <QuestionGrid items={questions} min="260" />
@@ -141,8 +142,10 @@ const provenance: { title: string; accent: Accent; body: string }[] = [
           <p class="body plane__copy plane__copy--last">
             Projections stay product-owned; Console aggregates, correlates,
             filters, and routes — it never becomes a second source of truth.
-            Today this runs through dependency-free producer helpers and local
-            fixtures, not yet a live feed from each product.
+            Flow feeds this live today: <code class="codechip" data-accent="cobalt-2">kontour-flow-bridge</code>
+            derives Console events from real run files. Surface, Survey, and
+            Veritas still arrive through dependency-free producer helpers and
+            local fixtures.
           </p>
         </div>
 
@@ -189,8 +192,8 @@ const provenance: { title: string; accent: Accent; body: string }[] = [
           <p class="body queue__copy queue__copy--last">
             Each item keeps a link back to the product that owns it — and the
             product that owns the action stays the authority that runs it. The
-            view below is illustrative; cross-product feeds are still being wired
-            in.
+            view below is illustrative; Flow items arrive live via the bridge,
+            while Surface, Survey, and Veritas feeds are still being wired in.
           </p>
         </div>
 
@@ -249,11 +252,12 @@ const provenance: { title: string; accent: Accent; body: string }[] = [
       <Eyebrow accent="green" gap="sm">Provenance</Eyebrow>
       <h2 class="display-md measure-lg">Trust you can query. Not trust you take on faith.</h2>
       <p class="fine ans-note">
-        Every delivery ships a signed trust bundle — the claims that were made,
-        how they were verified, and a fresh CI reconciliation the agent never
-        controls — pinned to the merge commit. The agent proposes, CI disposes,
-        git remembers, and Console indexes. Months later you can still ask what
-        was verified, how, and by whom — across every repo, in one place.
+        Every gated delivery ships a signed trust bundle — the claims that were
+        made, how they were verified, and a fresh CI reconciliation the agent
+        never controls — pinned to the merge commit. The agent proposes, CI
+        disposes, and git remembers. Console doesn't index those delivery
+        ledgers; the Flow bridge reads a run's trust-bundle evidence into the
+        trust panel, where you can still ask what was verified, how, and by whom.
       </p>
 
       <Grid cols={3} gap="lg">
@@ -313,8 +317,12 @@ const provenance: { title: string; accent: Accent; body: string }[] = [
             loopback event hub, local telemetry storage adapters, product
             telemetry descriptors, and a local UI that renders live suite state
             over SSE — backed by dependency-free producer helpers that write
-            control-plane records under a local <code class="codechip" data-accent="cobalt">.kontour</code> root.
-            Cross-product wiring is still example-stage. No hosted service. No login.
+            control-plane records under a local <code class="codechip" data-accent="cobalt">.kontourai/console</code> root.
+            That open-source package is the foundation; a private production
+            deployment of it runs hosted at console.kontourai.io, with OIDC
+            login, per-session revocation, and a durable Postgres-backed store.
+            Cross-product wiring is partial: Flow is live through the bridge;
+            Surface, Survey, and Veritas feeds are still contract-stage.
           </p>
         </div>
 
@@ -324,7 +332,7 @@ const provenance: { title: string; accent: Accent; body: string }[] = [
   <span class="t-fn">require</span>(<span class="t-str">"@kontourai/console"</span>);
 
 <span class="t-kw">const</span> emitter = <span class="t-kw">new</span> <span class="t-fn">KontourEmitter</span>({'{'}
-  sink: <span class="t-kw">new</span> <span class="t-fn">LocalFileSink</span>({'{'} root: <span class="t-str">".kontour"</span> {'}'}),
+  sink: <span class="t-kw">new</span> <span class="t-fn">LocalFileSink</span>({'{'} root: <span class="t-str">".kontourai/console"</span> {'}'}),
 {'}'});
 
 <span class="t-kw">await</span> emitter.<span class="t-fn">emitEvent</span>({'{'}
@@ -333,7 +341,7 @@ const provenance: { title: string; accent: Accent; body: string }[] = [
   subject: {'{'} kind: <span class="t-str">"claim"</span>, id: <span class="t-str">"claim-1"</span> {'}'},
 {'}'});
 
-<span class="t-com">// → .kontour/events/ + .kontour/projections/</span></pre>
+<span class="t-com">// → .kontourai/console/events/ + .kontourai/console/projections/</span></pre>
         </Terminal>
       </Split>
     </div>

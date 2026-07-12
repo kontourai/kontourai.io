@@ -247,6 +247,14 @@ test("flow page explains process transparency and product boundaries", async ({ 
   await expect(page.getByRole("heading", { name: "Observability" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Policy systems" })).toBeVisible();
 
+  // Flow 3.0 runtime root: generated run state lives under .kontourai/flow, not .flow.
+  await expect(page.getByText(".kontourai/flow/runs/dev-1847/report.md")).toBeVisible();
+  await expect(page.getByText(".kontourai/flow/runs/<id>/")).toBeVisible();
+  await expect(page.getByText("Reading: .kontourai/flow/runs/dev-1847/")).toBeVisible();
+  await expect(page.getByText(/\.flow\/runs/)).toHaveCount(0);
+  // Flow Agents runtime list matches src/lib/products.ts.
+  await expect(page.getByText("Codex, Kiro, opencode, pi, and GitHub Actions").first()).toBeVisible();
+
   // Guard against the old internal "the user sees" framing
   await expect(page.getByText("The user sees a useful workflow")).toHaveCount(0);
 });
@@ -271,9 +279,18 @@ test("surface page presents inspectable claims and trust vocabulary", async ({ p
   await expect(page.getByText("Trust Snapshot").first()).toBeVisible();
   await expect(page.getByText("Transparency Gap").first()).toBeVisible();
 
-  // Trust status model and Surface Console
+  // Trust status model shows the full nine-status taxonomy (src/status-taxonomy.ts).
   await expect(page.locator(".label-sm").filter({ hasText: "Trust status model" })).toBeVisible();
+  await expect(page.locator(".status-card")).toHaveCount(9);
+  for (const status of ["unknown", "proposed", "assumed", "verified", "stale", "disputed", "superseded", "rejected", "revoked"]) {
+    await expect(page.locator(".status-card .trust-badge").filter({ hasText: status }).first()).toBeVisible();
+  }
+
+  // Surface Console — including the multi-producer merge shipped in 2.1.0.
   await expect(page.getByText("Surface Console").first()).toBeVisible();
+  await expect(page.getByText("merge multiple").first()).toBeVisible();
+  await expect(page.getByText("kontour-surface-validation-examples")).toBeVisible();
+  await expect(page.getByText("kontour-surface-validation-fixtures")).toHaveCount(0);
 
   // Products built with Surface
   await expect(page.locator(".label-sm").filter({ hasText: "Products built with Surface" }).first()).toBeVisible();
@@ -301,6 +318,13 @@ test("veritas page shows the promise, a concrete catch, and the surface handoff"
   // Current CLI and the Surface handoff
   await expect(page.locator(".label-sm").filter({ hasText: "Current CLI" })).toBeVisible();
   await expect(page.getByText("Veritas is built with Surface.")).toBeVisible();
+
+  // Integrations name all four supported runtimes, not just claude-code.
+  await expect(page.getByText("codex, claude-code, cursor, or copilot")).toBeVisible();
+  // Attestation copy is scoped to what ships: the authorizing block is optional,
+  // records verbatim words or a prompt/response exchange — "environment" is not a field.
+  await expect(page.getByText("Attestations can record how authorization was collected")).toBeVisible();
+  await expect(page.getByText("the channel, the environment")).toHaveCount(0);
 });
 
 test("survey page explains the producer pipeline and surface handoff", async ({ page }) => {
@@ -317,7 +341,14 @@ test("survey page explains the producer pipeline and surface handoff", async ({ 
   await expect(page.getByText("Candidate", { exact: true }).first()).toBeVisible();
   await expect(page.getByText("Review", { exact: true }).first()).toBeVisible();
   await expect(page.getByText("Claim", { exact: true }).first()).toBeVisible();
-  await expect(page.getByText("Needs Review").first()).toBeVisible();
+  // Review statuses named truthfully (ReviewStatus: verified | assumed | rejected | proposed).
+  await expect(page.getByText("verified, assumed, rejected, or proposed").first()).toBeVisible();
+  await expect(page.getByText("Needs Review")).toHaveCount(0);
+  // Install hint carries the runtime dep + Surface companion, per the README quickstart.
+  await expect(page.getByText("npm install @kontourai/survey @kontourai/surface").first()).toBeVisible();
+  // fieldObservation example carries the claim fields required since surface-2.0.
+  await expect(page.getByText("facet").first()).toBeVisible();
+  await expect(page.getByText("fieldOrBehavior").first()).toBeVisible();
 
   // Boundary and helpers
   await expect(page.getByRole("heading", { name: "Survey owns" })).toBeVisible();
@@ -353,8 +384,20 @@ test("console page presents the suite operating plane and boundary", async ({ pa
   await expect(page.locator(".label-sm").filter({ hasText: "What it's built to answer" })).toBeVisible();
   await expect(page.getByText("Primitives make transparency portable.").first()).toBeVisible();
 
-  // Honest framing: illustrative, not a live cross-product feed yet
+  // Honest framing: illustrative where feeds aren't live; Flow IS live via the bridge.
   await expect(page.getByText("illustrative").first()).toBeVisible();
+  await expect(page.getByText("kontour-flow-bridge").first()).toBeVisible();
+  await expect(page.getByText("still being wired in").first()).toBeVisible();
+  // The runtime root moved to .kontourai/console in 2.0.0; the retired .kontour root must not render.
+  await expect(page.getByText(".kontourai/console").first()).toBeVisible();
+  await expect(page.getByText(/"\.kontour"/)).toHaveCount(0);
+  // Maturity note is truthful: hosted private production deployment exists (OIDC login etc.).
+  await expect(page.getByText("console.kontourai.io").first()).toBeVisible();
+  await expect(page.getByText("OIDC").first()).toBeVisible();
+  await expect(page.getByText("No hosted service. No login.")).toHaveCount(0);
+  // Provenance claims stay attributable: the trust panel via the Flow bridge, no ledger indexing.
+  await expect(page.getByText("Console doesn't index those delivery")).toBeVisible();
+  await expect(page.getByText("Console indexes")).toHaveCount(0);
 
   // Unified work queue
   await expect(page.locator(".label-sm").filter({ hasText: "Unified work queue" })).toBeVisible();
@@ -366,6 +409,25 @@ test("console page presents the suite operating plane and boundary", async ({ pa
   await expect(page.getByRole("heading", { name: "Console owns" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Console does not own" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Primitives stay portable" })).toBeVisible();
+});
+
+test("kit pages show real sidecar/store shapes and record dimensions", async ({ page }) => {
+  // Builder Kit: sidecar state is keyed by work-item slug (flow-agents getting-started).
+  await page.goto("/builder-kit/");
+  await expect(page.getByText(".kontourai/flow-agents/issue-214-search-filters/")).toBeVisible();
+  await expect(page.getByText(".kontourai/flow-agents/builder.build/")).toHaveCount(0);
+
+  // Knowledge Kit: the shipped record dimensions — no "Authority" field exists in the store contract.
+  await page.goto("/knowledge-kit/");
+  await expect(page.getByRole("heading", { name: "Record type" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Authority" })).toHaveCount(0);
+  await expect(page.getByText("owner label present")).toHaveCount(0);
+  await expect(page.getByText("authority required before durable promotion")).toHaveCount(0);
+  await expect(page.getByText("source refs to every raw required")).toBeVisible();
+  await expect(page.getByText("mutation log intact")).toBeVisible();
+  // Store root is a constructor argument with no default path — shown as adopter-chosen.
+  await expect(page.getByText("root you configure")).toBeVisible();
+  await expect(page.getByText(".kontourai/flow-agents/knowledge/")).toHaveCount(0);
 });
 
 test("developers page maps product ownership, lifecycle, and maturity on desktop", async ({ page }) => {
@@ -703,7 +765,9 @@ test("trust page states the honest ceiling, the bypass list, the assurance dial,
   // Site-parity claim stays exactly as strong as the branch-protection fact:
   // required + no-bypass, with the workflow-protection gap disclosed.
   await expect(page.getByText("This site's own repo now requires the check too")).toBeVisible();
-  await expect(page.getByText("workflow definition isn't yet owner-review-protected")).toBeVisible();
+  // Since PR #141, workflow definitions and CI scripts are owner-review-protected via CODEOWNERS.
+  await expect(page.getByText("require owner review via CODEOWNERS")).toBeVisible();
+  await expect(page.getByText("isn't yet owner-review-protected")).toHaveCount(0);
   await expect(page.getByText("on where we build Flow Agents, off by default")).toBeVisible();
   await expect(page.getByText("It is the irreducible human boundary").first()).toBeVisible();
 

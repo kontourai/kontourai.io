@@ -90,7 +90,7 @@ const consoleFeatures = [
         </div>
 
         <Terminal class="animate-fade-in delay-300" title="flow report — current run">
-          <p><span class="prompt">$ </span><span class="cmd">flow status run.dev-1847 --format summary</span></p>
+          <p><span class="prompt">$ </span><span class="cmd">flow status dev-1847 --format summary</span></p>
           <br />
           <p class="info">  flow run: agent-dev-flow / feature-search-filters</p>
           <p class="muted">  current step: verify</p>
@@ -102,7 +102,7 @@ const consoleFeatures = [
           <br />
           <p>  next action: <span class="warn">run browser check before publish</span></p>
           <p class="muted">  continuation: resume from verify, not chat memory</p>
-          <p class="muted">  report: .flow/runs/run.dev-1847/report.md</p>
+          <p class="muted">  report: .kontourai/flow/runs/dev-1847/report.md</p>
         </Terminal>
       </Split>
     </div>
@@ -229,7 +229,7 @@ const consoleFeatures = [
           <p class="body fc__copy">
             <code class="codechip" data-accent="cobalt-2">flow console --run &lt;id&gt;</code>
             serves a live view of a run straight from
-            <code class="code-plain">.flow/runs/&lt;id&gt;/</code>.
+            <code class="code-plain">.kontourai/flow/runs/&lt;id&gt;/</code>.
             Loopback only. No cloud, no login.
           </p>
 
@@ -248,7 +248,7 @@ const consoleFeatures = [
           <br />
           <p class="info">  Flow Console: http://127.0.0.1:4317/</p>
           <br />
-          <p class="muted">  Reading: .flow/runs/dev-1847/</p>
+          <p class="muted">  Reading: .kontourai/flow/runs/dev-1847/</p>
           <p class="muted">  run: agent-dev-flow / feature-search-filters</p>
           <br />
           <p class="muted">  GET /                 200  console shell</p>
@@ -274,8 +274,8 @@ const consoleFeatures = [
           <p class="body line__copy">
             Surface makes claims inspectable. Survey makes producer-side
             provenance inspectable. Flow makes process transitions inspectable.
-            Flow Agents applies Flow and Veritas discipline inside Codex,
-            Claude Code, Kiro, GitHub Actions, and future agent tools.
+            Flow Agents applies Flow and Veritas discipline inside Claude Code,
+            Codex, Kiro, opencode, pi, and GitHub Actions.
           </p>
           <p class="body line__copy line__copy--last">
             You get a workflow that simply works. Underneath, each Kontour
