@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "slug": "parity-sweep",
+  "work_item": null,
+  "status": "planned",
+  "phase": "planning",
+  "sealed_at": "2026-07-12T13:53:20Z",
+  "commit_sha": "3b54c93e5b800c48e803a5992ea9370de98e3ed9",
+  "checkpoint": {
+    "asOf": "2026-07-12T13:53:20.985Z",
+    "statusByClaimId": {
+      "parity-sweep-site-verify.flow-agents-workflow.canonical-verify-passed": "verified"
+    },
+    "throughEventCreatedAt": "2026-07-12T13:53:17Z",
+    "throughEventCreatedAtByClaimId": {
+      "parity-sweep-site-verify.flow-agents-workflow.canonical-verify-passed": "2026-07-12T13:53:17Z"
+    },
+    "statusFunctionVersion": "2"
+  }
+}
