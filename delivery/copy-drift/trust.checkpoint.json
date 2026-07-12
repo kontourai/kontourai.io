@@ -4,16 +4,16 @@
   "work_item": null,
   "status": "planned",
   "phase": "planning",
-  "sealed_at": "2026-07-12T18:12:30Z",
-  "commit_sha": "296b7b1a8642267a2a2f87d21efe3ee8e1471724",
+  "sealed_at": "2026-07-12T18:47:38Z",
+  "commit_sha": "35a0e038c8e98e9dd0de05924186b8967ffdde49",
   "checkpoint": {
-    "asOf": "2026-07-12T18:12:30.865Z",
+    "asOf": "2026-07-12T18:47:38.286Z",
     "statusByClaimId": {
-      "copy-drift-site-verify.flow-agents-workflow.canonical-verify-passed-on-copy-drift-post-review": "verified"
+      "copy-drift-site-verify.flow-agents-workflow.canonical-verify-passed-on-copy-drift-incl-surface-2-7-0-parity": "verified"
     },
-    "throughEventCreatedAt": "2026-07-12T18:12:28Z",
+    "throughEventCreatedAt": "2026-07-12T18:47:36Z",
     "throughEventCreatedAtByClaimId": {
-      "copy-drift-site-verify.flow-agents-workflow.canonical-verify-passed-on-copy-drift-post-review": "2026-07-12T18:12:28Z"
+      "copy-drift-site-verify.flow-agents-workflow.canonical-verify-passed-on-copy-drift-incl-surface-2-7-0-parity": "2026-07-12T18:47:36Z"
     },
     "statusFunctionVersion": "2"
   }

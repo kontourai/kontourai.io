@@ -3,15 +3,15 @@
   "source": "flow-agents/workflow-sidecar;statusFunctionVersion=2",
   "claims": [
     {
-      "id": "copy-drift-site-verify.flow-agents-workflow.canonical-verify-passed-on-copy-drift-post-review",
+      "id": "copy-drift-site-verify.flow-agents-workflow.canonical-verify-passed-on-copy-drift-incl-surface-2-7-0-parity",
       "subjectType": "workflow-check",
       "subjectId": "copy-drift/site-verify",
       "facet": "flow-agents.workflow",
       "claimType": "workflow.check.command",
-      "fieldOrBehavior": "canonical verify passed on copy-drift (post-review)",
+      "fieldOrBehavior": "canonical verify passed on copy-drift (incl. surface 2.7.0 parity)",
       "value": "pass",
-      "createdAt": "2026-07-12T18:12:28Z",
-      "updatedAt": "2026-07-12T18:12:28Z",
+      "createdAt": "2026-07-12T18:47:36Z",
+      "updatedAt": "2026-07-12T18:47:36Z",
       "impactLevel": "high",
       "verificationPolicyId": "policy:workflow.check.command:test_output",
       "metadata": {
@@ -19,7 +19,7 @@
         "check_kind": "command",
         "output_digest": {
           "algorithm": "sha256",
-          "hex": "630eb8fc3458c9d3f0f2457357146a4d24acfa53987017ba28b5f54dccc75752"
+          "hex": "88807f950065c6e465e6744fb4cc6b8420f495d5e71cfd9e1c954e0b90fbd48a"
         }
       },
       "status": "verified"
@@ -27,13 +27,13 @@
   ],
   "evidence": [
     {
-      "id": "ev:copy-drift-site-verify.flow-agents-workflow.canonical-verify-passed-on-copy-drift-post-review",
-      "claimId": "copy-drift-site-verify.flow-agents-workflow.canonical-verify-passed-on-copy-drift-post-review",
+      "id": "ev:copy-drift-site-verify.flow-agents-workflow.canonical-verify-passed-on-copy-drift-incl-surface-2-7-0-parity",
+      "claimId": "copy-drift-site-verify.flow-agents-workflow.canonical-verify-passed-on-copy-drift-incl-surface-2-7-0-parity",
       "evidenceType": "test_output",
       "method": "validation",
       "sourceRef": "copy-drift/evidence.json",
-      "excerptOrSummary": "canonical verify passed on copy-drift (post-review)",
-      "observedAt": "2026-07-12T18:12:28Z",
+      "excerptOrSummary": "canonical verify passed on copy-drift (incl. surface 2.7.0 parity)",
+      "observedAt": "2026-07-12T18:47:36Z",
       "collectedBy": "flow-agents/workflow-sidecar",
       "passing": true,
       "execution": {
@@ -64,16 +64,16 @@
   ],
   "events": [
     {
-      "id": "evt:copy-drift-site-verify.flow-agents-workflow.canonical-verify-passed-on-copy-drift-post-review",
-      "claimId": "copy-drift-site-verify.flow-agents-workflow.canonical-verify-passed-on-copy-drift-post-review",
+      "id": "evt:copy-drift-site-verify.flow-agents-workflow.canonical-verify-passed-on-copy-drift-incl-surface-2-7-0-parity",
+      "claimId": "copy-drift-site-verify.flow-agents-workflow.canonical-verify-passed-on-copy-drift-incl-surface-2-7-0-parity",
       "status": "verified",
       "actor": "flow-agents/workflow-sidecar",
       "method": "validation",
       "evidenceIds": [
-        "ev:copy-drift-site-verify.flow-agents-workflow.canonical-verify-passed-on-copy-drift-post-review"
+        "ev:copy-drift-site-verify.flow-agents-workflow.canonical-verify-passed-on-copy-drift-incl-surface-2-7-0-parity"
       ],
-      "createdAt": "2026-07-12T18:12:28Z",
-      "verifiedAt": "2026-07-12T18:12:28Z"
+      "createdAt": "2026-07-12T18:47:36Z",
+      "verifiedAt": "2026-07-12T18:47:36Z"
     }
   ]
 }
