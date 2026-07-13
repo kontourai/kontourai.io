@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "slug": "ph-beacon",
+  "work_item": null,
+  "status": "planned",
+  "phase": "planning",
+  "sealed_at": "2026-07-13T04:28:35Z",
+  "commit_sha": "16c157ed8eb0fcef3fbfff42c667b5641d0dc659",
+  "checkpoint": {
+    "asOf": "2026-07-13T04:28:35.013Z",
+    "statusByClaimId": {
+      "ph-beacon-site-verify.flow-agents-workflow.canonical-verify-passed-on-ph-beacon": "verified"
+    },
+    "throughEventCreatedAt": "2026-07-13T04:28:32Z",
+    "throughEventCreatedAtByClaimId": {
+      "ph-beacon-site-verify.flow-agents-workflow.canonical-verify-passed-on-ph-beacon": "2026-07-13T04:28:32Z"
+    },
+    "statusFunctionVersion": "2"
+  }
+}
