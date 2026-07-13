@@ -1,5 +1,5 @@
 {
-  "comment": "Page-copy freshness manifest (#163). Each page maps to the products whose repos its prose claims depend on, with the version the copy was last editorially reconciled against. Stamped by humans/editors after each content pass \u2014 the freshness check flags pages whose mapped products moved a minor/major beyond the reviewed version. Advisory desk signal, not a gate.",
+  "comment": "Page-copy freshness manifest (#163). Each page maps to the products whose repos its prose claims depend on, with the version the copy was last editorially reconciled against. Stamped by humans/editors after each content pass — the freshness check flags pages whose mapped products moved a minor/major beyond the reviewed version. Advisory desk signal, not a gate.",
   "pages": [
     {
       "page": "src/pages/flow-agents.astro",
@@ -61,7 +61,7 @@
     {
       "page": "src/pages/survey.astro",
       "products": {
-        "survey": "1.10.0"
+        "survey": "1.11.0"
       },
       "reviewedDate": "2026-07-13"
     },
