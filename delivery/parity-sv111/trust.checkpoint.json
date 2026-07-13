@@ -4,16 +4,16 @@
   "work_item": null,
   "status": "planned",
   "phase": "planning",
-  "sealed_at": "2026-07-13T05:19:48Z",
-  "commit_sha": "efb399ea9664dbccb91f546f42d7ee89734333b6",
+  "sealed_at": "2026-07-13T05:20:15Z",
+  "commit_sha": "7863d7e2a0b6006f4c7e7ece871f6df3ccfe5bd1",
   "checkpoint": {
-    "asOf": "2026-07-13T05:19:48.173Z",
+    "asOf": "2026-07-13T05:20:15.147Z",
     "statusByClaimId": {
-      "parity-sv111-site-verify.flow-agents-workflow.canonical-verify-passed-on-parity-sv111": "verified"
+      "parity-sv111-site-verify.flow-agents-workflow.canonical-verify-passed-on-parity-sv111-with-stamp": "verified"
     },
-    "throughEventCreatedAt": "2026-07-13T05:19:46Z",
+    "throughEventCreatedAt": "2026-07-13T05:20:13Z",
     "throughEventCreatedAtByClaimId": {
-      "parity-sv111-site-verify.flow-agents-workflow.canonical-verify-passed-on-parity-sv111": "2026-07-13T05:19:46Z"
+      "parity-sv111-site-verify.flow-agents-workflow.canonical-verify-passed-on-parity-sv111-with-stamp": "2026-07-13T05:20:13Z"
     },
     "statusFunctionVersion": "2"
   }

@@ -3,15 +3,15 @@
   "source": "flow-agents/workflow-sidecar;statusFunctionVersion=2",
   "claims": [
     {
-      "id": "parity-sv111-site-verify.flow-agents-workflow.canonical-verify-passed-on-parity-sv111",
+      "id": "parity-sv111-site-verify.flow-agents-workflow.canonical-verify-passed-on-parity-sv111-with-stamp",
       "subjectType": "workflow-check",
       "subjectId": "parity-sv111/site-verify",
       "facet": "flow-agents.workflow",
       "claimType": "workflow.check.command",
-      "fieldOrBehavior": "canonical verify passed on parity-sv111",
+      "fieldOrBehavior": "canonical verify passed on parity-sv111 (with stamp)",
       "value": "pass",
-      "createdAt": "2026-07-13T05:19:46Z",
-      "updatedAt": "2026-07-13T05:19:46Z",
+      "createdAt": "2026-07-13T05:20:13Z",
+      "updatedAt": "2026-07-13T05:20:13Z",
       "impactLevel": "high",
       "verificationPolicyId": "policy:workflow.check.command:test_output",
       "metadata": {
@@ -19,7 +19,7 @@
         "check_kind": "command",
         "output_digest": {
           "algorithm": "sha256",
-          "hex": "1864c8f3adee4299f913158f8ae64272582aa04a8a906cbc604fa056ace6ca6d"
+          "hex": "99f86b56066cfade18b192ce2e2e814b925958c1c4e1a46ef2ed3af2d8b96efe"
         }
       },
       "status": "verified"
@@ -27,13 +27,13 @@
   ],
   "evidence": [
     {
-      "id": "ev:parity-sv111-site-verify.flow-agents-workflow.canonical-verify-passed-on-parity-sv111",
-      "claimId": "parity-sv111-site-verify.flow-agents-workflow.canonical-verify-passed-on-parity-sv111",
+      "id": "ev:parity-sv111-site-verify.flow-agents-workflow.canonical-verify-passed-on-parity-sv111-with-stamp",
+      "claimId": "parity-sv111-site-verify.flow-agents-workflow.canonical-verify-passed-on-parity-sv111-with-stamp",
       "evidenceType": "test_output",
       "method": "validation",
       "sourceRef": "parity-sv111/evidence.json",
-      "excerptOrSummary": "canonical verify passed on parity-sv111",
-      "observedAt": "2026-07-13T05:19:46Z",
+      "excerptOrSummary": "canonical verify passed on parity-sv111 (with stamp)",
+      "observedAt": "2026-07-13T05:20:13Z",
       "collectedBy": "flow-agents/workflow-sidecar",
       "passing": true,
       "execution": {
@@ -64,16 +64,16 @@
   ],
   "events": [
     {
-      "id": "evt:parity-sv111-site-verify.flow-agents-workflow.canonical-verify-passed-on-parity-sv111",
-      "claimId": "parity-sv111-site-verify.flow-agents-workflow.canonical-verify-passed-on-parity-sv111",
+      "id": "evt:parity-sv111-site-verify.flow-agents-workflow.canonical-verify-passed-on-parity-sv111-with-stamp",
+      "claimId": "parity-sv111-site-verify.flow-agents-workflow.canonical-verify-passed-on-parity-sv111-with-stamp",
       "status": "verified",
       "actor": "flow-agents/workflow-sidecar",
       "method": "validation",
       "evidenceIds": [
-        "ev:parity-sv111-site-verify.flow-agents-workflow.canonical-verify-passed-on-parity-sv111"
+        "ev:parity-sv111-site-verify.flow-agents-workflow.canonical-verify-passed-on-parity-sv111-with-stamp"
       ],
-      "createdAt": "2026-07-13T05:19:46Z",
-      "verifiedAt": "2026-07-13T05:19:46Z"
+      "createdAt": "2026-07-13T05:20:13Z",
+      "verifiedAt": "2026-07-13T05:20:13Z"
     }
   ]
 }
