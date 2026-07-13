@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "slug": "nav-fix",
+  "work_item": null,
+  "status": "planned",
+  "phase": "planning",
+  "sealed_at": "2026-07-13T05:00:15Z",
+  "commit_sha": "d5bee076148ed9ba5b5d390ada76b1045d32e6f1",
+  "checkpoint": {
+    "asOf": "2026-07-13T05:00:15.957Z",
+    "statusByClaimId": {
+      "nav-fix-site-verify.flow-agents-workflow.canonical-verify-passed-on-nav-fix-post-review": "verified"
+    },
+    "throughEventCreatedAt": "2026-07-13T05:00:11Z",
+    "throughEventCreatedAtByClaimId": {
+      "nav-fix-site-verify.flow-agents-workflow.canonical-verify-passed-on-nav-fix-post-review": "2026-07-13T05:00:11Z"
+    },
+    "statusFunctionVersion": "2"
+  }
+}

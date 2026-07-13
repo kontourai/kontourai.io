@@ -1,0 +1,91 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "trust.checkpoint.json",
+      "digest": {
+        "sha256": "3c22a6439685e6cb1fa2a053168f13b5f68dfa63c3a61816249985521b8a8426"
+      }
+    }
+  ],
+  "predicateType": "https://hachure.org/v1/bundle",
+  "predicate": {
+    "schemaVersion": 5,
+    "source": "flow-agents/workflow-sidecar;statusFunctionVersion=2",
+    "claims": [
+      {
+        "id": "nav-fix-site-verify.flow-agents-workflow.canonical-verify-passed-on-nav-fix-post-review",
+        "subjectType": "workflow-check",
+        "subjectId": "nav-fix/site-verify",
+        "facet": "flow-agents.workflow",
+        "claimType": "workflow.check.command",
+        "fieldOrBehavior": "canonical verify passed on nav-fix (post-review)",
+        "value": "pass",
+        "createdAt": "2026-07-13T05:00:11Z",
+        "updatedAt": "2026-07-13T05:00:11Z",
+        "impactLevel": "high",
+        "verificationPolicyId": "policy:workflow.check.command:test_output",
+        "metadata": {
+          "origin": "check",
+          "check_kind": "command",
+          "output_digest": {
+            "algorithm": "sha256",
+            "hex": "0512c754e5e2a01767c822617a819ad7ec6c26a5f24d397c43c0bd1b6b7e38fb"
+          }
+        },
+        "status": "verified"
+      }
+    ],
+    "evidence": [
+      {
+        "id": "ev:nav-fix-site-verify.flow-agents-workflow.canonical-verify-passed-on-nav-fix-post-review",
+        "claimId": "nav-fix-site-verify.flow-agents-workflow.canonical-verify-passed-on-nav-fix-post-review",
+        "evidenceType": "test_output",
+        "method": "validation",
+        "sourceRef": "nav-fix/evidence.json",
+        "excerptOrSummary": "canonical verify passed on nav-fix (post-review)",
+        "observedAt": "2026-07-13T05:00:11Z",
+        "collectedBy": "flow-agents/workflow-sidecar",
+        "passing": true,
+        "execution": {
+          "runner": "bash",
+          "label": "npm run build && npm run validate",
+          "isError": false
+        }
+      }
+    ],
+    "policies": [
+      {
+        "id": "policy:workflow.check.command:test_output",
+        "claimType": "workflow.check.command",
+        "requiredEvidence": [
+          "test_output"
+        ],
+        "acceptanceCriteria": [
+          "A verified verification event must support a workflow.check.command claim."
+        ],
+        "reviewAuthority": "system",
+        "validityRule": {
+          "kind": "manual"
+        },
+        "stalenessTriggers": [],
+        "conflictRules": [],
+        "impactLevel": "high"
+      }
+    ],
+    "events": [
+      {
+        "id": "evt:nav-fix-site-verify.flow-agents-workflow.canonical-verify-passed-on-nav-fix-post-review",
+        "claimId": "nav-fix-site-verify.flow-agents-workflow.canonical-verify-passed-on-nav-fix-post-review",
+        "status": "verified",
+        "actor": "flow-agents/workflow-sidecar",
+        "method": "validation",
+        "evidenceIds": [
+          "ev:nav-fix-site-verify.flow-agents-workflow.canonical-verify-passed-on-nav-fix-post-review"
+        ],
+        "createdAt": "2026-07-13T05:00:11Z",
+        "verifiedAt": "2026-07-13T05:00:11Z"
+      }
+    ]
+  }
+}
