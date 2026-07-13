@@ -69,7 +69,7 @@ const hideProducts = teaser || active === 'home';
                kits carrying the row anyway. <details> keeps it JS-free under
                the strict CSP and keyboard/AT-accessible. */}
             <details class="nav-dropdown">
-              <summary class="nav-link nav-dropdown__summary" aria-current={disciplineActive ? 'page' : undefined} data-umami-event="nav-products">
+              <summary class:list={["nav-link", "nav-dropdown__summary", { "nav-dropdown__summary--active": disciplineActive }]} data-umami-event="nav-products">
                 Products<span class="nav-dropdown__caret" aria-hidden="true">▾</span>
               </summary>
               <div class="nav-dropdown__panel">
@@ -176,7 +176,13 @@ const hideProducts = teaser || active === 'home';
     align-items: center;
     gap: 0.25rem;
     min-width: 0;
-    overflow-x: auto;
+    /* Desktop: the row fits (disciplines live in the dropdown), and an
+       overflow scroll container would clip the dropdown panel — overflow-x
+       auto forces overflow-y auto, which clips abs-positioned children
+       (found live by review on #183's first cut). Scrolling returns only
+       under the narrow media query below, where the panel switches to a
+       fixed sheet that escapes the clip. */
+    overflow: visible;
   }
   .nav__links {
     scrollbar-width: none;
@@ -185,6 +191,7 @@ const hideProducts = teaser || active === 'home';
   .nav__links::-webkit-scrollbar {
     display: none;
   }
+
 
   .nav__divider {
     width: 1px;
@@ -231,6 +238,10 @@ const hideProducts = teaser || active === 'home';
     display: none;
   }
 
+  .nav-dropdown__summary--active {
+    color: var(--color-chalk);
+  }
+
   .nav-dropdown__caret {
     font-size: 0.6rem;
     color: var(--color-chalk-3);
@@ -271,5 +282,24 @@ const hideProducts = teaser || active === 'home';
   .nav-link:hover .nav-link__mark,
   .nav-link[aria-current="page"] .nav-link__mark {
     color: inherit;
+  }
+
+  @media (max-width: 980px) {
+    .nav__links {
+      overflow-x: auto;
+    }
+    .nav-dropdown {
+      position: static;
+    }
+    .nav-dropdown__panel {
+      position: fixed;
+      top: 56px;
+      left: 0;
+      right: 0;
+      transform: none;
+      border-radius: 0;
+      border-left: none;
+      border-right: none;
+    }
   }
 </style>

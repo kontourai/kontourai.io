@@ -582,9 +582,18 @@ test("developers page leads with the engine and kits, states ownership once", as
   await expect(page.locator(".nav-dropdown__summary")).toBeVisible();
   await expect(page.locator('[data-umami-event="nav-surface"]')).toBeHidden();
   await page.locator(".nav-dropdown__summary").click();
-  await expect(page.locator('[data-umami-event="nav-surface"]')).toBeVisible();
+  // toBeVisible() ignores ancestor overflow clipping (learned on this PR's
+  // first cut, where the panel was 100% clipped yet tests were green) — so
+  // assert real hit-testability: the point at the link's center must
+  // resolve to the link itself.
+  const surfaceHit = await page.evaluate(() => {
+    const link = document.querySelector('[data-umami-event="nav-surface"]');
+    const r = link.getBoundingClientRect();
+    const el = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2);
+    return !!el && (el === link || link.contains(el));
+  });
+  expect(surfaceHit).toBe(true);
   await expect(page.locator('[data-umami-event="nav-console"]')).toHaveAttribute("href", "/console/");
-  await page.keyboard.press("Escape").catch(() => {});
   // The row itself must not overflow its container on desktop.
   const navOverflow = await page.locator(".nav__links").evaluate((el) => el.scrollWidth - el.clientWidth);
   expect(navOverflow).toBeLessThanOrEqual(0);
@@ -622,6 +631,18 @@ test("developers page keeps visual maps readable on mobile", async ({ page }) =>
     expect(mapBox.x).toBeGreaterThanOrEqual(0);
     expect(mapBox.x + mapBox.width).toBeLessThanOrEqual(viewport.width + 1);
   }
+
+  // Products dropdown on narrow screens: a fixed full-width sheet that
+  // escapes the nav row's scroll clipping — hit-test, not just visibility.
+  await page.locator(".nav-dropdown__summary").scrollIntoViewIfNeeded();
+  await page.locator(".nav-dropdown__summary").click();
+  const mobileHit = await page.evaluate(() => {
+    const link = document.querySelector('[data-umami-event="nav-veritas"]');
+    const r = link.getBoundingClientRect();
+    const el = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2);
+    return !!el && (el === link || link.contains(el));
+  });
+  expect(mobileHit).toBe(true);
 });
 
 test("flow agents page presents agent-tool discipline and status", async ({ page }) => {
