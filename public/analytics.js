@@ -100,7 +100,15 @@
       var name = el.getAttribute("data-umami-event");
       if (!name) return;
       try {
-        window.posthog.capture(name, { source_attribute: "data-umami-event" });
+        // sendBeacon transport: most tagged elements are links that navigate,
+        // and a plain fetch is torn down with the document (observed live:
+        // ERR_ABORTED on every real click-through; umami survives because
+        // its beacon is unload-safe).
+        window.posthog.capture(
+          name,
+          { source_attribute: "data-umami-event" },
+          { transport: "sendBeacon" },
+        );
       } catch (_) {
         /* analytics must never affect the page */
       }
