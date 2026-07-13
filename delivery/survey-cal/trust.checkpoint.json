@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "slug": "survey-cal",
+  "work_item": null,
+  "status": "planned",
+  "phase": "planning",
+  "sealed_at": "2026-07-13T05:05:14Z",
+  "commit_sha": "b7fe8a17a6868732614dccc6c30dfa7403c9a769",
+  "checkpoint": {
+    "asOf": "2026-07-13T05:05:14.938Z",
+    "statusByClaimId": {
+      "survey-cal-site-verify.flow-agents-workflow.canonical-verify-passed-on-survey-cal": "verified"
+    },
+    "throughEventCreatedAt": "2026-07-13T05:05:10Z",
+    "throughEventCreatedAtByClaimId": {
+      "survey-cal-site-verify.flow-agents-workflow.canonical-verify-passed-on-survey-cal": "2026-07-13T05:05:10Z"
+    },
+    "statusFunctionVersion": "2"
+  }
+}
