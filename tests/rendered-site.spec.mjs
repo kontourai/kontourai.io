@@ -415,8 +415,8 @@ test("reference story: LLM proposes, structure verifies (#74)", async ({ page })
   await expect(page.getByText("a private household repo")).toBeVisible();
   await expect(page.locator('a[href*="briananderson1222"]')).toHaveCount(0);
   // Product links out.
-  await expect(page.locator('a[href="/survey/"]').first()).toBeVisible();
-  await expect(page.locator('a[href="/receipts/"]').first()).toBeVisible();
+  await expect(page.locator('.prose a[href="/survey/"]').first()).toBeVisible();
+  await expect(page.locator('.prose a[href="/receipts/"]').first()).toBeVisible();
 
   // Discovery: the survey page links the story.
   await page.goto("/survey/");
@@ -574,6 +574,20 @@ test("developers page leads with the engine and kits, states ownership once", as
   await expect(page.getByText("AWS Strands framework-adapter previews")).toBeVisible();
   await expect(page.getByText("Kubernetes-style operators")).toBeVisible();
   await expect(page.getByText("They are not current requirements")).toBeVisible();
+
+  // Nav: engine + kits top-level; disciplines live in the Products dropdown
+  // (eleven flat links overflowed every desktop width).
+  await expect(page.locator('[data-umami-event="nav-flow-agents"]')).toBeVisible();
+  await expect(page.locator('[data-umami-event="nav-builder-kit"]')).toBeVisible();
+  await expect(page.locator(".nav-dropdown__summary")).toBeVisible();
+  await expect(page.locator('[data-umami-event="nav-surface"]')).toBeHidden();
+  await page.locator(".nav-dropdown__summary").click();
+  await expect(page.locator('[data-umami-event="nav-surface"]')).toBeVisible();
+  await expect(page.locator('[data-umami-event="nav-console"]')).toHaveAttribute("href", "/console/");
+  await page.keyboard.press("Escape").catch(() => {});
+  // The row itself must not overflow its container on desktop.
+  const navOverflow = await page.locator(".nav__links").evaluate((el) => el.scrollWidth - el.clientWidth);
+  expect(navOverflow).toBeLessThanOrEqual(0);
 
   // Where-to-go-next leads with the engine and kits, then the disciplines.
   await expect(page.locator('[data-umami-event="developers-next-flow-agents"]')).toHaveAttribute("href", "/flow-agents/");

@@ -15,6 +15,7 @@ interface Props {
   teaser?: boolean;
 }
 const { active, teaser } = Astro.props;
+const disciplineActive = disciplines.some(({ key }) => active === key);
 const hideProducts = teaser || active === 'home';
 ---
 
@@ -53,7 +54,7 @@ const hideProducts = teaser || active === 'home';
             {kits.map(({ href, label, key, accent }) => (
               <a
                 href={href}
-                class="nav-link nav-link--product nav-link--kit"
+                class="nav-link nav-link--product"
                 aria-current={active === key ? 'page' : undefined}
                 data-accent={active === key ? accent : undefined}
                 data-umami-event={`nav-${key}`}
@@ -62,15 +63,27 @@ const hideProducts = teaser || active === 'home';
 
             <div class="nav__divider"></div>
 
-            {disciplines.map(({ href, label, key, accent }) => (
-              <a
-                href={href}
-                class="nav-link nav-link--product"
-                aria-current={active === key ? 'page' : undefined}
-                data-accent={active === key ? accent : undefined}
-                data-umami-event={`nav-${key}`}
-              ><ProductMark product={key} size={16} class="nav-link__mark" />{label}</a>
-            ))}
+            {/* The five disciplines collapse into one dropdown: eleven
+               top-level links overflowed every desktop width (clipping the
+               tail of the nav), and the single-story IA wants the engine and
+               kits carrying the row anyway. <details> keeps it JS-free under
+               the strict CSP and keyboard/AT-accessible. */}
+            <details class="nav-dropdown">
+              <summary class="nav-link nav-dropdown__summary" aria-current={disciplineActive ? 'page' : undefined} data-umami-event="nav-products">
+                Products<span class="nav-dropdown__caret" aria-hidden="true">▾</span>
+              </summary>
+              <div class="nav-dropdown__panel">
+                {disciplines.map(({ href, label, key, accent }) => (
+                  <a
+                    href={href}
+                    class="nav-link nav-link--product nav-dropdown__item"
+                    aria-current={active === key ? 'page' : undefined}
+                    data-accent={active === key ? accent : undefined}
+                    data-umami-event={`nav-${key}`}
+                  ><ProductMark product={key} size={16} class="nav-link__mark" />{label}</a>
+                ))}
+              </div>
+            </details>
 
             <div class="nav__divider"></div>
           </>
@@ -200,10 +213,52 @@ const hideProducts = teaser || active === 'home';
     gap: 0.4rem;
     white-space: nowrap;
   }
-  /* Kits ride behind the engine as a lead group; slightly quieter than the
-     engine link itself so the row reads engine-first, kits-attached. */
-  .nav-link--kit {
-    font-size: 0.9em;
+  /* Disciplines dropdown ------------------------------------------------- */
+  .nav-dropdown {
+    position: relative;
+  }
+
+  .nav-dropdown__summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    cursor: pointer;
+    list-style: none;
+    white-space: nowrap;
+  }
+
+  .nav-dropdown__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .nav-dropdown__caret {
+    font-size: 0.6rem;
+    color: var(--color-chalk-3);
+    transition: transform 0.15s;
+  }
+
+  .nav-dropdown[open] .nav-dropdown__caret {
+    transform: rotate(180deg);
+  }
+
+  .nav-dropdown__panel {
+    position: absolute;
+    top: calc(100% + 0.55rem);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 170px;
+    padding: 0.5rem;
+    background: rgba(10, 13, 20, 0.97);
+    border: 1px solid var(--color-edge);
+    border-radius: 6px;
+    z-index: 120;
+  }
+
+  .nav-dropdown__item {
+    white-space: nowrap;
   }
 
   .nav-link__mark {
