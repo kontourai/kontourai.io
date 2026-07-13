@@ -3,15 +3,15 @@
   "source": "flow-agents/workflow-sidecar;statusFunctionVersion=2",
   "claims": [
     {
-      "id": "nav-fix-site-verify.flow-agents-workflow.canonical-verify-passed-on-nav-fix",
+      "id": "nav-fix-site-verify.flow-agents-workflow.canonical-verify-passed-on-nav-fix-post-review",
       "subjectType": "workflow-check",
       "subjectId": "nav-fix/site-verify",
       "facet": "flow-agents.workflow",
       "claimType": "workflow.check.command",
-      "fieldOrBehavior": "canonical verify passed on nav-fix",
+      "fieldOrBehavior": "canonical verify passed on nav-fix (post-review)",
       "value": "pass",
-      "createdAt": "2026-07-13T04:50:11Z",
-      "updatedAt": "2026-07-13T04:50:11Z",
+      "createdAt": "2026-07-13T05:00:11Z",
+      "updatedAt": "2026-07-13T05:00:11Z",
       "impactLevel": "high",
       "verificationPolicyId": "policy:workflow.check.command:test_output",
       "metadata": {
@@ -19,7 +19,7 @@
         "check_kind": "command",
         "output_digest": {
           "algorithm": "sha256",
-          "hex": "de030b06986a95ede845cabaf6c8dddcf6bdf77a5a1d98d79ed50005e932d951"
+          "hex": "0512c754e5e2a01767c822617a819ad7ec6c26a5f24d397c43c0bd1b6b7e38fb"
         }
       },
       "status": "verified"
@@ -27,13 +27,13 @@
   ],
   "evidence": [
     {
-      "id": "ev:nav-fix-site-verify.flow-agents-workflow.canonical-verify-passed-on-nav-fix",
-      "claimId": "nav-fix-site-verify.flow-agents-workflow.canonical-verify-passed-on-nav-fix",
+      "id": "ev:nav-fix-site-verify.flow-agents-workflow.canonical-verify-passed-on-nav-fix-post-review",
+      "claimId": "nav-fix-site-verify.flow-agents-workflow.canonical-verify-passed-on-nav-fix-post-review",
       "evidenceType": "test_output",
       "method": "validation",
       "sourceRef": "nav-fix/evidence.json",
-      "excerptOrSummary": "canonical verify passed on nav-fix",
-      "observedAt": "2026-07-13T04:50:11Z",
+      "excerptOrSummary": "canonical verify passed on nav-fix (post-review)",
+      "observedAt": "2026-07-13T05:00:11Z",
       "collectedBy": "flow-agents/workflow-sidecar",
       "passing": true,
       "execution": {
@@ -64,16 +64,16 @@
   ],
   "events": [
     {
-      "id": "evt:nav-fix-site-verify.flow-agents-workflow.canonical-verify-passed-on-nav-fix",
-      "claimId": "nav-fix-site-verify.flow-agents-workflow.canonical-verify-passed-on-nav-fix",
+      "id": "evt:nav-fix-site-verify.flow-agents-workflow.canonical-verify-passed-on-nav-fix-post-review",
+      "claimId": "nav-fix-site-verify.flow-agents-workflow.canonical-verify-passed-on-nav-fix-post-review",
       "status": "verified",
       "actor": "flow-agents/workflow-sidecar",
       "method": "validation",
       "evidenceIds": [
-        "ev:nav-fix-site-verify.flow-agents-workflow.canonical-verify-passed-on-nav-fix"
+        "ev:nav-fix-site-verify.flow-agents-workflow.canonical-verify-passed-on-nav-fix-post-review"
       ],
-      "createdAt": "2026-07-13T04:50:11Z",
-      "verifiedAt": "2026-07-13T04:50:11Z"
+      "createdAt": "2026-07-13T05:00:11Z",
+      "verifiedAt": "2026-07-13T05:00:11Z"
     }
   ]
 }
