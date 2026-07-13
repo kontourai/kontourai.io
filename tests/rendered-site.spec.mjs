@@ -393,6 +393,9 @@ test("survey page explains the producer pipeline and surface handoff", async ({ 
   await expect(page.getByText("npx survey-review-mcp")).toBeVisible();
   await expect(page.getByRole("heading", { name: "Review Console" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Reviewed learning updates" })).toBeVisible();
+  // 1.9/1.10: calibration derived from owned review outcomes.
+  await expect(page.getByRole("heading", { name: "Calibrated confidence" })).toBeVisible();
+  await expect(page.getByText("labeled sample")).toBeVisible();
 
   // Surface handoff
   await expect(page.getByText("Survey produces.")).toBeVisible();

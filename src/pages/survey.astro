@@ -258,7 +258,7 @@ const helpers = [
     <div class="container">
       <Eyebrow accent="gold-2" gap="sm">Review anywhere</Eyebrow>
       <h2 class="display-md measure-lg surfaces__title">The queue meets the reviewer where they already are.</h2>
-      <Grid cols={3} gap="lg">
+      <Grid min="260" gap="lg">
         <Card accent="gold-2" bar="top" pad="md">
           <h3 class="feature-title">Review MCP</h3>
           <p class="feature-body"><code class="code-plain">npx survey-review-mcp</code> drives the queue from any MCP host — three tools with embedded review cards carrying Accept / Hold / Reject, decisions validated by the same apply contract.</p>
@@ -270,6 +270,10 @@ const helpers = [
         <Card accent="green" bar="top" pad="md">
           <h3 class="feature-title">Reviewed learning updates</h3>
           <p class="feature-body">Producer profiles can auto-accept what has earned it, provenance records how each value was resolved, and the 1.8 flywheel contract turns review outcomes into proposed learning updates — themselves reviewed before anything durable changes.</p>
+        </Card>
+        <Card accent="red" bar="top" pad="md">
+          <h3 class="feature-title">Calibrated confidence</h3>
+          <p class="feature-body">Every reviewed candidate is a labeled sample — the stated confidence against the human outcome. Survey derives its calibration curve from the review chain it owns, so conclusion confidence comes from that empirical curve, and it can inform auto-accept thresholds the same way everything else moves here: as reviewed proposals, never silent tuning.</p>
         </Card>
       </Grid>
     </div>

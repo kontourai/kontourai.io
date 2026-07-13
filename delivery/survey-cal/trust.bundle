@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 5,
+  "source": "flow-agents/workflow-sidecar;statusFunctionVersion=2",
+  "claims": [
+    {
+      "id": "survey-cal-site-verify.flow-agents-workflow.canonical-verify-passed-on-survey-cal",
+      "subjectType": "workflow-check",
+      "subjectId": "survey-cal/site-verify",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.check.command",
+      "fieldOrBehavior": "canonical verify passed on survey-cal",
+      "value": "pass",
+      "createdAt": "2026-07-13T05:05:10Z",
+      "updatedAt": "2026-07-13T05:05:10Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:workflow.check.command:test_output",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "command",
+        "output_digest": {
+          "algorithm": "sha256",
+          "hex": "81cf4d5f0085b7735bf181b1ab716960667d344962699fc51c39b4818c73080a"
+        }
+      },
+      "status": "verified"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev:survey-cal-site-verify.flow-agents-workflow.canonical-verify-passed-on-survey-cal",
+      "claimId": "survey-cal-site-verify.flow-agents-workflow.canonical-verify-passed-on-survey-cal",
+      "evidenceType": "test_output",
+      "method": "validation",
+      "sourceRef": "survey-cal/evidence.json",
+      "excerptOrSummary": "canonical verify passed on survey-cal",
+      "observedAt": "2026-07-13T05:05:10Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true,
+      "execution": {
+        "runner": "bash",
+        "label": "npm run build && npm run validate",
+        "isError": false
+      }
+    }
+  ],
+  "policies": [
+    {
+      "id": "policy:workflow.check.command:test_output",
+      "claimType": "workflow.check.command",
+      "requiredEvidence": [
+        "test_output"
+      ],
+      "acceptanceCriteria": [
+        "A verified verification event must support a workflow.check.command claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "high"
+    }
+  ],
+  "events": [
+    {
+      "id": "evt:survey-cal-site-verify.flow-agents-workflow.canonical-verify-passed-on-survey-cal",
+      "claimId": "survey-cal-site-verify.flow-agents-workflow.canonical-verify-passed-on-survey-cal",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:survey-cal-site-verify.flow-agents-workflow.canonical-verify-passed-on-survey-cal"
+      ],
+      "createdAt": "2026-07-13T05:05:10Z",
+      "verifiedAt": "2026-07-13T05:05:10Z"
+    }
+  ]
+}
