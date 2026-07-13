@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 5,
+  "source": "flow-agents/workflow-sidecar;statusFunctionVersion=2",
+  "claims": [
+    {
+      "id": "parity-sv19-site-verify.flow-agents-workflow.canonical-verify-passed-on-parity-sv19",
+      "subjectType": "workflow-check",
+      "subjectId": "parity-sv19/site-verify",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.check.command",
+      "fieldOrBehavior": "canonical verify passed on parity-sv19",
+      "value": "pass",
+      "createdAt": "2026-07-13T03:19:12Z",
+      "updatedAt": "2026-07-13T03:19:12Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:workflow.check.command:test_output",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "command",
+        "output_digest": {
+          "algorithm": "sha256",
+          "hex": "255db538a7aed43011ace065307e2bfbf55d8fa8bfdcad950da1b2e5305fb82d"
+        }
+      },
+      "status": "verified"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev:parity-sv19-site-verify.flow-agents-workflow.canonical-verify-passed-on-parity-sv19",
+      "claimId": "parity-sv19-site-verify.flow-agents-workflow.canonical-verify-passed-on-parity-sv19",
+      "evidenceType": "test_output",
+      "method": "validation",
+      "sourceRef": "parity-sv19/evidence.json",
+      "excerptOrSummary": "canonical verify passed on parity-sv19",
+      "observedAt": "2026-07-13T03:19:12Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true,
+      "execution": {
+        "runner": "bash",
+        "label": "npm run build && npm run validate",
+        "isError": false
+      }
+    }
+  ],
+  "policies": [
+    {
+      "id": "policy:workflow.check.command:test_output",
+      "claimType": "workflow.check.command",
+      "requiredEvidence": [
+        "test_output"
+      ],
+      "acceptanceCriteria": [
+        "A verified verification event must support a workflow.check.command claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "high"
+    }
+  ],
+  "events": [
+    {
+      "id": "evt:parity-sv19-site-verify.flow-agents-workflow.canonical-verify-passed-on-parity-sv19",
+      "claimId": "parity-sv19-site-verify.flow-agents-workflow.canonical-verify-passed-on-parity-sv19",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:parity-sv19-site-verify.flow-agents-workflow.canonical-verify-passed-on-parity-sv19"
+      ],
+      "createdAt": "2026-07-13T03:19:12Z",
+      "verifiedAt": "2026-07-13T03:19:12Z"
+    }
+  ]
+}
