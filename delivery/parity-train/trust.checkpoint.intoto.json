@@ -1,0 +1,134 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "trust.checkpoint.json",
+      "digest": {
+        "sha256": "ef5bb8662f3d3837bdf355f6846e7433f2fbf1b8580b8ad5c4407f176201711a"
+      }
+    }
+  ],
+  "predicateType": "https://hachure.org/v1/bundle",
+  "predicate": {
+    "schemaVersion": 5,
+    "source": "flow-agents/workflow-sidecar;statusFunctionVersion=2",
+    "claims": [
+      {
+        "id": "parity-train-site-verify.flow-agents-workflow.canonical-verify-passed-on-parity-train",
+        "subjectType": "workflow-check",
+        "subjectId": "parity-train/site-verify",
+        "facet": "flow-agents.workflow",
+        "claimType": "workflow.check.command",
+        "fieldOrBehavior": "canonical verify passed on parity-train",
+        "value": "pass",
+        "createdAt": "2026-07-14T22:38:34Z",
+        "updatedAt": "2026-07-14T22:38:34Z",
+        "impactLevel": "high",
+        "verificationPolicyId": "policy:workflow.check.command:test_output",
+        "metadata": {
+          "origin": "check",
+          "check_kind": "command",
+          "output_digest": {
+            "algorithm": "sha256",
+            "hex": "2de0d9d4d80e1ea18caea8469c0dc6051caca32c25d0a7ec6184b93fa60dba67"
+          }
+        },
+        "status": "verified"
+      },
+      {
+        "id": "parity-train-complete-the-requested-outcome-absorbs-the-overnight-release-train-surface-2-10-0-survey-1-12-0-flow-agents-3-12-1-plus-the-surface-validator-pin-with-lockfile-main-deploys-were-failing-at-the-strict-gate.flow-agents-workflow.complete-the-requested-outcome-absorbs-the-overnight-release-train-surface-2-10-0-survey-1-12-0-flow-agents-3-12-1-plus-the-surface-validator-pin-with-lockfile-main-deploys-were-failing-at-the-strict-gate",
+        "subjectType": "workflow-acceptance-criterion",
+        "subjectId": "parity-train/complete-the-requested-outcome-absorbs-the-overnight-release-train-surface-2-10-0-survey-1-12-0-flow-agents-3-12-1-plus-the-surface-validator-pin-with-lockfile-main-deploys-were-failing-at-the-strict-gate",
+        "facet": "flow-agents.workflow",
+        "claimType": "workflow.acceptance.criterion",
+        "fieldOrBehavior": "Complete the requested outcome: Absorbs the overnight release train (surface 2.10.0, survey 1.12.0, flow-agents 3.12.1) plus the surface validator pin with lockfile; main deploys were failing at the strict gate",
+        "value": "pending",
+        "createdAt": "2026-07-14T22:38:34Z",
+        "updatedAt": "2026-07-14T22:38:34Z",
+        "impactLevel": "high",
+        "verificationPolicyId": "policy:workflow.acceptance.criterion",
+        "metadata": {
+          "origin": "acceptance",
+          "criterion": {
+            "id": "complete-the-requested-outcome-absorbs-the-overnight-release-train-surface-2-10-0-survey-1-12-0-flow-agents-3-12-1-plus-the-surface-validator-pin-with-lockfile-main-deploys-were-failing-at-the-strict-gate",
+            "description": "Complete the requested outcome: Absorbs the overnight release train (surface 2.10.0, survey 1.12.0, flow-agents 3.12.1) plus the surface validator pin with lockfile; main deploys were failing at the strict gate",
+            "status": "pending",
+            "evidence_refs": [
+              {
+                "kind": "command",
+                "summary": "pending"
+              }
+            ]
+          }
+        },
+        "status": "proposed"
+      }
+    ],
+    "evidence": [
+      {
+        "id": "ev:parity-train-site-verify.flow-agents-workflow.canonical-verify-passed-on-parity-train",
+        "claimId": "parity-train-site-verify.flow-agents-workflow.canonical-verify-passed-on-parity-train",
+        "evidenceType": "test_output",
+        "method": "validation",
+        "sourceRef": "parity-train/evidence.json",
+        "excerptOrSummary": "canonical verify passed on parity-train",
+        "observedAt": "2026-07-14T22:38:34Z",
+        "collectedBy": "flow-agents/workflow-sidecar",
+        "passing": true,
+        "execution": {
+          "runner": "bash",
+          "label": "npm run build && npm run validate",
+          "isError": false
+        }
+      }
+    ],
+    "policies": [
+      {
+        "id": "policy:workflow.check.command:test_output",
+        "claimType": "workflow.check.command",
+        "requiredEvidence": [
+          "test_output"
+        ],
+        "acceptanceCriteria": [
+          "A verified verification event must support a workflow.check.command claim."
+        ],
+        "reviewAuthority": "system",
+        "validityRule": {
+          "kind": "manual"
+        },
+        "stalenessTriggers": [],
+        "conflictRules": [],
+        "impactLevel": "high"
+      },
+      {
+        "id": "policy:workflow.acceptance.criterion",
+        "claimType": "workflow.acceptance.criterion",
+        "requiredEvidence": [],
+        "acceptanceCriteria": [
+          "A verified verification event must support a workflow.acceptance.criterion claim."
+        ],
+        "reviewAuthority": "system",
+        "validityRule": {
+          "kind": "manual"
+        },
+        "stalenessTriggers": [],
+        "conflictRules": [],
+        "impactLevel": "high"
+      }
+    ],
+    "events": [
+      {
+        "id": "evt:parity-train-site-verify.flow-agents-workflow.canonical-verify-passed-on-parity-train",
+        "claimId": "parity-train-site-verify.flow-agents-workflow.canonical-verify-passed-on-parity-train",
+        "status": "verified",
+        "actor": "flow-agents/workflow-sidecar",
+        "method": "validation",
+        "evidenceIds": [
+          "ev:parity-train-site-verify.flow-agents-workflow.canonical-verify-passed-on-parity-train"
+        ],
+        "createdAt": "2026-07-14T22:38:34Z",
+        "verifiedAt": "2026-07-14T22:38:34Z"
+      }
+    ]
+  }
+}
