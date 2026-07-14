@@ -10,8 +10,8 @@
       "claimType": "workflow.check.command",
       "fieldOrBehavior": "record-check: npm run build && npm run validate (exit 0)",
       "value": "pass",
-      "createdAt": "2026-07-14T05:58:20Z",
-      "updatedAt": "2026-07-14T05:58:20Z",
+      "createdAt": "2026-07-14T06:02:33Z",
+      "updatedAt": "2026-07-14T06:02:33Z",
       "impactLevel": "high",
       "verificationPolicyId": "policy:workflow.check.command:test_output",
       "metadata": {
@@ -19,27 +19,8 @@
         "check_kind": "command",
         "output_digest": {
           "algorithm": "sha256",
-          "hex": "f18fcf8fc3a7d44686503b9192f91059e7372a883532b120c774c9e0ca1b9dfb"
+          "hex": "d71dba1e004f4c92b6930c6c25a20380e84dc0ec68e61ccab0c1717d4a82c778"
         }
-      },
-      "status": "verified"
-    },
-    {
-      "id": "producer-stack-review.flow-agents-workflow.docs-only-add-content-boundary-green-canonical-verify-green-under-ci-conditions",
-      "subjectType": "workflow-critique",
-      "subjectId": "producer-stack/review",
-      "facet": "flow-agents.workflow",
-      "claimType": "workflow.critique.review",
-      "fieldOrBehavior": "Docs-only add; content-boundary green; canonical verify green under CI conditions.",
-      "value": "pass",
-      "createdAt": "2026-07-14T05:58:20Z",
-      "updatedAt": "2026-07-14T05:58:20Z",
-      "impactLevel": "medium",
-      "verificationPolicyId": "policy:workflow.critique.review",
-      "metadata": {
-        "origin": "critique",
-        "reviewer": "tool-code-reviewer",
-        "reviewed_at": "2026-07-14T05:58:20Z"
       },
       "status": "verified"
     }
@@ -52,7 +33,7 @@
       "method": "validation",
       "sourceRef": "producer-stack/evidence.json",
       "excerptOrSummary": "record-check: npm run build && npm run validate (exit 0)",
-      "observedAt": "2026-07-14T05:58:20Z",
+      "observedAt": "2026-07-14T06:02:33Z",
       "collectedBy": "flow-agents/workflow-sidecar",
       "passing": true,
       "execution": {
@@ -79,21 +60,6 @@
       "stalenessTriggers": [],
       "conflictRules": [],
       "impactLevel": "high"
-    },
-    {
-      "id": "policy:workflow.critique.review",
-      "claimType": "workflow.critique.review",
-      "requiredEvidence": [],
-      "acceptanceCriteria": [
-        "A verified verification event must support a workflow.critique.review claim."
-      ],
-      "reviewAuthority": "system",
-      "validityRule": {
-        "kind": "manual"
-      },
-      "stalenessTriggers": [],
-      "conflictRules": [],
-      "impactLevel": "medium"
     }
   ],
   "events": [
@@ -106,18 +72,8 @@
       "evidenceIds": [
         "ev:producer-stack-npm-run-build-npm-run-validate.flow-agents-workflow.record-check-npm-run-build-npm-run-validate-exit-0"
       ],
-      "createdAt": "2026-07-14T05:58:20Z",
-      "verifiedAt": "2026-07-14T05:58:20Z"
-    },
-    {
-      "id": "evt:producer-stack-review.flow-agents-workflow.docs-only-add-content-boundary-green-canonical-verify-green-under-ci-conditions",
-      "claimId": "producer-stack-review.flow-agents-workflow.docs-only-add-content-boundary-green-canonical-verify-green-under-ci-conditions",
-      "status": "verified",
-      "actor": "flow-agents/workflow-sidecar",
-      "method": "validation",
-      "evidenceIds": [],
-      "createdAt": "2026-07-14T05:58:20Z",
-      "verifiedAt": "2026-07-14T05:58:20Z"
+      "createdAt": "2026-07-14T06:02:33Z",
+      "verifiedAt": "2026-07-14T06:02:33Z"
     }
   ]
 }

@@ -4,18 +4,16 @@
   "work_item": null,
   "status": "delivered",
   "phase": "release",
-  "sealed_at": "2026-07-14T05:58:20Z",
-  "commit_sha": "e9d16bce1c1af5f02e1a478297da2bb4fbc2743b",
+  "sealed_at": "2026-07-14T06:02:49Z",
+  "commit_sha": "839ea669c8bbb05939a4bd2ad794df6a47995d54",
   "checkpoint": {
-    "asOf": "2026-07-14T05:58:20.646Z",
+    "asOf": "2026-07-14T06:02:49.293Z",
     "statusByClaimId": {
-      "producer-stack-npm-run-build-npm-run-validate.flow-agents-workflow.record-check-npm-run-build-npm-run-validate-exit-0": "verified",
-      "producer-stack-review.flow-agents-workflow.docs-only-add-content-boundary-green-canonical-verify-green-under-ci-conditions": "verified"
+      "producer-stack-npm-run-build-npm-run-validate.flow-agents-workflow.record-check-npm-run-build-npm-run-validate-exit-0": "verified"
     },
-    "throughEventCreatedAt": "2026-07-14T05:58:20Z",
+    "throughEventCreatedAt": "2026-07-14T06:02:33Z",
     "throughEventCreatedAtByClaimId": {
-      "producer-stack-npm-run-build-npm-run-validate.flow-agents-workflow.record-check-npm-run-build-npm-run-validate-exit-0": "2026-07-14T05:58:20Z",
-      "producer-stack-review.flow-agents-workflow.docs-only-add-content-boundary-green-canonical-verify-green-under-ci-conditions": "2026-07-14T05:58:20Z"
+      "producer-stack-npm-run-build-npm-run-validate.flow-agents-workflow.record-check-npm-run-build-npm-run-validate-exit-0": "2026-07-14T06:02:33Z"
     },
     "statusFunctionVersion": "2"
   }
