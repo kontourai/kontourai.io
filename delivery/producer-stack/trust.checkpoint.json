@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "slug": "producer-stack",
+  "work_item": null,
+  "status": "delivered",
+  "phase": "release",
+  "sealed_at": "2026-07-14T06:02:49Z",
+  "commit_sha": "839ea669c8bbb05939a4bd2ad794df6a47995d54",
+  "checkpoint": {
+    "asOf": "2026-07-14T06:02:49.293Z",
+    "statusByClaimId": {
+      "producer-stack-npm-run-build-npm-run-validate.flow-agents-workflow.record-check-npm-run-build-npm-run-validate-exit-0": "verified"
+    },
+    "throughEventCreatedAt": "2026-07-14T06:02:33Z",
+    "throughEventCreatedAtByClaimId": {
+      "producer-stack-npm-run-build-npm-run-validate.flow-agents-workflow.record-check-npm-run-build-npm-run-validate-exit-0": "2026-07-14T06:02:33Z"
+    },
+    "statusFunctionVersion": "2"
+  }
+}

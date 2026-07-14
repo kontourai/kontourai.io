@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 5,
+  "source": "flow-agents/workflow-sidecar;statusFunctionVersion=2",
+  "claims": [
+    {
+      "id": "producer-stack-npm-run-build-npm-run-validate.flow-agents-workflow.record-check-npm-run-build-npm-run-validate-exit-0",
+      "subjectType": "workflow-check",
+      "subjectId": "producer-stack/npm-run-build-npm-run-validate",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.check.command",
+      "fieldOrBehavior": "record-check: npm run build && npm run validate (exit 0)",
+      "value": "pass",
+      "createdAt": "2026-07-14T06:02:33Z",
+      "updatedAt": "2026-07-14T06:02:33Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:workflow.check.command:test_output",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "command",
+        "output_digest": {
+          "algorithm": "sha256",
+          "hex": "d71dba1e004f4c92b6930c6c25a20380e84dc0ec68e61ccab0c1717d4a82c778"
+        }
+      },
+      "status": "verified"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev:producer-stack-npm-run-build-npm-run-validate.flow-agents-workflow.record-check-npm-run-build-npm-run-validate-exit-0",
+      "claimId": "producer-stack-npm-run-build-npm-run-validate.flow-agents-workflow.record-check-npm-run-build-npm-run-validate-exit-0",
+      "evidenceType": "test_output",
+      "method": "validation",
+      "sourceRef": "producer-stack/evidence.json",
+      "excerptOrSummary": "record-check: npm run build && npm run validate (exit 0)",
+      "observedAt": "2026-07-14T06:02:33Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true,
+      "execution": {
+        "runner": "bash",
+        "label": "npm run build && npm run validate",
+        "isError": false
+      }
+    }
+  ],
+  "policies": [
+    {
+      "id": "policy:workflow.check.command:test_output",
+      "claimType": "workflow.check.command",
+      "requiredEvidence": [
+        "test_output"
+      ],
+      "acceptanceCriteria": [
+        "A verified verification event must support a workflow.check.command claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "high"
+    }
+  ],
+  "events": [
+    {
+      "id": "evt:producer-stack-npm-run-build-npm-run-validate.flow-agents-workflow.record-check-npm-run-build-npm-run-validate-exit-0",
+      "claimId": "producer-stack-npm-run-build-npm-run-validate.flow-agents-workflow.record-check-npm-run-build-npm-run-validate-exit-0",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:producer-stack-npm-run-build-npm-run-validate.flow-agents-workflow.record-check-npm-run-build-npm-run-validate-exit-0"
+      ],
+      "createdAt": "2026-07-14T06:02:33Z",
+      "verifiedAt": "2026-07-14T06:02:33Z"
+    }
+  ]
+}
