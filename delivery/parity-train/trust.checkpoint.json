@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "slug": "parity-train",
+  "work_item": null,
+  "status": "planned",
+  "phase": "planning",
+  "sealed_at": "2026-07-14T22:38:45Z",
+  "commit_sha": "b12c7cd8f731bd22799c2e251b8fdf98b9b6c69e",
+  "checkpoint": {
+    "asOf": "2026-07-14T22:38:45.587Z",
+    "statusByClaimId": {
+      "parity-train-site-verify.flow-agents-workflow.canonical-verify-passed-on-parity-train": "verified",
+      "parity-train-complete-the-requested-outcome-absorbs-the-overnight-release-train-surface-2-10-0-survey-1-12-0-flow-agents-3-12-1-plus-the-surface-validator-pin-with-lockfile-main-deploys-were-failing-at-the-strict-gate.flow-agents-workflow.complete-the-requested-outcome-absorbs-the-overnight-release-train-surface-2-10-0-survey-1-12-0-flow-agents-3-12-1-plus-the-surface-validator-pin-with-lockfile-main-deploys-were-failing-at-the-strict-gate": "proposed"
+    },
+    "throughEventCreatedAt": "2026-07-14T22:38:34Z",
+    "throughEventCreatedAtByClaimId": {
+      "parity-train-site-verify.flow-agents-workflow.canonical-verify-passed-on-parity-train": "2026-07-14T22:38:34Z",
+      "parity-train-complete-the-requested-outcome-absorbs-the-overnight-release-train-surface-2-10-0-survey-1-12-0-flow-agents-3-12-1-plus-the-surface-validator-pin-with-lockfile-main-deploys-were-failing-at-the-strict-gate.flow-agents-workflow.complete-the-requested-outcome-absorbs-the-overnight-release-train-surface-2-10-0-survey-1-12-0-flow-agents-3-12-1-plus-the-surface-validator-pin-with-lockfile-main-deploys-were-failing-at-the-strict-gate": null
+    },
+    "statusFunctionVersion": "2"
+  }
+}
