@@ -65,19 +65,21 @@ about their domain.
 
 The stack isn't speculative generality — two different apps consume it:
 
-- **campfit** (summer-camp discovery): forage crawls provider/aggregator sites →
-  traverse extracts camps → lookout detects newly-appeared providers on
-  re-check → survey-shaped review. Untrusted URLs (aggregator listings,
-  discovered links) are exactly why forage's default-on SSRF guard matters.
-- **taxes** (household tax workflow): fetches tax-authority rule-source PDFs →
+- **a camp-discovery product** (summer-camp discovery): forage crawls provider/
+  aggregator sites → traverse extracts camps → lookout detects newly-appeared
+  providers on re-check → survey-shaped review. Untrusted URLs (aggregator
+  listings, discovered links) are exactly why forage's default-on SSRF guard
+  matters.
+- **a household tax workflow**: fetches tax-authority rule-source PDFs →
   traverse extracts withholding facts (with an injected PDF extractor + tesseract
   OCR for scanned forms) → drift-detects when a source changes → survey-shaped
   review. A *different domain* using *every* layer — including the PDF/image
   seams — validates that the abstractions generalize.
 
 Two independent consumers of each layer is the signal that a library has earned
-its boundary. campfit and taxes reaching for the same crawl/extract/change/shape
-primitives, in different domains, is why these are libraries and not app code.
+its boundary. Two products in different domains — camp discovery and a tax
+workflow — reaching for the same crawl/extract/change/shape primitives is why
+these are libraries and not app code.
 
 ## How it feeds the trust ledger
 
