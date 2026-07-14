@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 5,
+  "source": "flow-agents/workflow-sidecar;statusFunctionVersion=2",
+  "claims": [
+    {
+      "id": "producer-stack-npm-run-build-npm-run-validate.flow-agents-workflow.record-check-npm-run-build-npm-run-validate-exit-0",
+      "subjectType": "workflow-check",
+      "subjectId": "producer-stack/npm-run-build-npm-run-validate",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.check.command",
+      "fieldOrBehavior": "record-check: npm run build && npm run validate (exit 0)",
+      "value": "pass",
+      "createdAt": "2026-07-14T05:58:20Z",
+      "updatedAt": "2026-07-14T05:58:20Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:workflow.check.command:test_output",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "command",
+        "output_digest": {
+          "algorithm": "sha256",
+          "hex": "f18fcf8fc3a7d44686503b9192f91059e7372a883532b120c774c9e0ca1b9dfb"
+        }
+      },
+      "status": "verified"
+    },
+    {
+      "id": "producer-stack-review.flow-agents-workflow.docs-only-add-content-boundary-green-canonical-verify-green-under-ci-conditions",
+      "subjectType": "workflow-critique",
+      "subjectId": "producer-stack/review",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.critique.review",
+      "fieldOrBehavior": "Docs-only add; content-boundary green; canonical verify green under CI conditions.",
+      "value": "pass",
+      "createdAt": "2026-07-14T05:58:20Z",
+      "updatedAt": "2026-07-14T05:58:20Z",
+      "impactLevel": "medium",
+      "verificationPolicyId": "policy:workflow.critique.review",
+      "metadata": {
+        "origin": "critique",
+        "reviewer": "tool-code-reviewer",
+        "reviewed_at": "2026-07-14T05:58:20Z"
+      },
+      "status": "verified"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev:producer-stack-npm-run-build-npm-run-validate.flow-agents-workflow.record-check-npm-run-build-npm-run-validate-exit-0",
+      "claimId": "producer-stack-npm-run-build-npm-run-validate.flow-agents-workflow.record-check-npm-run-build-npm-run-validate-exit-0",
+      "evidenceType": "test_output",
+      "method": "validation",
+      "sourceRef": "producer-stack/evidence.json",
+      "excerptOrSummary": "record-check: npm run build && npm run validate (exit 0)",
+      "observedAt": "2026-07-14T05:58:20Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true,
+      "execution": {
+        "runner": "bash",
+        "label": "npm run build && npm run validate",
+        "isError": false
+      }
+    }
+  ],
+  "policies": [
+    {
+      "id": "policy:workflow.check.command:test_output",
+      "claimType": "workflow.check.command",
+      "requiredEvidence": [
+        "test_output"
+      ],
+      "acceptanceCriteria": [
+        "A verified verification event must support a workflow.check.command claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "high"
+    },
+    {
+      "id": "policy:workflow.critique.review",
+      "claimType": "workflow.critique.review",
+      "requiredEvidence": [],
+      "acceptanceCriteria": [
+        "A verified verification event must support a workflow.critique.review claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "medium"
+    }
+  ],
+  "events": [
+    {
+      "id": "evt:producer-stack-npm-run-build-npm-run-validate.flow-agents-workflow.record-check-npm-run-build-npm-run-validate-exit-0",
+      "claimId": "producer-stack-npm-run-build-npm-run-validate.flow-agents-workflow.record-check-npm-run-build-npm-run-validate-exit-0",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:producer-stack-npm-run-build-npm-run-validate.flow-agents-workflow.record-check-npm-run-build-npm-run-validate-exit-0"
+      ],
+      "createdAt": "2026-07-14T05:58:20Z",
+      "verifiedAt": "2026-07-14T05:58:20Z"
+    },
+    {
+      "id": "evt:producer-stack-review.flow-agents-workflow.docs-only-add-content-boundary-green-canonical-verify-green-under-ci-conditions",
+      "claimId": "producer-stack-review.flow-agents-workflow.docs-only-add-content-boundary-green-canonical-verify-green-under-ci-conditions",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [],
+      "createdAt": "2026-07-14T05:58:20Z",
+      "verifiedAt": "2026-07-14T05:58:20Z"
+    }
+  ]
+}
