@@ -327,8 +327,10 @@ const moreThanStatus: { title: string; body: string; accent: Accent }[] = [
         Products built with Surface keep their own workflow vocabulary while exposing
         Claims, Evidence, Policies, Trust Snapshots, and Transparency Gaps in a shared
         shape humans and agents can inspect.
-        Surface is the reference implementation of the <a href="https://hachure.org" target="_blank" rel="noopener">Hachure open trust format</a> —
-        the portable, recomputable trust format anyone can implement independently.
+        Surface is the reference implementation of the <a href="https://hachure.org" target="_blank" rel="noopener">Hachure open trust format</a>,
+        and fully compatible with it — the portable, recomputable trust format anyone can implement independently.
+        Every product speaks the format through Surface, so the whole suite stays on one version of the
+        contract and anything built on Kontour is open-format-compatible through a single integration point.
         A conformance suite lives in the Surface repo, so an alternate
         implementation can verify it derives the same trust state from the
         same bundle.

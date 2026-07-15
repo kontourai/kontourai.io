@@ -133,11 +133,37 @@ Flow Agents
   Work modes, skills, runtime adapters, hooks, console.
 
 Console
-  Suite-level management plane over the primitives.
+  Suite-level operating plane across the pillars.
   Cross-product projections, event streams, identity links, unified queues, action routing.
+
+Open Trust Format (OTF) + building-block tools
+  The open, dependency-free trust schema Surface is the reference implementation of.
+  Composable tools (crawl, extract, drift-detect, describe) feed evidence into Surface.
 ```
 
-This keeps every product focused while allowing them to reinforce each other.
+This keeps every product focused while allowing them to reinforce each other. Dependencies
+point only downward: apps and products depend on Surface; Surface speaks the open format on
+their behalf; the building-block tools stay sideways-independent.
+
+## What Powers The Products
+
+Beneath the products is an infrastructure layer customers never have to learn — but technical
+buyers can inspect and build on:
+
+- **The open trust format (OTF).** The normative, dependency-free schema for trust bundles,
+  claims, evidence, and inquiry records. Kontour is built on it in the open. **Surface is the
+  reference implementation of the open trust format — and fully OTF-compatible.**
+- **Surface is the integration surface.** Every Kontour product depends on Surface, and Surface
+  speaks the open format on their behalf — producing it, validating it, and re-exporting its
+  types. That keeps the whole suite on one version of the contract, means anything built on
+  Kontour is OTF-compatible through Surface, and leaves room to add value at the Surface layer
+  without breaking anyone downstream.
+- **The building-block tools.** Composable, single-purpose tools — crawl, extract, drift-detect,
+  describe — emit evidence-shaped output that Surface lifts into trust bundles. They power the
+  products; they are not customer brands.
+
+Name this layer for developers and technical buyers, not on the homepage. Customers buy
+outcomes — Surface, Flow, Survey — and get open-format compatibility for free.
 
 ## Shared Resource Shape
 
@@ -178,7 +204,7 @@ Kontour AI shows the work behind AI.
 
 ### Surface
 
-The shared foundation under Kontour's products. One shape for claims, evidence, freshness, and gaps so the same trust state can be read by a person, an agent, or another system.
+The shared foundation under Kontour's products. One shape for claims, evidence, freshness, and gaps so the same trust state can be read by a person, an agent, or another system. Surface is the reference implementation of the open trust format, and fully OTF-compatible — the single integration point every product speaks the format through.
 
 ### Survey
 
