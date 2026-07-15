@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "slug": "vision-framing",
+  "work_item": null,
+  "status": "planned",
+  "phase": "planning",
+  "sealed_at": "2026-07-15T22:17:45Z",
+  "commit_sha": "e31abc249cb676d0719161015bdee9a4e2561deb",
+  "checkpoint": {
+    "asOf": "2026-07-15T22:17:45.098Z",
+    "statusByClaimId": {
+      "vision-framing-npm-run-build-npm-run-validate.flow-agents-workflow.record-check-npm-run-build-npm-run-validate-exit-0": "verified"
+    },
+    "throughEventCreatedAt": "2026-07-15T22:17:08Z",
+    "throughEventCreatedAtByClaimId": {
+      "vision-framing-npm-run-build-npm-run-validate.flow-agents-workflow.record-check-npm-run-build-npm-run-validate-exit-0": "2026-07-15T22:17:08Z"
+    },
+    "statusFunctionVersion": "2"
+  }
+}
