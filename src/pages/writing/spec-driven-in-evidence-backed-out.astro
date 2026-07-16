@@ -1,0 +1,146 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import Section from '@/components/Section.astro';
+import Glow from '@/components/Glow.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+---
+
+<Layout
+  title="Spec-driven in, evidence-backed out · Kontour AI"
+  description="The design.md movement is right about half the loop. A spec constrains what an agent intends; it does nothing about what the agent claims afterward. The missing half is evidence on the way out."
+>
+  <Nav active="developers" />
+
+  <Section contour size="hero" borderBottom>
+    <Glow accent="gold" position="top-right" />
+    <div class="container container--readable">
+      <Eyebrow accent="gold">Writing</Eyebrow>
+      <h1 class="product-title animate-fade-up">Spec-driven in, evidence-backed out</h1>
+      <p class="hero-copy animate-fade-up delay-200">
+        The design.md movement is right — and it's half a loop. Writing the
+        spec down disciplines what an agent <em>intends</em>. It does nothing
+        about what the agent <em>claims afterward</em>. If you've adopted
+        spec-driven development and still catch "done" that isn't, this is
+        why.
+      </p>
+    </div>
+  </Section>
+
+  <Section tone="alt" size="lg" borderBottom>
+    <div class="container container--readable">
+      <h2 class="section-heading">The half that works</h2>
+      <p class="body measure-lg prose">
+        Spec-driven in is a real improvement, and the movement deserves its
+        momentum. A committed DESIGN.md gives the agent a durable statement of
+        intent that survives session boundaries; it gives reviewers a fixed
+        point to diff behavior against; it turns "the agent went off and did
+        something" into "the agent deviated from §3." We run it ourselves —
+        this site has a <a href="https://github.com/kontourai/kontourai.io/blob/main/DESIGN.md">DESIGN.md</a>,
+        and the parts of our spec that matter most aren't even prose: they're
+        executable checks that fail CI when copy drifts, when a banned string
+        appears, or when a published artifact stops matching its source.
+      </p>
+      <p class="body measure-lg prose">
+        But notice what a spec is: <strong>input discipline.</strong> It
+        constrains the work on the way in. Then the work happens — in a long
+        session, through compactions, across tool calls — and at the end the
+        agent reports what it did. The spec has no opinion about that report.
+      </p>
+    </div>
+  </Section>
+
+  <Section size="lg" borderBottom>
+    <div class="container container--readable">
+      <h2 class="section-heading">The half that's missing</h2>
+      <p class="body measure-lg prose">
+        Every agent user has watched this moment: a long session, a compacted
+        context, and the agent reports "tests pass, done" — recording the
+        check it <em>remembers intending to run</em>. Not a liar; an
+        unreliable narrator. The spec was followed, more or less. The claim at
+        the end is the thing nothing verified.
+      </p>
+      <p class="body measure-lg prose">
+        That's the missing half: <strong>evidence-backed out.</strong> Our
+        one-line version: prompts are advice, gates are laws. A spec asks an
+        agent to be careful; a gate refuses to let "done" through until the
+        evidence exists. Concretely, three moves close the loop:
+      </p>
+      <ul class="body measure-lg prose loop-list">
+        <li><strong>The claim</strong> — the agent says "tests passed." Free to say, so never what a gate checks.</li>
+        <li><strong>The capture</strong> — the harness already wrote the log while the command ran: real exit codes, a tamper-evident record, never the model's narration.</li>
+        <li><strong>The recompute</strong> — status derives from the evidence. Claim and capture disagree? The turn is blocked, and CI re-runs the declared checks fresh in an environment the agent never touched.</li>
+      </ul>
+      <p class="body measure-lg prose">
+        Spec-driven in tells you what the work <em>should have been</em>.
+        Evidence-backed out proves what it <em>was</em>. Either alone leaves
+        the failure mode you already know: beautiful specs, unverified
+        "done."
+      </p>
+    </div>
+  </Section>
+
+  <Section tone="alt" size="lg" borderBottom>
+    <div class="container container--readable">
+      <h2 class="section-heading">The worked example is this site</h2>
+      <p class="body measure-lg prose">
+        We won't argue this in the abstract. kontourai.io runs both halves on
+        itself, and you can check every claim from the outside: the
+        <a href="https://github.com/kontourai/kontourai.io/blob/main/DESIGN.md">DESIGN.md</a>
+        records the spec and the enforcement chain; the
+        <a href="/receipts/">receipts page</a> publishes real
+        trust bundles that recompute under two validators — led by one whose
+        verdict is a refusal, because green receipts prove a format and
+        refusals prove a gate; and the <a href="/trust/">trust page</a> leads
+        with what none of this can certify, three ways to cheat it, and who
+        catches each one.
+      </p>
+      <p class="body measure-lg prose">
+        One more line completes the picture, because memory keeps being
+        offered as the answer to agent reliability: memory tells the agent
+        what it knows. It doesn't verify anything on the way out either.
+        <em>Kontour proves what its answers stood on.</em>
+      </p>
+      <div class="post-actions">
+        <a href="/flow-agents/" class="btn-primary" data-umami-event="writing-specdriven-flow-agents">The engine that runs the loop →</a>
+        <a href="/trust/" class="btn-ghost" data-umami-event="writing-specdriven-trust">Read the honest ceiling →</a>
+      </div>
+    </div>
+    <p class="body measure-lg prose">
+        The same architecture, applied to data instead of code:
+        <a href="/writing/llm-proposes-structure-verifies/" data-umami-event="writing-specdriven-sibling">LLM proposes, structure verifies</a> —
+        an extraction pipeline that refuses to promote what no gate has checked.
+      </p>
+    </Section>
+
+  <Footer active="developers" />
+</Layout>
+
+<style>
+  .container--readable {
+    margin-inline: auto;
+  }
+  .section-heading {
+    font-size: 1.75rem;
+    margin: 0 0 1.25rem;
+    color: var(--color-chalk);
+  }
+  .prose {
+    margin: 0 0 1.5rem;
+  }
+  .prose a {
+    color: var(--color-gold-2);
+  }
+  .loop-list {
+    display: grid;
+    gap: 0.85rem;
+    padding-left: 1.25rem;
+  }
+  .post-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+</style>

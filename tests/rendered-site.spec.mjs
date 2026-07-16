@@ -714,6 +714,26 @@ test("memory interop note states the do-not-build guard and the two-layer stance
   await expect(page.locator('[data-umami-event="developers-next-memory"]')).toHaveAttribute("href", "/memory/");
 });
 
+test("spec-driven post pairs the movement with the evidence half", async ({ page }) => {
+  await page.goto("/writing/spec-driven-in-evidence-backed-out/");
+
+  await expect(page.getByRole("heading", { level: 1, name: "Spec-driven in, evidence-backed out" })).toBeVisible();
+  // The concession first (house rule): the movement is right.
+  await expect(page.getByText("The design.md movement is right")).toBeVisible();
+  // Enforcement framing folded in (#73 R2).
+  await expect(page.getByText("prompts are advice, gates are laws")).toBeVisible();
+  // The recognition moment anchors the missing half.
+  await expect(page.getByText("remembers intending to run")).toBeVisible();
+  // Dogfood cross-links: DESIGN.md + receipts + trust (#73 scope).
+  await expect(page.getByRole("link", { name: "DESIGN.md" }).first()).toHaveAttribute(
+    "href",
+    "https://github.com/kontourai/kontourai.io/blob/main/DESIGN.md",
+  );
+  await expect(page.locator('[data-umami-event="writing-specdriven-trust"]')).toHaveAttribute("href", "/trust/");
+  // Memory-vs-trust line present where it fits.
+  await expect(page.getByText("Kontour proves what its answers stood on.")).toBeVisible();
+});
+
 test("receipts index lists the real pipeline bundles with downloads", async ({ page }) => {
   await page.goto("/receipts/");
 
