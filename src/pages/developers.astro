@@ -192,7 +192,9 @@ const labRepos = [
           <p class="muted"># three; advisory on the rest (matrix on /trust)</p>
         </Terminal>
         <Terminal title="verify a receipt, second opinion included">
-          <p class="muted"># grab the bundle from /receipts/ first</p>
+          <p class="muted"># grab the bundle from /receipts/ first, then check it</p>
+          <p class="muted"># yourself — hachure validates it, ajv is the second,</p>
+          <p class="muted"># independent opinion (pinned so your run matches CI)</p>
           <p><span class="prompt">$ </span><span class="cmd">npx -y -p ajv@{ajvPin} -p hachure@{hachurePin} \</span></p>
           <p><span class="cmd">    hachure validate flow-agents-delivery.trust.bundle</span></p>
           <p class="pass">valid TrustBundle (schemaVersion 5)</p>
