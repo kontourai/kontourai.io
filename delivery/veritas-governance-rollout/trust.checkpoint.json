@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "slug": "veritas-governance-rollout",
+  "work_item": null,
+  "status": "delivered",
+  "phase": "done",
+  "sealed_at": "2026-07-20T15:41:49Z",
+  "commit_sha": "4bad3ce63ec38e611122db3f09770cc104913da8",
+  "checkpoint": {
+    "asOf": "2026-07-20T15:41:49.046Z",
+    "statusByClaimId": {
+      "veritas-governance-rollout-gate-claim-selected-work.flow-agents-workflow.selected-the-approved-veritas-governance-rollout-for-kontourai-io-pr-200-scope-acceptance-criteria-and-merge-authority-are-explicit-in-the-portfolio-epic": "verified",
+      "veritas-governance-rollout-gate-claim-pickup-probe-readiness.flow-agents-workflow.rollout-goal-repository-scope-dependencies-exact-head-trust-requirement-and-verification-plan-are-resolved": "verified",
+      "veritas-governance-rollout-gate-claim-probe-decisions-or-accepted-gaps.flow-agents-workflow.decision-is-to-adopt-advisory-veritas-governance-while-preserving-kontourai-io-product-checks-no-unresolved-planning-gap-remains": "verified",
+      "veritas-governance-rollout-gate-claim-implementation-plan.flow-agents-workflow.plan-covered-tracked-veritas-standards-advisory-workflow-product-registry-pins-documentation-tests-and-exact-head-trust-publication": "verified",
+      "veritas-governance-rollout-gate-claim-implementation-scope.flow-agents-workflow.pr-200-contains-only-kontourai-io-governance-adoption-and-registry-changes-independent-review-found-no-source-blockers": "verified",
+      "veritas-governance-rollout-gate-claim-tests-evidence.flow-agents-workflow.exact-pr-head-passed-npm-run-validate-npm-run-test-rendered-63-browser-tests-build-test-and-validate-and-veritas-advisory-readiness": "verified",
+      "veritas-governance-rollout-gate-claim-merge-readiness.flow-agents-workflow.scope-independent-review-local-verification-hosted-product-checks-and-advisory-governance-are-clean-exact-head-trust-publication-is-the-final-required-check": "verified",
+      "veritas-governance-rollout-gate-claim-pull-request-opened.flow-agents-workflow.kontourai-io-pr-200-is-open-with-the-governance-implementation-verification-summary-and-linked-veritas-portfolio-epic-135": "verified",
+      "veritas-governance-rollout-gate-claim-ci-merge-readiness.flow-agents-workflow.independent-review-is-clean-and-all-product-advisory-ci-checks-pass-trust-verify-is-expected-to-become-green-from-the-exact-head-bundle-this-canonical-run-publishes": "verified",
+      "veritas-governance-rollout-gate-claim-decision-evidence.flow-agents-workflow.durable-decision-veritas-governance-remains-advisory-at-repository-adoption-while-builder-owns-exact-head-delivery-trust-no-branch-protection-is-weakened": "verified",
+      "veritas-governance-rollout-gate-claim-learning-evidence.flow-agents-workflow.learnings-are-filed-as-veritas-138-139-140-and-flow-agents-767-including-the-portfolio-rollout-trust-bootstrap-gap": "verified",
+      "veritas-governance-rollout-tracked-standards-advisory-governance-product-registry-updates-and-exact-head-trust-evidence-pass-ci.flow-agents-workflow.tracked-standards-advisory-governance-product-registry-updates-and-exact-head-trust-evidence-pass-ci": "proposed"
+    },
+    "throughEventCreatedAt": "2026-07-20T15:41:19Z",
+    "throughEventCreatedAtByClaimId": {
+      "veritas-governance-rollout-gate-claim-selected-work.flow-agents-workflow.selected-the-approved-veritas-governance-rollout-for-kontourai-io-pr-200-scope-acceptance-criteria-and-merge-authority-are-explicit-in-the-portfolio-epic": "2026-07-20T15:41:19Z",
+      "veritas-governance-rollout-gate-claim-pickup-probe-readiness.flow-agents-workflow.rollout-goal-repository-scope-dependencies-exact-head-trust-requirement-and-verification-plan-are-resolved": "2026-07-20T15:41:19Z",
+      "veritas-governance-rollout-gate-claim-probe-decisions-or-accepted-gaps.flow-agents-workflow.decision-is-to-adopt-advisory-veritas-governance-while-preserving-kontourai-io-product-checks-no-unresolved-planning-gap-remains": "2026-07-20T15:41:19Z",
+      "veritas-governance-rollout-gate-claim-implementation-plan.flow-agents-workflow.plan-covered-tracked-veritas-standards-advisory-workflow-product-registry-pins-documentation-tests-and-exact-head-trust-publication": "2026-07-20T15:41:19Z",
+      "veritas-governance-rollout-gate-claim-implementation-scope.flow-agents-workflow.pr-200-contains-only-kontourai-io-governance-adoption-and-registry-changes-independent-review-found-no-source-blockers": "2026-07-20T15:41:19Z",
+      "veritas-governance-rollout-gate-claim-tests-evidence.flow-agents-workflow.exact-pr-head-passed-npm-run-validate-npm-run-test-rendered-63-browser-tests-build-test-and-validate-and-veritas-advisory-readiness": "2026-07-20T15:41:19Z",
+      "veritas-governance-rollout-gate-claim-merge-readiness.flow-agents-workflow.scope-independent-review-local-verification-hosted-product-checks-and-advisory-governance-are-clean-exact-head-trust-publication-is-the-final-required-check": "2026-07-20T15:41:19Z",
+      "veritas-governance-rollout-gate-claim-pull-request-opened.flow-agents-workflow.kontourai-io-pr-200-is-open-with-the-governance-implementation-verification-summary-and-linked-veritas-portfolio-epic-135": "2026-07-20T15:41:19Z",
+      "veritas-governance-rollout-gate-claim-ci-merge-readiness.flow-agents-workflow.independent-review-is-clean-and-all-product-advisory-ci-checks-pass-trust-verify-is-expected-to-become-green-from-the-exact-head-bundle-this-canonical-run-publishes": "2026-07-20T15:41:19Z",
+      "veritas-governance-rollout-gate-claim-decision-evidence.flow-agents-workflow.durable-decision-veritas-governance-remains-advisory-at-repository-adoption-while-builder-owns-exact-head-delivery-trust-no-branch-protection-is-weakened": "2026-07-20T15:41:19Z",
+      "veritas-governance-rollout-gate-claim-learning-evidence.flow-agents-workflow.learnings-are-filed-as-veritas-138-139-140-and-flow-agents-767-including-the-portfolio-rollout-trust-bootstrap-gap": "2026-07-20T15:41:19Z",
+      "veritas-governance-rollout-tracked-standards-advisory-governance-product-registry-updates-and-exact-head-trust-evidence-pass-ci.flow-agents-workflow.tracked-standards-advisory-governance-product-registry-updates-and-exact-head-trust-evidence-pass-ci": null
+    },
+    "statusFunctionVersion": "2"
+  }
+}

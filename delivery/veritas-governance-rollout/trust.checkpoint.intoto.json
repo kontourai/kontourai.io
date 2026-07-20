@@ -1,0 +1,804 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "trust.checkpoint.json",
+      "digest": {
+        "sha256": "67ea82d299476ada8ae190b0c5b83c0f07a426a7b1ff120ac6d1b673c14e49b4"
+      }
+    }
+  ],
+  "predicateType": "https://hachure.org/v1/bundle",
+  "predicate": {
+    "schemaVersion": 5,
+    "source": "flow-agents/workflow-sidecar;statusFunctionVersion=2",
+    "claims": [
+      {
+        "id": "veritas-governance-rollout-gate-claim-selected-work.flow-agents-workflow.selected-the-approved-veritas-governance-rollout-for-kontourai-io-pr-200-scope-acceptance-criteria-and-merge-authority-are-explicit-in-the-portfolio-epic",
+        "subjectType": "work-item",
+        "subjectId": "veritas-governance-rollout/gate-claim-selected-work",
+        "facet": "flow-agents.workflow",
+        "claimType": "builder.pull-work.selected",
+        "fieldOrBehavior": "Selected the approved Veritas governance rollout for kontourai.io PR #200; scope, acceptance criteria, and merge authority are explicit in the portfolio epic.",
+        "value": "pass",
+        "createdAt": "2026-07-20T15:41:19Z",
+        "updatedAt": "2026-07-20T15:41:19Z",
+        "impactLevel": "high",
+        "verificationPolicyId": "policy:builder.pull-work.selected:attestation",
+        "metadata": {
+          "origin": "check",
+          "check_kind": "external",
+          "workflow_subject_ref": "local:veritas-governance-rollout",
+          "gate_claim": {
+            "expectation_id": "selected-work",
+            "claim_type": "builder.pull-work.selected",
+            "subject_type": "work-item",
+            "step_id": "pull-work"
+          }
+        },
+        "status": "verified"
+      },
+      {
+        "id": "veritas-governance-rollout-gate-claim-pickup-probe-readiness.flow-agents-workflow.rollout-goal-repository-scope-dependencies-exact-head-trust-requirement-and-verification-plan-are-resolved",
+        "subjectType": "work-item",
+        "subjectId": "veritas-governance-rollout/gate-claim-pickup-probe-readiness",
+        "facet": "flow-agents.workflow",
+        "claimType": "builder.design-probe.pickup-readiness",
+        "fieldOrBehavior": "Rollout goal, repository scope, dependencies, exact-head trust requirement, and verification plan are resolved.",
+        "value": "pass",
+        "createdAt": "2026-07-20T15:41:19Z",
+        "updatedAt": "2026-07-20T15:41:19Z",
+        "impactLevel": "high",
+        "verificationPolicyId": "policy:builder.design-probe.pickup-readiness:attestation",
+        "metadata": {
+          "origin": "check",
+          "check_kind": "external",
+          "workflow_subject_ref": "local:veritas-governance-rollout",
+          "gate_claim": {
+            "expectation_id": "pickup-probe-readiness",
+            "claim_type": "builder.design-probe.pickup-readiness",
+            "subject_type": "work-item",
+            "step_id": "design-probe"
+          }
+        },
+        "status": "verified"
+      },
+      {
+        "id": "veritas-governance-rollout-gate-claim-probe-decisions-or-accepted-gaps.flow-agents-workflow.decision-is-to-adopt-advisory-veritas-governance-while-preserving-kontourai-io-product-checks-no-unresolved-planning-gap-remains",
+        "subjectType": "decision",
+        "subjectId": "veritas-governance-rollout/gate-claim-probe-decisions-or-accepted-gaps",
+        "facet": "flow-agents.workflow",
+        "claimType": "builder.design-probe.decisions",
+        "fieldOrBehavior": "Decision is to adopt advisory Veritas governance while preserving kontourai.io product checks; no unresolved planning gap remains.",
+        "value": "pass",
+        "createdAt": "2026-07-20T15:41:19Z",
+        "updatedAt": "2026-07-20T15:41:19Z",
+        "impactLevel": "high",
+        "verificationPolicyId": "policy:builder.design-probe.decisions:attestation",
+        "metadata": {
+          "origin": "check",
+          "check_kind": "external",
+          "workflow_subject_ref": "local:veritas-governance-rollout",
+          "gate_claim": {
+            "expectation_id": "probe-decisions-or-accepted-gaps",
+            "claim_type": "builder.design-probe.decisions",
+            "subject_type": "decision",
+            "step_id": "design-probe"
+          }
+        },
+        "status": "verified"
+      },
+      {
+        "id": "veritas-governance-rollout-gate-claim-implementation-plan.flow-agents-workflow.plan-covered-tracked-veritas-standards-advisory-workflow-product-registry-pins-documentation-tests-and-exact-head-trust-publication",
+        "subjectType": "artifact",
+        "subjectId": "veritas-governance-rollout/gate-claim-implementation-plan",
+        "facet": "flow-agents.workflow",
+        "claimType": "builder.plan.implementation",
+        "fieldOrBehavior": "Plan covered tracked Veritas standards, advisory workflow, product registry pins, documentation, tests, and exact-head trust publication.",
+        "value": "pass",
+        "createdAt": "2026-07-20T15:41:19Z",
+        "updatedAt": "2026-07-20T15:41:19Z",
+        "impactLevel": "high",
+        "verificationPolicyId": "policy:builder.plan.implementation:attestation",
+        "metadata": {
+          "origin": "check",
+          "check_kind": "external",
+          "workflow_subject_ref": "local:veritas-governance-rollout",
+          "gate_claim": {
+            "expectation_id": "implementation-plan",
+            "claim_type": "builder.plan.implementation",
+            "subject_type": "artifact",
+            "step_id": "plan"
+          }
+        },
+        "status": "verified"
+      },
+      {
+        "id": "veritas-governance-rollout-gate-claim-implementation-scope.flow-agents-workflow.pr-200-contains-only-kontourai-io-governance-adoption-and-registry-changes-independent-review-found-no-source-blockers",
+        "subjectType": "change",
+        "subjectId": "veritas-governance-rollout/gate-claim-implementation-scope",
+        "facet": "flow-agents.workflow",
+        "claimType": "builder.execute.scope",
+        "fieldOrBehavior": "PR #200 contains only kontourai.io governance adoption and registry changes; independent review found no source blockers.",
+        "value": "pass",
+        "createdAt": "2026-07-20T15:41:19Z",
+        "updatedAt": "2026-07-20T15:41:19Z",
+        "impactLevel": "high",
+        "verificationPolicyId": "policy:builder.execute.scope:attestation",
+        "metadata": {
+          "origin": "check",
+          "check_kind": "external",
+          "workflow_subject_ref": "local:veritas-governance-rollout",
+          "gate_claim": {
+            "expectation_id": "implementation-scope",
+            "claim_type": "builder.execute.scope",
+            "subject_type": "change",
+            "step_id": "execute"
+          }
+        },
+        "status": "verified"
+      },
+      {
+        "id": "veritas-governance-rollout-gate-claim-tests-evidence.flow-agents-workflow.exact-pr-head-passed-npm-run-validate-npm-run-test-rendered-63-browser-tests-build-test-and-validate-and-veritas-advisory-readiness",
+        "subjectType": "flow-step",
+        "subjectId": "veritas-governance-rollout/gate-claim-tests-evidence",
+        "facet": "flow-agents.workflow",
+        "claimType": "builder.verify.tests",
+        "fieldOrBehavior": "Exact PR head passed npm run validate, npm run test:rendered (63 browser tests), Build Test and Validate, and Veritas advisory readiness.",
+        "value": "pass",
+        "createdAt": "2026-07-20T15:41:19Z",
+        "updatedAt": "2026-07-20T15:41:19Z",
+        "impactLevel": "high",
+        "verificationPolicyId": "policy:builder.verify.tests:attestation",
+        "metadata": {
+          "origin": "check",
+          "check_kind": "external",
+          "workflow_subject_ref": "local:veritas-governance-rollout",
+          "gate_claim": {
+            "expectation_id": "tests-evidence",
+            "claim_type": "builder.verify.tests",
+            "subject_type": "flow-step",
+            "step_id": "verify"
+          }
+        },
+        "status": "verified"
+      },
+      {
+        "id": "veritas-governance-rollout-gate-claim-merge-readiness.flow-agents-workflow.scope-independent-review-local-verification-hosted-product-checks-and-advisory-governance-are-clean-exact-head-trust-publication-is-the-final-required-check",
+        "subjectType": "change",
+        "subjectId": "veritas-governance-rollout/gate-claim-merge-readiness",
+        "facet": "flow-agents.workflow",
+        "claimType": "builder.merge-ready.readiness",
+        "fieldOrBehavior": "Scope, independent review, local verification, hosted product checks, and advisory governance are clean; exact-head trust publication is the final required check.",
+        "value": "pass",
+        "createdAt": "2026-07-20T15:41:19Z",
+        "updatedAt": "2026-07-20T15:41:19Z",
+        "impactLevel": "high",
+        "verificationPolicyId": "policy:builder.merge-ready.readiness:attestation",
+        "metadata": {
+          "origin": "check",
+          "check_kind": "external",
+          "workflow_subject_ref": "local:veritas-governance-rollout",
+          "gate_claim": {
+            "expectation_id": "merge-readiness",
+            "claim_type": "builder.merge-ready.readiness",
+            "subject_type": "change",
+            "step_id": "merge-ready"
+          }
+        },
+        "status": "verified"
+      },
+      {
+        "id": "veritas-governance-rollout-gate-claim-pull-request-opened.flow-agents-workflow.kontourai-io-pr-200-is-open-with-the-governance-implementation-verification-summary-and-linked-veritas-portfolio-epic-135",
+        "subjectType": "pull-request",
+        "subjectId": "veritas-governance-rollout/gate-claim-pull-request-opened",
+        "facet": "flow-agents.workflow",
+        "claimType": "builder.pr-open.pull-request",
+        "fieldOrBehavior": "kontourai.io PR #200 is open with the governance implementation, verification summary, and linked Veritas portfolio epic #135.",
+        "value": "pass",
+        "createdAt": "2026-07-20T15:41:19Z",
+        "updatedAt": "2026-07-20T15:41:19Z",
+        "impactLevel": "high",
+        "verificationPolicyId": "policy:builder.pr-open.pull-request:attestation",
+        "metadata": {
+          "origin": "check",
+          "check_kind": "external",
+          "workflow_subject_ref": "local:veritas-governance-rollout",
+          "gate_claim": {
+            "expectation_id": "pull-request-opened",
+            "claim_type": "builder.pr-open.pull-request",
+            "subject_type": "pull-request",
+            "step_id": "pr-open"
+          }
+        },
+        "status": "verified"
+      },
+      {
+        "id": "veritas-governance-rollout-gate-claim-ci-merge-readiness.flow-agents-workflow.independent-review-is-clean-and-all-product-advisory-ci-checks-pass-trust-verify-is-expected-to-become-green-from-the-exact-head-bundle-this-canonical-run-publishes",
+        "subjectType": "pull-request",
+        "subjectId": "veritas-governance-rollout/gate-claim-ci-merge-readiness",
+        "facet": "flow-agents.workflow",
+        "claimType": "builder.merge-ready-ci.readiness",
+        "fieldOrBehavior": "Independent review is clean and all product/advisory CI checks pass; Trust Verify is expected to become green from the exact-head bundle this canonical run publishes.",
+        "value": "pass",
+        "createdAt": "2026-07-20T15:41:19Z",
+        "updatedAt": "2026-07-20T15:41:19Z",
+        "impactLevel": "high",
+        "verificationPolicyId": "policy:builder.merge-ready-ci.readiness:attestation",
+        "metadata": {
+          "origin": "check",
+          "check_kind": "external",
+          "workflow_subject_ref": "local:veritas-governance-rollout",
+          "gate_claim": {
+            "expectation_id": "ci-merge-readiness",
+            "claim_type": "builder.merge-ready-ci.readiness",
+            "subject_type": "pull-request",
+            "step_id": "merge-ready-ci"
+          }
+        },
+        "status": "verified"
+      },
+      {
+        "id": "veritas-governance-rollout-gate-claim-decision-evidence.flow-agents-workflow.durable-decision-veritas-governance-remains-advisory-at-repository-adoption-while-builder-owns-exact-head-delivery-trust-no-branch-protection-is-weakened",
+        "subjectType": "decision",
+        "subjectId": "veritas-governance-rollout/gate-claim-decision-evidence",
+        "facet": "flow-agents.workflow",
+        "claimType": "builder.learn.decisions",
+        "fieldOrBehavior": "Durable decision: Veritas governance remains advisory at repository adoption while Builder owns exact-head delivery trust; no branch protection is weakened.",
+        "value": "pass",
+        "createdAt": "2026-07-20T15:41:19Z",
+        "updatedAt": "2026-07-20T15:41:19Z",
+        "impactLevel": "high",
+        "verificationPolicyId": "policy:builder.learn.decisions:attestation",
+        "metadata": {
+          "origin": "check",
+          "check_kind": "external",
+          "workflow_subject_ref": "local:veritas-governance-rollout",
+          "gate_claim": {
+            "expectation_id": "decision-evidence",
+            "claim_type": "builder.learn.decisions",
+            "subject_type": "decision",
+            "step_id": "learn"
+          }
+        },
+        "status": "verified"
+      },
+      {
+        "id": "veritas-governance-rollout-gate-claim-learning-evidence.flow-agents-workflow.learnings-are-filed-as-veritas-138-139-140-and-flow-agents-767-including-the-portfolio-rollout-trust-bootstrap-gap",
+        "subjectType": "release",
+        "subjectId": "veritas-governance-rollout/gate-claim-learning-evidence",
+        "facet": "flow-agents.workflow",
+        "claimType": "builder.learn.evidence",
+        "fieldOrBehavior": "Learnings are filed as Veritas #138, #139, #140 and Flow Agents #767, including the portfolio-rollout trust bootstrap gap.",
+        "value": "pass",
+        "createdAt": "2026-07-20T15:41:19Z",
+        "updatedAt": "2026-07-20T15:41:19Z",
+        "impactLevel": "high",
+        "verificationPolicyId": "policy:builder.learn.evidence:attestation",
+        "metadata": {
+          "origin": "check",
+          "check_kind": "external",
+          "workflow_subject_ref": "local:veritas-governance-rollout",
+          "gate_claim": {
+            "expectation_id": "learning-evidence",
+            "claim_type": "builder.learn.evidence",
+            "subject_type": "release",
+            "step_id": "learn"
+          }
+        },
+        "status": "verified"
+      },
+      {
+        "id": "veritas-governance-rollout-tracked-standards-advisory-governance-product-registry-updates-and-exact-head-trust-evidence-pass-ci.flow-agents-workflow.tracked-standards-advisory-governance-product-registry-updates-and-exact-head-trust-evidence-pass-ci",
+        "subjectType": "decision",
+        "subjectId": "veritas-governance-rollout/tracked-standards-advisory-governance-product-registry-updates-and-exact-head-trust-evidence-pass-ci",
+        "facet": "flow-agents.workflow",
+        "claimType": "builder.learn.decisions",
+        "fieldOrBehavior": "Tracked standards, advisory governance, product registry updates, and exact-head trust evidence pass CI",
+        "value": "pending",
+        "createdAt": "2026-07-20T15:41:19Z",
+        "updatedAt": "2026-07-20T15:41:19Z",
+        "impactLevel": "high",
+        "verificationPolicyId": "policy:builder.learn.decisions",
+        "metadata": {
+          "origin": "acceptance",
+          "workflow_subject_ref": "local:veritas-governance-rollout"
+        },
+        "status": "proposed"
+      }
+    ],
+    "evidence": [
+      {
+        "id": "ev:veritas-governance-rollout-gate-claim-selected-work.flow-agents-workflow.selected-the-approved-veritas-governance-rollout-for-kontourai-io-pr-200-scope-acceptance-criteria-and-merge-authority-are-explicit-in-the-portfolio-epic",
+        "claimId": "veritas-governance-rollout-gate-claim-selected-work.flow-agents-workflow.selected-the-approved-veritas-governance-rollout-for-kontourai-io-pr-200-scope-acceptance-criteria-and-merge-authority-are-explicit-in-the-portfolio-epic",
+        "evidenceType": "attestation",
+        "method": "corroboration",
+        "sourceRef": "veritas-governance-rollout/evidence.json",
+        "excerptOrSummary": "Selected the approved Veritas governance rollout for kontourai.io PR #200; scope, acceptance criteria, and merge authority are explicit in the portfolio epic.",
+        "observedAt": "2026-07-20T15:41:19Z",
+        "collectedBy": "flow-agents/workflow-sidecar",
+        "passing": true
+      },
+      {
+        "id": "ev:veritas-governance-rollout-gate-claim-pickup-probe-readiness.flow-agents-workflow.rollout-goal-repository-scope-dependencies-exact-head-trust-requirement-and-verification-plan-are-resolved",
+        "claimId": "veritas-governance-rollout-gate-claim-pickup-probe-readiness.flow-agents-workflow.rollout-goal-repository-scope-dependencies-exact-head-trust-requirement-and-verification-plan-are-resolved",
+        "evidenceType": "attestation",
+        "method": "corroboration",
+        "sourceRef": "veritas-governance-rollout/evidence.json",
+        "excerptOrSummary": "Rollout goal, repository scope, dependencies, exact-head trust requirement, and verification plan are resolved.",
+        "observedAt": "2026-07-20T15:41:19Z",
+        "collectedBy": "flow-agents/workflow-sidecar",
+        "passing": true
+      },
+      {
+        "id": "ev:veritas-governance-rollout-gate-claim-probe-decisions-or-accepted-gaps.flow-agents-workflow.decision-is-to-adopt-advisory-veritas-governance-while-preserving-kontourai-io-product-checks-no-unresolved-planning-gap-remains",
+        "claimId": "veritas-governance-rollout-gate-claim-probe-decisions-or-accepted-gaps.flow-agents-workflow.decision-is-to-adopt-advisory-veritas-governance-while-preserving-kontourai-io-product-checks-no-unresolved-planning-gap-remains",
+        "evidenceType": "attestation",
+        "method": "corroboration",
+        "sourceRef": "veritas-governance-rollout/evidence.json",
+        "excerptOrSummary": "Decision is to adopt advisory Veritas governance while preserving kontourai.io product checks; no unresolved planning gap remains.",
+        "observedAt": "2026-07-20T15:41:19Z",
+        "collectedBy": "flow-agents/workflow-sidecar",
+        "passing": true
+      },
+      {
+        "id": "ev:veritas-governance-rollout-gate-claim-implementation-plan.flow-agents-workflow.plan-covered-tracked-veritas-standards-advisory-workflow-product-registry-pins-documentation-tests-and-exact-head-trust-publication",
+        "claimId": "veritas-governance-rollout-gate-claim-implementation-plan.flow-agents-workflow.plan-covered-tracked-veritas-standards-advisory-workflow-product-registry-pins-documentation-tests-and-exact-head-trust-publication",
+        "evidenceType": "attestation",
+        "method": "corroboration",
+        "sourceRef": "veritas-governance-rollout/evidence.json",
+        "excerptOrSummary": "Plan covered tracked Veritas standards, advisory workflow, product registry pins, documentation, tests, and exact-head trust publication.",
+        "observedAt": "2026-07-20T15:41:19Z",
+        "collectedBy": "flow-agents/workflow-sidecar",
+        "passing": true
+      },
+      {
+        "id": "ev:veritas-governance-rollout-gate-claim-implementation-scope.flow-agents-workflow.pr-200-contains-only-kontourai-io-governance-adoption-and-registry-changes-independent-review-found-no-source-blockers",
+        "claimId": "veritas-governance-rollout-gate-claim-implementation-scope.flow-agents-workflow.pr-200-contains-only-kontourai-io-governance-adoption-and-registry-changes-independent-review-found-no-source-blockers",
+        "evidenceType": "attestation",
+        "method": "corroboration",
+        "sourceRef": "veritas-governance-rollout/evidence.json",
+        "excerptOrSummary": "PR #200 contains only kontourai.io governance adoption and registry changes; independent review found no source blockers.",
+        "observedAt": "2026-07-20T15:41:19Z",
+        "collectedBy": "flow-agents/workflow-sidecar",
+        "passing": true
+      },
+      {
+        "id": "ev:veritas-governance-rollout-gate-claim-tests-evidence.flow-agents-workflow.exact-pr-head-passed-npm-run-validate-npm-run-test-rendered-63-browser-tests-build-test-and-validate-and-veritas-advisory-readiness",
+        "claimId": "veritas-governance-rollout-gate-claim-tests-evidence.flow-agents-workflow.exact-pr-head-passed-npm-run-validate-npm-run-test-rendered-63-browser-tests-build-test-and-validate-and-veritas-advisory-readiness",
+        "evidenceType": "attestation",
+        "method": "corroboration",
+        "sourceRef": "veritas-governance-rollout/evidence.json",
+        "excerptOrSummary": "Exact PR head passed npm run validate, npm run test:rendered (63 browser tests), Build Test and Validate, and Veritas advisory readiness.",
+        "observedAt": "2026-07-20T15:41:19Z",
+        "collectedBy": "flow-agents/workflow-sidecar",
+        "passing": true
+      },
+      {
+        "id": "ev:veritas-governance-rollout-gate-claim-merge-readiness.flow-agents-workflow.scope-independent-review-local-verification-hosted-product-checks-and-advisory-governance-are-clean-exact-head-trust-publication-is-the-final-required-check",
+        "claimId": "veritas-governance-rollout-gate-claim-merge-readiness.flow-agents-workflow.scope-independent-review-local-verification-hosted-product-checks-and-advisory-governance-are-clean-exact-head-trust-publication-is-the-final-required-check",
+        "evidenceType": "attestation",
+        "method": "corroboration",
+        "sourceRef": "veritas-governance-rollout/evidence.json",
+        "excerptOrSummary": "Scope, independent review, local verification, hosted product checks, and advisory governance are clean; exact-head trust publication is the final required check.",
+        "observedAt": "2026-07-20T15:41:19Z",
+        "collectedBy": "flow-agents/workflow-sidecar",
+        "passing": true
+      },
+      {
+        "id": "ev:veritas-governance-rollout-gate-claim-pull-request-opened.flow-agents-workflow.kontourai-io-pr-200-is-open-with-the-governance-implementation-verification-summary-and-linked-veritas-portfolio-epic-135",
+        "claimId": "veritas-governance-rollout-gate-claim-pull-request-opened.flow-agents-workflow.kontourai-io-pr-200-is-open-with-the-governance-implementation-verification-summary-and-linked-veritas-portfolio-epic-135",
+        "evidenceType": "attestation",
+        "method": "corroboration",
+        "sourceRef": "veritas-governance-rollout/evidence.json",
+        "excerptOrSummary": "kontourai.io PR #200 is open with the governance implementation, verification summary, and linked Veritas portfolio epic #135.",
+        "observedAt": "2026-07-20T15:41:19Z",
+        "collectedBy": "flow-agents/workflow-sidecar",
+        "passing": true
+      },
+      {
+        "id": "ev:veritas-governance-rollout-gate-claim-ci-merge-readiness.flow-agents-workflow.independent-review-is-clean-and-all-product-advisory-ci-checks-pass-trust-verify-is-expected-to-become-green-from-the-exact-head-bundle-this-canonical-run-publishes",
+        "claimId": "veritas-governance-rollout-gate-claim-ci-merge-readiness.flow-agents-workflow.independent-review-is-clean-and-all-product-advisory-ci-checks-pass-trust-verify-is-expected-to-become-green-from-the-exact-head-bundle-this-canonical-run-publishes",
+        "evidenceType": "attestation",
+        "method": "corroboration",
+        "sourceRef": "veritas-governance-rollout/evidence.json",
+        "excerptOrSummary": "Independent review is clean and all product/advisory CI checks pass; Trust Verify is expected to become green from the exact-head bundle this canonical run publishes.",
+        "observedAt": "2026-07-20T15:41:19Z",
+        "collectedBy": "flow-agents/workflow-sidecar",
+        "passing": true
+      },
+      {
+        "id": "ev:veritas-governance-rollout-gate-claim-decision-evidence.flow-agents-workflow.durable-decision-veritas-governance-remains-advisory-at-repository-adoption-while-builder-owns-exact-head-delivery-trust-no-branch-protection-is-weakened",
+        "claimId": "veritas-governance-rollout-gate-claim-decision-evidence.flow-agents-workflow.durable-decision-veritas-governance-remains-advisory-at-repository-adoption-while-builder-owns-exact-head-delivery-trust-no-branch-protection-is-weakened",
+        "evidenceType": "attestation",
+        "method": "corroboration",
+        "sourceRef": "veritas-governance-rollout/evidence.json",
+        "excerptOrSummary": "Durable decision: Veritas governance remains advisory at repository adoption while Builder owns exact-head delivery trust; no branch protection is weakened.",
+        "observedAt": "2026-07-20T15:41:19Z",
+        "collectedBy": "flow-agents/workflow-sidecar",
+        "passing": true
+      },
+      {
+        "id": "ev:veritas-governance-rollout-gate-claim-learning-evidence.flow-agents-workflow.learnings-are-filed-as-veritas-138-139-140-and-flow-agents-767-including-the-portfolio-rollout-trust-bootstrap-gap",
+        "claimId": "veritas-governance-rollout-gate-claim-learning-evidence.flow-agents-workflow.learnings-are-filed-as-veritas-138-139-140-and-flow-agents-767-including-the-portfolio-rollout-trust-bootstrap-gap",
+        "evidenceType": "attestation",
+        "method": "corroboration",
+        "sourceRef": "veritas-governance-rollout/evidence.json",
+        "excerptOrSummary": "Learnings are filed as Veritas #138, #139, #140 and Flow Agents #767, including the portfolio-rollout trust bootstrap gap.",
+        "observedAt": "2026-07-20T15:41:19Z",
+        "collectedBy": "flow-agents/workflow-sidecar",
+        "passing": true
+      }
+    ],
+    "policies": [
+      {
+        "id": "policy:workflow.check.external:attestation",
+        "claimType": "workflow.check.external",
+        "requiredEvidence": [
+          "attestation"
+        ],
+        "acceptanceCriteria": [
+          "A verified verification event must support a workflow.check.external claim."
+        ],
+        "reviewAuthority": "system",
+        "validityRule": {
+          "kind": "manual"
+        },
+        "stalenessTriggers": [],
+        "conflictRules": [],
+        "impactLevel": "high"
+      },
+      {
+        "id": "policy:builder.pull-work.selected:attestation",
+        "claimType": "builder.pull-work.selected",
+        "requiredEvidence": [
+          "attestation"
+        ],
+        "acceptanceCriteria": [
+          "A verified verification event must support a builder.pull-work.selected claim."
+        ],
+        "reviewAuthority": "system",
+        "validityRule": {
+          "kind": "manual"
+        },
+        "stalenessTriggers": [],
+        "conflictRules": [],
+        "impactLevel": "high"
+      },
+      {
+        "id": "policy:builder.design-probe.pickup-readiness:attestation",
+        "claimType": "builder.design-probe.pickup-readiness",
+        "requiredEvidence": [
+          "attestation"
+        ],
+        "acceptanceCriteria": [
+          "A verified verification event must support a builder.design-probe.pickup-readiness claim."
+        ],
+        "reviewAuthority": "system",
+        "validityRule": {
+          "kind": "manual"
+        },
+        "stalenessTriggers": [],
+        "conflictRules": [],
+        "impactLevel": "high"
+      },
+      {
+        "id": "policy:builder.design-probe.decisions:attestation",
+        "claimType": "builder.design-probe.decisions",
+        "requiredEvidence": [
+          "attestation"
+        ],
+        "acceptanceCriteria": [
+          "A verified verification event must support a builder.design-probe.decisions claim."
+        ],
+        "reviewAuthority": "system",
+        "validityRule": {
+          "kind": "manual"
+        },
+        "stalenessTriggers": [],
+        "conflictRules": [],
+        "impactLevel": "high"
+      },
+      {
+        "id": "policy:builder.plan.implementation:attestation",
+        "claimType": "builder.plan.implementation",
+        "requiredEvidence": [
+          "attestation"
+        ],
+        "acceptanceCriteria": [
+          "A verified verification event must support a builder.plan.implementation claim."
+        ],
+        "reviewAuthority": "system",
+        "validityRule": {
+          "kind": "manual"
+        },
+        "stalenessTriggers": [],
+        "conflictRules": [],
+        "impactLevel": "high"
+      },
+      {
+        "id": "policy:builder.execute.scope:attestation",
+        "claimType": "builder.execute.scope",
+        "requiredEvidence": [
+          "attestation"
+        ],
+        "acceptanceCriteria": [
+          "A verified verification event must support a builder.execute.scope claim."
+        ],
+        "reviewAuthority": "system",
+        "validityRule": {
+          "kind": "manual"
+        },
+        "stalenessTriggers": [],
+        "conflictRules": [],
+        "impactLevel": "high"
+      },
+      {
+        "id": "policy:builder.verify.tests:attestation",
+        "claimType": "builder.verify.tests",
+        "requiredEvidence": [
+          "attestation"
+        ],
+        "acceptanceCriteria": [
+          "A verified verification event must support a builder.verify.tests claim."
+        ],
+        "reviewAuthority": "system",
+        "validityRule": {
+          "kind": "manual"
+        },
+        "stalenessTriggers": [],
+        "conflictRules": [],
+        "impactLevel": "high"
+      },
+      {
+        "id": "policy:builder.merge-ready.readiness:attestation",
+        "claimType": "builder.merge-ready.readiness",
+        "requiredEvidence": [
+          "attestation"
+        ],
+        "acceptanceCriteria": [
+          "A verified verification event must support a builder.merge-ready.readiness claim."
+        ],
+        "reviewAuthority": "system",
+        "validityRule": {
+          "kind": "manual"
+        },
+        "stalenessTriggers": [],
+        "conflictRules": [],
+        "impactLevel": "high"
+      },
+      {
+        "id": "policy:builder.pr-open.pull-request:attestation",
+        "claimType": "builder.pr-open.pull-request",
+        "requiredEvidence": [
+          "attestation"
+        ],
+        "acceptanceCriteria": [
+          "A verified verification event must support a builder.pr-open.pull-request claim."
+        ],
+        "reviewAuthority": "system",
+        "validityRule": {
+          "kind": "manual"
+        },
+        "stalenessTriggers": [],
+        "conflictRules": [],
+        "impactLevel": "high"
+      },
+      {
+        "id": "policy:builder.merge-ready-ci.readiness:attestation",
+        "claimType": "builder.merge-ready-ci.readiness",
+        "requiredEvidence": [
+          "attestation"
+        ],
+        "acceptanceCriteria": [
+          "A verified verification event must support a builder.merge-ready-ci.readiness claim."
+        ],
+        "reviewAuthority": "system",
+        "validityRule": {
+          "kind": "manual"
+        },
+        "stalenessTriggers": [],
+        "conflictRules": [],
+        "impactLevel": "high"
+      },
+      {
+        "id": "policy:builder.learn.decisions:attestation",
+        "claimType": "builder.learn.decisions",
+        "requiredEvidence": [
+          "attestation"
+        ],
+        "acceptanceCriteria": [
+          "A verified verification event must support a builder.learn.decisions claim."
+        ],
+        "reviewAuthority": "system",
+        "validityRule": {
+          "kind": "manual"
+        },
+        "stalenessTriggers": [],
+        "conflictRules": [],
+        "impactLevel": "high"
+      },
+      {
+        "id": "policy:builder.learn.evidence:attestation",
+        "claimType": "builder.learn.evidence",
+        "requiredEvidence": [
+          "attestation"
+        ],
+        "acceptanceCriteria": [
+          "A verified verification event must support a builder.learn.evidence claim."
+        ],
+        "reviewAuthority": "system",
+        "validityRule": {
+          "kind": "manual"
+        },
+        "stalenessTriggers": [],
+        "conflictRules": [],
+        "impactLevel": "high"
+      },
+      {
+        "id": "policy:workflow.acceptance.criterion",
+        "claimType": "workflow.acceptance.criterion",
+        "requiredEvidence": [],
+        "acceptanceCriteria": [
+          "A verified verification event must support a workflow.acceptance.criterion claim."
+        ],
+        "reviewAuthority": "system",
+        "validityRule": {
+          "kind": "manual"
+        },
+        "stalenessTriggers": [],
+        "conflictRules": [],
+        "impactLevel": "high"
+      },
+      {
+        "id": "policy:builder.learn.decisions",
+        "claimType": "builder.learn.decisions",
+        "requiredEvidence": [],
+        "acceptanceCriteria": [
+          "A verified verification event must support a builder.learn.decisions claim."
+        ],
+        "reviewAuthority": "system",
+        "validityRule": {
+          "kind": "manual"
+        },
+        "stalenessTriggers": [],
+        "conflictRules": [],
+        "impactLevel": "high"
+      }
+    ],
+    "events": [
+      {
+        "id": "evt:veritas-governance-rollout-gate-claim-selected-work.flow-agents-workflow.selected-the-approved-veritas-governance-rollout-for-kontourai-io-pr-200-scope-acceptance-criteria-and-merge-authority-are-explicit-in-the-portfolio-epic",
+        "claimId": "veritas-governance-rollout-gate-claim-selected-work.flow-agents-workflow.selected-the-approved-veritas-governance-rollout-for-kontourai-io-pr-200-scope-acceptance-criteria-and-merge-authority-are-explicit-in-the-portfolio-epic",
+        "status": "verified",
+        "actor": "flow-agents/workflow-sidecar",
+        "method": "validation",
+        "evidenceIds": [
+          "ev:veritas-governance-rollout-gate-claim-selected-work.flow-agents-workflow.selected-the-approved-veritas-governance-rollout-for-kontourai-io-pr-200-scope-acceptance-criteria-and-merge-authority-are-explicit-in-the-portfolio-epic"
+        ],
+        "createdAt": "2026-07-20T15:41:19Z",
+        "verifiedAt": "2026-07-20T15:41:19Z"
+      },
+      {
+        "id": "evt:veritas-governance-rollout-gate-claim-pickup-probe-readiness.flow-agents-workflow.rollout-goal-repository-scope-dependencies-exact-head-trust-requirement-and-verification-plan-are-resolved",
+        "claimId": "veritas-governance-rollout-gate-claim-pickup-probe-readiness.flow-agents-workflow.rollout-goal-repository-scope-dependencies-exact-head-trust-requirement-and-verification-plan-are-resolved",
+        "status": "verified",
+        "actor": "flow-agents/workflow-sidecar",
+        "method": "validation",
+        "evidenceIds": [
+          "ev:veritas-governance-rollout-gate-claim-pickup-probe-readiness.flow-agents-workflow.rollout-goal-repository-scope-dependencies-exact-head-trust-requirement-and-verification-plan-are-resolved"
+        ],
+        "createdAt": "2026-07-20T15:41:19Z",
+        "verifiedAt": "2026-07-20T15:41:19Z"
+      },
+      {
+        "id": "evt:veritas-governance-rollout-gate-claim-probe-decisions-or-accepted-gaps.flow-agents-workflow.decision-is-to-adopt-advisory-veritas-governance-while-preserving-kontourai-io-product-checks-no-unresolved-planning-gap-remains",
+        "claimId": "veritas-governance-rollout-gate-claim-probe-decisions-or-accepted-gaps.flow-agents-workflow.decision-is-to-adopt-advisory-veritas-governance-while-preserving-kontourai-io-product-checks-no-unresolved-planning-gap-remains",
+        "status": "verified",
+        "actor": "flow-agents/workflow-sidecar",
+        "method": "validation",
+        "evidenceIds": [
+          "ev:veritas-governance-rollout-gate-claim-probe-decisions-or-accepted-gaps.flow-agents-workflow.decision-is-to-adopt-advisory-veritas-governance-while-preserving-kontourai-io-product-checks-no-unresolved-planning-gap-remains"
+        ],
+        "createdAt": "2026-07-20T15:41:19Z",
+        "verifiedAt": "2026-07-20T15:41:19Z"
+      },
+      {
+        "id": "evt:veritas-governance-rollout-gate-claim-implementation-plan.flow-agents-workflow.plan-covered-tracked-veritas-standards-advisory-workflow-product-registry-pins-documentation-tests-and-exact-head-trust-publication",
+        "claimId": "veritas-governance-rollout-gate-claim-implementation-plan.flow-agents-workflow.plan-covered-tracked-veritas-standards-advisory-workflow-product-registry-pins-documentation-tests-and-exact-head-trust-publication",
+        "status": "verified",
+        "actor": "flow-agents/workflow-sidecar",
+        "method": "validation",
+        "evidenceIds": [
+          "ev:veritas-governance-rollout-gate-claim-implementation-plan.flow-agents-workflow.plan-covered-tracked-veritas-standards-advisory-workflow-product-registry-pins-documentation-tests-and-exact-head-trust-publication"
+        ],
+        "createdAt": "2026-07-20T15:41:19Z",
+        "verifiedAt": "2026-07-20T15:41:19Z"
+      },
+      {
+        "id": "evt:veritas-governance-rollout-gate-claim-implementation-scope.flow-agents-workflow.pr-200-contains-only-kontourai-io-governance-adoption-and-registry-changes-independent-review-found-no-source-blockers",
+        "claimId": "veritas-governance-rollout-gate-claim-implementation-scope.flow-agents-workflow.pr-200-contains-only-kontourai-io-governance-adoption-and-registry-changes-independent-review-found-no-source-blockers",
+        "status": "verified",
+        "actor": "flow-agents/workflow-sidecar",
+        "method": "validation",
+        "evidenceIds": [
+          "ev:veritas-governance-rollout-gate-claim-implementation-scope.flow-agents-workflow.pr-200-contains-only-kontourai-io-governance-adoption-and-registry-changes-independent-review-found-no-source-blockers"
+        ],
+        "createdAt": "2026-07-20T15:41:19Z",
+        "verifiedAt": "2026-07-20T15:41:19Z"
+      },
+      {
+        "id": "evt:veritas-governance-rollout-gate-claim-tests-evidence.flow-agents-workflow.exact-pr-head-passed-npm-run-validate-npm-run-test-rendered-63-browser-tests-build-test-and-validate-and-veritas-advisory-readiness",
+        "claimId": "veritas-governance-rollout-gate-claim-tests-evidence.flow-agents-workflow.exact-pr-head-passed-npm-run-validate-npm-run-test-rendered-63-browser-tests-build-test-and-validate-and-veritas-advisory-readiness",
+        "status": "verified",
+        "actor": "flow-agents/workflow-sidecar",
+        "method": "validation",
+        "evidenceIds": [
+          "ev:veritas-governance-rollout-gate-claim-tests-evidence.flow-agents-workflow.exact-pr-head-passed-npm-run-validate-npm-run-test-rendered-63-browser-tests-build-test-and-validate-and-veritas-advisory-readiness"
+        ],
+        "createdAt": "2026-07-20T15:41:19Z",
+        "verifiedAt": "2026-07-20T15:41:19Z"
+      },
+      {
+        "id": "evt:veritas-governance-rollout-gate-claim-merge-readiness.flow-agents-workflow.scope-independent-review-local-verification-hosted-product-checks-and-advisory-governance-are-clean-exact-head-trust-publication-is-the-final-required-check",
+        "claimId": "veritas-governance-rollout-gate-claim-merge-readiness.flow-agents-workflow.scope-independent-review-local-verification-hosted-product-checks-and-advisory-governance-are-clean-exact-head-trust-publication-is-the-final-required-check",
+        "status": "verified",
+        "actor": "flow-agents/workflow-sidecar",
+        "method": "validation",
+        "evidenceIds": [
+          "ev:veritas-governance-rollout-gate-claim-merge-readiness.flow-agents-workflow.scope-independent-review-local-verification-hosted-product-checks-and-advisory-governance-are-clean-exact-head-trust-publication-is-the-final-required-check"
+        ],
+        "createdAt": "2026-07-20T15:41:19Z",
+        "verifiedAt": "2026-07-20T15:41:19Z"
+      },
+      {
+        "id": "evt:veritas-governance-rollout-gate-claim-pull-request-opened.flow-agents-workflow.kontourai-io-pr-200-is-open-with-the-governance-implementation-verification-summary-and-linked-veritas-portfolio-epic-135",
+        "claimId": "veritas-governance-rollout-gate-claim-pull-request-opened.flow-agents-workflow.kontourai-io-pr-200-is-open-with-the-governance-implementation-verification-summary-and-linked-veritas-portfolio-epic-135",
+        "status": "verified",
+        "actor": "flow-agents/workflow-sidecar",
+        "method": "validation",
+        "evidenceIds": [
+          "ev:veritas-governance-rollout-gate-claim-pull-request-opened.flow-agents-workflow.kontourai-io-pr-200-is-open-with-the-governance-implementation-verification-summary-and-linked-veritas-portfolio-epic-135"
+        ],
+        "createdAt": "2026-07-20T15:41:19Z",
+        "verifiedAt": "2026-07-20T15:41:19Z"
+      },
+      {
+        "id": "evt:veritas-governance-rollout-gate-claim-ci-merge-readiness.flow-agents-workflow.independent-review-is-clean-and-all-product-advisory-ci-checks-pass-trust-verify-is-expected-to-become-green-from-the-exact-head-bundle-this-canonical-run-publishes",
+        "claimId": "veritas-governance-rollout-gate-claim-ci-merge-readiness.flow-agents-workflow.independent-review-is-clean-and-all-product-advisory-ci-checks-pass-trust-verify-is-expected-to-become-green-from-the-exact-head-bundle-this-canonical-run-publishes",
+        "status": "verified",
+        "actor": "flow-agents/workflow-sidecar",
+        "method": "validation",
+        "evidenceIds": [
+          "ev:veritas-governance-rollout-gate-claim-ci-merge-readiness.flow-agents-workflow.independent-review-is-clean-and-all-product-advisory-ci-checks-pass-trust-verify-is-expected-to-become-green-from-the-exact-head-bundle-this-canonical-run-publishes"
+        ],
+        "createdAt": "2026-07-20T15:41:19Z",
+        "verifiedAt": "2026-07-20T15:41:19Z"
+      },
+      {
+        "id": "evt:veritas-governance-rollout-gate-claim-decision-evidence.flow-agents-workflow.durable-decision-veritas-governance-remains-advisory-at-repository-adoption-while-builder-owns-exact-head-delivery-trust-no-branch-protection-is-weakened",
+        "claimId": "veritas-governance-rollout-gate-claim-decision-evidence.flow-agents-workflow.durable-decision-veritas-governance-remains-advisory-at-repository-adoption-while-builder-owns-exact-head-delivery-trust-no-branch-protection-is-weakened",
+        "status": "verified",
+        "actor": "flow-agents/workflow-sidecar",
+        "method": "validation",
+        "evidenceIds": [
+          "ev:veritas-governance-rollout-gate-claim-decision-evidence.flow-agents-workflow.durable-decision-veritas-governance-remains-advisory-at-repository-adoption-while-builder-owns-exact-head-delivery-trust-no-branch-protection-is-weakened"
+        ],
+        "createdAt": "2026-07-20T15:41:19Z",
+        "verifiedAt": "2026-07-20T15:41:19Z"
+      },
+      {
+        "id": "evt:veritas-governance-rollout-gate-claim-learning-evidence.flow-agents-workflow.learnings-are-filed-as-veritas-138-139-140-and-flow-agents-767-including-the-portfolio-rollout-trust-bootstrap-gap",
+        "claimId": "veritas-governance-rollout-gate-claim-learning-evidence.flow-agents-workflow.learnings-are-filed-as-veritas-138-139-140-and-flow-agents-767-including-the-portfolio-rollout-trust-bootstrap-gap",
+        "status": "verified",
+        "actor": "flow-agents/workflow-sidecar",
+        "method": "validation",
+        "evidenceIds": [
+          "ev:veritas-governance-rollout-gate-claim-learning-evidence.flow-agents-workflow.learnings-are-filed-as-veritas-138-139-140-and-flow-agents-767-including-the-portfolio-rollout-trust-bootstrap-gap"
+        ],
+        "createdAt": "2026-07-20T15:41:19Z",
+        "verifiedAt": "2026-07-20T15:41:19Z"
+      }
+    ]
+  }
+}
