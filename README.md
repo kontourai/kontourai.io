@@ -21,11 +21,12 @@ Useful verification commands:
 
 ```sh
 npm run check:content-boundary  # public-copy safety check
+npm run check:site-verify       # production build, validators, and generated home-page assertion
 npm run validate                # metadata, security, receipts, theme, and sitemap checks
 npm run test:rendered           # production build plus Playwright coverage
 ```
 
-Run `npm run validate && npm run test:rendered` before treating a site change as
+Run `npm run check:site-verify && npm run test:rendered` before treating a site change as
 merge-ready.
 
 ## Source map

@@ -45,7 +45,7 @@ jobs:
         run: node scripts/check-registry-parity.mjs
         env:
           GITHUB_TOKEN: ${{ github.token }}
-      # Install this repo's deps so the verify-command (astro build + validators) runs.
+      # Install this repo's deps so the verify-command (site build + validators) runs.
       - run: npm ci
       # Browsers for the rendered suite, so delivery bundles claiming
       # `npm run test:rendered` reconcile here instead of being
@@ -58,7 +58,8 @@ jobs:
       # The external anchor: re-run our real verify fresh + reconcile any delivered bundle.
       # SHA-pinned (mutable tags are not trusted for a cross-repo action that gates merges).
       #
-      # verify-command is the full `npm run build && npm run validate` — build + content
+      # verify-command is `npm run check:site-verify`: its strict local wrapper runs
+      # `npm run build`, `npm run validate`, then asserts `dist/index.html` — build + content
       # boundary + theme tokens + security hardening + npm version-parity. On this
       # pull_request-only anchor, registry parity is OBSERVED (warn) rather than gated
       # unless the PR itself touched parity-sensitive inputs; the strict parity gate
@@ -67,4 +68,4 @@ jobs:
         env:
           VALIDATE_REGISTRY_PARITY: ${{ steps.parity.outputs.mode || 'strict' }}
         with:
-          verify-command: "npm run build && npm run validate"
+          verify-command: "npm run check:site-verify"
