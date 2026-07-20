@@ -4,7 +4,7 @@
     {
       "name": "trust.checkpoint.json",
       "digest": {
-        "sha256": "0f6083fb15cc48289ea38a205b1f7e339ed05bafc58bd3dbda21dc4049daf518"
+        "sha256": "d19c6e27ac2d124c9fc6bea0a95be91e154c264f0b9bfcc6e0115399679ba2b4"
       }
     }
   ],
@@ -21,8 +21,8 @@
         "claimType": "builder.pull-work.selected",
         "fieldOrBehavior": "Work Item kontourai/kontourai.io#197 is durably assigned to the active workflow actor (assignment sha256:78348df5da3129e6461c229c87833fc77d0a958b520c4085986ad84d790b88f5).",
         "value": "pass",
-        "createdAt": "2026-07-20T01:14:41.748Z",
-        "updatedAt": "2026-07-20T01:14:41.748Z",
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "updatedAt": "2026-07-20T01:24:32.705Z",
         "impactLevel": "high",
         "verificationPolicyId": "policy:builder.pull-work.selected:attestation",
         "metadata": {
@@ -65,8 +65,8 @@
         "claimType": "builder.design-probe.pickup-readiness",
         "fieldOrBehavior": "Pickup probe records goal fit, scope, dependencies, risks, revision freshness, assignment, and planning readiness.",
         "value": "pass",
-        "createdAt": "2026-07-20T01:14:41.748Z",
-        "updatedAt": "2026-07-20T01:14:41.748Z",
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "updatedAt": "2026-07-20T01:24:32.705Z",
         "impactLevel": "high",
         "verificationPolicyId": "policy:builder.design-probe.pickup-readiness:attestation",
         "metadata": {
@@ -104,8 +104,8 @@
         "claimType": "builder.design-probe.decisions",
         "fieldOrBehavior": "Probe decisions, non-goals, unresolved questions, accepted gaps, route reason, and next action are explicit.",
         "value": "pass",
-        "createdAt": "2026-07-20T01:14:41.748Z",
-        "updatedAt": "2026-07-20T01:14:41.748Z",
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "updatedAt": "2026-07-20T01:24:32.705Z",
         "impactLevel": "high",
         "verificationPolicyId": "policy:builder.design-probe.decisions:attestation",
         "metadata": {
@@ -143,8 +143,8 @@
         "claimType": "builder.plan.implementation",
         "fieldOrBehavior": "Implementation plan records the bounded post-implementation sequence, stable acceptance criteria, evidence commands, rollback boundary, and stop-short risks.",
         "value": "pass",
-        "createdAt": "2026-07-20T01:14:41.748Z",
-        "updatedAt": "2026-07-20T01:14:41.748Z",
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "updatedAt": "2026-07-20T01:24:32.705Z",
         "impactLevel": "high",
         "verificationPolicyId": "policy:builder.plan.implementation:attestation",
         "metadata": {
@@ -192,8 +192,8 @@
         "claimType": "builder.execute.scope",
         "fieldOrBehavior": "Committed route-back 23b7e3c emits one observable TAP result only after the real generated-page assertion succeeds; build, validation, manifest, workflow, and acceptance behavior are unchanged.",
         "value": "pass",
-        "createdAt": "2026-07-20T01:14:41.748Z",
-        "updatedAt": "2026-07-20T01:14:41.748Z",
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "updatedAt": "2026-07-20T01:24:32.705Z",
         "impactLevel": "high",
         "verificationPolicyId": "policy:builder.execute.scope:attestation",
         "metadata": {
@@ -238,8 +238,8 @@
         "claimType": "builder.verify.tests",
         "fieldOrBehavior": "Final named site verification passes at 23b7e3c with one statically backed observed assertion; independent verification also records 63 passing rendered Playwright tests.",
         "value": "pass",
-        "createdAt": "2026-07-20T01:14:41.748Z",
-        "updatedAt": "2026-07-20T01:14:41.748Z",
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "updatedAt": "2026-07-20T01:24:32.705Z",
         "impactLevel": "high",
         "verificationPolicyId": "policy:builder.verify.tests:test_output",
         "metadata": {
@@ -301,8 +301,8 @@
         "claimType": "builder.merge-ready.readiness",
         "fieldOrBehavior": "Local evidence supports merge review at 23b7e3c: exact five-file scope, AC1-AC3 pass, five current clean critiques, 63 rendered tests, and local trust reconciliation exit 0; provider CI remains required after publication and push, with no merge authorization.",
         "value": "pass",
-        "createdAt": "2026-07-20T01:14:41.748Z",
-        "updatedAt": "2026-07-20T01:14:41.748Z",
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "updatedAt": "2026-07-20T01:24:32.705Z",
         "impactLevel": "high",
         "verificationPolicyId": "policy:builder.merge-ready.readiness:attestation",
         "metadata": {
@@ -340,8 +340,8 @@
         "claimType": "builder.pr-open.pull-request",
         "fieldOrBehavior": "Verified branch head 23b7e3c is pushed to the existing open PR #197; the PR body is current, provider checks are queued, and no merge or deployment occurred.",
         "value": "pass",
-        "createdAt": "2026-07-20T01:14:41.748Z",
-        "updatedAt": "2026-07-20T01:14:41.748Z",
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "updatedAt": "2026-07-20T01:24:32.705Z",
         "impactLevel": "high",
         "verificationPolicyId": "policy:builder.pr-open.pull-request:attestation",
         "metadata": {
@@ -374,17 +374,146 @@
         "status": "verified"
       },
       {
-        "id": "kontourai-kontourai-io-197-ac1.flow-agents-workflow.the-root-readme-accurately-explains-repository-role-source-layout-local-commands-and-authority-and-content-boundaries-with-valid-referenced-paths-verified-2026-07-20t01-11-36-623z",
+        "id": "kontourai-kontourai-io-197-gate-claim-ci-merge-readiness.flow-agents-workflow.hold-the-sealed-delivery-bundle-is-pushed-at-757bd10-and-locally-reconciles-cleanly-but-build-test-validate-and-trust-verify-remain-queued-during-github-actions-incident-8vfyvq16hzh9-provider-ci-cannot-yet-support-merge-readiness-and-no-merge-release-deploy-authorization-exists-gate-visit-2026-07-20t01-23-44-363z",
         "subjectType": "pull-request",
+        "subjectId": "kontourai-kontourai-io-197/gate-claim-ci-merge-readiness",
+        "facet": "flow-agents.workflow",
+        "claimType": "builder.merge-ready-ci.readiness",
+        "fieldOrBehavior": "HOLD: the sealed delivery bundle is pushed at 757bd10 and locally reconciles cleanly, but Build, Test & Validate and Trust Verify remain queued during GitHub Actions incident 8vfyvq16hzh9; provider CI cannot yet support merge readiness, and no merge/release/deploy authorization exists.",
+        "value": "not_verified",
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "updatedAt": "2026-07-20T01:24:32.705Z",
+        "impactLevel": "high",
+        "verificationPolicyId": "policy:builder.merge-ready-ci.readiness:attestation",
+        "metadata": {
+          "origin": "check",
+          "check_kind": "external",
+          "workflow_subject_ref": "kontourai/kontourai.io#197",
+          "expected_producer": "builder.release-readiness",
+          "recorded_by": "codex-repo-doc-refresh-197",
+          "self_produced_trust_slices": [
+            "ci-merge-readiness"
+          ],
+          "artifact_refs": [
+            {
+              "kind": "artifact",
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/release.json",
+              "summary": "Release-readiness HOLD with exact delivery head, queued provider checks, outage evidence, and authorization state."
+            },
+            {
+              "kind": "provider",
+              "url": "https://github.com/kontourai/kontourai.io/pull/197",
+              "summary": "Open PR #197 at sealed delivery head 757bd10."
+            },
+            {
+              "kind": "external",
+              "url": "https://www.githubstatus.com/incidents/8vfyvq16hzh9",
+              "summary": "GitHub Actions critical incident causing new workflows to delay or fail to start."
+            }
+          ],
+          "gate_claim": {
+            "expectation_id": "ci-merge-readiness",
+            "claim_type": "builder.merge-ready-ci.readiness",
+            "subject_type": "pull-request",
+            "step_id": "merge-ready-ci",
+            "identity_version": 2,
+            "recorded_at": "2026-07-20T01:23:44.363Z"
+          }
+        },
+        "status": "proposed"
+      },
+      {
+        "id": "kontourai-kontourai-io-197-gate-claim-decision-evidence.flow-agents-workflow.delivery-decisions-are-explicit-no-declared-exemption-one-recordable-non-weakening-trust-verify-command-and-hold-not-verified-during-the-github-actions-outage-gate-visit-2026-07-20t01-24-32-066z",
+        "subjectType": "decision",
+        "subjectId": "kontourai-kontourai-io-197/gate-claim-decision-evidence",
+        "facet": "flow-agents.workflow",
+        "claimType": "builder.learn.decisions",
+        "fieldOrBehavior": "Delivery decisions are explicit: no DECLARED exemption, one recordable non-weakening Trust Verify command, and HOLD / NOT_VERIFIED during the GitHub Actions outage.",
+        "value": "pass",
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "updatedAt": "2026-07-20T01:24:32.705Z",
+        "impactLevel": "high",
+        "verificationPolicyId": "policy:builder.learn.decisions:attestation",
+        "metadata": {
+          "origin": "check",
+          "check_kind": "external",
+          "workflow_subject_ref": "kontourai/kontourai.io#197",
+          "expected_producer": "builder.learning-review",
+          "recorded_by": "codex-repo-doc-refresh-197",
+          "self_produced_trust_slices": [
+            "decision-evidence",
+            "learning-evidence"
+          ],
+          "artifact_refs": [
+            {
+              "kind": "artifact",
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/learning.json",
+              "summary": "Delivery decisions, observed facts, resolved correction, external outage follow-up, and no-merge boundary."
+            }
+          ],
+          "gate_claim": {
+            "expectation_id": "decision-evidence",
+            "claim_type": "builder.learn.decisions",
+            "subject_type": "decision",
+            "step_id": "learn",
+            "identity_version": 2,
+            "recorded_at": "2026-07-20T01:24:32.066Z"
+          }
+        },
+        "status": "verified"
+      },
+      {
+        "id": "kontourai-kontourai-io-197-gate-claim-learning-evidence.flow-agents-workflow.observed-outcomes-the-resolved-command-recordability-correction-and-the-open-provider-outage-follow-up-are-recorded-without-inferring-ci-merge-release-or-deployment-success-gate-visit-2026-07-20t01-24-32-705z",
+        "subjectType": "release",
+        "subjectId": "kontourai-kontourai-io-197/gate-claim-learning-evidence",
+        "facet": "flow-agents.workflow",
+        "claimType": "builder.learn.evidence",
+        "fieldOrBehavior": "Observed outcomes, the resolved command-recordability correction, and the open provider-outage follow-up are recorded without inferring CI, merge, release, or deployment success.",
+        "value": "pass",
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "updatedAt": "2026-07-20T01:24:32.705Z",
+        "impactLevel": "high",
+        "verificationPolicyId": "policy:builder.learn.evidence:attestation",
+        "metadata": {
+          "origin": "check",
+          "check_kind": "external",
+          "workflow_subject_ref": "kontourai/kontourai.io#197",
+          "expected_producer": "builder.learning-review",
+          "recorded_by": "codex-repo-doc-refresh-197",
+          "self_produced_trust_slices": [
+            "decision-evidence",
+            "learning-evidence"
+          ],
+          "artifact_refs": [
+            {
+              "kind": "artifact",
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/learning.json",
+              "summary": "Delivery decisions, observed facts, resolved correction, external outage follow-up, and no-merge boundary."
+            }
+          ],
+          "gate_claim": {
+            "expectation_id": "learning-evidence",
+            "claim_type": "builder.learn.evidence",
+            "subject_type": "release",
+            "step_id": "learn",
+            "identity_version": 2,
+            "recorded_at": "2026-07-20T01:24:32.705Z"
+          }
+        },
+        "status": "verified"
+      },
+      {
+        "id": "kontourai-kontourai-io-197-ac1.flow-agents-workflow.the-root-readme-accurately-explains-repository-role-source-layout-local-commands-and-authority-and-content-boundaries-with-valid-referenced-paths-verified-2026-07-20t01-11-36-623z",
+        "subjectType": "decision",
         "subjectId": "kontourai-kontourai-io-197/AC1",
         "facet": "flow-agents.workflow",
-        "claimType": "builder.pr-open.pull-request",
+        "claimType": "builder.learn.decisions",
         "fieldOrBehavior": "The root README accurately explains repository role, source layout, local commands, and authority and content boundaries, with valid referenced paths.",
         "value": "pass",
-        "createdAt": "2026-07-20T01:14:41.748Z",
-        "updatedAt": "2026-07-20T01:14:41.748Z",
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "updatedAt": "2026-07-20T01:24:32.705Z",
         "impactLevel": "high",
-        "verificationPolicyId": "policy:builder.pr-open.pull-request",
+        "verificationPolicyId": "policy:builder.learn.decisions",
         "metadata": {
           "origin": "acceptance",
           "criterion": {
@@ -417,16 +546,16 @@
       },
       {
         "id": "kontourai-kontourai-io-197-ac2.flow-agents-workflow.the-readme-satisfies-the-public-repository-content-boundary-verified-2026-07-20t01-11-36-623z",
-        "subjectType": "pull-request",
+        "subjectType": "decision",
         "subjectId": "kontourai-kontourai-io-197/AC2",
         "facet": "flow-agents.workflow",
-        "claimType": "builder.pr-open.pull-request",
+        "claimType": "builder.learn.decisions",
         "fieldOrBehavior": "The README satisfies the public repository content boundary.",
         "value": "pass",
-        "createdAt": "2026-07-20T01:14:41.748Z",
-        "updatedAt": "2026-07-20T01:14:41.748Z",
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "updatedAt": "2026-07-20T01:24:32.705Z",
         "impactLevel": "high",
-        "verificationPolicyId": "policy:builder.pr-open.pull-request",
+        "verificationPolicyId": "policy:builder.learn.decisions",
         "metadata": {
           "origin": "acceptance",
           "criterion": {
@@ -454,16 +583,16 @@
       },
       {
         "id": "kontourai-kontourai-io-197-ac3.flow-agents-workflow.a-named-statically-reviewable-site-verification-command-preserves-the-repository-s-build-and-validation-contract-is-used-consistently-by-the-package-trust-manifest-and-trust-verify-workflow-and-passes-for-the-pr-scope-verified-2026-07-20t01-11-36-623z",
-        "subjectType": "pull-request",
+        "subjectType": "decision",
         "subjectId": "kontourai-kontourai-io-197/AC3",
         "facet": "flow-agents.workflow",
-        "claimType": "builder.pr-open.pull-request",
+        "claimType": "builder.learn.decisions",
         "fieldOrBehavior": "A named, statically reviewable site-verification command preserves the repository's build and validation contract, is used consistently by the package trust manifest and Trust Verify workflow, and passes for the PR scope.",
         "value": "pass",
-        "createdAt": "2026-07-20T01:14:41.748Z",
-        "updatedAt": "2026-07-20T01:14:41.748Z",
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "updatedAt": "2026-07-20T01:24:32.705Z",
         "impactLevel": "high",
-        "verificationPolicyId": "policy:builder.pr-open.pull-request",
+        "verificationPolicyId": "policy:builder.learn.decisions",
         "metadata": {
           "origin": "acceptance",
           "criterion": {
@@ -502,8 +631,8 @@
         "claimType": "workflow.critique.review",
         "fieldOrBehavior": "README.md-only scope reviewed for accuracy, maintainability, standards, public-boundary safety, and scope integrity; no actionable findings or unresolved gaps.",
         "value": "pass",
-        "createdAt": "2026-07-20T01:14:41.748Z",
-        "updatedAt": "2026-07-20T01:14:41.748Z",
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "updatedAt": "2026-07-20T01:24:32.705Z",
         "impactLevel": "medium",
         "verificationPolicyId": "policy:workflow.critique.review",
         "metadata": {
@@ -567,8 +696,8 @@
         "claimType": "workflow.critique.review",
         "fieldOrBehavior": "README.md and five version-only product-status updates reviewed for accuracy, registry parity, standards, public-boundary safety, route-back consistency, and scope integrity; no actionable findings or unresolved gaps.",
         "value": "pass",
-        "createdAt": "2026-07-20T01:14:41.748Z",
-        "updatedAt": "2026-07-20T01:14:41.748Z",
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "updatedAt": "2026-07-20T01:24:32.705Z",
         "impactLevel": "medium",
         "verificationPolicyId": "policy:workflow.critique.review",
         "metadata": {
@@ -642,8 +771,8 @@
         "claimType": "workflow.critique.review",
         "fieldOrBehavior": "Committed README and five-field public-version scope plus the revised AC1-AC3 acceptance contract were reviewed for accuracy, freshness, public-boundary safety, scope integrity, and preservation of local trust reconciliation as a Definition Of Done gate; no actionable findings or unresolved review gaps. This critique does not claim canonical verification or reconciliation completion.",
         "value": "pass",
-        "createdAt": "2026-07-20T01:14:41.748Z",
-        "updatedAt": "2026-07-20T01:14:41.748Z",
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "updatedAt": "2026-07-20T01:24:32.705Z",
         "impactLevel": "medium",
         "verificationPolicyId": "policy:workflow.critique.review",
         "metadata": {
@@ -737,8 +866,8 @@
         "claimType": "workflow.critique.review",
         "fieldOrBehavior": "Final committed production changes pass focused documentation, version, wrapper, command-alignment, static-recordability, syntax, and public-boundary review, but workflow plan and delivery evidence still contradict HEAD c27576e by reporting the pre-wrapper source scope and commit count. Canonical verification was not claimed.",
         "value": "fail",
-        "createdAt": "2026-07-20T01:14:41.748Z",
-        "updatedAt": "2026-07-20T01:14:41.748Z",
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "updatedAt": "2026-07-20T01:24:32.705Z",
         "impactLevel": "medium",
         "verificationPolicyId": "policy:workflow.critique.review",
         "metadata": {
@@ -877,8 +1006,8 @@
         "claimType": "workflow.critique.review",
         "fieldOrBehavior": "The r4 workflow-artifact finding is corrected: final plan and delivery evidence now match committed HEAD c27576e, all five tracked files, and all three commits. Prior focused documentation, version, wrapper, exact command-alignment, static-recordability, syntax, rendered-guidance, AC1-AC3, public-boundary, and local-reconciliation-gate checks remain clean. Canonical verification, merge, and cross-reviewer supersession are not claimed.",
         "value": "pass",
-        "createdAt": "2026-07-20T01:14:41.748Z",
-        "updatedAt": "2026-07-20T01:14:41.748Z",
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "updatedAt": "2026-07-20T01:24:32.705Z",
         "impactLevel": "medium",
         "verificationPolicyId": "policy:workflow.critique.review",
         "metadata": {
@@ -1002,8 +1131,8 @@
         "claimType": "workflow.critique.review",
         "fieldOrBehavior": "The prior r4 scope-integrity finding is resolved: plan Definition Of Done, rollback, handoff, and delivery evidence now match committed HEAD c27576e, all five tracked files, and all three commits. Prior focused documentation, version, wrapper, exact command-alignment, static-recordability, syntax, rendered-guidance, AC1-AC3, public-boundary, and local-reconciliation-gate checks remain clean. Canonical verification and merge are not claimed.",
         "value": "pass",
-        "createdAt": "2026-07-20T01:14:41.748Z",
-        "updatedAt": "2026-07-20T01:14:41.748Z",
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "updatedAt": "2026-07-20T01:24:32.705Z",
         "impactLevel": "medium",
         "verificationPolicyId": "policy:workflow.critique.review",
         "metadata": {
@@ -1127,8 +1256,8 @@
         "claimType": "workflow.critique.review",
         "fieldOrBehavior": "Freshness refresh of the completed final review: all five tracked production files and corrected workflow artifacts remain clean at HEAD c27576e, with documentation, versions, wrapper, trust-command alignment, static recordability, syntax, rendered guidance, AC1-AC3, public boundary, and reconciliation-gate evidence reviewed. Canonical verification and merge are not claimed.",
         "value": "pass",
-        "createdAt": "2026-07-20T01:14:41.748Z",
-        "updatedAt": "2026-07-20T01:14:41.748Z",
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "updatedAt": "2026-07-20T01:24:32.705Z",
         "impactLevel": "medium",
         "verificationPolicyId": "policy:workflow.critique.review",
         "metadata": {
@@ -1252,8 +1381,8 @@
         "claimType": "workflow.critique.review",
         "fieldOrBehavior": "Freshness refresh of the completed final review: all five tracked production files and corrected workflow artifacts remain clean at HEAD c27576e, with documentation, versions, wrapper, trust-command alignment, static recordability, syntax, rendered guidance, AC1-AC3, public boundary, and reconciliation-gate evidence reviewed. Canonical verification and merge are not claimed.",
         "value": "pass",
-        "createdAt": "2026-07-20T01:14:41.748Z",
-        "updatedAt": "2026-07-20T01:14:41.748Z",
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "updatedAt": "2026-07-20T01:24:32.705Z",
         "impactLevel": "medium",
         "verificationPolicyId": "policy:workflow.critique.review",
         "metadata": {
@@ -1377,8 +1506,8 @@
         "claimType": "workflow.critique.review",
         "fieldOrBehavior": "Freshness refresh of the completed final review: all five tracked production files and corrected workflow artifacts remain clean at HEAD c27576e, with documentation, versions, wrapper, trust-command alignment, static recordability, syntax, rendered guidance, AC1-AC3, public boundary, and reconciliation-gate evidence reviewed. Canonical verification and merge are not claimed.",
         "value": "pass",
-        "createdAt": "2026-07-20T01:14:41.748Z",
-        "updatedAt": "2026-07-20T01:14:41.748Z",
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "updatedAt": "2026-07-20T01:24:32.705Z",
         "impactLevel": "medium",
         "verificationPolicyId": "policy:workflow.critique.review",
         "metadata": {
@@ -1502,8 +1631,8 @@
         "claimType": "workflow.critique.review",
         "fieldOrBehavior": "Final committed production changes at HEAD 23b7e3c pass focused documentation, version, TAP-wrapper semantics, exact command-alignment, syntax, static recordability, AC1-AC3, public-boundary, plan, and handoff review. The delivery evidence inaccurately reports README.md as 67 lines when the tracked file is 68 lines. Canonical verification and merge are not claimed.",
         "value": "fail",
-        "createdAt": "2026-07-20T01:14:41.748Z",
-        "updatedAt": "2026-07-20T01:14:41.748Z",
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "updatedAt": "2026-07-20T01:24:32.705Z",
         "impactLevel": "medium",
         "verificationPolicyId": "policy:workflow.critique.review",
         "metadata": {
@@ -1619,8 +1748,8 @@
         "claimType": "workflow.critique.review",
         "fieldOrBehavior": "The R4 README line-count finding is resolved at HEAD 23b7e3c: delivery line 203, wc -l README.md, and git diff --numstat origin/main...HEAD all report 68 lines. The full five-file production scope, TAP wrapper, exact command alignment, syntax, static recordability, AC1-AC3, plan, handoff, and delivery evidence remain clean. Canonical verification and merge are not claimed.",
         "value": "pass",
-        "createdAt": "2026-07-20T01:14:41.748Z",
-        "updatedAt": "2026-07-20T01:14:41.748Z",
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "updatedAt": "2026-07-20T01:24:32.705Z",
         "impactLevel": "medium",
         "verificationPolicyId": "policy:workflow.critique.review",
         "metadata": {
@@ -1723,8 +1852,8 @@
         "claimType": "workflow.critique.review",
         "fieldOrBehavior": "At HEAD 23b7e3c the corrected final delivery evidence matches the 68-line README and the complete five-file, four-commit scope. Documentation, five public version fields, strict TAP wrapper behavior, exact trust-command alignment, syntax, static recordability, AC1-AC3, plan, handoff, delivery evidence, and the local reconciliation gate pass review. Canonical verification and merge are not claimed.",
         "value": "pass",
-        "createdAt": "2026-07-20T01:14:41.748Z",
-        "updatedAt": "2026-07-20T01:14:41.748Z",
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "updatedAt": "2026-07-20T01:24:32.705Z",
         "impactLevel": "medium",
         "verificationPolicyId": "policy:workflow.critique.review",
         "metadata": {
@@ -1827,8 +1956,8 @@
         "claimType": "workflow.critique.review",
         "fieldOrBehavior": "At HEAD 23b7e3c the corrected final delivery evidence matches the 68-line README and the complete five-file, four-commit scope. Documentation, five public version fields, strict TAP wrapper behavior, exact trust-command alignment, syntax, static recordability, AC1-AC3, plan, handoff, delivery evidence, and the local reconciliation gate pass review. Canonical verification and merge are not claimed.",
         "value": "pass",
-        "createdAt": "2026-07-20T01:14:41.748Z",
-        "updatedAt": "2026-07-20T01:14:41.748Z",
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "updatedAt": "2026-07-20T01:24:32.705Z",
         "impactLevel": "medium",
         "verificationPolicyId": "policy:workflow.critique.review",
         "metadata": {
@@ -1931,8 +2060,8 @@
         "claimType": "workflow.critique.review",
         "fieldOrBehavior": "At HEAD 23b7e3c the corrected final delivery evidence matches the 68-line README and the complete five-file, four-commit scope. Documentation, five public version fields, strict TAP wrapper behavior, exact trust-command alignment, syntax, static recordability, AC1-AC3, plan, handoff, delivery evidence, and the local reconciliation gate pass review. Canonical verification and merge are not claimed.",
         "value": "pass",
-        "createdAt": "2026-07-20T01:14:41.748Z",
-        "updatedAt": "2026-07-20T01:14:41.748Z",
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "updatedAt": "2026-07-20T01:24:32.705Z",
         "impactLevel": "medium",
         "verificationPolicyId": "policy:workflow.critique.review",
         "metadata": {
@@ -2035,8 +2164,8 @@
         "claimType": "workflow.critique.review",
         "fieldOrBehavior": "At HEAD 23b7e3c the corrected final delivery evidence matches the 68-line README and the complete five-file, four-commit scope. Documentation, five public version fields, strict TAP wrapper behavior, exact trust-command alignment, syntax, static recordability, AC1-AC3, plan, handoff, delivery evidence, and the local reconciliation gate pass review. Canonical verification and merge are not claimed.",
         "value": "pass",
-        "createdAt": "2026-07-20T01:14:41.748Z",
-        "updatedAt": "2026-07-20T01:14:41.748Z",
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "updatedAt": "2026-07-20T01:24:32.705Z",
         "impactLevel": "medium",
         "verificationPolicyId": "policy:workflow.critique.review",
         "metadata": {
@@ -2140,7 +2269,7 @@
         "method": "corroboration",
         "sourceRef": "kontourai-kontourai-io-197/evidence.json",
         "excerptOrSummary": "Work Item kontourai/kontourai.io#197 is durably assigned to the active workflow actor (assignment sha256:78348df5da3129e6461c229c87833fc77d0a958b520c4085986ad84d790b88f5).",
-        "observedAt": "2026-07-20T01:14:41.748Z",
+        "observedAt": "2026-07-20T01:24:32.705Z",
         "collectedBy": "flow-agents/workflow-sidecar",
         "passing": true
       },
@@ -2151,7 +2280,7 @@
         "method": "corroboration",
         "sourceRef": "kontourai-kontourai-io-197/evidence.json",
         "excerptOrSummary": "Pickup probe records goal fit, scope, dependencies, risks, revision freshness, assignment, and planning readiness.",
-        "observedAt": "2026-07-20T01:14:41.748Z",
+        "observedAt": "2026-07-20T01:24:32.705Z",
         "collectedBy": "flow-agents/workflow-sidecar",
         "passing": true
       },
@@ -2162,7 +2291,7 @@
         "method": "corroboration",
         "sourceRef": "kontourai-kontourai-io-197/evidence.json",
         "excerptOrSummary": "Probe decisions, non-goals, unresolved questions, accepted gaps, route reason, and next action are explicit.",
-        "observedAt": "2026-07-20T01:14:41.748Z",
+        "observedAt": "2026-07-20T01:24:32.705Z",
         "collectedBy": "flow-agents/workflow-sidecar",
         "passing": true
       },
@@ -2173,7 +2302,7 @@
         "method": "corroboration",
         "sourceRef": "kontourai-kontourai-io-197/evidence.json",
         "excerptOrSummary": "Implementation plan records the bounded post-implementation sequence, stable acceptance criteria, evidence commands, rollback boundary, and stop-short risks.",
-        "observedAt": "2026-07-20T01:14:41.748Z",
+        "observedAt": "2026-07-20T01:24:32.705Z",
         "collectedBy": "flow-agents/workflow-sidecar",
         "passing": true
       },
@@ -2184,7 +2313,7 @@
         "method": "corroboration",
         "sourceRef": "kontourai-kontourai-io-197/evidence.json",
         "excerptOrSummary": "Committed route-back 23b7e3c emits one observable TAP result only after the real generated-page assertion succeeds; build, validation, manifest, workflow, and acceptance behavior are unchanged.",
-        "observedAt": "2026-07-20T01:14:41.748Z",
+        "observedAt": "2026-07-20T01:24:32.705Z",
         "collectedBy": "flow-agents/workflow-sidecar",
         "passing": true
       },
@@ -2195,7 +2324,7 @@
         "method": "validation",
         "sourceRef": "kontourai-kontourai-io-197/evidence.json",
         "excerptOrSummary": "Final named site verification passes at 23b7e3c with one statically backed observed assertion; independent verification also records 63 passing rendered Playwright tests.",
-        "observedAt": "2026-07-20T01:14:41.748Z",
+        "observedAt": "2026-07-20T01:24:32.705Z",
         "collectedBy": "flow-agents/workflow-sidecar",
         "passing": true,
         "execution": {
@@ -2211,7 +2340,7 @@
         "method": "corroboration",
         "sourceRef": "kontourai-kontourai-io-197/evidence.json",
         "excerptOrSummary": "Local evidence supports merge review at 23b7e3c: exact five-file scope, AC1-AC3 pass, five current clean critiques, 63 rendered tests, and local trust reconciliation exit 0; provider CI remains required after publication and push, with no merge authorization.",
-        "observedAt": "2026-07-20T01:14:41.748Z",
+        "observedAt": "2026-07-20T01:24:32.705Z",
         "collectedBy": "flow-agents/workflow-sidecar",
         "passing": true
       },
@@ -2222,7 +2351,40 @@
         "method": "corroboration",
         "sourceRef": "kontourai-kontourai-io-197/evidence.json",
         "excerptOrSummary": "Verified branch head 23b7e3c is pushed to the existing open PR #197; the PR body is current, provider checks are queued, and no merge or deployment occurred.",
-        "observedAt": "2026-07-20T01:14:41.748Z",
+        "observedAt": "2026-07-20T01:24:32.705Z",
+        "collectedBy": "flow-agents/workflow-sidecar",
+        "passing": true
+      },
+      {
+        "id": "ev:kontourai-kontourai-io-197-gate-claim-ci-merge-readiness.flow-agents-workflow.hold-the-sealed-delivery-bundle-is-pushed-at-757bd10-and-locally-reconciles-cleanly-but-build-test-validate-and-trust-verify-remain-queued-during-github-actions-incident-8vfyvq16hzh9-provider-ci-cannot-yet-support-merge-readiness-and-no-merge-release-deploy-authorization-exists-gate-visit-2026-07-20t01-23-44-363z",
+        "claimId": "kontourai-kontourai-io-197-gate-claim-ci-merge-readiness.flow-agents-workflow.hold-the-sealed-delivery-bundle-is-pushed-at-757bd10-and-locally-reconciles-cleanly-but-build-test-validate-and-trust-verify-remain-queued-during-github-actions-incident-8vfyvq16hzh9-provider-ci-cannot-yet-support-merge-readiness-and-no-merge-release-deploy-authorization-exists-gate-visit-2026-07-20t01-23-44-363z",
+        "evidenceType": "attestation",
+        "method": "corroboration",
+        "sourceRef": "kontourai-kontourai-io-197/evidence.json",
+        "excerptOrSummary": "HOLD: the sealed delivery bundle is pushed at 757bd10 and locally reconciles cleanly, but Build, Test & Validate and Trust Verify remain queued during GitHub Actions incident 8vfyvq16hzh9; provider CI cannot yet support merge readiness, and no merge/release/deploy authorization exists.",
+        "observedAt": "2026-07-20T01:24:32.705Z",
+        "collectedBy": "flow-agents/workflow-sidecar",
+        "passing": false
+      },
+      {
+        "id": "ev:kontourai-kontourai-io-197-gate-claim-decision-evidence.flow-agents-workflow.delivery-decisions-are-explicit-no-declared-exemption-one-recordable-non-weakening-trust-verify-command-and-hold-not-verified-during-the-github-actions-outage-gate-visit-2026-07-20t01-24-32-066z",
+        "claimId": "kontourai-kontourai-io-197-gate-claim-decision-evidence.flow-agents-workflow.delivery-decisions-are-explicit-no-declared-exemption-one-recordable-non-weakening-trust-verify-command-and-hold-not-verified-during-the-github-actions-outage-gate-visit-2026-07-20t01-24-32-066z",
+        "evidenceType": "attestation",
+        "method": "corroboration",
+        "sourceRef": "kontourai-kontourai-io-197/evidence.json",
+        "excerptOrSummary": "Delivery decisions are explicit: no DECLARED exemption, one recordable non-weakening Trust Verify command, and HOLD / NOT_VERIFIED during the GitHub Actions outage.",
+        "observedAt": "2026-07-20T01:24:32.705Z",
+        "collectedBy": "flow-agents/workflow-sidecar",
+        "passing": true
+      },
+      {
+        "id": "ev:kontourai-kontourai-io-197-gate-claim-learning-evidence.flow-agents-workflow.observed-outcomes-the-resolved-command-recordability-correction-and-the-open-provider-outage-follow-up-are-recorded-without-inferring-ci-merge-release-or-deployment-success-gate-visit-2026-07-20t01-24-32-705z",
+        "claimId": "kontourai-kontourai-io-197-gate-claim-learning-evidence.flow-agents-workflow.observed-outcomes-the-resolved-command-recordability-correction-and-the-open-provider-outage-follow-up-are-recorded-without-inferring-ci-merge-release-or-deployment-success-gate-visit-2026-07-20t01-24-32-705z",
+        "evidenceType": "attestation",
+        "method": "corroboration",
+        "sourceRef": "kontourai-kontourai-io-197/evidence.json",
+        "excerptOrSummary": "Observed outcomes, the resolved command-recordability correction, and the open provider-outage follow-up are recorded without inferring CI, merge, release, or deployment success.",
+        "observedAt": "2026-07-20T01:24:32.705Z",
         "collectedBy": "flow-agents/workflow-sidecar",
         "passing": true
       }
@@ -2399,6 +2561,57 @@
         "impactLevel": "high"
       },
       {
+        "id": "policy:builder.merge-ready-ci.readiness:attestation",
+        "claimType": "builder.merge-ready-ci.readiness",
+        "requiredEvidence": [
+          "attestation"
+        ],
+        "acceptanceCriteria": [
+          "A verified verification event must support a builder.merge-ready-ci.readiness claim."
+        ],
+        "reviewAuthority": "system",
+        "validityRule": {
+          "kind": "manual"
+        },
+        "stalenessTriggers": [],
+        "conflictRules": [],
+        "impactLevel": "high"
+      },
+      {
+        "id": "policy:builder.learn.decisions:attestation",
+        "claimType": "builder.learn.decisions",
+        "requiredEvidence": [
+          "attestation"
+        ],
+        "acceptanceCriteria": [
+          "A verified verification event must support a builder.learn.decisions claim."
+        ],
+        "reviewAuthority": "system",
+        "validityRule": {
+          "kind": "manual"
+        },
+        "stalenessTriggers": [],
+        "conflictRules": [],
+        "impactLevel": "high"
+      },
+      {
+        "id": "policy:builder.learn.evidence:attestation",
+        "claimType": "builder.learn.evidence",
+        "requiredEvidence": [
+          "attestation"
+        ],
+        "acceptanceCriteria": [
+          "A verified verification event must support a builder.learn.evidence claim."
+        ],
+        "reviewAuthority": "system",
+        "validityRule": {
+          "kind": "manual"
+        },
+        "stalenessTriggers": [],
+        "conflictRules": [],
+        "impactLevel": "high"
+      },
+      {
         "id": "policy:workflow.acceptance.criterion",
         "claimType": "workflow.acceptance.criterion",
         "requiredEvidence": [],
@@ -2414,11 +2627,11 @@
         "impactLevel": "high"
       },
       {
-        "id": "policy:builder.pr-open.pull-request",
-        "claimType": "builder.pr-open.pull-request",
+        "id": "policy:builder.learn.decisions",
+        "claimType": "builder.learn.decisions",
         "requiredEvidence": [],
         "acceptanceCriteria": [
-          "A verified verification event must support a builder.pr-open.pull-request claim."
+          "A verified verification event must support a builder.learn.decisions claim."
         ],
         "reviewAuthority": "system",
         "validityRule": {
@@ -2454,8 +2667,8 @@
         "evidenceIds": [
           "ev:kontourai-kontourai-io-197-gate-claim-selected-work.flow-agents-workflow.work-item-kontourai-kontourai-io-197-is-durably-assigned-to-the-active-workflow-actor-assignment-sha256-78348df5da3129e6461c229c87833fc77d0a958b520c4085986ad84d790b88f5-gate-visit-2026-07-19t23-53-12z"
         ],
-        "createdAt": "2026-07-20T01:14:41.748Z",
-        "verifiedAt": "2026-07-20T01:14:41.748Z"
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "verifiedAt": "2026-07-20T01:24:32.705Z"
       },
       {
         "id": "evt:kontourai-kontourai-io-197-gate-claim-pickup-probe-readiness.flow-agents-workflow.pickup-probe-records-goal-fit-scope-dependencies-risks-revision-freshness-assignment-and-planning-readiness-gate-visit-2026-07-19t23-54-19-896z",
@@ -2466,8 +2679,8 @@
         "evidenceIds": [
           "ev:kontourai-kontourai-io-197-gate-claim-pickup-probe-readiness.flow-agents-workflow.pickup-probe-records-goal-fit-scope-dependencies-risks-revision-freshness-assignment-and-planning-readiness-gate-visit-2026-07-19t23-54-19-896z"
         ],
-        "createdAt": "2026-07-20T01:14:41.748Z",
-        "verifiedAt": "2026-07-20T01:14:41.748Z"
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "verifiedAt": "2026-07-20T01:24:32.705Z"
       },
       {
         "id": "evt:kontourai-kontourai-io-197-gate-claim-probe-decisions-or-accepted-gaps.flow-agents-workflow.probe-decisions-non-goals-unresolved-questions-accepted-gaps-route-reason-and-next-action-are-explicit-gate-visit-2026-07-19t23-54-26-291z",
@@ -2478,8 +2691,8 @@
         "evidenceIds": [
           "ev:kontourai-kontourai-io-197-gate-claim-probe-decisions-or-accepted-gaps.flow-agents-workflow.probe-decisions-non-goals-unresolved-questions-accepted-gaps-route-reason-and-next-action-are-explicit-gate-visit-2026-07-19t23-54-26-291z"
         ],
-        "createdAt": "2026-07-20T01:14:41.748Z",
-        "verifiedAt": "2026-07-20T01:14:41.748Z"
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "verifiedAt": "2026-07-20T01:24:32.705Z"
       },
       {
         "id": "evt:kontourai-kontourai-io-197-gate-claim-implementation-plan.flow-agents-workflow.implementation-plan-records-the-bounded-post-implementation-sequence-stable-acceptance-criteria-evidence-commands-rollback-boundary-and-stop-short-risks-gate-visit-2026-07-20t00-01-40-999z",
@@ -2490,8 +2703,8 @@
         "evidenceIds": [
           "ev:kontourai-kontourai-io-197-gate-claim-implementation-plan.flow-agents-workflow.implementation-plan-records-the-bounded-post-implementation-sequence-stable-acceptance-criteria-evidence-commands-rollback-boundary-and-stop-short-risks-gate-visit-2026-07-20t00-01-40-999z"
         ],
-        "createdAt": "2026-07-20T01:14:41.748Z",
-        "verifiedAt": "2026-07-20T01:14:41.748Z"
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "verifiedAt": "2026-07-20T01:24:32.705Z"
       },
       {
         "id": "evt:kontourai-kontourai-io-197-gate-claim-implementation-scope.flow-agents-workflow.committed-route-back-23b7e3c-emits-one-observable-tap-result-only-after-the-real-generated-page-assertion-succeeds-build-validation-manifest-workflow-and-acceptance-behavior-are-unchanged-gate-visit-2026-07-20t01-01-05-800z",
@@ -2502,8 +2715,8 @@
         "evidenceIds": [
           "ev:kontourai-kontourai-io-197-gate-claim-implementation-scope.flow-agents-workflow.committed-route-back-23b7e3c-emits-one-observable-tap-result-only-after-the-real-generated-page-assertion-succeeds-build-validation-manifest-workflow-and-acceptance-behavior-are-unchanged-gate-visit-2026-07-20t01-01-05-800z"
         ],
-        "createdAt": "2026-07-20T01:14:41.748Z",
-        "verifiedAt": "2026-07-20T01:14:41.748Z"
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "verifiedAt": "2026-07-20T01:24:32.705Z"
       },
       {
         "id": "evt:kontourai-kontourai-io-197-gate-claim-tests-evidence.flow-agents-workflow.final-named-site-verification-passes-at-23b7e3c-with-one-statically-backed-observed-assertion-independent-verification-also-records-63-passing-rendered-playwright-tests-gate-visit-2026-07-20t01-11-36-623z",
@@ -2514,8 +2727,8 @@
         "evidenceIds": [
           "ev:kontourai-kontourai-io-197-gate-claim-tests-evidence.flow-agents-workflow.final-named-site-verification-passes-at-23b7e3c-with-one-statically-backed-observed-assertion-independent-verification-also-records-63-passing-rendered-playwright-tests-gate-visit-2026-07-20t01-11-36-623z"
         ],
-        "createdAt": "2026-07-20T01:14:41.748Z",
-        "verifiedAt": "2026-07-20T01:14:41.748Z"
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "verifiedAt": "2026-07-20T01:24:32.705Z"
       },
       {
         "id": "evt:kontourai-kontourai-io-197-gate-claim-merge-readiness.flow-agents-workflow.local-evidence-supports-merge-review-at-23b7e3c-exact-five-file-scope-ac1-ac3-pass-five-current-clean-critiques-63-rendered-tests-and-local-trust-reconciliation-exit-0-provider-ci-remains-required-after-publication-and-push-with-no-merge-authorization-gate-visit-2026-07-20t01-12-41-056z",
@@ -2526,8 +2739,8 @@
         "evidenceIds": [
           "ev:kontourai-kontourai-io-197-gate-claim-merge-readiness.flow-agents-workflow.local-evidence-supports-merge-review-at-23b7e3c-exact-five-file-scope-ac1-ac3-pass-five-current-clean-critiques-63-rendered-tests-and-local-trust-reconciliation-exit-0-provider-ci-remains-required-after-publication-and-push-with-no-merge-authorization-gate-visit-2026-07-20t01-12-41-056z"
         ],
-        "createdAt": "2026-07-20T01:14:41.748Z",
-        "verifiedAt": "2026-07-20T01:14:41.748Z"
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "verifiedAt": "2026-07-20T01:24:32.705Z"
       },
       {
         "id": "evt:kontourai-kontourai-io-197-gate-claim-pull-request-opened.flow-agents-workflow.verified-branch-head-23b7e3c-is-pushed-to-the-existing-open-pr-197-the-pr-body-is-current-provider-checks-are-queued-and-no-merge-or-deployment-occurred-gate-visit-2026-07-20t01-14-41-748z",
@@ -2538,8 +2751,32 @@
         "evidenceIds": [
           "ev:kontourai-kontourai-io-197-gate-claim-pull-request-opened.flow-agents-workflow.verified-branch-head-23b7e3c-is-pushed-to-the-existing-open-pr-197-the-pr-body-is-current-provider-checks-are-queued-and-no-merge-or-deployment-occurred-gate-visit-2026-07-20t01-14-41-748z"
         ],
-        "createdAt": "2026-07-20T01:14:41.748Z",
-        "verifiedAt": "2026-07-20T01:14:41.748Z"
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "verifiedAt": "2026-07-20T01:24:32.705Z"
+      },
+      {
+        "id": "evt:kontourai-kontourai-io-197-gate-claim-decision-evidence.flow-agents-workflow.delivery-decisions-are-explicit-no-declared-exemption-one-recordable-non-weakening-trust-verify-command-and-hold-not-verified-during-the-github-actions-outage-gate-visit-2026-07-20t01-24-32-066z",
+        "claimId": "kontourai-kontourai-io-197-gate-claim-decision-evidence.flow-agents-workflow.delivery-decisions-are-explicit-no-declared-exemption-one-recordable-non-weakening-trust-verify-command-and-hold-not-verified-during-the-github-actions-outage-gate-visit-2026-07-20t01-24-32-066z",
+        "status": "verified",
+        "actor": "flow-agents/workflow-sidecar",
+        "method": "validation",
+        "evidenceIds": [
+          "ev:kontourai-kontourai-io-197-gate-claim-decision-evidence.flow-agents-workflow.delivery-decisions-are-explicit-no-declared-exemption-one-recordable-non-weakening-trust-verify-command-and-hold-not-verified-during-the-github-actions-outage-gate-visit-2026-07-20t01-24-32-066z"
+        ],
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "verifiedAt": "2026-07-20T01:24:32.705Z"
+      },
+      {
+        "id": "evt:kontourai-kontourai-io-197-gate-claim-learning-evidence.flow-agents-workflow.observed-outcomes-the-resolved-command-recordability-correction-and-the-open-provider-outage-follow-up-are-recorded-without-inferring-ci-merge-release-or-deployment-success-gate-visit-2026-07-20t01-24-32-705z",
+        "claimId": "kontourai-kontourai-io-197-gate-claim-learning-evidence.flow-agents-workflow.observed-outcomes-the-resolved-command-recordability-correction-and-the-open-provider-outage-follow-up-are-recorded-without-inferring-ci-merge-release-or-deployment-success-gate-visit-2026-07-20t01-24-32-705z",
+        "status": "verified",
+        "actor": "flow-agents/workflow-sidecar",
+        "method": "validation",
+        "evidenceIds": [
+          "ev:kontourai-kontourai-io-197-gate-claim-learning-evidence.flow-agents-workflow.observed-outcomes-the-resolved-command-recordability-correction-and-the-open-provider-outage-follow-up-are-recorded-without-inferring-ci-merge-release-or-deployment-success-gate-visit-2026-07-20t01-24-32-705z"
+        ],
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "verifiedAt": "2026-07-20T01:24:32.705Z"
       },
       {
         "id": "evt:kontourai-kontourai-io-197-ac1.flow-agents-workflow.the-root-readme-accurately-explains-repository-role-source-layout-local-commands-and-authority-and-content-boundaries-with-valid-referenced-paths-verified-2026-07-20t01-11-36-623z",
@@ -2548,8 +2785,8 @@
         "actor": "flow-agents/workflow-sidecar",
         "method": "validation",
         "evidenceIds": [],
-        "createdAt": "2026-07-20T01:14:41.748Z",
-        "verifiedAt": "2026-07-20T01:14:41.748Z"
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "verifiedAt": "2026-07-20T01:24:32.705Z"
       },
       {
         "id": "evt:kontourai-kontourai-io-197-ac2.flow-agents-workflow.the-readme-satisfies-the-public-repository-content-boundary-verified-2026-07-20t01-11-36-623z",
@@ -2558,8 +2795,8 @@
         "actor": "flow-agents/workflow-sidecar",
         "method": "validation",
         "evidenceIds": [],
-        "createdAt": "2026-07-20T01:14:41.748Z",
-        "verifiedAt": "2026-07-20T01:14:41.748Z"
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "verifiedAt": "2026-07-20T01:24:32.705Z"
       },
       {
         "id": "evt:kontourai-kontourai-io-197-ac3.flow-agents-workflow.a-named-statically-reviewable-site-verification-command-preserves-the-repository-s-build-and-validation-contract-is-used-consistently-by-the-package-trust-manifest-and-trust-verify-workflow-and-passes-for-the-pr-scope-verified-2026-07-20t01-11-36-623z",
@@ -2568,8 +2805,8 @@
         "actor": "flow-agents/workflow-sidecar",
         "method": "validation",
         "evidenceIds": [],
-        "createdAt": "2026-07-20T01:14:41.748Z",
-        "verifiedAt": "2026-07-20T01:14:41.748Z"
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "verifiedAt": "2026-07-20T01:24:32.705Z"
       },
       {
         "id": "evt:kontourai-kontourai-io-197-final-scope-r4.flow-agents-workflow.the-r4-readme-line-count-finding-is-resolved-at-head-23b7e3c-delivery-line-203-wc-l-readme-md-and-git-diff-numstat-origin-main-head-all-report-68-lines-the-full-five-file-production-scope-tap-wrapper-exact-command-alignment-syntax-static-recordability-ac1-ac3-plan-handoff-and-delivery-evidence-remain-clean-canonical-verification-and-merge-are-not-claimed-reviewed-2026-07-20t01-06-47-183z",
@@ -2578,8 +2815,8 @@
         "actor": "flow-agents/workflow-sidecar",
         "method": "validation",
         "evidenceIds": [],
-        "createdAt": "2026-07-20T01:14:41.748Z",
-        "verifiedAt": "2026-07-20T01:14:41.748Z"
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "verifiedAt": "2026-07-20T01:24:32.705Z"
       },
       {
         "id": "evt:kontourai-kontourai-io-197-review.flow-agents-workflow.at-head-23b7e3c-the-corrected-final-delivery-evidence-matches-the-68-line-readme-and-the-complete-five-file-four-commit-scope-documentation-five-public-version-fields-strict-tap-wrapper-behavior-exact-trust-command-alignment-syntax-static-recordability-ac1-ac3-plan-handoff-delivery-evidence-and-the-local-reconciliation-gate-pass-review-canonical-verification-and-merge-are-not-claimed-reviewed-2026-07-20t01-07-10-781z",
@@ -2588,8 +2825,8 @@
         "actor": "flow-agents/workflow-sidecar",
         "method": "validation",
         "evidenceIds": [],
-        "createdAt": "2026-07-20T01:14:41.748Z",
-        "verifiedAt": "2026-07-20T01:14:41.748Z"
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "verifiedAt": "2026-07-20T01:24:32.705Z"
       },
       {
         "id": "evt:kontourai-kontourai-io-197-review.flow-agents-workflow.at-head-23b7e3c-the-corrected-final-delivery-evidence-matches-the-68-line-readme-and-the-complete-five-file-four-commit-scope-documentation-five-public-version-fields-strict-tap-wrapper-behavior-exact-trust-command-alignment-syntax-static-recordability-ac1-ac3-plan-handoff-delivery-evidence-and-the-local-reconciliation-gate-pass-review-canonical-verification-and-merge-are-not-claimed-reviewed-2026-07-20t01-07-11-258z",
@@ -2598,8 +2835,8 @@
         "actor": "flow-agents/workflow-sidecar",
         "method": "validation",
         "evidenceIds": [],
-        "createdAt": "2026-07-20T01:14:41.748Z",
-        "verifiedAt": "2026-07-20T01:14:41.748Z"
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "verifiedAt": "2026-07-20T01:24:32.705Z"
       },
       {
         "id": "evt:kontourai-kontourai-io-197-review.flow-agents-workflow.at-head-23b7e3c-the-corrected-final-delivery-evidence-matches-the-68-line-readme-and-the-complete-five-file-four-commit-scope-documentation-five-public-version-fields-strict-tap-wrapper-behavior-exact-trust-command-alignment-syntax-static-recordability-ac1-ac3-plan-handoff-delivery-evidence-and-the-local-reconciliation-gate-pass-review-canonical-verification-and-merge-are-not-claimed-reviewed-2026-07-20t01-07-11-666z",
@@ -2608,8 +2845,8 @@
         "actor": "flow-agents/workflow-sidecar",
         "method": "validation",
         "evidenceIds": [],
-        "createdAt": "2026-07-20T01:14:41.748Z",
-        "verifiedAt": "2026-07-20T01:14:41.748Z"
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "verifiedAt": "2026-07-20T01:24:32.705Z"
       },
       {
         "id": "evt:kontourai-kontourai-io-197-final-scope-r4.flow-agents-workflow.at-head-23b7e3c-the-corrected-final-delivery-evidence-matches-the-68-line-readme-and-the-complete-five-file-four-commit-scope-documentation-five-public-version-fields-strict-tap-wrapper-behavior-exact-trust-command-alignment-syntax-static-recordability-ac1-ac3-plan-handoff-delivery-evidence-and-the-local-reconciliation-gate-pass-review-canonical-verification-and-merge-are-not-claimed-reviewed-2026-07-20t01-07-12-053z",
@@ -2618,8 +2855,8 @@
         "actor": "flow-agents/workflow-sidecar",
         "method": "validation",
         "evidenceIds": [],
-        "createdAt": "2026-07-20T01:14:41.748Z",
-        "verifiedAt": "2026-07-20T01:14:41.748Z"
+        "createdAt": "2026-07-20T01:24:32.705Z",
+        "verifiedAt": "2026-07-20T01:24:32.705Z"
       }
     ]
   }
