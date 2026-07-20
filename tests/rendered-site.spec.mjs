@@ -303,7 +303,7 @@ test("surface page presents inspectable claims and trust vocabulary", async ({ p
   // #164 enrichment: agent tooling, waiver validity, customer-facing surfaces,
   // and the conformance suite — all shipped capabilities the page omitted.
   await expect(page.getByRole("heading", { name: "Agent-queryable (MCP)" })).toBeVisible();
-  await expect(page.getByText("npx surface mcp")).toBeVisible();
+  await expect(page.getByText("npx @kontourai/surface mcp")).toBeVisible();
   await expect(page.getByRole("heading", { name: "Waiver validity" })).toBeVisible();
   await expect(page.locator(".label-sm").filter({ hasText: "Show it to your users" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Trust Panel embed" })).toBeVisible();
