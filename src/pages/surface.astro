@@ -6,6 +6,7 @@ import Terminal from '@/components/Terminal.astro';
 import Section from '@/components/Section.astro';
 import Glow from '@/components/Glow.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
+import PlatformContext from '@/components/PlatformContext.astro';
 import Card from '@/components/Card.astro';
 import Grid from '@/components/Grid.astro';
 import Split from '@/components/Split.astro';
@@ -82,6 +83,7 @@ const moreThanStatus: { title: string; body: string; accent: Accent }[] = [
     <div class="container">
       <Split ratio="1-1" gap="lg" align="start">
         <div>
+          <PlatformContext />
           <div class="hero-badges">
             <span class="trust-badge trust-badge--verified">{productBadge(surfaceStatus)}</span>
             <span class="install-hint">npm install -D @kontourai/surface</span>

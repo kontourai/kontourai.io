@@ -15,7 +15,8 @@ interface Props {
   teaser?: boolean;
 }
 const { active, teaser } = Astro.props;
-const disciplineActive = disciplines.some(({ key }) => active === key);
+const developersMenuActive =
+  active === 'developers' || disciplines.some(({ key }) => active === key);
 const hideProducts = teaser || active === 'home';
 ---
 
@@ -63,16 +64,23 @@ const hideProducts = teaser || active === 'home';
 
             <div class="nav__divider"></div>
 
-            {/* The five disciplines collapse into one dropdown: eleven
-               top-level links overflowed every desktop width (clipping the
-               tail of the nav), and the single-story IA wants the engine and
-               kits carrying the row anyway. <details> keeps it JS-free under
-               the strict CSP and keyboard/AT-accessible. */}
+            {/* The platform components live under Developers: the top-level
+               row carries the cohesive product (engine + kits), and the
+               parts stay one click away for people who want to dig in.
+               <details> keeps it JS-free under the strict CSP and
+               keyboard/AT-accessible. */}
             <details class="nav-dropdown">
-              <summary class:list={["nav-link", "nav-dropdown__summary", { "nav-dropdown__summary--active": disciplineActive }]} data-umami-event="nav-products">
-                Products<span class="nav-dropdown__caret" aria-hidden="true">▾</span>
+              <summary class:list={["nav-link", "nav-dropdown__summary", { "nav-dropdown__summary--active": developersMenuActive }]} data-umami-event="nav-developers-menu">
+                Developers<span class="nav-dropdown__caret" aria-hidden="true">▾</span>
               </summary>
               <div class="nav-dropdown__panel">
+                <a
+                  href="/developers/"
+                  class="nav-link nav-dropdown__item"
+                  aria-current={active === 'developers' ? 'page' : undefined}
+                  data-umami-event="nav-developers"
+                >Overview</a>
+                <span class="nav-dropdown__group" aria-hidden="true">Under the hood</span>
                 {disciplines.map(({ href, label, key, accent }) => (
                   <a
                     href={href}
@@ -89,7 +97,7 @@ const hideProducts = teaser || active === 'home';
           </>
         )}
 
-        {(!hideProducts || active === 'home') && (
+        {hideProducts && active === 'home' && (
           <a
             href="/developers/"
             class="nav-link"
@@ -269,6 +277,18 @@ const hideProducts = teaser || active === 'home';
   }
 
   .nav-dropdown__item {
+    white-space: nowrap;
+  }
+
+  /* Group label separating the overview link from the component pages. */
+  .nav-dropdown__group {
+    margin: 0.35rem 0.6rem 0.1rem;
+    padding-top: 0.45rem;
+    border-top: 1px solid var(--color-edge);
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-chalk-3);
     white-space: nowrap;
   }
 

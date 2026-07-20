@@ -47,7 +47,7 @@
     {
       "page": "src/pages/veritas.astro",
       "products": {
-        "veritas": "1.5.1"
+        "veritas": "1.5.2"
       },
       "reviewedDate": "2026-07-20"
     },

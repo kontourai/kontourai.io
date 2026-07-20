@@ -513,8 +513,14 @@ test("developers page leads with the engine and kits, states ownership once", as
   await page.setViewportSize({ width: 1440, height: 1100 });
   await page.goto("/developers/");
 
-  await expect(page.locator('[data-umami-event="nav-developers"]')).toBeVisible();
+  // The Developers entry is now the dropdown that also holds the platform
+  // components; on this page the summary carries the active state and the
+  // Overview item inside is the current page.
+  await expect(page.locator(".nav-dropdown__summary")).toBeVisible();
+  await expect(page.locator(".nav-dropdown__summary")).toHaveClass(/nav-dropdown__summary--active/);
+  await page.locator(".nav-dropdown__summary").click();
   await expect(page.locator('[data-umami-event="nav-developers"]')).toHaveAttribute("aria-current", "page");
+  await page.locator(".nav-dropdown__summary").click();
   await expect(page.getByRole("heading", { name: "Kontour for developers" })).toBeVisible();
 
   // Single-story restructure: engine+kits lead; the six-product tour, the

@@ -44,12 +44,12 @@
       "key": "veritas",
       "label": "Veritas",
       "packageName": "@kontourai/veritas",
-      "version": "1.5.1",
+      "version": "1.5.2",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/veritas",
       "publicNotes": "",
       "marketingReviewed": {
-        "version": "1.5.1",
+        "version": "1.5.2",
         "date": "2026-07-20"
       }
     },

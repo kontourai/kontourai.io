@@ -155,14 +155,16 @@ const labRepos = [
       <h1 class="product-title animate-fade-up">Kontour for developers</h1>
       <p class="product-tagline animate-fade-up delay-100" data-accent="gold">install the engine, add a kit, keep the receipts</p>
       <p class="hero-copy hero-copy--wide animate-fade-up delay-200">
-        One engine — <a href="/flow-agents/">Flow Agents</a> — installs into
-        the coding agent you already run and gates its work on evidence
-        instead of promises. Kits are the workflows you install on top:
-        Builder for delivery, Knowledge for durable memory, plus agentless
-        kits that run with no agent at all. Everything the engine gates
-        comes out the other side as a recomputable trust receipt. The rest of
-        the product line supplies the disciplines the engine wires in — and
-        each piece stays independently adoptable when you want it alone.
+        Kontour is one product: an engine — <a href="/flow-agents/">Flow
+        Agents</a> — that installs into the coding agent you already run and
+        gates its work on evidence instead of promises. Kits are the
+        workflows you install on top: Builder for delivery, Knowledge for
+        durable memory, plus agentless kits that run with no agent at all.
+        Everything the engine gates comes out the other side as a
+        recomputable trust receipt. Under the hood, that machinery is a set
+        of focused components the engine wires in for you — you don't need
+        to learn them to use Kontour, and each stays independently adoptable
+        when you want one alone.
       </p>
       <div class="hero-actions animate-fade-up delay-300">
         <a href="#quickstart" class="btn-primary" data-umami-event="developers-hero-quickstart">Install the engine →</a>
@@ -237,11 +239,13 @@ const labRepos = [
   <!-- The one ownership artifact: the disciplines the engine wires in ------ -->
   <Section id="ownership" size="lg">
     <div class="container">
-      <Eyebrow gap="sm">How it composes</Eyebrow>
-      <h2 class="display-md measure-lg">The disciplines the engine wires in.</h2>
+      <Eyebrow gap="sm">Under the hood</Eyebrow>
+      <h2 class="display-md measure-lg">The components the engine wires in.</h2>
       <p class="fine measure ownership-note">
-        Each product owns one layer and stays independently adoptable.
-        Composition is intentionally one-way: tools and workflows consume
+        None of this is required reading — <code>init</code> assembles these
+        for you. This map is for auditing the proof chain, or adopting a
+        single component on its own. Each one owns one layer, and
+        composition is intentionally one-way: tools and workflows consume
         trust and process evidence, but the evidence substrate never depends
         on a specific agent, workflow, or application.
       </p>
