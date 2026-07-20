@@ -19,7 +19,7 @@
       "asset": "public/screenshots/survey-workbench.png",
       "page": "src/pages/survey.astro",
       "product": "survey",
-      "capturedAgainstVersion": "1.17.0",
+      "capturedAgainstVersion": "1.18.0",
       "capturedAt": "2026-07-20"
     },
     {

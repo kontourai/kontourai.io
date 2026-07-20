@@ -33,14 +33,14 @@
       "page": "src/pages/index.astro",
       "products": {
         "flow-agents": "4.2.1",
-        "survey": "1.17.0"
+        "survey": "1.18.0"
       },
       "reviewedDate": "2026-07-20"
     },
     {
       "page": "src/pages/surface.astro",
       "products": {
-        "surface": "2.12.0"
+        "surface": "2.13.0"
       },
       "reviewedDate": "2026-07-20"
     },
@@ -61,7 +61,7 @@
     {
       "page": "src/pages/survey.astro",
       "products": {
-        "survey": "1.17.0"
+        "survey": "1.18.0"
       },
       "reviewedDate": "2026-07-20"
     },

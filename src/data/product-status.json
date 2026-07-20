@@ -5,12 +5,12 @@
       "key": "surface",
       "label": "Surface",
       "packageName": "@kontourai/surface",
-      "version": "2.12.0",
+      "version": "2.13.0",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/surface",
       "publicNotes": "",
       "marketingReviewed": {
-        "version": "2.12.0",
+        "version": "2.13.0",
         "date": "2026-07-20"
       }
     },
@@ -18,12 +18,12 @@
       "key": "survey",
       "label": "Survey",
       "packageName": "@kontourai/survey",
-      "version": "1.17.0",
+      "version": "1.18.0",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/survey",
       "publicNotes": "Proof-stage library, not an ingestion platform.",
       "marketingReviewed": {
-        "version": "1.17.0",
+        "version": "1.18.0",
         "date": "2026-07-20"
       }
     },
