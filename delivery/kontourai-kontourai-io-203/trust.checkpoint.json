@@ -2,30 +2,30 @@
   "schema_version": "1.0",
   "slug": "kontourai-kontourai-io-203",
   "work_item": null,
-  "status": "delivered",
-  "phase": "learning",
-  "sealed_at": "2026-07-20T19:33:51Z",
-  "commit_sha": "73aec470477c1cc32ab60779a2fd6b54fd51aeba",
+  "status": "verified",
+  "phase": "verification",
+  "sealed_at": "2026-07-20T19:51:14Z",
+  "commit_sha": "084ca1c45c26c85671375fb1d18ca4ec70c43d17",
   "checkpoint": {
-    "asOf": "2026-07-20T19:33:51.640Z",
+    "asOf": "2026-07-20T19:51:14.265Z",
     "statusByClaimId": {
       "kontourai-kontourai-io-203-content-sweep-build.flow-agents-workflow.npm-run-build-astro-build-completed-cleanly-producing-20-pages-for-kontourai-kontourai-io-203-docs-2026-07-20-content-sweep-pin-refresh-editorial-re-stamp-ia-restructure-components-moved-under-developers-5-recaptured-product-screenshots-homepage-self-hosting-proof-line-survey-pin-bumped-to-1-17-0-after-a-mid-pr-release": "verified",
       "kontourai-kontourai-io-203-content-sweep-playwright.flow-agents-workflow.npx-playwright-test-63-63-specs-passed-against-the-built-site-after-the-content-sweep-covering-the-ia-restructure-and-recaptured-screenshots-for-pr-203": "verified",
       "kontourai-kontourai-io-203-content-sweep-validate.flow-agents-workflow.node-scripts-validate-mjs-registry-parity-0-errors-the-only-finding-was-a-known-local-sibling-checkout-artifact-error-specific-to-this-workspace-layout-not-a-regression-introduced-by-the-change": "verified",
       "kontourai-kontourai-io-203-content-sweep-marketing-freshness.flow-agents-workflow.npm-run-check-marketing-freshness-ran-fully-green-after-the-survey-pin-bump-to-1-17-0-and-the-editorial-re-stamp-in-pr-203": "verified",
       "kontourai-kontourai-io-203-content-sweep-independent-review.flow-agents-workflow.independent-report-only-review-by-a-separate-agent-returned-approve-for-pr-203-after-an-initial-findings-round-survey-version-parity-vs-the-mid-pr-1-17-0-release-was-fixed-review-evidence-is-on-the-pr-thread-at-https-github-com-kontourai-kontourai-io-pull-203-and-in-this-workflow-session": "verified",
-      "kontourai-kontourai-io-203-decision-evidence.flow-agents-workflow.delivery-decisions-and-unresolved-gaps-recorded-standalone-no-flow-binding-see-flow-agents-793-advisory-first-rollout-flow-agents-784-local-merge-readiness-protocol-campfit-uid-deferral-campfit-143-ref-learning-json": "verified",
-      "kontourai-kontourai-io-203-learning-evidence.flow-agents-workflow.observed-outcomes-and-follow-up-routing-recorded-standalone-7-corrections-routed-to-durable-destinations-3-not-verified-deploy-outcomes-preserved-ref-learning-json": "verified"
+      "kontourai-kontourai-io-203-decision-evidence.flow-agents-workflow.delivery-decisions-and-unresolved-gaps-recorded-standalone-no-flow-binding-see-flow-agents-793-advisory-first-trust-anchor-rollout-flow-agents-784-local-merge-readiness-protocol-during-ci-quota-constraint-and-one-calendar-uid-stability-deferral-routed-to-a-private-vertical-repo-backlog-ref-learning-json": "verified",
+      "kontourai-kontourai-io-203-learning-evidence.flow-agents-workflow.observed-outcomes-and-follow-up-routing-recorded-standalone-7-corrections-routed-to-durable-destinations-site-204-flow-agents-789-793-ops-94-sidecar-fix-pr-survey-1-17-0-fix-shipped-checkout-freshness-3-not-verified-deploy-outcomes-preserved-ref-learning-json": "verified"
     },
-    "throughEventCreatedAt": "2026-07-20T19:27:16Z",
+    "throughEventCreatedAt": "2026-07-20T19:51:14Z",
     "throughEventCreatedAtByClaimId": {
-      "kontourai-kontourai-io-203-content-sweep-build.flow-agents-workflow.npm-run-build-astro-build-completed-cleanly-producing-20-pages-for-kontourai-kontourai-io-203-docs-2026-07-20-content-sweep-pin-refresh-editorial-re-stamp-ia-restructure-components-moved-under-developers-5-recaptured-product-screenshots-homepage-self-hosting-proof-line-survey-pin-bumped-to-1-17-0-after-a-mid-pr-release": "2026-07-20T19:27:16Z",
-      "kontourai-kontourai-io-203-content-sweep-playwright.flow-agents-workflow.npx-playwright-test-63-63-specs-passed-against-the-built-site-after-the-content-sweep-covering-the-ia-restructure-and-recaptured-screenshots-for-pr-203": "2026-07-20T19:27:16Z",
-      "kontourai-kontourai-io-203-content-sweep-validate.flow-agents-workflow.node-scripts-validate-mjs-registry-parity-0-errors-the-only-finding-was-a-known-local-sibling-checkout-artifact-error-specific-to-this-workspace-layout-not-a-regression-introduced-by-the-change": "2026-07-20T19:27:16Z",
-      "kontourai-kontourai-io-203-content-sweep-marketing-freshness.flow-agents-workflow.npm-run-check-marketing-freshness-ran-fully-green-after-the-survey-pin-bump-to-1-17-0-and-the-editorial-re-stamp-in-pr-203": "2026-07-20T19:27:16Z",
-      "kontourai-kontourai-io-203-content-sweep-independent-review.flow-agents-workflow.independent-report-only-review-by-a-separate-agent-returned-approve-for-pr-203-after-an-initial-findings-round-survey-version-parity-vs-the-mid-pr-1-17-0-release-was-fixed-review-evidence-is-on-the-pr-thread-at-https-github-com-kontourai-kontourai-io-pull-203-and-in-this-workflow-session": "2026-07-20T19:27:16Z",
-      "kontourai-kontourai-io-203-decision-evidence.flow-agents-workflow.delivery-decisions-and-unresolved-gaps-recorded-standalone-no-flow-binding-see-flow-agents-793-advisory-first-rollout-flow-agents-784-local-merge-readiness-protocol-campfit-uid-deferral-campfit-143-ref-learning-json": "2026-07-20T19:27:16Z",
-      "kontourai-kontourai-io-203-learning-evidence.flow-agents-workflow.observed-outcomes-and-follow-up-routing-recorded-standalone-7-corrections-routed-to-durable-destinations-3-not-verified-deploy-outcomes-preserved-ref-learning-json": "2026-07-20T19:27:16Z"
+      "kontourai-kontourai-io-203-content-sweep-build.flow-agents-workflow.npm-run-build-astro-build-completed-cleanly-producing-20-pages-for-kontourai-kontourai-io-203-docs-2026-07-20-content-sweep-pin-refresh-editorial-re-stamp-ia-restructure-components-moved-under-developers-5-recaptured-product-screenshots-homepage-self-hosting-proof-line-survey-pin-bumped-to-1-17-0-after-a-mid-pr-release": "2026-07-20T19:51:14Z",
+      "kontourai-kontourai-io-203-content-sweep-playwright.flow-agents-workflow.npx-playwright-test-63-63-specs-passed-against-the-built-site-after-the-content-sweep-covering-the-ia-restructure-and-recaptured-screenshots-for-pr-203": "2026-07-20T19:51:14Z",
+      "kontourai-kontourai-io-203-content-sweep-validate.flow-agents-workflow.node-scripts-validate-mjs-registry-parity-0-errors-the-only-finding-was-a-known-local-sibling-checkout-artifact-error-specific-to-this-workspace-layout-not-a-regression-introduced-by-the-change": "2026-07-20T19:51:14Z",
+      "kontourai-kontourai-io-203-content-sweep-marketing-freshness.flow-agents-workflow.npm-run-check-marketing-freshness-ran-fully-green-after-the-survey-pin-bump-to-1-17-0-and-the-editorial-re-stamp-in-pr-203": "2026-07-20T19:51:14Z",
+      "kontourai-kontourai-io-203-content-sweep-independent-review.flow-agents-workflow.independent-report-only-review-by-a-separate-agent-returned-approve-for-pr-203-after-an-initial-findings-round-survey-version-parity-vs-the-mid-pr-1-17-0-release-was-fixed-review-evidence-is-on-the-pr-thread-at-https-github-com-kontourai-kontourai-io-pull-203-and-in-this-workflow-session": "2026-07-20T19:51:14Z",
+      "kontourai-kontourai-io-203-decision-evidence.flow-agents-workflow.delivery-decisions-and-unresolved-gaps-recorded-standalone-no-flow-binding-see-flow-agents-793-advisory-first-trust-anchor-rollout-flow-agents-784-local-merge-readiness-protocol-during-ci-quota-constraint-and-one-calendar-uid-stability-deferral-routed-to-a-private-vertical-repo-backlog-ref-learning-json": "2026-07-20T19:51:14Z",
+      "kontourai-kontourai-io-203-learning-evidence.flow-agents-workflow.observed-outcomes-and-follow-up-routing-recorded-standalone-7-corrections-routed-to-durable-destinations-site-204-flow-agents-789-793-ops-94-sidecar-fix-pr-survey-1-17-0-fix-shipped-checkout-freshness-3-not-verified-deploy-outcomes-preserved-ref-learning-json": "2026-07-20T19:51:14Z"
     },
     "statusFunctionVersion": "2"
   }
