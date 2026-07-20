@@ -37,3 +37,8 @@ publishable.
 - `npm run check:content-boundary` — focused public-boundary check after public-facing copy or agent instruction changes.
 - `npm run sync-versions` — refresh all version pins in `product-status.json` from npm after any release (idempotent; prints a diff of what changed)
 - `npm run sync-versions:check` — CI gate: exits non-zero if any pin is stale, prints which ones
+
+<!-- veritas:governance-block:start -->
+This repo uses Veritas for AI governance. Read `.veritas/GOVERNANCE.md` before making changes.
+After changes, run `npm exec --yes --package=@kontourai/veritas@1.5.2 -- veritas readiness` and address any FAIL lines before finishing.
+<!-- veritas:governance-block:end -->
