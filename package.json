@@ -10,6 +10,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "validate": "node scripts/check-content-boundary.cjs && node scripts/check-theme-tokens.mjs && node scripts/check-security-hardening.mjs && node scripts/check-receipts.mjs && node scripts/check-playwright-pin.mjs && node scripts/validate.mjs && node scripts/check-sitemap.mjs",
+    "check:site-verify": "bash scripts/check-site-verify.sh",
     "test:rendered": "npm run build && playwright test",
     "refresh:product-status": "node scripts/refresh-product-status.mjs",
     "check:product-status": "node scripts/refresh-product-status.mjs --dry-run",
@@ -29,7 +30,7 @@
   "trust-reconcile-manifest": [
     {
       "id": "site-verify",
-      "command": "npm run build && npm run validate"
+      "command": "npm run check:site-verify"
     },
     {
       "id": "site-build",
