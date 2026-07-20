@@ -6,6 +6,7 @@ import Terminal from '@/components/Terminal.astro';
 import Section from '@/components/Section.astro';
 import Glow from '@/components/Glow.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
+import PlatformContext from '@/components/PlatformContext.astro';
 import Card from '@/components/Card.astro';
 import Grid from '@/components/Grid.astro';
 import Split from '@/components/Split.astro';
@@ -59,6 +60,7 @@ const cli = [
     <div class="container">
       <Split ratio="1-1" gap="lg" align="center">
         <div>
+          <PlatformContext />
           <div class="hero-badges">
             <span class="trust-badge trust-badge--verified">{productBadge(veritasStatus)}</span>
             <span class="install-hint">npm install -D @kontourai/veritas</span>

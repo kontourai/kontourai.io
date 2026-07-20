@@ -88,11 +88,25 @@ const labRepos = [
       'Portfolio AI provider/model registry: define providers, models, roles once; resolve which backend, which model, whose key, what base URL. Never makes model calls.',
   },
   {
+    slug: 'bearing',
+    label: 'Bearing',
+    repo: 'https://github.com/kontourai/bearing',
+    description:
+      'Evidence-backed model capability intelligence: provenance-bearing model observations compiled into deterministic catalog snapshots, with runtime-aware ranking — without invoking models.',
+  },
+  {
     slug: 'traverse',
     label: 'Traverse',
     repo: 'https://github.com/kontourai/traverse',
     description:
       "Schema-directed content extraction that produces provenance-bearing, review-ready extraction proposals in Survey's shape.",
+  },
+  {
+    slug: 'forage',
+    label: 'Forage',
+    repo: 'https://github.com/kontourai/forage',
+    description:
+      'Safe, replayable crawling for untrusted URLs — SSRF-guarded egress and snapshot manifests that feed pages into Traverse for review pipelines.',
   },
   {
     slug: 'lookout',
@@ -106,7 +120,7 @@ const labRepos = [
     label: 'Ephemeris',
     repo: 'https://github.com/kontourai/ephemeris',
     description:
-      'External freshness scheduler / event-bridge for the Kontour suite. Turns time into a trigger.',
+      'External freshness scheduler / event-bridge for the Kontour suite. Frozen since 2026-07 — its freshness-trigger capability is being folded into Flow.',
   },
   {
     slug: 'kit-research',
@@ -141,14 +155,16 @@ const labRepos = [
       <h1 class="product-title animate-fade-up">Kontour for developers</h1>
       <p class="product-tagline animate-fade-up delay-100" data-accent="gold">install the engine, add a kit, keep the receipts</p>
       <p class="hero-copy hero-copy--wide animate-fade-up delay-200">
-        One engine — <a href="/flow-agents/">Flow Agents</a> — installs into
-        the coding agent you already run and gates its work on evidence
-        instead of promises. Kits are the workflows you install on top:
-        Builder for delivery, Knowledge for durable memory, plus agentless
-        kits that run with no agent at all. Everything the engine gates
-        comes out the other side as a recomputable trust receipt. The rest of
-        the product line supplies the disciplines the engine wires in — and
-        each piece stays independently adoptable when you want it alone.
+        Kontour is one product: an engine — <a href="/flow-agents/">Flow
+        Agents</a> — that installs into the coding agent you already run and
+        gates its work on evidence instead of promises. Kits are the
+        workflows you install on top: Builder for delivery, Knowledge for
+        durable memory, plus agentless kits that run with no agent at all.
+        Everything the engine gates comes out the other side as a
+        recomputable trust receipt. Under the hood, that machinery is a set
+        of focused components the engine wires in for you — you don't need
+        to learn them to use Kontour, and each stays independently adoptable
+        when you want one alone.
       </p>
       <div class="hero-actions animate-fade-up delay-300">
         <a href="#quickstart" class="btn-primary" data-umami-event="developers-hero-quickstart">Install the engine →</a>
@@ -176,7 +192,9 @@ const labRepos = [
           <p class="muted"># three; advisory on the rest (matrix on /trust)</p>
         </Terminal>
         <Terminal title="verify a receipt, second opinion included">
-          <p class="muted"># grab the bundle from /receipts/ first</p>
+          <p class="muted"># grab the bundle from /receipts/ first, then check it</p>
+          <p class="muted"># yourself — hachure validates it, ajv is the second,</p>
+          <p class="muted"># independent opinion (pinned so your run matches CI)</p>
           <p><span class="prompt">$ </span><span class="cmd">npx -y -p ajv@{ajvPin} -p hachure@{hachurePin} \</span></p>
           <p><span class="cmd">    hachure validate flow-agents-delivery.trust.bundle</span></p>
           <p class="pass">valid TrustBundle (schemaVersion 5)</p>
@@ -223,11 +241,13 @@ const labRepos = [
   <!-- The one ownership artifact: the disciplines the engine wires in ------ -->
   <Section id="ownership" size="lg">
     <div class="container">
-      <Eyebrow gap="sm">How it composes</Eyebrow>
-      <h2 class="display-md measure-lg">The disciplines the engine wires in.</h2>
+      <Eyebrow gap="sm">Under the hood</Eyebrow>
+      <h2 class="display-md measure-lg">The components the engine wires in.</h2>
       <p class="fine measure ownership-note">
-        Each product owns one layer and stays independently adoptable.
-        Composition is intentionally one-way: tools and workflows consume
+        None of this is required reading — <code>init</code> assembles these
+        for you. This map is for auditing the proof chain, or adopting a
+        single component on its own. Each one owns one layer, and
+        composition is intentionally one-way: tools and workflows consume
         trust and process evidence, but the evidence substrate never depends
         on a specific agent, workflow, or application.
       </p>

@@ -5,36 +5,36 @@
       "asset": "public/screenshots/console-environment.png",
       "page": "src/pages/console.astro",
       "product": "console",
-      "capturedAgainstVersion": "2.6.0",
-      "capturedAt": "2026-07-12"
+      "capturedAgainstVersion": "2.7.0",
+      "capturedAt": "2026-07-20"
     },
     {
       "asset": "public/screenshots/console-operating-plane.png",
       "page": "src/pages/console.astro",
       "product": "console",
-      "capturedAgainstVersion": "2.6.0",
-      "capturedAt": "2026-07-12"
+      "capturedAgainstVersion": "2.7.0",
+      "capturedAt": "2026-07-20"
     },
     {
       "asset": "public/screenshots/survey-workbench.png",
       "page": "src/pages/survey.astro",
       "product": "survey",
-      "capturedAgainstVersion": "1.8.0",
-      "capturedAt": "2026-07-12"
+      "capturedAgainstVersion": "1.18.0",
+      "capturedAt": "2026-07-20"
     },
     {
       "asset": "public/screenshots/surface-console.png",
       "page": "src/pages/surface.astro",
       "product": "surface",
-      "capturedAgainstVersion": "2.7.0",
-      "capturedAt": "2026-07-12"
+      "capturedAgainstVersion": "2.12.0",
+      "capturedAt": "2026-07-20"
     },
     {
       "asset": "public/screenshots/flow-demo.gif",
       "page": "src/pages/flow.astro",
       "product": "flow",
-      "capturedAgainstVersion": "3.1.4",
-      "capturedAt": "2026-07-12"
+      "capturedAgainstVersion": "3.5.0",
+      "capturedAt": "2026-07-20"
     }
   ]
 }

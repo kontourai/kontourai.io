@@ -303,7 +303,7 @@ test("surface page presents inspectable claims and trust vocabulary", async ({ p
   // #164 enrichment: agent tooling, waiver validity, customer-facing surfaces,
   // and the conformance suite — all shipped capabilities the page omitted.
   await expect(page.getByRole("heading", { name: "Agent-queryable (MCP)" })).toBeVisible();
-  await expect(page.getByText("npx surface mcp")).toBeVisible();
+  await expect(page.getByText("npx @kontourai/surface mcp")).toBeVisible();
   await expect(page.getByRole("heading", { name: "Waiver validity" })).toBeVisible();
   await expect(page.locator(".label-sm").filter({ hasText: "Show it to your users" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Trust Panel embed" })).toBeVisible();
@@ -513,8 +513,14 @@ test("developers page leads with the engine and kits, states ownership once", as
   await page.setViewportSize({ width: 1440, height: 1100 });
   await page.goto("/developers/");
 
-  await expect(page.locator('[data-umami-event="nav-developers"]')).toBeVisible();
+  // The Developers entry is now the dropdown that also holds the platform
+  // components; on this page the summary carries the active state and the
+  // Overview item inside is the current page.
+  await expect(page.locator(".nav-dropdown__summary")).toBeVisible();
+  await expect(page.locator(".nav-dropdown__summary")).toHaveClass(/nav-dropdown__summary--active/);
+  await page.locator(".nav-dropdown__summary").click();
   await expect(page.locator('[data-umami-event="nav-developers"]')).toHaveAttribute("aria-current", "page");
+  await page.locator(".nav-dropdown__summary").click();
   await expect(page.getByRole("heading", { name: "Kontour for developers" })).toBeVisible();
 
   // Single-story restructure: engine+kits lead; the six-product tour, the

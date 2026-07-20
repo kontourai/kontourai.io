@@ -1,0 +1,234 @@
+{
+  "schemaVersion": 5,
+  "source": "flow-agents/workflow-sidecar;statusFunctionVersion=2",
+  "claims": [
+    {
+      "id": "kontourai-kontourai-io-203-content-sweep-build.flow-agents-workflow.npm-run-build-astro-build-completed-cleanly-producing-20-pages-for-kontourai-kontourai-io-203-docs-2026-07-20-content-sweep-pin-refresh-editorial-re-stamp-ia-restructure-components-moved-under-developers-5-recaptured-product-screenshots-homepage-self-hosting-proof-line-survey-pin-bumped-to-1-17-0-after-a-mid-pr-release",
+      "subjectType": "workflow-check",
+      "subjectId": "kontourai-kontourai-io-203/content-sweep-build",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.check.external",
+      "fieldOrBehavior": "npm run build (astro build) completed cleanly, producing 20 pages for kontourai/kontourai.io#203 (docs/2026-07-20-content-sweep): pin refresh + editorial re-stamp, IA restructure (components moved under Developers), 5 recaptured product screenshots, homepage self-hosting proof line, survey pin bumped to 1.17.0 after a mid-PR release.",
+      "value": "pass",
+      "createdAt": "2026-07-20T18:45:22Z",
+      "updatedAt": "2026-07-20T18:45:22Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:workflow.check.external:attestation",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "external"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "kontourai-kontourai-io-203-content-sweep-playwright.flow-agents-workflow.npx-playwright-test-63-63-specs-passed-against-the-built-site-after-the-content-sweep-covering-the-ia-restructure-and-recaptured-screenshots-for-pr-203",
+      "subjectType": "workflow-check",
+      "subjectId": "kontourai-kontourai-io-203/content-sweep-playwright",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.check.external",
+      "fieldOrBehavior": "npx playwright test: 63/63 specs passed against the built site after the content sweep, covering the IA restructure and recaptured screenshots for PR #203.",
+      "value": "pass",
+      "createdAt": "2026-07-20T18:45:22Z",
+      "updatedAt": "2026-07-20T18:45:22Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:workflow.check.external:attestation",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "external"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "kontourai-kontourai-io-203-content-sweep-validate.flow-agents-workflow.node-scripts-validate-mjs-registry-parity-0-errors-the-only-finding-was-a-known-local-sibling-checkout-artifact-error-specific-to-this-workspace-layout-not-a-regression-introduced-by-the-change",
+      "subjectType": "workflow-check",
+      "subjectId": "kontourai-kontourai-io-203/content-sweep-validate",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.check.external",
+      "fieldOrBehavior": "node scripts/validate.mjs: registry parity 0 errors; the only finding was a known local sibling-checkout artifact error specific to this workspace layout, not a regression introduced by the change.",
+      "value": "pass",
+      "createdAt": "2026-07-20T18:45:22Z",
+      "updatedAt": "2026-07-20T18:45:22Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:workflow.check.external:attestation",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "external"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "kontourai-kontourai-io-203-content-sweep-marketing-freshness.flow-agents-workflow.npm-run-check-marketing-freshness-ran-fully-green-after-the-survey-pin-bump-to-1-17-0-and-the-editorial-re-stamp-in-pr-203",
+      "subjectType": "workflow-check",
+      "subjectId": "kontourai-kontourai-io-203/content-sweep-marketing-freshness",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.check.external",
+      "fieldOrBehavior": "npm run check:marketing-freshness ran fully green after the survey pin bump to 1.17.0 and the editorial re-stamp in PR #203.",
+      "value": "pass",
+      "createdAt": "2026-07-20T18:45:22Z",
+      "updatedAt": "2026-07-20T18:45:22Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:workflow.check.external:attestation",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "external"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "kontourai-kontourai-io-203-content-sweep-independent-review.flow-agents-workflow.independent-report-only-review-by-a-separate-agent-returned-approve-for-pr-203-after-an-initial-findings-round-survey-version-parity-vs-the-mid-pr-1-17-0-release-was-fixed-review-evidence-is-on-the-pr-thread-at-https-github-com-kontourai-kontourai-io-pull-203-and-in-this-workflow-session",
+      "subjectType": "workflow-check",
+      "subjectId": "kontourai-kontourai-io-203/content-sweep-independent-review",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.check.external",
+      "fieldOrBehavior": "Independent report-only review by a separate agent returned APPROVE for PR #203 after an initial FINDINGS round (survey version parity vs the mid-PR 1.17.0 release) was fixed; review evidence is on the PR thread at https://github.com/kontourai/kontourai.io/pull/203 and in this workflow session.",
+      "value": "pass",
+      "createdAt": "2026-07-20T18:45:22Z",
+      "updatedAt": "2026-07-20T18:45:22Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:workflow.check.external:attestation",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "external"
+      },
+      "status": "verified"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev:kontourai-kontourai-io-203-content-sweep-build.flow-agents-workflow.npm-run-build-astro-build-completed-cleanly-producing-20-pages-for-kontourai-kontourai-io-203-docs-2026-07-20-content-sweep-pin-refresh-editorial-re-stamp-ia-restructure-components-moved-under-developers-5-recaptured-product-screenshots-homepage-self-hosting-proof-line-survey-pin-bumped-to-1-17-0-after-a-mid-pr-release",
+      "claimId": "kontourai-kontourai-io-203-content-sweep-build.flow-agents-workflow.npm-run-build-astro-build-completed-cleanly-producing-20-pages-for-kontourai-kontourai-io-203-docs-2026-07-20-content-sweep-pin-refresh-editorial-re-stamp-ia-restructure-components-moved-under-developers-5-recaptured-product-screenshots-homepage-self-hosting-proof-line-survey-pin-bumped-to-1-17-0-after-a-mid-pr-release",
+      "evidenceType": "attestation",
+      "method": "corroboration",
+      "sourceRef": "kontourai-kontourai-io-203/evidence.json",
+      "excerptOrSummary": "npm run build (astro build) completed cleanly, producing 20 pages for kontourai/kontourai.io#203 (docs/2026-07-20-content-sweep): pin refresh + editorial re-stamp, IA restructure (components moved under Developers), 5 recaptured product screenshots, homepage self-hosting proof line, survey pin bumped to 1.17.0 after a mid-PR release.",
+      "observedAt": "2026-07-20T18:45:22Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true
+    },
+    {
+      "id": "ev:kontourai-kontourai-io-203-content-sweep-playwright.flow-agents-workflow.npx-playwright-test-63-63-specs-passed-against-the-built-site-after-the-content-sweep-covering-the-ia-restructure-and-recaptured-screenshots-for-pr-203",
+      "claimId": "kontourai-kontourai-io-203-content-sweep-playwright.flow-agents-workflow.npx-playwright-test-63-63-specs-passed-against-the-built-site-after-the-content-sweep-covering-the-ia-restructure-and-recaptured-screenshots-for-pr-203",
+      "evidenceType": "attestation",
+      "method": "corroboration",
+      "sourceRef": "kontourai-kontourai-io-203/evidence.json",
+      "excerptOrSummary": "npx playwright test: 63/63 specs passed against the built site after the content sweep, covering the IA restructure and recaptured screenshots for PR #203.",
+      "observedAt": "2026-07-20T18:45:22Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true
+    },
+    {
+      "id": "ev:kontourai-kontourai-io-203-content-sweep-validate.flow-agents-workflow.node-scripts-validate-mjs-registry-parity-0-errors-the-only-finding-was-a-known-local-sibling-checkout-artifact-error-specific-to-this-workspace-layout-not-a-regression-introduced-by-the-change",
+      "claimId": "kontourai-kontourai-io-203-content-sweep-validate.flow-agents-workflow.node-scripts-validate-mjs-registry-parity-0-errors-the-only-finding-was-a-known-local-sibling-checkout-artifact-error-specific-to-this-workspace-layout-not-a-regression-introduced-by-the-change",
+      "evidenceType": "attestation",
+      "method": "corroboration",
+      "sourceRef": "kontourai-kontourai-io-203/evidence.json",
+      "excerptOrSummary": "node scripts/validate.mjs: registry parity 0 errors; the only finding was a known local sibling-checkout artifact error specific to this workspace layout, not a regression introduced by the change.",
+      "observedAt": "2026-07-20T18:45:22Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true
+    },
+    {
+      "id": "ev:kontourai-kontourai-io-203-content-sweep-marketing-freshness.flow-agents-workflow.npm-run-check-marketing-freshness-ran-fully-green-after-the-survey-pin-bump-to-1-17-0-and-the-editorial-re-stamp-in-pr-203",
+      "claimId": "kontourai-kontourai-io-203-content-sweep-marketing-freshness.flow-agents-workflow.npm-run-check-marketing-freshness-ran-fully-green-after-the-survey-pin-bump-to-1-17-0-and-the-editorial-re-stamp-in-pr-203",
+      "evidenceType": "attestation",
+      "method": "corroboration",
+      "sourceRef": "kontourai-kontourai-io-203/evidence.json",
+      "excerptOrSummary": "npm run check:marketing-freshness ran fully green after the survey pin bump to 1.17.0 and the editorial re-stamp in PR #203.",
+      "observedAt": "2026-07-20T18:45:22Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true
+    },
+    {
+      "id": "ev:kontourai-kontourai-io-203-content-sweep-independent-review.flow-agents-workflow.independent-report-only-review-by-a-separate-agent-returned-approve-for-pr-203-after-an-initial-findings-round-survey-version-parity-vs-the-mid-pr-1-17-0-release-was-fixed-review-evidence-is-on-the-pr-thread-at-https-github-com-kontourai-kontourai-io-pull-203-and-in-this-workflow-session",
+      "claimId": "kontourai-kontourai-io-203-content-sweep-independent-review.flow-agents-workflow.independent-report-only-review-by-a-separate-agent-returned-approve-for-pr-203-after-an-initial-findings-round-survey-version-parity-vs-the-mid-pr-1-17-0-release-was-fixed-review-evidence-is-on-the-pr-thread-at-https-github-com-kontourai-kontourai-io-pull-203-and-in-this-workflow-session",
+      "evidenceType": "attestation",
+      "method": "corroboration",
+      "sourceRef": "kontourai-kontourai-io-203/evidence.json",
+      "excerptOrSummary": "Independent report-only review by a separate agent returned APPROVE for PR #203 after an initial FINDINGS round (survey version parity vs the mid-PR 1.17.0 release) was fixed; review evidence is on the PR thread at https://github.com/kontourai/kontourai.io/pull/203 and in this workflow session.",
+      "observedAt": "2026-07-20T18:45:22Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true
+    }
+  ],
+  "policies": [
+    {
+      "id": "policy:workflow.check.external:attestation",
+      "claimType": "workflow.check.external",
+      "requiredEvidence": [
+        "attestation"
+      ],
+      "acceptanceCriteria": [
+        "A verified verification event must support a workflow.check.external claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "high"
+    }
+  ],
+  "events": [
+    {
+      "id": "evt:kontourai-kontourai-io-203-content-sweep-build.flow-agents-workflow.npm-run-build-astro-build-completed-cleanly-producing-20-pages-for-kontourai-kontourai-io-203-docs-2026-07-20-content-sweep-pin-refresh-editorial-re-stamp-ia-restructure-components-moved-under-developers-5-recaptured-product-screenshots-homepage-self-hosting-proof-line-survey-pin-bumped-to-1-17-0-after-a-mid-pr-release",
+      "claimId": "kontourai-kontourai-io-203-content-sweep-build.flow-agents-workflow.npm-run-build-astro-build-completed-cleanly-producing-20-pages-for-kontourai-kontourai-io-203-docs-2026-07-20-content-sweep-pin-refresh-editorial-re-stamp-ia-restructure-components-moved-under-developers-5-recaptured-product-screenshots-homepage-self-hosting-proof-line-survey-pin-bumped-to-1-17-0-after-a-mid-pr-release",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:kontourai-kontourai-io-203-content-sweep-build.flow-agents-workflow.npm-run-build-astro-build-completed-cleanly-producing-20-pages-for-kontourai-kontourai-io-203-docs-2026-07-20-content-sweep-pin-refresh-editorial-re-stamp-ia-restructure-components-moved-under-developers-5-recaptured-product-screenshots-homepage-self-hosting-proof-line-survey-pin-bumped-to-1-17-0-after-a-mid-pr-release"
+      ],
+      "createdAt": "2026-07-20T18:45:22Z",
+      "verifiedAt": "2026-07-20T18:45:22Z"
+    },
+    {
+      "id": "evt:kontourai-kontourai-io-203-content-sweep-playwright.flow-agents-workflow.npx-playwright-test-63-63-specs-passed-against-the-built-site-after-the-content-sweep-covering-the-ia-restructure-and-recaptured-screenshots-for-pr-203",
+      "claimId": "kontourai-kontourai-io-203-content-sweep-playwright.flow-agents-workflow.npx-playwright-test-63-63-specs-passed-against-the-built-site-after-the-content-sweep-covering-the-ia-restructure-and-recaptured-screenshots-for-pr-203",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:kontourai-kontourai-io-203-content-sweep-playwright.flow-agents-workflow.npx-playwright-test-63-63-specs-passed-against-the-built-site-after-the-content-sweep-covering-the-ia-restructure-and-recaptured-screenshots-for-pr-203"
+      ],
+      "createdAt": "2026-07-20T18:45:22Z",
+      "verifiedAt": "2026-07-20T18:45:22Z"
+    },
+    {
+      "id": "evt:kontourai-kontourai-io-203-content-sweep-validate.flow-agents-workflow.node-scripts-validate-mjs-registry-parity-0-errors-the-only-finding-was-a-known-local-sibling-checkout-artifact-error-specific-to-this-workspace-layout-not-a-regression-introduced-by-the-change",
+      "claimId": "kontourai-kontourai-io-203-content-sweep-validate.flow-agents-workflow.node-scripts-validate-mjs-registry-parity-0-errors-the-only-finding-was-a-known-local-sibling-checkout-artifact-error-specific-to-this-workspace-layout-not-a-regression-introduced-by-the-change",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:kontourai-kontourai-io-203-content-sweep-validate.flow-agents-workflow.node-scripts-validate-mjs-registry-parity-0-errors-the-only-finding-was-a-known-local-sibling-checkout-artifact-error-specific-to-this-workspace-layout-not-a-regression-introduced-by-the-change"
+      ],
+      "createdAt": "2026-07-20T18:45:22Z",
+      "verifiedAt": "2026-07-20T18:45:22Z"
+    },
+    {
+      "id": "evt:kontourai-kontourai-io-203-content-sweep-marketing-freshness.flow-agents-workflow.npm-run-check-marketing-freshness-ran-fully-green-after-the-survey-pin-bump-to-1-17-0-and-the-editorial-re-stamp-in-pr-203",
+      "claimId": "kontourai-kontourai-io-203-content-sweep-marketing-freshness.flow-agents-workflow.npm-run-check-marketing-freshness-ran-fully-green-after-the-survey-pin-bump-to-1-17-0-and-the-editorial-re-stamp-in-pr-203",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:kontourai-kontourai-io-203-content-sweep-marketing-freshness.flow-agents-workflow.npm-run-check-marketing-freshness-ran-fully-green-after-the-survey-pin-bump-to-1-17-0-and-the-editorial-re-stamp-in-pr-203"
+      ],
+      "createdAt": "2026-07-20T18:45:22Z",
+      "verifiedAt": "2026-07-20T18:45:22Z"
+    },
+    {
+      "id": "evt:kontourai-kontourai-io-203-content-sweep-independent-review.flow-agents-workflow.independent-report-only-review-by-a-separate-agent-returned-approve-for-pr-203-after-an-initial-findings-round-survey-version-parity-vs-the-mid-pr-1-17-0-release-was-fixed-review-evidence-is-on-the-pr-thread-at-https-github-com-kontourai-kontourai-io-pull-203-and-in-this-workflow-session",
+      "claimId": "kontourai-kontourai-io-203-content-sweep-independent-review.flow-agents-workflow.independent-report-only-review-by-a-separate-agent-returned-approve-for-pr-203-after-an-initial-findings-round-survey-version-parity-vs-the-mid-pr-1-17-0-release-was-fixed-review-evidence-is-on-the-pr-thread-at-https-github-com-kontourai-kontourai-io-pull-203-and-in-this-workflow-session",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:kontourai-kontourai-io-203-content-sweep-independent-review.flow-agents-workflow.independent-report-only-review-by-a-separate-agent-returned-approve-for-pr-203-after-an-initial-findings-round-survey-version-parity-vs-the-mid-pr-1-17-0-release-was-fixed-review-evidence-is-on-the-pr-thread-at-https-github-com-kontourai-kontourai-io-pull-203-and-in-this-workflow-session"
+      ],
+      "createdAt": "2026-07-20T18:45:22Z",
+      "verifiedAt": "2026-07-20T18:45:22Z"
+    }
+  ]
+}

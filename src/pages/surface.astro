@@ -6,6 +6,7 @@ import Terminal from '@/components/Terminal.astro';
 import Section from '@/components/Section.astro';
 import Glow from '@/components/Glow.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
+import PlatformContext from '@/components/PlatformContext.astro';
 import Card from '@/components/Card.astro';
 import Grid from '@/components/Grid.astro';
 import Split from '@/components/Split.astro';
@@ -33,6 +34,8 @@ const vocab: { term: string; def: string; accent: Accent }[] = [
   { term: 'Claim', def: 'The smallest trust-bearing unit. A statement about a subject — field, value, impact, and current integrity reference.', accent: 'cobalt-2' },
   { term: 'Evidence', def: 'An observation, citation, attestation, test result, or traceable artifact that supports or challenges a Claim.', accent: 'green' },
   { term: 'Policy', def: 'The rule that decides what evidence is required, how fresh it must be, and when a Claim needs review.', accent: 'chalk-2' },
+  { term: 'Trust Bundle', def: 'The portable artifact itself — the open Hachure trust.bundle format carrying Claims, Evidence, and Events. What producers emit and other products pass around.', accent: 'gold' },
+  { term: 'Trust Report', def: 'The evaluated read-out Surface builds from a bundle: verification summary, high-impact gaps, stale claims. What the CLI, JSON output, and API return.', accent: 'green' },
   { term: 'Trust Snapshot', def: 'A point-in-time view of Claims, Evidence, Policies, status, gaps, and conflicts — each with when it was last checked — that humans and agents can inspect.', accent: 'cobalt-2' },
   { term: 'Transparency Gap', def: 'A missing, weak, stale, private, unavailable, unverifiable, or unmapped element that limits inspectability.', accent: 'red' },
 ];
@@ -63,7 +66,7 @@ const moreThanStatus: { title: string; body: string; accent: Accent }[] = [
   { title: 'Claim dependencies', accent: 'cobalt-2', body: 'A claim can depend on supporting claims. When an upstream claim goes stale or disputed, that state propagates to everything built on it — no silent rot.' },
   { title: 'Reverification', accent: 'gold', body: 'Producers can advertise how to recheck a claim’s evidence, authority, freshness, or integrity — so a stale claim has a path back to verified instead of staying a dead end.' },
   { title: 'Analytics reports', accent: 'green', body: 'Beyond the human summary, an analytics format exposes evidence and gaps as queryable data for dashboards, audits, and trust intelligence.' },
-  { title: 'Agent-queryable (MCP)', accent: 'chalk-2', body: 'The built-in MCP server (npx surface mcp) answers agents directly — stale claims, missing evidence, waiver validity, policy gaps — the same guardrails the CLI and JSON report expose to humans.' },
+  { title: 'Agent-queryable (MCP)', accent: 'chalk-2', body: 'The built-in MCP server (npx @kontourai/surface mcp) answers agents directly — stale claims, missing evidence, waiver validity, policy gaps — the same guardrails the CLI and JSON report expose to humans.' },
   { title: 'Waiver validity', accent: 'red', body: 'Accepted gaps are not hand-waves. Waivers carry a canonical, derived validity — schema-validated against the Hachure extension — so an exception that quietly expired stops passing as current.' },
 ];
 ---
@@ -80,6 +83,7 @@ const moreThanStatus: { title: string; body: string; accent: Accent }[] = [
     <div class="container">
       <Split ratio="1-1" gap="lg" align="start">
         <div>
+          <PlatformContext />
           <div class="hero-badges">
             <span class="trust-badge trust-badge--verified">{productBadge(surfaceStatus)}</span>
             <span class="install-hint">npm install -D @kontourai/surface</span>

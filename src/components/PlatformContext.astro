@@ -1,0 +1,57 @@
+---
+/**
+ * One-line orientation strip for platform-component pages (Flow, Surface,
+ * Survey, Veritas, Console). These pages document the parts under Kontour's
+ * hood; this strip says so up front and points evaluators at the cohesive
+ * product instead. Same copy on every component page — consistency is the
+ * point.
+ */
+---
+
+<p class="platform-context animate-fade-up">
+  <a href="/developers/" class="platform-context__crumb" data-umami-event="platform-context-developers">Developers</a>
+  <span class="platform-context__sep" aria-hidden="true">·</span>
+  <span class="platform-context__kind">platform component</span>
+  <span class="platform-context__note">
+    — one part under Kontour&rsquo;s hood. Evaluating Kontour? Start with
+    <a href="/flow-agents/" data-umami-event="platform-context-flow-agents">Flow Agents</a>.
+  </span>
+</p>
+
+<style>
+  .platform-context {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.35rem;
+    margin: 0 0 1rem;
+    font-size: 0.78rem;
+    color: var(--color-chalk-3);
+  }
+
+  .platform-context__crumb {
+    color: var(--color-chalk-2);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.68rem;
+  }
+
+  .platform-context__crumb:hover {
+    color: var(--color-chalk);
+  }
+
+  .platform-context__kind {
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.68rem;
+  }
+
+  .platform-context__note a {
+    color: var(--color-chalk-2);
+  }
+
+  .platform-context__note a:hover {
+    color: var(--color-chalk);
+  }
+</style>
