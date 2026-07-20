@@ -1,0 +1,2614 @@
+{
+  "schemaVersion": 5,
+  "source": "flow-agents/workflow-sidecar;statusFunctionVersion=2",
+  "claims": [
+    {
+      "id": "kontourai-kontourai-io-197-gate-claim-selected-work.flow-agents-workflow.work-item-kontourai-kontourai-io-197-is-durably-assigned-to-the-active-workflow-actor-assignment-sha256-78348df5da3129e6461c229c87833fc77d0a958b520c4085986ad84d790b88f5-gate-visit-2026-07-19t23-53-12z",
+      "subjectType": "work-item",
+      "subjectId": "kontourai-kontourai-io-197/gate-claim-selected-work",
+      "facet": "flow-agents.workflow",
+      "claimType": "builder.pull-work.selected",
+      "fieldOrBehavior": "Work Item kontourai/kontourai.io#197 is durably assigned to the active workflow actor (assignment sha256:78348df5da3129e6461c229c87833fc77d0a958b520c4085986ad84d790b88f5).",
+      "value": "pass",
+      "createdAt": "2026-07-20T01:14:41.748Z",
+      "updatedAt": "2026-07-20T01:14:41.748Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:builder.pull-work.selected:attestation",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "external",
+        "workflow_subject_ref": "kontourai/kontourai.io#197",
+        "expected_producer": "builder.pull-work",
+        "recorded_by": "codex-repo-doc-refresh-197",
+        "self_produced_trust_slices": [
+          "selected-work"
+        ],
+        "artifact_refs": [
+          {
+            "kind": "artifact",
+            "file": ".kontourai/flow-agents/assignment/kontourai-kontourai-io-197.json",
+            "summary": "Durable local assignment record for the selected Work Item and active actor; sha256:78348df5da3129e6461c229c87833fc77d0a958b520c4085986ad84d790b88f5."
+          },
+          {
+            "kind": "artifact",
+            "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--pull-work.md",
+            "summary": "Concrete pull-work selection report for kontourai/kontourai.io#197."
+          }
+        ],
+        "gate_claim": {
+          "expectation_id": "selected-work",
+          "claim_type": "builder.pull-work.selected",
+          "subject_type": "work-item",
+          "step_id": "pull-work",
+          "identity_version": 2,
+          "recorded_at": "2026-07-19T23:53:12Z"
+        }
+      },
+      "status": "verified"
+    },
+    {
+      "id": "kontourai-kontourai-io-197-gate-claim-pickup-probe-readiness.flow-agents-workflow.pickup-probe-records-goal-fit-scope-dependencies-risks-revision-freshness-assignment-and-planning-readiness-gate-visit-2026-07-19t23-54-19-896z",
+      "subjectType": "work-item",
+      "subjectId": "kontourai-kontourai-io-197/gate-claim-pickup-probe-readiness",
+      "facet": "flow-agents.workflow",
+      "claimType": "builder.design-probe.pickup-readiness",
+      "fieldOrBehavior": "Pickup probe records goal fit, scope, dependencies, risks, revision freshness, assignment, and planning readiness.",
+      "value": "pass",
+      "createdAt": "2026-07-20T01:14:41.748Z",
+      "updatedAt": "2026-07-20T01:14:41.748Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:builder.design-probe.pickup-readiness:attestation",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "external",
+        "workflow_subject_ref": "kontourai/kontourai.io#197",
+        "expected_producer": "builder.pickup-probe",
+        "recorded_by": "codex-repo-doc-refresh-197",
+        "self_produced_trust_slices": [
+          "pickup-probe"
+        ],
+        "artifact_refs": [
+          {
+            "kind": "artifact",
+            "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--pull-work.md",
+            "summary": "Pickup readiness, scope, dependencies, risks, and planning decision."
+          }
+        ],
+        "gate_claim": {
+          "expectation_id": "pickup-probe-readiness",
+          "claim_type": "builder.design-probe.pickup-readiness",
+          "subject_type": "work-item",
+          "step_id": "design-probe",
+          "identity_version": 2,
+          "recorded_at": "2026-07-19T23:54:19.896Z"
+        }
+      },
+      "status": "verified"
+    },
+    {
+      "id": "kontourai-kontourai-io-197-gate-claim-probe-decisions-or-accepted-gaps.flow-agents-workflow.probe-decisions-non-goals-unresolved-questions-accepted-gaps-route-reason-and-next-action-are-explicit-gate-visit-2026-07-19t23-54-26-291z",
+      "subjectType": "decision",
+      "subjectId": "kontourai-kontourai-io-197/gate-claim-probe-decisions-or-accepted-gaps",
+      "facet": "flow-agents.workflow",
+      "claimType": "builder.design-probe.decisions",
+      "fieldOrBehavior": "Probe decisions, non-goals, unresolved questions, accepted gaps, route reason, and next action are explicit.",
+      "value": "pass",
+      "createdAt": "2026-07-20T01:14:41.748Z",
+      "updatedAt": "2026-07-20T01:14:41.748Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:builder.design-probe.decisions:attestation",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "external",
+        "workflow_subject_ref": "kontourai/kontourai.io#197",
+        "expected_producer": "builder.pickup-probe",
+        "recorded_by": "codex-repo-doc-refresh-197",
+        "self_produced_trust_slices": [
+          "pickup-probe"
+        ],
+        "artifact_refs": [
+          {
+            "kind": "artifact",
+            "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--pull-work.md",
+            "summary": "Probe decisions and explicit no-gap planning handoff."
+          }
+        ],
+        "gate_claim": {
+          "expectation_id": "probe-decisions-or-accepted-gaps",
+          "claim_type": "builder.design-probe.decisions",
+          "subject_type": "decision",
+          "step_id": "design-probe",
+          "identity_version": 2,
+          "recorded_at": "2026-07-19T23:54:26.291Z"
+        }
+      },
+      "status": "verified"
+    },
+    {
+      "id": "kontourai-kontourai-io-197-gate-claim-implementation-plan.flow-agents-workflow.implementation-plan-records-the-bounded-post-implementation-sequence-stable-acceptance-criteria-evidence-commands-rollback-boundary-and-stop-short-risks-gate-visit-2026-07-20t00-01-40-999z",
+      "subjectType": "artifact",
+      "subjectId": "kontourai-kontourai-io-197/gate-claim-implementation-plan",
+      "facet": "flow-agents.workflow",
+      "claimType": "builder.plan.implementation",
+      "fieldOrBehavior": "Implementation plan records the bounded post-implementation sequence, stable acceptance criteria, evidence commands, rollback boundary, and stop-short risks.",
+      "value": "pass",
+      "createdAt": "2026-07-20T01:14:41.748Z",
+      "updatedAt": "2026-07-20T01:14:41.748Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:builder.plan.implementation:attestation",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "external",
+        "workflow_subject_ref": "kontourai/kontourai.io#197",
+        "expected_producer": "builder.plan-work",
+        "recorded_by": "codex-repo-doc-refresh-197",
+        "self_produced_trust_slices": [
+          "implementation-plan"
+        ],
+        "artifact_refs": [
+          {
+            "kind": "artifact",
+            "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--plan-work.md",
+            "summary": "Execution-ready plan with Definition Of Done and task-to-criterion mapping."
+          },
+          {
+            "kind": "artifact",
+            "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/acceptance.json",
+            "summary": "Stable acceptance criteria and evidence requirements."
+          },
+          {
+            "kind": "artifact",
+            "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/handoff.json",
+            "summary": "Execution handoff, route reason, and next action."
+          }
+        ],
+        "gate_claim": {
+          "expectation_id": "implementation-plan",
+          "claim_type": "builder.plan.implementation",
+          "subject_type": "artifact",
+          "step_id": "plan",
+          "identity_version": 2,
+          "recorded_at": "2026-07-20T00:01:40.999Z"
+        }
+      },
+      "status": "verified"
+    },
+    {
+      "id": "kontourai-kontourai-io-197-gate-claim-implementation-scope.flow-agents-workflow.committed-route-back-23b7e3c-emits-one-observable-tap-result-only-after-the-real-generated-page-assertion-succeeds-build-validation-manifest-workflow-and-acceptance-behavior-are-unchanged-gate-visit-2026-07-20t01-01-05-800z",
+      "subjectType": "change",
+      "subjectId": "kontourai-kontourai-io-197/gate-claim-implementation-scope",
+      "facet": "flow-agents.workflow",
+      "claimType": "builder.execute.scope",
+      "fieldOrBehavior": "Committed route-back 23b7e3c emits one observable TAP result only after the real generated-page assertion succeeds; build, validation, manifest, workflow, and acceptance behavior are unchanged.",
+      "value": "pass",
+      "createdAt": "2026-07-20T01:14:41.748Z",
+      "updatedAt": "2026-07-20T01:14:41.748Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:builder.execute.scope:attestation",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "external",
+        "workflow_subject_ref": "kontourai/kontourai.io#197",
+        "expected_producer": "builder.execute-plan",
+        "recorded_by": "codex-repo-doc-refresh-197",
+        "self_produced_trust_slices": [
+          "implementation-scope"
+        ],
+        "artifact_refs": [
+          {
+            "kind": "artifact",
+            "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+            "summary": "Attempt-3 execution report records the one-line scope, assertion ordering, proof count, rollback, and pending independent review."
+          },
+          {
+            "kind": "source",
+            "file": "scripts/check-site-verify.sh",
+            "line_start": 7,
+            "line_end": 8,
+            "excerpt": "The file assertion executes before the single TAP success result is emitted."
+          }
+        ],
+        "gate_claim": {
+          "expectation_id": "implementation-scope",
+          "claim_type": "builder.execute.scope",
+          "subject_type": "change",
+          "step_id": "execute",
+          "identity_version": 2,
+          "recorded_at": "2026-07-20T01:01:05.800Z"
+        }
+      },
+      "status": "verified"
+    },
+    {
+      "id": "kontourai-kontourai-io-197-gate-claim-tests-evidence.flow-agents-workflow.final-named-site-verification-passes-at-23b7e3c-with-one-statically-backed-observed-assertion-independent-verification-also-records-63-passing-rendered-playwright-tests-gate-visit-2026-07-20t01-11-36-623z",
+      "subjectType": "flow-step",
+      "subjectId": "kontourai-kontourai-io-197/gate-claim-tests-evidence",
+      "facet": "flow-agents.workflow",
+      "claimType": "builder.verify.tests",
+      "fieldOrBehavior": "Final named site verification passes at 23b7e3c with one statically backed observed assertion; independent verification also records 63 passing rendered Playwright tests.",
+      "value": "pass",
+      "createdAt": "2026-07-20T01:14:41.748Z",
+      "updatedAt": "2026-07-20T01:14:41.748Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:builder.verify.tests:test_output",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "command",
+        "workflow_subject_ref": "kontourai/kontourai.io#197",
+        "expected_producer": "builder.verify-work",
+        "recorded_by": "codex-repo-doc-refresh-197",
+        "self_produced_trust_slices": [
+          "acceptance-criteria",
+          "tests-evidence",
+          "policy-compliance"
+        ],
+        "artifact_refs": [
+          {
+            "kind": "command",
+            "excerpt": "npm run check:site-verify",
+            "summary": "Canonical recordable Trust Verify command; build, validators, generated-page assertion, and one observable result."
+          },
+          {
+            "kind": "artifact",
+            "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/verification-report-r5.md",
+            "summary": "Independent final verifier report, including one inferred assertion and 63 passing rendered tests."
+          }
+        ],
+        "output_digest": {
+          "algorithm": "sha256",
+          "hex": "5f09dad119abef87ef8e4d4de0e259bfc8e8070f070c5b888a23452f67f13094"
+        },
+        "observed_commands": [
+          {
+            "command": "npm run check:site-verify",
+            "exit_code": 0,
+            "output_sha256": "5f09dad119abef87ef8e4d4de0e259bfc8e8070f070c5b888a23452f67f13094",
+            "test_count": 1,
+            "execution_proof": {
+              "kind": "local-process-exit",
+              "runner": "bash",
+              "static_test_units": 1
+            }
+          }
+        ],
+        "gate_claim": {
+          "expectation_id": "tests-evidence",
+          "claim_type": "builder.verify.tests",
+          "subject_type": "flow-step",
+          "step_id": "verify",
+          "identity_version": 2,
+          "recorded_at": "2026-07-20T01:11:36.623Z"
+        }
+      },
+      "status": "verified"
+    },
+    {
+      "id": "kontourai-kontourai-io-197-gate-claim-merge-readiness.flow-agents-workflow.local-evidence-supports-merge-review-at-23b7e3c-exact-five-file-scope-ac1-ac3-pass-five-current-clean-critiques-63-rendered-tests-and-local-trust-reconciliation-exit-0-provider-ci-remains-required-after-publication-and-push-with-no-merge-authorization-gate-visit-2026-07-20t01-12-41-056z",
+      "subjectType": "change",
+      "subjectId": "kontourai-kontourai-io-197/gate-claim-merge-readiness",
+      "facet": "flow-agents.workflow",
+      "claimType": "builder.merge-ready.readiness",
+      "fieldOrBehavior": "Local evidence supports merge review at 23b7e3c: exact five-file scope, AC1-AC3 pass, five current clean critiques, 63 rendered tests, and local trust reconciliation exit 0; provider CI remains required after publication and push, with no merge authorization.",
+      "value": "pass",
+      "createdAt": "2026-07-20T01:14:41.748Z",
+      "updatedAt": "2026-07-20T01:14:41.748Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:builder.merge-ready.readiness:attestation",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "external",
+        "workflow_subject_ref": "kontourai/kontourai.io#197",
+        "expected_producer": "builder.evidence-gate",
+        "recorded_by": "codex-repo-doc-refresh-197",
+        "self_produced_trust_slices": [
+          "merge-readiness"
+        ],
+        "artifact_refs": [
+          {
+            "kind": "artifact",
+            "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--evidence-gate.md",
+            "summary": "Evidence confidence, acceptance coverage, scope integrity, residual provider risk, and no-merge route."
+          }
+        ],
+        "gate_claim": {
+          "expectation_id": "merge-readiness",
+          "claim_type": "builder.merge-ready.readiness",
+          "subject_type": "change",
+          "step_id": "merge-ready",
+          "identity_version": 2,
+          "recorded_at": "2026-07-20T01:12:41.056Z"
+        }
+      },
+      "status": "verified"
+    },
+    {
+      "id": "kontourai-kontourai-io-197-gate-claim-pull-request-opened.flow-agents-workflow.verified-branch-head-23b7e3c-is-pushed-to-the-existing-open-pr-197-the-pr-body-is-current-provider-checks-are-queued-and-no-merge-or-deployment-occurred-gate-visit-2026-07-20t01-14-41-748z",
+      "subjectType": "pull-request",
+      "subjectId": "kontourai-kontourai-io-197/gate-claim-pull-request-opened",
+      "facet": "flow-agents.workflow",
+      "claimType": "builder.pr-open.pull-request",
+      "fieldOrBehavior": "Verified branch head 23b7e3c is pushed to the existing open PR #197; the PR body is current, provider checks are queued, and no merge or deployment occurred.",
+      "value": "pass",
+      "createdAt": "2026-07-20T01:14:41.748Z",
+      "updatedAt": "2026-07-20T01:14:41.748Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:builder.pr-open.pull-request:attestation",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "external",
+        "workflow_subject_ref": "kontourai/kontourai.io#197",
+        "expected_producer": "operation:publish-change",
+        "recorded_by": "codex-repo-doc-refresh-197",
+        "artifact_refs": [
+          {
+            "kind": "artifact",
+            "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/release.json",
+            "summary": "PublishChangeResult with exact provider change ref, head SHA, queued checks, and hold route."
+          },
+          {
+            "kind": "provider",
+            "url": "https://github.com/kontourai/kontourai.io/pull/197",
+            "summary": "Open GitHub pull request at the verified branch head."
+          }
+        ],
+        "gate_claim": {
+          "expectation_id": "pull-request-opened",
+          "claim_type": "builder.pr-open.pull-request",
+          "subject_type": "pull-request",
+          "step_id": "pr-open",
+          "identity_version": 2,
+          "recorded_at": "2026-07-20T01:14:41.748Z"
+        }
+      },
+      "status": "verified"
+    },
+    {
+      "id": "kontourai-kontourai-io-197-ac1.flow-agents-workflow.the-root-readme-accurately-explains-repository-role-source-layout-local-commands-and-authority-and-content-boundaries-with-valid-referenced-paths-verified-2026-07-20t01-11-36-623z",
+      "subjectType": "pull-request",
+      "subjectId": "kontourai-kontourai-io-197/AC1",
+      "facet": "flow-agents.workflow",
+      "claimType": "builder.pr-open.pull-request",
+      "fieldOrBehavior": "The root README accurately explains repository role, source layout, local commands, and authority and content boundaries, with valid referenced paths.",
+      "value": "pass",
+      "createdAt": "2026-07-20T01:14:41.748Z",
+      "updatedAt": "2026-07-20T01:14:41.748Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:builder.pr-open.pull-request",
+      "metadata": {
+        "origin": "acceptance",
+        "criterion": {
+          "id": "AC1",
+          "description": "The root README accurately explains repository role, source layout, local commands, and authority and content boundaries, with valid referenced paths.",
+          "status": "pass",
+          "evidence_refs": [
+            {
+              "kind": "command",
+              "excerpt": "npm run check:site-verify",
+              "summary": "Final site build and validation succeed for the documented repository scope."
+            },
+            {
+              "kind": "artifact",
+              "file": "README.md",
+              "summary": "Reviewed 68-line root repository orientation."
+            },
+            {
+              "kind": "artifact",
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/verification-report-r5.md",
+              "summary": "Verifier confirms exact five-file scope, valid README references, and current public versions."
+            }
+          ],
+          "identity_version": 2,
+          "verified_at": "2026-07-20T01:11:36.623Z"
+        },
+        "workflow_subject_ref": "kontourai/kontourai.io#197"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "kontourai-kontourai-io-197-ac2.flow-agents-workflow.the-readme-satisfies-the-public-repository-content-boundary-verified-2026-07-20t01-11-36-623z",
+      "subjectType": "pull-request",
+      "subjectId": "kontourai-kontourai-io-197/AC2",
+      "facet": "flow-agents.workflow",
+      "claimType": "builder.pr-open.pull-request",
+      "fieldOrBehavior": "The README satisfies the public repository content boundary.",
+      "value": "pass",
+      "createdAt": "2026-07-20T01:14:41.748Z",
+      "updatedAt": "2026-07-20T01:14:41.748Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:builder.pr-open.pull-request",
+      "metadata": {
+        "origin": "acceptance",
+        "criterion": {
+          "id": "AC2",
+          "description": "The README satisfies the public repository content boundary.",
+          "status": "pass",
+          "evidence_refs": [
+            {
+              "kind": "command",
+              "excerpt": "npm run check:site-verify",
+              "summary": "Named command runs the content-boundary validator as part of npm run validate."
+            },
+            {
+              "kind": "artifact",
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/verification-report-r5.md",
+              "summary": "Verifier records focused public-boundary success."
+            }
+          ],
+          "identity_version": 2,
+          "verified_at": "2026-07-20T01:11:36.623Z"
+        },
+        "workflow_subject_ref": "kontourai/kontourai.io#197"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "kontourai-kontourai-io-197-ac3.flow-agents-workflow.a-named-statically-reviewable-site-verification-command-preserves-the-repository-s-build-and-validation-contract-is-used-consistently-by-the-package-trust-manifest-and-trust-verify-workflow-and-passes-for-the-pr-scope-verified-2026-07-20t01-11-36-623z",
+      "subjectType": "pull-request",
+      "subjectId": "kontourai-kontourai-io-197/AC3",
+      "facet": "flow-agents.workflow",
+      "claimType": "builder.pr-open.pull-request",
+      "fieldOrBehavior": "A named, statically reviewable site-verification command preserves the repository's build and validation contract, is used consistently by the package trust manifest and Trust Verify workflow, and passes for the PR scope.",
+      "value": "pass",
+      "createdAt": "2026-07-20T01:14:41.748Z",
+      "updatedAt": "2026-07-20T01:14:41.748Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:builder.pr-open.pull-request",
+      "metadata": {
+        "origin": "acceptance",
+        "criterion": {
+          "id": "AC3",
+          "description": "A named, statically reviewable site-verification command preserves the repository's build and validation contract, is used consistently by the package trust manifest and Trust Verify workflow, and passes for the PR scope.",
+          "status": "pass",
+          "evidence_refs": [
+            {
+              "kind": "command",
+              "excerpt": "npm run check:site-verify",
+              "summary": "Canonical command is statically recordable and reports one real generated-page assertion after build and validation."
+            },
+            {
+              "kind": "artifact",
+              "file": "scripts/check-site-verify.sh",
+              "summary": "Strict wrapper preserving the build-plus-validation contract and observable assertion ordering."
+            },
+            {
+              "kind": "artifact",
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/verification-report-r5.md",
+              "summary": "Verifier confirms exact package-manifest/workflow alignment and successful execution."
+            }
+          ],
+          "identity_version": 2,
+          "verified_at": "2026-07-20T01:11:36.623Z"
+        },
+        "workflow_subject_ref": "kontourai/kontourai.io#197"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "kontourai-kontourai-io-197-review.flow-agents-workflow.readme-md-only-scope-reviewed-for-accuracy-maintainability-standards-public-boundary-safety-and-scope-integrity-no-actionable-findings-or-unresolved-gaps-reviewed-2026-07-20t00-08-53-748z-superseded-review-2026-07-20t00-55-35-960z",
+      "subjectType": "workflow-critique",
+      "subjectId": "kontourai-kontourai-io-197/review",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.critique.review",
+      "fieldOrBehavior": "README.md-only scope reviewed for accuracy, maintainability, standards, public-boundary safety, and scope integrity; no actionable findings or unresolved gaps.",
+      "value": "pass",
+      "createdAt": "2026-07-20T01:14:41.748Z",
+      "updatedAt": "2026-07-20T01:14:41.748Z",
+      "impactLevel": "medium",
+      "verificationPolicyId": "policy:workflow.critique.review",
+      "metadata": {
+        "origin": "critique",
+        "reviewer": "codex-review-doc-refresh-197",
+        "reviewed_at": "2026-07-20T00:08:53.748Z",
+        "identity_version": 2,
+        "findings": [],
+        "lanes": [
+          {
+            "id": "documentation-review",
+            "status": "pass",
+            "summary": "Repository orientation, referenced paths, commands, authority boundaries, public-content safety, and README-only scope were reviewed with no actionable findings.",
+            "evidence_refs": [
+              {
+                "kind": "artifact",
+                "file": "README.md",
+                "summary": "Reviewed repository README."
+              },
+              {
+                "kind": "artifact",
+                "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+                "summary": "Reviewed scope and execution context."
+              }
+            ]
+          }
+        ],
+        "review_target": {
+          "artifacts": [
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+              "sha256": "c3333e8cea813658c238b81f44cc8081d3a199b0894b67093c402af6a46e4dca"
+            },
+            {
+              "file": "README.md",
+              "sha256": "982b1ed3d23d46b14a91405188d9b3a9377ed97cf75046fcc8f748394202ec2f"
+            }
+          ],
+          "workspace_snapshot": {
+            "version": 1,
+            "kind": "git-worktree",
+            "algorithm": "sha256",
+            "digest": "378f5e71b0871a64a806290aa287dcf9b25b1114486f2fe272fd6be6a071eac0",
+            "head_sha": "266be3d5ca7281e07e05cd7556bd7e2b66cf493c"
+          }
+        },
+        "artifact_refs": [
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+          "README.md"
+        ],
+        "workflow_subject_ref": "kontourai/kontourai.io#197",
+        "superseded_by": "review@2026-07-20T00:55:35.960Z"
+      },
+      "status": "superseded"
+    },
+    {
+      "id": "kontourai-kontourai-io-197-review.flow-agents-workflow.readme-md-and-five-version-only-product-status-updates-reviewed-for-accuracy-registry-parity-standards-public-boundary-safety-route-back-consistency-and-scope-integrity-no-actionable-findings-or-unresolved-gaps-reviewed-2026-07-20t00-20-53-234z-superseded-review-2026-07-20t00-55-52-279z",
+      "subjectType": "workflow-critique",
+      "subjectId": "kontourai-kontourai-io-197/review",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.critique.review",
+      "fieldOrBehavior": "README.md and five version-only product-status updates reviewed for accuracy, registry parity, standards, public-boundary safety, route-back consistency, and scope integrity; no actionable findings or unresolved gaps.",
+      "value": "pass",
+      "createdAt": "2026-07-20T01:14:41.748Z",
+      "updatedAt": "2026-07-20T01:14:41.748Z",
+      "impactLevel": "medium",
+      "verificationPolicyId": "policy:workflow.critique.review",
+      "metadata": {
+        "origin": "critique",
+        "reviewer": "codex-review-doc-refresh-197-r2",
+        "reviewed_at": "2026-07-20T00:20:53.234Z",
+        "identity_version": 2,
+        "findings": [],
+        "lanes": [
+          {
+            "id": "documentation-and-version-review",
+            "status": "pass",
+            "summary": "README orientation and commands remain accurate; exactly five public package version pins match current npm latest values and repository sync guidance; route-back evidence, public-content safety, and two-file source scope are consistent with no actionable findings.",
+            "evidence_refs": [
+              {
+                "kind": "artifact",
+                "file": "README.md",
+                "summary": "Reviewed repository README and referenced public documentation contract."
+              },
+              {
+                "kind": "artifact",
+                "file": "src/data/product-status.json",
+                "summary": "Reviewed five version-only public npm metadata updates."
+              },
+              {
+                "kind": "artifact",
+                "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+                "summary": "Reviewed corrected scope, route-back history, and verification handoff."
+              }
+            ]
+          }
+        ],
+        "review_target": {
+          "artifacts": [
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+              "sha256": "6fabbba40ebefc8122290d51d463908b479d51f65e498a1dc6ab8fb8d027326c"
+            },
+            {
+              "file": "README.md",
+              "sha256": "982b1ed3d23d46b14a91405188d9b3a9377ed97cf75046fcc8f748394202ec2f"
+            },
+            {
+              "file": "src/data/product-status.json",
+              "sha256": "66ebd8c241aa95517c029d07c88d14751473c979be93c6a613cf1f88122b3182"
+            }
+          ],
+          "workspace_snapshot": {
+            "version": 1,
+            "kind": "git-worktree",
+            "algorithm": "sha256",
+            "digest": "645b2d7291b91a67e3a763f7c5265a193955fa37c3ddc74e1bf4f2dd0cbf9ea6",
+            "head_sha": "266be3d5ca7281e07e05cd7556bd7e2b66cf493c"
+          }
+        },
+        "artifact_refs": [
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+          "README.md",
+          "src/data/product-status.json"
+        ],
+        "workflow_subject_ref": "kontourai/kontourai.io#197",
+        "superseded_by": "review@2026-07-20T00:55:52.279Z"
+      },
+      "status": "superseded"
+    },
+    {
+      "id": "kontourai-kontourai-io-197-review.flow-agents-workflow.committed-readme-and-five-field-public-version-scope-plus-the-revised-ac1-ac3-acceptance-contract-were-reviewed-for-accuracy-freshness-public-boundary-safety-scope-integrity-and-preservation-of-local-trust-reconciliation-as-a-definition-of-done-gate-no-actionable-findings-or-unresolved-review-gaps-this-critique-does-not-claim-canonical-verification-or-reconciliation-completion-reviewed-2026-07-20t00-31-56-949z-superseded-review-2026-07-20t00-56-07-234z",
+      "subjectType": "workflow-critique",
+      "subjectId": "kontourai-kontourai-io-197/review",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.critique.review",
+      "fieldOrBehavior": "Committed README and five-field public-version scope plus the revised AC1-AC3 acceptance contract were reviewed for accuracy, freshness, public-boundary safety, scope integrity, and preservation of local trust reconciliation as a Definition Of Done gate; no actionable findings or unresolved review gaps. This critique does not claim canonical verification or reconciliation completion.",
+      "value": "pass",
+      "createdAt": "2026-07-20T01:14:41.748Z",
+      "updatedAt": "2026-07-20T01:14:41.748Z",
+      "impactLevel": "medium",
+      "verificationPolicyId": "policy:workflow.critique.review",
+      "metadata": {
+        "origin": "critique",
+        "reviewer": "codex-review-doc-refresh-197-r3",
+        "reviewed_at": "2026-07-20T00:31:56.949Z",
+        "identity_version": 2,
+        "findings": [],
+        "lanes": [
+          {
+            "id": "committed-documentation-version-contract-review",
+            "status": "pass",
+            "summary": "At committed HEAD a2055d9, README accuracy and public safety, exactly five version-only metadata updates, current npm/source parity, AC1-AC3-only acceptance, and the non-waived pre-publication trust-reconciliation Definition Of Done gate were reviewed with no actionable findings; canonical verification was not claimed.",
+            "evidence_refs": [
+              {
+                "kind": "artifact",
+                "file": "README.md",
+                "summary": "Reviewed committed repository orientation, commands, paths, and public boundary."
+              },
+              {
+                "kind": "artifact",
+                "file": "src/data/product-status.json",
+                "summary": "Reviewed committed five-field version refresh and canonical npm source URLs."
+              },
+              {
+                "kind": "artifact",
+                "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/acceptance.json",
+                "summary": "Reviewed revised three-criterion AC1-AC3 acceptance contract."
+              },
+              {
+                "kind": "artifact",
+                "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--plan-work.md",
+                "summary": "Reviewed source scope and pre-seal local reconciliation Definition Of Done gate."
+              },
+              {
+                "kind": "artifact",
+                "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+                "summary": "Reviewed committed scope, route-back history, non-waiver statement, and verification handoff."
+              }
+            ]
+          }
+        ],
+        "review_target": {
+          "artifacts": [
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+              "sha256": "352a873ff2009794ef0a1004e6f0524bce6549f5bfadb8d3712a59390be7786d"
+            },
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--plan-work.md",
+              "sha256": "eb7b4bf11d043cde5685b8be74b50441c87ec3030b81b3ef1045aa8d7245105b"
+            },
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/acceptance.json",
+              "sha256": "f029f22abe7e9b16fd36a9479af795109d62d2d2d3b604f9735c079b2ab1c4a4"
+            },
+            {
+              "file": "README.md",
+              "sha256": "982b1ed3d23d46b14a91405188d9b3a9377ed97cf75046fcc8f748394202ec2f"
+            },
+            {
+              "file": "src/data/product-status.json",
+              "sha256": "66ebd8c241aa95517c029d07c88d14751473c979be93c6a613cf1f88122b3182"
+            }
+          ],
+          "workspace_snapshot": {
+            "version": 1,
+            "kind": "git-worktree",
+            "algorithm": "sha256",
+            "digest": "eb508e641c5c29d63786f64424a4e99117babedff6499fcab56dbaa8b737b135",
+            "head_sha": "a2055d9ac4251633b2f79c81a2fe887ceccb22d7"
+          }
+        },
+        "artifact_refs": [
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--plan-work.md",
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/acceptance.json",
+          "README.md",
+          "src/data/product-status.json"
+        ],
+        "workflow_subject_ref": "kontourai/kontourai.io#197",
+        "superseded_by": "review@2026-07-20T00:56:07.234Z"
+      },
+      "status": "superseded"
+    },
+    {
+      "id": "kontourai-kontourai-io-197-final-scope-r4.flow-agents-workflow.final-committed-production-changes-pass-focused-documentation-version-wrapper-command-alignment-static-recordability-syntax-and-public-boundary-review-but-workflow-plan-and-delivery-evidence-still-contradict-head-c27576e-by-reporting-the-pre-wrapper-source-scope-and-commit-count-canonical-verification-was-not-claimed-reviewed-2026-07-20t00-44-30-788z-superseded-final-scope-r4-2026-07-20t00-49-06-843z",
+      "subjectType": "workflow-critique",
+      "subjectId": "kontourai-kontourai-io-197/final-scope-r4",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.critique.review",
+      "fieldOrBehavior": "Final committed production changes pass focused documentation, version, wrapper, command-alignment, static-recordability, syntax, and public-boundary review, but workflow plan and delivery evidence still contradict HEAD c27576e by reporting the pre-wrapper source scope and commit count. Canonical verification was not claimed.",
+      "value": "fail",
+      "createdAt": "2026-07-20T01:14:41.748Z",
+      "updatedAt": "2026-07-20T01:14:41.748Z",
+      "impactLevel": "medium",
+      "verificationPolicyId": "policy:workflow.critique.review",
+      "metadata": {
+        "origin": "critique",
+        "reviewer": "codex-review-doc-refresh-197-r4",
+        "reviewed_at": "2026-07-20T00:44:30.788Z",
+        "identity_version": 2,
+        "findings": [
+          {
+            "id": "stale-final-scope-evidence",
+            "title": "Final workflow artifacts contradict committed r4 scope",
+            "severity": "high",
+            "status": "open",
+            "description": "At HEAD c27576e the tracked diff has five files and three commits, including scripts/check-site-verify.sh, package.json, and .github/workflows/trust-verify.yml. The plan Definition Of Done still says only README.md and five version fields changed (line 44), its rollback/handoff still names two commits (lines 58 and 62), and the delivery worker evidence still claims a two-file complete production scope and origin/main..HEAD count of 2 (lines 175-183). These contradictions make the review/delivery scope evidence inaccurate and must be corrected before a clean critique.",
+            "file_refs": [
+              ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--plan-work.md:44",
+              ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--plan-work.md:58",
+              ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--plan-work.md:62",
+              ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md:175",
+              ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md:181"
+            ]
+          }
+        ],
+        "lanes": [
+          {
+            "id": "final-documentation-version-command-and-scope-review",
+            "status": "fail",
+            "summary": "Production documentation, five public version fields, strict wrapper behavior, exact trust-command alignment, static recordability, shell/YAML/JSON safety, rendered-test guidance, AC1-AC3 acceptance, and the reconciliation gate were reviewed. One HIGH workflow-artifact scope-integrity finding remains open; canonical verification was not claimed.",
+            "evidence_refs": [
+              {
+                "kind": "artifact",
+                "file": "README.md",
+                "summary": "Reviewed final repository documentation and rendered-test guidance."
+              },
+              {
+                "kind": "artifact",
+                "file": "src/data/product-status.json",
+                "summary": "Reviewed five version-only public metadata updates."
+              },
+              {
+                "kind": "artifact",
+                "file": "scripts/check-site-verify.sh",
+                "summary": "Reviewed strict non-weakening wrapper and concrete output assertion."
+              },
+              {
+                "kind": "artifact",
+                "file": "package.json",
+                "summary": "Reviewed JSON safety, named script, trust manifest, and rendered-test command."
+              },
+              {
+                "kind": "artifact",
+                "file": ".github/workflows/trust-verify.yml",
+                "summary": "Reviewed YAML safety and exact verify-command alignment."
+              },
+              {
+                "kind": "artifact",
+                "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/acceptance.json",
+                "summary": "Reviewed AC1-AC3 acceptance contract."
+              },
+              {
+                "kind": "artifact",
+                "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--plan-work.md",
+                "summary": "Found stale final source-scope, rollback, and handoff statements."
+              },
+              {
+                "kind": "artifact",
+                "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+                "summary": "Found stale complete-scope and commit-count evidence."
+              }
+            ]
+          }
+        ],
+        "review_target": {
+          "artifacts": [
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+              "sha256": "01d4a7a49c17f4c8ced1ece22d243753d0b04af1ca97cec3d57d19953776518f"
+            },
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--plan-work.md",
+              "sha256": "715bd3d476c7836e84585789e79a22ab8c889d691b97663773cb6ed27270ec8e"
+            },
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/acceptance.json",
+              "sha256": "771da223d00fb98ded77e607822c455e2758191b9a648ddc5205a4b4f5923886"
+            },
+            {
+              "file": "README.md",
+              "sha256": "f24fc09068ed631875c23302400db6e0e593d343f5082cf7aca9c5c0e4dcc428"
+            },
+            {
+              "file": "src/data/product-status.json",
+              "sha256": "66ebd8c241aa95517c029d07c88d14751473c979be93c6a613cf1f88122b3182"
+            },
+            {
+              "file": "scripts/check-site-verify.sh",
+              "sha256": "46c4c54164f46d9eae96090c007f46bcf875b11755e00e4b6aaffd2de3dab2bb"
+            },
+            {
+              "file": "package.json",
+              "sha256": "ff761a02ab1d18e45bfd860b474f6ae857cfe6fd0acb1faf859f665add49ea33"
+            },
+            {
+              "file": ".github/workflows/trust-verify.yml",
+              "sha256": "6f3ceb0818b46163193d516bac2be35d0b610a984ea9d9d7884a66eb994dfb76"
+            }
+          ],
+          "workspace_snapshot": {
+            "version": 1,
+            "kind": "git-worktree",
+            "algorithm": "sha256",
+            "digest": "6204ee89bc48e51c046ca446feca2c91828635a6b81ae3ab2e4808b9894a0e63",
+            "head_sha": "c27576ed9bab9b2fb51a4e8f2b1c1b27771551ec"
+          }
+        },
+        "artifact_refs": [
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--plan-work.md",
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/acceptance.json",
+          "README.md",
+          "src/data/product-status.json",
+          "scripts/check-site-verify.sh",
+          "package.json",
+          ".github/workflows/trust-verify.yml"
+        ],
+        "workflow_subject_ref": "kontourai/kontourai.io#197",
+        "superseded_by": "final-scope-r4@2026-07-20T00:49:06.843Z"
+      },
+      "status": "superseded"
+    },
+    {
+      "id": "kontourai-kontourai-io-197-final-scope-r4.flow-agents-workflow.the-r4-workflow-artifact-finding-is-corrected-final-plan-and-delivery-evidence-now-match-committed-head-c27576e-all-five-tracked-files-and-all-three-commits-prior-focused-documentation-version-wrapper-exact-command-alignment-static-recordability-syntax-rendered-guidance-ac1-ac3-public-boundary-and-local-reconciliation-gate-checks-remain-clean-canonical-verification-merge-and-cross-reviewer-supersession-are-not-claimed-reviewed-2026-07-20t00-47-16-689z-superseded-final-scope-r4-2026-07-20t01-07-12-053z",
+      "subjectType": "workflow-critique",
+      "subjectId": "kontourai-kontourai-io-197/final-scope-r4",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.critique.review",
+      "fieldOrBehavior": "The r4 workflow-artifact finding is corrected: final plan and delivery evidence now match committed HEAD c27576e, all five tracked files, and all three commits. Prior focused documentation, version, wrapper, exact command-alignment, static-recordability, syntax, rendered-guidance, AC1-AC3, public-boundary, and local-reconciliation-gate checks remain clean. Canonical verification, merge, and cross-reviewer supersession are not claimed.",
+      "value": "pass",
+      "createdAt": "2026-07-20T01:14:41.748Z",
+      "updatedAt": "2026-07-20T01:14:41.748Z",
+      "impactLevel": "medium",
+      "verificationPolicyId": "policy:workflow.critique.review",
+      "metadata": {
+        "origin": "critique",
+        "reviewer": "codex-review-doc-refresh-197-r5",
+        "reviewed_at": "2026-07-20T00:47:16.689Z",
+        "identity_version": 2,
+        "findings": [],
+        "lanes": [
+          {
+            "id": "final-scope-remediation-review-r5",
+            "status": "pass",
+            "summary": "Confirmed the r4 stale-scope finding is corrected in plan Definition Of Done, rollback, handoff, and delivery evidence; the current five-file/three-commit scope and every prior focused production/trust/public-boundary check pass. Canonical verification and merge were not claimed.",
+            "evidence_refs": [
+              {
+                "kind": "artifact",
+                "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--plan-work.md",
+                "summary": "Corrected DoD, three-commit rollback, five-file handoff, AC1-AC3, and pre-publication reconciliation gate."
+              },
+              {
+                "kind": "artifact",
+                "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+                "summary": "Corrected five-file complete scope and three-commit evidence."
+              },
+              {
+                "kind": "artifact",
+                "file": "README.md",
+                "summary": "Reconfirmed documentation, public boundary, named verification, and rendered-test guidance."
+              },
+              {
+                "kind": "artifact",
+                "file": "src/data/product-status.json",
+                "summary": "Reconfirmed five current version-only metadata fields."
+              },
+              {
+                "kind": "artifact",
+                "file": "scripts/check-site-verify.sh",
+                "summary": "Reconfirmed strict non-weakening wrapper and output assertion."
+              },
+              {
+                "kind": "artifact",
+                "file": "package.json",
+                "summary": "Reconfirmed JSON safety, named command, trust manifest, and rendered test."
+              },
+              {
+                "kind": "artifact",
+                "file": ".github/workflows/trust-verify.yml",
+                "summary": "Reconfirmed YAML safety and exact verify-command alignment."
+              },
+              {
+                "kind": "artifact",
+                "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/acceptance.json",
+                "summary": "Reconfirmed AC1-AC3 acceptance contract."
+              }
+            ]
+          }
+        ],
+        "review_target": {
+          "artifacts": [
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+              "sha256": "bcb2497d722b9fbd7642af987ab2926d6817aa4da10fd81eee39f34b2e8ac7da"
+            },
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--plan-work.md",
+              "sha256": "9a592a6c6e65786365e07852db5defc5b4957f220ad7a6a3984011e92471d70e"
+            },
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/acceptance.json",
+              "sha256": "771da223d00fb98ded77e607822c455e2758191b9a648ddc5205a4b4f5923886"
+            },
+            {
+              "file": "README.md",
+              "sha256": "f24fc09068ed631875c23302400db6e0e593d343f5082cf7aca9c5c0e4dcc428"
+            },
+            {
+              "file": "src/data/product-status.json",
+              "sha256": "66ebd8c241aa95517c029d07c88d14751473c979be93c6a613cf1f88122b3182"
+            },
+            {
+              "file": "scripts/check-site-verify.sh",
+              "sha256": "46c4c54164f46d9eae96090c007f46bcf875b11755e00e4b6aaffd2de3dab2bb"
+            },
+            {
+              "file": "package.json",
+              "sha256": "ff761a02ab1d18e45bfd860b474f6ae857cfe6fd0acb1faf859f665add49ea33"
+            },
+            {
+              "file": ".github/workflows/trust-verify.yml",
+              "sha256": "6f3ceb0818b46163193d516bac2be35d0b610a984ea9d9d7884a66eb994dfb76"
+            }
+          ],
+          "workspace_snapshot": {
+            "version": 1,
+            "kind": "git-worktree",
+            "algorithm": "sha256",
+            "digest": "6204ee89bc48e51c046ca446feca2c91828635a6b81ae3ab2e4808b9894a0e63",
+            "head_sha": "c27576ed9bab9b2fb51a4e8f2b1c1b27771551ec"
+          }
+        },
+        "artifact_refs": [
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--plan-work.md",
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/acceptance.json",
+          "README.md",
+          "src/data/product-status.json",
+          "scripts/check-site-verify.sh",
+          "package.json",
+          ".github/workflows/trust-verify.yml"
+        ],
+        "workflow_subject_ref": "kontourai/kontourai.io#197",
+        "superseded_by": "final-scope-r4@2026-07-20T01:07:12.053Z"
+      },
+      "status": "superseded"
+    },
+    {
+      "id": "kontourai-kontourai-io-197-final-scope-r4.flow-agents-workflow.the-prior-r4-scope-integrity-finding-is-resolved-plan-definition-of-done-rollback-handoff-and-delivery-evidence-now-match-committed-head-c27576e-all-five-tracked-files-and-all-three-commits-prior-focused-documentation-version-wrapper-exact-command-alignment-static-recordability-syntax-rendered-guidance-ac1-ac3-public-boundary-and-local-reconciliation-gate-checks-remain-clean-canonical-verification-and-merge-are-not-claimed-reviewed-2026-07-20t00-49-06-843z-superseded-final-scope-r4-2026-07-20t01-05-11-686z",
+      "subjectType": "workflow-critique",
+      "subjectId": "kontourai-kontourai-io-197/final-scope-r4",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.critique.review",
+      "fieldOrBehavior": "The prior r4 scope-integrity finding is resolved: plan Definition Of Done, rollback, handoff, and delivery evidence now match committed HEAD c27576e, all five tracked files, and all three commits. Prior focused documentation, version, wrapper, exact command-alignment, static-recordability, syntax, rendered-guidance, AC1-AC3, public-boundary, and local-reconciliation-gate checks remain clean. Canonical verification and merge are not claimed.",
+      "value": "pass",
+      "createdAt": "2026-07-20T01:14:41.748Z",
+      "updatedAt": "2026-07-20T01:14:41.748Z",
+      "impactLevel": "medium",
+      "verificationPolicyId": "policy:workflow.critique.review",
+      "metadata": {
+        "origin": "critique",
+        "reviewer": "codex-review-doc-refresh-197-r4",
+        "reviewed_at": "2026-07-20T00:49:06.843Z",
+        "identity_version": 2,
+        "findings": [],
+        "lanes": [
+          {
+            "id": "final-scope-resolution-r4",
+            "status": "pass",
+            "summary": "Reconfirmed the corrected five-file, three-commit scope in plan and delivery evidence and all prior focused production/trust/public-boundary checks at HEAD c27576e; the earlier r4 finding is resolved. Canonical verification and merge were not claimed.",
+            "evidence_refs": [
+              {
+                "kind": "artifact",
+                "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--plan-work.md",
+                "summary": "Corrected DoD, rollback, handoff, AC1-AC3, and reconciliation gate."
+              },
+              {
+                "kind": "artifact",
+                "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+                "summary": "Corrected five-file complete scope and three-commit evidence."
+              },
+              {
+                "kind": "artifact",
+                "file": "README.md",
+                "summary": "Reconfirmed documentation, public boundary, named verification, and rendered-test guidance."
+              },
+              {
+                "kind": "artifact",
+                "file": "src/data/product-status.json",
+                "summary": "Reconfirmed five current version-only metadata fields."
+              },
+              {
+                "kind": "artifact",
+                "file": "scripts/check-site-verify.sh",
+                "summary": "Reconfirmed strict non-weakening wrapper and output assertion."
+              },
+              {
+                "kind": "artifact",
+                "file": "package.json",
+                "summary": "Reconfirmed JSON safety, named command, trust manifest, and rendered test."
+              },
+              {
+                "kind": "artifact",
+                "file": ".github/workflows/trust-verify.yml",
+                "summary": "Reconfirmed YAML safety and exact verify-command alignment."
+              },
+              {
+                "kind": "artifact",
+                "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/acceptance.json",
+                "summary": "Reconfirmed AC1-AC3 acceptance contract."
+              }
+            ]
+          }
+        ],
+        "review_target": {
+          "artifacts": [
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+              "sha256": "bcb2497d722b9fbd7642af987ab2926d6817aa4da10fd81eee39f34b2e8ac7da"
+            },
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--plan-work.md",
+              "sha256": "9a592a6c6e65786365e07852db5defc5b4957f220ad7a6a3984011e92471d70e"
+            },
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/acceptance.json",
+              "sha256": "771da223d00fb98ded77e607822c455e2758191b9a648ddc5205a4b4f5923886"
+            },
+            {
+              "file": "README.md",
+              "sha256": "f24fc09068ed631875c23302400db6e0e593d343f5082cf7aca9c5c0e4dcc428"
+            },
+            {
+              "file": "src/data/product-status.json",
+              "sha256": "66ebd8c241aa95517c029d07c88d14751473c979be93c6a613cf1f88122b3182"
+            },
+            {
+              "file": "scripts/check-site-verify.sh",
+              "sha256": "46c4c54164f46d9eae96090c007f46bcf875b11755e00e4b6aaffd2de3dab2bb"
+            },
+            {
+              "file": "package.json",
+              "sha256": "ff761a02ab1d18e45bfd860b474f6ae857cfe6fd0acb1faf859f665add49ea33"
+            },
+            {
+              "file": ".github/workflows/trust-verify.yml",
+              "sha256": "6f3ceb0818b46163193d516bac2be35d0b610a984ea9d9d7884a66eb994dfb76"
+            }
+          ],
+          "workspace_snapshot": {
+            "version": 1,
+            "kind": "git-worktree",
+            "algorithm": "sha256",
+            "digest": "6204ee89bc48e51c046ca446feca2c91828635a6b81ae3ab2e4808b9894a0e63",
+            "head_sha": "c27576ed9bab9b2fb51a4e8f2b1c1b27771551ec"
+          }
+        },
+        "artifact_refs": [
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--plan-work.md",
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/acceptance.json",
+          "README.md",
+          "src/data/product-status.json",
+          "scripts/check-site-verify.sh",
+          "package.json",
+          ".github/workflows/trust-verify.yml"
+        ],
+        "workflow_subject_ref": "kontourai/kontourai.io#197",
+        "superseded_by": "final-scope-r4@2026-07-20T01:05:11.686Z"
+      },
+      "status": "superseded"
+    },
+    {
+      "id": "kontourai-kontourai-io-197-review.flow-agents-workflow.freshness-refresh-of-the-completed-final-review-all-five-tracked-production-files-and-corrected-workflow-artifacts-remain-clean-at-head-c27576e-with-documentation-versions-wrapper-trust-command-alignment-static-recordability-syntax-rendered-guidance-ac1-ac3-public-boundary-and-reconciliation-gate-evidence-reviewed-canonical-verification-and-merge-are-not-claimed-reviewed-2026-07-20t00-55-35-960z-superseded-review-2026-07-20t01-07-10-781z",
+      "subjectType": "workflow-critique",
+      "subjectId": "kontourai-kontourai-io-197/review",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.critique.review",
+      "fieldOrBehavior": "Freshness refresh of the completed final review: all five tracked production files and corrected workflow artifacts remain clean at HEAD c27576e, with documentation, versions, wrapper, trust-command alignment, static recordability, syntax, rendered guidance, AC1-AC3, public boundary, and reconciliation-gate evidence reviewed. Canonical verification and merge are not claimed.",
+      "value": "pass",
+      "createdAt": "2026-07-20T01:14:41.748Z",
+      "updatedAt": "2026-07-20T01:14:41.748Z",
+      "impactLevel": "medium",
+      "verificationPolicyId": "policy:workflow.critique.review",
+      "metadata": {
+        "origin": "critique",
+        "reviewer": "codex-review-doc-refresh-197",
+        "reviewed_at": "2026-07-20T00:55:35.960Z",
+        "identity_version": 2,
+        "findings": [],
+        "lanes": [
+          {
+            "id": "final-review-freshness",
+            "status": "pass",
+            "summary": "Rebound the already-completed clean final review to HEAD c27576e and all final production/workflow artifacts; no findings. Canonical verification and merge were not claimed.",
+            "evidence_refs": [
+              {
+                "kind": "artifact",
+                "file": "README.md",
+                "summary": "Final documentation and rendered-test guidance."
+              },
+              {
+                "kind": "artifact",
+                "file": "src/data/product-status.json",
+                "summary": "Five current public version fields."
+              },
+              {
+                "kind": "artifact",
+                "file": "scripts/check-site-verify.sh",
+                "summary": "Strict recordable site-verification wrapper."
+              },
+              {
+                "kind": "artifact",
+                "file": "package.json",
+                "summary": "Named command, trust manifest, and rendered command."
+              },
+              {
+                "kind": "artifact",
+                "file": ".github/workflows/trust-verify.yml",
+                "summary": "Aligned Trust Verify command."
+              },
+              {
+                "kind": "artifact",
+                "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/acceptance.json",
+                "summary": "AC1-AC3 acceptance contract."
+              },
+              {
+                "kind": "artifact",
+                "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--plan-work.md",
+                "summary": "Final scope and reconciliation gate."
+              },
+              {
+                "kind": "artifact",
+                "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+                "summary": "Corrected final delivery evidence."
+              }
+            ]
+          }
+        ],
+        "review_target": {
+          "artifacts": [
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+              "sha256": "bcb2497d722b9fbd7642af987ab2926d6817aa4da10fd81eee39f34b2e8ac7da"
+            },
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--plan-work.md",
+              "sha256": "9a592a6c6e65786365e07852db5defc5b4957f220ad7a6a3984011e92471d70e"
+            },
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/acceptance.json",
+              "sha256": "771da223d00fb98ded77e607822c455e2758191b9a648ddc5205a4b4f5923886"
+            },
+            {
+              "file": "README.md",
+              "sha256": "f24fc09068ed631875c23302400db6e0e593d343f5082cf7aca9c5c0e4dcc428"
+            },
+            {
+              "file": "src/data/product-status.json",
+              "sha256": "66ebd8c241aa95517c029d07c88d14751473c979be93c6a613cf1f88122b3182"
+            },
+            {
+              "file": "scripts/check-site-verify.sh",
+              "sha256": "46c4c54164f46d9eae96090c007f46bcf875b11755e00e4b6aaffd2de3dab2bb"
+            },
+            {
+              "file": "package.json",
+              "sha256": "ff761a02ab1d18e45bfd860b474f6ae857cfe6fd0acb1faf859f665add49ea33"
+            },
+            {
+              "file": ".github/workflows/trust-verify.yml",
+              "sha256": "6f3ceb0818b46163193d516bac2be35d0b610a984ea9d9d7884a66eb994dfb76"
+            }
+          ],
+          "workspace_snapshot": {
+            "version": 1,
+            "kind": "git-worktree",
+            "algorithm": "sha256",
+            "digest": "6204ee89bc48e51c046ca446feca2c91828635a6b81ae3ab2e4808b9894a0e63",
+            "head_sha": "c27576ed9bab9b2fb51a4e8f2b1c1b27771551ec"
+          }
+        },
+        "artifact_refs": [
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--plan-work.md",
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/acceptance.json",
+          "README.md",
+          "src/data/product-status.json",
+          "scripts/check-site-verify.sh",
+          "package.json",
+          ".github/workflows/trust-verify.yml"
+        ],
+        "workflow_subject_ref": "kontourai/kontourai.io#197",
+        "superseded_by": "review@2026-07-20T01:07:10.781Z"
+      },
+      "status": "superseded"
+    },
+    {
+      "id": "kontourai-kontourai-io-197-review.flow-agents-workflow.freshness-refresh-of-the-completed-final-review-all-five-tracked-production-files-and-corrected-workflow-artifacts-remain-clean-at-head-c27576e-with-documentation-versions-wrapper-trust-command-alignment-static-recordability-syntax-rendered-guidance-ac1-ac3-public-boundary-and-reconciliation-gate-evidence-reviewed-canonical-verification-and-merge-are-not-claimed-reviewed-2026-07-20t00-55-52-279z-superseded-review-2026-07-20t01-07-11-258z",
+      "subjectType": "workflow-critique",
+      "subjectId": "kontourai-kontourai-io-197/review",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.critique.review",
+      "fieldOrBehavior": "Freshness refresh of the completed final review: all five tracked production files and corrected workflow artifacts remain clean at HEAD c27576e, with documentation, versions, wrapper, trust-command alignment, static recordability, syntax, rendered guidance, AC1-AC3, public boundary, and reconciliation-gate evidence reviewed. Canonical verification and merge are not claimed.",
+      "value": "pass",
+      "createdAt": "2026-07-20T01:14:41.748Z",
+      "updatedAt": "2026-07-20T01:14:41.748Z",
+      "impactLevel": "medium",
+      "verificationPolicyId": "policy:workflow.critique.review",
+      "metadata": {
+        "origin": "critique",
+        "reviewer": "codex-review-doc-refresh-197-r2",
+        "reviewed_at": "2026-07-20T00:55:52.279Z",
+        "identity_version": 2,
+        "findings": [],
+        "lanes": [
+          {
+            "id": "final-review-freshness",
+            "status": "pass",
+            "summary": "Rebound the already-completed clean final review to HEAD c27576e and all final production/workflow artifacts; no findings. Canonical verification and merge were not claimed.",
+            "evidence_refs": [
+              {
+                "kind": "artifact",
+                "file": "README.md",
+                "summary": "Final documentation and rendered-test guidance."
+              },
+              {
+                "kind": "artifact",
+                "file": "src/data/product-status.json",
+                "summary": "Five current public version fields."
+              },
+              {
+                "kind": "artifact",
+                "file": "scripts/check-site-verify.sh",
+                "summary": "Strict recordable site-verification wrapper."
+              },
+              {
+                "kind": "artifact",
+                "file": "package.json",
+                "summary": "Named command, trust manifest, and rendered command."
+              },
+              {
+                "kind": "artifact",
+                "file": ".github/workflows/trust-verify.yml",
+                "summary": "Aligned Trust Verify command."
+              },
+              {
+                "kind": "artifact",
+                "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/acceptance.json",
+                "summary": "AC1-AC3 acceptance contract."
+              },
+              {
+                "kind": "artifact",
+                "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--plan-work.md",
+                "summary": "Final scope and reconciliation gate."
+              },
+              {
+                "kind": "artifact",
+                "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+                "summary": "Corrected final delivery evidence."
+              }
+            ]
+          }
+        ],
+        "review_target": {
+          "artifacts": [
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+              "sha256": "bcb2497d722b9fbd7642af987ab2926d6817aa4da10fd81eee39f34b2e8ac7da"
+            },
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--plan-work.md",
+              "sha256": "9a592a6c6e65786365e07852db5defc5b4957f220ad7a6a3984011e92471d70e"
+            },
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/acceptance.json",
+              "sha256": "771da223d00fb98ded77e607822c455e2758191b9a648ddc5205a4b4f5923886"
+            },
+            {
+              "file": "README.md",
+              "sha256": "f24fc09068ed631875c23302400db6e0e593d343f5082cf7aca9c5c0e4dcc428"
+            },
+            {
+              "file": "src/data/product-status.json",
+              "sha256": "66ebd8c241aa95517c029d07c88d14751473c979be93c6a613cf1f88122b3182"
+            },
+            {
+              "file": "scripts/check-site-verify.sh",
+              "sha256": "46c4c54164f46d9eae96090c007f46bcf875b11755e00e4b6aaffd2de3dab2bb"
+            },
+            {
+              "file": "package.json",
+              "sha256": "ff761a02ab1d18e45bfd860b474f6ae857cfe6fd0acb1faf859f665add49ea33"
+            },
+            {
+              "file": ".github/workflows/trust-verify.yml",
+              "sha256": "6f3ceb0818b46163193d516bac2be35d0b610a984ea9d9d7884a66eb994dfb76"
+            }
+          ],
+          "workspace_snapshot": {
+            "version": 1,
+            "kind": "git-worktree",
+            "algorithm": "sha256",
+            "digest": "6204ee89bc48e51c046ca446feca2c91828635a6b81ae3ab2e4808b9894a0e63",
+            "head_sha": "c27576ed9bab9b2fb51a4e8f2b1c1b27771551ec"
+          }
+        },
+        "artifact_refs": [
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--plan-work.md",
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/acceptance.json",
+          "README.md",
+          "src/data/product-status.json",
+          "scripts/check-site-verify.sh",
+          "package.json",
+          ".github/workflows/trust-verify.yml"
+        ],
+        "workflow_subject_ref": "kontourai/kontourai.io#197",
+        "superseded_by": "review@2026-07-20T01:07:11.258Z"
+      },
+      "status": "superseded"
+    },
+    {
+      "id": "kontourai-kontourai-io-197-review.flow-agents-workflow.freshness-refresh-of-the-completed-final-review-all-five-tracked-production-files-and-corrected-workflow-artifacts-remain-clean-at-head-c27576e-with-documentation-versions-wrapper-trust-command-alignment-static-recordability-syntax-rendered-guidance-ac1-ac3-public-boundary-and-reconciliation-gate-evidence-reviewed-canonical-verification-and-merge-are-not-claimed-reviewed-2026-07-20t00-56-07-234z-superseded-review-2026-07-20t01-07-11-666z",
+      "subjectType": "workflow-critique",
+      "subjectId": "kontourai-kontourai-io-197/review",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.critique.review",
+      "fieldOrBehavior": "Freshness refresh of the completed final review: all five tracked production files and corrected workflow artifacts remain clean at HEAD c27576e, with documentation, versions, wrapper, trust-command alignment, static recordability, syntax, rendered guidance, AC1-AC3, public boundary, and reconciliation-gate evidence reviewed. Canonical verification and merge are not claimed.",
+      "value": "pass",
+      "createdAt": "2026-07-20T01:14:41.748Z",
+      "updatedAt": "2026-07-20T01:14:41.748Z",
+      "impactLevel": "medium",
+      "verificationPolicyId": "policy:workflow.critique.review",
+      "metadata": {
+        "origin": "critique",
+        "reviewer": "codex-review-doc-refresh-197-r3",
+        "reviewed_at": "2026-07-20T00:56:07.234Z",
+        "identity_version": 2,
+        "findings": [],
+        "lanes": [
+          {
+            "id": "final-review-freshness",
+            "status": "pass",
+            "summary": "Rebound the already-completed clean final review to HEAD c27576e and all final production/workflow artifacts; no findings. Canonical verification and merge were not claimed.",
+            "evidence_refs": [
+              {
+                "kind": "artifact",
+                "file": "README.md",
+                "summary": "Final documentation and rendered-test guidance."
+              },
+              {
+                "kind": "artifact",
+                "file": "src/data/product-status.json",
+                "summary": "Five current public version fields."
+              },
+              {
+                "kind": "artifact",
+                "file": "scripts/check-site-verify.sh",
+                "summary": "Strict recordable site-verification wrapper."
+              },
+              {
+                "kind": "artifact",
+                "file": "package.json",
+                "summary": "Named command, trust manifest, and rendered command."
+              },
+              {
+                "kind": "artifact",
+                "file": ".github/workflows/trust-verify.yml",
+                "summary": "Aligned Trust Verify command."
+              },
+              {
+                "kind": "artifact",
+                "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/acceptance.json",
+                "summary": "AC1-AC3 acceptance contract."
+              },
+              {
+                "kind": "artifact",
+                "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--plan-work.md",
+                "summary": "Final scope and reconciliation gate."
+              },
+              {
+                "kind": "artifact",
+                "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+                "summary": "Corrected final delivery evidence."
+              }
+            ]
+          }
+        ],
+        "review_target": {
+          "artifacts": [
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+              "sha256": "bcb2497d722b9fbd7642af987ab2926d6817aa4da10fd81eee39f34b2e8ac7da"
+            },
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--plan-work.md",
+              "sha256": "9a592a6c6e65786365e07852db5defc5b4957f220ad7a6a3984011e92471d70e"
+            },
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/acceptance.json",
+              "sha256": "771da223d00fb98ded77e607822c455e2758191b9a648ddc5205a4b4f5923886"
+            },
+            {
+              "file": "README.md",
+              "sha256": "f24fc09068ed631875c23302400db6e0e593d343f5082cf7aca9c5c0e4dcc428"
+            },
+            {
+              "file": "src/data/product-status.json",
+              "sha256": "66ebd8c241aa95517c029d07c88d14751473c979be93c6a613cf1f88122b3182"
+            },
+            {
+              "file": "scripts/check-site-verify.sh",
+              "sha256": "46c4c54164f46d9eae96090c007f46bcf875b11755e00e4b6aaffd2de3dab2bb"
+            },
+            {
+              "file": "package.json",
+              "sha256": "ff761a02ab1d18e45bfd860b474f6ae857cfe6fd0acb1faf859f665add49ea33"
+            },
+            {
+              "file": ".github/workflows/trust-verify.yml",
+              "sha256": "6f3ceb0818b46163193d516bac2be35d0b610a984ea9d9d7884a66eb994dfb76"
+            }
+          ],
+          "workspace_snapshot": {
+            "version": 1,
+            "kind": "git-worktree",
+            "algorithm": "sha256",
+            "digest": "6204ee89bc48e51c046ca446feca2c91828635a6b81ae3ab2e4808b9894a0e63",
+            "head_sha": "c27576ed9bab9b2fb51a4e8f2b1c1b27771551ec"
+          }
+        },
+        "artifact_refs": [
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--plan-work.md",
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/acceptance.json",
+          "README.md",
+          "src/data/product-status.json",
+          "scripts/check-site-verify.sh",
+          "package.json",
+          ".github/workflows/trust-verify.yml"
+        ],
+        "workflow_subject_ref": "kontourai/kontourai.io#197",
+        "superseded_by": "review@2026-07-20T01:07:11.666Z"
+      },
+      "status": "superseded"
+    },
+    {
+      "id": "kontourai-kontourai-io-197-final-scope-r4.flow-agents-workflow.final-committed-production-changes-at-head-23b7e3c-pass-focused-documentation-version-tap-wrapper-semantics-exact-command-alignment-syntax-static-recordability-ac1-ac3-public-boundary-plan-and-handoff-review-the-delivery-evidence-inaccurately-reports-readme-md-as-67-lines-when-the-tracked-file-is-68-lines-canonical-verification-and-merge-are-not-claimed-reviewed-2026-07-20t01-05-11-686z-superseded-final-scope-r4-2026-07-20t01-06-47-183z",
+      "subjectType": "workflow-critique",
+      "subjectId": "kontourai-kontourai-io-197/final-scope-r4",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.critique.review",
+      "fieldOrBehavior": "Final committed production changes at HEAD 23b7e3c pass focused documentation, version, TAP-wrapper semantics, exact command-alignment, syntax, static recordability, AC1-AC3, public-boundary, plan, and handoff review. The delivery evidence inaccurately reports README.md as 67 lines when the tracked file is 68 lines. Canonical verification and merge are not claimed.",
+      "value": "fail",
+      "createdAt": "2026-07-20T01:14:41.748Z",
+      "updatedAt": "2026-07-20T01:14:41.748Z",
+      "impactLevel": "medium",
+      "verificationPolicyId": "policy:workflow.critique.review",
+      "metadata": {
+        "origin": "critique",
+        "reviewer": "codex-review-doc-refresh-197-r4",
+        "reviewed_at": "2026-07-20T01:05:11.686Z",
+        "identity_version": 2,
+        "findings": [
+          {
+            "id": "stale-readme-line-count",
+            "title": "Delivery evidence understates README line count",
+            "severity": "medium",
+            "status": "open",
+            "description": "The delivery report states that the complete production scope includes a new 67-line README.md at line 203, but the tracked README.md contains 68 lines; both wc -l README.md and git diff --numstat origin/main...HEAD report 68 additions. Correct the delivery evidence so its quantitative scope claim matches HEAD 23b7e3c.",
+            "file_refs": [
+              ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md:203",
+              "README.md:68"
+            ]
+          }
+        ],
+        "lanes": [
+          {
+            "id": "final-head-tap-and-artifact-accuracy-review",
+            "status": "fail",
+            "summary": "The five tracked production files, strict TAP wrapper, exact command alignment, AC1-AC3, plan, and handoff pass review. Delivery line 203 has one stale README line-count assertion, so the artifact-accuracy lane fails.",
+            "evidence_refs": [
+              {
+                "kind": "artifact",
+                "file": "scripts/check-site-verify.sh",
+                "summary": "Reviewed strict build, validate, output assertion, and ordered TAP output."
+              },
+              {
+                "kind": "artifact",
+                "file": "README.md",
+                "summary": "Tracked README is 68 lines and otherwise passes documentation review."
+              },
+              {
+                "kind": "artifact",
+                "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+                "summary": "Line 203 inaccurately states that README.md is 67 lines."
+              }
+            ]
+          }
+        ],
+        "review_target": {
+          "artifacts": [
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+              "sha256": "5f9cd7625e46db95f30351a5ad836ef09da71235ec96cef859fe86564ca2d5d5"
+            },
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--plan-work.md",
+              "sha256": "bb1df55adee6daf948dcc12014434acf399a03835a28e33a4e0983bf1b6bdce0"
+            },
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/handoff.json",
+              "sha256": "c38923dd6f98ee1f49da9b6d88c29de8424d79e89b2ff39174e659276573b621"
+            },
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/acceptance.json",
+              "sha256": "771da223d00fb98ded77e607822c455e2758191b9a648ddc5205a4b4f5923886"
+            },
+            {
+              "file": "README.md",
+              "sha256": "f24fc09068ed631875c23302400db6e0e593d343f5082cf7aca9c5c0e4dcc428"
+            },
+            {
+              "file": "src/data/product-status.json",
+              "sha256": "66ebd8c241aa95517c029d07c88d14751473c979be93c6a613cf1f88122b3182"
+            },
+            {
+              "file": "scripts/check-site-verify.sh",
+              "sha256": "9350f12fdae0e8b17b48852c752cadb264f4df0cdd3f946b0a62b3fb22b39b2c"
+            },
+            {
+              "file": "package.json",
+              "sha256": "ff761a02ab1d18e45bfd860b474f6ae857cfe6fd0acb1faf859f665add49ea33"
+            },
+            {
+              "file": ".github/workflows/trust-verify.yml",
+              "sha256": "6f3ceb0818b46163193d516bac2be35d0b610a984ea9d9d7884a66eb994dfb76"
+            }
+          ],
+          "workspace_snapshot": {
+            "version": 1,
+            "kind": "git-worktree",
+            "algorithm": "sha256",
+            "digest": "2576c8ba934e8d92e31ef9335f6dc6435e0e616cfe9ecb3eb33ef346cc7dde27",
+            "head_sha": "23b7e3c6f9fd9139c787121199a6adf5e217a878"
+          }
+        },
+        "artifact_refs": [
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--plan-work.md",
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/handoff.json",
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/acceptance.json",
+          "README.md",
+          "src/data/product-status.json",
+          "scripts/check-site-verify.sh",
+          "package.json",
+          ".github/workflows/trust-verify.yml"
+        ],
+        "workflow_subject_ref": "kontourai/kontourai.io#197",
+        "superseded_by": "final-scope-r4@2026-07-20T01:06:47.183Z"
+      },
+      "status": "superseded"
+    },
+    {
+      "id": "kontourai-kontourai-io-197-final-scope-r4.flow-agents-workflow.the-r4-readme-line-count-finding-is-resolved-at-head-23b7e3c-delivery-line-203-wc-l-readme-md-and-git-diff-numstat-origin-main-head-all-report-68-lines-the-full-five-file-production-scope-tap-wrapper-exact-command-alignment-syntax-static-recordability-ac1-ac3-plan-handoff-and-delivery-evidence-remain-clean-canonical-verification-and-merge-are-not-claimed-reviewed-2026-07-20t01-06-47-183z",
+      "subjectType": "workflow-critique",
+      "subjectId": "kontourai-kontourai-io-197/final-scope-r4",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.critique.review",
+      "fieldOrBehavior": "The R4 README line-count finding is resolved at HEAD 23b7e3c: delivery line 203, wc -l README.md, and git diff --numstat origin/main...HEAD all report 68 lines. The full five-file production scope, TAP wrapper, exact command alignment, syntax, static recordability, AC1-AC3, plan, handoff, and delivery evidence remain clean. Canonical verification and merge are not claimed.",
+      "value": "pass",
+      "createdAt": "2026-07-20T01:14:41.748Z",
+      "updatedAt": "2026-07-20T01:14:41.748Z",
+      "impactLevel": "medium",
+      "verificationPolicyId": "policy:workflow.critique.review",
+      "metadata": {
+        "origin": "critique",
+        "reviewer": "codex-review-doc-refresh-197-r4",
+        "reviewed_at": "2026-07-20T01:06:47.183Z",
+        "identity_version": 2,
+        "findings": [],
+        "lanes": [
+          {
+            "id": "final-head-tap-and-artifact-accuracy-review",
+            "status": "pass",
+            "summary": "Confirmed the quantitative delivery evidence now matches the 68-line tracked README. The five tracked production files, strict TAP wrapper, exact command alignment, AC1-AC3, plan, handoff, and delivery artifacts pass review; canonical verification was not claimed.",
+            "evidence_refs": [
+              {
+                "kind": "artifact",
+                "file": "scripts/check-site-verify.sh",
+                "summary": "Reviewed strict build, validate, output assertion, and ordered TAP output."
+              },
+              {
+                "kind": "artifact",
+                "file": "README.md",
+                "summary": "Reviewed the final 68-line repository documentation."
+              },
+              {
+                "kind": "artifact",
+                "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+                "summary": "Confirmed line 203 now accurately reports the 68-line README and final scope."
+              }
+            ]
+          }
+        ],
+        "review_target": {
+          "artifacts": [
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+              "sha256": "cb22036d24c1a113677c138570e8192d6df498a05dd72dab9ac0d5403d01bc63"
+            },
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--plan-work.md",
+              "sha256": "bb1df55adee6daf948dcc12014434acf399a03835a28e33a4e0983bf1b6bdce0"
+            },
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/handoff.json",
+              "sha256": "c38923dd6f98ee1f49da9b6d88c29de8424d79e89b2ff39174e659276573b621"
+            },
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/acceptance.json",
+              "sha256": "771da223d00fb98ded77e607822c455e2758191b9a648ddc5205a4b4f5923886"
+            },
+            {
+              "file": "README.md",
+              "sha256": "f24fc09068ed631875c23302400db6e0e593d343f5082cf7aca9c5c0e4dcc428"
+            },
+            {
+              "file": "src/data/product-status.json",
+              "sha256": "66ebd8c241aa95517c029d07c88d14751473c979be93c6a613cf1f88122b3182"
+            },
+            {
+              "file": "scripts/check-site-verify.sh",
+              "sha256": "9350f12fdae0e8b17b48852c752cadb264f4df0cdd3f946b0a62b3fb22b39b2c"
+            },
+            {
+              "file": "package.json",
+              "sha256": "ff761a02ab1d18e45bfd860b474f6ae857cfe6fd0acb1faf859f665add49ea33"
+            },
+            {
+              "file": ".github/workflows/trust-verify.yml",
+              "sha256": "6f3ceb0818b46163193d516bac2be35d0b610a984ea9d9d7884a66eb994dfb76"
+            }
+          ],
+          "workspace_snapshot": {
+            "version": 1,
+            "kind": "git-worktree",
+            "algorithm": "sha256",
+            "digest": "2576c8ba934e8d92e31ef9335f6dc6435e0e616cfe9ecb3eb33ef346cc7dde27",
+            "head_sha": "23b7e3c6f9fd9139c787121199a6adf5e217a878"
+          }
+        },
+        "artifact_refs": [
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--plan-work.md",
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/handoff.json",
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/acceptance.json",
+          "README.md",
+          "src/data/product-status.json",
+          "scripts/check-site-verify.sh",
+          "package.json",
+          ".github/workflows/trust-verify.yml"
+        ],
+        "workflow_subject_ref": "kontourai/kontourai.io#197"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "kontourai-kontourai-io-197-review.flow-agents-workflow.at-head-23b7e3c-the-corrected-final-delivery-evidence-matches-the-68-line-readme-and-the-complete-five-file-four-commit-scope-documentation-five-public-version-fields-strict-tap-wrapper-behavior-exact-trust-command-alignment-syntax-static-recordability-ac1-ac3-plan-handoff-delivery-evidence-and-the-local-reconciliation-gate-pass-review-canonical-verification-and-merge-are-not-claimed-reviewed-2026-07-20t01-07-10-781z",
+      "subjectType": "workflow-critique",
+      "subjectId": "kontourai-kontourai-io-197/review",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.critique.review",
+      "fieldOrBehavior": "At HEAD 23b7e3c the corrected final delivery evidence matches the 68-line README and the complete five-file, four-commit scope. Documentation, five public version fields, strict TAP wrapper behavior, exact trust-command alignment, syntax, static recordability, AC1-AC3, plan, handoff, delivery evidence, and the local reconciliation gate pass review. Canonical verification and merge are not claimed.",
+      "value": "pass",
+      "createdAt": "2026-07-20T01:14:41.748Z",
+      "updatedAt": "2026-07-20T01:14:41.748Z",
+      "impactLevel": "medium",
+      "verificationPolicyId": "policy:workflow.critique.review",
+      "metadata": {
+        "origin": "critique",
+        "reviewer": "codex-review-doc-refresh-197",
+        "reviewed_at": "2026-07-20T01:07:10.781Z",
+        "identity_version": 2,
+        "findings": [],
+        "lanes": [
+          {
+            "id": "final-current-head-review",
+            "status": "pass",
+            "summary": "Reviewed the corrected current-head scope and evidence. The README count is accurate; the five production files, ordered TAP assertion, command alignment, AC1-AC3, plan, handoff, and delivery artifacts are clean. Canonical verification was not claimed.",
+            "evidence_refs": [
+              {
+                "kind": "artifact",
+                "file": "README.md",
+                "summary": "Reviewed the final 68-line repository documentation."
+              },
+              {
+                "kind": "artifact",
+                "file": "scripts/check-site-verify.sh",
+                "summary": "Reviewed strict failure propagation, output assertion, and ordered TAP output."
+              },
+              {
+                "kind": "artifact",
+                "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+                "summary": "Reviewed corrected final scope, four commits, and quantitative evidence."
+              }
+            ]
+          }
+        ],
+        "review_target": {
+          "artifacts": [
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+              "sha256": "cb22036d24c1a113677c138570e8192d6df498a05dd72dab9ac0d5403d01bc63"
+            },
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--plan-work.md",
+              "sha256": "bb1df55adee6daf948dcc12014434acf399a03835a28e33a4e0983bf1b6bdce0"
+            },
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/handoff.json",
+              "sha256": "c38923dd6f98ee1f49da9b6d88c29de8424d79e89b2ff39174e659276573b621"
+            },
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/acceptance.json",
+              "sha256": "771da223d00fb98ded77e607822c455e2758191b9a648ddc5205a4b4f5923886"
+            },
+            {
+              "file": "README.md",
+              "sha256": "f24fc09068ed631875c23302400db6e0e593d343f5082cf7aca9c5c0e4dcc428"
+            },
+            {
+              "file": "src/data/product-status.json",
+              "sha256": "66ebd8c241aa95517c029d07c88d14751473c979be93c6a613cf1f88122b3182"
+            },
+            {
+              "file": "scripts/check-site-verify.sh",
+              "sha256": "9350f12fdae0e8b17b48852c752cadb264f4df0cdd3f946b0a62b3fb22b39b2c"
+            },
+            {
+              "file": "package.json",
+              "sha256": "ff761a02ab1d18e45bfd860b474f6ae857cfe6fd0acb1faf859f665add49ea33"
+            },
+            {
+              "file": ".github/workflows/trust-verify.yml",
+              "sha256": "6f3ceb0818b46163193d516bac2be35d0b610a984ea9d9d7884a66eb994dfb76"
+            }
+          ],
+          "workspace_snapshot": {
+            "version": 1,
+            "kind": "git-worktree",
+            "algorithm": "sha256",
+            "digest": "2576c8ba934e8d92e31ef9335f6dc6435e0e616cfe9ecb3eb33ef346cc7dde27",
+            "head_sha": "23b7e3c6f9fd9139c787121199a6adf5e217a878"
+          }
+        },
+        "artifact_refs": [
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--plan-work.md",
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/handoff.json",
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/acceptance.json",
+          "README.md",
+          "src/data/product-status.json",
+          "scripts/check-site-verify.sh",
+          "package.json",
+          ".github/workflows/trust-verify.yml"
+        ],
+        "workflow_subject_ref": "kontourai/kontourai.io#197"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "kontourai-kontourai-io-197-review.flow-agents-workflow.at-head-23b7e3c-the-corrected-final-delivery-evidence-matches-the-68-line-readme-and-the-complete-five-file-four-commit-scope-documentation-five-public-version-fields-strict-tap-wrapper-behavior-exact-trust-command-alignment-syntax-static-recordability-ac1-ac3-plan-handoff-delivery-evidence-and-the-local-reconciliation-gate-pass-review-canonical-verification-and-merge-are-not-claimed-reviewed-2026-07-20t01-07-11-258z",
+      "subjectType": "workflow-critique",
+      "subjectId": "kontourai-kontourai-io-197/review",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.critique.review",
+      "fieldOrBehavior": "At HEAD 23b7e3c the corrected final delivery evidence matches the 68-line README and the complete five-file, four-commit scope. Documentation, five public version fields, strict TAP wrapper behavior, exact trust-command alignment, syntax, static recordability, AC1-AC3, plan, handoff, delivery evidence, and the local reconciliation gate pass review. Canonical verification and merge are not claimed.",
+      "value": "pass",
+      "createdAt": "2026-07-20T01:14:41.748Z",
+      "updatedAt": "2026-07-20T01:14:41.748Z",
+      "impactLevel": "medium",
+      "verificationPolicyId": "policy:workflow.critique.review",
+      "metadata": {
+        "origin": "critique",
+        "reviewer": "codex-review-doc-refresh-197-r2",
+        "reviewed_at": "2026-07-20T01:07:11.258Z",
+        "identity_version": 2,
+        "findings": [],
+        "lanes": [
+          {
+            "id": "final-current-head-review",
+            "status": "pass",
+            "summary": "Reviewed the corrected current-head scope and evidence. The README count is accurate; the five production files, ordered TAP assertion, command alignment, AC1-AC3, plan, handoff, and delivery artifacts are clean. Canonical verification was not claimed.",
+            "evidence_refs": [
+              {
+                "kind": "artifact",
+                "file": "README.md",
+                "summary": "Reviewed the final 68-line repository documentation."
+              },
+              {
+                "kind": "artifact",
+                "file": "scripts/check-site-verify.sh",
+                "summary": "Reviewed strict failure propagation, output assertion, and ordered TAP output."
+              },
+              {
+                "kind": "artifact",
+                "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+                "summary": "Reviewed corrected final scope, four commits, and quantitative evidence."
+              }
+            ]
+          }
+        ],
+        "review_target": {
+          "artifacts": [
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+              "sha256": "cb22036d24c1a113677c138570e8192d6df498a05dd72dab9ac0d5403d01bc63"
+            },
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--plan-work.md",
+              "sha256": "bb1df55adee6daf948dcc12014434acf399a03835a28e33a4e0983bf1b6bdce0"
+            },
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/handoff.json",
+              "sha256": "c38923dd6f98ee1f49da9b6d88c29de8424d79e89b2ff39174e659276573b621"
+            },
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/acceptance.json",
+              "sha256": "771da223d00fb98ded77e607822c455e2758191b9a648ddc5205a4b4f5923886"
+            },
+            {
+              "file": "README.md",
+              "sha256": "f24fc09068ed631875c23302400db6e0e593d343f5082cf7aca9c5c0e4dcc428"
+            },
+            {
+              "file": "src/data/product-status.json",
+              "sha256": "66ebd8c241aa95517c029d07c88d14751473c979be93c6a613cf1f88122b3182"
+            },
+            {
+              "file": "scripts/check-site-verify.sh",
+              "sha256": "9350f12fdae0e8b17b48852c752cadb264f4df0cdd3f946b0a62b3fb22b39b2c"
+            },
+            {
+              "file": "package.json",
+              "sha256": "ff761a02ab1d18e45bfd860b474f6ae857cfe6fd0acb1faf859f665add49ea33"
+            },
+            {
+              "file": ".github/workflows/trust-verify.yml",
+              "sha256": "6f3ceb0818b46163193d516bac2be35d0b610a984ea9d9d7884a66eb994dfb76"
+            }
+          ],
+          "workspace_snapshot": {
+            "version": 1,
+            "kind": "git-worktree",
+            "algorithm": "sha256",
+            "digest": "2576c8ba934e8d92e31ef9335f6dc6435e0e616cfe9ecb3eb33ef346cc7dde27",
+            "head_sha": "23b7e3c6f9fd9139c787121199a6adf5e217a878"
+          }
+        },
+        "artifact_refs": [
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--plan-work.md",
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/handoff.json",
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/acceptance.json",
+          "README.md",
+          "src/data/product-status.json",
+          "scripts/check-site-verify.sh",
+          "package.json",
+          ".github/workflows/trust-verify.yml"
+        ],
+        "workflow_subject_ref": "kontourai/kontourai.io#197"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "kontourai-kontourai-io-197-review.flow-agents-workflow.at-head-23b7e3c-the-corrected-final-delivery-evidence-matches-the-68-line-readme-and-the-complete-five-file-four-commit-scope-documentation-five-public-version-fields-strict-tap-wrapper-behavior-exact-trust-command-alignment-syntax-static-recordability-ac1-ac3-plan-handoff-delivery-evidence-and-the-local-reconciliation-gate-pass-review-canonical-verification-and-merge-are-not-claimed-reviewed-2026-07-20t01-07-11-666z",
+      "subjectType": "workflow-critique",
+      "subjectId": "kontourai-kontourai-io-197/review",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.critique.review",
+      "fieldOrBehavior": "At HEAD 23b7e3c the corrected final delivery evidence matches the 68-line README and the complete five-file, four-commit scope. Documentation, five public version fields, strict TAP wrapper behavior, exact trust-command alignment, syntax, static recordability, AC1-AC3, plan, handoff, delivery evidence, and the local reconciliation gate pass review. Canonical verification and merge are not claimed.",
+      "value": "pass",
+      "createdAt": "2026-07-20T01:14:41.748Z",
+      "updatedAt": "2026-07-20T01:14:41.748Z",
+      "impactLevel": "medium",
+      "verificationPolicyId": "policy:workflow.critique.review",
+      "metadata": {
+        "origin": "critique",
+        "reviewer": "codex-review-doc-refresh-197-r3",
+        "reviewed_at": "2026-07-20T01:07:11.666Z",
+        "identity_version": 2,
+        "findings": [],
+        "lanes": [
+          {
+            "id": "final-current-head-review",
+            "status": "pass",
+            "summary": "Reviewed the corrected current-head scope and evidence. The README count is accurate; the five production files, ordered TAP assertion, command alignment, AC1-AC3, plan, handoff, and delivery artifacts are clean. Canonical verification was not claimed.",
+            "evidence_refs": [
+              {
+                "kind": "artifact",
+                "file": "README.md",
+                "summary": "Reviewed the final 68-line repository documentation."
+              },
+              {
+                "kind": "artifact",
+                "file": "scripts/check-site-verify.sh",
+                "summary": "Reviewed strict failure propagation, output assertion, and ordered TAP output."
+              },
+              {
+                "kind": "artifact",
+                "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+                "summary": "Reviewed corrected final scope, four commits, and quantitative evidence."
+              }
+            ]
+          }
+        ],
+        "review_target": {
+          "artifacts": [
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+              "sha256": "cb22036d24c1a113677c138570e8192d6df498a05dd72dab9ac0d5403d01bc63"
+            },
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--plan-work.md",
+              "sha256": "bb1df55adee6daf948dcc12014434acf399a03835a28e33a4e0983bf1b6bdce0"
+            },
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/handoff.json",
+              "sha256": "c38923dd6f98ee1f49da9b6d88c29de8424d79e89b2ff39174e659276573b621"
+            },
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/acceptance.json",
+              "sha256": "771da223d00fb98ded77e607822c455e2758191b9a648ddc5205a4b4f5923886"
+            },
+            {
+              "file": "README.md",
+              "sha256": "f24fc09068ed631875c23302400db6e0e593d343f5082cf7aca9c5c0e4dcc428"
+            },
+            {
+              "file": "src/data/product-status.json",
+              "sha256": "66ebd8c241aa95517c029d07c88d14751473c979be93c6a613cf1f88122b3182"
+            },
+            {
+              "file": "scripts/check-site-verify.sh",
+              "sha256": "9350f12fdae0e8b17b48852c752cadb264f4df0cdd3f946b0a62b3fb22b39b2c"
+            },
+            {
+              "file": "package.json",
+              "sha256": "ff761a02ab1d18e45bfd860b474f6ae857cfe6fd0acb1faf859f665add49ea33"
+            },
+            {
+              "file": ".github/workflows/trust-verify.yml",
+              "sha256": "6f3ceb0818b46163193d516bac2be35d0b610a984ea9d9d7884a66eb994dfb76"
+            }
+          ],
+          "workspace_snapshot": {
+            "version": 1,
+            "kind": "git-worktree",
+            "algorithm": "sha256",
+            "digest": "2576c8ba934e8d92e31ef9335f6dc6435e0e616cfe9ecb3eb33ef346cc7dde27",
+            "head_sha": "23b7e3c6f9fd9139c787121199a6adf5e217a878"
+          }
+        },
+        "artifact_refs": [
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--plan-work.md",
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/handoff.json",
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/acceptance.json",
+          "README.md",
+          "src/data/product-status.json",
+          "scripts/check-site-verify.sh",
+          "package.json",
+          ".github/workflows/trust-verify.yml"
+        ],
+        "workflow_subject_ref": "kontourai/kontourai.io#197"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "kontourai-kontourai-io-197-final-scope-r4.flow-agents-workflow.at-head-23b7e3c-the-corrected-final-delivery-evidence-matches-the-68-line-readme-and-the-complete-five-file-four-commit-scope-documentation-five-public-version-fields-strict-tap-wrapper-behavior-exact-trust-command-alignment-syntax-static-recordability-ac1-ac3-plan-handoff-delivery-evidence-and-the-local-reconciliation-gate-pass-review-canonical-verification-and-merge-are-not-claimed-reviewed-2026-07-20t01-07-12-053z",
+      "subjectType": "workflow-critique",
+      "subjectId": "kontourai-kontourai-io-197/final-scope-r4",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.critique.review",
+      "fieldOrBehavior": "At HEAD 23b7e3c the corrected final delivery evidence matches the 68-line README and the complete five-file, four-commit scope. Documentation, five public version fields, strict TAP wrapper behavior, exact trust-command alignment, syntax, static recordability, AC1-AC3, plan, handoff, delivery evidence, and the local reconciliation gate pass review. Canonical verification and merge are not claimed.",
+      "value": "pass",
+      "createdAt": "2026-07-20T01:14:41.748Z",
+      "updatedAt": "2026-07-20T01:14:41.748Z",
+      "impactLevel": "medium",
+      "verificationPolicyId": "policy:workflow.critique.review",
+      "metadata": {
+        "origin": "critique",
+        "reviewer": "codex-review-doc-refresh-197-r5",
+        "reviewed_at": "2026-07-20T01:07:12.053Z",
+        "identity_version": 2,
+        "findings": [],
+        "lanes": [
+          {
+            "id": "final-current-head-review",
+            "status": "pass",
+            "summary": "Reviewed the corrected current-head scope and evidence. The README count is accurate; the five production files, ordered TAP assertion, command alignment, AC1-AC3, plan, handoff, and delivery artifacts are clean. Canonical verification was not claimed.",
+            "evidence_refs": [
+              {
+                "kind": "artifact",
+                "file": "README.md",
+                "summary": "Reviewed the final 68-line repository documentation."
+              },
+              {
+                "kind": "artifact",
+                "file": "scripts/check-site-verify.sh",
+                "summary": "Reviewed strict failure propagation, output assertion, and ordered TAP output."
+              },
+              {
+                "kind": "artifact",
+                "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+                "summary": "Reviewed corrected final scope, four commits, and quantitative evidence."
+              }
+            ]
+          }
+        ],
+        "review_target": {
+          "artifacts": [
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+              "sha256": "cb22036d24c1a113677c138570e8192d6df498a05dd72dab9ac0d5403d01bc63"
+            },
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--plan-work.md",
+              "sha256": "bb1df55adee6daf948dcc12014434acf399a03835a28e33a4e0983bf1b6bdce0"
+            },
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/handoff.json",
+              "sha256": "c38923dd6f98ee1f49da9b6d88c29de8424d79e89b2ff39174e659276573b621"
+            },
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-197/acceptance.json",
+              "sha256": "771da223d00fb98ded77e607822c455e2758191b9a648ddc5205a4b4f5923886"
+            },
+            {
+              "file": "README.md",
+              "sha256": "f24fc09068ed631875c23302400db6e0e593d343f5082cf7aca9c5c0e4dcc428"
+            },
+            {
+              "file": "src/data/product-status.json",
+              "sha256": "66ebd8c241aa95517c029d07c88d14751473c979be93c6a613cf1f88122b3182"
+            },
+            {
+              "file": "scripts/check-site-verify.sh",
+              "sha256": "9350f12fdae0e8b17b48852c752cadb264f4df0cdd3f946b0a62b3fb22b39b2c"
+            },
+            {
+              "file": "package.json",
+              "sha256": "ff761a02ab1d18e45bfd860b474f6ae857cfe6fd0acb1faf859f665add49ea33"
+            },
+            {
+              "file": ".github/workflows/trust-verify.yml",
+              "sha256": "6f3ceb0818b46163193d516bac2be35d0b610a984ea9d9d7884a66eb994dfb76"
+            }
+          ],
+          "workspace_snapshot": {
+            "version": 1,
+            "kind": "git-worktree",
+            "algorithm": "sha256",
+            "digest": "2576c8ba934e8d92e31ef9335f6dc6435e0e616cfe9ecb3eb33ef346cc7dde27",
+            "head_sha": "23b7e3c6f9fd9139c787121199a6adf5e217a878"
+          }
+        },
+        "artifact_refs": [
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--deliver.md",
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/kontourai-kontourai-io-197--plan-work.md",
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/handoff.json",
+          ".kontourai/flow-agents/kontourai-kontourai-io-197/acceptance.json",
+          "README.md",
+          "src/data/product-status.json",
+          "scripts/check-site-verify.sh",
+          "package.json",
+          ".github/workflows/trust-verify.yml"
+        ],
+        "workflow_subject_ref": "kontourai/kontourai.io#197"
+      },
+      "status": "verified"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev:kontourai-kontourai-io-197-gate-claim-selected-work.flow-agents-workflow.work-item-kontourai-kontourai-io-197-is-durably-assigned-to-the-active-workflow-actor-assignment-sha256-78348df5da3129e6461c229c87833fc77d0a958b520c4085986ad84d790b88f5-gate-visit-2026-07-19t23-53-12z",
+      "claimId": "kontourai-kontourai-io-197-gate-claim-selected-work.flow-agents-workflow.work-item-kontourai-kontourai-io-197-is-durably-assigned-to-the-active-workflow-actor-assignment-sha256-78348df5da3129e6461c229c87833fc77d0a958b520c4085986ad84d790b88f5-gate-visit-2026-07-19t23-53-12z",
+      "evidenceType": "attestation",
+      "method": "corroboration",
+      "sourceRef": "kontourai-kontourai-io-197/evidence.json",
+      "excerptOrSummary": "Work Item kontourai/kontourai.io#197 is durably assigned to the active workflow actor (assignment sha256:78348df5da3129e6461c229c87833fc77d0a958b520c4085986ad84d790b88f5).",
+      "observedAt": "2026-07-20T01:14:41.748Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true
+    },
+    {
+      "id": "ev:kontourai-kontourai-io-197-gate-claim-pickup-probe-readiness.flow-agents-workflow.pickup-probe-records-goal-fit-scope-dependencies-risks-revision-freshness-assignment-and-planning-readiness-gate-visit-2026-07-19t23-54-19-896z",
+      "claimId": "kontourai-kontourai-io-197-gate-claim-pickup-probe-readiness.flow-agents-workflow.pickup-probe-records-goal-fit-scope-dependencies-risks-revision-freshness-assignment-and-planning-readiness-gate-visit-2026-07-19t23-54-19-896z",
+      "evidenceType": "attestation",
+      "method": "corroboration",
+      "sourceRef": "kontourai-kontourai-io-197/evidence.json",
+      "excerptOrSummary": "Pickup probe records goal fit, scope, dependencies, risks, revision freshness, assignment, and planning readiness.",
+      "observedAt": "2026-07-20T01:14:41.748Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true
+    },
+    {
+      "id": "ev:kontourai-kontourai-io-197-gate-claim-probe-decisions-or-accepted-gaps.flow-agents-workflow.probe-decisions-non-goals-unresolved-questions-accepted-gaps-route-reason-and-next-action-are-explicit-gate-visit-2026-07-19t23-54-26-291z",
+      "claimId": "kontourai-kontourai-io-197-gate-claim-probe-decisions-or-accepted-gaps.flow-agents-workflow.probe-decisions-non-goals-unresolved-questions-accepted-gaps-route-reason-and-next-action-are-explicit-gate-visit-2026-07-19t23-54-26-291z",
+      "evidenceType": "attestation",
+      "method": "corroboration",
+      "sourceRef": "kontourai-kontourai-io-197/evidence.json",
+      "excerptOrSummary": "Probe decisions, non-goals, unresolved questions, accepted gaps, route reason, and next action are explicit.",
+      "observedAt": "2026-07-20T01:14:41.748Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true
+    },
+    {
+      "id": "ev:kontourai-kontourai-io-197-gate-claim-implementation-plan.flow-agents-workflow.implementation-plan-records-the-bounded-post-implementation-sequence-stable-acceptance-criteria-evidence-commands-rollback-boundary-and-stop-short-risks-gate-visit-2026-07-20t00-01-40-999z",
+      "claimId": "kontourai-kontourai-io-197-gate-claim-implementation-plan.flow-agents-workflow.implementation-plan-records-the-bounded-post-implementation-sequence-stable-acceptance-criteria-evidence-commands-rollback-boundary-and-stop-short-risks-gate-visit-2026-07-20t00-01-40-999z",
+      "evidenceType": "attestation",
+      "method": "corroboration",
+      "sourceRef": "kontourai-kontourai-io-197/evidence.json",
+      "excerptOrSummary": "Implementation plan records the bounded post-implementation sequence, stable acceptance criteria, evidence commands, rollback boundary, and stop-short risks.",
+      "observedAt": "2026-07-20T01:14:41.748Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true
+    },
+    {
+      "id": "ev:kontourai-kontourai-io-197-gate-claim-implementation-scope.flow-agents-workflow.committed-route-back-23b7e3c-emits-one-observable-tap-result-only-after-the-real-generated-page-assertion-succeeds-build-validation-manifest-workflow-and-acceptance-behavior-are-unchanged-gate-visit-2026-07-20t01-01-05-800z",
+      "claimId": "kontourai-kontourai-io-197-gate-claim-implementation-scope.flow-agents-workflow.committed-route-back-23b7e3c-emits-one-observable-tap-result-only-after-the-real-generated-page-assertion-succeeds-build-validation-manifest-workflow-and-acceptance-behavior-are-unchanged-gate-visit-2026-07-20t01-01-05-800z",
+      "evidenceType": "attestation",
+      "method": "corroboration",
+      "sourceRef": "kontourai-kontourai-io-197/evidence.json",
+      "excerptOrSummary": "Committed route-back 23b7e3c emits one observable TAP result only after the real generated-page assertion succeeds; build, validation, manifest, workflow, and acceptance behavior are unchanged.",
+      "observedAt": "2026-07-20T01:14:41.748Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true
+    },
+    {
+      "id": "ev:kontourai-kontourai-io-197-gate-claim-tests-evidence.flow-agents-workflow.final-named-site-verification-passes-at-23b7e3c-with-one-statically-backed-observed-assertion-independent-verification-also-records-63-passing-rendered-playwright-tests-gate-visit-2026-07-20t01-11-36-623z",
+      "claimId": "kontourai-kontourai-io-197-gate-claim-tests-evidence.flow-agents-workflow.final-named-site-verification-passes-at-23b7e3c-with-one-statically-backed-observed-assertion-independent-verification-also-records-63-passing-rendered-playwright-tests-gate-visit-2026-07-20t01-11-36-623z",
+      "evidenceType": "test_output",
+      "method": "validation",
+      "sourceRef": "kontourai-kontourai-io-197/evidence.json",
+      "excerptOrSummary": "Final named site verification passes at 23b7e3c with one statically backed observed assertion; independent verification also records 63 passing rendered Playwright tests.",
+      "observedAt": "2026-07-20T01:14:41.748Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true,
+      "execution": {
+        "runner": "bash",
+        "label": "npm run check:site-verify",
+        "isError": false
+      }
+    },
+    {
+      "id": "ev:kontourai-kontourai-io-197-gate-claim-merge-readiness.flow-agents-workflow.local-evidence-supports-merge-review-at-23b7e3c-exact-five-file-scope-ac1-ac3-pass-five-current-clean-critiques-63-rendered-tests-and-local-trust-reconciliation-exit-0-provider-ci-remains-required-after-publication-and-push-with-no-merge-authorization-gate-visit-2026-07-20t01-12-41-056z",
+      "claimId": "kontourai-kontourai-io-197-gate-claim-merge-readiness.flow-agents-workflow.local-evidence-supports-merge-review-at-23b7e3c-exact-five-file-scope-ac1-ac3-pass-five-current-clean-critiques-63-rendered-tests-and-local-trust-reconciliation-exit-0-provider-ci-remains-required-after-publication-and-push-with-no-merge-authorization-gate-visit-2026-07-20t01-12-41-056z",
+      "evidenceType": "attestation",
+      "method": "corroboration",
+      "sourceRef": "kontourai-kontourai-io-197/evidence.json",
+      "excerptOrSummary": "Local evidence supports merge review at 23b7e3c: exact five-file scope, AC1-AC3 pass, five current clean critiques, 63 rendered tests, and local trust reconciliation exit 0; provider CI remains required after publication and push, with no merge authorization.",
+      "observedAt": "2026-07-20T01:14:41.748Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true
+    },
+    {
+      "id": "ev:kontourai-kontourai-io-197-gate-claim-pull-request-opened.flow-agents-workflow.verified-branch-head-23b7e3c-is-pushed-to-the-existing-open-pr-197-the-pr-body-is-current-provider-checks-are-queued-and-no-merge-or-deployment-occurred-gate-visit-2026-07-20t01-14-41-748z",
+      "claimId": "kontourai-kontourai-io-197-gate-claim-pull-request-opened.flow-agents-workflow.verified-branch-head-23b7e3c-is-pushed-to-the-existing-open-pr-197-the-pr-body-is-current-provider-checks-are-queued-and-no-merge-or-deployment-occurred-gate-visit-2026-07-20t01-14-41-748z",
+      "evidenceType": "attestation",
+      "method": "corroboration",
+      "sourceRef": "kontourai-kontourai-io-197/evidence.json",
+      "excerptOrSummary": "Verified branch head 23b7e3c is pushed to the existing open PR #197; the PR body is current, provider checks are queued, and no merge or deployment occurred.",
+      "observedAt": "2026-07-20T01:14:41.748Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true
+    }
+  ],
+  "policies": [
+    {
+      "id": "policy:workflow.check.external:attestation",
+      "claimType": "workflow.check.external",
+      "requiredEvidence": [
+        "attestation"
+      ],
+      "acceptanceCriteria": [
+        "A verified verification event must support a workflow.check.external claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "high"
+    },
+    {
+      "id": "policy:builder.pull-work.selected:attestation",
+      "claimType": "builder.pull-work.selected",
+      "requiredEvidence": [
+        "attestation"
+      ],
+      "acceptanceCriteria": [
+        "A verified verification event must support a builder.pull-work.selected claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "high"
+    },
+    {
+      "id": "policy:builder.design-probe.pickup-readiness:attestation",
+      "claimType": "builder.design-probe.pickup-readiness",
+      "requiredEvidence": [
+        "attestation"
+      ],
+      "acceptanceCriteria": [
+        "A verified verification event must support a builder.design-probe.pickup-readiness claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "high"
+    },
+    {
+      "id": "policy:builder.design-probe.decisions:attestation",
+      "claimType": "builder.design-probe.decisions",
+      "requiredEvidence": [
+        "attestation"
+      ],
+      "acceptanceCriteria": [
+        "A verified verification event must support a builder.design-probe.decisions claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "high"
+    },
+    {
+      "id": "policy:builder.plan.implementation:attestation",
+      "claimType": "builder.plan.implementation",
+      "requiredEvidence": [
+        "attestation"
+      ],
+      "acceptanceCriteria": [
+        "A verified verification event must support a builder.plan.implementation claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "high"
+    },
+    {
+      "id": "policy:builder.execute.scope:attestation",
+      "claimType": "builder.execute.scope",
+      "requiredEvidence": [
+        "attestation"
+      ],
+      "acceptanceCriteria": [
+        "A verified verification event must support a builder.execute.scope claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "high"
+    },
+    {
+      "id": "policy:workflow.check.command:test_output",
+      "claimType": "workflow.check.command",
+      "requiredEvidence": [
+        "test_output"
+      ],
+      "acceptanceCriteria": [
+        "A verified verification event must support a workflow.check.command claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "high"
+    },
+    {
+      "id": "policy:builder.verify.tests:test_output",
+      "claimType": "builder.verify.tests",
+      "requiredEvidence": [
+        "test_output"
+      ],
+      "acceptanceCriteria": [
+        "A verified verification event must support a builder.verify.tests claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "high"
+    },
+    {
+      "id": "policy:builder.merge-ready.readiness:attestation",
+      "claimType": "builder.merge-ready.readiness",
+      "requiredEvidence": [
+        "attestation"
+      ],
+      "acceptanceCriteria": [
+        "A verified verification event must support a builder.merge-ready.readiness claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "high"
+    },
+    {
+      "id": "policy:builder.pr-open.pull-request:attestation",
+      "claimType": "builder.pr-open.pull-request",
+      "requiredEvidence": [
+        "attestation"
+      ],
+      "acceptanceCriteria": [
+        "A verified verification event must support a builder.pr-open.pull-request claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "high"
+    },
+    {
+      "id": "policy:workflow.acceptance.criterion",
+      "claimType": "workflow.acceptance.criterion",
+      "requiredEvidence": [],
+      "acceptanceCriteria": [
+        "A verified verification event must support a workflow.acceptance.criterion claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "high"
+    },
+    {
+      "id": "policy:builder.pr-open.pull-request",
+      "claimType": "builder.pr-open.pull-request",
+      "requiredEvidence": [],
+      "acceptanceCriteria": [
+        "A verified verification event must support a builder.pr-open.pull-request claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "high"
+    },
+    {
+      "id": "policy:workflow.critique.review",
+      "claimType": "workflow.critique.review",
+      "requiredEvidence": [],
+      "acceptanceCriteria": [
+        "A verified verification event must support a workflow.critique.review claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "medium"
+    }
+  ],
+  "events": [
+    {
+      "id": "evt:kontourai-kontourai-io-197-gate-claim-selected-work.flow-agents-workflow.work-item-kontourai-kontourai-io-197-is-durably-assigned-to-the-active-workflow-actor-assignment-sha256-78348df5da3129e6461c229c87833fc77d0a958b520c4085986ad84d790b88f5-gate-visit-2026-07-19t23-53-12z",
+      "claimId": "kontourai-kontourai-io-197-gate-claim-selected-work.flow-agents-workflow.work-item-kontourai-kontourai-io-197-is-durably-assigned-to-the-active-workflow-actor-assignment-sha256-78348df5da3129e6461c229c87833fc77d0a958b520c4085986ad84d790b88f5-gate-visit-2026-07-19t23-53-12z",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:kontourai-kontourai-io-197-gate-claim-selected-work.flow-agents-workflow.work-item-kontourai-kontourai-io-197-is-durably-assigned-to-the-active-workflow-actor-assignment-sha256-78348df5da3129e6461c229c87833fc77d0a958b520c4085986ad84d790b88f5-gate-visit-2026-07-19t23-53-12z"
+      ],
+      "createdAt": "2026-07-20T01:14:41.748Z",
+      "verifiedAt": "2026-07-20T01:14:41.748Z"
+    },
+    {
+      "id": "evt:kontourai-kontourai-io-197-gate-claim-pickup-probe-readiness.flow-agents-workflow.pickup-probe-records-goal-fit-scope-dependencies-risks-revision-freshness-assignment-and-planning-readiness-gate-visit-2026-07-19t23-54-19-896z",
+      "claimId": "kontourai-kontourai-io-197-gate-claim-pickup-probe-readiness.flow-agents-workflow.pickup-probe-records-goal-fit-scope-dependencies-risks-revision-freshness-assignment-and-planning-readiness-gate-visit-2026-07-19t23-54-19-896z",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:kontourai-kontourai-io-197-gate-claim-pickup-probe-readiness.flow-agents-workflow.pickup-probe-records-goal-fit-scope-dependencies-risks-revision-freshness-assignment-and-planning-readiness-gate-visit-2026-07-19t23-54-19-896z"
+      ],
+      "createdAt": "2026-07-20T01:14:41.748Z",
+      "verifiedAt": "2026-07-20T01:14:41.748Z"
+    },
+    {
+      "id": "evt:kontourai-kontourai-io-197-gate-claim-probe-decisions-or-accepted-gaps.flow-agents-workflow.probe-decisions-non-goals-unresolved-questions-accepted-gaps-route-reason-and-next-action-are-explicit-gate-visit-2026-07-19t23-54-26-291z",
+      "claimId": "kontourai-kontourai-io-197-gate-claim-probe-decisions-or-accepted-gaps.flow-agents-workflow.probe-decisions-non-goals-unresolved-questions-accepted-gaps-route-reason-and-next-action-are-explicit-gate-visit-2026-07-19t23-54-26-291z",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:kontourai-kontourai-io-197-gate-claim-probe-decisions-or-accepted-gaps.flow-agents-workflow.probe-decisions-non-goals-unresolved-questions-accepted-gaps-route-reason-and-next-action-are-explicit-gate-visit-2026-07-19t23-54-26-291z"
+      ],
+      "createdAt": "2026-07-20T01:14:41.748Z",
+      "verifiedAt": "2026-07-20T01:14:41.748Z"
+    },
+    {
+      "id": "evt:kontourai-kontourai-io-197-gate-claim-implementation-plan.flow-agents-workflow.implementation-plan-records-the-bounded-post-implementation-sequence-stable-acceptance-criteria-evidence-commands-rollback-boundary-and-stop-short-risks-gate-visit-2026-07-20t00-01-40-999z",
+      "claimId": "kontourai-kontourai-io-197-gate-claim-implementation-plan.flow-agents-workflow.implementation-plan-records-the-bounded-post-implementation-sequence-stable-acceptance-criteria-evidence-commands-rollback-boundary-and-stop-short-risks-gate-visit-2026-07-20t00-01-40-999z",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:kontourai-kontourai-io-197-gate-claim-implementation-plan.flow-agents-workflow.implementation-plan-records-the-bounded-post-implementation-sequence-stable-acceptance-criteria-evidence-commands-rollback-boundary-and-stop-short-risks-gate-visit-2026-07-20t00-01-40-999z"
+      ],
+      "createdAt": "2026-07-20T01:14:41.748Z",
+      "verifiedAt": "2026-07-20T01:14:41.748Z"
+    },
+    {
+      "id": "evt:kontourai-kontourai-io-197-gate-claim-implementation-scope.flow-agents-workflow.committed-route-back-23b7e3c-emits-one-observable-tap-result-only-after-the-real-generated-page-assertion-succeeds-build-validation-manifest-workflow-and-acceptance-behavior-are-unchanged-gate-visit-2026-07-20t01-01-05-800z",
+      "claimId": "kontourai-kontourai-io-197-gate-claim-implementation-scope.flow-agents-workflow.committed-route-back-23b7e3c-emits-one-observable-tap-result-only-after-the-real-generated-page-assertion-succeeds-build-validation-manifest-workflow-and-acceptance-behavior-are-unchanged-gate-visit-2026-07-20t01-01-05-800z",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:kontourai-kontourai-io-197-gate-claim-implementation-scope.flow-agents-workflow.committed-route-back-23b7e3c-emits-one-observable-tap-result-only-after-the-real-generated-page-assertion-succeeds-build-validation-manifest-workflow-and-acceptance-behavior-are-unchanged-gate-visit-2026-07-20t01-01-05-800z"
+      ],
+      "createdAt": "2026-07-20T01:14:41.748Z",
+      "verifiedAt": "2026-07-20T01:14:41.748Z"
+    },
+    {
+      "id": "evt:kontourai-kontourai-io-197-gate-claim-tests-evidence.flow-agents-workflow.final-named-site-verification-passes-at-23b7e3c-with-one-statically-backed-observed-assertion-independent-verification-also-records-63-passing-rendered-playwright-tests-gate-visit-2026-07-20t01-11-36-623z",
+      "claimId": "kontourai-kontourai-io-197-gate-claim-tests-evidence.flow-agents-workflow.final-named-site-verification-passes-at-23b7e3c-with-one-statically-backed-observed-assertion-independent-verification-also-records-63-passing-rendered-playwright-tests-gate-visit-2026-07-20t01-11-36-623z",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:kontourai-kontourai-io-197-gate-claim-tests-evidence.flow-agents-workflow.final-named-site-verification-passes-at-23b7e3c-with-one-statically-backed-observed-assertion-independent-verification-also-records-63-passing-rendered-playwright-tests-gate-visit-2026-07-20t01-11-36-623z"
+      ],
+      "createdAt": "2026-07-20T01:14:41.748Z",
+      "verifiedAt": "2026-07-20T01:14:41.748Z"
+    },
+    {
+      "id": "evt:kontourai-kontourai-io-197-gate-claim-merge-readiness.flow-agents-workflow.local-evidence-supports-merge-review-at-23b7e3c-exact-five-file-scope-ac1-ac3-pass-five-current-clean-critiques-63-rendered-tests-and-local-trust-reconciliation-exit-0-provider-ci-remains-required-after-publication-and-push-with-no-merge-authorization-gate-visit-2026-07-20t01-12-41-056z",
+      "claimId": "kontourai-kontourai-io-197-gate-claim-merge-readiness.flow-agents-workflow.local-evidence-supports-merge-review-at-23b7e3c-exact-five-file-scope-ac1-ac3-pass-five-current-clean-critiques-63-rendered-tests-and-local-trust-reconciliation-exit-0-provider-ci-remains-required-after-publication-and-push-with-no-merge-authorization-gate-visit-2026-07-20t01-12-41-056z",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:kontourai-kontourai-io-197-gate-claim-merge-readiness.flow-agents-workflow.local-evidence-supports-merge-review-at-23b7e3c-exact-five-file-scope-ac1-ac3-pass-five-current-clean-critiques-63-rendered-tests-and-local-trust-reconciliation-exit-0-provider-ci-remains-required-after-publication-and-push-with-no-merge-authorization-gate-visit-2026-07-20t01-12-41-056z"
+      ],
+      "createdAt": "2026-07-20T01:14:41.748Z",
+      "verifiedAt": "2026-07-20T01:14:41.748Z"
+    },
+    {
+      "id": "evt:kontourai-kontourai-io-197-gate-claim-pull-request-opened.flow-agents-workflow.verified-branch-head-23b7e3c-is-pushed-to-the-existing-open-pr-197-the-pr-body-is-current-provider-checks-are-queued-and-no-merge-or-deployment-occurred-gate-visit-2026-07-20t01-14-41-748z",
+      "claimId": "kontourai-kontourai-io-197-gate-claim-pull-request-opened.flow-agents-workflow.verified-branch-head-23b7e3c-is-pushed-to-the-existing-open-pr-197-the-pr-body-is-current-provider-checks-are-queued-and-no-merge-or-deployment-occurred-gate-visit-2026-07-20t01-14-41-748z",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:kontourai-kontourai-io-197-gate-claim-pull-request-opened.flow-agents-workflow.verified-branch-head-23b7e3c-is-pushed-to-the-existing-open-pr-197-the-pr-body-is-current-provider-checks-are-queued-and-no-merge-or-deployment-occurred-gate-visit-2026-07-20t01-14-41-748z"
+      ],
+      "createdAt": "2026-07-20T01:14:41.748Z",
+      "verifiedAt": "2026-07-20T01:14:41.748Z"
+    },
+    {
+      "id": "evt:kontourai-kontourai-io-197-ac1.flow-agents-workflow.the-root-readme-accurately-explains-repository-role-source-layout-local-commands-and-authority-and-content-boundaries-with-valid-referenced-paths-verified-2026-07-20t01-11-36-623z",
+      "claimId": "kontourai-kontourai-io-197-ac1.flow-agents-workflow.the-root-readme-accurately-explains-repository-role-source-layout-local-commands-and-authority-and-content-boundaries-with-valid-referenced-paths-verified-2026-07-20t01-11-36-623z",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [],
+      "createdAt": "2026-07-20T01:14:41.748Z",
+      "verifiedAt": "2026-07-20T01:14:41.748Z"
+    },
+    {
+      "id": "evt:kontourai-kontourai-io-197-ac2.flow-agents-workflow.the-readme-satisfies-the-public-repository-content-boundary-verified-2026-07-20t01-11-36-623z",
+      "claimId": "kontourai-kontourai-io-197-ac2.flow-agents-workflow.the-readme-satisfies-the-public-repository-content-boundary-verified-2026-07-20t01-11-36-623z",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [],
+      "createdAt": "2026-07-20T01:14:41.748Z",
+      "verifiedAt": "2026-07-20T01:14:41.748Z"
+    },
+    {
+      "id": "evt:kontourai-kontourai-io-197-ac3.flow-agents-workflow.a-named-statically-reviewable-site-verification-command-preserves-the-repository-s-build-and-validation-contract-is-used-consistently-by-the-package-trust-manifest-and-trust-verify-workflow-and-passes-for-the-pr-scope-verified-2026-07-20t01-11-36-623z",
+      "claimId": "kontourai-kontourai-io-197-ac3.flow-agents-workflow.a-named-statically-reviewable-site-verification-command-preserves-the-repository-s-build-and-validation-contract-is-used-consistently-by-the-package-trust-manifest-and-trust-verify-workflow-and-passes-for-the-pr-scope-verified-2026-07-20t01-11-36-623z",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [],
+      "createdAt": "2026-07-20T01:14:41.748Z",
+      "verifiedAt": "2026-07-20T01:14:41.748Z"
+    },
+    {
+      "id": "evt:kontourai-kontourai-io-197-final-scope-r4.flow-agents-workflow.the-r4-readme-line-count-finding-is-resolved-at-head-23b7e3c-delivery-line-203-wc-l-readme-md-and-git-diff-numstat-origin-main-head-all-report-68-lines-the-full-five-file-production-scope-tap-wrapper-exact-command-alignment-syntax-static-recordability-ac1-ac3-plan-handoff-and-delivery-evidence-remain-clean-canonical-verification-and-merge-are-not-claimed-reviewed-2026-07-20t01-06-47-183z",
+      "claimId": "kontourai-kontourai-io-197-final-scope-r4.flow-agents-workflow.the-r4-readme-line-count-finding-is-resolved-at-head-23b7e3c-delivery-line-203-wc-l-readme-md-and-git-diff-numstat-origin-main-head-all-report-68-lines-the-full-five-file-production-scope-tap-wrapper-exact-command-alignment-syntax-static-recordability-ac1-ac3-plan-handoff-and-delivery-evidence-remain-clean-canonical-verification-and-merge-are-not-claimed-reviewed-2026-07-20t01-06-47-183z",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [],
+      "createdAt": "2026-07-20T01:14:41.748Z",
+      "verifiedAt": "2026-07-20T01:14:41.748Z"
+    },
+    {
+      "id": "evt:kontourai-kontourai-io-197-review.flow-agents-workflow.at-head-23b7e3c-the-corrected-final-delivery-evidence-matches-the-68-line-readme-and-the-complete-five-file-four-commit-scope-documentation-five-public-version-fields-strict-tap-wrapper-behavior-exact-trust-command-alignment-syntax-static-recordability-ac1-ac3-plan-handoff-delivery-evidence-and-the-local-reconciliation-gate-pass-review-canonical-verification-and-merge-are-not-claimed-reviewed-2026-07-20t01-07-10-781z",
+      "claimId": "kontourai-kontourai-io-197-review.flow-agents-workflow.at-head-23b7e3c-the-corrected-final-delivery-evidence-matches-the-68-line-readme-and-the-complete-five-file-four-commit-scope-documentation-five-public-version-fields-strict-tap-wrapper-behavior-exact-trust-command-alignment-syntax-static-recordability-ac1-ac3-plan-handoff-delivery-evidence-and-the-local-reconciliation-gate-pass-review-canonical-verification-and-merge-are-not-claimed-reviewed-2026-07-20t01-07-10-781z",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [],
+      "createdAt": "2026-07-20T01:14:41.748Z",
+      "verifiedAt": "2026-07-20T01:14:41.748Z"
+    },
+    {
+      "id": "evt:kontourai-kontourai-io-197-review.flow-agents-workflow.at-head-23b7e3c-the-corrected-final-delivery-evidence-matches-the-68-line-readme-and-the-complete-five-file-four-commit-scope-documentation-five-public-version-fields-strict-tap-wrapper-behavior-exact-trust-command-alignment-syntax-static-recordability-ac1-ac3-plan-handoff-delivery-evidence-and-the-local-reconciliation-gate-pass-review-canonical-verification-and-merge-are-not-claimed-reviewed-2026-07-20t01-07-11-258z",
+      "claimId": "kontourai-kontourai-io-197-review.flow-agents-workflow.at-head-23b7e3c-the-corrected-final-delivery-evidence-matches-the-68-line-readme-and-the-complete-five-file-four-commit-scope-documentation-five-public-version-fields-strict-tap-wrapper-behavior-exact-trust-command-alignment-syntax-static-recordability-ac1-ac3-plan-handoff-delivery-evidence-and-the-local-reconciliation-gate-pass-review-canonical-verification-and-merge-are-not-claimed-reviewed-2026-07-20t01-07-11-258z",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [],
+      "createdAt": "2026-07-20T01:14:41.748Z",
+      "verifiedAt": "2026-07-20T01:14:41.748Z"
+    },
+    {
+      "id": "evt:kontourai-kontourai-io-197-review.flow-agents-workflow.at-head-23b7e3c-the-corrected-final-delivery-evidence-matches-the-68-line-readme-and-the-complete-five-file-four-commit-scope-documentation-five-public-version-fields-strict-tap-wrapper-behavior-exact-trust-command-alignment-syntax-static-recordability-ac1-ac3-plan-handoff-delivery-evidence-and-the-local-reconciliation-gate-pass-review-canonical-verification-and-merge-are-not-claimed-reviewed-2026-07-20t01-07-11-666z",
+      "claimId": "kontourai-kontourai-io-197-review.flow-agents-workflow.at-head-23b7e3c-the-corrected-final-delivery-evidence-matches-the-68-line-readme-and-the-complete-five-file-four-commit-scope-documentation-five-public-version-fields-strict-tap-wrapper-behavior-exact-trust-command-alignment-syntax-static-recordability-ac1-ac3-plan-handoff-delivery-evidence-and-the-local-reconciliation-gate-pass-review-canonical-verification-and-merge-are-not-claimed-reviewed-2026-07-20t01-07-11-666z",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [],
+      "createdAt": "2026-07-20T01:14:41.748Z",
+      "verifiedAt": "2026-07-20T01:14:41.748Z"
+    },
+    {
+      "id": "evt:kontourai-kontourai-io-197-final-scope-r4.flow-agents-workflow.at-head-23b7e3c-the-corrected-final-delivery-evidence-matches-the-68-line-readme-and-the-complete-five-file-four-commit-scope-documentation-five-public-version-fields-strict-tap-wrapper-behavior-exact-trust-command-alignment-syntax-static-recordability-ac1-ac3-plan-handoff-delivery-evidence-and-the-local-reconciliation-gate-pass-review-canonical-verification-and-merge-are-not-claimed-reviewed-2026-07-20t01-07-12-053z",
+      "claimId": "kontourai-kontourai-io-197-final-scope-r4.flow-agents-workflow.at-head-23b7e3c-the-corrected-final-delivery-evidence-matches-the-68-line-readme-and-the-complete-five-file-four-commit-scope-documentation-five-public-version-fields-strict-tap-wrapper-behavior-exact-trust-command-alignment-syntax-static-recordability-ac1-ac3-plan-handoff-delivery-evidence-and-the-local-reconciliation-gate-pass-review-canonical-verification-and-merge-are-not-claimed-reviewed-2026-07-20t01-07-12-053z",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [],
+      "createdAt": "2026-07-20T01:14:41.748Z",
+      "verifiedAt": "2026-07-20T01:14:41.748Z"
+    }
+  ]
+}
