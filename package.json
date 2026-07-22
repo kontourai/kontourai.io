@@ -52,7 +52,7 @@
     "tailwindcss": "^4.3.0"
   },
   "devDependencies": {
-    "@kontourai/flow-agents": "^3.9.0",
+    "@kontourai/flow-agents": "4.5.0",
     "@kontourai/ui": "^1.11.0",
     "@playwright/test": "^1.61.1",
     "ajv": "8.20.0",

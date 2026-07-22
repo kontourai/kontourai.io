@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-07-20",
+  "checkedAt": "2026-07-22",
   "products": {
     "surface": {
       "key": "surface",
@@ -11,59 +11,59 @@
       "publicNotes": "",
       "marketingReviewed": {
         "version": "2.13.0",
-        "date": "2026-07-20"
+        "date": "2026-07-21"
       }
     },
     "survey": {
       "key": "survey",
       "label": "Survey",
       "packageName": "@kontourai/survey",
-      "version": "1.18.0",
+      "version": "1.18.1",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/survey",
       "publicNotes": "Proof-stage library, not an ingestion platform.",
       "marketingReviewed": {
-        "version": "1.18.0",
-        "date": "2026-07-20"
+        "version": "1.18.1",
+        "date": "2026-07-21"
       }
     },
     "flow": {
       "key": "flow",
       "label": "Flow",
       "packageName": "@kontourai/flow",
-      "version": "3.5.0",
+      "version": "3.6.1",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/flow",
       "publicNotes": "Local CLI plus a loopback Flow Console.",
       "marketingReviewed": {
-        "version": "3.5.0",
-        "date": "2026-07-20"
+        "version": "3.6.1",
+        "date": "2026-07-21"
       }
     },
     "veritas": {
       "key": "veritas",
       "label": "Veritas",
       "packageName": "@kontourai/veritas",
-      "version": "1.5.2",
+      "version": "1.5.3",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/veritas",
       "publicNotes": "",
       "marketingReviewed": {
-        "version": "1.5.2",
-        "date": "2026-07-20"
+        "version": "1.5.3",
+        "date": "2026-07-21"
       }
     },
     "flow-agents": {
       "key": "flow-agents",
       "label": "Flow Agents",
       "packageName": "@kontourai/flow-agents",
-      "version": "4.2.1",
+      "version": "4.5.0",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/flow-agents",
       "publicNotes": "",
       "marketingReviewed": {
-        "version": "4.2.1",
-        "date": "2026-07-20"
+        "version": "4.5.0",
+        "date": "2026-07-21"
       }
     },
     "console": {
@@ -76,7 +76,7 @@
       "publicNotes": "Open-source foundation on npm: the local hub, fixture inspector, Flow run bridge, and a local UI. The hosted console at console.kontourai.io is a private production deployment of it.",
       "marketingReviewed": {
         "version": "2.7.0",
-        "date": "2026-07-20"
+        "date": "2026-07-21"
       }
     }
   }
