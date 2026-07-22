@@ -4,10 +4,10 @@
   "work_item": null,
   "status": "delivered",
   "phase": "release",
-  "sealed_at": "2026-07-22T13:34:41Z",
-  "commit_sha": "47416b9cdf28ed285ef367c69fb00a6c367998d0",
+  "sealed_at": "2026-07-22T13:37:27Z",
+  "commit_sha": "3a209aaca70954ae49af5e8e674e833bd628fc20",
   "checkpoint": {
-    "asOf": "2026-07-22T13:34:41.915Z",
+    "asOf": "2026-07-22T13:37:27.533Z",
     "statusByClaimId": {
       "kontourai-kontourai-io-208-gate-claim-selected-work.flow-agents-workflow.work-item-kontourai-kontourai-io-208-is-durably-assigned-to-the-active-workflow-actor-assignment-sha256-bcbae7697199b618895f33083d6a337307084a321a3b29eee3539441f15e4f37-gate-visit-2026-07-22t06-21-22z": "verified",
       "kontourai-kontourai-io-208-gate-claim-pickup-probe-readiness.flow-agents-workflow.pickup-grounded-in-the-2026-07-21-strategy-session-comprehension-gap-needs-show-don-t-tell-on-the-homepage-scope-constraints-honesty-bar-content-boundary-strict-csp-and-consumers-confirmed-against-repo-instructions-before-implementation-gate-visit-2026-07-22t06-22-00-086z": "verified",
