@@ -2,12 +2,12 @@
   "schema_version": "1.0",
   "slug": "kontourai-kontourai-io-212",
   "work_item": null,
-  "status": "in_progress",
-  "phase": "goal_fit",
-  "sealed_at": "2026-07-22T16:51:09Z",
-  "commit_sha": "92d285e29819d172a85f346d8b0e12ea7ddda50b",
+  "status": "delivered",
+  "phase": "done",
+  "sealed_at": "2026-07-22T18:28:04Z",
+  "commit_sha": "2af63cdeff53ce4ad63178574d27e81d84695e52",
   "checkpoint": {
-    "asOf": "2026-07-22T16:51:09.686Z",
+    "asOf": "2026-07-22T18:28:04.942Z",
     "statusByClaimId": {
       "kontourai-kontourai-io-212-gate-claim-selected-work.flow-agents-workflow.work-item-kontourai-kontourai-io-212-is-durably-assigned-to-the-active-workflow-actor-assignment-sha256-f1217a3260bb3be84bedfce6f9ea968578837bffe59ccb66219f98c994a4dee5-gate-visit-2026-07-22t16-46-15z": "verified",
       "kontourai-kontourai-io-212-gate-claim-pickup-probe-readiness.flow-agents-workflow.pickup-grounded-owner-directed-batch-of-backlog-items-209-210-211-parity-pins-scope-constraints-honesty-bar-content-boundary-and-test-impact-confirmed-before-edits-gate-visit-2026-07-22t16-46-42-572z": "verified",
@@ -15,19 +15,27 @@
       "kontourai-kontourai-io-212-gate-claim-implementation-plan.flow-agents-workflow.plan-with-dod-and-task-to-criterion-mapping-implementation-preceded-the-run-7747968-honestly-noted-gate-visit-2026-07-22t16-46-46-049z": "verified",
       "kontourai-kontourai-io-212-gate-claim-implementation-scope.flow-agents-workflow.scope-4-files-on-feat-direction-copy-batch-7747968-unrelated-surfaces-untouched-validation-and-review-recorded-in-the-delivery-report-gate-visit-2026-07-22t16-46-47-920z": "verified",
       "kontourai-kontourai-io-212-gate-claim-tests-evidence.flow-agents-workflow.declared-rendered-suite-check-executed-by-the-sidecar-on-feat-direction-copy-batch-7747968-astro-build-playwright-63-specs-including-the-new-order-independence-and-tagline-assertions-gate-visit-2026-07-22t16-47-14-209z": "verified",
+      "kontourai-kontourai-io-212-gate-claim-merge-readiness.flow-agents-workflow.merge-ready-pr-213-ci-green-on-e22717b-independent-review-merge-ready-with-fixes-applied-verify-gate-cleared-through-the-front-door-scope-integrity-confirmed-residuals-disclosed-gate-visit-2026-07-22t16-54-17-901z": "verified",
+      "kontourai-kontourai-io-212-gate-claim-ci-merge-readiness.flow-agents-workflow.ci-merge-readiness-pr-213-checks-all-green-on-e22717b-trust-verify-build-test-validate-advisory-readiness-merged-as-ed69fbc-2026-07-22t16-55-15z-post-merge-deploy-with-smoke-tests-succeeded-on-main-live-verification-of-both-pages-confirmed-gate-visit-2026-07-22t18-06-43-672z": "verified",
+      "kontourai-kontourai-io-212-gate-claim-learning-evidence.flow-agents-workflow.learning-recorded-full-front-door-ceremony-now-works-for-this-repo-on-4-6-1-anti-forgery-byte-check-validated-in-live-fire-upstream-trail-840-841-closed-gate-visit-2026-07-22t18-07-37-890z": "verified",
+      "kontourai-kontourai-io-212-gate-claim-decision-evidence.flow-agents-workflow.delivery-decisions-recorded-one-pr-batching-to-amortize-ceremony-cost-211-closed-as-audit-pre-merge-critique-tests-ordering-to-avoid-830-provider-reconciliation-after-the-840-fix-rather-than-bypassing-the-operation-gate-visit-2026-07-22t18-07-35-588z": "verified",
       "kontourai-kontourai-io-212-complete-the-requested-outcome-deliver-kontourai-kontourai-io-212-through-builder-build.flow-agents-workflow.complete-the-requested-outcome-deliver-kontourai-kontourai-io-212-through-builder-build-verified-2026-07-22t16-47-14-209z": "verified",
       "kontourai-kontourai-io-212-review.flow-agents-workflow.independent-fable-report-only-review-on-7747968-merge-ready-one-medium-ambiguity-and-one-low-echo-fixed-in-the-reviewed-commit-two-lows-recorded-as-accepted-gaps-suite-re-verified-63-63-by-the-reviewer-on-a-clean-build-reviewed-2026-07-22t16-47-05-377z": "verified"
     },
-    "throughEventCreatedAt": "2026-07-22T16:47:14.209Z",
+    "throughEventCreatedAt": "2026-07-22T18:07:37.890Z",
     "throughEventCreatedAtByClaimId": {
-      "kontourai-kontourai-io-212-gate-claim-selected-work.flow-agents-workflow.work-item-kontourai-kontourai-io-212-is-durably-assigned-to-the-active-workflow-actor-assignment-sha256-f1217a3260bb3be84bedfce6f9ea968578837bffe59ccb66219f98c994a4dee5-gate-visit-2026-07-22t16-46-15z": "2026-07-22T16:47:14.209Z",
-      "kontourai-kontourai-io-212-gate-claim-pickup-probe-readiness.flow-agents-workflow.pickup-grounded-owner-directed-batch-of-backlog-items-209-210-211-parity-pins-scope-constraints-honesty-bar-content-boundary-and-test-impact-confirmed-before-edits-gate-visit-2026-07-22t16-46-42-572z": "2026-07-22T16:47:14.209Z",
-      "kontourai-kontourai-io-212-gate-claim-probe-decisions-or-accepted-gaps.flow-agents-workflow.probe-decisions-and-accepted-gaps-recorded-in-the-pickup-artifact-one-pr-batching-audit-close-for-211-pre-ceremony-independent-review-with-fixes-applied-critique-before-tests-ordering-to-avoid-the-830-bind-gaps-disclosed-survey-marketing-staleness-undemostrated-intake-example-gate-visit-2026-07-22t16-46-44-413z": "2026-07-22T16:47:14.209Z",
-      "kontourai-kontourai-io-212-gate-claim-implementation-plan.flow-agents-workflow.plan-with-dod-and-task-to-criterion-mapping-implementation-preceded-the-run-7747968-honestly-noted-gate-visit-2026-07-22t16-46-46-049z": "2026-07-22T16:47:14.209Z",
-      "kontourai-kontourai-io-212-gate-claim-implementation-scope.flow-agents-workflow.scope-4-files-on-feat-direction-copy-batch-7747968-unrelated-surfaces-untouched-validation-and-review-recorded-in-the-delivery-report-gate-visit-2026-07-22t16-46-47-920z": "2026-07-22T16:47:14.209Z",
-      "kontourai-kontourai-io-212-gate-claim-tests-evidence.flow-agents-workflow.declared-rendered-suite-check-executed-by-the-sidecar-on-feat-direction-copy-batch-7747968-astro-build-playwright-63-specs-including-the-new-order-independence-and-tagline-assertions-gate-visit-2026-07-22t16-47-14-209z": "2026-07-22T16:47:14.209Z",
+      "kontourai-kontourai-io-212-gate-claim-selected-work.flow-agents-workflow.work-item-kontourai-kontourai-io-212-is-durably-assigned-to-the-active-workflow-actor-assignment-sha256-f1217a3260bb3be84bedfce6f9ea968578837bffe59ccb66219f98c994a4dee5-gate-visit-2026-07-22t16-46-15z": "2026-07-22T18:07:37.890Z",
+      "kontourai-kontourai-io-212-gate-claim-pickup-probe-readiness.flow-agents-workflow.pickup-grounded-owner-directed-batch-of-backlog-items-209-210-211-parity-pins-scope-constraints-honesty-bar-content-boundary-and-test-impact-confirmed-before-edits-gate-visit-2026-07-22t16-46-42-572z": "2026-07-22T18:07:37.890Z",
+      "kontourai-kontourai-io-212-gate-claim-probe-decisions-or-accepted-gaps.flow-agents-workflow.probe-decisions-and-accepted-gaps-recorded-in-the-pickup-artifact-one-pr-batching-audit-close-for-211-pre-ceremony-independent-review-with-fixes-applied-critique-before-tests-ordering-to-avoid-the-830-bind-gaps-disclosed-survey-marketing-staleness-undemostrated-intake-example-gate-visit-2026-07-22t16-46-44-413z": "2026-07-22T18:07:37.890Z",
+      "kontourai-kontourai-io-212-gate-claim-implementation-plan.flow-agents-workflow.plan-with-dod-and-task-to-criterion-mapping-implementation-preceded-the-run-7747968-honestly-noted-gate-visit-2026-07-22t16-46-46-049z": "2026-07-22T18:07:37.890Z",
+      "kontourai-kontourai-io-212-gate-claim-implementation-scope.flow-agents-workflow.scope-4-files-on-feat-direction-copy-batch-7747968-unrelated-surfaces-untouched-validation-and-review-recorded-in-the-delivery-report-gate-visit-2026-07-22t16-46-47-920z": "2026-07-22T18:07:37.890Z",
+      "kontourai-kontourai-io-212-gate-claim-tests-evidence.flow-agents-workflow.declared-rendered-suite-check-executed-by-the-sidecar-on-feat-direction-copy-batch-7747968-astro-build-playwright-63-specs-including-the-new-order-independence-and-tagline-assertions-gate-visit-2026-07-22t16-47-14-209z": "2026-07-22T18:07:37.890Z",
+      "kontourai-kontourai-io-212-gate-claim-merge-readiness.flow-agents-workflow.merge-ready-pr-213-ci-green-on-e22717b-independent-review-merge-ready-with-fixes-applied-verify-gate-cleared-through-the-front-door-scope-integrity-confirmed-residuals-disclosed-gate-visit-2026-07-22t16-54-17-901z": "2026-07-22T18:07:37.890Z",
+      "kontourai-kontourai-io-212-gate-claim-ci-merge-readiness.flow-agents-workflow.ci-merge-readiness-pr-213-checks-all-green-on-e22717b-trust-verify-build-test-validate-advisory-readiness-merged-as-ed69fbc-2026-07-22t16-55-15z-post-merge-deploy-with-smoke-tests-succeeded-on-main-live-verification-of-both-pages-confirmed-gate-visit-2026-07-22t18-06-43-672z": "2026-07-22T18:07:37.890Z",
+      "kontourai-kontourai-io-212-gate-claim-learning-evidence.flow-agents-workflow.learning-recorded-full-front-door-ceremony-now-works-for-this-repo-on-4-6-1-anti-forgery-byte-check-validated-in-live-fire-upstream-trail-840-841-closed-gate-visit-2026-07-22t18-07-37-890z": "2026-07-22T18:07:37.890Z",
+      "kontourai-kontourai-io-212-gate-claim-decision-evidence.flow-agents-workflow.delivery-decisions-recorded-one-pr-batching-to-amortize-ceremony-cost-211-closed-as-audit-pre-merge-critique-tests-ordering-to-avoid-830-provider-reconciliation-after-the-840-fix-rather-than-bypassing-the-operation-gate-visit-2026-07-22t18-07-35-588z": "2026-07-22T18:07:37.890Z",
       "kontourai-kontourai-io-212-complete-the-requested-outcome-deliver-kontourai-kontourai-io-212-through-builder-build.flow-agents-workflow.complete-the-requested-outcome-deliver-kontourai-kontourai-io-212-through-builder-build-verified-2026-07-22t16-47-14-209z": "2026-07-22T16:47:14.209Z",
-      "kontourai-kontourai-io-212-review.flow-agents-workflow.independent-fable-report-only-review-on-7747968-merge-ready-one-medium-ambiguity-and-one-low-echo-fixed-in-the-reviewed-commit-two-lows-recorded-as-accepted-gaps-suite-re-verified-63-63-by-the-reviewer-on-a-clean-build-reviewed-2026-07-22t16-47-05-377z": "2026-07-22T16:47:14.209Z"
+      "kontourai-kontourai-io-212-review.flow-agents-workflow.independent-fable-report-only-review-on-7747968-merge-ready-one-medium-ambiguity-and-one-low-echo-fixed-in-the-reviewed-commit-two-lows-recorded-as-accepted-gaps-suite-re-verified-63-63-by-the-reviewer-on-a-clean-build-reviewed-2026-07-22t16-47-05-377z": "2026-07-22T18:07:37.890Z"
     },
     "statusFunctionVersion": "2"
   }
