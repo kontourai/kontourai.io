@@ -32,6 +32,21 @@ test("homepage leads with a single Flow Agents headline and Survey as the proof 
   await expect(page.getByText("2 · The capture")).toBeVisible();
   await expect(page.getByText("3 · The recompute")).toBeVisible();
 
+  // Proof replay: the staged runtime-catch demo plays on scroll. toBeVisible()
+  // cannot distinguish opacity-0 (review finding: vacuous assertion), so the
+  // proof the script ran under the external-asset CSP path is class state:
+  // arming adds .is-armed, and the final beat's reveal adds .is-on.
+  const replay = page.locator("[data-proof-replay]");
+  await replay.scrollIntoViewIfNeeded();
+  await expect(replay).toHaveClass(/is-armed/);
+  await expect(replay.locator('[data-beat="4"]')).toHaveClass(/is-on/, { timeout: 10000 });
+  // The replay button appears after the first play and re-runs the sequence.
+  const replayBtn = replay.locator("[data-replay]");
+  await expect(replayBtn).toBeVisible();
+  await replayBtn.click();
+  await expect(replay.locator('[data-beat="4"]')).toHaveClass(/is-on/, { timeout: 10000 });
+  await expect(replay.getByText("Staged replay of the runtime catch")).toBeVisible();
+
   // #113: recognition moments — examples first, mechanism second.
   await expect(page.getByRole("heading", { name: "You've watched this happen." })).toBeVisible();
   // Credibility ordering: the backstop/memory case leads (believable AND implemented).
@@ -354,7 +369,9 @@ test("veritas page shows the promise, a concrete catch, and the surface handoff"
 test("survey page explains the producer pipeline and surface handoff", async ({ page }) => {
   await page.goto("/survey/");
 
-  await expect(page.getByText("review workflow for producing trustworthy Surface-ready claims").first()).toBeVisible();
+  await expect(page.getByText("the contract that keeps the story behind every reviewed value").first()).toBeVisible();
+  // Hero leads with the information-loss story: the approve click is where provenance dies.
+  await expect(page.getByText("destroy that story the moment someone clicks approve").first()).toBeVisible();
   await expect(page.getByRole("heading", { name: "Survey", exact: true })).toBeVisible();
 
   // Producer pipeline
