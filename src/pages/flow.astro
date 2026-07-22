@@ -176,6 +176,31 @@ const consoleFeatures = [
   </Section>
 
   <!-- The difference -->
+  <Section borderTop>
+    <div class="container container--readable order-free">
+      <Eyebrow accent="cobalt-2">Deterministic evidence, nondeterministic path</Eyebrow>
+      <h2 class="display-md order-free__title">
+        The conversation can wander.<br />The evidence contract can't.
+      </h2>
+      <p class="body measure order-free__copy">
+        Agent-mediated work is nondeterministic by nature: an intake
+        conversation might collect everything at once, or piece by piece
+        across three sessions, in any order. Systems that audit by forcing a
+        rigid path fight that. Flow doesn't police how the evidence arrives — gates evaluate
+        the <em>accumulated evidence state</em>, order-independent. The
+        question is never "did the steps run in sequence"; it's "is the
+        required evidence present, fresh, and trusted."
+      </p>
+      <p class="body measure order-free__copy order-free__copy--last">
+        Ten documents in one upload or one per conversation — same gate, same
+        verdict. Evidence that fails review routes back with a reason instead
+        of breaking the process. The rigid path was always a proxy for "we can
+        prove we collected the right things"; Flow satisfies the real
+        requirement directly.
+      </p>
+    </div>
+  </Section>
+
   <Section tone="alt" borderTop borderBottom>
     <div class="container">
       <Split ratio="1-1" gap="md" align="center">
@@ -338,15 +363,18 @@ const consoleFeatures = [
 
   .diff__title,
   .fc__title,
-  .line__title {
+  .line__title,
+  .order-free__title {
     margin-bottom: 1.25rem;
   }
   .diff__copy,
-  .line__copy {
+  .line__copy,
+  .order-free__copy {
     margin-bottom: 1.5rem;
   }
   .diff__copy--last,
-  .line__copy--last {
+  .line__copy--last,
+  .order-free__copy--last {
     margin-bottom: 0;
   }
 

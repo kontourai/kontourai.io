@@ -18,7 +18,7 @@
       "key": "survey",
       "label": "Survey",
       "packageName": "@kontourai/survey",
-      "version": "1.18.1",
+      "version": "1.19.0",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/survey",
       "publicNotes": "Proof-stage library, not an ingestion platform.",
@@ -31,13 +31,13 @@
       "key": "flow",
       "label": "Flow",
       "packageName": "@kontourai/flow",
-      "version": "3.6.1",
+      "version": "3.6.2",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/flow",
       "publicNotes": "Local CLI plus a loopback Flow Console.",
       "marketingReviewed": {
-        "version": "3.6.1",
-        "date": "2026-07-21"
+        "version": "3.6.2",
+        "date": "2026-07-22"
       }
     },
     "veritas": {
@@ -57,13 +57,13 @@
       "key": "flow-agents",
       "label": "Flow Agents",
       "packageName": "@kontourai/flow-agents",
-      "version": "4.5.0",
+      "version": "4.6.0",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/flow-agents",
       "publicNotes": "",
       "marketingReviewed": {
-        "version": "4.5.0",
-        "date": "2026-07-21"
+        "version": "4.6.0",
+        "date": "2026-07-22"
       }
     },
     "console": {

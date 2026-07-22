@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0",
+  "slug": "kontourai-kontourai-io-212",
+  "work_item": null,
+  "status": "in_progress",
+  "phase": "goal_fit",
+  "sealed_at": "2026-07-22T16:51:09Z",
+  "commit_sha": "92d285e29819d172a85f346d8b0e12ea7ddda50b",
+  "checkpoint": {
+    "asOf": "2026-07-22T16:51:09.686Z",
+    "statusByClaimId": {
+      "kontourai-kontourai-io-212-gate-claim-selected-work.flow-agents-workflow.work-item-kontourai-kontourai-io-212-is-durably-assigned-to-the-active-workflow-actor-assignment-sha256-f1217a3260bb3be84bedfce6f9ea968578837bffe59ccb66219f98c994a4dee5-gate-visit-2026-07-22t16-46-15z": "verified",
+      "kontourai-kontourai-io-212-gate-claim-pickup-probe-readiness.flow-agents-workflow.pickup-grounded-owner-directed-batch-of-backlog-items-209-210-211-parity-pins-scope-constraints-honesty-bar-content-boundary-and-test-impact-confirmed-before-edits-gate-visit-2026-07-22t16-46-42-572z": "verified",
+      "kontourai-kontourai-io-212-gate-claim-probe-decisions-or-accepted-gaps.flow-agents-workflow.probe-decisions-and-accepted-gaps-recorded-in-the-pickup-artifact-one-pr-batching-audit-close-for-211-pre-ceremony-independent-review-with-fixes-applied-critique-before-tests-ordering-to-avoid-the-830-bind-gaps-disclosed-survey-marketing-staleness-undemostrated-intake-example-gate-visit-2026-07-22t16-46-44-413z": "verified",
+      "kontourai-kontourai-io-212-gate-claim-implementation-plan.flow-agents-workflow.plan-with-dod-and-task-to-criterion-mapping-implementation-preceded-the-run-7747968-honestly-noted-gate-visit-2026-07-22t16-46-46-049z": "verified",
+      "kontourai-kontourai-io-212-gate-claim-implementation-scope.flow-agents-workflow.scope-4-files-on-feat-direction-copy-batch-7747968-unrelated-surfaces-untouched-validation-and-review-recorded-in-the-delivery-report-gate-visit-2026-07-22t16-46-47-920z": "verified",
+      "kontourai-kontourai-io-212-gate-claim-tests-evidence.flow-agents-workflow.declared-rendered-suite-check-executed-by-the-sidecar-on-feat-direction-copy-batch-7747968-astro-build-playwright-63-specs-including-the-new-order-independence-and-tagline-assertions-gate-visit-2026-07-22t16-47-14-209z": "verified",
+      "kontourai-kontourai-io-212-complete-the-requested-outcome-deliver-kontourai-kontourai-io-212-through-builder-build.flow-agents-workflow.complete-the-requested-outcome-deliver-kontourai-kontourai-io-212-through-builder-build-verified-2026-07-22t16-47-14-209z": "verified",
+      "kontourai-kontourai-io-212-review.flow-agents-workflow.independent-fable-report-only-review-on-7747968-merge-ready-one-medium-ambiguity-and-one-low-echo-fixed-in-the-reviewed-commit-two-lows-recorded-as-accepted-gaps-suite-re-verified-63-63-by-the-reviewer-on-a-clean-build-reviewed-2026-07-22t16-47-05-377z": "verified"
+    },
+    "throughEventCreatedAt": "2026-07-22T16:47:14.209Z",
+    "throughEventCreatedAtByClaimId": {
+      "kontourai-kontourai-io-212-gate-claim-selected-work.flow-agents-workflow.work-item-kontourai-kontourai-io-212-is-durably-assigned-to-the-active-workflow-actor-assignment-sha256-f1217a3260bb3be84bedfce6f9ea968578837bffe59ccb66219f98c994a4dee5-gate-visit-2026-07-22t16-46-15z": "2026-07-22T16:47:14.209Z",
+      "kontourai-kontourai-io-212-gate-claim-pickup-probe-readiness.flow-agents-workflow.pickup-grounded-owner-directed-batch-of-backlog-items-209-210-211-parity-pins-scope-constraints-honesty-bar-content-boundary-and-test-impact-confirmed-before-edits-gate-visit-2026-07-22t16-46-42-572z": "2026-07-22T16:47:14.209Z",
+      "kontourai-kontourai-io-212-gate-claim-probe-decisions-or-accepted-gaps.flow-agents-workflow.probe-decisions-and-accepted-gaps-recorded-in-the-pickup-artifact-one-pr-batching-audit-close-for-211-pre-ceremony-independent-review-with-fixes-applied-critique-before-tests-ordering-to-avoid-the-830-bind-gaps-disclosed-survey-marketing-staleness-undemostrated-intake-example-gate-visit-2026-07-22t16-46-44-413z": "2026-07-22T16:47:14.209Z",
+      "kontourai-kontourai-io-212-gate-claim-implementation-plan.flow-agents-workflow.plan-with-dod-and-task-to-criterion-mapping-implementation-preceded-the-run-7747968-honestly-noted-gate-visit-2026-07-22t16-46-46-049z": "2026-07-22T16:47:14.209Z",
+      "kontourai-kontourai-io-212-gate-claim-implementation-scope.flow-agents-workflow.scope-4-files-on-feat-direction-copy-batch-7747968-unrelated-surfaces-untouched-validation-and-review-recorded-in-the-delivery-report-gate-visit-2026-07-22t16-46-47-920z": "2026-07-22T16:47:14.209Z",
+      "kontourai-kontourai-io-212-gate-claim-tests-evidence.flow-agents-workflow.declared-rendered-suite-check-executed-by-the-sidecar-on-feat-direction-copy-batch-7747968-astro-build-playwright-63-specs-including-the-new-order-independence-and-tagline-assertions-gate-visit-2026-07-22t16-47-14-209z": "2026-07-22T16:47:14.209Z",
+      "kontourai-kontourai-io-212-complete-the-requested-outcome-deliver-kontourai-kontourai-io-212-through-builder-build.flow-agents-workflow.complete-the-requested-outcome-deliver-kontourai-kontourai-io-212-through-builder-build-verified-2026-07-22t16-47-14-209z": "2026-07-22T16:47:14.209Z",
+      "kontourai-kontourai-io-212-review.flow-agents-workflow.independent-fable-report-only-review-on-7747968-merge-ready-one-medium-ambiguity-and-one-low-echo-fixed-in-the-reviewed-commit-two-lows-recorded-as-accepted-gaps-suite-re-verified-63-63-by-the-reviewer-on-a-clean-build-reviewed-2026-07-22t16-47-05-377z": "2026-07-22T16:47:14.209Z"
+    },
+    "statusFunctionVersion": "2"
+  }
+}
