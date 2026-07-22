@@ -252,6 +252,10 @@ test("flow page explains process transparency and product boundaries", async ({ 
   );
 
   await expect(page.getByText("required paths, gates, evidence, and exceptions made inspectable")).toBeVisible();
+
+  // Order-independence framing (#209): gates judge accumulated evidence state, not step order.
+  await expect(page.getByRole("heading", { name: /The conversation can wander/ })).toBeVisible();
+  await expect(page.getByText("accumulated evidence state", { exact: false }).first()).toBeVisible();
   await expect(page.getByText("A trace says what happened.")).toBeVisible();
   await expect(page.getByText("Flow says why it was enough.")).toBeVisible();
   await expect(page.locator(".label-sm").filter({ hasText: "What Flow answers" })).toBeVisible();
@@ -675,7 +679,7 @@ test("flow agents page presents agent-tool discipline and status", async ({ page
   await page.goto("/flow-agents/");
 
   await expect(page.getByRole("heading", { name: "Flow Agents", exact: true })).toBeVisible();
-  await expect(page.getByText("trust machinery for the agent you already run").first()).toBeVisible();
+  await expect(page.getByText("keep your agent on the required path — in the tools you already run").first()).toBeVisible();
 
   // Published status, not vapor: badge shows the released version from metadata
   const { products } = JSON.parse(
@@ -684,7 +688,7 @@ test("flow agents page presents agent-tool discipline and status", async ({ page
   await expect(page.getByText(`v${products["flow-agents"].version}`).first()).toBeVisible();
 
   // Real capabilities: engine discipline, kit portfolio, runtime adapters, and an install path
-  await expect(page.getByText("Install the engine into the coding agent you already run")).toBeVisible();
+  await expect(page.getByText("Install the engine into your coding agent")).toBeVisible();
   await expect(page.getByText("Builder for delivery, Knowledge")).toBeVisible();
   await expect(page.getByText("The engine", { exact: true })).toBeVisible();
   await expect(page.getByText("Kit portfolio", { exact: true })).toBeVisible();
