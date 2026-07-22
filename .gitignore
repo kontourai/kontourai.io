@@ -16,3 +16,6 @@ screenshot-*.png
 
 # a symlinked node_modules (worktree setup) is not matched by node_modules/
 node_modules
+
+# Generated Surface/Veritas console runs — never public source artifacts (review finding, PR #207)
+.surface/

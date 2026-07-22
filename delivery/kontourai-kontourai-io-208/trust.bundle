@@ -1,0 +1,837 @@
+{
+  "schemaVersion": 5,
+  "source": "flow-agents/workflow-sidecar;statusFunctionVersion=2",
+  "claims": [
+    {
+      "id": "kontourai-kontourai-io-208-gate-claim-selected-work.flow-agents-workflow.work-item-kontourai-kontourai-io-208-is-durably-assigned-to-the-active-workflow-actor-assignment-sha256-bcbae7697199b618895f33083d6a337307084a321a3b29eee3539441f15e4f37-gate-visit-2026-07-22t06-21-22z",
+      "subjectType": "work-item",
+      "subjectId": "kontourai-kontourai-io-208/gate-claim-selected-work",
+      "facet": "flow-agents.workflow",
+      "claimType": "builder.pull-work.selected",
+      "fieldOrBehavior": "Work Item kontourai/kontourai.io#208 is durably assigned to the active workflow actor (assignment sha256:bcbae7697199b618895f33083d6a337307084a321a3b29eee3539441f15e4f37).",
+      "value": "pass",
+      "createdAt": "2026-07-22T13:32:52.757Z",
+      "updatedAt": "2026-07-22T13:32:52.757Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:builder.pull-work.selected:attestation",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "external",
+        "workflow_subject_ref": "kontourai/kontourai.io#208",
+        "expected_producer": "builder.pull-work",
+        "recorded_by": "claude-codef2a6b075-97ed-4ce8-8559-551394f72ac1Kontour",
+        "self_produced_trust_slices": [
+          "selected-work"
+        ],
+        "artifact_refs": [
+          {
+            "kind": "artifact",
+            "file": ".kontourai/flow-agents/assignment/kontourai-kontourai-io-208.json",
+            "summary": "Durable local assignment record for the selected Work Item and active actor; sha256:bcbae7697199b618895f33083d6a337307084a321a3b29eee3539441f15e4f37."
+          },
+          {
+            "kind": "artifact",
+            "file": ".kontourai/flow-agents/kontourai-kontourai-io-208/kontourai-kontourai-io-208--pull-work.md",
+            "summary": "Concrete pull-work selection report for kontourai/kontourai.io#208."
+          }
+        ],
+        "gate_claim": {
+          "expectation_id": "selected-work",
+          "claim_type": "builder.pull-work.selected",
+          "subject_type": "work-item",
+          "step_id": "pull-work",
+          "identity_version": 2,
+          "recorded_at": "2026-07-22T06:21:22Z"
+        }
+      },
+      "status": "verified"
+    },
+    {
+      "id": "kontourai-kontourai-io-208-gate-claim-pickup-probe-readiness.flow-agents-workflow.pickup-grounded-in-the-2026-07-21-strategy-session-comprehension-gap-needs-show-don-t-tell-on-the-homepage-scope-constraints-honesty-bar-content-boundary-strict-csp-and-consumers-confirmed-against-repo-instructions-before-implementation-gate-visit-2026-07-22t06-22-00-086z",
+      "subjectType": "work-item",
+      "subjectId": "kontourai-kontourai-io-208/gate-claim-pickup-probe-readiness",
+      "facet": "flow-agents.workflow",
+      "claimType": "builder.design-probe.pickup-readiness",
+      "fieldOrBehavior": "Pickup grounded in the 2026-07-21 strategy session: comprehension gap needs show-don't-tell on the homepage; scope, constraints (honesty bar, content boundary, strict CSP), and consumers confirmed against repo instructions before implementation.",
+      "value": "pass",
+      "createdAt": "2026-07-22T13:32:52.757Z",
+      "updatedAt": "2026-07-22T13:32:52.757Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:builder.design-probe.pickup-readiness:attestation",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "external",
+        "workflow_subject_ref": "kontourai/kontourai.io#208",
+        "expected_producer": "builder.pickup-probe",
+        "recorded_by": "claude-codef2a6b075-97ed-4ce8-8559-551394f72ac1Kontour",
+        "self_produced_trust_slices": [
+          "pickup-probe"
+        ],
+        "artifact_refs": [
+          {
+            "kind": "artifact",
+            "file": ".kontourai/flow-agents/kontourai-kontourai-io-208/kontourai-kontourai-io-208--pull-work.md",
+            "summary": "Pull-work selection with rationale, scope, and ownership preflight."
+          }
+        ],
+        "gate_claim": {
+          "expectation_id": "pickup-probe-readiness",
+          "claim_type": "builder.design-probe.pickup-readiness",
+          "subject_type": "work-item",
+          "step_id": "design-probe",
+          "identity_version": 2,
+          "recorded_at": "2026-07-22T06:22:00.086Z"
+        }
+      },
+      "status": "verified"
+    },
+    {
+      "id": "kontourai-kontourai-io-208-gate-claim-probe-decisions-or-accepted-gaps.flow-agents-workflow.probe-decisions-and-accepted-gaps-appended-to-the-pickup-artifact-staged-labeled-replay-progressive-enhancement-reduced-motion-fallback-strict-csp-compliance-survey-hero-information-loss-story-gaps-disclosed-dramatization-not-capture-timing-asserted-with-10s-timeout-gate-visit-2026-07-22t06-23-47-944z",
+      "subjectType": "decision",
+      "subjectId": "kontourai-kontourai-io-208/gate-claim-probe-decisions-or-accepted-gaps",
+      "facet": "flow-agents.workflow",
+      "claimType": "builder.design-probe.decisions",
+      "fieldOrBehavior": "Probe decisions and accepted gaps appended to the pickup artifact: staged-labeled replay, progressive enhancement, reduced-motion fallback, strict-CSP compliance, Survey hero information-loss story; gaps disclosed (dramatization not capture; timing asserted with 10s timeout).",
+      "value": "pass",
+      "createdAt": "2026-07-22T13:32:52.757Z",
+      "updatedAt": "2026-07-22T13:32:52.757Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:builder.design-probe.decisions:attestation",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "external",
+        "workflow_subject_ref": "kontourai/kontourai.io#208",
+        "expected_producer": "builder.pickup-probe",
+        "recorded_by": "claude-codef2a6b075-97ed-4ce8-8559-551394f72ac1Kontour",
+        "self_produced_trust_slices": [
+          "pickup-probe"
+        ],
+        "artifact_refs": [
+          {
+            "kind": "artifact",
+            "file": ".kontourai/flow-agents/kontourai-kontourai-io-208/kontourai-kontourai-io-208--pull-work.md",
+            "summary": "Probe decisions, accepted gaps, and next action."
+          }
+        ],
+        "gate_claim": {
+          "expectation_id": "probe-decisions-or-accepted-gaps",
+          "claim_type": "builder.design-probe.decisions",
+          "subject_type": "decision",
+          "step_id": "design-probe",
+          "identity_version": 2,
+          "recorded_at": "2026-07-22T06:23:47.944Z"
+        }
+      },
+      "status": "verified"
+    },
+    {
+      "id": "kontourai-kontourai-io-208-gate-claim-implementation-plan.flow-agents-workflow.implementation-plan-with-dod-and-task-to-criterion-mapping-recorded-notes-honestly-that-implementation-preceded-the-run-pr-207-and-the-plan-documents-the-executed-mapping-gate-visit-2026-07-22t06-24-11-804z",
+      "subjectType": "artifact",
+      "subjectId": "kontourai-kontourai-io-208/gate-claim-implementation-plan",
+      "facet": "flow-agents.workflow",
+      "claimType": "builder.plan.implementation",
+      "fieldOrBehavior": "Implementation plan with DoD and task-to-criterion mapping recorded; notes honestly that implementation preceded the run (PR #207) and the plan documents the executed mapping.",
+      "value": "pass",
+      "createdAt": "2026-07-22T13:32:52.757Z",
+      "updatedAt": "2026-07-22T13:32:52.757Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:builder.plan.implementation:attestation",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "external",
+        "workflow_subject_ref": "kontourai/kontourai.io#208",
+        "expected_producer": "builder.plan-work",
+        "recorded_by": "claude-codef2a6b075-97ed-4ce8-8559-551394f72ac1Kontour",
+        "self_produced_trust_slices": [
+          "implementation-plan"
+        ],
+        "artifact_refs": [
+          {
+            "kind": "artifact",
+            "file": ".kontourai/flow-agents/kontourai-kontourai-io-208/kontourai-kontourai-io-208--plan-work.md",
+            "summary": "Plan with Definition of Done, tasks, acceptance criteria, verification plan."
+          }
+        ],
+        "gate_claim": {
+          "expectation_id": "implementation-plan",
+          "claim_type": "builder.plan.implementation",
+          "subject_type": "artifact",
+          "step_id": "plan",
+          "identity_version": 2,
+          "recorded_at": "2026-07-22T06:24:11.804Z"
+        }
+      },
+      "status": "verified"
+    },
+    {
+      "id": "kontourai-kontourai-io-208-gate-claim-implementation-scope.flow-agents-workflow.implementation-scope-4-files-changed-1-new-component-on-feat-homepage-proof-replay-pr-207-unrelated-surfaces-untouched-validation-performed-and-recorded-in-the-delivery-report-gate-visit-2026-07-22t06-24-32-107z",
+      "subjectType": "change",
+      "subjectId": "kontourai-kontourai-io-208/gate-claim-implementation-scope",
+      "facet": "flow-agents.workflow",
+      "claimType": "builder.execute.scope",
+      "fieldOrBehavior": "Implementation scope: 4 files changed + 1 new component on feat/homepage-proof-replay (PR #207); unrelated surfaces untouched; validation performed and recorded in the delivery report.",
+      "value": "pass",
+      "createdAt": "2026-07-22T13:32:52.757Z",
+      "updatedAt": "2026-07-22T13:32:52.757Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:builder.execute.scope:attestation",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "external",
+        "workflow_subject_ref": "kontourai/kontourai.io#208",
+        "expected_producer": "builder.execute-plan",
+        "recorded_by": "claude-codef2a6b075-97ed-4ce8-8559-551394f72ac1Kontour",
+        "self_produced_trust_slices": [
+          "implementation-scope"
+        ],
+        "artifact_refs": [
+          {
+            "kind": "artifact",
+            "file": ".kontourai/flow-agents/kontourai-kontourai-io-208/kontourai-kontourai-io-208--deliver.md",
+            "summary": "Delivery report: changed scope, out-of-scope statement, validation performed."
+          }
+        ],
+        "gate_claim": {
+          "expectation_id": "implementation-scope",
+          "claim_type": "builder.execute.scope",
+          "subject_type": "change",
+          "step_id": "execute",
+          "identity_version": 2,
+          "recorded_at": "2026-07-22T06:24:32.107Z"
+        }
+      },
+      "status": "verified"
+    },
+    {
+      "id": "kontourai-kontourai-io-208-gate-claim-acceptance-criteria.flow-agents-workflow.all-four-plan-criteria-met-1-component-behaviors-verified-by-rendered-tests-incl-scroll-reveal-and-staged-caption-2-existing-homepage-assertions-unchanged-and-green-3-survey-hero-assertions-updated-and-green-4-validate-passes-on-the-clean-main-base-after-sync-versions-gate-visit-2026-07-22t06-25-13-732z",
+      "subjectType": "flow-step",
+      "subjectId": "kontourai-kontourai-io-208/gate-claim-acceptance-criteria",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.acceptance.criterion",
+      "fieldOrBehavior": "All four plan criteria met: (1) component behaviors verified by rendered tests incl. scroll-reveal and staged caption; (2) existing homepage assertions unchanged and green; (3) survey hero assertions updated and green; (4) validate passes on the clean main base after sync-versions.",
+      "value": "pass",
+      "createdAt": "2026-07-22T13:32:52.757Z",
+      "updatedAt": "2026-07-22T13:32:52.757Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:workflow.acceptance.criterion:attestation",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "external",
+        "workflow_subject_ref": "kontourai/kontourai.io#208",
+        "expected_producer": "builder.verify-work",
+        "recorded_by": "claude-codef2a6b075-97ed-4ce8-8559-551394f72ac1Kontour",
+        "self_produced_trust_slices": [
+          "acceptance-criteria",
+          "tests-evidence",
+          "policy-compliance"
+        ],
+        "artifact_refs": [
+          {
+            "kind": "artifact",
+            "file": ".kontourai/flow-agents/kontourai-kontourai-io-208/kontourai-kontourai-io-208--plan-work.md",
+            "summary": "Task-to-criterion mapping."
+          },
+          {
+            "kind": "artifact",
+            "file": ".kontourai/flow-agents/kontourai-kontourai-io-208/kontourai-kontourai-io-208--deliver.md",
+            "summary": "Delivery report with validation performed."
+          }
+        ],
+        "gate_claim": {
+          "expectation_id": "acceptance-criteria",
+          "claim_type": "workflow.acceptance.criterion",
+          "subject_type": "flow-step",
+          "step_id": "verify",
+          "identity_version": 2,
+          "recorded_at": "2026-07-22T06:25:13.732Z"
+        }
+      },
+      "status": "verified"
+    },
+    {
+      "id": "kontourai-kontourai-io-208-npm-run-validate.flow-agents-workflow.record-check-npm-run-validate-exit-0",
+      "subjectType": "flow-step",
+      "subjectId": "kontourai-kontourai-io-208/npm-run-validate",
+      "facet": "flow-agents.workflow",
+      "claimType": "builder.verify.tests",
+      "fieldOrBehavior": "record-check: npm run validate (exit 0)",
+      "value": "pass",
+      "createdAt": "2026-07-22T13:32:52.757Z",
+      "updatedAt": "2026-07-22T13:32:52.757Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:builder.verify.tests:test_output",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "command",
+        "workflow_subject_ref": "kontourai/kontourai.io#208",
+        "output_digest": {
+          "algorithm": "sha256",
+          "hex": "f312ec1d082c8200fe819d8f7c7b2a5cd324e7881ae9c2fda2c1b7bd28da5775"
+        }
+      },
+      "status": "verified"
+    },
+    {
+      "id": "kontourai-kontourai-io-208-npm-run-check-content-boundary.flow-agents-workflow.content-boundary-check-npm-run-check-content-boundary-exit-0-in-this-session-on-47416b9-session-local-attestation-validate-which-ci-reconciles-runs-the-same-check-as-its-first-step",
+      "subjectType": "flow-step",
+      "subjectId": "kontourai-kontourai-io-208/npm-run-check-content-boundary",
+      "facet": "flow-agents.workflow",
+      "claimType": "builder.verify.tests",
+      "fieldOrBehavior": "Content boundary check: npm run check:content-boundary exit 0 in this session on 47416b9 (session-local attestation; validate, which CI reconciles, runs the same check as its first step)",
+      "value": "pass",
+      "createdAt": "2026-07-22T13:32:52.757Z",
+      "updatedAt": "2026-07-22T13:32:52.757Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:builder.verify.tests:attestation",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "external",
+        "workflow_subject_ref": "kontourai/kontourai.io#208"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "kontourai-kontourai-io-208-npm-run-test-rendered.flow-agents-workflow.record-check-npm-run-test-rendered-exit-0",
+      "subjectType": "flow-step",
+      "subjectId": "kontourai-kontourai-io-208/npm-run-test-rendered",
+      "facet": "flow-agents.workflow",
+      "claimType": "builder.verify.tests",
+      "fieldOrBehavior": "record-check: npm run test:rendered (exit 0)",
+      "value": "pass",
+      "createdAt": "2026-07-22T13:32:52.757Z",
+      "updatedAt": "2026-07-22T13:32:52.757Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:builder.verify.tests:test_output",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "command",
+        "workflow_subject_ref": "kontourai/kontourai.io#208",
+        "output_digest": {
+          "algorithm": "sha256",
+          "hex": "6557fa3a6b9f911714442245c9b98090ae4740c385376ff0163413e76b222721"
+        }
+      },
+      "status": "verified"
+    },
+    {
+      "id": "kontourai-kontourai-io-208-complete-the-requested-outcome-deliver-kontourai-kontourai-io-208-through-builder-build.flow-agents-workflow.complete-the-requested-outcome-deliver-kontourai-kontourai-io-208-through-builder-build",
+      "subjectType": "flow-step",
+      "subjectId": "kontourai-kontourai-io-208/complete-the-requested-outcome-deliver-kontourai-kontourai-io-208-through-builder-build",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.acceptance.criterion",
+      "fieldOrBehavior": "Complete the requested outcome: Deliver kontourai/kontourai.io#208 through builder.build",
+      "value": "pending",
+      "createdAt": "2026-07-22T13:32:52.757Z",
+      "updatedAt": "2026-07-22T13:32:52.757Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:workflow.acceptance.criterion",
+      "metadata": {
+        "origin": "acceptance",
+        "criterion": {
+          "id": "complete-the-requested-outcome-deliver-kontourai-kontourai-io-208-through-builder-build",
+          "description": "Complete the requested outcome: Deliver kontourai/kontourai.io#208 through builder.build",
+          "status": "pending",
+          "evidence_refs": [
+            {
+              "kind": "command",
+              "summary": "pending"
+            }
+          ]
+        },
+        "workflow_subject_ref": "kontourai/kontourai.io#208"
+      },
+      "status": "proposed"
+    },
+    {
+      "id": "kontourai-kontourai-io-208-review.flow-agents-workflow.independent-codex-report-only-review-no-critical-high-findings-2-medium-csp-blocked-inline-script-vacuous-animation-assertion-and-2-low-committed-generated-artifacts-stale-marketing-marker-all-verified-against-the-repo-and-fixed-in-47416b9-declared-checks-re-captured-green-on-the-fixed-branch-reviewed-2026-07-22t13-29-12-093z",
+      "subjectType": "workflow-critique",
+      "subjectId": "kontourai-kontourai-io-208/review",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.critique.review",
+      "fieldOrBehavior": "Independent Codex report-only review: no critical/high findings; 2 medium (CSP-blocked inline script, vacuous animation assertion) and 2 low (committed generated artifacts, stale marketing marker) — all verified against the repo and fixed in 47416b9; declared checks re-captured green on the fixed branch.",
+      "value": "pass",
+      "createdAt": "2026-07-22T13:29:12.093Z",
+      "updatedAt": "2026-07-22T13:29:12.093Z",
+      "impactLevel": "medium",
+      "verificationPolicyId": "policy:workflow.critique.review",
+      "metadata": {
+        "origin": "critique",
+        "reviewer": "codex-gpt5-reviewer",
+        "reviewed_at": "2026-07-22T13:29:12.093Z",
+        "identity_version": 2,
+        "critique_sequence": 1,
+        "critique_predecessor_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "critique_record_hash": "373c4580504986398b46f0e8bc79826184a917068d4d49dac277998ec357f163",
+        "findings": [],
+        "lanes": [
+          {
+            "id": "code-review",
+            "status": "pass",
+            "summary": "Codex report-only review reconciled; all findings fixed and re-verified.",
+            "evidence_refs": [
+              {
+                "kind": "artifact",
+                "file": ".kontourai/flow-agents/kontourai-kontourai-io-208/kontourai-kontourai-io-208--codex-review.md",
+                "summary": "Full review report with orchestrator reconciliation."
+              }
+            ]
+          }
+        ],
+        "review_target": {
+          "artifacts": [
+            {
+              "file": ".kontourai/flow-agents/kontourai-kontourai-io-208/kontourai-kontourai-io-208--codex-review.md",
+              "sha256": "a50dcd12b1eb7be4a6893ec4adcf4ad1954ad99305c0e1f35d937a8a6c9fdae7"
+            }
+          ],
+          "workspace_snapshot": {
+            "version": 1,
+            "kind": "git-worktree",
+            "algorithm": "sha256",
+            "digest": "9f754703ac4e1315d918002c6cc13d8e8313f657fd9722f8e91109089a4b3b88",
+            "head_sha": "47416b9cdf28ed285ef367c69fb00a6c367998d0"
+          }
+        },
+        "artifact_refs": [
+          ".kontourai/flow-agents/kontourai-kontourai-io-208/kontourai-kontourai-io-208--codex-review.md"
+        ],
+        "workflow_subject_ref": "kontourai/kontourai.io#208",
+        "critique_record_id": "critique:373c4580504986398b46f0e8bc79826184a917068d4d49dac277998ec357f163"
+      },
+      "status": "verified"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev:kontourai-kontourai-io-208-gate-claim-selected-work.flow-agents-workflow.work-item-kontourai-kontourai-io-208-is-durably-assigned-to-the-active-workflow-actor-assignment-sha256-bcbae7697199b618895f33083d6a337307084a321a3b29eee3539441f15e4f37-gate-visit-2026-07-22t06-21-22z",
+      "claimId": "kontourai-kontourai-io-208-gate-claim-selected-work.flow-agents-workflow.work-item-kontourai-kontourai-io-208-is-durably-assigned-to-the-active-workflow-actor-assignment-sha256-bcbae7697199b618895f33083d6a337307084a321a3b29eee3539441f15e4f37-gate-visit-2026-07-22t06-21-22z",
+      "evidenceType": "attestation",
+      "method": "corroboration",
+      "sourceRef": "kontourai-kontourai-io-208/evidence.json",
+      "excerptOrSummary": "Work Item kontourai/kontourai.io#208 is durably assigned to the active workflow actor (assignment sha256:bcbae7697199b618895f33083d6a337307084a321a3b29eee3539441f15e4f37).",
+      "observedAt": "2026-07-22T13:32:52.757Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true
+    },
+    {
+      "id": "ev:kontourai-kontourai-io-208-gate-claim-pickup-probe-readiness.flow-agents-workflow.pickup-grounded-in-the-2026-07-21-strategy-session-comprehension-gap-needs-show-don-t-tell-on-the-homepage-scope-constraints-honesty-bar-content-boundary-strict-csp-and-consumers-confirmed-against-repo-instructions-before-implementation-gate-visit-2026-07-22t06-22-00-086z",
+      "claimId": "kontourai-kontourai-io-208-gate-claim-pickup-probe-readiness.flow-agents-workflow.pickup-grounded-in-the-2026-07-21-strategy-session-comprehension-gap-needs-show-don-t-tell-on-the-homepage-scope-constraints-honesty-bar-content-boundary-strict-csp-and-consumers-confirmed-against-repo-instructions-before-implementation-gate-visit-2026-07-22t06-22-00-086z",
+      "evidenceType": "attestation",
+      "method": "corroboration",
+      "sourceRef": "kontourai-kontourai-io-208/evidence.json",
+      "excerptOrSummary": "Pickup grounded in the 2026-07-21 strategy session: comprehension gap needs show-don't-tell on the homepage; scope, constraints (honesty bar, content boundary, strict CSP), and consumers confirmed against repo instructions before implementation.",
+      "observedAt": "2026-07-22T13:32:52.757Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true
+    },
+    {
+      "id": "ev:kontourai-kontourai-io-208-gate-claim-probe-decisions-or-accepted-gaps.flow-agents-workflow.probe-decisions-and-accepted-gaps-appended-to-the-pickup-artifact-staged-labeled-replay-progressive-enhancement-reduced-motion-fallback-strict-csp-compliance-survey-hero-information-loss-story-gaps-disclosed-dramatization-not-capture-timing-asserted-with-10s-timeout-gate-visit-2026-07-22t06-23-47-944z",
+      "claimId": "kontourai-kontourai-io-208-gate-claim-probe-decisions-or-accepted-gaps.flow-agents-workflow.probe-decisions-and-accepted-gaps-appended-to-the-pickup-artifact-staged-labeled-replay-progressive-enhancement-reduced-motion-fallback-strict-csp-compliance-survey-hero-information-loss-story-gaps-disclosed-dramatization-not-capture-timing-asserted-with-10s-timeout-gate-visit-2026-07-22t06-23-47-944z",
+      "evidenceType": "attestation",
+      "method": "corroboration",
+      "sourceRef": "kontourai-kontourai-io-208/evidence.json",
+      "excerptOrSummary": "Probe decisions and accepted gaps appended to the pickup artifact: staged-labeled replay, progressive enhancement, reduced-motion fallback, strict-CSP compliance, Survey hero information-loss story; gaps disclosed (dramatization not capture; timing asserted with 10s timeout).",
+      "observedAt": "2026-07-22T13:32:52.757Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true
+    },
+    {
+      "id": "ev:kontourai-kontourai-io-208-gate-claim-implementation-plan.flow-agents-workflow.implementation-plan-with-dod-and-task-to-criterion-mapping-recorded-notes-honestly-that-implementation-preceded-the-run-pr-207-and-the-plan-documents-the-executed-mapping-gate-visit-2026-07-22t06-24-11-804z",
+      "claimId": "kontourai-kontourai-io-208-gate-claim-implementation-plan.flow-agents-workflow.implementation-plan-with-dod-and-task-to-criterion-mapping-recorded-notes-honestly-that-implementation-preceded-the-run-pr-207-and-the-plan-documents-the-executed-mapping-gate-visit-2026-07-22t06-24-11-804z",
+      "evidenceType": "attestation",
+      "method": "corroboration",
+      "sourceRef": "kontourai-kontourai-io-208/evidence.json",
+      "excerptOrSummary": "Implementation plan with DoD and task-to-criterion mapping recorded; notes honestly that implementation preceded the run (PR #207) and the plan documents the executed mapping.",
+      "observedAt": "2026-07-22T13:32:52.757Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true
+    },
+    {
+      "id": "ev:kontourai-kontourai-io-208-gate-claim-implementation-scope.flow-agents-workflow.implementation-scope-4-files-changed-1-new-component-on-feat-homepage-proof-replay-pr-207-unrelated-surfaces-untouched-validation-performed-and-recorded-in-the-delivery-report-gate-visit-2026-07-22t06-24-32-107z",
+      "claimId": "kontourai-kontourai-io-208-gate-claim-implementation-scope.flow-agents-workflow.implementation-scope-4-files-changed-1-new-component-on-feat-homepage-proof-replay-pr-207-unrelated-surfaces-untouched-validation-performed-and-recorded-in-the-delivery-report-gate-visit-2026-07-22t06-24-32-107z",
+      "evidenceType": "attestation",
+      "method": "corroboration",
+      "sourceRef": "kontourai-kontourai-io-208/evidence.json",
+      "excerptOrSummary": "Implementation scope: 4 files changed + 1 new component on feat/homepage-proof-replay (PR #207); unrelated surfaces untouched; validation performed and recorded in the delivery report.",
+      "observedAt": "2026-07-22T13:32:52.757Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true
+    },
+    {
+      "id": "ev:kontourai-kontourai-io-208-gate-claim-acceptance-criteria.flow-agents-workflow.all-four-plan-criteria-met-1-component-behaviors-verified-by-rendered-tests-incl-scroll-reveal-and-staged-caption-2-existing-homepage-assertions-unchanged-and-green-3-survey-hero-assertions-updated-and-green-4-validate-passes-on-the-clean-main-base-after-sync-versions-gate-visit-2026-07-22t06-25-13-732z",
+      "claimId": "kontourai-kontourai-io-208-gate-claim-acceptance-criteria.flow-agents-workflow.all-four-plan-criteria-met-1-component-behaviors-verified-by-rendered-tests-incl-scroll-reveal-and-staged-caption-2-existing-homepage-assertions-unchanged-and-green-3-survey-hero-assertions-updated-and-green-4-validate-passes-on-the-clean-main-base-after-sync-versions-gate-visit-2026-07-22t06-25-13-732z",
+      "evidenceType": "attestation",
+      "method": "corroboration",
+      "sourceRef": "kontourai-kontourai-io-208/evidence.json",
+      "excerptOrSummary": "All four plan criteria met: (1) component behaviors verified by rendered tests incl. scroll-reveal and staged caption; (2) existing homepage assertions unchanged and green; (3) survey hero assertions updated and green; (4) validate passes on the clean main base after sync-versions.",
+      "observedAt": "2026-07-22T13:32:52.757Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true
+    },
+    {
+      "id": "ev:kontourai-kontourai-io-208-npm-run-validate.flow-agents-workflow.record-check-npm-run-validate-exit-0",
+      "claimId": "kontourai-kontourai-io-208-npm-run-validate.flow-agents-workflow.record-check-npm-run-validate-exit-0",
+      "evidenceType": "test_output",
+      "method": "validation",
+      "sourceRef": "kontourai-kontourai-io-208/evidence.json",
+      "excerptOrSummary": "record-check: npm run validate (exit 0)",
+      "observedAt": "2026-07-22T13:32:52.757Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true,
+      "execution": {
+        "runner": "bash",
+        "label": "npm run validate",
+        "isError": false
+      }
+    },
+    {
+      "id": "ev:kontourai-kontourai-io-208-npm-run-check-content-boundary.flow-agents-workflow.content-boundary-check-npm-run-check-content-boundary-exit-0-in-this-session-on-47416b9-session-local-attestation-validate-which-ci-reconciles-runs-the-same-check-as-its-first-step",
+      "claimId": "kontourai-kontourai-io-208-npm-run-check-content-boundary.flow-agents-workflow.content-boundary-check-npm-run-check-content-boundary-exit-0-in-this-session-on-47416b9-session-local-attestation-validate-which-ci-reconciles-runs-the-same-check-as-its-first-step",
+      "evidenceType": "attestation",
+      "method": "corroboration",
+      "sourceRef": "kontourai-kontourai-io-208/evidence.json",
+      "excerptOrSummary": "Content boundary check: npm run check:content-boundary exit 0 in this session on 47416b9 (session-local attestation; validate, which CI reconciles, runs the same check as its first step)",
+      "observedAt": "2026-07-22T13:32:52.757Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true
+    },
+    {
+      "id": "ev:kontourai-kontourai-io-208-npm-run-test-rendered.flow-agents-workflow.record-check-npm-run-test-rendered-exit-0",
+      "claimId": "kontourai-kontourai-io-208-npm-run-test-rendered.flow-agents-workflow.record-check-npm-run-test-rendered-exit-0",
+      "evidenceType": "test_output",
+      "method": "validation",
+      "sourceRef": "kontourai-kontourai-io-208/evidence.json",
+      "excerptOrSummary": "record-check: npm run test:rendered (exit 0)",
+      "observedAt": "2026-07-22T13:32:52.757Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true,
+      "execution": {
+        "runner": "bash",
+        "label": "npm run test:rendered",
+        "isError": false
+      }
+    }
+  ],
+  "policies": [
+    {
+      "id": "policy:workflow.check.external:attestation",
+      "claimType": "workflow.check.external",
+      "requiredEvidence": [
+        "attestation"
+      ],
+      "acceptanceCriteria": [
+        "A verified verification event must support a workflow.check.external claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "high"
+    },
+    {
+      "id": "policy:builder.pull-work.selected:attestation",
+      "claimType": "builder.pull-work.selected",
+      "requiredEvidence": [
+        "attestation"
+      ],
+      "acceptanceCriteria": [
+        "A verified verification event must support a builder.pull-work.selected claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "high"
+    },
+    {
+      "id": "policy:builder.design-probe.pickup-readiness:attestation",
+      "claimType": "builder.design-probe.pickup-readiness",
+      "requiredEvidence": [
+        "attestation"
+      ],
+      "acceptanceCriteria": [
+        "A verified verification event must support a builder.design-probe.pickup-readiness claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "high"
+    },
+    {
+      "id": "policy:builder.design-probe.decisions:attestation",
+      "claimType": "builder.design-probe.decisions",
+      "requiredEvidence": [
+        "attestation"
+      ],
+      "acceptanceCriteria": [
+        "A verified verification event must support a builder.design-probe.decisions claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "high"
+    },
+    {
+      "id": "policy:builder.plan.implementation:attestation",
+      "claimType": "builder.plan.implementation",
+      "requiredEvidence": [
+        "attestation"
+      ],
+      "acceptanceCriteria": [
+        "A verified verification event must support a builder.plan.implementation claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "high"
+    },
+    {
+      "id": "policy:builder.execute.scope:attestation",
+      "claimType": "builder.execute.scope",
+      "requiredEvidence": [
+        "attestation"
+      ],
+      "acceptanceCriteria": [
+        "A verified verification event must support a builder.execute.scope claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "high"
+    },
+    {
+      "id": "policy:workflow.acceptance.criterion:attestation",
+      "claimType": "workflow.acceptance.criterion",
+      "requiredEvidence": [
+        "attestation"
+      ],
+      "acceptanceCriteria": [
+        "A verified verification event must support a workflow.acceptance.criterion claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "high"
+    },
+    {
+      "id": "policy:workflow.check.command:test_output",
+      "claimType": "workflow.check.command",
+      "requiredEvidence": [
+        "test_output"
+      ],
+      "acceptanceCriteria": [
+        "A verified verification event must support a workflow.check.command claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "high"
+    },
+    {
+      "id": "policy:builder.verify.tests:test_output",
+      "claimType": "builder.verify.tests",
+      "requiredEvidence": [
+        "test_output"
+      ],
+      "acceptanceCriteria": [
+        "A verified verification event must support a builder.verify.tests claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "high"
+    },
+    {
+      "id": "policy:builder.verify.tests:attestation",
+      "claimType": "builder.verify.tests",
+      "requiredEvidence": [
+        "attestation"
+      ],
+      "acceptanceCriteria": [
+        "A verified verification event must support a builder.verify.tests claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "high"
+    },
+    {
+      "id": "policy:workflow.acceptance.criterion",
+      "claimType": "workflow.acceptance.criterion",
+      "requiredEvidence": [],
+      "acceptanceCriteria": [
+        "A verified verification event must support a workflow.acceptance.criterion claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "high"
+    },
+    {
+      "id": "policy:workflow.critique.review",
+      "claimType": "workflow.critique.review",
+      "requiredEvidence": [],
+      "acceptanceCriteria": [
+        "A verified verification event must support a workflow.critique.review claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "medium"
+    }
+  ],
+  "events": [
+    {
+      "id": "evt:kontourai-kontourai-io-208-gate-claim-selected-work.flow-agents-workflow.work-item-kontourai-kontourai-io-208-is-durably-assigned-to-the-active-workflow-actor-assignment-sha256-bcbae7697199b618895f33083d6a337307084a321a3b29eee3539441f15e4f37-gate-visit-2026-07-22t06-21-22z",
+      "claimId": "kontourai-kontourai-io-208-gate-claim-selected-work.flow-agents-workflow.work-item-kontourai-kontourai-io-208-is-durably-assigned-to-the-active-workflow-actor-assignment-sha256-bcbae7697199b618895f33083d6a337307084a321a3b29eee3539441f15e4f37-gate-visit-2026-07-22t06-21-22z",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:kontourai-kontourai-io-208-gate-claim-selected-work.flow-agents-workflow.work-item-kontourai-kontourai-io-208-is-durably-assigned-to-the-active-workflow-actor-assignment-sha256-bcbae7697199b618895f33083d6a337307084a321a3b29eee3539441f15e4f37-gate-visit-2026-07-22t06-21-22z"
+      ],
+      "createdAt": "2026-07-22T13:32:52.757Z",
+      "verifiedAt": "2026-07-22T13:32:52.757Z"
+    },
+    {
+      "id": "evt:kontourai-kontourai-io-208-gate-claim-pickup-probe-readiness.flow-agents-workflow.pickup-grounded-in-the-2026-07-21-strategy-session-comprehension-gap-needs-show-don-t-tell-on-the-homepage-scope-constraints-honesty-bar-content-boundary-strict-csp-and-consumers-confirmed-against-repo-instructions-before-implementation-gate-visit-2026-07-22t06-22-00-086z",
+      "claimId": "kontourai-kontourai-io-208-gate-claim-pickup-probe-readiness.flow-agents-workflow.pickup-grounded-in-the-2026-07-21-strategy-session-comprehension-gap-needs-show-don-t-tell-on-the-homepage-scope-constraints-honesty-bar-content-boundary-strict-csp-and-consumers-confirmed-against-repo-instructions-before-implementation-gate-visit-2026-07-22t06-22-00-086z",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:kontourai-kontourai-io-208-gate-claim-pickup-probe-readiness.flow-agents-workflow.pickup-grounded-in-the-2026-07-21-strategy-session-comprehension-gap-needs-show-don-t-tell-on-the-homepage-scope-constraints-honesty-bar-content-boundary-strict-csp-and-consumers-confirmed-against-repo-instructions-before-implementation-gate-visit-2026-07-22t06-22-00-086z"
+      ],
+      "createdAt": "2026-07-22T13:32:52.757Z",
+      "verifiedAt": "2026-07-22T13:32:52.757Z"
+    },
+    {
+      "id": "evt:kontourai-kontourai-io-208-gate-claim-probe-decisions-or-accepted-gaps.flow-agents-workflow.probe-decisions-and-accepted-gaps-appended-to-the-pickup-artifact-staged-labeled-replay-progressive-enhancement-reduced-motion-fallback-strict-csp-compliance-survey-hero-information-loss-story-gaps-disclosed-dramatization-not-capture-timing-asserted-with-10s-timeout-gate-visit-2026-07-22t06-23-47-944z",
+      "claimId": "kontourai-kontourai-io-208-gate-claim-probe-decisions-or-accepted-gaps.flow-agents-workflow.probe-decisions-and-accepted-gaps-appended-to-the-pickup-artifact-staged-labeled-replay-progressive-enhancement-reduced-motion-fallback-strict-csp-compliance-survey-hero-information-loss-story-gaps-disclosed-dramatization-not-capture-timing-asserted-with-10s-timeout-gate-visit-2026-07-22t06-23-47-944z",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:kontourai-kontourai-io-208-gate-claim-probe-decisions-or-accepted-gaps.flow-agents-workflow.probe-decisions-and-accepted-gaps-appended-to-the-pickup-artifact-staged-labeled-replay-progressive-enhancement-reduced-motion-fallback-strict-csp-compliance-survey-hero-information-loss-story-gaps-disclosed-dramatization-not-capture-timing-asserted-with-10s-timeout-gate-visit-2026-07-22t06-23-47-944z"
+      ],
+      "createdAt": "2026-07-22T13:32:52.757Z",
+      "verifiedAt": "2026-07-22T13:32:52.757Z"
+    },
+    {
+      "id": "evt:kontourai-kontourai-io-208-gate-claim-implementation-plan.flow-agents-workflow.implementation-plan-with-dod-and-task-to-criterion-mapping-recorded-notes-honestly-that-implementation-preceded-the-run-pr-207-and-the-plan-documents-the-executed-mapping-gate-visit-2026-07-22t06-24-11-804z",
+      "claimId": "kontourai-kontourai-io-208-gate-claim-implementation-plan.flow-agents-workflow.implementation-plan-with-dod-and-task-to-criterion-mapping-recorded-notes-honestly-that-implementation-preceded-the-run-pr-207-and-the-plan-documents-the-executed-mapping-gate-visit-2026-07-22t06-24-11-804z",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:kontourai-kontourai-io-208-gate-claim-implementation-plan.flow-agents-workflow.implementation-plan-with-dod-and-task-to-criterion-mapping-recorded-notes-honestly-that-implementation-preceded-the-run-pr-207-and-the-plan-documents-the-executed-mapping-gate-visit-2026-07-22t06-24-11-804z"
+      ],
+      "createdAt": "2026-07-22T13:32:52.757Z",
+      "verifiedAt": "2026-07-22T13:32:52.757Z"
+    },
+    {
+      "id": "evt:kontourai-kontourai-io-208-gate-claim-implementation-scope.flow-agents-workflow.implementation-scope-4-files-changed-1-new-component-on-feat-homepage-proof-replay-pr-207-unrelated-surfaces-untouched-validation-performed-and-recorded-in-the-delivery-report-gate-visit-2026-07-22t06-24-32-107z",
+      "claimId": "kontourai-kontourai-io-208-gate-claim-implementation-scope.flow-agents-workflow.implementation-scope-4-files-changed-1-new-component-on-feat-homepage-proof-replay-pr-207-unrelated-surfaces-untouched-validation-performed-and-recorded-in-the-delivery-report-gate-visit-2026-07-22t06-24-32-107z",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:kontourai-kontourai-io-208-gate-claim-implementation-scope.flow-agents-workflow.implementation-scope-4-files-changed-1-new-component-on-feat-homepage-proof-replay-pr-207-unrelated-surfaces-untouched-validation-performed-and-recorded-in-the-delivery-report-gate-visit-2026-07-22t06-24-32-107z"
+      ],
+      "createdAt": "2026-07-22T13:32:52.757Z",
+      "verifiedAt": "2026-07-22T13:32:52.757Z"
+    },
+    {
+      "id": "evt:kontourai-kontourai-io-208-gate-claim-acceptance-criteria.flow-agents-workflow.all-four-plan-criteria-met-1-component-behaviors-verified-by-rendered-tests-incl-scroll-reveal-and-staged-caption-2-existing-homepage-assertions-unchanged-and-green-3-survey-hero-assertions-updated-and-green-4-validate-passes-on-the-clean-main-base-after-sync-versions-gate-visit-2026-07-22t06-25-13-732z",
+      "claimId": "kontourai-kontourai-io-208-gate-claim-acceptance-criteria.flow-agents-workflow.all-four-plan-criteria-met-1-component-behaviors-verified-by-rendered-tests-incl-scroll-reveal-and-staged-caption-2-existing-homepage-assertions-unchanged-and-green-3-survey-hero-assertions-updated-and-green-4-validate-passes-on-the-clean-main-base-after-sync-versions-gate-visit-2026-07-22t06-25-13-732z",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:kontourai-kontourai-io-208-gate-claim-acceptance-criteria.flow-agents-workflow.all-four-plan-criteria-met-1-component-behaviors-verified-by-rendered-tests-incl-scroll-reveal-and-staged-caption-2-existing-homepage-assertions-unchanged-and-green-3-survey-hero-assertions-updated-and-green-4-validate-passes-on-the-clean-main-base-after-sync-versions-gate-visit-2026-07-22t06-25-13-732z"
+      ],
+      "createdAt": "2026-07-22T13:32:52.757Z",
+      "verifiedAt": "2026-07-22T13:32:52.757Z"
+    },
+    {
+      "id": "evt:kontourai-kontourai-io-208-npm-run-validate.flow-agents-workflow.record-check-npm-run-validate-exit-0",
+      "claimId": "kontourai-kontourai-io-208-npm-run-validate.flow-agents-workflow.record-check-npm-run-validate-exit-0",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:kontourai-kontourai-io-208-npm-run-validate.flow-agents-workflow.record-check-npm-run-validate-exit-0"
+      ],
+      "createdAt": "2026-07-22T13:32:52.757Z",
+      "verifiedAt": "2026-07-22T13:32:52.757Z"
+    },
+    {
+      "id": "evt:kontourai-kontourai-io-208-npm-run-check-content-boundary.flow-agents-workflow.content-boundary-check-npm-run-check-content-boundary-exit-0-in-this-session-on-47416b9-session-local-attestation-validate-which-ci-reconciles-runs-the-same-check-as-its-first-step",
+      "claimId": "kontourai-kontourai-io-208-npm-run-check-content-boundary.flow-agents-workflow.content-boundary-check-npm-run-check-content-boundary-exit-0-in-this-session-on-47416b9-session-local-attestation-validate-which-ci-reconciles-runs-the-same-check-as-its-first-step",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:kontourai-kontourai-io-208-npm-run-check-content-boundary.flow-agents-workflow.content-boundary-check-npm-run-check-content-boundary-exit-0-in-this-session-on-47416b9-session-local-attestation-validate-which-ci-reconciles-runs-the-same-check-as-its-first-step"
+      ],
+      "createdAt": "2026-07-22T13:32:52.757Z",
+      "verifiedAt": "2026-07-22T13:32:52.757Z"
+    },
+    {
+      "id": "evt:kontourai-kontourai-io-208-npm-run-test-rendered.flow-agents-workflow.record-check-npm-run-test-rendered-exit-0",
+      "claimId": "kontourai-kontourai-io-208-npm-run-test-rendered.flow-agents-workflow.record-check-npm-run-test-rendered-exit-0",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:kontourai-kontourai-io-208-npm-run-test-rendered.flow-agents-workflow.record-check-npm-run-test-rendered-exit-0"
+      ],
+      "createdAt": "2026-07-22T13:32:52.757Z",
+      "verifiedAt": "2026-07-22T13:32:52.757Z"
+    },
+    {
+      "id": "evt:kontourai-kontourai-io-208-review.flow-agents-workflow.independent-codex-report-only-review-no-critical-high-findings-2-medium-csp-blocked-inline-script-vacuous-animation-assertion-and-2-low-committed-generated-artifacts-stale-marketing-marker-all-verified-against-the-repo-and-fixed-in-47416b9-declared-checks-re-captured-green-on-the-fixed-branch-reviewed-2026-07-22t13-29-12-093z",
+      "claimId": "kontourai-kontourai-io-208-review.flow-agents-workflow.independent-codex-report-only-review-no-critical-high-findings-2-medium-csp-blocked-inline-script-vacuous-animation-assertion-and-2-low-committed-generated-artifacts-stale-marketing-marker-all-verified-against-the-repo-and-fixed-in-47416b9-declared-checks-re-captured-green-on-the-fixed-branch-reviewed-2026-07-22t13-29-12-093z",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [],
+      "createdAt": "2026-07-22T13:32:52.757Z",
+      "verifiedAt": "2026-07-22T13:32:52.757Z"
+    }
+  ]
+}

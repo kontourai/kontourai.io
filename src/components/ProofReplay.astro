@@ -1,0 +1,135 @@
+---
+/**
+ * ProofReplay — the show-don't-tell moment for the homepage mechanism section.
+ *
+ * Plays the runtime catch as a short terminal replay: the agent narrates a
+ * pass, the harness-written capture says exit 1, the gate blocks the turn.
+ * Honesty contract: this is a STAGED replay (labeled as such in the caption)
+ * of the catch that ships in the runtime hooks — the same
+ * claim-vs-capture disagreement the narrator section ground-truths ("The
+ * summary said pass; the log said fail"). No project names, no fabricated
+ * receipts; the receipts page remains the recomputable evidence.
+ *
+ * Progressive enhancement: with no JS the full conversation renders static.
+ * JS hides the beats, then reveals them on scroll-into-view; replayable.
+ * prefers-reduced-motion shows the final state immediately.
+ */
+---
+
+<div class="proof-replay" data-proof-replay>
+  <div class="terminal proof-replay__term">
+    <div class="terminal-bar">
+      <div class="terminal-dot"></div>
+      <div class="terminal-dot"></div>
+      <div class="terminal-dot"></div>
+      <span class="terminal-title">the catch · replay</span>
+    </div>
+    <div class="terminal-body proof-replay__body">
+      <p class="proof-replay__line" data-beat="1">
+        <span class="proof-replay__who proof-replay__who--agent">agent</span>
+        <span class="proof-replay__say">"Ran the full test suite — everything passes. Ready to merge."</span>
+      </p>
+      <p class="proof-replay__line" data-beat="2">
+        <span class="proof-replay__who">capture</span>
+        <span class="cmd">npm test</span> → <span class="fail">exit 1</span>
+        <span class="proof-replay__note">· written by the harness while the command ran, tamper-evident</span>
+      </p>
+      <p class="proof-replay__line" data-beat="3">
+        <span class="proof-replay__who">recompute</span>
+        claim says <span class="pass">pass</span> · capture says <span class="fail">fail</span>
+      </p>
+      <p class="proof-replay__line proof-replay__line--verdict" data-beat="4">
+        <span class="fail">⨯ turn blocked</span> — claim contradicts capture. The narration never outranks the log.
+      </p>
+    </div>
+  </div>
+  <div class="proof-replay__foot">
+    <button type="button" class="proof-replay__again" data-replay hidden data-umami-event="home-proof-replay">↺ Replay</button>
+    <p class="fine proof-replay__caption">
+      Staged replay of the runtime catch that ships in the hooks — the
+      recognition moments above are the real cases, and
+      <a href="/receipts/" data-umami-event="home-proof-replay-receipts">the receipts recompute for real →</a>
+    </p>
+  </div>
+</div>
+
+<!-- Loaded as a same-origin static asset (not bundled) so the strict CSP
+     (script-src 'self', no unsafe-inline) allows it — same pattern as
+     subscribe.js. Without JS the full conversation renders static. -->
+<script is:inline src="/proof-replay.js" defer></script>
+
+<style>
+  .proof-replay {
+    margin: 0 0 2.5rem;
+    max-width: 680px;
+  }
+  .proof-replay__body {
+    display: grid;
+    gap: 0.65rem;
+  }
+  .proof-replay__line {
+    margin: 0;
+  }
+  /* Beats render static by default; only an armed (JS-running) replay hides them. */
+  .is-armed .proof-replay__line {
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+  }
+  .is-armed .proof-replay__line.is-on {
+    opacity: 1;
+    transform: none;
+  }
+  .proof-replay__who {
+    display: inline-block;
+    min-width: 6.5ch;
+    margin-right: 0.5ch;
+    color: var(--color-chalk-3);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .proof-replay__who--agent {
+    color: var(--color-gold-2);
+  }
+  .proof-replay__say {
+    color: var(--color-chalk);
+    font-style: italic;
+  }
+  .proof-replay__note {
+    color: var(--color-chalk-3);
+  }
+  .proof-replay__line--verdict {
+    border-top: 1px solid var(--color-ink-3);
+    padding-top: 0.75rem;
+    color: var(--color-chalk);
+  }
+  .proof-replay__foot {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-top: 0.85rem;
+    flex-wrap: wrap;
+  }
+  .proof-replay__again {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--color-chalk-2);
+    background: none;
+    border: 1px solid var(--color-ink-3);
+    border-radius: 4px;
+    padding: 0.25rem 0.6rem;
+    cursor: pointer;
+  }
+  .proof-replay__again:hover {
+    color: var(--color-chalk);
+    border-color: var(--color-chalk-3);
+  }
+  .proof-replay__caption {
+    margin: 0;
+    color: var(--color-chalk-3);
+  }
+  .proof-replay__caption a {
+    color: var(--color-chalk-2);
+  }
+</style>
