@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0",
+  "slug": "kontourai-kontourai-io-206",
+  "work_item": null,
+  "status": "verified",
+  "phase": "verification",
+  "sealed_at": "2026-07-22T04:51:44Z",
+  "commit_sha": "6fb1db599447f169667be42f9d840ed54fe9b7de",
+  "checkpoint": {
+    "asOf": "2026-07-22T04:51:44.912Z",
+    "statusByClaimId": {
+      "kontourai-kontourai-io-206-reinstall-build.flow-agents-workflow.astro-build-20-pages-clean-on-flow-agents-4-5-0-ecc-pre-push-verified-twice-registry-parity-0-errors-after-pin-refresh-to-this-session-s-own-releases-pr-kontourai-kontourai-io-206": "verified",
+      "kontourai-kontourai-io-206-learning-evidence.flow-agents-workflow.closeout-of-the-2026-07-20-21-session-reinstall-completes-the-loop-the-site-now-runs-the-loud-sidecar-and-learn-gate-enforcement-flow-agents-4-5-0-built-dual-reviewed-and-merged-in-this-session-learning-records-sealed-in-the-203-session-and-routed-to-flow-agents-793-800-801-812": "verified",
+      "kontourai-kontourai-io-206-complete-the-requested-outcome-workflow-session-is-durable.flow-agents-workflow.complete-the-requested-outcome-workflow-session-is-durable": "proposed"
+    },
+    "throughEventCreatedAt": "2026-07-22T04:51:42.904Z",
+    "throughEventCreatedAtByClaimId": {
+      "kontourai-kontourai-io-206-reinstall-build.flow-agents-workflow.astro-build-20-pages-clean-on-flow-agents-4-5-0-ecc-pre-push-verified-twice-registry-parity-0-errors-after-pin-refresh-to-this-session-s-own-releases-pr-kontourai-kontourai-io-206": "2026-07-22T04:51:42.904Z",
+      "kontourai-kontourai-io-206-learning-evidence.flow-agents-workflow.closeout-of-the-2026-07-20-21-session-reinstall-completes-the-loop-the-site-now-runs-the-loud-sidecar-and-learn-gate-enforcement-flow-agents-4-5-0-built-dual-reviewed-and-merged-in-this-session-learning-records-sealed-in-the-203-session-and-routed-to-flow-agents-793-800-801-812": "2026-07-22T04:51:42.904Z",
+      "kontourai-kontourai-io-206-complete-the-requested-outcome-workflow-session-is-durable.flow-agents-workflow.complete-the-requested-outcome-workflow-session-is-durable": null
+    },
+    "statusFunctionVersion": "2"
+  }
+}

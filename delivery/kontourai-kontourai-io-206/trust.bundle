@@ -1,0 +1,157 @@
+{
+  "schemaVersion": 5,
+  "source": "flow-agents/workflow-sidecar;statusFunctionVersion=2",
+  "claims": [
+    {
+      "id": "kontourai-kontourai-io-206-reinstall-build.flow-agents-workflow.astro-build-20-pages-clean-on-flow-agents-4-5-0-ecc-pre-push-verified-twice-registry-parity-0-errors-after-pin-refresh-to-this-session-s-own-releases-pr-kontourai-kontourai-io-206",
+      "subjectType": "workflow-check",
+      "subjectId": "kontourai-kontourai-io-206/reinstall-build",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.check.external",
+      "fieldOrBehavior": "astro build 20 pages clean on flow-agents 4.5.0 (ECC pre-push verified twice); registry parity 0 errors after pin refresh to this session's own releases. PR kontourai/kontourai.io#206.",
+      "value": "pass",
+      "createdAt": "2026-07-22T04:51:42.904Z",
+      "updatedAt": "2026-07-22T04:51:42.904Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:workflow.check.external:attestation",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "external",
+        "workflow_subject_ref": "kontourai/kontourai.io#206"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "kontourai-kontourai-io-206-learning-evidence.flow-agents-workflow.closeout-of-the-2026-07-20-21-session-reinstall-completes-the-loop-the-site-now-runs-the-loud-sidecar-and-learn-gate-enforcement-flow-agents-4-5-0-built-dual-reviewed-and-merged-in-this-session-learning-records-sealed-in-the-203-session-and-routed-to-flow-agents-793-800-801-812",
+      "subjectType": "workflow-check",
+      "subjectId": "kontourai-kontourai-io-206/learning-evidence",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.check.external",
+      "fieldOrBehavior": "Closeout of the 2026-07-20/21 session: reinstall completes the loop — the site now runs the loud-sidecar and learn-gate enforcement (flow-agents 4.5.0) built, dual-reviewed, and merged in this session. Learning records sealed in the 203 session and routed to flow-agents#793/#800/#801/#812.",
+      "value": "pass",
+      "createdAt": "2026-07-22T04:51:42.904Z",
+      "updatedAt": "2026-07-22T04:51:42.904Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:workflow.check.external:attestation",
+      "metadata": {
+        "origin": "check",
+        "check_kind": "external",
+        "workflow_subject_ref": "kontourai/kontourai.io#206"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "kontourai-kontourai-io-206-complete-the-requested-outcome-workflow-session-is-durable.flow-agents-workflow.complete-the-requested-outcome-workflow-session-is-durable",
+      "subjectType": "flow-step",
+      "subjectId": "kontourai-kontourai-io-206/complete-the-requested-outcome-workflow-session-is-durable",
+      "facet": "flow-agents.workflow",
+      "claimType": "workflow.acceptance.criterion",
+      "fieldOrBehavior": "Complete the requested outcome: Workflow session is durable",
+      "value": "pending",
+      "createdAt": "2026-07-22T04:51:42.904Z",
+      "updatedAt": "2026-07-22T04:51:42.904Z",
+      "impactLevel": "high",
+      "verificationPolicyId": "policy:workflow.acceptance.criterion",
+      "metadata": {
+        "origin": "acceptance",
+        "criterion": {
+          "id": "complete-the-requested-outcome-workflow-session-is-durable",
+          "description": "Complete the requested outcome: Workflow session is durable",
+          "status": "pending",
+          "evidence_refs": [
+            {
+              "kind": "command",
+              "summary": "pending"
+            }
+          ]
+        },
+        "workflow_subject_ref": "kontourai/kontourai.io#206"
+      },
+      "status": "proposed"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev:kontourai-kontourai-io-206-reinstall-build.flow-agents-workflow.astro-build-20-pages-clean-on-flow-agents-4-5-0-ecc-pre-push-verified-twice-registry-parity-0-errors-after-pin-refresh-to-this-session-s-own-releases-pr-kontourai-kontourai-io-206",
+      "claimId": "kontourai-kontourai-io-206-reinstall-build.flow-agents-workflow.astro-build-20-pages-clean-on-flow-agents-4-5-0-ecc-pre-push-verified-twice-registry-parity-0-errors-after-pin-refresh-to-this-session-s-own-releases-pr-kontourai-kontourai-io-206",
+      "evidenceType": "attestation",
+      "method": "corroboration",
+      "sourceRef": "kontourai-kontourai-io-206/evidence.json",
+      "excerptOrSummary": "astro build 20 pages clean on flow-agents 4.5.0 (ECC pre-push verified twice); registry parity 0 errors after pin refresh to this session's own releases. PR kontourai/kontourai.io#206.",
+      "observedAt": "2026-07-22T04:51:42.904Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true
+    },
+    {
+      "id": "ev:kontourai-kontourai-io-206-learning-evidence.flow-agents-workflow.closeout-of-the-2026-07-20-21-session-reinstall-completes-the-loop-the-site-now-runs-the-loud-sidecar-and-learn-gate-enforcement-flow-agents-4-5-0-built-dual-reviewed-and-merged-in-this-session-learning-records-sealed-in-the-203-session-and-routed-to-flow-agents-793-800-801-812",
+      "claimId": "kontourai-kontourai-io-206-learning-evidence.flow-agents-workflow.closeout-of-the-2026-07-20-21-session-reinstall-completes-the-loop-the-site-now-runs-the-loud-sidecar-and-learn-gate-enforcement-flow-agents-4-5-0-built-dual-reviewed-and-merged-in-this-session-learning-records-sealed-in-the-203-session-and-routed-to-flow-agents-793-800-801-812",
+      "evidenceType": "attestation",
+      "method": "corroboration",
+      "sourceRef": "kontourai-kontourai-io-206/evidence.json",
+      "excerptOrSummary": "Closeout of the 2026-07-20/21 session: reinstall completes the loop — the site now runs the loud-sidecar and learn-gate enforcement (flow-agents 4.5.0) built, dual-reviewed, and merged in this session. Learning records sealed in the 203 session and routed to flow-agents#793/#800/#801/#812.",
+      "observedAt": "2026-07-22T04:51:42.904Z",
+      "collectedBy": "flow-agents/workflow-sidecar",
+      "passing": true
+    }
+  ],
+  "policies": [
+    {
+      "id": "policy:workflow.check.external:attestation",
+      "claimType": "workflow.check.external",
+      "requiredEvidence": [
+        "attestation"
+      ],
+      "acceptanceCriteria": [
+        "A verified verification event must support a workflow.check.external claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "high"
+    },
+    {
+      "id": "policy:workflow.acceptance.criterion",
+      "claimType": "workflow.acceptance.criterion",
+      "requiredEvidence": [],
+      "acceptanceCriteria": [
+        "A verified verification event must support a workflow.acceptance.criterion claim."
+      ],
+      "reviewAuthority": "system",
+      "validityRule": {
+        "kind": "manual"
+      },
+      "stalenessTriggers": [],
+      "conflictRules": [],
+      "impactLevel": "high"
+    }
+  ],
+  "events": [
+    {
+      "id": "evt:kontourai-kontourai-io-206-reinstall-build.flow-agents-workflow.astro-build-20-pages-clean-on-flow-agents-4-5-0-ecc-pre-push-verified-twice-registry-parity-0-errors-after-pin-refresh-to-this-session-s-own-releases-pr-kontourai-kontourai-io-206",
+      "claimId": "kontourai-kontourai-io-206-reinstall-build.flow-agents-workflow.astro-build-20-pages-clean-on-flow-agents-4-5-0-ecc-pre-push-verified-twice-registry-parity-0-errors-after-pin-refresh-to-this-session-s-own-releases-pr-kontourai-kontourai-io-206",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:kontourai-kontourai-io-206-reinstall-build.flow-agents-workflow.astro-build-20-pages-clean-on-flow-agents-4-5-0-ecc-pre-push-verified-twice-registry-parity-0-errors-after-pin-refresh-to-this-session-s-own-releases-pr-kontourai-kontourai-io-206"
+      ],
+      "createdAt": "2026-07-22T04:51:42.904Z",
+      "verifiedAt": "2026-07-22T04:51:42.904Z"
+    },
+    {
+      "id": "evt:kontourai-kontourai-io-206-learning-evidence.flow-agents-workflow.closeout-of-the-2026-07-20-21-session-reinstall-completes-the-loop-the-site-now-runs-the-loud-sidecar-and-learn-gate-enforcement-flow-agents-4-5-0-built-dual-reviewed-and-merged-in-this-session-learning-records-sealed-in-the-203-session-and-routed-to-flow-agents-793-800-801-812",
+      "claimId": "kontourai-kontourai-io-206-learning-evidence.flow-agents-workflow.closeout-of-the-2026-07-20-21-session-reinstall-completes-the-loop-the-site-now-runs-the-loud-sidecar-and-learn-gate-enforcement-flow-agents-4-5-0-built-dual-reviewed-and-merged-in-this-session-learning-records-sealed-in-the-203-session-and-routed-to-flow-agents-793-800-801-812",
+      "status": "verified",
+      "actor": "flow-agents/workflow-sidecar",
+      "method": "validation",
+      "evidenceIds": [
+        "ev:kontourai-kontourai-io-206-learning-evidence.flow-agents-workflow.closeout-of-the-2026-07-20-21-session-reinstall-completes-the-loop-the-site-now-runs-the-loud-sidecar-and-learn-gate-enforcement-flow-agents-4-5-0-built-dual-reviewed-and-merged-in-this-session-learning-records-sealed-in-the-203-session-and-routed-to-flow-agents-793-800-801-812"
+      ],
+      "createdAt": "2026-07-22T04:51:42.904Z",
+      "verifiedAt": "2026-07-22T04:51:42.904Z"
+    }
+  ]
+}
