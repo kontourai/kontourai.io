@@ -86,6 +86,53 @@ if (!blockedPolicy?.acceptanceCriteria?.length) {
     </div>
   </Section>
 
+  <!-- On-ramp: what a receipt is, in plain language -->
+  <Section size="lg" borderBottom>
+    <div class="container container--readable">
+      <Eyebrow accent="cobalt-2">First time here?</Eyebrow>
+      <h2 class="section-heading">How to read a receipt.</h2>
+      <p class="section-lead">
+        A receipt is one file that records three things about a finished piece
+        of gated work. Everything else on this page — the exhibits, the
+        downloads, the validator commands — is just a way of looking at that
+        file.
+      </p>
+
+      <div class="onramp-steps">
+        <div class="onramp-step" data-accent="chalk-2">
+          <p class="label-sm onramp-step__label">1 · The claims</p>
+          <p class="body onramp-step__body">
+            What the work asserts about itself — "the checks passed," "this
+            record was reviewed," "this change is ready."
+          </p>
+        </div>
+        <div class="onramp-step" data-accent="gold">
+          <p class="label-sm onramp-step__label">2 · The evidence</p>
+          <p class="body onramp-step__body">
+            What actually backs each claim — results captured by the harness
+            or a deterministic adapter, never an agent's after-the-fact
+            narration.
+          </p>
+        </div>
+        <div class="onramp-step" data-accent="green">
+          <p class="label-sm onramp-step__label">3 · The verdict</p>
+          <p class="body onramp-step__body">
+            The status the validator derives from that evidence under a
+            written policy. It isn't an opinion stored in the file — it's an
+            answer anyone can re-derive from the file.
+          </p>
+        </div>
+      </div>
+
+      <p class="section-lead onramp-foot">
+        That re-derivation is all "recompute" means: run the same file through
+        the validator and you must get the same verdict. Reading a receipt
+        takes no tools at all; checking one takes a single command, shown with
+        each receipt below.
+      </p>
+    </div>
+  </Section>
+
   <!-- Lead exhibit: the blocked run (demo, not archive) -->
   <Section tone="alt" size="lg" borderBottom>
     <Glow accent="red" position="top-left" />
@@ -94,9 +141,9 @@ if (!blockedPolicy?.acceptanceCriteria?.length) {
       <h2 class="section-heading">The receipt that says no.</h2>
       <p class="section-lead">
         Green receipts prove the format works. This one shows what a <em>refusal</em> looks
-        like: a readiness record whose evidence failed, projected into the same recomputable
-        format. The verdict isn't narrated — it derives from the artifact, and recomputing
-        the bundle yields the same refusal. Every fact below is read from the bundle itself —
+        like. In plain terms: a required check failed, so the receipt refuses to call the
+        work ready — and no wording can flip that, only different evidence. Recomputing the
+        bundle yields the same refusal. Every fact below is read from the bundle itself —
         open it and check.
       </p>
 
@@ -382,6 +429,28 @@ if (!blockedPolicy?.acceptanceCriteria?.length) {
   }
   .recompute-second {
     margin-top: 2rem;
+  }
+
+  /* On-ramp: plain-language reading order */
+  .onramp-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+  .onramp-step {
+    border-left: 2px solid var(--accent, var(--color-edge-2));
+    padding-left: 1.1rem;
+  }
+  .onramp-step__label {
+    color: var(--accent, var(--color-chalk-3));
+    margin: 0 0 0.4rem;
+  }
+  .onramp-step__body {
+    margin: 0;
+  }
+  .onramp-foot {
+    margin-bottom: 0;
   }
 
   /* Lead exhibit: the blocked run */
