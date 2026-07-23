@@ -16,7 +16,7 @@ const lanes: { title: string; label: string; body: string; subject: string; body
   {
     title: 'Design partner',
     label: 'AI-assisted work',
-    body: 'You have a real workflow where agents, people, or automation need clearer evidence before work advances.',
+    body: 'You have a real process — intake, review, research, delivery — where the result matters more than the effort. We build the gated version with you: your acceptance criteria encoded, every output carrying evidence you can check.',
     subject: 'Kontour design partner',
     bodyText: 'I want to talk about a design partner fit for Kontour. The trust break I see is:',
     accent: 'gold',
@@ -68,6 +68,11 @@ const mailto = (subject: string, body: string) =>
             claims, evidence, required gates, readiness, uncertainty, and next
             actions. The best conversations start with a concrete place where
             polished output is moving faster than your ability to inspect it.
+            Where it fits, the design-partner path is hands-on: we build the
+            gated version of your workflow with you — your definition of done
+            encoded as checks, every result carrying its evidence. You judge
+            the engagement by outcomes you can verify, not a story you take on
+            faith.
           </p>
           <div class="animate-fade-up delay-300 early-signup">
             <Subscribe source="early-access" cta="Get early access" event="early-access-subscribe" />
@@ -109,6 +114,49 @@ const mailto = (subject: string, body: string) =>
 
   <Section tone="alt" borderTop>
     <div class="container container--readable">
+      <Eyebrow accent="cobalt-2">Who should reach out</Eyebrow>
+      <h2 class="display-md reach__title">If one of these reads like your desk, send the note.</h2>
+      <p class="body reach__copy">
+        Illustrative shapes, not case studies. The pattern is what matters:
+        work where the result has a definition of done, and today the only
+        proof it was met is somebody's word.
+      </p>
+      <ul class="reach__list">
+        <li class="reach__item" data-accent="gold">
+          <strong class="reach__item-title">Legal and compliance process teams</strong>
+          <span class="reach__item-body">Intake, conflict checks, filings — where "reviewed" should mean evidence attached, not an initialed box.</span>
+        </li>
+        <li class="reach__item" data-accent="cobalt-2">
+          <strong class="reach__item-title">Insurance operations</strong>
+          <span class="reach__item-body">Application and claims information gathering — every gathered fact carrying its source and freshness before a decision stands on it.</span>
+        </li>
+        <li class="reach__item" data-accent="green">
+          <strong class="reach__item-title">Customer service and support leaders</strong>
+          <span class="reach__item-body">Promises made in conversation — tracked to evidenced follow-through instead of chat-log archaeology.</span>
+        </li>
+        <li class="reach__item" data-accent="chalk-2">
+          <strong class="reach__item-title">Research teams — clinical, market, or academic</strong>
+          <span class="reach__item-body">Synthesis where every assertion points at what it stood on, and the gaps are named instead of smoothed over.</span>
+        </li>
+        <li class="reach__item" data-accent="gold">
+          <strong class="reach__item-title">Investment research and decisioning</strong>
+          <span class="reach__item-body">Recommendations kept separate from their evidence, reviewer authority, and named exceptions — so the decision trail survives the decision.</span>
+        </li>
+        <li class="reach__item" data-accent="cobalt-2">
+          <strong class="reach__item-title">Software delivery teams</strong>
+          <span class="reach__item-body">The case we prove in public every day: agent-built code that earns its merge. <a href="/receipts/" data-umami-event="early-access-reach-receipts">Check the receipts →</a></span>
+        </li>
+      </ul>
+      <p class="fine reach__note">
+        The engine and kits are open and generic. The engagement is encoding
+        what your process counts as done into gates the work has to pass —
+        so what comes out carries receipts.
+      </p>
+    </div>
+  </Section>
+
+  <Section borderTop>
+    <div class="container container--readable">
       <Eyebrow accent="gold">What to send</Eyebrow>
       <h2 class="display-md send__title">One concrete workflow is enough.</h2>
       <p class="body send__copy">
@@ -118,7 +166,8 @@ const mailto = (subject: string, body: string) =>
       </p>
       <p class="fine send__note">
         Kontour is not promising instant access to a hosted product. The current
-        path is a focused conversation around fit, examples, and product direction.
+        path starts as a focused conversation around fit, examples, and product
+        direction — and, where it fits, continues into hands-on design-partner work.
       </p>
     </div>
   </Section>
@@ -172,6 +221,49 @@ const mailto = (subject: string, body: string) =>
     color: var(--accent);
     text-decoration: none;
   }
+  .reach__title {
+    margin-bottom: 1rem;
+  }
+  .reach__copy {
+    margin-bottom: 2rem;
+    max-width: 62ch;
+  }
+  .reach__list {
+    list-style: none;
+    margin: 0 0 1.75rem;
+    padding: 0;
+    display: grid;
+    gap: 1.4rem;
+  }
+  .reach__item {
+    border-left: 2px solid var(--accent, var(--color-edge-2));
+    padding-left: 1.2rem;
+  }
+  .reach__item-title {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 1.15rem;
+    color: var(--color-chalk);
+    margin-bottom: 0.35rem;
+  }
+  .reach__item-body {
+    display: block;
+    color: var(--color-chalk-2);
+    font-size: 0.9rem;
+    line-height: 1.65;
+    max-width: 68ch;
+  }
+  .reach__item-body a {
+    color: var(--color-gold);
+    text-decoration: none;
+  }
+  .reach__note {
+    margin: 0;
+    max-width: 68ch;
+    color: var(--color-chalk-2);
+  }
+
   .send__title {
     margin-bottom: 1.25rem;
   }

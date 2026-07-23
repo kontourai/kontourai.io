@@ -224,8 +224,8 @@ const narratorMoments = [
         <div class="fork__path" data-accent="gold">
           <p class="label-sm fork__label">Convinced?</p>
           <p class="body fork__copy">
-            Bring the workflow you want to make inspectable — we're building in
-            public with design partners.
+            Bring us the workflow you want to make inspectable — join as a
+            design partner and we build the gated version with you.
           </p>
           <a href="/early-access/" class="btn-primary" data-umami-event="home-fork-early-access">Get early access →</a>
         </div>
@@ -256,6 +256,29 @@ const narratorMoments = [
     </div>
   </Section>
 
+  <!-- Beyond code: the discipline generalizes ------------------------------ -->
+  <Section borderTop>
+    <div class="container container--readable beyond">
+      <Eyebrow accent="cobalt-2">Beyond code</Eyebrow>
+      <h2 class="display-md beyond__title">Any work with a definition of done.</h2>
+      <p class="body measure beyond__copy">
+        Code is where we prove the discipline in public — it's the hardest
+        adversary and our own daily dogfood. But the mechanism never asks what
+        the work is. Legal intake, insurance evidence gathering,
+        customer-service follow-through, research synthesis, investment
+        decisioning: if "done" can be written down as checks, an agent can be
+        gated on it — and the result arrives with receipts instead of
+        reassurance. It's not hypothetical, either: our reference tax pipeline
+        files real returns under the same rule — no fact reaches the math
+        until it survives a gate.
+      </p>
+      <div class="beyond__actions">
+        <a href="/early-access/" class="btn-ghost" data-umami-event="home-beyond-early-access">Bring us a process →</a>
+        <a href="/writing/llm-proposes-structure-verifies/" class="btn-ghost" data-umami-event="home-beyond-writing">Read the worked example →</a>
+      </div>
+    </div>
+  </Section>
+
   <!-- CTA ----------------------------------------------------------------- -->
   <Section tone="alt" borderTop size="lg">
     <Glow accent="gold" position="top-center" />
@@ -264,8 +287,8 @@ const narratorMoments = [
       <h2 class="display-md cta__title">Tell us where trust breaks.</h2>
       <p class="body measure cta__copy">
         We're building in public. Drop your email for build updates and an early
-        look — or start a focused design-partner conversation about the workflow
-        you want to make inspectable.
+        look — or start a design-partner conversation: bring a real process, and
+        we build the checkable version of it with you.
       </p>
       <Subscribe source="home" cta="Get early access" event="home-subscribe" />
       <p class="cta__alt">
@@ -453,6 +476,19 @@ const narratorMoments = [
   }
   .promise__copy {
     margin: 0 auto;
+  }
+
+  /* Beyond code ----------------------------------------------------------- */
+  .beyond__title {
+    margin-bottom: 1.25rem;
+  }
+  .beyond__copy {
+    margin-bottom: 2rem;
+  }
+  .beyond__actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
   }
 
   .cta__title {

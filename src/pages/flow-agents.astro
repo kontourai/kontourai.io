@@ -32,7 +32,7 @@ const kits: { name: string; href: string; job: string; proof: string; accent: Ac
 
 const trustTiers: { title: string; body: string; accent: Accent }[] = [
   { title: 'Local advisory runtime gate', accent: 'chalk-2', body: 'The agent sees the required next action and can be stopped or routed back when evidence is missing. Local state is advisory and inspectable.' },
-  { title: 'Controlled CI rerun', accent: 'green', body: 'CI reruns the checks in a cleaner environment, compares against git ground truth, and anchors the result outside the agent session.' },
+  { title: 'Controlled rerun', accent: 'green', body: 'An environment the agent never touched reruns the declared checks and anchors the result outside the agent session. For code work today, that environment is CI, reconciled against git history.' },
   { title: 'Refuse or escalate', accent: 'gold', body: 'When the evidence is not there, the flow says so. A human can accept a gap, but the exception stays in the record.' },
 ];
 ---
@@ -172,8 +172,10 @@ const trustTiers: { title: string; body: string; accent: Accent }[] = [
       <h2 class="display-md measure-lg trust-title">Tamper-evident. Not magic.</h2>
       <p class="fine measure trust-note">
         Flow Agents does not claim agent behavior is impossible to manipulate.
-        It records what the agent claimed, what evidence exists, what git says
-        changed, and what a controlled rerun could verify.
+        It records what the agent claimed, what evidence exists, what actually
+        changed, and what a controlled rerun could verify. Git and
+        CI are where those records anchor for code work today — instances of
+        the principle, not the principle itself.
       </p>
 
       <Grid cols={3} gap="lg">
