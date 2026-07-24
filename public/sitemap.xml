@@ -9,6 +9,8 @@
   <url><loc>https://kontourai.io/surface/</loc><priority>0.8</priority></url>
   <url><loc>https://kontourai.io/flow/</loc><priority>0.8</priority></url>
   <url><loc>https://kontourai.io/survey/</loc><priority>0.8</priority></url>
+  <url><loc>https://kontourai.io/fieldwork/</loc><priority>0.8</priority></url>
+  <url><loc>https://kontourai.io/fieldwork-vs-langextract/</loc><priority>0.7</priority></url>
   <url><loc>https://kontourai.io/console/</loc><priority>0.7</priority></url>
   <url><loc>https://kontourai.io/receipts/</loc><priority>0.7</priority></url>
   <url><loc>https://kontourai.io/receipts/flow-agents-delivery/</loc><priority>0.6</priority></url>

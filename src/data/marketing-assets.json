@@ -35,6 +35,27 @@
       "product": "flow",
       "capturedAgainstVersion": "3.5.0",
       "capturedAt": "2026-07-20"
+    },
+    {
+      "asset": "public/screenshots/fieldwork-review.png",
+      "page": "src/pages/fieldwork.astro",
+      "product": "fieldwork",
+      "capturedAgainstVersion": "0.2.4",
+      "capturedAt": "2026-07-24"
+    },
+    {
+      "asset": "public/screenshots/fieldwork-review-mobile.png",
+      "page": "src/pages/fieldwork.astro",
+      "product": "fieldwork",
+      "capturedAgainstVersion": "0.2.4",
+      "capturedAt": "2026-07-24"
+    },
+    {
+      "asset": "public/screenshots/fieldwork-format-inspection.png",
+      "page": "src/pages/fieldwork.astro",
+      "product": "fieldwork",
+      "capturedAgainstVersion": "0.2.4",
+      "capturedAt": "2026-07-24"
     }
   ]
 }

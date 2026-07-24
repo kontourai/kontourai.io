@@ -1,0 +1,253 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import Section from '@/components/Section.astro';
+import Glow from '@/components/Glow.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+import Grid from '@/components/Grid.astro';
+import Card from '@/components/Card.astro';
+import Split from '@/components/Split.astro';
+import Terminal from '@/components/Terminal.astro';
+import { getProductStatus, productBadge } from '@/lib/product-status';
+import type { Accent } from '@/lib/theme';
+
+const fieldworkStatus = getProductStatus('fieldwork');
+
+const sources = {
+  readme: 'https://github.com/kontourai/fieldwork/blob/20d2e8f760cddebb120ff53412c09df1d17f0615/README.md',
+  browser: 'https://github.com/kontourai/fieldwork/blob/20d2e8f760cddebb120ff53412c09df1d17f0615/test/browser/review.spec.ts',
+  conformance: 'https://github.com/kontourai/fieldwork/tree/20d2e8f760cddebb120ff53412c09df1d17f0615/conformance',
+  release: 'https://github.com/kontourai/fieldwork/tree/20d2e8f760cddebb120ff53412c09df1d17f0615',
+};
+
+const workflow: { step: string; owner: string; body: string; accent: Accent }[] = [
+  { step: 'Extract', owner: 'Traverse', body: 'Proposes typed field values and verifies each locator against prepared source text.', accent: 'cobalt-2' },
+  { step: 'Inspect', owner: 'Survey', body: 'Shows the source excerpt, locator, candidate, and prepared-source context together.', accent: 'gold-2' },
+  { step: 'Review', owner: 'Survey', body: 'Captures a reviewer decision in the shared workbench; Fieldwork persists the event trail.', accent: 'green' },
+  { step: 'Recheck', owner: 'Lookout + Fieldwork', body: 'Compares a later source observation with the prior run and opens a new review round only when needed.', accent: 'gold' },
+  { step: 'Export', owner: 'Surface + Fieldwork', body: 'Exports only a resolved, current, grounded reviewed trust bundle.', accent: 'chalk-2' },
+];
+
+const boundaries: { title: string; accent: Accent; items: string[] }[] = [
+  {
+    title: 'Fieldwork composes',
+    accent: 'green',
+    items: [
+      'run identity, local artifacts, and application policy',
+      'the loopback server and persisted review-event boundary',
+      'the handoff from grounded proposals to reviewed export',
+    ],
+  },
+  {
+    title: 'The shared components own',
+    accent: 'gold-2',
+    items: [
+      'Forage acquisition and exact source snapshots',
+      'Traverse preparation, proposals, and locator grounding',
+      'Survey inspection, review, and replay; Lookout rechecks; Surface validation',
+    ],
+  },
+  {
+    title: 'The host supplies',
+    accent: 'cobalt-2',
+    items: [
+      'the local task and source, or an exact acquired snapshot',
+      'any PDF parser or OCR adapter needed for those inputs',
+      'credentials and a runtime only when choosing live execution',
+    ],
+  },
+];
+
+const evidence: { title: string; body: string; href: string; label: string; accent: Accent }[] = [
+  {
+    title: 'Published contract',
+    body: 'The released CLI documents run, open, recheck, inspect, and export behavior, including the unresolved/stale/tampered export refusal.',
+    href: sources.readme,
+    label: 'Read the v0.2.4 contract →',
+    accent: 'green',
+  },
+  {
+    title: 'Browser review evidence',
+    body: 'The public browser tests exercise the shared inspection and review surfaces at desktop and mobile widths; the screenshots below are exact test snapshots.',
+    href: sources.browser,
+    label: 'Inspect the browser test →',
+    accent: 'gold-2',
+  },
+  {
+    title: 'Deterministic conformance',
+    body: 'Checked-in fixtures and oracles establish mechanics such as locators, replay, review, and export. They do not establish live provider or model quality.',
+    href: sources.conformance,
+    label: 'Inspect the fixtures →',
+    accent: 'cobalt-2',
+  },
+  {
+    title: 'Runtime receipts',
+    body: 'A host may select a live runtime. Dispatch receipts retain bounded execution evidence, but optional provider execution remains separate from the deterministic contract.',
+    href: sources.readme,
+    label: 'Read the runtime boundary →',
+    accent: 'gold',
+  },
+];
+---
+
+<Layout
+  title="Fieldwork — Grounded extraction reviewed before export · Kontour AI"
+  description="Fieldwork is a local, credential-free review application for grounded extraction: inspect proposals, review source-linked evidence, recheck changes, then export a reviewed trust bundle."
+>
+  <Nav active="developers" />
+
+  <Section contour size="hero" borderBottom>
+    <Glow accent="green" position="top-right" />
+    <div class="container">
+      <Split ratio="1-1" gap="lg" align="center">
+        <div>
+          <div class="hero-badges">
+            <span class="trust-badge trust-badge--verified">{productBadge(fieldworkStatus)}</span>
+            <span class="install-hint">{fieldworkStatus.packageName}</span>
+          </div>
+          <Eyebrow accent="green" gap="sm">Standalone application</Eyebrow>
+          <h1 class="product-title animate-fade-up">Fieldwork</h1>
+          <p class="product-tagline animate-fade-up delay-100" data-accent="green">grounded extraction that stays inspectable through review</p>
+          <p class="hero-copy animate-fade-up delay-200">
+            Fieldwork is a local, credential-free application for moving from a
+            source to a reviewed trust artifact without losing the evidence in
+            the middle. It composes focused Kontour components: extraction
+            proposals stay tied to exact source text, reviewers work in the
+            shared inspection surface, and export waits for resolved, current,
+            grounded review state.
+          </p>
+          <div class="hero-actions animate-fade-up delay-300">
+            <a href={sources.release} target="_blank" rel="noopener" class="btn-primary" data-umami-event="fieldwork-hero-release">Release source →</a>
+            <a href={sources.readme} target="_blank" rel="noopener" class="btn-ghost" data-umami-event="fieldwork-hero-docs">Read the contract →</a>
+            <a href="https://www.npmjs.com/package/@kontourai/fieldwork" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="fieldwork-hero-npm">npm</a>
+          </div>
+        </div>
+
+        <Terminal class="animate-fade-in delay-300" title="credential-free quickstart">
+          <pre class="code"><span class="t-com"># Node 22 · no API key needed</span>{'\n'}<span class="t-kw">npm</span> install <span class="t-str">@kontourai/fieldwork</span>{'\n'}<span class="t-kw">npm</span> exec -- fieldwork run \{'\n'}  --task node_modules/@kontourai/fieldwork/examples/generic/task.json \{'\n'}  --source node_modules/@kontourai/fieldwork/examples/generic/source.txt \{'\n'}  --json{'\n'}<span class="t-com"># copy runDirectory from the JSON response</span>{'\n'}<span class="t-kw">npm</span> exec -- fieldwork open /path/from/runDirectory{'\n'}<span class="t-com"># review in the loopback browser, then export</span>{'\n'}<span class="t-kw">npm</span> exec -- fieldwork export /path/from/runDirectory --output reviewed.json --json</pre>
+        </Terminal>
+      </Split>
+      <p class="quickstart-note">
+        The checked-in provider is deterministic and offline, so this path needs no credential, network, or private configuration. The loopback launch URL is capability-bearing; treat it as local and do not share it. <a href={sources.readme} target="_blank" rel="noopener">Public CLI contract →</a>
+      </p>
+    </div>
+  </Section>
+
+  <Section size="lg" borderBottom>
+    <div class="container">
+      <Eyebrow accent="green" gap="sm">The application path</Eyebrow>
+      <h2 class="display-md measure-lg">Extraction → inspection → review → recheck → trusted export.</h2>
+      <p class="body measure-lg workflow-intro">Each step keeps a narrow owner. Fieldwork coordinates the path; it does not replace the component contracts that make the result inspectable.</p>
+      <Grid cols={5} gap="sm">
+        {workflow.map(({ step, owner, body, accent }, index) => (
+          <Card accent={accent} bar="top" pad="sm" class="workflow-card">
+            <span class="workflow-card__number">0{index + 1}</span>
+            <h3 class="workflow-card__title">{step}</h3>
+            <p class="workflow-card__owner">{owner}</p>
+            <p class="workflow-card__body">{body}</p>
+            <a href={sources.readme} target="_blank" rel="noopener" class="workflow-card__link">Contract evidence →</a>
+          </Card>
+        ))}
+      </Grid>
+    </div>
+  </Section>
+
+  <Section tone="alt" borderBottom>
+    <div class="container">
+      <Eyebrow accent="green" gap="sm">Composition, not a second review system</Eyebrow>
+      <h2 class="display-md measure-lg">One application boundary, with the right work left to the right component.</h2>
+      <Grid cols={3} gap="lg">
+        {boundaries.map(({ title, accent, items }) => (
+          <Card accent={accent} bar="top" pad="md">
+            <h3 class="boundary-title">{title}</h3>
+            <ul class="boundary-list">
+              {items.map((item) => <li>{item}</li>)}
+            </ul>
+          </Card>
+        ))}
+      </Grid>
+      <p class="boundary-proof"><a href={sources.readme} target="_blank" rel="noopener">Fieldwork's public boundary and host contract →</a></p>
+    </div>
+  </Section>
+
+  <Section borderBottom>
+    <div class="container">
+      <Eyebrow accent="green" gap="sm">Repository-backed review states</Eyebrow>
+      <h2 class="display-md measure-lg">A source-linked proposal can be inspected before anyone accepts it.</h2>
+      <div class="fieldwork-shot-grid">
+        <figure class="product-shot">
+          <img src="/screenshots/fieldwork-review.png" alt="Fieldwork Grounded Review desktop view with a source inspector, extraction evidence for record status, and a Survey review workbench showing an accepted proposal." loading="lazy" />
+          <figcaption>Exact desktop snapshot from Fieldwork {productBadge(fieldworkStatus)}’s public browser test: source inspection above the shared review workbench after the proposed value is accepted. <a href={sources.browser} target="_blank" rel="noopener">Source test →</a></figcaption>
+        </figure>
+        <figure class="product-shot fieldwork-shot--mobile">
+          <img src="/screenshots/fieldwork-review-mobile.png" alt="Fieldwork Grounded Review mobile view with source filters, a proposed record status value, and visible review controls including Use proposed and Could not confirm." loading="lazy" />
+          <figcaption>Exact 390px mobile snapshot from the same public browser coverage. The review actions remain visible without horizontal overflow. <a href={sources.browser} target="_blank" rel="noopener">Source test →</a></figcaption>
+        </figure>
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="alt" borderBottom>
+    <div class="container">
+      <Split ratio="1-1" gap="lg" align="center">
+        <div>
+          <Eyebrow accent="gold" gap="sm">Format boundary</Eyebrow>
+          <h2 class="display-md">PDF and OCR context are adapter-supplied.</h2>
+          <p class="body">
+            Fieldwork does not include a PDF parser or OCR engine. A programmatic
+            host supplies those adapters when it needs PDF or image inputs; the
+            adapter’s bounded identity participates in the run. When absent,
+            the CLI returns a typed adapter-required error instead of silently
+            changing how the source was prepared.
+          </p>
+          <p class="body">The public format conformance test below verifies that host-supplied PDF layout context is visible in the shared inspector. It is evidence of that integration boundary, not of built-in document parsing or OCR.</p>
+          <a href={sources.browser} target="_blank" rel="noopener" class="handoff-link" data-umami-event="fieldwork-format-test">Inspect the format browser test →</a>
+        </div>
+        <figure class="product-shot">
+          <img src="/screenshots/fieldwork-format-inspection.png" alt="Fieldwork Grounded Review desktop view of a format conformance fixture, showing PDF page, layout element, and table-cell context beside the proposed record status." loading="lazy" />
+          <figcaption>Exact {productBadge(fieldworkStatus)} snapshot of a host-supplied PDF-format fixture in the inspector; Fieldwork itself is not represented as a PDF parser or OCR engine.</figcaption>
+        </figure>
+      </Split>
+    </div>
+  </Section>
+
+  <Section size="lg">
+    <div class="container">
+      <Eyebrow accent="green" gap="sm">What the public evidence establishes</Eyebrow>
+      <h2 class="display-md measure-lg">Mechanics, interface evidence, and optional runtime execution are kept distinct.</h2>
+      <Grid cols={4} gap="md">
+        {evidence.map(({ title, body, href, label, accent }) => (
+          <Card accent={accent} bar="top" pad="md">
+            <h3 class="evidence-title">{title}</h3>
+            <p class="evidence-body">{body}</p>
+            <a href={href} target="_blank" rel="noopener" class="evidence-link">{label}</a>
+          </Card>
+        ))}
+      </Grid>
+    </div>
+  </Section>
+
+  <Footer active="developers" />
+</Layout>
+
+<style>
+  .quickstart-note { margin: 1.5rem 0 0; color: var(--color-chalk-3); font-size: 0.82rem; line-height: 1.6; max-width: 720px; }
+  .quickstart-note a, .boundary-proof a, .workflow-card__link, .evidence-link, .handoff-link { color: var(--color-green); }
+  .workflow-intro { margin: 1rem 0 2rem; color: var(--color-chalk-2); }
+  .workflow-card { min-height: 100%; display: flex; flex-direction: column; }
+  .workflow-card__number, .workflow-card__owner { font-family: var(--font-mono); font-size: 0.68rem; color: var(--color-chalk-3); }
+  .workflow-card__title, .boundary-title, .evidence-title { margin: 0.5rem 0 0; font-size: 1rem; }
+  .workflow-card__owner { color: var(--accent); margin: 0.35rem 0 0; }
+  .workflow-card__body, .evidence-body { color: var(--color-chalk-2); font-size: 0.83rem; line-height: 1.55; margin: 0.85rem 0; }
+  .workflow-card__link, .evidence-link, .handoff-link { font-family: var(--font-mono); font-size: 0.72rem; margin-top: auto; }
+  .boundary-list { margin: 1rem 0 0; padding-left: 1.1rem; color: var(--color-chalk-2); font-size: 0.86rem; line-height: 1.6; }
+  .boundary-list li + li { margin-top: 0.65rem; }
+  .boundary-proof { margin: 1.5rem 0 0; font-family: var(--font-mono); font-size: 0.76rem; }
+  .fieldwork-shot-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(220px, 0.34fr); gap: 1.5rem; align-items: start; margin-top: 2rem; }
+  .fieldwork-shot--mobile { max-width: 390px; justify-self: center; }
+  @media (max-width: 760px) {
+    .fieldwork-shot-grid { grid-template-columns: 1fr; }
+    .fieldwork-shot--mobile { max-width: 390px; width: 100%; }
+  }
+</style>

@@ -15,6 +15,11 @@ export type ProductKey =
 
 export type KitKey = "builder-kit" | "knowledge-kit";
 
+// Applications are standalone front doors that compose product contracts. They
+// remain separate from `products`: an application does not become a primitive
+// product, a ProductKey, or a navigation/icon identity.
+export type ApplicationKey = "fieldwork";
+
 export type Kit = {
   key: KitKey;
   href: string;
@@ -58,6 +63,30 @@ export type Product = {
     composes: string;
   };
 };
+
+export type Application = {
+  key: ApplicationKey;
+  href: string;
+  label: string;
+  accent: Accent;
+  repo: string;
+  packageName: string;
+  job: string;
+  composition: string;
+};
+
+export const applications: Application[] = [
+  {
+    key: "fieldwork",
+    href: "/fieldwork/",
+    label: "Fieldwork",
+    accent: "gold-2",
+    repo: "https://github.com/kontourai/fieldwork",
+    packageName: "@kontourai/fieldwork",
+    job: "A standalone application for grounded extraction, inspection, review, rechecks, and trusted export.",
+    composition: "Composes source acquisition, extraction proposals, Survey-owned review, drift rechecks, and Surface-ready exports without absorbing those contracts.",
+  },
+];
 
 // Order is nav/footer order: the Flow Agents engine leads, the disciplines it
 // wires in follow (see kits above for the engine's installable workflows).

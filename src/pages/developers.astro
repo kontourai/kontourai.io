@@ -8,7 +8,8 @@ import Eyebrow from '@/components/Eyebrow.astro';
 import Card from '@/components/Card.astro';
 import Grid from '@/components/Grid.astro';
 import Terminal from '@/components/Terminal.astro';
-import { kits } from '@/lib/products';
+import { applications, kits } from '@/lib/products';
+import { getProductStatus, productBadge } from '@/lib/product-status';
 import type { Accent } from '@/lib/theme';
 import pkg from '../../package.json';
 
@@ -25,6 +26,11 @@ const kitCards: { name: string; href: string; job: string; note: string; accent:
   { name: 'Release Evidence Kit', href: 'https://kontourai.github.io/flow-agents/', accent: 'green', external: true, event: 'developers-kit-release-evidence', job: 'Agentless, flows-only release evidence.', note: 'Proof the engine runs solutions that ship no agent at all.' },
   { name: 'Veritas Governance Kit', href: 'https://kontourai.github.io/flow-agents/', accent: 'cobalt-2', external: true, event: 'developers-kit-veritas-governance', job: 'Agentless, flows-only governance gates.', note: 'Feeds repo readiness evidence into Flow gates.' },
 ];
+
+const applicationCards = applications.map((application) => {
+  const status = getProductStatus(application.key);
+  return { ...application, status, badge: productBadge(status) };
+});
 
 const useCases = [
   {
@@ -233,6 +239,31 @@ const labRepos = [
             <span class="kit-card__note">{note}</span>
             <span class="kit-card__cta">{external ? 'Engine docs →' : `Explore ${name} →`}</span>
           </a>
+        ))}
+      </Grid>
+    </div>
+  </Section>
+
+  <Section id="applications" borderBottom>
+    <div class="container">
+      <Eyebrow gap="sm" accent="gold-2">Applications</Eyebrow>
+      <h2 class="display-md measure-lg">Standalone front doors that compose the building blocks.</h2>
+      <p class="body measure applications-intro">
+        Applications make a complete workflow approachable without changing who owns the underlying contracts. Their components stay independently adoptable.
+      </p>
+      <Grid min="280" gap="md">
+        {applicationCards.map(({ href, label, accent, repo, packageName, job, composition, status, badge, key }) => (
+          <Card accent={accent} bar="top" pad="md">
+            <h3 class="product-card__title">{label}</h3>
+            <p class="product-card__body">{job}</p>
+            <p class="application-card__composition">{composition}</p>
+            <p class="application-card__status">{packageName} · {badge}</p>
+            <div class="product-card__links">
+              <a href={href} data-umami-event={`developers-application-${key}`}>Explore {label} →</a>
+              {status.sourceUrl && <a href={status.sourceUrl} target="_blank" rel="noopener" data-umami-event={`developers-application-${key}-npm`}>npm →</a>}
+              <a href={repo} target="_blank" rel="noopener" data-umami-event={`developers-application-${key}-repo`}>GitHub →</a>
+            </div>
+          </Card>
         ))}
       </Grid>
     </div>
@@ -546,6 +577,24 @@ const labRepos = [
   /* Kits section ---------------------------------------------------------- */
   .kits-intro {
     margin-bottom: 2rem;
+  }
+
+  .applications-intro {
+    margin: 0.8rem 0 2rem;
+  }
+
+  .application-card__composition,
+  .application-card__status {
+    color: var(--color-chalk-2);
+    font-size: 0.86rem;
+    line-height: 1.55;
+    margin-top: 0.9rem;
+  }
+
+  .application-card__status {
+    color: var(--color-chalk-3);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
   }
 
   .kit-card {

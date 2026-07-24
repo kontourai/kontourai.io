@@ -21,6 +21,10 @@ const bannedTerms = [
     pattern: new RegExp(["brian", "anderson", "1222"].join("") + "/" + ["t", "a", "x", "e", "s"].join(""), "i"),
   },
   {
+    label: "private evaluation repository link",
+    pattern: /github\.com\/kontourai\/evals/i,
+  },
+  {
     label: "internal preview route copy",
     pattern: /internal review/i,
   },
@@ -52,11 +56,15 @@ const trackedSecretPathPatterns = [
 ];
 
 function trackedFiles() {
-  const output = execFileSync("git", ["-c", `safe.directory=${REPO_ROOT}`, "ls-files", "-z"], {
+  const tracked = execFileSync("git", ["-c", `safe.directory=${REPO_ROOT}`, "ls-files", "-z"], {
     cwd: REPO_ROOT,
     encoding: "utf8",
   });
-  return output.split("\0").filter(Boolean);
+  const untracked = execFileSync("git", ["-c", `safe.directory=${REPO_ROOT}`, "ls-files", "--others", "--exclude-standard", "-z"], {
+    cwd: REPO_ROOT,
+    encoding: "utf8",
+  });
+  return [...new Set([...tracked.split("\0"), ...untracked.split("\0")].filter(Boolean))];
 }
 
 function isIgnoredPath(filePath) {
@@ -70,6 +78,10 @@ function lineNumberFor(content, index) {
 const findings = [];
 
 for (const filePath of trackedFiles()) {
+  if (filePath.startsWith("context/")) {
+    continue;
+  }
+
   if (filePath.startsWith(".flow-agents/")) {
     findings.push({
       filePath,

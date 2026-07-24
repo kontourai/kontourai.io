@@ -12,7 +12,7 @@
  *
  * Checks (same set `scripts/validate.mjs` also enforces later, as
  * defense-in-depth):
- *   1. Every versioned product's advertised version matches npm dist-tags
+ *   1. Every versioned catalog entry's advertised version matches npm dist-tags
  *      latest.
  *   2. flow-agents publish-state vs the page's advertised install path.
  *
@@ -121,6 +121,7 @@ const versionedPackages = [
   { key: "flow", name: "@kontourai/flow" },
   { key: "flow-agents", name: "@kontourai/flow-agents" },
   { key: "console", name: "@kontourai/console" },
+  { key: "fieldwork", name: "@kontourai/fieldwork" },
 ];
 
 for (const { key, name } of versionedPackages) {
