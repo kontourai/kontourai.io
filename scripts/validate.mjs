@@ -4,6 +4,7 @@ import { access, readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { createServer } from "vite";
+import { readLocalWorkspacePackage } from "./local-workspace.mjs";
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const registryBaseUrl = "https://registry.npmjs.org";
@@ -238,19 +239,23 @@ async function checkLocalWorkspacePackage({ key, packageFile }) {
   }
 
   const packageJsonPath = path.resolve(rootDir, packageFile);
-  let packageJson;
-  try {
-    packageJson = JSON.parse(await readFile(packageJsonPath, "utf8"));
-  } catch (err) {
-    if (err?.code !== "ENOENT") {
-      throw err;
-    }
+  const localPackage = await readLocalWorkspacePackage(packageJsonPath);
+  if (localPackage.state === "absent") {
     // Sibling checkout absent (normal in CI). product-status.json is the single
     // source of truth for this expectation and npm parity is enforced separately
     // in versionedPackages, so there is nothing to reconcile here.
     console.log(`PASS  ${key}: expectation derived from product-status.json v${status.version} (${packageFile} not present)`);
     return;
   }
+
+  if (localPackage.state === "inactive") {
+    console.log(
+      `PASS  ${key}: expectation derived from product-status.json v${status.version} (${packageFile} is in a bare repository, not an active Git worktree)`,
+    );
+    return;
+  }
+
+  const packageJson = localPackage.packageJson;
   if (status.packageName !== packageJson.name) {
     error(`${key}: status packageName ${status.packageName ?? "null"} does not match ${packageFile} name ${packageJson.name}`);
   }
