@@ -9,7 +9,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "validate": "node scripts/check-content-boundary.cjs && node scripts/check-theme-tokens.mjs && node scripts/check-security-hardening.mjs && node scripts/check-receipts.mjs && node scripts/check-playwright-pin.mjs && node scripts/validate.mjs && node scripts/check-sitemap.mjs",
+    "validate": "node scripts/check-content-boundary.cjs && node scripts/validate-public-evidence-registry.mjs && node --test tests/public-evidence-registry.test.mjs && node scripts/check-theme-tokens.mjs && node scripts/check-security-hardening.mjs && node scripts/check-receipts.mjs && node scripts/check-playwright-pin.mjs && node scripts/validate.mjs && node scripts/check-sitemap.mjs",
     "check:site-verify": "bash scripts/check-site-verify.sh",
     "test:rendered": "npm run build && playwright test",
     "refresh:product-status": "node scripts/refresh-product-status.mjs",
@@ -25,7 +25,10 @@
     "sync-versions:check": "node scripts/sync-versions.mjs --check",
     "workflow:sidecar": "flow-agents-workflow-sidecar",
     "workflow:validate-artifacts": "flow-agents-validate-artifacts",
-    "check:marketing-freshness": "node scripts/check-marketing-freshness.mjs"
+    "check:marketing-freshness": "node scripts/check-marketing-freshness.mjs",
+    "check:public-evidence": "node scripts/validate-public-evidence-registry.mjs",
+    "check:public-evidence-reachability": "node scripts/check-public-evidence-reachability.mjs",
+    "test:public-evidence": "node --test tests/public-evidence-registry.test.mjs"
   },
   "trust-reconcile-manifest": [
     {

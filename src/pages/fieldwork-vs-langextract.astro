@@ -7,16 +7,28 @@ import Glow from '@/components/Glow.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
 import Card from '@/components/Card.astro';
 import Grid from '@/components/Grid.astro';
+import { getPublicEvidenceClaimSources } from '@/lib/public-evidence';
+
+const claimSources = {
+  corePremise: getPublicEvidenceClaimSources('fieldwork.comparison.core-premise'),
+  grounding: getPublicEvidenceClaimSources('fieldwork.comparison.grounding'),
+  humanReview: getPublicEvidenceClaimSources('fieldwork.comparison.human-review'),
+  recheckAndReplay: getPublicEvidenceClaimSources('fieldwork.comparison.recheck-and-replay'),
+  reviewedOutput: getPublicEvidenceClaimSources('fieldwork.comparison.reviewed-output'),
+  runtimePosture: getPublicEvidenceClaimSources('fieldwork.comparison.runtime-posture'),
+};
+
+function sourceUrl(sources: typeof claimSources.corePremise, sourceId: string): string {
+  const source = sources.find((candidate) => candidate.id === sourceId);
+  if (!source) throw new Error(`Claim evidence is missing canonical source ${sourceId}`);
+  return source.url;
+}
 
 const sources = {
-  langextract: 'https://github.com/google/langextract/blob/0dff5479aa51934c7d5833a7c38e2a5abba4e0c2/README.md',
-  fieldwork: 'https://github.com/kontourai/fieldwork/blob/20d2e8f760cddebb120ff53412c09df1d17f0615/README.md',
-  traverse: 'https://github.com/kontourai/traverse/blob/67ab505e4b7096760741c6d522991bad2b94c016/README.md',
-  survey: 'https://github.com/kontourai/survey/blob/4394d8a2389654334fe5372e240e53106c7a074c/README.md',
-  lookout: 'https://github.com/kontourai/lookout/blob/c90fb403d4c6ae3540e0c2555a5a5b5be5c02d94/README.md',
-  surface: 'https://github.com/kontourai/surface/blob/d3ddf3d39fac6d81e0c983f9a189426ddcad2501/README.md',
-  relay: 'https://github.com/kontourai/relay/blob/93d386885062a629432f91a958967f1498b3a15f/README.md',
-  dispatch: 'https://github.com/kontourai/dispatch/blob/05c823e460a618a77900ce9e2b361aa8868480d1/README.md',
+  langextract: sourceUrl(claimSources.corePremise, 'comparison.langextract-readme'),
+  fieldwork: sourceUrl(claimSources.corePremise, 'fieldwork.readme'),
+  survey: sourceUrl(claimSources.humanReview, 'survey.readme'),
+  lookout: sourceUrl(claimSources.recheckAndReplay, 'lookout.readme'),
 };
 
 const rows = [
@@ -24,49 +36,49 @@ const rows = [
     concern: 'Core premise',
     upstream: 'Schema- and example-guided structured extraction from unstructured text, with source locations for inspection.',
     kontour: 'Schema-directed, source-grounded proposals are the starting point; Fieldwork composes that work into an application review loop.',
-    evidence: [sources.langextract, sources.fieldwork, sources.traverse],
+    evidence: claimSources.corePremise,
   },
   {
     concern: 'Grounding',
     upstream: 'Reports character intervals when an extraction can be located in the source; unlocatable output is marked without an interval.',
     kontour: 'Traverse verifies excerpts against prepared text and derives exact chars: start–end locators rather than trusting provider-supplied offsets.',
-    evidence: [sources.langextract, sources.traverse],
+    evidence: claimSources.grounding,
   },
   {
     concern: 'Human review',
     upstream: 'Provides an interactive HTML view for inspecting extractions in context.',
     kontour: 'Survey owns first-class source → extraction → candidate → review records; Fieldwork persists and validates the reviewed workflow before export.',
-    evidence: [sources.langextract, sources.fieldwork, sources.survey],
+    evidence: claimSources.humanReview,
   },
   {
     concern: 'Recheck and replay',
     upstream: 'The pinned README describes extraction and visualization; this comparison does not attribute a source-drift workflow to it.',
     kontour: 'Forage snapshots enable exact replay; Lookout compares proposal observations so changed evidence can become a new review round.',
-    evidence: [sources.fieldwork, sources.lookout],
+    evidence: claimSources.recheckAndReplay,
   },
   {
     concern: 'Reviewed output',
     upstream: 'Writes extraction results for downstream use and visualization.',
     kontour: 'After server-owned review, Fieldwork exports a Surface-validated, portable reviewed trust bundle with provenance rather than treating a model response as reviewed truth.',
-    evidence: [sources.langextract, sources.fieldwork, sources.surface],
+    evidence: claimSources.reviewedOutput,
   },
   {
     concern: 'Runtime posture',
     upstream: 'Documents cloud and local model options, plus provider extension points.',
     kontour: 'Relay carries invocations; Dispatch can apply explicit budgets, fallback, and receipts. Those adapters describe execution mechanics, not model quality.',
-    evidence: [sources.langextract, sources.fieldwork, sources.relay, sources.dispatch],
+    evidence: claimSources.runtimePosture,
   },
 ];
 
 const sourceNames: Record<string, string> = {
-  [sources.langextract]: 'Pinned upstream README',
-  [sources.fieldwork]: 'Fieldwork README',
-  [sources.traverse]: 'Traverse README',
-  [sources.survey]: 'Survey README',
-  [sources.lookout]: 'Lookout README',
-  [sources.surface]: 'Surface README',
-  [sources.relay]: 'Relay README',
-  [sources.dispatch]: 'Dispatch README',
+  'comparison.langextract-readme': 'Pinned upstream README',
+  'fieldwork.readme': 'Fieldwork README',
+  'traverse.readme': 'Traverse README',
+  'survey.readme': 'Survey README',
+  'lookout.readme': 'Lookout README',
+  'surface.readme': 'Surface README',
+  'relay.readme': 'Relay README',
+  'dispatch.readme': 'Dispatch README',
 };
 ---
 
@@ -144,7 +156,7 @@ const sourceNames: Record<string, string> = {
                 <td>
                   <ul class="source-links">
                     {row.evidence.map((source) => (
-                      <li><a href={source} target="_blank" rel="noopener">{sourceNames[source]} ↗</a></li>
+                      <li><a href={source.url} target="_blank" rel="noopener">{sourceNames[source.id]} ↗</a></li>
                     ))}
                   </ul>
                 </td>

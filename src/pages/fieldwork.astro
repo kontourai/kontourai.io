@@ -10,15 +10,17 @@ import Card from '@/components/Card.astro';
 import Split from '@/components/Split.astro';
 import Terminal from '@/components/Terminal.astro';
 import { getProductStatus, productBadge } from '@/lib/product-status';
+import { getPublicEvidenceClaimSourceUrl } from '@/lib/public-evidence';
 import type { Accent } from '@/lib/theme';
 
 const fieldworkStatus = getProductStatus('fieldwork');
 
 const sources = {
-  readme: 'https://github.com/kontourai/fieldwork/blob/20d2e8f760cddebb120ff53412c09df1d17f0615/README.md',
-  browser: 'https://github.com/kontourai/fieldwork/blob/20d2e8f760cddebb120ff53412c09df1d17f0615/test/browser/review.spec.ts',
-  conformance: 'https://github.com/kontourai/fieldwork/tree/20d2e8f760cddebb120ff53412c09df1d17f0615/conformance',
-  release: 'https://github.com/kontourai/fieldwork/tree/20d2e8f760cddebb120ff53412c09df1d17f0615',
+  readme: getPublicEvidenceClaimSourceUrl('fieldwork.published-contract', 'fieldwork.readme'),
+  browser: getPublicEvidenceClaimSourceUrl('fieldwork.browser-review-evidence', 'fieldwork.browser-review'),
+  conformance: getPublicEvidenceClaimSourceUrl('fieldwork.deterministic-conformance', 'fieldwork.conformance'),
+  release: getPublicEvidenceClaimSourceUrl('fieldwork.release-source', 'fieldwork.release'),
+  runtime: getPublicEvidenceClaimSourceUrl('fieldwork.runtime-boundary', 'fieldwork.readme'),
 };
 
 const workflow: { step: string; owner: string; body: string; accent: Accent }[] = [
@@ -63,7 +65,7 @@ const evidence: { title: string; body: string; href: string; label: string; acce
   {
     title: 'Published contract',
     body: 'The released CLI documents run, open, recheck, inspect, and export behavior, including the unresolved/stale/tampered export refusal.',
-    href: sources.readme,
+    href: sources.runtime,
     label: 'Read the v0.2.4 contract →',
     accent: 'green',
   },

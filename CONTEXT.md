@@ -31,6 +31,14 @@ generated page as publishable public material.
 - Content boundary: the public-copy safety line enforced by
   `npm run check:content-boundary`. Run it after public-facing copy or agent
   instruction changes, and fix any finding before merge readiness.
+- Public evidence registry: `src/data/public-evidence-registry.json` is the
+  canonical claim-to-source map for immutable public evidence. `npm run
+  check:public-evidence` is deterministic and runs in the default validation
+  path; `npm run check:public-evidence-reachability` is an explicit anonymous
+  live check that reports `PASS`, `FAIL`, or `NOT_VERIFIED` without using
+  credentials. Its exit codes are `0` for all reachable, `1` for any failure,
+  and `2` when nothing failed but at least one source could not be verified.
+  Named comparison sources stay scoped to their comparison page.
 - Package version sync: after a public Kontour package release, run
   `npm run sync-versions` to update package pins in `product-status.json`.
   `npm run sync-versions:check` detects stale pins without writing changes.
