@@ -55,17 +55,21 @@ const trackedSecretPathPatterns = [
   /(?:^|\/)(?:secrets?|credentials?)(?:\.|\/|$)/i,
 ];
 
-function trackedFiles() {
-  const tracked = execFileSync("git", ["-c", `safe.directory=${REPO_ROOT}`, "ls-files", "-z"], {
+function gitFiles(args) {
+  const output = execFileSync("git", ["-c", `safe.directory=${REPO_ROOT}`, ...args, "-z"], {
     cwd: REPO_ROOT,
     encoding: "utf8",
   });
-  const untracked = execFileSync("git", ["-c", `safe.directory=${REPO_ROOT}`, "ls-files", "--others", "--exclude-standard", "-z"], {
-    cwd: REPO_ROOT,
-    encoding: "utf8",
-  });
-  return [...new Set([...tracked.split("\0"), ...untracked.split("\0")].filter(Boolean))];
+  return output.split("\0").filter(Boolean);
 }
+
+const trackedPaths = new Set(gitFiles(["ls-files"]));
+const repositoryFiles = [
+  ...new Set([
+    ...trackedPaths,
+    ...gitFiles(["ls-files", "--others", "--exclude-standard"]),
+  ]),
+];
 
 function isIgnoredPath(filePath) {
   return filePath === SELF || ignoredPathPatterns.some((pattern) => pattern.test(filePath));
@@ -77,8 +81,15 @@ function lineNumberFor(content, index) {
 
 const findings = [];
 
-for (const filePath of trackedFiles()) {
+for (const filePath of repositoryFiles) {
   if (filePath.startsWith("context/")) {
+    if (trackedPaths.has(filePath)) {
+      findings.push({
+        filePath,
+        line: 1,
+        label: "private runtime context must not be tracked in this public repo",
+      });
+    }
     continue;
   }
 

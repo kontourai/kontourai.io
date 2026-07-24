@@ -1,9 +1,13 @@
-import { readFile, readdir } from "node:fs/promises";
+import { execFile } from "node:child_process";
+import { cp, mkdir, mkdtemp, readFile, readdir, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { promisify } from "node:util";
 import { expect, test } from "@playwright/test";
 
 const comparisonRoute = "src/pages/fieldwork-vs-langextract.astro";
 const ordinaryContentRoots = ["src/pages", "docs"];
+const execFileAsync = promisify(execFile);
 
 async function walkFiles(root) {
   const entries = await readdir(root, { withFileTypes: true });
@@ -95,5 +99,31 @@ test("the named comparison stays out of ordinary product and engineering content
       if (path === comparisonRoute) continue;
       expect(content, `${path} must remain comparison-neutral`).not.toMatch(/LangExtract/i);
     }
+  }
+});
+
+test("the content boundary ignores private untracked context but rejects tracked context", async () => {
+  const root = await mkdtemp(join(tmpdir(), "kontour-content-boundary-"));
+  try {
+    await mkdir(join(root, "scripts"), { recursive: true });
+    await mkdir(join(root, "context", "settings"), { recursive: true });
+    await cp("scripts/check-content-boundary.cjs", join(root, "scripts", "check-content-boundary.cjs"));
+    await writeFile(
+      join(root, "context", "settings", "provider.json"),
+      JSON.stringify({ project: "private-runtime-config" }),
+    );
+    await execFileAsync("git", ["init", "-q"], { cwd: root });
+
+    const untracked = await execFileAsync("node", ["scripts/check-content-boundary.cjs"], { cwd: root });
+    expect(untracked.stdout).toContain("Content boundary check passed.");
+
+    await execFileAsync("git", ["add", "context/settings/provider.json"], { cwd: root });
+    await expect(
+      execFileAsync("node", ["scripts/check-content-boundary.cjs"], { cwd: root }),
+    ).rejects.toMatchObject({
+      stderr: expect.stringContaining("private runtime context must not be tracked in this public repo"),
+    });
+  } finally {
+    await rm(root, { recursive: true, force: true });
   }
 });
