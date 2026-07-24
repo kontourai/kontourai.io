@@ -48,6 +48,9 @@ const versionedPackages = [
   { key: "flow", name: "@kontourai/flow", page: "src/pages/flow.astro" },
   { key: "flow-agents", name: "@kontourai/flow-agents", page: "src/pages/flow-agents.astro" },
   { key: "console", name: "@kontourai/console", page: "src/pages/console.astro" },
+  // Fieldwork cites its immutable 0.2.4 release evidence directly. Its current
+  // displayed package status is still required to come from product-status.
+  { key: "fieldwork", name: "@kontourai/fieldwork", page: "src/pages/fieldwork.astro", allowsPinnedEvidence: true },
 ];
 
 // Local workspace packages. Their version expectation is DERIVED from
@@ -75,13 +78,13 @@ async function loadProductCatalog() {
   return viteServer.ssrLoadModule("/src/lib/products.ts");
 }
 
-async function assertPageUsesProductStatus(pageFile, key, version) {
+async function assertPageUsesProductStatus(pageFile, key, version, allowsPinnedEvidence = false) {
   const source = await readFile(path.join(rootDir, pageFile), "utf8");
   if (!source.includes("product-status") || !source.includes(`getProductStatus('${key}')`)) {
     error(`${pageFile}: does not derive ${key} status from src/data/product-status.json`);
   }
 
-  if (version && (source.includes(version) || source.includes(`v${version}`))) {
+  if (!allowsPinnedEvidence && version && (source.includes(version) || source.includes(`v${version}`))) {
     error(`${pageFile}: hard-coded version/status copy remains (${version}); derive it from product-status metadata`);
   }
 }
@@ -97,26 +100,40 @@ function assertUniqueKeys(keys, label) {
 }
 
 async function checkProductCatalogCoverage(catalog) {
-  const catalogKeys = catalog.products.map((product) => product.key);
+  const productKeys = catalog.products.map((product) => product.key);
+  const applicationKeys = catalog.applications.map((application) => application.key);
+  const catalogKeys = [...productKeys, ...applicationKeys];
   const statusKeys = Object.keys(statusData.products);
   const homepageKeys = catalog.homepageProducts.map((product) => product.key);
   const developerCompositionKeys = catalog.developerCompositionProducts.map((product) => product.key);
 
-  assertUniqueKeys(catalogKeys, "src/lib/products.ts products");
+  assertUniqueKeys(productKeys, "src/lib/products.ts products");
+  assertUniqueKeys(applicationKeys, "src/lib/products.ts applications");
+  assertUniqueKeys(catalogKeys, "src/lib/products.ts products and applications");
   assertUniqueKeys(homepageKeys, "src/lib/products.ts homepageProducts");
   assertUniqueKeys(developerCompositionKeys, "src/lib/products.ts developerCompositionProducts");
 
+  const requiredApplicationKeys = ["fieldwork"];
+  for (const key of requiredApplicationKeys) {
+    if (!applicationKeys.includes(key)) {
+      error(`src/lib/products.ts: missing required application catalog entry ${key}`);
+    }
+    if (productKeys.includes(key)) {
+      error(`src/lib/products.ts: application ${key} must not be represented as a primitive product`);
+    }
+  }
+
   for (const key of catalogKeys) {
     if (!statusData.products[key]) {
-      error(`src/data/product-status.json: missing product status for ${key}`);
+      error(`src/data/product-status.json: missing catalog status for ${key}`);
     }
   }
   for (const key of statusKeys) {
     if (!catalogKeys.includes(key)) {
-      error(`src/lib/products.ts: missing catalog product for status entry ${key}`);
+      error(`src/lib/products.ts: missing catalog product or application for status entry ${key}`);
     }
   }
-  for (const key of catalogKeys) {
+  for (const key of productKeys) {
     if (!homepageKeys.includes(key)) {
       error(`src/lib/products.ts: homepageProducts omits catalog product ${key}`);
     }
@@ -128,16 +145,28 @@ async function checkProductCatalogCoverage(catalog) {
   }
 
   const intentionalDeveloperOmissions = ["survey", "console"];
-  for (const key of catalogKeys) {
+  for (const key of productKeys) {
     const isOmitted = !developerCompositionKeys.includes(key);
     if (isOmitted && !intentionalDeveloperOmissions.includes(key)) {
       error(`src/lib/products.ts: developerCompositionProducts omits ${key} without an explicit validation allowance`);
     }
   }
   for (const key of intentionalDeveloperOmissions) {
-    if (!catalogKeys.includes(key)) {
+    if (!productKeys.includes(key)) {
       error(`src/lib/products.ts: intentional developer omission ${key} is not a catalog product`);
     }
+  }
+
+  for (const application of catalog.applications) {
+    const status = statusData.products[application.key];
+    if (status && status.packageName !== application.packageName) {
+      error(`${application.key}: application packageName ${application.packageName} does not match status packageName ${status.packageName ?? "null"}`);
+    }
+  }
+
+  const developerMap = await readFile(path.join(rootDir, "src/pages/developers.astro"), "utf8");
+  if (!developerMap.includes("applications.map")) {
+    error("src/pages/developers.astro: does not derive application discoverability from the shared applications catalog");
   }
 }
 
@@ -163,13 +192,13 @@ async function fetchNpmLatest(packageName) {
   return { published: true, latest };
 }
 
-async function checkVersionedPackage({ key, name, page }) {
+async function checkVersionedPackage({ key, name, page, allowsPinnedEvidence = false }) {
   const status = statusData.products[key];
   if (!status) {
     error(`src/data/product-status.json: missing ${key}`);
     return;
   }
-  await assertPageUsesProductStatus(page, key, status.version);
+  await assertPageUsesProductStatus(page, key, status.version, allowsPinnedEvidence);
   if (status.packageName !== name) {
     error(`${key}: expected packageName ${name}, found ${status.packageName ?? "null"}`);
     return;
