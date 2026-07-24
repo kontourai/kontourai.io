@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-07-22",
+  "checkedAt": "2026-07-24",
   "products": {
     "surface": {
       "key": "surface",
@@ -18,7 +18,7 @@
       "key": "survey",
       "label": "Survey",
       "packageName": "@kontourai/survey",
-      "version": "2.0.0",
+      "version": "2.2.1",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/survey",
       "publicNotes": "Proof-stage library, not an ingestion platform.",
@@ -31,7 +31,7 @@
       "key": "flow",
       "label": "Flow",
       "packageName": "@kontourai/flow",
-      "version": "3.7.0",
+      "version": "3.8.0",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/flow",
       "publicNotes": "Local CLI plus a loopback Flow Console.",
@@ -57,7 +57,7 @@
       "key": "flow-agents",
       "label": "Flow Agents",
       "packageName": "@kontourai/flow-agents",
-      "version": "5.1.0",
+      "version": "5.2.0",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/flow-agents",
       "publicNotes": "",
@@ -70,7 +70,7 @@
       "key": "console",
       "label": "Console",
       "packageName": "@kontourai/console",
-      "version": "2.7.0",
+      "version": "2.8.0",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/console",
       "publicNotes": "Open-source foundation on npm: the local hub, fixture inspector, Flow run bridge, and a local UI. The hosted console at console.kontourai.io is a private production deployment of it.",
