@@ -40,12 +40,24 @@ for (const viewport of [
     await expect(page.getByText(`v${fieldworkVersion}`, { exact: true }).first()).toBeVisible();
     await expect(page.getByText("credential-free quickstart", { exact: true })).toBeVisible();
     await expect(page.getByText("npm install @kontourai/fieldwork", { exact: false })).toBeVisible();
-    await expect(page.getByText("node_modules/@kontourai/fieldwork/examples/generic/task.json", { exact: false })).toBeVisible();
-    await expect(page.getByText("node_modules/@kontourai/fieldwork/examples/generic/source.txt", { exact: false })).toBeVisible();
+    // The quickstart runs the two-field `vendor-obligations` fixture, not the
+    // one-field `generic` one — a document with something to get wrong.
+    await expect(page.getByText("node_modules/@kontourai/fieldwork/examples/vendor-obligations/task.json", { exact: false })).toBeVisible();
+    await expect(page.getByText("node_modules/@kontourai/fieldwork/examples/vendor-obligations/source.txt", { exact: false })).toBeVisible();
 
-    for (const step of ["Find the values", "Show the evidence", "Record review", "Catch changes", "Export proof"]) {
+    // The five-card workflow grid (five identical "Contract evidence →" links)
+    // became a three-panel worked example: the document, the proposals with
+    // their real locators, and the export actually refusing.
+    for (const step of ["A document nobody has checked", "Two values, each with its receipt", "The export refuses"]) {
       await expect(page.getByRole("heading", { level: 3, name: step, exact: true })).toBeVisible();
     }
+    await expect(page.getByText("chars:27-74").first()).toBeVisible();
+    await expect(page.getByText("Export refused: unresolved-review-item")).toBeVisible();
+    // The honest limit of the credential-free demo: the bundled extractor
+    // matches literal labels; real documents need a model you bring.
+    await expect(
+      page.getByRole("heading", { name: /The demo is free\. Real documents need a model/ }),
+    ).toBeVisible();
 
     await expect(
       page.getByRole("heading", { name: "Review PDF and OCR results with their layout context intact." }),
@@ -59,9 +71,14 @@ for (const viewport of [
       /github\.com\/kontourai\/fieldwork\/tree\/[0-9a-f]{40}\/conformance/,
     );
 
+    // Two shots now — the mobile twin was the same screen at 390px.
     const screenshots = page.locator("figure.product-shot img");
-    await expect(screenshots).toHaveCount(3);
-    for (let index = 0; index < 3; index += 1) {
+    await expect(screenshots).toHaveCount(2);
+    // Capture provenance comes from marketing-assets.json, not from the live
+    // product version: the captions must state the version the image was
+    // actually taken against.
+    await expect(page.getByText("captured against v0.2.4 on 2026-07-24").first()).toBeVisible();
+    for (let index = 0; index < 2; index += 1) {
       await expect(screenshots.nth(index)).toHaveAttribute("alt", /.+/);
       await expect(screenshots.nth(index).locator("xpath=..").locator("figcaption")).toBeVisible();
     }
@@ -77,12 +94,22 @@ for (const viewport of [
       page.getByRole("heading", { level: 1, name: "Grounded extraction that continues through review, recheck, and proof." }),
     ).toBeVisible();
     await expect(page.getByRole("region", { name: "Fieldwork and Google LangExtract comparison table" })).toBeVisible();
-    await expect(page.getByText("No drop-in API compatibility")).toBeVisible();
-    await expect(page.getByText("No general accuracy or provider superiority")).toBeVisible();
-    await expect(page.getByText("No multipass-gain claim")).toBeVisible();
-    await expect(page.getByText("No upstream-suite result")).toBeVisible();
-    await expect(page.getByText("PDF and OCR are host adapters")).toBeVisible();
-    await expect(page.getByText("Runtime adapters are not a quality score")).toBeVisible();
+    // The page concedes before it compares: where the other tool wins comes
+    // BEFORE the table, so the table reads as analysis rather than a pitch.
+    await expect(
+      page.getByRole("heading", { name: "Four reasons to close this tab and use LangExtract." }),
+    ).toBeVisible();
+    await expect(page.getByText("LangExtract is the more mature tool on it")).toBeVisible();
+    // Four disclaimers, in the reader's language. Two of the old six were cut:
+    // "No upstream-suite result" raised a question nobody asked, and "Runtime
+    // adapters are not a quality score" duplicated the accuracy card.
+    await expect(page.getByRole("heading", { name: "Four things this page cannot tell you." })).toBeVisible();
+    await expect(page.getByText("You cannot swap one for the other")).toBeVisible();
+    await expect(page.getByText("Nothing here says either one is more accurate")).toBeVisible();
+    await expect(page.getByText("We make no claim about multipass recall")).toBeVisible();
+    await expect(page.getByText("PDFs and scans need an adapter you supply")).toBeVisible();
+    // The comparison is grounded in a real run, not in prose about a run.
+    await expect(page.getByText("Export refused: unresolved-review-item")).toBeVisible();
     await expect(page.getByRole("link", { name: "Read pinned upstream source ↗" })).toHaveAttribute(
       "href",
       "https://github.com/google/langextract/blob/0dff5479aa51934c7d5833a7c38e2a5abba4e0c2/README.md",

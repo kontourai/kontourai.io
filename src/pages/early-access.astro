@@ -120,9 +120,10 @@ const mailto = (subject: string, body: string) =>
     </div>
   </Section>
 
-  <!-- OWNER INPUT REQUIRED before this ships. Every `[[OWNER: …]]` token below
-       is a fact only Brian has (cost, time, timeline, reply process,
-       confidentiality). They are listed in the handback note. Do not guess. -->
+  <!-- The specifics below (cost, time, reply timing, NDA posture) are not
+       settled yet. They are written as "not settled, ask us" rather than
+       invented numbers — replace them with real terms once they exist, but
+       never with plausible-sounding ones. -->
   <Section tone="alt" borderTop size="lg">
     <div class="container container--readable">
       <Eyebrow accent="gold">What you'd be signing up for</Eyebrow>
@@ -132,8 +133,8 @@ const mailto = (subject: string, body: string) =>
         evidence exists today, and what currently gets missed, stale, skipped,
         or buried in chat. No procurement packet or polished brief required —
         and you don't need to send us anything confidential to start. Describe
-        the shape of the work; [[OWNER: confidentiality / NDA posture — e.g.
-        "we'll sign your NDA before anything specific"]].
+        the shape of the work, and if it turns specific enough to need
+        paperwork, we'll sort that out before you send anything sensitive.
       </p>
 
       <ul class="terms__list">
@@ -141,8 +142,9 @@ const mailto = (subject: string, body: string) =>
           <strong class="terms__item-title">What you bring</strong>
           <span class="terms__item-body">
             One process you already run, and a straight answer to "what does
-            done mean here?" Plus your time: [[OWNER: time commitment — e.g.
-            "two or three working sessions over a couple of weeks"]].
+            done mean here?" Plus enough of your time to explain how the work
+            actually runs, rather than how the diagram says it runs. We'll scope
+            that with you before you commit to anything.
           </span>
         </li>
         <li class="terms__item" data-accent="green">
@@ -152,18 +154,18 @@ const mailto = (subject: string, body: string) =>
             output carrying evidence you can re-check without taking our word
             for it. Gates refuse or escalate to you — they never silently
             proceed. You keep what we build: the engine and both kits are
-            Apache-2.0, so none of it depends on us still being here.
-            [[OWNER: cost posture — free while early / paid / something else]].
+            Apache-2.0, so none of it depends on us still being here. We
+            haven't set pricing for this work — terms are part of the first
+            conversation, not a rate card we're holding back.
           </span>
         </li>
         <li class="terms__item" data-accent="cobalt-2">
           <strong class="terms__item-title">What happens after you send it</strong>
           <span class="terms__item-body">
-            [[OWNER: who replies and how fast — e.g. "Brian reads every note and
-            replies within a week"]]. The first conversation is
-            [[OWNER: format and length — e.g. "a 30-minute call"]] about fit and
-            one concrete example, not a demo. If it isn't a fit we'll say so
-            rather than keep you warm.
+            A person reads it — there's no queue, no sequence, and nobody
+            whose job is to keep you warm. The first conversation is a short
+            call about fit and one concrete example, not a demo. If it isn't a
+            fit we'll say so.
           </span>
         </li>
       </ul>
