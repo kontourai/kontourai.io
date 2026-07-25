@@ -156,14 +156,30 @@ const reviewBenefits: { title: string; accent: Accent; items: string[] }[] = [
     </div>
   </Section>
 
-  <!-- Screenshot -->
+  {/* The review-console screenshot is pulled until it can be recaptured.
+      survey-workbench.png shows four proposed values sharing one excerpt that
+      supports none of them — a shipped-fixture defect, not a capture artifact
+      (kontourai/survey#199). Its caption invited the reader to check "the
+      sentence it was pulled from", which is precisely the check the image
+      failed, on the page whose argument is that evidence should check out.
+
+      Restore after survey 2.2.2 ships with the fixed fixture: copy the session
+      to a neutral path first (the console renders an absolute session path in
+      its title bar, so capturing in place leaks a local home directory), then
+      recapture through scripts/capture-marketing-screenshot.mjs so the manifest
+      stamps capturedAgainstVersion: 2.2.2. */}
   <Section borderBottom>
     <div class="container">
       <Eyebrow accent="gold-2" gap="sm">See it</Eyebrow>
-      <figure class="product-shot">
-        <img src="/screenshots/survey-workbench.png" alt="Survey review console: a queue of proposed field changes, each row showing the current value beside the proposed one, a confidence score, the supporting excerpt with a link to its source, and Keep current / Use proposed / Could not confirm buttons." loading="lazy" />
-        <figcaption>The local review console working an example queue — what the value is now, what's being proposed, the confidence, and the sentence it was pulled from, with the source link beside it. Run it with <code class="code-plain">npx -p @kontourai/survey survey-review-console --session your-session.json</code>. <a href="https://kontourai.github.io/survey/demo/" target="_blank" rel="noopener">Try the live demo →</a></figcaption>
-      </figure>
+      <p class="body measure">
+        The review console runs locally against a session file — one row per
+        proposed change, each with the value it would replace, the excerpt
+        behind it, and a link to the source.
+        <a href="https://kontourai.github.io/survey/demo/" target="_blank" rel="noopener" data-umami-event="survey-live-demo">Try the live demo →</a>
+      </p>
+      <Terminal title="review console">
+        <p><span class="prompt">$ </span><span class="cmd">npx -p @kontourai/survey survey-review-console --session your-session.json</span></p>
+      </Terminal>
     </div>
   </Section>
 
