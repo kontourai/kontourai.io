@@ -31,7 +31,7 @@
 // pure element-selector CSS could be falsely rejected — if that happens,
 // investigate at capture time; do not weaken the guard to route around it.
 import { createHash } from 'node:crypto';
-import { readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, lstatSync, readFileSync, realpathSync, writeFileSync } from 'node:fs';
 import { parseArgs } from 'node:util';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
@@ -67,8 +67,17 @@ if (!entry) {
   process.exit(1);
 }
 const assetAbs = path.resolve(repoRoot, assetRel);
-if (!assetAbs.startsWith(path.join(repoRoot, 'public') + path.sep)) {
-  console.error(`FAIL ${assetRel}: asset path must resolve inside public/ — refusing to read or write outside it.`);
+// Containment incl. symlinks: the parent dir's realpath must sit inside
+// public/'s realpath, and the asset itself must not be a symlink.
+const publicReal = realpathSync(path.join(repoRoot, 'public'));
+const containedInPublic = (abs) => {
+  if (!abs.startsWith(path.join(repoRoot, 'public') + path.sep)) return false;
+  const dirReal = realpathSync(path.dirname(abs));
+  if (dirReal !== publicReal && !dirReal.startsWith(publicReal + path.sep)) return false;
+  return !(existsSync(abs) && lstatSync(abs).isSymbolicLink());
+};
+if (!containedInPublic(assetAbs)) {
+  console.error(`FAIL ${assetRel}: asset path must be a regular file inside public/ (no symlinks) — refusing to read or write outside it.`);
   process.exit(1);
 }
 

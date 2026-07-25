@@ -19,7 +19,7 @@
 //      unmanaged visuals)
 //   3. every /screenshots/... reference anywhere in src/ has a manifest entry
 import { createHash } from 'node:crypto';
-import { readFileSync, readdirSync, existsSync } from 'node:fs';
+import { readFileSync, readdirSync, existsSync, lstatSync, realpathSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
@@ -34,14 +34,22 @@ const fail = (msg) => { console.error(`FAIL ${msg}`); failures += 1; };
 const walk = (dir) => readdirSync(dir, { withFileTypes: true }).flatMap((e) =>
   e.isDirectory() ? walk(path.join(dir, e.name)) : [path.join(dir, e.name)]);
 
+const publicReal = realpathSync(path.join(repoRoot, 'public'));
+const containedInPublic = (abs) => {
+  if (!abs.startsWith(path.join(repoRoot, 'public') + path.sep)) return false;
+  const dirReal = realpathSync(path.dirname(abs));
+  if (dirReal !== publicReal && !dirReal.startsWith(publicReal + path.sep)) return false;
+  return !lstatSync(abs).isSymbolicLink();
+};
+
 for (const entry of assets) {
   const abs = path.resolve(repoRoot, entry.asset);
-  if (!abs.startsWith(path.join(repoRoot, 'public') + path.sep)) {
-    fail(`${entry.asset}: manifest path must resolve inside public/`);
-    continue;
-  }
   if (!existsSync(abs)) {
     fail(`${entry.asset}: listed in marketing-assets.json but missing on disk`);
+    continue;
+  }
+  if (!containedInPublic(abs)) {
+    fail(`${entry.asset}: manifest path must be a regular file inside public/ (no symlinks)`);
     continue;
   }
   for (const field of ['page', 'product', 'capturedAgainstVersion', 'capturedAt', 'sha256']) {
