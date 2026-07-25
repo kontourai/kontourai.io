@@ -25,6 +25,11 @@
 //
 // The capture is still human-reviewed before commit — this guard catches
 // broken renders, not bad taste.
+//
+// Known limitation: the coverage signal reads same-origin stylesheets only.
+// A product UI styled via cross-origin sheets, shadow-root adopted styles, or
+// pure element-selector CSS could be falsely rejected — if that happens,
+// investigate at capture time; do not weaken the guard to route around it.
 import { createHash } from 'node:crypto';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { parseArgs } from 'node:util';
@@ -51,17 +56,21 @@ const { values: args } = parseArgs({
 const sha256 = (buf) => createHash('sha256').update(buf).digest('hex');
 
 const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
-const assetRel = args.asset ?? args.stamp;
-if (!assetRel) {
-  console.error('Need --asset <path> --url <url>, or --stamp <path>.');
+if ((args.asset && args.stamp) || (!args.asset && !args.stamp)) {
+  console.error('Use exactly one of --asset <path> --url <url> (guarded capture) or --stamp <path> (external asset).');
   process.exit(2);
 }
+const assetRel = args.asset ?? args.stamp;
 const entry = (manifest.assets ?? []).find((a) => a.asset === assetRel);
 if (!entry) {
   console.error(`FAIL ${assetRel}: not in src/data/marketing-assets.json — add the entry first.`);
   process.exit(1);
 }
-const assetAbs = path.join(repoRoot, assetRel);
+const assetAbs = path.resolve(repoRoot, assetRel);
+if (!assetAbs.startsWith(path.join(repoRoot, 'public') + path.sep)) {
+  console.error(`FAIL ${assetRel}: asset path must resolve inside public/ — refusing to read or write outside it.`);
+  process.exit(1);
+}
 
 const stampEntry = (buf) => {
   entry.sha256 = sha256(buf);
@@ -114,13 +123,26 @@ try {
     const links = [...document.querySelectorAll('link[rel="stylesheet"]')];
     const deadLinks = links.filter((l) => !l.sheet).map((l) => l.href);
     const selectors = [];
+    // Only rules that are ACTIVE at this viewport count: descend into @media/
+    // @supports groups only when their condition currently holds, so a sheet
+    // full of media-mismatched rules can't fake coverage.
     const collect = (rules) => {
       for (const rule of rules) {
+        if (rule instanceof CSSMediaRule) {
+          if (matchMedia(rule.conditionText).matches) collect(rule.cssRules);
+          continue;
+        }
+        if (rule instanceof CSSSupportsRule) {
+          if (CSS.supports(rule.conditionText)) collect(rule.cssRules);
+          continue;
+        }
         if (rule.selectorText) selectors.push(rule.selectorText);
         if (rule.cssRules) collect(rule.cssRules);
       }
     };
     for (const sheet of document.styleSheets) {
+      if (sheet.disabled) continue;
+      if (sheet.media?.mediaText && !matchMedia(sheet.media.mediaText).matches) continue;
       try { collect(sheet.cssRules); } catch { /* cross-origin: ignore */ }
     }
     const specific = selectors.filter((s) => /[.#[]/.test(s));
