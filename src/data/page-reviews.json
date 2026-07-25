@@ -54,7 +54,7 @@
     {
       "page": "src/pages/flow.astro",
       "products": {
-        "flow": "3.9.0"
+        "flow": "3.10.0"
       },
       "reviewedDate": "2026-07-25"
     },
