@@ -1,61 +1,69 @@
 {
-  "$comment": "Marketing visual-asset manifest: every product screenshot/video on the site, bound to the product version it was captured against. check-marketing-freshness.mjs flags per-asset staleness when the product's npm latest moves a minor/major beyond capturedAgainstVersion. Refreshing an asset = recapture against the released product, human-review the visual, then bump capturedAgainstVersion + capturedAt here (human-owned, like marketingReviewed).",
+  "$comment": "Marketing visual-asset manifest: every product screenshot/video on the site, bound to the product version it was captured against and to the exact bytes shipped (sha256). check-marketing-freshness.mjs flags per-asset staleness when the product's npm latest moves a minor/major beyond capturedAgainstVersion. check-marketing-assets.mjs (deploy-blocking, in npm run validate) verifies every asset's bytes match its sha256. Refreshing an asset = run the released product UI locally, capture via scripts/capture-marketing-screenshot.mjs --asset <path> --url <local url> --product-version <ver> (it refuses unstyled/broken renders and stamps this file), then human-review the visual before commit. Non-screenshot assets (GIFs) are produced externally and stamped via --stamp.",
   "assets": [
     {
       "asset": "public/screenshots/console-environment.png",
       "page": "src/pages/console.astro",
       "product": "console",
       "capturedAgainstVersion": "2.7.0",
-      "capturedAt": "2026-07-20"
+      "capturedAt": "2026-07-20",
+      "sha256": "ba3af50157a7a0204423df954b06693d0efecd0f512b62930ba3c2ff9a5be3d4"
     },
     {
       "asset": "public/screenshots/console-operating-plane.png",
       "page": "src/pages/console.astro",
       "product": "console",
       "capturedAgainstVersion": "2.7.0",
-      "capturedAt": "2026-07-20"
+      "capturedAt": "2026-07-20",
+      "sha256": "3c36bce7002fa4edde8cb3aa048fe8dafbfc4af63ec1c1a7f425367a443d32b7"
     },
     {
       "asset": "public/screenshots/survey-workbench.png",
       "page": "src/pages/survey.astro",
       "product": "survey",
-      "capturedAgainstVersion": "1.18.0",
-      "capturedAt": "2026-07-20"
+      "capturedAgainstVersion": "2.2.1",
+      "capturedAt": "2026-07-24",
+      "sha256": "83665826dd7342e047e5f49f191609a8eb3934b5fdaff97dbcc19ff03cc96684"
     },
     {
       "asset": "public/screenshots/surface-console.png",
       "page": "src/pages/surface.astro",
       "product": "surface",
       "capturedAgainstVersion": "2.12.0",
-      "capturedAt": "2026-07-20"
+      "capturedAt": "2026-07-20",
+      "sha256": "020cb418a56e9e72ba7d5dddc8bb08b0c2d18cb6d641bbfeafb65b2b82fc4be2"
     },
     {
       "asset": "public/screenshots/flow-demo.gif",
       "page": "src/pages/flow.astro",
       "product": "flow",
       "capturedAgainstVersion": "3.5.0",
-      "capturedAt": "2026-07-20"
+      "capturedAt": "2026-07-20",
+      "sha256": "98aa34667e4ed9ab1589af915e6a961e3c359743e4ee31bc2c22d937f709f5c8"
     },
     {
       "asset": "public/screenshots/fieldwork-review.png",
       "page": "src/pages/fieldwork.astro",
       "product": "fieldwork",
       "capturedAgainstVersion": "0.2.4",
-      "capturedAt": "2026-07-24"
+      "capturedAt": "2026-07-24",
+      "sha256": "bfc83b4f388fddb00bbd306247108d8100473860902afab41adaabd69ad95309"
     },
     {
       "asset": "public/screenshots/fieldwork-review-mobile.png",
       "page": "src/pages/fieldwork.astro",
       "product": "fieldwork",
       "capturedAgainstVersion": "0.2.4",
-      "capturedAt": "2026-07-24"
+      "capturedAt": "2026-07-24",
+      "sha256": "51fb39a82de741e503a13a44b45a36b4f296fb56ac46256c26c30faf61a1553f"
     },
     {
       "asset": "public/screenshots/fieldwork-format-inspection.png",
       "page": "src/pages/fieldwork.astro",
       "product": "fieldwork",
       "capturedAgainstVersion": "0.2.4",
-      "capturedAt": "2026-07-24"
+      "capturedAt": "2026-07-24",
+      "sha256": "e3806742cde68196c5e48e9c52452944b615e1dd5da6331cc99788834cf8f28b"
     }
   ]
 }
