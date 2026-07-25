@@ -75,8 +75,8 @@
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/console",
       "publicNotes": "Open-source foundation on npm: the local hub, fixture inspector, Flow run bridge, and a local UI. The hosted console at console.kontourai.io is a private production deployment of it.",
       "marketingReviewed": {
-        "version": "2.7.0",
-        "date": "2026-07-21"
+        "version": "2.8.0",
+        "date": "2026-07-24"
       }
     },
     "fieldwork": {
