@@ -10,18 +10,20 @@ import Grid from '@/components/Grid.astro';
 import EnforcementMatrix from '@/components/EnforcementMatrix.astro';
 import type { Accent } from '@/lib/theme';
 
-const guarantees = [
+const guarantees: { label: string; body: string; formula?: string; tail?: string }[] = [
   {
     label: 'Recomputable',
-    body: "Every verdict re-derives from published evidence to the same answer on any machine, or it's a bug. No LLM judge, no score, no vibes.",
+    body: 'Any machine with the same evidence and the same rules re-derives the same verdict — ',
+    formula: 'status = f(evidence, policy, now)',
+    tail: ", a published function, not a model's opinion. It moves only where it should: evidence with a shelf life goes stale on schedule.",
   },
   {
     label: 'Captured, not narrated',
-    body: "Results come from the log the harness wrote while the command ran (real exit codes), never from the model's story about the run.",
+    body: "Results come from the log the harness wrote while the command ran — the actual exit code, not a summary of it — never from the model's story about the run.",
   },
   {
     label: 'Refuses or escalates',
-    body: 'A turn structurally cannot end on unbacked "done": it refuses, or it escalates to you. It never silently proceeds.',
+    body: "The agent can't end a turn by asserting it's done. Either the evidence backs the claim, or the gate refuses — or it hands the decision to you. It never just proceeds.",
   },
 ];
 
@@ -50,36 +52,41 @@ const dialLevels: { level: string; title: string; accent: Accent; body: string }
 // table and the flow-agents page can't drift apart.
 
 const ADR_0017_URL = 'https://github.com/kontourai/flow-agents/blob/main/docs/adr/0017-anti-gaming-trust-security-model.md';
-const ANTI_GAMING_SUITE_URL = 'https://github.com/kontourai/flow-agents/blob/main/evals/ci/antigaming-suite.sh';
+const ADR_0018_URL = 'https://github.com/kontourai/flow-agents/blob/main/docs/adr/0018-freeze-local-shell-heuristics.md';
+const ANTI_GAMING_SUITE_URL ='https://github.com/kontourai/flow-agents/blob/main/evals/ci/antigaming-suite.sh';
 const RUNTIME_HOOK_SPEC_URL = 'https://github.com/kontourai/flow-agents/blob/main/docs/spec/runtime-hook-surface.md';
 const PR_475_URL = 'https://github.com/kontourai/flow-agents/pull/475';
 ---
 
 <Layout
-  title="Trust — the honest ceiling and the bypass list · Kontour AI"
-  description="We don't sell proof of correctness. We publish the bypass list, badge enforcement honestly per runtime, and make every trust verdict recomputable instead of claimed."
+  title="Trust — what we can't certify, and four ways to cheat the gate · Kontour AI"
+  description="We can't certify that an agent is right. Here's what we do instead, exactly where it stops working, and four ways someone could cheat it."
 >
   <Nav />
 
-  <!-- Section 1: Hero — the honest ceiling -->
+  <!-- Section 1: Hero -->
   <Section contour size="hero" borderBottom>
     <Glow accent="chalk-2" position="top-right" />
     <div class="container container--readable">
       <Eyebrow accent="chalk-2">For the skeptic</Eyebrow>
       <h1 class="product-title animate-fade-up">We can't certify an agent is right. No one can.</h1>
       <p class="hero-copy trust-hero-copy animate-fade-up delay-200">
-        So we don't sell proof of correctness. We make what an answer stood on — and what it
-        skipped — visible, recomputable, and attributable, instead of hidden behind a checkmark the
-        model gave itself. Trust status is a pure function of the evidence:
-        <code class="mono-inline">status = f(evidence, …)</code>, recomputable by anyone, at a
-        boundary the agent can't cross.
+        An agent tells you it ran the migration test. It didn't. You find out in production. The
+        problem isn't that the model was wrong — it's that nothing between its claim and your merge
+        was capable of disagreeing with it. So we don't sell proof of correctness. We make what an
+        answer actually stood on — and what it skipped — visible and re-checkable by anyone,
+        instead of hidden behind a checkmark the model gave itself.
       </p>
 
       <Grid cols={3} gap="md" class="guarantee-grid animate-fade-up delay-300">
-        {guarantees.map(({ label, body }) => (
+        {guarantees.map(({ label, body, formula, tail }) => (
           <div class="minicard">
             <div class="minicard__label">{label}</div>
-            <p class="minicard__body">{body}</p>
+            <p class="minicard__body">
+              {body}
+              {formula && <code class="mono-inline">{formula}</code>}
+              {tail}
+            </p>
           </div>
         ))}
       </Grid>
@@ -91,15 +98,41 @@ const PR_475_URL = 'https://github.com/kontourai/flow-agents/pull/475';
     </div>
   </Section>
 
-  <!-- Section 2: The bypass list -->
+  <!-- Section 2: The lead example — what the separation buys you -->
+  <Section size="lg" borderBottom>
+    <div class="container container--readable">
+      <Eyebrow accent="gold">What that looks like</Eyebrow>
+      <h2 class="section-heading">The security fix that almost shipped its own backdoor</h2>
+      <p class="body lead-story__body">
+        Flow Agents had a capture bug: on one runtime, failing commands were being recorded as
+        passes. The first patch fixed it and opened a worse hole — its parser could be fooled by
+        any command that merely printed <code class="mono-inline">Process exited with code 0</code>.
+        A mandatory adversarial re-review built a working exploit against that patch, confirmed it,
+        and blocked the delivery before it was committed. The fix was re-planned, hardened and
+        re-attacked — five fresh bypass attempts, all defeated — and merged only after CI
+        independently re-ran and reconciled every claim.
+      </p>
+      <p class="body lead-story__body">
+        Nothing there was caught by trusting the author. It was caught because the claim and the
+        check were separable, and something was allowed to disagree. The rest of this page is how
+        that separation is built — and the four places it stops working.
+      </p>
+      <p class="fine receipt-line">
+        Receipt: <a href={PR_475_URL} target="_blank" rel="noopener">Flow Agents PR #475</a>; the
+        review artifacts show iteration-1 FAIL → iteration-2 PASS, with that repo's required Trust
+        Reconcile check green.
+      </p>
+    </div>
+  </Section>
+
+  <!-- Section 3: The bypass list -->
   <Section tone="alt" size="lg" borderBottom>
     <Glow accent="cobalt-2" position="top-left" />
     <div class="container container--readable">
       <Eyebrow accent="cobalt-2">The bypass list</Eyebrow>
-      <h2 class="section-heading">Three ways to cheat it — and who catches each one.</h2>
+      <h2 class="section-heading">Four ways to cheat it — and who catches each one.</h2>
       <p class="section-lead">
-        We publish our bypass list — because "trust the boundaries, not the claimants" only
-        means something if you can see where the boundaries are.
+        You can't judge a boundary you can't see. So here is where ours are, and where they end.
       </p>
 
       <div class="bypass-list">
@@ -112,15 +145,16 @@ const PR_475_URL = 'https://github.com/kontourai/flow-agents/pull/475';
           <p class="body bypass-row__body">
             Edit the bundle, the logs, or the workflow state on your own machine. Locally, the
             evidence is a tamper-evident hash chain — break a link and the chain no longer
-            verifies. But the authoritative catch isn't local: with the Trust Verify job wired in
-            as a required check — the way the Flow Agents repo itself runs it — every pull request re-runs
-            the real verification fresh in a clean environment the agent can't pre-disable, and
-            reconciles your bundle against its own results. CI never trusts your bundle as a
-            source of truth — it only uses it to detect divergence. A claimed pass that CI shows
-            failing, or a command CI never ran, fails the job.
+            verifies. But the authoritative catch isn't local. Add the trust-verify action to your
+            pull requests and make its check required — the way the Flow Agents repo does, where it
+            runs under the name <code class="mono-inline">Trust Reconcile</code> — and every pull
+            request re-runs the real verification fresh in a clean environment the agent can't
+            pre-disable, then reconciles your bundle against its own results. CI never trusts your
+            bundle as a source of truth — it only uses it to detect divergence. A claimed pass that
+            CI shows failing, or a command CI never ran, fails the job.
           </p>
           <p class="fine bypass-row__residual">
-            <em>Honest residual: a determined agent can still flip a local kill-switch through its
+            <em>Where this stops: a determined agent can still flip a local kill-switch through its
             own shell. That's exactly why the authority lives in CI, not in the local gate. And
             the CI catch is only authoritative once you make the check required — installing the
             tool doesn't configure your branch protection for you. (This site's own repo now
@@ -145,32 +179,58 @@ const PR_475_URL = 'https://github.com/kontourai/flow-agents/pull/475';
             fabricated "green" simply can't be signed.
           </p>
           <p class="fine bypass-row__residual">
-            <em>Precise words: tamper-evident locally, tamper-resistant up to the CI identity
-            boundary — never "tamper-proof."</em>
+            <em>On your laptop, tampering is detectable, not impossible. It becomes impractical at
+            the CI identity boundary, where the signing identity lives: tamper-evident locally,
+            tamper-resistant up to that boundary — never "tamper-proof."</em>
+          </p>
+        </div>
+
+        <div class="bypass-row" data-accent="gold">
+          <div class="bypass-row__head">
+            <span class="bypass-row__num">03</span>
+            <h3 class="bypass-row__title">Let a real pass go stale.</h3>
+            <span class="trust-badge trust-badge--stale">Caught later, in CI</span>
+          </div>
+          <p class="body bypass-row__body">
+            Run the tests, watch them pass, then keep editing. The pass was real when it happened,
+            and nothing locally re-runs it when the code moves underneath it. Same story if the
+            agent runs one test file instead of the suite, or edits the test until it goes green —
+            the gate reads what actually ran, and what actually ran was green. On the pull request
+            CI closes most of this: it re-runs your declared checks against the final code, and
+            evidence sealed against an earlier commit is treated as if it weren't there at all.
+          </p>
+          <p class="fine bypass-row__residual">
+            <em>Where this stops: an edited test survives the trip, because CI runs the test you
+            wrote. That one is on review, not on the machine. And before the pull request exists,
+            all three of these are on you.</em>
           </p>
         </div>
 
         <div class="bypass-row" data-accent="red">
           <div class="bypass-row__head">
-            <span class="bypass-row__num">03</span>
+            <span class="bypass-row__num">04</span>
             <h3 class="bypass-row__title">Bypass as an admin.</h3>
             <span class="trust-badge trust-badge--disputed">Named, not caught</span>
           </div>
           <p class="body bypass-row__body">
             Force-merge past branch protection, or approve your own malicious change. Nothing
-            machine-side stops this. It is the irreducible human boundary — the one place the
-            whole model depends on trusting a person, not a proof. We name it in the open instead
-            of hiding it. The mitigation is ordinary and honest: branch protection with enforced
-            admins, code-owner review on the gate and CI config, and a human who declines the
-            <code class="mono-inline">--admin</code> shortcut.
+            machine-side stops this, and nothing ever will. It is the irreducible human boundary —
+            the one place the whole model depends on trusting a person, not a proof. What's left is
+            ordinary: branch protection with enforced admins, code-owner review on the gate and CI
+            config, and a human who declines the <code class="mono-inline">--admin</code> shortcut.
           </p>
         </div>
       </div>
 
       <p class="fine receipt-line">
-        Receipt: the layered defense and this exact residuals list are published in Flow Agents'
-        anti-gaming trust security model (<a href={ADR_0017_URL} target="_blank" rel="noopener">ADR 0017</a>),
-        and enforced by a required <a href={ANTI_GAMING_SUITE_URL} target="_blank" rel="noopener">anti-gaming regression suite</a> that
+        Receipt: the layered defense and its residuals are published in Flow Agents' anti-gaming
+        trust security model (<a href={ADR_0017_URL} target="_blank" rel="noopener">ADR 0017</a>) —
+        four of them, including two not described above: a verify command pointed at a wrapper
+        script that exits 0, and writes to protected files through exotic tools the local checks
+        don't enumerate. A follow-on decision (<a href={ADR_0018_URL} target="_blank" rel="noopener">ADR 0018</a>)
+        freezes those local checks in place and documents two further limitations they accept.
+        All of it is held there by a required
+        <a href={ANTI_GAMING_SUITE_URL} target="_blank" rel="noopener">anti-gaming regression suite</a> that
         turns CI red if any gate is weakened.
       </p>
     </div>
@@ -206,7 +266,7 @@ const PR_475_URL = 'https://github.com/kontourai/flow-agents/pull/475';
             <h3 class="bypass-row__title">We run inside CI too.</h3>
           </div>
           <p class="body bypass-row__body">
-            Wire the reconcile job in as a required check and it re-runs your declared checks,
+            Wire the trust-verify action in as a required check and it re-runs your declared checks,
             reconciling them against what the agent claimed it ran — if they diverge, CI goes red
             on the discrepancy itself — and, with signing on, signs the result with an identity
             that only exists inside CI, which an agent on a laptop cannot forge. CI's ephemeral
@@ -272,15 +332,15 @@ const PR_475_URL = 'https://github.com/kontourai/flow-agents/pull/475';
     </div>
   </Section>
 
-  <!-- Section 5: Honest badging of runtime enforcement -->
+  <!-- Section 5: Runtime enforcement, badged per runtime -->
   <Section tone="alt" size="lg" borderBottom>
     <Glow accent="cobalt-2" position="top-right" />
     <div class="container container--readable">
-      <Eyebrow accent="cobalt-2">Honest badging</Eyebrow>
+      <Eyebrow accent="cobalt-2">Runtime by runtime</Eyebrow>
       <h2 class="section-heading">Enforcement isn't uniform. Here's exactly where it blocks.</h2>
       <p class="section-lead">
-        "Gates are laws" is only true where a runtime actually hands the gate real exit codes.
-        Where it doesn't yet, we say so. A plain table, not a green blur.
+        Everything above holds only as far as your runtime lets it. "Gates are laws" is true where
+        a runtime hands the gate real exit codes; here is which ones do.
       </p>
 
       <EnforcementMatrix />
@@ -288,7 +348,7 @@ const PR_475_URL = 'https://github.com/kontourai/flow-agents/pull/475';
       <p class="body enforcement-closing">
         Blocking means the turn cannot end on unproven work — it refuses or escalates to you,
         never silently proceeds. Advisory means the same evidence is computed and surfaced, but
-        the decision stays with you. We badge the difference; we don't blur it.
+        the decision stays with you.
       </p>
 
       <p class="fine receipt-line">
@@ -300,46 +360,27 @@ const PR_475_URL = 'https://github.com/kontourai/flow-agents/pull/475';
     </div>
   </Section>
 
-  <!-- Section 6: Two receipt-linked stories + CTA pair -->
+  <!-- Section 6: The closing story + CTA pair -->
   <Section size="lg" borderTop>
     <div class="container container--readable">
       <Eyebrow accent="gold">When it mattered</Eyebrow>
-      <h2 class="section-heading">Two times the boundary held.</h2>
+      <h2 class="section-heading">The agent that refused its own admin powers</h2>
 
-      <Grid cols={2} gap="lg" class="story-grid">
-        <Card accent="chalk-2" bar="top" pad="lg">
-          <h3 class="story-card__title">The agent that refused its own admin powers</h3>
-          <p class="body story-card__body">
-            Two green pull requests couldn't merge because branch protection demanded up-to-date
-            branches, and the tooling offered <code class="mono-inline">--admin</code> to force
-            it. The agent declined — admin bypass is the one boundary the whole trust model names
-            as irreducible, and an agent using it would hollow out every other guarantee. The
-            branches were updated properly and CI re-certified before merge. Slower, and the only
-            version of the story worth telling.
-          </p>
-          <p class="fine receipt-line">
-            Receipt: the session's merge transcripts; <a href={ADR_0017_URL} target="_blank" rel="noopener">ADR 0017</a>'s
-            residuals naming admin bypass as the irreducible human boundary.
-          </p>
-        </Card>
-
-        <Card accent="gold" bar="top" pad="lg">
-          <h3 class="story-card__title">The security fix that almost shipped its own backdoor</h3>
-          <p class="body story-card__body">
-            Fixing a capture bug (failing commands recorded as passes on one runtime), the first
-            patch opened a <em>new</em> critical hole: its parser could be fooled by a command
-            that merely printed "Process exited with code 0." The mandatory adversarial re-review
-            built a working exploit, confirmed it, and blocked the delivery before commit. The fix
-            was re-planned, hardened, re-attacked (five fresh bypass attempts, all defeated), and
-            merged only after CI independently re-ran and reconciled every claim.
-          </p>
-          <p class="fine receipt-line">
-            Receipt: <a href={PR_475_URL} target="_blank" rel="noopener">Flow Agents PR #475</a>;
-            the review artifacts show iteration-1 FAIL → iteration-2 PASS, with the Trust
-            Reconcile check green.
-          </p>
-        </Card>
-      </Grid>
+      <div class="story-grid">
+        <p class="body story-card__body">
+          Two green pull requests couldn't merge because branch protection demanded up-to-date
+          branches, and the tooling offered <code class="mono-inline">--admin</code> to force it.
+          The agent declined — admin bypass is the one boundary the whole trust model names as
+          irreducible, and an agent using it would hollow out every other guarantee. The branches
+          were updated properly and CI re-certified before merge. It took longer. It's also the
+          only reason the rest of this page means anything.
+        </p>
+        <p class="fine receipt-line">
+          Receipt: <a href={ADR_0017_URL} target="_blank" rel="noopener">ADR 0017</a> names admin
+          bypass as the one boundary the model can't close — which is why an agent reaching for it
+          is the failure, not the fix.
+        </p>
+      </div>
 
       <div class="hero-actions story-actions">
         <a href="/receipts/" class="btn-ghost" data-umami-event="trust-cta-receipts">Check the receipts yourself →</a>
@@ -475,17 +516,19 @@ const PR_475_URL = 'https://github.com/kontourai/flow-agents/pull/475';
     margin: 0;
   }
 
+  /* Lead example */
+  .lead-story__body {
+    max-width: 72ch;
+    margin: 0 0 1.25rem;
+  }
+
   /* Stories */
   .story-grid {
-    margin: 2rem 0;
-  }
-  .story-card__title {
-    font-size: 1.15rem;
-    color: var(--color-chalk);
-    margin: 0 0 0.85rem;
+    margin: 0 0 2rem;
   }
   .story-card__body {
     margin: 0;
+    max-width: 72ch;
   }
   .story-card__body + .receipt-line {
     margin-top: 1.25rem;

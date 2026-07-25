@@ -1,163 +1,33 @@
 ---
-import Layout from '@/layouts/Layout.astro';
-import Nav from '@/components/Nav.astro';
-import Footer from '@/components/Footer.astro';
-import Section from '@/components/Section.astro';
-import Glow from '@/components/Glow.astro';
-import Eyebrow from '@/components/Eyebrow.astro';
-import Card from '@/components/Card.astro';
-import Grid from '@/components/Grid.astro';
-
-const patterns = [
-  {
-    title: 'A knowledge-format layer',
-    example: 'e.g. OKF (Open Knowledge Format)',
-    accent: 'cobalt-2',
-    body: "Feed a clean knowledge bundle into the agent, then attach provenance, freshness, and verification evidence to the work that comes out.",
-  },
-  {
-    title: 'A memory platform',
-    example: 'e.g. Context Lattice',
-    accent: 'gold',
-    body: 'Keep retrieval, salience, and forgetting in the memory system you chose. Kontour records which sources and checks supported the work produced from that context.',
-  },
-  {
-    title: 'Hook-based external memory',
-    example: 'harness hooks writing to your own store',
-    accent: 'green',
-    body: "Use the same runtime hook surfaces to retrieve memory and to capture workflow evidence, while keeping each artifact clear and inspectable.",
-  },
-] as const;
+// /memory/ merged into /knowledge-kit/ (wave 2, site/show-your-work-pass).
+//
+// The unique content this page carried — "you already have a memory layer, you
+// don't have to replace it" — now lives on the Knowledge Kit page under
+// #bring-your-own. Its spine claim ("Kontour records the sources it relied on")
+// was not backed by the product and was not carried across.
+//
+// NOTE FOR THE ORCHESTRATOR: this is a client-side redirect placeholder only.
+// The preferred mechanism is an `astro.config.mjs` `redirects` entry (that file
+// is shared, so the exact diff is in the handback note). When that lands,
+// DELETE this file — an Astro route and a config redirect for the same path
+// collide, and the page file wins.
+const target = '/knowledge-kit/';
 ---
 
-<Layout
-  title="Add proof to your agent memory stack · Kontour AI"
-  description="Keep the memory layer your agents already use, then record the sources, checks, and evidence behind the work they produce."
->
-  <Nav active="developers" />
-
-  <Section contour size="hero" borderBottom>
-    <Glow accent="cobalt-2" position="top-right" />
-    <div class="container container--readable">
-      <Eyebrow accent="cobalt-2">Memory + evidence</Eyebrow>
-      <h1 class="product-title animate-fade-up">Keep your memory stack. Add proof to the work it produces.</h1>
-      <p class="hero-copy animate-fade-up delay-200">
-        Your memory layer helps the agent recall useful context. Kontour keeps
-        the resulting work accountable by recording the sources it relied on,
-        the checks that ran, the evidence collected, and the decisions that
-        allowed the workflow to advance.
-      </p>
-      <blockquote class="memory-pull animate-fade-up delay-200">
-        Memory tells the agent what it knows. Kontour proves what its answers
-        stood on.
-      </blockquote>
-    </div>
-  </Section>
-
-  <Section tone="alt" size="lg" borderBottom>
-    <div class="container container--readable">
-      <Eyebrow accent="gold">The two layers</Eyebrow>
-      <h2 class="section-heading">Context goes in. Inspectable evidence comes out.</h2>
-      <p class="section-lead">
-        A memory layer helps assemble the best available context. Kontour lets
-        a reviewer answer the next question: “What did this result stand on?”
-        Together they give the agent useful recall and give the team a durable
-        record of why the output was accepted.
-      </p>
-
-      <Grid cols={3} gap="lg">
-        {patterns.map(({ title, example, accent, body }) => (
-          <Card accent={accent} bar="top" pad="lg">
-            <h3 class="memory-card__title">{title}</h3>
-            <p class="label-sm memory-card__example" data-accent={accent}>{example}</p>
-            <p class="memory-card__body">{body}</p>
-          </Card>
-        ))}
-      </Grid>
-
-      <p class="fine memory-note">
-        The named tools are examples of compatible patterns, not partnership
-        or certified-integration claims.
-      </p>
-    </div>
-  </Section>
-
-  <Section size="lg" borderBottom>
-    <div class="container container--readable">
-      <Eyebrow accent="green">How they compose</Eyebrow>
-      <h2 class="section-heading">Your memory feeds the agent. Kontour receipts the work.</h2>
-      <p class="section-lead">
-        Your memory layer supplies context; the harness does the work; Kontour
-        captures what actually ran and what the claims stood on — real exit
-        codes, tamper-evident records, and recomputable
-        <span class="mono-inline">trust.bundle</span> artifacts. Teams can
-        improve or replace retrieval later without losing the delivery
-        evidence already attached to completed work.
-      </p>
-      <div class="memory-actions">
-        <a href="/trust/" class="btn-ghost" data-umami-event="memory-trust">How the trust layer works →</a>
-        <a href="/receipts/" class="btn-ghost" data-umami-event="memory-receipts">See real receipts →</a>
-        <a href="/flow-agents/" class="btn-ghost" data-umami-event="memory-flow-agents">The engine that captures →</a>
-      </div>
-    </div>
-  </Section>
-
-  <Footer />
-</Layout>
-
-<style>
-  .container--readable {
-    margin-inline: auto;
-  }
-  .mono-inline {
-    font-family: var(--font-mono);
-    font-size: 0.9em;
-    color: var(--color-chalk-2);
-  }
-  .memory-pull {
-    margin: 2rem 0 0;
-    padding-left: 1.25rem;
-    border-left: 2px solid var(--color-cobalt-2);
-    font-family: var(--font-display);
-    font-size: 1.3rem;
-    line-height: 1.5;
-    color: var(--color-chalk);
-    max-width: 680px;
-  }
-  .section-heading {
-    font-size: 1.75rem;
-    margin: 0 0 1rem;
-    color: var(--color-chalk);
-  }
-  .section-lead {
-    color: var(--color-chalk-2);
-    line-height: 1.7;
-    max-width: 68ch;
-    margin: 0 0 1.75rem;
-  }
-  .memory-card__title {
-    font-size: 1.15rem;
-    color: var(--color-chalk);
-    margin: 0 0 0.35rem;
-  }
-  .memory-card__example {
-    color: var(--accent, var(--color-chalk-3));
-    margin: 0 0 0.75rem;
-  }
-  .memory-card__body {
-    color: var(--color-chalk-2);
-    font-size: 0.9rem;
-    line-height: 1.65;
-    margin: 0;
-  }
-  .memory-note {
-    margin: 2rem 0 0;
-    max-width: 72ch;
-    color: var(--color-chalk-2);
-  }
-  .memory-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-</style>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <link rel="canonical" href={`https://kontourai.io${target}`} />
+    <meta name="robots" content="noindex, follow" />
+    <title>Moved to Knowledge Kit · Kontour AI</title>
+    <script is:inline define:vars={{ target }}>
+      window.location.replace(target);
+    </script>
+  </head>
+  <body>
+    <p>
+      This page moved to <a href={target}>Knowledge Kit</a>.
+    </p>
+  </body>
+</html>

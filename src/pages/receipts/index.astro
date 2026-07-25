@@ -8,7 +8,7 @@ import Eyebrow from '@/components/Eyebrow.astro';
 import Card from '@/components/Card.astro';
 import Grid from '@/components/Grid.astro';
 import Terminal from '@/components/Terminal.astro';
-import { receipts, statusCounts, badgeVariant, getReceipt } from '@/lib/receipts';
+import { receipts, badgeVariant, deriveReport, getReceipt } from '@/lib/receipts';
 import pkg from '../../../package.json';
 
 // Second re-derive path (#111): the advertised hachure/ajv commands render
@@ -21,23 +21,25 @@ const ajvPin = pkg.devDependencies.ajv;
 // (check-receipts imports validateTrustBundle from this very install).
 const surfacePin = pkg.dependencies['@kontourai/surface'];
 
-// Lead exhibit (#107): the blocked verdict opens the page. Everything shown
-// about it is derived from the committed bundle, same as the cards below — the
-// story beats read the claim/evidence/policy objects, not hand-authored copy.
-// Records are selected by type/id (not position) and guarded so a refreshed
-// bundle that no longer carries the expected shape fails the static build
-// loudly instead of rendering mismatched facts.
+// Walkthrough exhibit (#107): the blocked verdict is read line by line. Every
+// beat is derived from the committed bundle and from the validator's own
+// derivation — not hand-authored copy. Records are selected by type/id (not
+// position) and guarded so a refreshed bundle that no longer carries the
+// expected shape fails the static build loudly instead of rendering
+// mismatched facts.
 const blocked = getReceipt('governance-readiness-not-ready');
-if (!blocked) throw new Error('receipts lead exhibit: governance-readiness-not-ready missing from catalog');
+if (!blocked) throw new Error('receipts walkthrough: governance-readiness-not-ready missing from catalog');
 const blockedClaims = blocked.bundle.claims.filter((c) => c.claimType === 'software-readiness-verdict');
 if (blockedClaims.length !== 1) {
-  throw new Error(`receipts lead exhibit: expected exactly one software-readiness-verdict claim, found ${blockedClaims.length}`);
+  throw new Error(`receipts walkthrough: expected exactly one software-readiness-verdict claim, found ${blockedClaims.length}`);
 }
 const blockedClaim = blockedClaims[0];
-// The exhibit's whole point is a refusal — if a refreshed bundle stops being
-// one, fail the build rather than render refusal copy over passing facts.
-if (blockedClaim.status !== 'disputed') {
-  throw new Error(`receipts lead exhibit: claim status is ${blockedClaim.status}, expected disputed`);
+const blockedDerived = deriveReport(blocked);
+const blockedDerivedClaim = blockedDerived.claims.find((c) => c.id === blockedClaim.id);
+// The exhibit's whole point is a refusal — if a refreshed bundle stops deriving
+// to one, fail the build rather than render refusal copy over passing facts.
+if (blockedDerivedClaim?.status !== 'disputed') {
+  throw new Error(`receipts walkthrough: derived status is ${blockedDerivedClaim?.status}, expected disputed`);
 }
 const blockedVerdict = blockedClaim.value as {
   verdict?: string;
@@ -45,22 +47,26 @@ const blockedVerdict = blockedClaim.value as {
 };
 const blockedRequirements = blockedVerdict.blocking?.failedRequirements ?? [];
 if (blockedVerdict.verdict !== 'not-ready' || blockedRequirements.length === 0) {
-  throw new Error('receipts lead exhibit: claim value is not a blocked not-ready verdict with failed requirements');
+  throw new Error('receipts walkthrough: claim value is not a blocked not-ready verdict with failed requirements');
 }
 const blockedEvidenceRecords = blocked.bundle.evidence.filter((e) => e.claimId === blockedClaim.id);
 if (blockedEvidenceRecords.length !== 1 || blockedEvidenceRecords[0].passing !== false) {
-  throw new Error('receipts lead exhibit: expected exactly one failing evidence record for the blocked claim');
+  throw new Error('receipts walkthrough: expected exactly one failing evidence record for the blocked claim');
 }
 const blockedEvidence = blockedEvidenceRecords[0];
 const blockedPolicy = blocked.bundle.policies.find((p) => p.claimType === blockedClaim.claimType);
 if (!blockedPolicy?.acceptanceCriteria?.length) {
-  throw new Error('receipts lead exhibit: policy acceptance criteria missing from bundle');
+  throw new Error('receipts walkthrough: policy acceptance criteria missing from bundle');
 }
+// The tamper demonstration below prints the real `Disputed:` line; keep it
+// bound to the artifact so it can never drift from the file it describes.
+const blockedClaimId = blockedClaim.id;
+const blockedSubjectHash = blockedClaim.subjectId.replace(/^working-tree:/, '');
 ---
 
 <Layout
   title="Trust receipts — real recomputable bundles · Kontour AI"
-  description="Open and download real Hachure trust.bundle artifacts produced by Kontour's own pipelines, then recompute them yourself with the named validator."
+  description="Read a real receipt from an AI-assisted build in plain language, then re-check the verdict yourself with one command. Open Hachure trust.bundle artifacts from Kontour's own pipelines."
 >
   <Nav active="receipts" />
 
@@ -71,119 +77,179 @@ if (!blockedPolicy?.acceptanceCriteria?.length) {
       <Eyebrow accent="gold">Receipts</Eyebrow>
       <h1 class="product-title animate-fade-up">Check the receipts yourself</h1>
       <p class="hero-copy animate-fade-up delay-200">
-        We claim Kontour makes AI-assisted work inspectable and recomputable.
-        Here are real <span class="mono-inline">trust.bundle</span> artifacts to
-        test that claim — each produced by one of our own pipelines, rendered
-        from its actual contents, downloadable as the raw file, and validated by
-        the same tool we tell you to run. Nothing here is a hand-written sample.
+        Every file on this page came out of a real Kontour build — not a sample
+        written for a marketing page. Open one and read what the agent claimed,
+        what actually ran, and what it got refused for. Then download it and
+        re-check the verdict with one command. If our copy disagrees with the
+        file, the file wins.
       </p>
       <p class="receipts-note animate-fade-up delay-200">
-        Honest framing: these are <strong>Kontour's own pipeline receipts</strong>
-        (dogfood). They demonstrate the format is real and checkable — not that
-        an outside team has adopted it. Landing an external team's receipt is an
-        open pursuit we track separately, not a claim this page makes.
+        These all came out of Kontour's own pipelines. That shows the format is
+        real and the checks run — it doesn't show that another team has adopted
+        it. We haven't published an outside team's receipt yet; when we do, it
+        will be on this page.
       </p>
     </div>
   </Section>
 
-  <!-- On-ramp: what a receipt is, in plain language -->
+  <!-- On-ramp: the stake, before any JSON -->
   <Section size="lg" borderBottom>
     <div class="container container--readable">
       <Eyebrow accent="cobalt-2">First time here?</Eyebrow>
-      <h2 class="section-heading">How to read a receipt.</h2>
+      <h2 class="section-heading">An agent says it's done. This is how you check.</h2>
       <p class="section-lead">
-        A receipt is one file that records three things about a finished piece
-        of gated work. Everything else on this page — the exhibits, the
-        downloads, the validator commands — is just a way of looking at that
-        file.
+        Your agent finishes and reports back: tests pass, reviewed, ready to
+        merge. You have two options — take its word, or redo the work yourself.
+        A receipt is the third option. It's the answer sheet the agent hands in
+        alongside the work: what it claimed, what it actually ran, what it
+        skipped, and what it got refused for. You read it in about a minute,
+        and you can re-grade it with one command instead of trusting the grade
+        it gave itself.
       </p>
 
       <div class="onramp-steps">
         <div class="onramp-step" data-accent="chalk-2">
-          <p class="label-sm onramp-step__label">1 · The claims</p>
+          <p class="label-sm onramp-step__label">1 · What it claimed</p>
           <p class="body onramp-step__body">
-            What the work asserts about itself — "the checks passed," "this
-            record was reviewed," "this change is ready."
+            The assertions the work makes about itself: "the build passed,"
+            "this was reviewed," "this is ready to merge." Each one is its own
+            line, not a single summary sentence you have to take or leave.
           </p>
         </div>
         <div class="onramp-step" data-accent="gold">
-          <p class="label-sm onramp-step__label">2 · The evidence</p>
+          <p class="label-sm onramp-step__label">2 · What actually ran</p>
           <p class="body onramp-step__body">
-            What actually backs each claim — results captured by the harness
-            or a deterministic adapter, never an agent's after-the-fact
-            narration.
+            The results behind each claim, recorded while the commands ran —
+            not the agent's write-up afterwards. If a claim has nothing behind
+            it, that shows up as an empty line rather than a missing one.
           </p>
         </div>
         <div class="onramp-step" data-accent="green">
-          <p class="label-sm onramp-step__label">3 · The verdict</p>
+          <p class="label-sm onramp-step__label">3 · What it comes out to</p>
           <p class="body onramp-step__body">
-            The status the validator derives from that evidence under a
-            written policy. It isn't an opinion stored in the file — it's an
-            answer anyone can re-derive from the file.
+            The verdict — which isn't stored in the file. It's worked out from
+            the evidence every time you open it, so the file can't lie about
+            it. Edit the verdict to say "verified" and the check still returns
+            the real one. There's a demonstration further down.
           </p>
         </div>
       </div>
 
       <p class="section-lead onramp-foot">
-        That re-derivation is all "recompute" means: run the same file through
-        the validator and you must get the same verdict. Reading a receipt
-        takes no tools at all; checking one takes a single command, shown with
-        each receipt below.
+        Reading one takes no tools. Checking one takes a single command,
+        printed with every receipt below.
       </p>
     </div>
   </Section>
 
-  <!-- Lead exhibit: the blocked run (demo, not archive) -->
+  <!-- One receipt, read line by line -->
   <Section tone="alt" size="lg" borderBottom>
     <Glow accent="red" position="top-left" />
     <div class="container container--readable">
-      <Eyebrow accent="red-2">Lead exhibit — a blocked verdict</Eyebrow>
-      <h2 class="section-heading">The receipt that says no.</h2>
+      <Eyebrow accent="red-2">One receipt, end to end</Eyebrow>
+      <h2 class="section-heading">The receipt that says no, read line by line.</h2>
       <p class="section-lead">
-        Green receipts prove the format works. This one shows what a <em>refusal</em> looks
-        like. In plain terms: a required check failed, so the receipt refuses to call the
-        work ready — and no wording can flip that, only different evidence. Recomputing the
-        bundle yields the same refusal. Every fact below is read from the bundle itself —
-        open it and check.
+        This is the whole of a real receipt — the shortest one we publish,
+        chosen because you can hold all of it in your head. It records a single
+        question: <em>is this working tree ready to merge?</em> The answer was
+        no. Every value below is read out of the file; open it and check.
       </p>
 
-      <div class="blocked-story">
-        <div class="blocked-beat" data-accent="chalk-2">
-          <p class="label-sm blocked-beat__label">The claim on the table</p>
-          <p class="body blocked-beat__body">
-            A <span class="mono-inline">{blockedClaim.claimType}</span> on a pinned
-            working tree, impact <span class="mono-inline">{blockedClaim.impactLevel}</span>.
-            Policy: {blockedPolicy.acceptanceCriteria[0]}
+      <div class="walkthrough">
+        <div class="walk-beat" data-accent="chalk-2">
+          <p class="label-sm walk-beat__label">What was being asked</p>
+          <p class="body walk-beat__body">
+            One claim, about one thing: merge readiness — recorded as a
+            <span class="mono-inline">{blockedClaim.claimType}</span>. Not "is
+            the code good," a specific narrow question with a policy attached
+            to it. The subject is the working tree's content hash
+            (<span class="mono-inline">{blockedSubjectHash.slice(0, 16)}…</span>),
+            so this receipt can't quietly be re-pointed at different code.
           </p>
         </div>
-        <div class="blocked-beat" data-accent="gold">
-          <p class="label-sm blocked-beat__label">What the record showed</p>
-          <p class="body blocked-beat__body">
+
+        <div class="walk-beat" data-accent="gold">
+          <p class="label-sm walk-beat__label">How much it matters</p>
+          <p class="body walk-beat__body">
+            Impact <span class="mono-inline">{blockedClaim.impactLevel}</span>.
+            The policy grades claims by consequence, and high means: if this
+            one is wrong, something bad ships. High-impact claims with nothing
+            behind them get listed out rather than passed over.
+          </p>
+        </div>
+
+        <div class="walk-beat" data-accent="cobalt-2">
+          <p class="label-sm walk-beat__label">What would have counted as proof</p>
+          <p class="body walk-beat__body">
+            "{blockedPolicy.acceptanceCriteria[0]}"
+          </p>
+          <p class="fine walk-beat__aside">
+            Written into the file before the answer, not after. That's what
+            makes the verdict non-negotiable: the bar is in the artifact, so
+            you can see whether it was cleared instead of being told it was.
+          </p>
+        </div>
+
+        <div class="walk-beat" data-accent="red-2">
+          <p class="label-sm walk-beat__label">What actually happened</p>
+          <p class="body walk-beat__body">
             "{blockedEvidence.excerptOrSummary}" — recorded with
             <span class="mono-inline">passing: {String(blockedEvidence.passing)}</span> by
-            <span class="mono-inline">{blockedEvidence.collectedBy}</span>. The blocking
-            requirement went unmet, so no verified evidence event exists.
+            <span class="mono-inline">{blockedEvidence.collectedBy}</span> as the
+            check ran, not written up afterwards by whatever was doing the
+            work. The named blocker is
+            <span class="mono-inline">{blockedRequirements.join(', ')}</span>:
+            a required standard wanted certain artifacts out of the run, and
+            didn't get them.
           </p>
         </div>
-        <div class="blocked-beat" data-accent="red-2">
-          <p class="label-sm blocked-beat__label">Why the verdict refuses</p>
-          <p class="body blocked-beat__body">
-            The verdict derives to <span class="mono-inline">{blockedVerdict.verdict}</span> and
-            the claim's status to <span class="mono-inline">{blockedClaim.status}</span> —
-            computed from the failing evidence on
-            <span class="mono-inline">{blockedRequirements.join(', ')}</span>, not narrated.
-            Recompute the bundle and you get the same answer; rendering this green would
-            take a different artifact, not a different story.
+
+        <div class="walk-beat" data-accent="chalk-2">
+          <p class="label-sm walk-beat__label">What was skipped</p>
+          <p class="body walk-beat__body">
+            Nothing, and that's checkable. The receipt carries one claim and
+            one evidence record, and the record points at the claim. There's no
+            claim sitting here without support. On bigger receipts that isn't
+            always true — and where it isn't, the receipt says so instead of
+            leaving it out.
+          </p>
+        </div>
+
+        <div class="walk-beat" data-accent="green">
+          <p class="label-sm walk-beat__label">The answer</p>
+          <p class="body walk-beat__body">
+            Verdict <span class="mono-inline">{blockedVerdict.verdict}</span>,
+            claim status <span class="mono-inline">{blockedDerivedClaim.status}</span>.
+            Not "the agent decided no." The validator reads the failing
+            evidence, applies the written policy, and works it out. Run it
+            yourself and you get the same two words.
           </p>
         </div>
       </div>
 
+      <div class="walk-takeaway">
+        <p class="body">
+          <strong>What you should take from it.</strong> Something wanted to
+          merge. A standard said no. The receipt records which standard, what
+          it wanted, what it got, and the refusal that followed — in a file you
+          can re-check in one command without asking us or the agent whether
+          it's telling the truth. Everything else on this site is this, at
+          larger volumes.
+        </p>
+        <p class="fine">
+          <strong>What it doesn't tell you.</strong> Whether the code is
+          correct. Whether the standard was the right standard. Whether someone
+          rewrote the evidence before publishing — the pinned commit on each
+          receipt is what lets you check that separately. A receipt narrows
+          what you have to take on faith; it doesn't get it to zero.
+        </p>
+      </div>
+
       <p class="fine blocked-framing">
-        Honest framing: this exhibit is the Governance Kit's committed not-ready readiness
-        record run through its deterministic adapter — it demonstrates the refusal shape in
-        the real format, not a live delivery stopped mid-run. Publishing a stop-gate receipt
-        from a live blocked delivery is an open pursuit we track in the backlog, not a claim
-        this page makes.
+        This one is the Governance Kit's committed not-ready readiness record
+        run through its adapter — the real refusal shape in the real format,
+        not a live delivery stopped mid-run. We haven't published a receipt
+        from a live blocked delivery yet.
       </p>
 
       <div class="blocked-actions">
@@ -206,14 +272,107 @@ if (!blockedPolicy?.acceptanceCriteria?.length) {
     </div>
   </Section>
 
+  <!-- Tamper demonstration -->
+  <Section size="lg" borderBottom>
+    <div class="container container--readable">
+      <Eyebrow accent="red-2">Don't take our word for it</Eyebrow>
+      <h2 class="section-heading">Try to make it lie.</h2>
+      <p class="section-lead">
+        The verdict isn't stored in the receipt — it's recomputed from the
+        evidence every time. So editing it does nothing. Download the blocked
+        receipt above, open it in any editor, change every
+        <span class="mono-inline">"status": "disputed"</span> to
+        <span class="mono-inline">"status": "verified"</span>, save, and re-run
+        the check:
+      </p>
+      <Terminal title="the receipt now says verified">
+        <div><span class="prompt">$</span> <span class="cmd">npx @kontourai/surface@{surfacePin} report \</span></div>
+        <div><span class="cmd">    --input {blocked.slug}.trust.bundle --format summary</span></div>
+        <div class="muted">Kontour Surface report …</div>
+        <div class="muted">Source: {blocked.bundle.source}</div>
+        <div class="fail">Claims: 1 (disputed: 1)</div>
+        <div class="muted">…</div>
+        <div class="fail">Disputed: {blockedClaimId}</div>
+        <div class="muted">Claim groups: 0</div>
+        <div class="info">Transparency gaps: 1</div>
+        <div class="muted"># exit 0 — the file says verified; the answer is still disputed</div>
+      </Terminal>
+      <p class="section-lead tamper-foot">
+        Same refusal. You can go further and delete the
+        <span class="mono-inline">status</span> field altogether — it isn't
+        part of the format's required shape — and the answer still comes back
+        <span class="mono-inline">disputed</span>. To turn this receipt green
+        you'd have to produce a passing check, which is the point.
+      </p>
+      <p class="fine tamper-caveat">
+        What this doesn't protect against: someone rewriting the evidence
+        records themselves before publishing. That's why every receipt here
+        pins the commit it came from. The artifact is tamper-evident against
+        edits after the fact, not unforgeable at the source.
+      </p>
+    </div>
+  </Section>
+
+  <!-- Recompute -->
+  <Section tone="alt" borderTop size="lg" borderBottom>
+    <div class="container container--readable">
+      <Eyebrow accent="green">Recompute, don't trust</Eyebrow>
+      <h2 class="section-heading">Check any of these yourself</h2>
+      <p class="section-lead">
+        Every bundle here is a
+        <a href="https://github.com/hachure-org/spec" target="_blank" rel="noopener">Hachure
+        trust.bundle</a> — an open format we publish the schemas for but don't
+        own the definition of. Download one and run it through
+        <span class="mono-inline">@kontourai/surface</span>, our implementation.
+        A valid bundle prints its trust summary and exits 0; a malformed one
+        exits non-zero.
+      </p>
+      <Terminal title="verify a downloaded receipt">
+        <div><span class="prompt">$</span> <span class="cmd">npx @kontourai/surface@{surfacePin} report \</span></div>
+        <div><span class="cmd">    --input flow-agents-delivery.trust.bundle --format summary</span></div>
+        <div class="muted">Kontour Surface report …</div>
+        <div class="muted">Source: flow-agents/workflow-sidecar;statusFunctionVersion=2</div>
+        <div class="pass">Claims: 34 (proposed: 1, assumed: 1, verified: 32)</div>
+        <div class="info">Facets: flow-agents.workflow: 34</div>
+        <div class="muted">…</div>
+        <div class="info">Transparency gaps: 1</div>
+        <div class="muted"># exit 0 — the bundle validated</div>
+      </Terminal>
+      <p class="section-lead recompute-second">
+        Don't take one implementation's word for it either. Every bundle here
+        also passes the separate <span class="mono-inline">hachure</span>
+        reference CLI — a different codebase reading the same file against the
+        spec's own schemas: two implementations, same verdict. CI runs both on
+        every published bundle, so this can't quietly go stale. Both are still
+        maintained by us — the implementations are independent, the organization
+        behind them isn't yet.
+      </p>
+      <Terminal title="second opinion — the reference CLI">
+        <div><span class="prompt">$</span> <span class="cmd">npx -y -p ajv@{ajvPin} -p hachure@{hachurePin} hachure validate \</span></div>
+        <div><span class="cmd">    governance-readiness-not-ready.trust.bundle</span></div>
+        <div class="pass">valid TrustBundle (schemaVersion 5)</div>
+      </Terminal>
+      <p class="section-lead recompute-foot">
+        Each receipt page repeats the exact command for its own file and links
+        the commit it came from, so you can trace the artifact back to the run
+        that produced it.
+      </p>
+    </div>
+  </Section>
+
   <!-- Receipt catalog -->
   <Section size="lg" borderBottom>
     <div class="container container--readable">
       <Eyebrow accent="gold">The archive</Eyebrow>
       <h2 class="section-heading archive-heading">Every published receipt, green or not.</h2>
+      <p class="section-lead archive-lead">
+        Status counts are what the validator works out from each file, not what
+        the file stores. Run the command on the card and you get the same
+        numbers back.
+      </p>
       <Grid min="300" gap="lg" class="archive-grid">
         {receipts.map((receipt) => {
-          const counts = statusCounts(receipt.bundle);
+          const counts = deriveReport(receipt).statusCounts;
           return (
             <Card accent={receipt.accent} bar="top" pad="lg" data-accent={receipt.accent}>
               <p class="label-sm receipt-pipeline">{receipt.pipeline}</p>
@@ -258,45 +417,36 @@ if (!blockedPolicy?.acceptanceCriteria?.length) {
     </div>
   </Section>
 
-  <!-- Recompute -->
-  <Section tone="alt" borderTop size="lg">
+  <!-- Next -->
+  <Section tone="alt" size="lg">
     <div class="container container--readable">
-      <Eyebrow accent="green">Recompute, don't trust</Eyebrow>
-      <h2 class="section-heading">Validate any of these yourself</h2>
+      <Eyebrow accent="cobalt-2">Next</Eyebrow>
+      <h2 class="section-heading">You've checked ours. Now generate your own.</h2>
       <p class="section-lead">
-        Every bundle above is a Hachure trust.bundle. Download one and run it
-        through <span class="mono-inline">@kontourai/surface</span>'s
-        <span class="mono-inline">validateTrustBundle</span> — the named
-        validator. The CLI wraps it: a valid bundle prints its trust summary and
-        exits 0; a malformed one exits non-zero.
+        Receipts come out of Flow Agents — the gates that run inside your
+        agent's loop and emit one of these at the end of every delivery. They
+        refuse or escalate to you; they never quietly proceed.
       </p>
-      <Terminal title="verify a downloaded receipt">
-        <div><span class="prompt">$</span> <span class="cmd">npx @kontourai/surface@{surfacePin} report \</span></div>
-        <div><span class="cmd">    --input flow-agents-delivery.trust.bundle --format summary</span></div>
-        <div class="muted">Kontour Surface report …</div>
-        <div class="pass">Claims: 34 (proposed: 1, assumed: 1, verified: 32)</div>
-        <div class="info">Facets: flow-agents.workflow: 34</div>
-        <div class="muted"># exit 0 — the bundle validated</div>
-      </Terminal>
-      <p class="section-lead recompute-second">
-        Don't take one implementation's word for it either. Every bundle here
-        also validates under the separate <span class="mono-inline">hachure</span> reference
-        CLI — two implementations, same verdict. A green check on this repo
-        means every published bundle passed both validators. Honest scope:
-        the implementations are separate (a handwritten validator vs the
-        spec's normative schemas), but both are currently Kontour-maintained —
-        implementation-independent, not yet organizationally independent.
-      </p>
-      <Terminal title="second opinion — the reference CLI">
-        <div><span class="prompt">$</span> <span class="cmd">npx -y -p ajv@{ajvPin} -p hachure@{hachurePin} hachure validate \</span></div>
-        <div><span class="cmd">    governance-readiness-not-ready.trust.bundle</span></div>
-        <div class="pass">valid TrustBundle (schemaVersion 5)</div>
-      </Terminal>
-      <p class="section-lead recompute-foot">
-        Each receipt page repeats the exact command for its file and links the
-        provenance commit, so you can trace the artifact back to the run that
-        produced it.
-      </p>
+      <div class="next-links">
+        <a class="btn-primary" href="/flow-agents/" data-umami-event="receipts-next-flow-agents">
+          How Flow Agents works
+        </a>
+        <a class="btn-ghost" href="/developers/" data-umami-event="receipts-next-developers">
+          Install it
+        </a>
+        <a class="btn-ghost" href="/trust/" data-umami-event="receipts-next-trust">
+          What it still can't catch
+        </a>
+        <a
+          class="btn-ghost"
+          href="https://github.com/hachure-org/spec"
+          target="_blank"
+          rel="noopener"
+          data-umami-event="receipts-next-spec"
+        >
+          The format spec
+        </a>
+      </div>
     </div>
   </Section>
 
@@ -422,6 +572,9 @@ if (!blockedPolicy?.acceptanceCriteria?.length) {
     max-width: 68ch;
     margin: 0 0 1.5rem;
   }
+  .section-lead a {
+    color: var(--color-gold);
+  }
   .recompute-foot {
     margin-top: 1.5rem;
     margin-bottom: 0;
@@ -429,6 +582,14 @@ if (!blockedPolicy?.acceptanceCriteria?.length) {
   }
   .recompute-second {
     margin-top: 2rem;
+  }
+  .tamper-foot {
+    margin-top: 1.75rem;
+    margin-bottom: 0;
+  }
+  .tamper-caveat {
+    margin: 1.25rem 0 0;
+    max-width: 68ch;
   }
 
   /* On-ramp: plain-language reading order */
@@ -453,23 +614,44 @@ if (!blockedPolicy?.acceptanceCriteria?.length) {
     margin-bottom: 0;
   }
 
-  /* Lead exhibit: the blocked run */
-  .blocked-story {
+  /* Walkthrough: one receipt, read line by line */
+  .walkthrough {
     display: grid;
-    gap: 1.25rem;
+    gap: 1.5rem;
     margin: 2rem 0;
   }
-  .blocked-beat {
+  .walk-beat {
     border-left: 2px solid var(--accent, var(--color-edge-2));
     padding-left: 1.1rem;
   }
-  .blocked-beat__label {
+  .walk-beat__label {
     color: var(--accent, var(--color-chalk-3));
     margin: 0 0 0.4rem;
   }
-  .blocked-beat__body {
+  .walk-beat__body {
     margin: 0;
     max-width: 72ch;
+  }
+  .walk-beat__aside {
+    margin: 0.6rem 0 0;
+    max-width: 72ch;
+  }
+  .walk-takeaway {
+    border: 1px solid var(--color-edge);
+    border-radius: 8px;
+    background: var(--color-ink-1);
+    padding: 1.5rem;
+    margin: 0 0 1.75rem;
+    display: grid;
+    gap: 1rem;
+    max-width: 74ch;
+  }
+  .walk-takeaway p {
+    margin: 0;
+  }
+  .walk-takeaway strong {
+    color: var(--color-chalk);
+    font-weight: 500;
   }
   .blocked-actions {
     display: flex;
@@ -478,10 +660,20 @@ if (!blockedPolicy?.acceptanceCriteria?.length) {
     align-items: center;
   }
   .blocked-framing {
-    margin: 1.75rem 0 0;
+    margin: 0 0 1.75rem;
     max-width: 72ch;
   }
   .archive-heading {
+    margin-bottom: 1rem;
+  }
+  .archive-lead {
     margin-bottom: 2rem;
+    font-size: 0.95rem;
+  }
+  .next-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
   }
 </style>

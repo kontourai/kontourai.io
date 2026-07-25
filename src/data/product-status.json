@@ -91,6 +91,19 @@
         "version": "0.2.5",
         "date": "2026-07-24"
       }
+    },
+    "traverse": {
+      "key": "traverse",
+      "label": "Traverse",
+      "packageName": "@kontourai/traverse",
+      "version": "0.23.0",
+      "phase": "current package",
+      "sourceUrl": "https://www.npmjs.com/package/@kontourai/traverse",
+      "publicNotes": "Schema-directed extraction that proposes values with the excerpt and locator they came from.",
+      "marketingReviewed": {
+        "version": "0.23.0",
+        "date": "2026-07-25"
+      }
     }
   }
 }

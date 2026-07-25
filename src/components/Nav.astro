@@ -3,7 +3,7 @@ import { products, kits, applications, type ProductKey, type KitKey, type Applic
 import ProductMark from '@/components/ProductMark.astro';
 
 type NavKey = 'home' | ProductKey | KitKey | ApplicationKey;
-type SiteNavKey = NavKey | 'developers' | 'receipts';
+type SiteNavKey = NavKey | 'developers' | 'receipts' | 'hachure';
 
 // The engine leads; the kits that run on it live in its own menu rather than
 // taking top-level slots of their own. Both kit pages open by explaining the
@@ -19,6 +19,7 @@ const { active, teaser } = Astro.props;
 const engineMenuActive = active === engine.key || kits.some(({ key }) => active === key);
 const developersMenuActive =
   active === 'developers' ||
+  active === 'hachure' ||
   disciplines.some(({ key }) => active === key) ||
   applications.some(({ key }) => active === key);
 const hideProducts = teaser || active === 'home';
@@ -94,6 +95,16 @@ const hideProducts = teaser || active === 'home';
                   aria-current={active === 'developers' ? 'page' : undefined}
                   data-umami-event="nav-developers"
                 >Overview</a>
+                {/* The open format sits above our own parts: it is the only
+                   piece a skeptic can check without running anything of ours,
+                   and it read as one of our small tools in the repo list. */}
+                <span class="nav-dropdown__group" aria-hidden="true">The open format</span>
+                <a
+                  href="/hachure/"
+                  class="nav-link nav-dropdown__item"
+                  aria-current={active === 'hachure' ? 'page' : undefined}
+                  data-umami-event="nav-hachure"
+                >Hachure</a>
                 <span class="nav-dropdown__group" aria-hidden="true">Under the hood</span>
                 {disciplines.map(({ href, label, key, accent }) => (
                   <a

@@ -16,36 +16,39 @@ import { getProductStatus, productBadge } from '@/lib/product-status';
 import type { Accent } from '@/lib/theme';
 
 const consoleStatus = getProductStatus('console');
+const DOCS = 'https://kontourai.github.io/console/';
 
+// Each of these is answered by a labelled region of the Overview shot above it.
 const questions: { q: string; accent?: Accent }[] = [
-  { q: 'What claims are true, and how fresh are they?', accent: 'gold' },
-  { q: 'Which processes are running, blocked, or done?', accent: 'cobalt-2' },
-  { q: 'What proof backs each answer?', accent: 'green' },
-  { q: "What's in the queue and waiting on a person?", accent: 'gold-2' },
-  { q: 'What decisions were made, and by whom?', accent: 'chalk-2' },
-  { q: "What's stale and needs reverification?", accent: 'gold' },
-  { q: 'Which exceptions were accepted?', accent: 'red' },
-  { q: 'What should happen next?', accent: 'cobalt' },
+  { q: 'Which run is paused, and what is it waiting for?', accent: 'gold' },
+  { q: 'What is waiting on a person rather than a machine?', accent: 'gold-2' },
+  { q: 'What proof sits behind a gate that says it passed?', accent: 'green' },
+  { q: 'Which claim went stale underneath a run that depends on it?', accent: 'cobalt-2' },
+  { q: 'What have the agents been doing, and what did it cost?', accent: 'chalk-2' },
+  { q: 'What happens next, and which product does it happen in?', accent: 'cobalt' },
 ];
 
-const producers: { product: string; detail: string; accent: Accent }[] = [
-  { product: 'Surface', detail: 'claim status, evidence, freshness', accent: 'gold' },
-  { product: 'Survey', detail: 'fact-review records, candidates, decisions', accent: 'gold-2' },
-  { product: 'Flow', detail: 'runs, gates, transitions, exceptions', accent: 'cobalt-2' },
-  { product: 'Veritas', detail: 'repo readiness, evidence gaps', accent: 'green' },
-  { product: 'Flow Agents', detail: 'session + continuation state', accent: 'chalk-2' },
+// `feed: live` = a bridge follows the product's own files as they change.
+// `feed: helper` = records are written by a local producer helper you call.
+const producers: { product: string; detail: string; accent: Accent; feed: 'live' | 'helper' }[] = [
+  { product: 'Flow', detail: 'runs, gates, transitions, exceptions', accent: 'cobalt-2', feed: 'live' },
+  { product: 'Flow Agents', detail: 'session state, blocked reasons, review waits', accent: 'chalk-2', feed: 'live' },
+  { product: 'Surface', detail: 'claim status, evidence, freshness', accent: 'gold', feed: 'helper' },
+  { product: 'Survey', detail: 'fact-review records, candidates, decisions', accent: 'gold-2', feed: 'helper' },
+  { product: 'Veritas', detail: 'repo readiness, evidence gaps', accent: 'green', feed: 'helper' },
+];
+
+const views: { name: string; accent: Accent; body: string }[] = [
+  { name: 'Overview', accent: 'cobalt', body: 'What needs you right now — paused runs, work that has not moved, and the reason each one is stuck.' },
+  { name: 'Board', accent: 'cobalt-2', body: 'Every work item by stage. Open a card for the gates and the evidence sitting behind it.' },
+  { name: 'Operate', accent: 'gold', body: 'One run: its pipeline, the stage it is on, and the gate holding everything downstream.' },
+  { name: 'Telemetry', accent: 'chalk-2', body: 'What the agents actually did, per tool — latency, failures, and cost, rolled up by project and work item.' },
 ];
 
 const operatingBenefits: { title: string; accent: Accent; items: string[] }[] = [
-  { title: 'Orient in seconds', accent: 'cobalt', items: ['See active, blocked, stale, and waiting work', 'Follow one session from start to current gate', 'Correlate claims, reviews, runs, and readiness', 'Filter the queue to what needs attention', 'Open the next action from the same screen'] },
-  { title: 'Understand before acting', accent: 'chalk-2', items: ['Read the evidence behind a gate', 'See who made a decision and when', 'Inspect accepted exceptions and missing proof', 'Distinguish a live run from an old record', 'Trace every status back to its supporting event'] },
-  { title: 'Start local, grow with the team', accent: 'gold', items: ['Inspect local files with no hosted dependency', 'Stream live updates into the bundled UI', 'Keep durable event history outside the dashboard', 'Connect additional product feeds over time', 'Use the same operating vocabulary in hosted deployments'] },
-];
-
-const provenance: { title: string; accent: Accent; body: string }[] = [
-  { title: 'Un-fakeable at merge', accent: 'green', body: 'The trust gate fires at PR time and re-runs verification in an environment the agent never controls. "I verified everything" stops being unfalsifiable.' },
-  { title: 'Permanent in git', accent: 'cobalt', body: 'The signed bundle is committed and pinned to the merge commit — distributed, tamper-evident, and available long after a dashboard view changes.' },
-  { title: 'Inspectable beside the run', accent: 'gold', body: 'The Flow bridge reads a run\'s trust-bundle evidence into Console\'s trust panel, so the proof behind each gate — what was verified, how, and by whom — sits next to the run it belongs to.' },
+  { title: 'Orient in seconds', accent: 'cobalt', items: ['See active, blocked, stale, and waiting work at once', 'Follow one session from its first step to the gate it is sitting at', 'Open the next action from the same screen'] },
+  { title: 'Understand before acting', accent: 'chalk-2', items: ['Read the evidence behind a gate that passed', 'See who made a decision, and when', 'Tell a live run apart from a record nobody has touched in weeks'] },
+  { title: 'Start local, grow with the team', accent: 'gold', items: ['Run it against local files with nothing hosted', 'Watch the UI update live as your runs move', 'Keep the event history in your repo, outside any dashboard'] },
 ];
 ---
 
@@ -64,7 +67,7 @@ const provenance: { title: string; accent: Accent; body: string }[] = [
           <PlatformContext />
           <div class="hero-badges">
             <span class="trust-badge trust-badge--verified">{productBadge(consoleStatus)}</span>
-            <span class="install-hint">npm install -D @kontourai/console</span>
+            <span class="install-hint">npx --package @kontourai/console kontour serve</span>
           </div>
 
           <ProductMark product="console" size={40} class="product-hero-mark animate-fade-up" data-accent="cobalt" />
@@ -72,225 +75,79 @@ const provenance: { title: string; accent: Accent; body: string }[] = [
           <p class="product-tagline animate-fade-up delay-100" data-accent="cobalt">see what is live, stale, blocked, waiting, and backed by proof</p>
 
           <p class="hero-copy hero-copy--wide animate-fade-up delay-200">
-            Console is the operating screen for work that should not disappear
-            into logs: active runs, stalled gates, stale claims, review queues,
-            readiness reports, proof, decisions, and next actions. Open it to
-            understand what is moving now, what needs a person, and what evidence
-            sits behind a session before you trust it.
+            Five agent sessions are running. One of them is stuck. Console is the
+            screen that tells you which one, what it is waiting for, and what
+            proof is sitting behind the gates that already passed — read out of
+            the files your runs are writing anyway.
           </p>
 
           <div class="hero-actions animate-fade-up delay-300">
-            <a href="https://github.com/kontourai/console" target="_blank" rel="noopener" class="btn-primary" data-umami-event="console-hero-github">View on GitHub →</a>
-            <a href="#questions" class="btn-ghost" data-umami-event="console-hero-questions">What it answers</a>
+            <a href="#see-it" class="btn-primary" data-umami-event="console-hero-see-it">See the screen →</a>
+            <a href={DOCS} target="_blank" rel="noopener" class="btn-ghost" data-umami-event="console-hero-docs">Read the docs</a>
           </div>
         </div>
 
-        <Terminal class="animate-fade-in delay-300" title="console — operating-state inspection">
-          <p><span class="prompt">$ </span><span class="cmd">npx --package @kontourai/console console-inspect</span></p>
-          <br />
-          <p class="info">  Kontour Console operating-state inspection</p>
-          <br />
-          <p class="muted">  Event streams: 3</p>
-          <p class="muted">  Projection snapshots: 2</p>
-          <br />
-          <p>  claim <span class="muted">claim-provider-directory</span>  <span class="pass">verified</span> <span class="muted">freshness=fresh</span></p>
-          <p>  process <span class="muted">run-provider-118-review</span>  <span class="pass">completed</span></p>
-          <p>  gate <span class="muted">gate-provider-evidence</span>  <span class="pass">passed</span></p>
-          <p>  review <span class="muted">review-provider-118</span>  <span class="pass">approved</span></p>
-          <p>  action <span class="muted">action-apply-provider-118</span>  <span class="warn">read-only</span></p>
-          <br />
-          <p class="rule">  ───────────────────────────────</p>
-          <p class="pass">  Validation: errors=0</p>
-          <p class="muted">  actions shown as inert descriptors only</p>
+        <Terminal class="animate-fade-in delay-300" title="terminal">
+          <p class="t-line"><span class="prompt">$ </span><span class="cmd">npx --package @kontourai/console kontour serve</span></p>
+          <p class="t-line pass">Kontour local hub: http://127.0.0.1:3737</p>
+          <p class="t-line pass">Console UI:        http://127.0.0.1:3737/</p>
+          <p class="t-line muted">POST /records  GET /state  GET /inspect  GET /events  GET /stream SSE</p>
         </Terminal>
       </Split>
     </div>
   </Section>
 
-  <!-- What Console brings together -->
-  <Section id="questions" size="lg">
+  <!-- The screen itself, before any explanation of it -->
+  <Section id="see-it" size="lg">
     <div class="container">
       <Eyebrow accent="cobalt" gap="sm">What it answers</Eyebrow>
-      <h2 class="display-md measure-lg ans-title">The questions operators ask when work is moving.</h2>
-      <p class="fine ans-note">
-        Today, the Flow bridge follows real runs live. Other feeds are arriving
-        product by product through local producer helpers and fixtures, so the
-        public page stays honest about what is live while still showing the
-        intended operating shape.
-      </p>
+      <h2 class="display-md measure-lg ans-title">Three things need you. Here they are, by name.</h2>
 
-      <QuestionGrid items={questions} min="260" />
+      <figure class="product-shot shot--lead">
+        <img src="/screenshots/console-environment.png" alt="Console Overview: needs-you triage cards, stat tiles for processes, gates, claims, and inquiries, and a live happening-now feed" loading="lazy" />
+        <figcaption>
+          The first screen you land on. One run is parked at the Required fields
+          coverage gate, waiting for someone to record a license-number source;
+          two more processes have not moved in weeks and say so. Underneath:
+          what is active, which gates passed, which claims are still verified,
+          and the last few things that happened, in order.
+        </figcaption>
+      </figure>
+
+      <QuestionGrid items={questions} min="280" />
     </div>
   </Section>
 
   <!-- The operating plane -->
   <Section tone="alt" borderTop borderBottom>
     <div class="container">
-      <Split ratio="1-1.15" gap="md" align="center">
-        <div>
-          <Eyebrow accent="cobalt">The operating plane</Eyebrow>
-          <h2 class="display-md plane__title">One screen for sessions, gates, proof, queues, and next actions.</h2>
-          <p class="body plane__copy">
-            Console turns product records into an operator view: a run can show
-            its active step, the gate that blocks it, the proof already gathered,
-            the stale claim it depends on, and the action that will move it.
-          </p>
-          <p class="body plane__copy plane__copy--last">
-            Every item keeps a direct path to the product and action that can
-            resolve it, so operators can move from “what is stuck?” to the
-            right intervention without reconstructing the run. Flow feeds this
-            live today through <code class="codechip" data-accent="cobalt-2">kontour-flow-bridge</code>.
-          </p>
-        </div>
+      <Eyebrow accent="cobalt" gap="sm">The operating plane</Eyebrow>
+      <h2 class="display-md measure-lg ans-title">One screen for sessions, gates, proof, queues, and next actions.</h2>
 
-        <Terminal title="producers → console">
-          {producers.map(({ product, detail, accent }) => (
-            <p><span data-accent={accent}>{product}</span>  {detail}</p>
-          ))}
-          <br />
-          <p class="muted">  each emits → console projection + event stream</p>
-          <p class="rule">  ───────────────────────────────</p>
-          <p><span data-accent="cobalt">Kontour Console</span>  one correlated operating plane</p>
-        </Terminal>
-      </Split>
-    </div>
-  </Section>
-
-  <!-- Unified work queue -->
-    <Section borderBottom>
-    <div class="container">
-      <Eyebrow accent="cobalt" gap="sm">See it</Eyebrow>
       <figure class="product-shot">
         <img src="/screenshots/console-operating-plane.png" alt="Console local operating plane: an interactive process canvas with passed and waiting gates, claims, and an active process" loading="lazy" />
-        <figcaption>The local operating plane rendering replayed cross-product streams — a Flow run drawn as an honest dependency-DAG pipeline (stages with their needs and derived readiness), gate states, claims, and the next actions in one screen.</figcaption>
+        <figcaption>
+          One run, drawn from its own records: plan and shape passed, implement
+          is current, verify and publish are blocked — because the Required
+          fields coverage gate is still missing license-number-source evidence.
+          The gate that passed shows what it checked. The action beside it is
+          marked read-only: Console reports the state of your work, it does not
+          drive it. <a href={DOCS} target="_blank" rel="noopener">Explore the docs →</a>
+        </figcaption>
       </figure>
-      <figure class="product-shot">
-        <img src="/screenshots/console-environment.png" alt="Console Overview: needs-you triage cards, stat tiles for processes, gates, claims, and inquiries, and a live happening-now feed" loading="lazy" />
-        <figcaption>The Overview — one roll-up of everything going on: needs-you triage first, suite stats, and a live happening-now feed, derived from the same record streams.</figcaption>
-      </figure>
     </div>
   </Section>
 
-  <!-- Run it locally (#164): the reader couldn't tell this is npx-runnable today -->
-  <Section tone="alt" borderTop borderBottom>
+  <!-- Four views -->
+  <Section>
     <div class="container">
-      <Split ratio="1-1" gap="md" align="center">
-        <div>
-          <Eyebrow accent="cobalt" gap="sm">Run it locally</Eyebrow>
-          <h2 class="display-md run__title">Two commands to a live operating plane.</h2>
-          <p class="body run__copy">
-            The suite CLI starts the local hub with the bundled UI at
-            <code class="codechip" data-accent="cobalt">127.0.0.1:3737</code> —
-            loopback-only by default, token-gated beyond it, state under
-            <code class="codechip" data-accent="cobalt">.kontourai/console</code>.
-            Point the Flow bridge at a real run and the plane follows your
-            actual gated work, no demo scripting.
-          </p>
-          <p class="body run__copy run__copy--last">
-            The same hub publishes an OpenAPI spec for everything the UI
-            renders, and speaks MCP for its usage analytics — machine-readable
-            through the same contracts, no scraping.
-          </p>
-        </div>
+      <Eyebrow accent="cobalt" gap="sm">Four views</Eyebrow>
+      <h2 class="display-md measure-lg ans-title">One set of records, four ways to look at it.</h2>
 
-        <Terminal title="suite CLI">
-          <p><span class="prompt">$ </span><span class="cmd">npm install --global @kontourai/cli @kontourai/console</span></p>
-          <p><span class="prompt">$ </span><span class="cmd">kontour console serve</span></p>
-          <p class="pass">  hub + UI  http://127.0.0.1:3737/</p>
-          <br />
-          <p class="muted"># follow a live Flow run into the plane</p>
-          <p><span class="prompt">$ </span><span class="cmd">kontour-flow-bridge --flow-root .kontourai/flow --watch</span></p>
-        </Terminal>
-      </Split>
-    </div>
-  </Section>
-
-<Section size="lg">
-    <div class="container">
-      <Split ratio="1-1" gap="md" align="center">
-        <div>
-          <Eyebrow accent="cobalt">Unified work queue</Eyebrow>
-          <h2 class="display-md queue__title">Everything waiting on a human,<br />in one queue.</h2>
-          <p class="body queue__copy">
-            Stale claims, evidence gaps, open Flow gates, Survey review items,
-            reverification requests, and Veritas readiness gaps usually live in
-            five different tools. The queue is the design goal: bring them into
-            one suite-level view so nothing waits unseen.
-          </p>
-          <p class="body queue__copy queue__copy--last">
-            Each item keeps a link back to the product that can resolve it. The
-            view below is illustrative; Flow items arrive live via the bridge,
-            while Surface, Survey, and Veritas feeds are still being wired in.
-          </p>
-        </div>
-
-        <Terminal title="suite work queue — illustrative">
-          <p class="warn">  stale     surface · claim-provider-directory</p>
-          <p class="muted">            → request reverification</p>
-          <p class="info">  open      flow · gate-provider-evidence</p>
-          <p class="muted">            → review evidence, then resume run</p>
-          <p><span data-accent="gold-2">  review    survey · review-provider-118-npi</span></p>
-          <p class="muted">            → approve or send back a candidate</p>
-          <p class="pass">  ready     veritas · change-search-filters</p>
-          <p class="muted">            → merge with reduced review</p>
-          <br />
-          <p class="rule">  ───────────────────────────────</p>
-          <p class="muted">  actions routed to the owning product</p>
-        </Terminal>
-      </Split>
-    </div>
-  </Section>
-
-  <!-- Example use case -->
-  <Section tone="alt" borderTop>
-    <div class="container">
-      <Split ratio="1-1" gap="md" align="center">
-        <div>
-          <Eyebrow accent="cobalt">Example use case</Eyebrow>
-          <h2 class="display-md queue__title">A release operator sees what needs attention.</h2>
-          <p class="body queue__copy">
-            Before a launch, an operator opens Console and sees one stale Surface
-            claim, one Flow gate blocked on missing browser evidence, and one
-            Veritas readiness report that passed. Console correlates the objects
-            and routes each action back to the product that can resolve it.
-          </p>
-          <p class="body queue__copy queue__copy--last">
-            Every status keeps its supporting event and deep link, so the
-            operator can move from “something is blocked” to the exact gate,
-            evidence, and action that will unblock it.
-          </p>
-        </div>
-
-        <Terminal title="operator attention view">
-          <p class="warn">  attention  surface · claim-provider-directory stale</p>
-          <p class="info">  blocked    flow · release-browser-check missing</p>
-          <p class="pass">  ready      veritas · readiness-report passed</p>
-          <br />
-          <p class="muted">  route stale claim → Surface</p>
-          <p class="muted">  route blocked gate → Flow</p>
-          <p class="muted">  route readiness evidence → Veritas</p>
-        </Terminal>
-      </Split>
-    </div>
-  </Section>
-
-  <!-- Provenance -->
-  <Section borderTop borderBottom>
-    <div class="container">
-      <Eyebrow accent="green" gap="sm">Provenance</Eyebrow>
-      <h2 class="display-md measure-lg">Trust you can query. Not trust you take on faith.</h2>
-      <p class="fine ans-note">
-        Every gated delivery ships a signed trust bundle — the claims that were
-        made, how they were verified, and a fresh CI reconciliation — pinned
-        to the merge commit. The Flow bridge brings the evidence relevant to
-        each run into Console's trust panel, where you can ask what was
-        verified, how, and by whom.
-      </p>
-
-      <Grid cols={3} gap="lg">
-        {provenance.map(({ title, accent, body }) => (
+      <Grid cols={4} gap="lg">
+        {views.map(({ name, accent, body }) => (
           <Card accent={accent} pad="md">
-            <h3 class="boundary__title">{title}</h3>
+            <h3 class="boundary__title">{name}</h3>
             <p class="body">{body}</p>
           </Card>
         ))}
@@ -298,14 +155,144 @@ const provenance: { title: string; accent: Accent; body: string }[] = [
     </div>
   </Section>
 
-  <!-- Operating value -->
+  <!-- Example use case -->
   <Section tone="alt" borderTop borderBottom>
+    <div class="container">
+      <Eyebrow accent="cobalt" gap="sm">Example use case</Eyebrow>
+      <h2 class="display-md measure-lg ans-title">A release operator sees what needs attention.</h2>
+      <p class="body measure-lg use__copy">
+        The afternoon before a launch, one screen: a Surface claim that has gone
+        stale under a run still depending on it, a Flow gate blocked on browser
+        evidence nobody attached, and a Veritas readiness report that came back
+        clean. Three products, three record types, one list, sorted by what is
+        actually in the way.
+      </p>
+      <p class="body measure-lg use__copy use__copy--last">
+        Every line keeps the event that produced it and a link into the product
+        that can resolve it, so the next move is a click rather than a
+        reconstruction.
+      </p>
+    </div>
+  </Section>
+
+  <!-- Run it locally -->
+  <Section id="run-it" borderBottom>
+    <div class="container">
+      <Split ratio="1-1" gap="md" align="center">
+        <div>
+          <Eyebrow accent="cobalt" gap="sm">Run it locally</Eyebrow>
+          <h2 class="display-md run__title">One command. No install, no account, no cloud.</h2>
+          <p class="body run__copy">
+            <code class="codechip" data-accent="cobalt">kontour serve</code> starts
+            the hub and the bundled UI on
+            <code class="codechip" data-accent="cobalt">127.0.0.1:3737</code> —
+            loopback only, token-gated if you ever expose it further, with the
+            record history under
+            <code class="codechip" data-accent="cobalt">.kontourai/console</code>
+            in your own repo. Node 22+. If you would rather have the commands
+            on your PATH,
+            <code class="codechip" data-accent="cobalt">npm install -g @kontourai/console</code>
+            installs the same ones.
+          </p>
+          <p class="body run__copy run__copy--last">
+            Then point it at work you are already doing.
+            <code class="codechip" data-accent="cobalt-2">kontour-flow-bridge</code>
+            follows Flow runs under <code class="codechip" data-accent="cobalt-2">.kontourai/flow</code>,
+            and <code class="codechip" data-accent="cobalt-2">kontour-process-bridge</code>
+            follows Flow Agents sessions, including the ones sitting blocked or
+            waiting on a person. Both read those files without writing to them,
+            and re-running either one changes nothing — the run below is this
+            site's own repo.
+          </p>
+        </div>
+
+        <Terminal title="terminal">
+          <p class="t-line muted"># follow the Flow runs already in this repo</p>
+          <p class="t-line"><span class="prompt">$ </span><span class="cmd">npx --package @kontourai/console kontour-flow-bridge --flow-root .kontourai/flow --watch</span></p>
+          <p class="t-line">kontourai-kontourai-io-208: 7 events (<span class="pass">7 accepted</span>, 0 duplicate, 0 failed)</p>
+          <p class="t-line">kontourai-kontourai-io-212: 12 events (<span class="pass">12 accepted</span>, 0 duplicate, 0 failed)</p>
+          <p class="t-line info">watching .kontourai/flow every 2000ms; Ctrl+C to stop</p>
+          <br />
+          <p class="t-line muted"># same records, read back without the UI</p>
+          <p class="t-line"><span class="prompt">$ </span><span class="cmd">npx --package @kontourai/console console-inspect local .kontourai/console</span></p>
+          <p class="t-line">Console local inspection</p>
+          <br />
+          <p class="t-line">Event streams: 1</p>
+          <p class="t-line muted">- local:events/flow-bridge/project-flow-local.jsonl: events=19 accepted=19</p>
+          <p class="t-line muted">  types: flow.pipeline.snapshot=2, process.progressed=15, process.started=2</p>
+          <br />
+          <p class="t-line">Projection snapshots: 0</p>
+          <br />
+          <p class="t-line pass">Validation: errors=0 warnings=0</p>
+        </Terminal>
+      </Split>
+    </div>
+  </Section>
+
+  <!-- Where the answers come from -->
+  <Section tone="alt" borderBottom>
+    <div class="container">
+      <Split ratio="1-1.15" gap="md" align="center">
+        <div>
+          <Eyebrow accent="cobalt">Where the answers come from</Eyebrow>
+          <h2 class="display-md plane__title">Five products write records.<br />Console reads them.</h2>
+          <p class="body plane__copy plane__copy--last">
+            Flow and Flow Agents feed the screen live through their bridges
+            today. Surface, Survey, and Veritas records are written by local
+            producer helpers you call yourself — the record shapes are settled,
+            the live feeds are landing product by product. Whichever way a
+            record arrives, it keeps the identity of the product that made it,
+            so a status can always be traced back to the event underneath it.
+          </p>
+        </div>
+
+        <Terminal title="producers → console">
+          {producers.map(({ product, detail, accent, feed }) => (
+            <p class="t-line">
+              <span data-accent={accent}>{product.padEnd(13)}</span>
+              <span class={feed === 'live' ? 'pass' : 'muted'}>{feed.padEnd(8)}</span>
+              <span class="muted">{detail}</span>
+            </p>
+          ))}
+          <br />
+          <p class="t-line muted">live    = a bridge follows the product's files as they change</p>
+          <p class="t-line muted">helper  = a local producer you call writes the records</p>
+          <p class="t-line rule">───────────────────────────────</p>
+          <p class="t-line"><span data-accent="cobalt">Kontour Console</span>  one screen over all of them</p>
+        </Terminal>
+      </Split>
+    </div>
+  </Section>
+
+  <!-- Provenance -->
+  <Section borderBottom>
+    <div class="container">
+      <Eyebrow accent="green" gap="sm">Provenance</Eyebrow>
+      <h2 class="display-md measure-lg ans-title">Trust you can query. Not trust you take on faith.</h2>
+      <p class="body measure-lg use__copy">
+        Every gated delivery ships a signed trust bundle — the claims that were
+        made, how each one was verified, and a fresh reconciliation run in CI —
+        alongside a checkpoint file stamped with the commit it was sealed
+        against, both committed with the change. The Flow bridge brings the
+        evidence relevant to each run into Console's trust panel, where you can
+        ask what was verified, how, and by whom.
+      </p>
+      <p class="body measure-lg use__copy use__copy--last">
+        Producing and signing that bundle is
+        <a href="/flow-agents/">Flow Agents</a>' job. Console's job is putting
+        it next to the run, so clicking a gate that says "passed" shows you the
+        proof rather than the word.
+      </p>
+    </div>
+  </Section>
+
+  <!-- Operating value -->
+  <Section tone="alt" borderBottom>
     <div class="container">
       <Eyebrow gap="sm">Built for daily operations</Eyebrow>
       <p class="fine boundary-note">
-        Console turns scattered process events into a practical attention
-        system: what changed, what is stuck, why it matters, and where to go
-        next.
+        Console turns scattered process events into something you can work
+        from: what changed, what is stuck, why it matters, and where to go next.
       </p>
 
       <Grid cols={3} gap="lg">
@@ -334,27 +321,29 @@ const provenance: { title: string; accent: Accent; body: string }[] = [
           <Eyebrow accent="cobalt">Open integration surface</Eyebrow>
           <h2 class="display-md cf__title">Use the UI.<br />Build on the same live API.</h2>
           <p class="body cf__copy">
-            Event streams, identity links, queue actions, and live projections
-            are available through the same contracts that power the bundled
+            Event streams, identity links, queue actions, and live state are
+            available through the same contracts that power the bundled
             interface. Build a focused operator view, automate a response, or
-            embed the live state in the tools your team already watches.
+            embed the live state in the tools your team already watches. The hub
+            publishes a generated OpenAPI document at
+            <code class="codechip" data-accent="cobalt">/openapi.json</code> for
+            every endpoint the UI calls, and answers MCP on the same port, so an
+            agent can ask what it has been costing you.
           </p>
           <p class="body cf__copy cf__copy--last">
-            The repo ships a local read-only fixture inspector, a
-            loopback event hub, local telemetry storage adapters, product
-            telemetry descriptors, and a local UI that renders live suite state
-            over SSE — backed by dependency-free producer helpers that write
-            control-plane records under a local <code class="codechip" data-accent="cobalt">.kontourai/console</code> root.
+            The npm package ships everything the screenshots above are running:
+            the loopback hub, the bundled UI streaming live state over SSE, the
+            Flow and Flow Agents bridges, the local inspector, and
+            dependency-free helpers that write records under
+            <code class="codechip" data-accent="cobalt">.kontourai/console</code>.
             That open-source package is the foundation; a private production
             deployment of it runs hosted at console.kontourai.io, with OIDC
             login, per-session revocation, and a durable Postgres-backed store.
-            Cross-product wiring is partial: Flow is live through the bridge;
-            Surface, Survey, and Veritas feeds are still contract-stage.
           </p>
         </div>
 
         <Terminal title="local-producer.js">
-<pre class="code code--cobalt"><span class="t-com">// write control-plane records locally — no network</span>
+<pre class="code code--cobalt"><span class="t-com">// write records locally — no network</span>
 <span class="t-kw">const</span> {'{'} KontourEmitter, LocalFileSink {'}'} =
   <span class="t-fn">require</span>(<span class="t-str">"@kontourai/console"</span>);
 
@@ -362,13 +351,20 @@ const provenance: { title: string; accent: Accent; body: string }[] = [
   sink: <span class="t-kw">new</span> <span class="t-fn">LocalFileSink</span>({'{'} root: <span class="t-str">".kontourai/console"</span> {'}'}),
 {'}'});
 
-<span class="t-kw">await</span> emitter.<span class="t-fn">emitEvent</span>({'{'}
+<span class="t-kw">const</span> result = <span class="t-kw">await</span> emitter.<span class="t-fn">emitEvent</span>({'{'}
+  schema: <span class="t-str">"kontour.console.event"</span>,
+  version: <span class="t-str">"0.1"</span>,
+  id: <span class="t-str">"event-provider-directory-updated"</span>,
   type: <span class="t-str">"claim.updated"</span>,
-  producer: {'{'} product: <span class="t-str">"surface"</span> {'}'},
-  subject: {'{'} kind: <span class="t-str">"claim"</span>, id: <span class="t-str">"claim-1"</span> {'}'},
+  occurredAt: <span class="t-str">"2026-06-01T16:00:00Z"</span>,
+  producer: {'{'} product: <span class="t-str">"surface"</span>, id: <span class="t-str">"surface-console-producer"</span> {'}'},
+  scope: {'{'} product: <span class="t-str">"surface"</span>, kind: <span class="t-str">"tenant"</span>, id: <span class="t-str">"acme"</span> {'}'},
+  subject: {'{'} product: <span class="t-str">"surface"</span>, kind: <span class="t-str">"claim"</span>, id: <span class="t-str">"claim-provider-directory-current"</span> {'}'},
+  payload: {'{}'}
 {'}'});
 
-<span class="t-com">// → .kontourai/console/events/ + .kontourai/console/projections/</span></pre>
+<span class="t-com">// result.outcome === "accepted"</span>
+<span class="t-com">// → .kontourai/console/events/surface-console-producer/tenant-acme.jsonl</span></pre>
         </Terminal>
       </Split>
     </div>
@@ -377,9 +373,15 @@ const provenance: { title: string; accent: Accent; body: string }[] = [
   <Section size="note" borderTop>
     <div class="container">
       <p class="closing-note">
-        Kontour primitives make transparency portable. Kontour Console makes
-        transparency operable — you can adopt any product without it.
+        Every other Kontour product works fine on its own. Console is for the
+        day you are running enough of them at once that you have stopped being
+        able to hold it all in your head.
       </p>
+      <div class="closing-actions">
+        <a href="#run-it" class="btn-primary" data-umami-event="console-close-run">Run it locally</a>
+        <a href={DOCS} target="_blank" rel="noopener" class="btn-ghost" data-umami-event="console-close-docs">Read the docs →</a>
+        <a href="https://github.com/kontourai/console" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="console-close-github">View on GitHub</a>
+      </div>
     </div>
   </Section>
 
@@ -387,38 +389,43 @@ const provenance: { title: string; accent: Accent; body: string }[] = [
 </Layout>
 
 <style>
+  .hero-badges {
+    flex-wrap: wrap;
+  }
   .hero-copy--wide {
     max-width: 500px;
   }
 
-  .ans-title {
-    margin-bottom: 1rem;
+  /* Real terminal output keeps its own leading whitespace and column
+     alignment; `.terminal-body p` would otherwise collapse it. */
+  .t-line {
+    white-space: pre-wrap;
   }
-  .ans-note {
-    max-width: 640px;
+
+  .ans-title {
+    margin-bottom: 2rem;
+  }
+
+  .shot--lead {
     margin-bottom: 2.5rem;
   }
 
   .plane__title,
-  .queue__title,
   .run__title,
   .cf__title {
     margin-bottom: 1.25rem;
   }
   .plane__copy,
-  .queue__copy,
   .run__copy,
-  .cf__copy {
+  .cf__copy,
+  .use__copy {
     margin-bottom: 1.5rem;
   }
   .plane__copy--last,
-  .queue__copy--last,
   .run__copy--last,
-  .cf__copy--last {
+  .cf__copy--last,
+  .use__copy--last {
     margin-bottom: 0;
-  }
-  .strong {
-    color: var(--color-chalk);
   }
 
   .boundary-note {
@@ -439,6 +446,12 @@ const provenance: { title: string; accent: Accent; body: string }[] = [
     font-size: 0.95rem;
     line-height: 1.7;
     font-style: italic;
-    margin: 0;
+    margin: 0 0 1.75rem;
+  }
+
+  .closing-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
   }
 </style>

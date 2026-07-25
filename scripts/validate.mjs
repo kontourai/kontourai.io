@@ -43,9 +43,16 @@ function warn(message) {
 // registry access is available. Local workspace packages listed in
 // localWorkspacePackages must also match their sibling package manifests.
 const versionedPackages = [
-  { key: "veritas", name: "@kontourai/veritas", page: "src/pages/veritas.astro" },
+  // Veritas' terminal blocks cite the version whose real output they show —
+  // capture provenance, same rule as survey and fieldwork below.
+  { key: "veritas", name: "@kontourai/veritas", page: "src/pages/veritas.astro", allowsPinnedEvidence: true },
   { key: "surface", name: "@kontourai/surface", page: "src/pages/surface.astro" },
-  { key: "survey", name: "@kontourai/survey", page: "src/pages/survey.astro" },
+  // Survey's terminal blocks cite the version that produced their output. That
+  // is capture provenance, not status copy: deriving it from product-status
+  // would re-stamp the citation at every release without a re-run, which is
+  // exactly the defect the screenshot captions had. Displayed package status
+  // must still come from product-status.
+  { key: "survey", name: "@kontourai/survey", page: "src/pages/survey.astro", allowsPinnedEvidence: true },
   { key: "flow", name: "@kontourai/flow", page: "src/pages/flow.astro" },
   { key: "flow-agents", name: "@kontourai/flow-agents", page: "src/pages/flow-agents.astro" },
   { key: "console", name: "@kontourai/console", page: "src/pages/console.astro" },
@@ -103,7 +110,9 @@ function assertUniqueKeys(keys, label) {
 async function checkProductCatalogCoverage(catalog) {
   const productKeys = catalog.products.map((product) => product.key);
   const applicationKeys = catalog.applications.map((application) => application.key);
-  const catalogKeys = [...productKeys, ...applicationKeys];
+  const referenceKeys = catalog.referencedPackages.map((reference) => reference.key);
+  // Referenced packages carry status but no page/nav/homepage obligations.
+  const catalogKeys = [...productKeys, ...applicationKeys, ...referenceKeys];
   const statusKeys = Object.keys(statusData.products);
   const homepageKeys = catalog.homepageProducts.map((product) => product.key);
 

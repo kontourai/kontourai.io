@@ -16,30 +16,83 @@ import type { Accent } from '@/lib/theme';
 
 const flowAgentsStatus = getProductStatus('flow-agents');
 
-const engineParts: { title: string; body: string; accent: Accent }[] = [
-  { title: 'FlowDefinition interpreter', accent: 'cobalt-2', body: 'Reads required paths, steps, transitions, gates, route-backs, exceptions, and continuation state from declared flows.' },
-  { title: 'Gate runtime', accent: 'green', body: 'Turns evidence expectations into local advisory stops, CI reruns, and resumable next actions instead of chat-only promises.' },
-  { title: 'Harness adapters', accent: 'chalk-2', body: 'Maps the same flow into Claude Code, Codex, Kiro, opencode, pi, and GitHub Actions — with AWS Strands framework adapters in preview.' },
-  { title: 'Trust primitives', accent: 'gold', body: 'Carries SDK, evidence, Trust Bundle, command-log chain, and kit-validation records so every claim can point at public artifacts.' },
-];
-
-const kits: { name: string; href: string; job: string; proof: string; accent: Accent }[] = [
-  { name: 'Builder Kit', href: '/builder-kit/', accent: 'chalk-2', job: 'Agent delivery: shape -> build -> publish -> learn.', proof: 'The first-party build path for verifiable agent work.' },
-  { name: 'Knowledge Kit', href: '/knowledge-kit/', accent: 'gold', job: 'Durable, provenance-gated knowledge store.', proof: 'Keeps reusable memory tied to sources, owners, and freshness.' },
-  { name: 'Release Evidence Kit', href: 'https://kontourai.github.io/flow-agents/', accent: 'green', job: 'Agentless, flows-only release evidence.', proof: 'Proof that the engine runs solutions that ship no agent.' },
-  { name: 'Veritas Governance Kit', href: 'https://kontourai.github.io/flow-agents/', accent: 'cobalt-2', job: 'Agentless, flows-only governance gates.', proof: 'Feeds repo readiness evidence into Flow gates.' },
+const catches: { claim: string; body: string; accent: Accent }[] = [
+  {
+    claim: '“All tests pass.”',
+    accent: 'chalk-2',
+    body: 'The capture log says that command exited 1. The gate holds the “done” and shows you both lines side by side.',
+  },
+  {
+    claim: 'npm test || true',
+    accent: 'gold',
+    body: 'A command that cannot fail is not evidence. A pass claimed on a laundered exit code does not count as one.',
+  },
+  {
+    claim: '“Lint is clean now.”',
+    accent: 'green',
+    body: 'It is — because the agent edited .eslintrc.json. The write is refused before it lands, with a note to fix the code instead.',
+  },
+  {
+    claim: 'git commit --no-verify',
+    accent: 'cobalt-2',
+    body: 'Refused at the tool call. If the hook is genuinely wrong, the fix is the hook, not a way around it.',
+  },
 ];
 
 const trustTiers: { title: string; body: string; accent: Accent }[] = [
-  { title: 'Local advisory runtime gate', accent: 'chalk-2', body: 'The agent sees the required next action and can be stopped or routed back when evidence is missing. Local state is advisory and inspectable.' },
-  { title: 'Controlled rerun', accent: 'green', body: 'An environment the agent never touched reruns the declared checks and anchors the result outside the agent session. For code work today, that environment is CI, reconciled against git history.' },
-  { title: 'Refuse or escalate', accent: 'gold', body: 'When the evidence is not there, the flow says so. A human can accept a gap, but the exception stays in the record.' },
+  {
+    title: 'While the agent works',
+    accent: 'chalk-2',
+    body: 'The agent sees what it still owes, and gets stopped or sent back to an earlier step when the evidence is not there. Everything it records lands in files you can open.',
+  },
+  {
+    title: 'Then somewhere it cannot reach',
+    accent: 'green',
+    body: 'A clean environment reruns the declared checks and reconciles the result against what actually changed in git. For code work today, that environment is your CI.',
+  },
+  {
+    title: 'When the evidence is missing',
+    accent: 'gold',
+    body: 'The work does not get called done. You can accept the gap — and that decision gets written down too, with your name on it.',
+  },
+];
+
+const kits: { name: string; href: string; job: string; note: string; accent: Accent; external?: boolean }[] = [
+  {
+    name: 'Builder Kit',
+    href: '/builder-kit/',
+    accent: 'chalk-2',
+    job: 'Shape the work, plan it, build it, review it, verify it, then publish with the evidence attached.',
+    note: 'Ships with the engine. Start here if you are shipping code.',
+  },
+  {
+    name: 'Knowledge Kit',
+    href: '/knowledge-kit/',
+    accent: 'gold',
+    job: 'Notes, decisions and repo conventions stored as markdown in your repo, each one carrying where it came from and when.',
+    note: 'Ships with the engine. Add it when stale context starts steering the work.',
+  },
+  {
+    name: 'Release Evidence Kit',
+    href: 'https://github.com/kontourai/flow-agents/tree/main/kits/release-evidence',
+    accent: 'green',
+    job: 'One gate in CI that will not pass until a trusted release-evidence claim is attached to the run.',
+    note: 'Ships with the engine. No agent involved — flows only.',
+    external: true,
+  },
+  {
+    name: 'Veritas Governance Kit',
+    href: '/veritas/',
+    accent: 'cobalt-2',
+    job: 'Turns your repo’s own standards into readiness reports and feeds them into the gates as evidence.',
+    note: 'Installed separately, from the Veritas repo. Not bundled with the engine.',
+  },
 ];
 ---
 
 <Layout
-  title="Flow Agents - Ship agent work you can stand behind · Kontour AI"
-  description="Flow Agents is the trust engine for the coding agents you already run: install it, add kits like Builder and Knowledge, and every gate, route-back, and claim comes out as recomputable evidence."
+  title="Flow Agents - Make your coding agent show its work · Kontour AI"
+  description="Your agent says the tests pass. Flow Agents checks that against a log of what actually ran, and holds the “done” when the two disagree. It installs into the coding agent you already use."
 >
   <Nav active="flow-agents" />
 
@@ -55,126 +108,104 @@ const trustTiers: { title: string; body: string; accent: Accent }[] = [
 
           <ProductMark product="flow-agents" size={40} class="product-hero-mark animate-fade-up" data-accent="chalk-2" />
           <h1 class="product-title animate-fade-up">Flow Agents</h1>
-          <p class="product-tagline animate-fade-up delay-100" data-accent="chalk-2">keep your agent on the required path — in the tools you already run</p>
+          <p class="product-tagline animate-fade-up delay-100" data-accent="chalk-2">make your coding agent show its work — in the tools you already run</p>
 
           <p class="hero-copy hero-copy--wide animate-fade-up delay-200">
-            Install the engine into your coding agent, then add
-            the workflows you want as kits — Builder for delivery, Knowledge
-            for durable memory. The engine interprets declared flows, gates
-            the work on evidence instead of promises, and leaves behind Trust
-            Bundles a reviewer, a CI job, or a skeptic can recompute.
+            Your agent says the tests pass. Flow Agents checks that claim
+            against a log of what actually ran — and when the two disagree, it
+            holds the “done” and shows you both. It installs into the coding
+            agent you already use, so you keep your tools and the agent picks
+            up the habit of leaving evidence behind.
           </p>
 
           <div class="hero-actions animate-fade-up delay-300">
-            <a href="https://kontourai.github.io/flow-agents/" target="_blank" rel="noopener" class="btn-primary" data-umami-event="flow-agents-hero-docs">Read the docs -></a>
-            <a href="/builder-kit/" class="btn-ghost" data-umami-event="flow-agents-hero-builder">Builder Kit</a>
-            <a href="/knowledge-kit/" class="btn-ghost" data-umami-event="flow-agents-hero-knowledge">Knowledge Kit</a>
+            <a href="#install" class="btn-primary" data-umami-event="flow-agents-hero-install">Try it on one repo -></a>
+            <a href="https://kontourai.github.io/flow-agents/" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="flow-agents-hero-docs">Read the docs</a>
             <a href="https://www.npmjs.com/package/@kontourai/flow-agents" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="flow-agents-hero-npm">npm package</a>
           </div>
         </div>
 
-        <Terminal class="animate-fade-in delay-300" title="engine + kit install">
-          <p><span class="prompt">$ </span><span class="cmd">npx @kontourai/flow-agents init --dest ~/dev/my-project</span></p>
-          <br />
-          <p class="pass">  ✓ engine      FlowDefinition interpreter</p>
-          <p class="pass">  ✓ gates       local advisory + CI rerun hooks</p>
-          <p class="pass">  ✓ adapters    Claude Code · Codex · Kiro · opencode · pi · GH Actions</p>
-          <p class="pass">  ✓ primitives  SDK · evidence · trust bundles</p>
-          <p class="pass">  ✓ catalog     kits/catalog.json + kit.json manifests</p>
-          <br />
-          <p><span class="prompt">$ </span><span class="cmd">npx @kontourai/flow-agents kit list</span></p>
-          <p class="info">  Builder · Knowledge · Release Evidence · Veritas Governance</p>
-        </Terminal>
+        <div>
+          <Terminal class="animate-fade-in delay-300" title="stop hook — the agent tried to finish">
+            <p class="fail">[stop-gate] Goal Fit warning:</p>
+            <p class="fail term-wrap"> - .kontourai/flow-agents/false-pass evidence check unit-tests: capture
+              log CONTRADICTS claimed pass — command "npm test" was recorded as
+              FAIL (exitCode:1). This is a caught false-completion.</p>
+            <p class="muted term-elide">… 2 further gaps on the same run, elided</p>
+            <p class="fail term-wrap">[stop-gate] Stop blocked — 3 evidence gap(s) (block 1; after 3 identical
+              blocks I stop blocking and hand this to you)</p>
+          </Terminal>
+          <p class="term-caption">
+            Reproduced from the engine’s own conformance fixture
+            (<code>stop-goal-fit--block-capture-contradicts-claimed-pass</code>)
+            against the shipped Stop hook. The sidecar it names,
+            <code>false-pass</code>, is the fixture’s slug.
+          </p>
+        </div>
       </Split>
     </div>
   </Section>
 
-  <Section size="lg">
+  <Section id="catches" size="lg">
     <div class="container">
-      <Eyebrow gap="sm">The engine</Eyebrow>
-      <h2 class="display-md measure-lg engine-title">Install one engine, then add the workflows your team needs.</h2>
-      <p class="fine measure engine-note">
-        The engine interprets structured triggers and renders tool-native
-        instructions across four policy classes — workflow steering, quality
-        gates, stop goal-fit, and config protection — the same way for every
-        kit it runs.
+      <Eyebrow gap="sm">What it catches</Eyebrow>
+      <h2 class="display-md measure-lg section-title">Four moments you have probably already had.</h2>
+      <p class="fine measure section-note">
+        These are not scenarios. Each one is a check that ships in the engine
+        today, quoted from the message it prints when it fires.
       </p>
 
       <Grid cols={4} gap="md">
-        {engineParts.map(({ title, body, accent }) => (
+        {catches.map(({ claim, body, accent }) => (
           <Card accent={accent} bar="top" pad="sm">
-            <h3 class="feature-title">{title}</h3>
+            <h3 class="catch-claim">{claim}</h3>
             <p class="feature-body">{body}</p>
           </Card>
         ))}
       </Grid>
-    </div>
-  </Section>
 
-  <Section id="kits" tone="alt" borderTop borderBottom>
-    <div class="container">
-      <Eyebrow accent="chalk-2" gap="sm">Kit portfolio</Eyebrow>
-      <h2 class="display-md kit-title">Install the workflows you need. The engine treats them all the same.</h2>
-      <p class="body measure kit-copy">
-        Kits are swappable solutions declared in <code>kit.json</code> and
-        registered in <code>kits/catalog.json</code>. Install what you want,
-        leave the rest out, or bring your own workflow with the same manifest,
-        validation, and evidence model.
-      </p>
+      <Split ratio="1-1" gap="lg" align="center" class="catch-split">
+        <Terminal title="pre-tool-use hook — refused before the write lands">
+          <p class="muted">-> the agent edits .eslintrc.json</p>
+          <p class="fail term-wrap">BLOCKED: Modifying .eslintrc.json is not allowed. Fix the source code to satisfy linter/formatter rules instead of weakening the config. If this is a legitimate config change, disable the config-protection hook temporarily.</p>
+          <br />
+          <p class="muted">-> the agent runs: git commit --no-verify -m "wip"</p>
+          <p class="fail term-wrap">BLOCKED: "git commit --no-verify" bypasses git verification hooks. Verification hooks enforce project quality gates and must not be opted out. Fix the failing check instead of skipping it. If the hook is genuinely misconfigured, correct the hook configuration directly.</p>
+        </Terminal>
 
-      <Grid cols={4} gap="md">
-        {kits.map(({ name, href, job, proof, accent }) => (
-          <a class="kit-card" href={href} data-accent={accent}>
-            <span class="kit-card__name">{name}</span>
-            <span class="kit-card__job">{job}</span>
-            <span class="kit-card__proof">{proof}</span>
-          </a>
-        ))}
-      </Grid>
-    </div>
-  </Section>
-
-  <Section borderBottom>
-    <div class="container">
-      <Split ratio="1-1" gap="md" align="center">
         <div>
-          <Eyebrow accent="gold">Marketplace direction</Eyebrow>
-          <h2 class="display-md market-title">A catalog for trust-bearing workflows.</h2>
-          <p class="body market-copy market-copy--last">
-            The growth path is a marketplace: official kits, community kits, and
-            bring-your-own-kit workflows that declare their triggers, flows,
-            adapters, skills, docs, dependencies, and validation requirements
-            up front. The engine only follows the manifest and the structured
-            triggers a kit declares.
+          <p class="body measure catch-copy">
+            Both of those refusals land at the tool call, before the write or
+            the command goes through. The done-check — the one that compares a
+            claimed pass against the capture log — is the one that can stop a
+            finish, and out of the box it blocks on Claude Code and Codex.
+            Everywhere else it reports rather than refuses.
+          </p>
+          <p class="fine measure catch-copy">
+            None of this is a correctness proof. It catches a claim the record
+            contradicts and a shortcut around the checks you already have —
+            nothing more. What each runtime can actually enforce differs, and
+            the honest version is right below.
+          </p>
+          <p class="fine catch-copy--last">
+            <a href="#enforcement">Where each runtime actually blocks -></a>
           </p>
         </div>
-
-        <Terminal title="catalog + manifest">
-          <p><span class="cmd">kits/catalog.json</span></p>
-          <p class="muted">  id: builder</p>
-          <p class="muted">  name: Builder Kit</p>
-          <p class="muted">  path: kits/builder</p>
-          <br />
-          <p><span class="cmd">kit.json</span></p>
-          <p class="pass">  ✓ flows</p>
-          <p class="pass">  ✓ workflow_triggers</p>
-          <p class="pass">  ✓ dependencies (knowledge)</p>
-          <p class="pass">  ✓ validated against contract</p>
-          <p class="muted">  privilege: none</p>
-        </Terminal>
       </Split>
     </div>
   </Section>
 
-  <Section tone="alt" borderTop>
+  <Section tone="alt" borderTop borderBottom>
     <div class="container">
-      <Eyebrow gap="lg">Evidence that survives the session</Eyebrow>
-      <h2 class="display-md measure-lg trust-title">Know what ran, what passed, and what still needs a decision.</h2>
-      <p class="fine measure trust-note">
-        Flow Agents records the agent’s claim, the available evidence, the
-        actual change, and the result of a controlled rerun. For code work,
-        those records anchor in git and CI so they remain inspectable after the
-        chat, context window, and local session are gone.
+      <Eyebrow accent="green" gap="sm">So how was that caught?</Eyebrow>
+      <h2 class="display-md measure-lg section-title">Know what ran, what passed, and what still needs a decision.</h2>
+      <p class="fine measure section-note">
+        Four checks ride your coding agent’s own hooks: a nudge about where the
+        agent is in the work, a format-and-lint pass after each edit, an
+        evidence check before it is allowed to stop, and a veto on edits to the
+        configs that would weaken those checks. What they record is written to
+        plain files in your repo, so it survives the chat, the context window,
+        and the session.
       </p>
 
       <Grid cols={3} gap="lg">
@@ -186,23 +217,88 @@ const trustTiers: { title: string; body: string; accent: Accent }[] = [
         ))}
       </Grid>
 
-      <h3 class="enforcement-heading">Where the gate actually blocks, per runtime</h3>
+      <h3 id="enforcement" class="enforcement-heading">Where the gate actually blocks, per runtime</h3>
       <p class="fine measure enforcement-note">
-        See the exact enforcement level available in each supported harness,
-        including where a runtime can block and where it can only advise.
+        The same check does not have the same teeth everywhere, because not
+        every runtime gives a hook the ability to stop a turn. This is where
+        each one stands today.
       </p>
       <EnforcementMatrix />
     </div>
   </Section>
 
-  <Section size="note" borderTop>
+  <Section id="kits" borderBottom>
     <div class="container">
-      <p class="closing-note">
-        Start with Builder for delivery, add Knowledge for durable context,
-        and bring in Release Evidence or Veritas Governance when the work
-        needs stronger proof. Every kit runs through the same install,
-        lifecycle, and evidence experience.
+      <Eyebrow accent="chalk-2" gap="sm">Kits</Eyebrow>
+      <h2 class="display-md measure-lg section-title">A kit is a workflow, written down.</h2>
+      <p class="body measure kit-copy">
+        Flow Agents on its own is a referee with no rulebook. A kit is the
+        rulebook: it names the steps a piece of work goes through, what
+        evidence each step has to leave behind, and what the agent is not
+        allowed to skip. Install the ones you want and leave the rest out —
+        the engine runs them all the same way.
       </p>
+
+      <Grid cols={4} gap="md">
+        {kits.map(({ name, href, job, note, accent, external }) => (
+          <a
+            class="kit-card"
+            href={href}
+            data-accent={accent}
+            target={external ? '_blank' : undefined}
+            rel={external ? 'noopener' : undefined}
+          >
+            <span class="kit-card__name">{name}</span>
+            <span class="kit-card__job">{job}</span>
+            <span class="kit-card__proof">{note}</span>
+          </a>
+        ))}
+      </Grid>
+
+      <p class="fine measure kit-note">
+        Your own workflow can run here too: declare it in a
+        <code>kit.json</code> and it goes through the same validation and the
+        same gates the first-party kits do.
+      </p>
+    </div>
+  </Section>
+
+  <Section id="install" tone="alt" borderTop>
+    <div class="container">
+      <Split ratio="1-1" gap="lg" align="center">
+        <div>
+          <Eyebrow accent="gold" gap="sm">Try it</Eyebrow>
+          <h2 class="display-md install-title">One repo, one command.</h2>
+          <p class="body measure install-copy">
+            Needs Node 22 or newer. It detects the coding agent you are already
+            running, writes its hook scripts and kit files into the
+            destination, and wires them into that agent’s config. Per-run
+            working state — what the agent claimed, what the log captured,
+            what is still open — goes to <code>.kontourai/flow-agents/</code>
+            in the repo, as plain files you can read, diff, and delete.
+          </p>
+          <p class="fine measure install-copy install-copy--last">
+            Nothing leaves your machine unless you point it at a Console.
+            <a href="https://kontourai.github.io/flow-agents/" target="_blank" rel="noopener" data-umami-event="flow-agents-install-docs">Read the install guide -></a>
+          </p>
+        </div>
+
+        <Terminal title="install">
+          <p><span class="prompt">$ </span><span class="cmd">npx @kontourai/flow-agents init --dest ~/dev/my-project</span></p>
+          <br />
+          <p class="muted">Installed Claude Code bundle into ~/dev/my-project</p>
+          <br />
+          <p class="muted">Flow Agents install summary:</p>
+          <p class="pass">  ✓ Runtime: claude-code (auto-detected)</p>
+          <p class="pass">  ✓ Destination: ~/dev/my-project</p>
+          <p class="pass">  ✓ Telemetry sink: local-files</p>
+          <p class="muted">  - Console: local-only</p>
+          <br />
+          <p class="muted">Next steps:</p>
+          <p class="muted term-wrap">  - Run your agent inside ~/dev/my-project -- Flow Agents hooks are already wired.</p>
+          <p class="muted term-wrap">  - Re-run `flow-agents init` anytime to reconfigure runtime, destination, or Console connection.</p>
+        </Terminal>
+      </Split>
     </div>
   </Section>
 
@@ -213,29 +309,68 @@ const trustTiers: { title: string; body: string; accent: Accent }[] = [
   .hero-copy--wide {
     max-width: 540px;
   }
-  .engine-title,
-  .kit-title,
-  .market-title,
-  .trust-title {
+  .section-title,
+  .install-title {
     margin-bottom: 1rem;
   }
-  .engine-note,
-  .trust-note {
+  .section-note {
     margin-bottom: 2.25rem;
+  }
+  .term-caption {
+    margin: 0.85rem 0 0;
+    color: var(--color-chalk-3);
+    font-size: 0.78rem;
+    line-height: 1.65;
+  }
+  .term-caption code {
+    font-size: 0.95em;
+    word-break: break-word;
+  }
+  /* Long verbatim hook messages wrap instead of forcing a horizontal scroll. */
+  .term-wrap {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+  /* Our elision marker — deliberately not styled like tool output. */
+  .term-elide {
+    font-style: italic;
+    opacity: 0.75;
+  }
+  .catch-split {
+    margin-top: 2.75rem;
+  }
+  .catch-claim {
+    font-family: var(--font-mono);
+    font-size: 0.92rem;
+    color: var(--accent);
+    line-height: 1.5;
+    margin-bottom: 0.75rem;
+  }
+  .catch-copy {
+    margin-bottom: 1rem;
+  }
+  .catch-copy--last {
+    margin-bottom: 0;
   }
   .enforcement-heading {
     font-size: 1.15rem;
     color: var(--color-chalk);
     margin: 3rem 0 0.75rem;
+    scroll-margin-top: 5rem;
   }
   .enforcement-note {
     margin-bottom: 1.5rem;
   }
-  .kit-copy,
-  .market-copy {
-    margin-bottom: 1.5rem;
+  .kit-copy {
+    margin-bottom: 1.75rem;
   }
-  .market-copy--last {
+  .kit-note {
+    margin: 1.75rem 0 0;
+  }
+  .install-copy {
+    margin-bottom: 1rem;
+  }
+  .install-copy--last {
     margin-bottom: 0;
   }
   .kit-card {

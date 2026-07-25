@@ -20,6 +20,12 @@ export type KitKey = "builder-kit" | "knowledge-kit";
 // product, a ProductKey, or a navigation/icon identity.
 export type ApplicationKey = "fieldwork";
 
+// Packages the site cites as evidence but does not market: no page, no nav, no
+// icon. They still need tracked status, because page copy quotes their version
+// when it prints their output — an untracked citation is one nobody can catch
+// going stale.
+export type ReferenceKey = "traverse";
+
 export type Kit = {
   key: KitKey;
   href: string;
@@ -71,6 +77,22 @@ export type Application = {
   composition: string;
 };
 
+export type Reference = {
+  key: ReferenceKey;
+  label: string;
+  repo: string;
+  packageName: string;
+};
+
+export const referencedPackages: Reference[] = [
+  {
+    key: "traverse",
+    label: "Traverse",
+    repo: "https://github.com/kontourai/traverse",
+    packageName: "@kontourai/traverse",
+  },
+];
+
 export const applications: Application[] = [
   {
     key: "fieldwork",
@@ -80,7 +102,7 @@ export const applications: Application[] = [
     repo: "https://github.com/kontourai/fieldwork",
     packageName: "@kontourai/fieldwork",
     job: "Turn messy source text into reviewed, source-linked data you can recheck and export.",
-    composition: "Use it as the ready-made front door for extraction review; the underlying libraries remain available when you need a custom host.",
+    composition: "The finished app: install it and start reviewing. Survey is the review machinery inside it, if you would rather build your own screen around it.",
   },
 ];
 
@@ -94,7 +116,7 @@ export const products: Product[] = [
     accent: "chalk-2",
     repo: "https://github.com/kontourai/flow-agents",
     homepage: {
-      job: "Keep AI coding work on a reviewable path across Claude Code, Codex, Kiro, opencode, pi, and GitHub Actions.",
+      job: "Keep AI coding work on a reviewable path across Claude Code, Codex, Kiro, opencode, and pi.",
       relation: "Adds evidence gates, resumable state, and receipts to the agent tools you already run.",
     },
   },

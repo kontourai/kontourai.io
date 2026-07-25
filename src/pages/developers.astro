@@ -14,18 +14,20 @@ import { getProductStatus, productBadge } from '@/lib/product-status';
 import type { Accent } from '@/lib/theme';
 import pkg from '../../package.json';
 
-// Second-validator pins rendered from package.json, same as the receipts
-// pages (#111) — the advertised command can't drift from what CI exercises.
+// Validator pins rendered from package.json, same as the receipts pages
+// (#111) — the advertised commands can't drift from what CI exercises.
 const hachurePin = pkg.devDependencies.hachure;
 const ajvPin = pkg.devDependencies.ajv;
+const surfacePin = pkg.dependencies['@kontourai/surface'];
 
-// The two paged kits come from the shared catalog copy; the two agentless
-// kits ship in the same engine repo and link to the engine docs.
+// The two paged kits come from the shared catalog copy. The two external kits
+// live in their own repos, so each links to its own source — not a shared
+// docs root. Their asset counts are read off their kit.json manifests.
 const kitCards: { name: string; href: string; job: string; note: string; accent: Accent; external?: boolean; event: string }[] = [
-  { name: 'Builder Kit', href: '/builder-kit/', accent: 'chalk-2', event: 'developers-kit-builder', job: kits[0].job, note: 'The first-party delivery path: gated states, review and verify loops, receipts on the way out.' },
-  { name: 'Knowledge Kit', href: '/knowledge-kit/', accent: 'gold', event: 'developers-kit-knowledge', job: kits[1].job, note: 'Durable knowledge with provenance, freshness, and gated promotion — memory that carries receipts.' },
-  { name: 'Release Evidence Kit', href: 'https://kontourai.github.io/flow-agents/', accent: 'green', external: true, event: 'developers-kit-release-evidence', job: 'Agentless, flows-only release evidence.', note: 'Proof the engine runs solutions that ship no agent at all.' },
-  { name: 'Veritas Governance Kit', href: 'https://kontourai.github.io/flow-agents/', accent: 'cobalt-2', external: true, event: 'developers-kit-veritas-governance', job: 'Agentless, flows-only governance gates.', note: 'Feeds repo readiness evidence into Flow gates.' },
+  { name: 'Builder Kit', href: '/builder-kit/', accent: 'chalk-2', event: 'developers-kit-builder', job: kits[0].job, note: 'The delivery path: the agent shapes the work, builds it, has it reviewed and verified, and hands you a receipt at the end.' },
+  { name: 'Knowledge Kit', href: '/knowledge-kit/', accent: 'gold', event: 'developers-kit-knowledge', job: kits[1].job, note: 'What the agent learned, kept with the source it came from, with a gate before anything gets promoted to fact.' },
+  { name: 'Release Evidence Kit', href: 'https://github.com/kontourai/flow-agents/tree/main/kits/release-evidence', accent: 'green', external: true, event: 'developers-kit-release-evidence', job: 'A release gate with no agent involved.', note: 'One flow and nothing else. CI attaches an evidence claim, the gate reads it, and no agent runs at any point — proof the engine works without one.' },
+  { name: 'Veritas Governance Kit', href: 'https://github.com/kontourai/veritas', accent: 'cobalt-2', external: true, event: 'developers-kit-veritas-governance', job: "Your repo's own rules, as a gate.", note: 'Two flows and three agent skills, installed from a different repo than the engine — which is the proof outside kits get no special treatment.' },
 ];
 
 const applicationCards = applications.map((application) => {
@@ -33,115 +35,65 @@ const applicationCards = applications.map((application) => {
   return { ...application, status, badge: productBadge(status) };
 });
 
-const useCases = [
-  {
-    title: 'Sales / RevOps',
-    detail: 'Keep account, pipeline, renewal, and enablement claims tied to sources, freshness, approvals, and next actions.',
-  },
-  {
-    title: 'Software delivery',
-    detail:
-      "Make code-change readiness, release gates, browser checks, and missing evidence visible before merge. Live example: this site's own PRs merge behind a required Trust Verify check, and the receipts page publishes the resulting bundles.",
-  },
-  {
-    title: 'Public data and records',
-    detail: 'Track claim provenance, review status, staleness, and disputed facts for directories or public datasets.',
-  },
-  {
-    title: 'Regulated advisory review',
-    detail: 'Separate authored recommendations from evidence, reviewer authority, exception handling, and final status.',
-  },
-  {
-    title: 'Support and customer operations',
-    detail: 'Route unresolved promises, stale facts, policy exceptions, and follow-up work back to the owning system.',
-  },
-  {
-    title: 'Research and knowledge operations',
-    detail: 'Preserve where assertions came from, what changed, which gaps remain, and who can rely on the output.',
-  },
-];
-
-const states = [
-  {
-    label: 'Current state',
-    body: 'Published trust receipts you can recompute under two validators, the /trust bypass list, Veritas readiness evidence, the Flow Agents engine with Builder and Knowledge kits, runtime hooks across Claude Code / Codex / Kiro / opencode / pi, AWS Strands framework-adapter previews, and Console 2.x projections — all inspectable now.',
-    accent: 'green',
-  },
-  {
-    label: 'Near-term direction',
-    body: 'Kit-marketplace conformance certification, richer Console projections (hosted mode grew a durable economics store), and tighter cross-product handoffs are being wired in product by product.',
-    accent: 'cobalt-2',
-  },
-  {
-    label: 'Future possibilities',
-    body: 'Kubernetes-style operators and hosted coordination are possible future integrations. They are not current requirements for using the products.',
-    accent: 'gold',
-  },
-] as const;
-
+// Hachure is deliberately not in this list any more: it is the open format the
+// whole proof story rests on, not one of our small tools. It leads the proof
+// chain and has its own page.
 const labRepos = [
-  {
-    slug: 'hachure',
-    label: 'Hachure (spec)',
-    repo: 'https://github.com/hachure-org/spec',
-    description:
-      'The open trust.bundle format: normative schemas, conformance vectors, and the L0–L2 signing assurance levels. Surface and the hachure reference CLI are two implementations of it — the receipts page shows both validating the same artifacts.',
-  },
   {
     slug: 'datum',
     label: 'Datum',
     repo: 'https://github.com/kontourai/datum',
     description:
-      'Portfolio AI provider/model registry: define providers, models, roles once; resolve which backend, which model, whose key, what base URL. Never makes model calls.',
+      "Your model registry. Define providers, models, and roles once, then resolve which backend, which model, whose key, what URL. It doesn't call models for you — apart from four opt-in commands that exist to test a connection.",
   },
   {
     slug: 'bearing',
     label: 'Bearing',
     repo: 'https://github.com/kontourai/bearing',
     description:
-      'Evidence-backed model capability intelligence: provenance-bearing model observations compiled into deterministic catalog snapshots, with runtime-aware ranking — without invoking models.',
+      'Which model is actually good at what, and where that judgement came from. Compiles observations into catalog snapshots you can diff, and ranks models for a given runtime — without calling any of them.',
   },
   {
     slug: 'traverse',
     label: 'Traverse',
     repo: 'https://github.com/kontourai/traverse',
     description:
-      "Schema-directed content extraction that produces provenance-bearing, review-ready extraction proposals in Survey's shape.",
+      'Pulls structured fields out of documents against a schema you supply, and hands back proposals for a person to review — each one still carrying the passage it came from.',
   },
   {
     slug: 'forage',
     label: 'Forage',
     repo: 'https://github.com/kontourai/forage',
     description:
-      'Safe, replayable crawling for untrusted URLs — SSRF-guarded egress and snapshot manifests that feed pages into Traverse for review pipelines.',
+      'Fetches untrusted URLs safely and keeps a snapshot of what came back, so a crawl can be replayed instead of re-guessed. Refuses requests aimed at your internal network.',
   },
   {
     slug: 'lookout',
     label: 'Lookout',
     repo: 'https://github.com/kontourai/lookout',
     description:
-      'Web source monitoring: a source registry plus a drift-check runner over Traverse snapshots, authoring provenance-bearing Survey inputs when watched sources change.',
+      "Watches sources you re-check over time and tells you what changed since the last look. Built on Forage's snapshots; it doesn't extract fields itself.",
   },
   {
     slug: 'ephemeris',
     label: 'Ephemeris',
     repo: 'https://github.com/kontourai/ephemeris',
     description:
-      'External freshness scheduler / event-bridge for the Kontour suite. Frozen since 2026-07 — its freshness-trigger capability is being folded into Flow.',
+      'Turns "this expires on Friday" into an event the rest of the suite can act on — a standalone freshness scheduler and event bridge. Not under active development.',
   },
   {
     slug: 'kit-research',
     label: 'Research Kit',
     repo: 'https://github.com/kontourai/kit-research',
     description:
-      'A Flow Agents kit for source-traced research — capture, compile, recall with provenance gates. Also our own test of the third-party kit-authoring path.',
+      'A Flow Agents kit for source-traced research: capture, compile, recall, with every claim tied to where it came from.',
   },
   {
     slug: 'ui',
     label: 'Console Kit (UI)',
     repo: 'https://github.com/kontourai/ui',
     description:
-      'Shared design tokens and React/web-component primitives for Kontour consoles. You only need this if you are building a console surface.',
+      "Shared design tokens and React/web-component pieces for Kontour consoles. You only need this if you're building a console of your own.",
   },
 ] as const;
 ---
@@ -162,16 +114,12 @@ const labRepos = [
       <h1 class="product-title animate-fade-up">Kontour for developers</h1>
       <p class="product-tagline animate-fade-up delay-100" data-accent="gold">install the engine, add a kit, keep the receipts</p>
       <p class="hero-copy hero-copy--wide animate-fade-up delay-200">
-        Kontour is one product: an engine — <a href="/flow-agents/">Flow
-        Agents</a> — that installs into the coding agent you already run and
-        gates its work on evidence instead of promises. Kits are the
-        workflows you install on top: Builder for delivery, Knowledge for
-        durable memory, plus agentless kits that run with no agent at all.
-        Everything the engine gates comes out the other side as a
-        recomputable trust receipt. Under the hood, that machinery is a set
-        of focused components the engine wires in for you — you don't need
-        to learn them to use Kontour, and each stays independently adoptable
-        when you want one alone.
+        Your coding agent says the tests pass. <a href="/flow-agents/">Flow
+        Agents</a> installs into that agent and makes it show the work before
+        it can call the job done — then writes a file recording what ran, what
+        passed, and what it skipped. Anyone can re-check that file without
+        trusting us or the agent. This page is the map: install it below, then
+        open whichever part you want to look inside.
       </p>
       <div class="hero-actions animate-fade-up delay-300">
         <a href="#quickstart" class="btn-primary" data-umami-event="developers-hero-quickstart">Install the engine →</a>
@@ -184,29 +132,65 @@ const labRepos = [
   <Section id="quickstart" borderBottom>
     <div class="container">
       <Eyebrow gap="sm" accent="green">Start here</Eyebrow>
-      <h2 class="display-md measure-lg">Two commands, then the diagrams.</h2>
+      <h2 class="display-md measure-lg">Install it, then check our receipts before you believe us.</h2>
       <p class="body measure quickstart-intro">
-        Install the engine into a workspace you already use, then check our
-        receipts before you believe our copy — every published bundle
-        recomputes under two validators, and the same commands run in this
-        site's own CI on every change.
+        Two minutes: put the engine in a workspace you already use, then take
+        one of our published receipts and recompute under two validators
+        yourself. Both commands on the right are the ones this site's own CI
+        runs on every change.
       </p>
       <Grid cols={2} gap="lg" align="start">
-        <Terminal title="install the engine + kits">
-          <p><span class="prompt">$ </span><span class="cmd">npx @kontourai/flow-agents init</span></p>
-          <p class="muted"># hooks + adapters for Claude Code, Codex, Kiro,</p>
-          <p class="muted"># opencode, and pi — blocking gates on the first</p>
-          <p class="muted"># three; advisory on the rest (matrix on /trust)</p>
-        </Terminal>
-        <Terminal title="verify a receipt, second opinion included">
-          <p class="muted"># grab the bundle from /receipts/ first, then check it</p>
-          <p class="muted"># yourself — hachure validates it, ajv is the second,</p>
-          <p class="muted"># independent opinion (pinned so your run matches CI)</p>
-          <p><span class="prompt">$ </span><span class="cmd">npx -y -p ajv@{ajvPin} -p hachure@{hachurePin} \</span></p>
-          <p><span class="cmd">    hachure validate flow-agents-delivery.trust.bundle</span></p>
-          <p class="pass">valid TrustBundle (schemaVersion 5)</p>
-        </Terminal>
+        <div class="quickstart-col">
+          <Terminal title="install the engine + kits">
+            <p><span class="prompt">$ </span><span class="cmd">npx @kontourai/flow-agents init</span></p>
+            <p class="muted"># asks which agent you use, then wires it up:</p>
+            <p class="muted"># Claude Code, Codex, Kiro, opencode, and pi —</p>
+            <p class="muted"># gates block on Claude Code and Codex; the rest</p>
+            <p class="muted"># are advisory out of the box (matrix on /trust)</p>
+          </Terminal>
+          <p class="fine quickstart-note">
+            Know what it costs you before you paste it. It installs into the
+            directory you run it in — 18 top-level entries, including a <code>README.md</code> and
+            a <code>CLAUDE.md</code>. If your agent already has Flow Agents
+            hooks at the user level, it warns you about the collision rather
+            than quietly running everything twice. Run it at the root of a repo
+            you can commit, and read the diff before you push. Nothing leaves
+            your machine unless you point it at a Console.
+          </p>
+        </div>
+        <div class="quickstart-col">
+          <Terminal title="check the receipt, then check the checker">
+            <p class="muted"># download a bundle from /receipts/, then read it</p>
+            <p class="muted"># with our own validator</p>
+            <p><span class="prompt">$ </span><span class="cmd">npx @kontourai/surface@{surfacePin} report \</span></p>
+            <p><span class="cmd">    --input flow-agents-delivery.trust.bundle --format summary</span></p>
+            <p class="pass">Claims: 34 (proposed: 1, assumed: 1, verified: 32)</p>
+            <p>Stale: none</p>
+            <p>Disputed: none</p>
+            <p>Transparency gaps: 1</p>
+            <p class="muted"># (the report names that gap in full — trimmed here)</p>
+            <p class="muted"># now run the same file through a different</p>
+            <p class="muted"># implementation, one that reads the open spec's</p>
+            <p class="muted"># schemas instead. ajv is hachure's schema engine,</p>
+            <p class="muted"># not a second opinion; both are pinned to the</p>
+            <p class="muted"># versions CI uses.</p>
+            <p><span class="prompt">$ </span><span class="cmd">npx -y -p ajv@{ajvPin} -p hachure@{hachurePin} \</span></p>
+            <p><span class="cmd">    hachure validate flow-agents-delivery.trust.bundle</span></p>
+            <p class="pass">valid TrustBundle (schemaVersion 5)</p>
+          </Terminal>
+          <p class="fine quickstart-note">
+            Two implementations, one file, same verdict. Surface is ours; the <span class="mono-inline">hachure</span> CLI
+            is written against <a href="/hachure/">the open format</a> instead.
+            Honest scope: both are still Kontour-maintained, so that is
+            implementation independence, not organizational independence.
+          </p>
+        </div>
       </Grid>
+      <p class="fine measure quickstart-proof">
+        We run this on ourselves. This site's own pull requests can't merge
+        until a required <span class="mono-inline">Trust Verify</span> check
+        passes, and the bundle it produces is published on <a href="/receipts/" data-umami-event="developers-quickstart-proof-receipts">the receipts page</a>.
+      </p>
       <div class="quickstart-links">
         <a href="/receipts/" class="btn-ghost" data-umami-event="developers-quickstart-receipts">Download real receipts →</a>
         <a href="/trust/" class="btn-ghost" data-umami-event="developers-quickstart-trust">Read the bypass list →</a>
@@ -219,11 +203,10 @@ const labRepos = [
   <Section id="kits" tone="alt" borderTop borderBottom>
     <div class="container">
       <Eyebrow gap="sm" accent="chalk-2">The kits</Eyebrow>
-      <h2 class="display-md measure-lg">Kits are the workflows. The engine treats them all the same.</h2>
+      <h2 class="display-md measure-lg">Four workflows ship with it. Pick one.</h2>
       <p class="body measure kits-intro">
-        A kit declares its flows, triggers, and validation requirements in a
-        manifest; the engine runs it with no special privilege — first-party
-        or bring-your-own.
+        A kit is a workflow the engine runs: what the steps are, what evidence
+        each one has to produce, and when it stops to ask you. <a href="/flow-agents/#kits" data-umami-event="developers-kits-how">How kits work →</a>
       </p>
       <Grid min="260" gap="md">
         {kitCards.map(({ name, href, job, note, accent, external, event }) => (
@@ -238,23 +221,48 @@ const labRepos = [
             <span class="kit-card__name">{name}</span>
             <span class="kit-card__job">{job}</span>
             <span class="kit-card__note">{note}</span>
-            <span class="kit-card__cta">{external ? 'Engine docs →' : `Explore ${name} →`}</span>
+            <span class="kit-card__cta">{external ? 'On GitHub →' : `Explore ${name} →`}</span>
           </a>
         ))}
       </Grid>
     </div>
   </Section>
 
-  <Section id="applications" borderBottom>
+  <!-- The one technical map: the disciplines the engine wires in ----------- -->
+  <Section id="ownership" size="lg">
     <div class="container">
-      <Eyebrow gap="sm" accent="gold-2">Applications</Eyebrow>
-      <h2 class="display-md measure-lg">Standalone products for jobs people recognize.</h2>
-      <p class="body measure applications-intro">
-        Start with the app when you want the complete workflow. Drop lower
-        into the libraries when you need to embed the same evidence pattern in
-        your own product.
+      <Eyebrow gap="sm">Under the hood</Eyebrow>
+      <h2 class="display-md measure-lg">Everything that had to agree before that receipt said valid.</h2>
+      <p class="fine measure ownership-note">
+        You just validated a receipt. Everything below is what had to happen for
+        that file to exist, starting with the format — which isn't ours. Take any
+        one layer on its own, or let <code>init</code> assemble the whole chain
+        and never look at this again.
       </p>
-      <Grid min="280" gap="md">
+
+      <ProofChain eventPrefix="developers" />
+
+      <p class="fine measure map-note">
+        Every piece above is on npm today. Two things are preview-grade and
+        say so in their own docs: the AWS Strands framework adapters, and
+        conformance certification for third-party kits. Lane one is the odd one
+        out — <a href="/hachure/" data-umami-event="developers-map-hachure-page">the receipt format</a> is
+        published outside Kontour, so we can't quietly change what a receipt is
+        allowed to say.
+      </p>
+    </div>
+  </Section>
+
+  <Section id="applications" tone="alt" borderTop borderBottom>
+    <div class="container">
+      <Eyebrow gap="sm" accent="gold-2">Built on it</Eyebrow>
+      <h2 class="display-md measure-lg">Fieldwork: the whole workflow as a finished app.</h2>
+      <p class="body measure applications-intro">
+        It sits on that chain rather than being a link in it, which is why it
+        isn't a lane in the map. Start here when you want the complete
+        workflow instead of the parts.
+      </p>
+      <div class="application-single">
         {applicationCards.map(({ href, label, accent, repo, packageName, job, composition, status, badge, key }) => (
           <Card accent={accent} bar="top" pad="md">
             <h3 class="product-card__title">{label}</h3>
@@ -268,83 +276,6 @@ const labRepos = [
             </div>
           </Card>
         ))}
-      </Grid>
-    </div>
-  </Section>
-
-  <!-- The one technical map: the disciplines the engine wires in ----------- -->
-  <Section id="ownership" size="lg">
-    <div class="container">
-      <Eyebrow gap="sm">Under the hood</Eyebrow>
-      <h2 class="display-md measure-lg">The proof chain you can audit when you need to.</h2>
-      <p class="fine measure ownership-note">
-        You just validated a receipt. Everything below is what had to happen for
-        that file to exist, starting with the format — which isn't ours. Take any
-        one layer on its own, or let <code>init</code> assemble the whole chain
-        and never look at this again.
-      </p>
-
-      <ProofChain eventPrefix="developers" />
-    </div>
-  </Section>
-
-  <Section tone="alt" borderTop>
-    <div class="container">
-      <Eyebrow gap="sm">Use-case families</Eyebrow>
-      <h2 class="display-md measure-lg">Useful anywhere claims, process, readiness, and evidence need to stay connected.</h2>
-      <Grid min="260" gap="md" class="use-grid">
-        {useCases.map(({ title, detail }) => (
-          <div class="use-case">
-            <h3>{title}</h3>
-            <p>{detail}</p>
-          </div>
-        ))}
-      </Grid>
-      <p class="fine use-note">
-        These are the shapes we take on with design partners: the engine and
-        kits are open, and the gated workflow built on them for your process is
-        the engagement — judged by results you can check.
-        <a href="/early-access/" data-umami-event="developers-use-cases-early-access">Bring one of yours →</a>
-      </p>
-    </div>
-  </Section>
-
-  <Section borderTop>
-    <div class="container state-section">
-      <div>
-        <Eyebrow gap="sm">Maturity framing</Eyebrow>
-        <h2 class="display-md measure-lg">Current state, near-term direction, and future possibilities are separate.</h2>
-        <p class="body measure">
-          The public map should help developers decide what to inspect next,
-          not imply a single finished control plane. Adopt one product, or
-          compose several when the workflow needs it.
-        </p>
-      </div>
-      <Grid cols={3} gap="lg">
-        {states.map(({ label, body, accent }) => (
-          <Card accent={accent} bar="top" pad="md">
-            <h3 class="state-card__title">{label}</h3>
-            <p class="state-card__body">{body}</p>
-          </Card>
-        ))}
-      </Grid>
-    </div>
-  </Section>
-
-  <Section tone="alt" borderTop>
-    <div class="container">
-      <div class="next-links">
-        <Eyebrow>Where to go next</Eyebrow>
-        <a href="/flow-agents/" data-umami-event="developers-next-flow-agents">Install the Flow Agents engine</a>
-        <a href="/builder-kit/" data-umami-event="developers-next-builder-kit">Run delivery with Builder Kit</a>
-        <a href="/knowledge-kit/" data-umami-event="developers-next-knowledge-kit">Keep durable memory with Knowledge Kit</a>
-        <a href="/receipts/" data-umami-event="developers-next-receipts">Recompute a published receipt</a>
-        <a href="/surface/" data-umami-event="developers-next-surface">Inspect Surface trust records</a>
-        <a href="/flow/" data-umami-event="developers-next-flow">Inspect Flow gates</a>
-        <a href="/veritas/" data-umami-event="developers-next-veritas">Inspect Veritas readiness</a>
-        <a href="/console/" data-umami-event="developers-next-console">Inspect Console framing</a>
-        <a href="/memory/" data-umami-event="developers-next-memory">How Kontour composes with your memory layer</a>
-        <a href="/trust/" data-umami-event="developers-next-trust">Read the honest ceiling</a>
       </div>
     </div>
   </Section>
@@ -353,9 +284,8 @@ const labRepos = [
     <div class="container">
       <Eyebrow gap="sm">More from the lab</Eyebrow>
       <p class="fine measure lab-intro">
-        Smaller public repos in the Kontour org that are useful on their own
-        and also feed the products above. They are lower-level tools, so their
-        pages stay closer to implementation detail.
+        Smaller pieces we built for ourselves and published anyway. Each does
+        one thing, and each works without the rest.
       </p>
       <Grid min="280" gap="md">
         {labRepos.map(({ slug, label, repo, description }) => (
@@ -371,6 +301,18 @@ const labRepos = [
     </div>
   </Section>
 
+  <Section tone="alt" borderTop>
+    <div class="container">
+      <div class="next-links">
+        <Eyebrow>Where to go next</Eyebrow>
+        <a href="/flow-agents/" data-umami-event="developers-next-flow-agents">Install it and find out what a gate feels like</a>
+        <a href="/receipts/" data-umami-event="developers-next-receipts">Download a real receipt and try to break it</a>
+        <a href="/trust/" data-umami-event="developers-next-trust">Three ways to cheat it — and who catches each one</a>
+        <a href="/memory/" data-umami-event="developers-next-memory">Already have a memory layer? Where Kontour sits next to it</a>
+      </div>
+    </div>
+  </Section>
+
   <Footer active="developers" />
 </Layout>
 
@@ -380,16 +322,19 @@ const labRepos = [
   }
 
 
-  .use-case {
-    border: 1px solid var(--color-edge);
-    background: linear-gradient(135deg, rgba(18, 22, 35, 0.92), rgba(12, 15, 25, 0.86));
-  }
-
   .ownership-note,
   .lab-intro {
     margin: 0.8rem 0 2rem;
   }
 
+  .map-note {
+    margin: 2rem 0 0;
+  }
+
+  .map-note a {
+    color: var(--color-gold);
+    text-decoration: none;
+  }
 
 
 
@@ -399,9 +344,8 @@ const labRepos = [
 
 
 
-  .product-card__title,
-  .state-card__title,
-  .use-case h3 {
+
+  .product-card__title {
     font-family: var(--font-display);
     font-size: 1.25rem;
     font-weight: 400;
@@ -409,9 +353,7 @@ const labRepos = [
     margin-bottom: 0.8rem;
   }
 
-  .product-card__body,
-  .state-card__body,
-  .use-case p {
+  .product-card__body {
     color: var(--color-chalk-2);
     font-size: 0.9rem;
     line-height: 1.65;
@@ -433,31 +375,6 @@ const labRepos = [
     text-decoration: none;
   }
 
-  .use-grid {
-    margin-top: 2rem;
-  }
-
-  .use-note {
-    margin: 1.75rem 0 0;
-    max-width: 72ch;
-    color: var(--color-chalk-2);
-  }
-  .use-note a {
-    color: var(--color-gold);
-    text-decoration: none;
-    margin-left: 0.35rem;
-  }
-
-  .use-case {
-    min-height: 170px;
-    padding: 1.25rem;
-  }
-
-  .state-section {
-    display: grid;
-    gap: 2rem;
-  }
-
   .next-links {
     align-content: start;
     flex-direction: column;
@@ -469,8 +386,20 @@ const labRepos = [
     margin-bottom: 2rem;
   }
 
+  .kits-intro a {
+    color: var(--color-gold);
+    text-decoration: none;
+    margin-left: 0.35rem;
+  }
+
   .applications-intro {
     margin: 0.8rem 0 2rem;
+  }
+
+  /* One application ships today, so the card is constrained rather than
+     stretched across an auto-fill grid built for several. */
+  .application-single {
+    max-width: 620px;
   }
 
   .application-card__composition,
@@ -535,16 +464,38 @@ const labRepos = [
   .quickstart-intro {
     margin-bottom: 2rem;
   }
+
+  .quickstart-col {
+    display: grid;
+    gap: 1rem;
+    align-content: start;
+  }
+
+  /* Each terminal's caveats sit under it, not under the pair — the install
+     cost belongs next to the install, not next to the validators. */
+  .quickstart-note {
+    margin: 0;
+    color: var(--color-chalk-2);
+  }
+
+  .quickstart-note a {
+    color: var(--color-gold);
+    text-decoration: none;
+  }
+
+  .quickstart-proof {
+    margin: 2rem 0 0;
+  }
+
+  .quickstart-proof a {
+    color: var(--color-gold);
+    text-decoration: none;
+  }
+
   .quickstart-links {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
     margin-top: 2rem;
-  }
-
-  @media (max-width: 720px) {
-    .use-case {
-      min-height: auto;
-    }
   }
 </style>

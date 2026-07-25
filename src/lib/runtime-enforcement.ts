@@ -30,14 +30,16 @@ export const runtimeEnforcement: RuntimeEnforcement[] = [
   },
   {
     // Kiro's adapter has the full blocking capability (hook-surface L2), but
-    // unlike Claude Code and Codex its shipped config leaves the engine's
-    // canonical `warn` default — badging it "Blocking" would overclaim the
-    // out-of-the-box behavior (runtime-hook-surface spec, Decision contract).
+    // unlike Claude Code and Codex, the Kiro bundle ships no host-config
+    // directory at all — `dist/kiro/` has no counterpart to `dist/codex/.codex/`
+    // — so `init --runtime kiro` writes hook scripts nothing invokes, and
+    // FLOW_AGENTS_GOAL_FIT_MODE=block arms nothing. Upstream's own matrix still
+    // grades kiro L2/blocking; that disagreement is an upstream bug, not ours.
     runtime: "Kiro",
     level: "advisory",
     label: "Advisory / opt-in block",
     meaning:
-      "Full blocking capability is wired, but the shipped default warns instead of blocking — set FLOW_AGENTS_GOAL_FIT_MODE=block to enforce.",
+      "The policy scripts install, but the bundle doesn't wire the stop hook for you yet — nothing enforces until you wire it yourself.",
   },
   {
     runtime: "opencode",
@@ -58,7 +60,7 @@ export const runtimeEnforcement: RuntimeEnforcement[] = [
     level: "advisory",
     label: "Advisory / partial",
     meaning:
-      "Official framework adapters: config protection blocks at tool-call time; steering, quality, and stop policies are telemetry- or shim-only so far.",
+      "Our own adapters for the Strands SDK: writes to protected config are blocked as they happen; steering, quality, and stop policies are reporting-only so far, and the Python adapter is still a proof of concept.",
   },
   {
     runtime: "Other harnesses",

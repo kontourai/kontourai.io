@@ -8,10 +8,11 @@ import Eyebrow from '@/components/Eyebrow.astro';
 import Terminal from '@/components/Terminal.astro';
 import {
   receipts,
-  statusCounts,
   badgeVariant,
-  deriveGaps,
+  deriveReport,
   formatValue,
+  GAP_TYPE_GLOSS,
+  STATUS_GLOSS,
 } from '@/lib/receipts';
 import pkg from '../../../package.json';
 
@@ -30,15 +31,39 @@ export function getStaticPaths() {
 
 const { receipt } = Astro.props;
 const { bundle, provenance } = receipt;
-const counts = statusCounts(bundle);
-const gaps = deriveGaps(bundle);
+
+// Everything numeric on this page comes out of the same derivation the
+// advertised command runs — never out of the file's stored status strings.
+const derived = deriveReport(receipt);
+const counts = derived.statusCounts;
 const downloadPath = `/receipts/${receipt.slug}.trust.bundle`;
 const commitUrl = `https://github.com/${provenance.repo}/blob/${provenance.commit}/${provenance.path}`;
+
+const countOf = (status: string) => counts.find((entry) => entry.status === status)?.count ?? 0;
+const disputedCount = countOf('disputed') + countOf('rejected');
+const blockingGaps = derived.gaps.filter((gap) => gap.blocking);
+
+function plural(n: number, one: string, many: string): string {
+  return n === 1 ? one : many;
+}
+
+const headline =
+  disputedCount > 0
+    ? 'The answer was no.'
+    : blockingGaps.length > 0
+      ? `Nothing was disputed — but ${blockingGaps.length} ${plural(blockingGaps.length, 'check is', 'checks are')} flagged as blocking, written down rather than dropped.`
+      : derived.gaps.length > 0
+        ? 'It came out clean, with open flags the receipt records rather than drops.'
+        : 'Everything it claimed came back supported.';
+
+const countsSentence = counts.map((entry) => `${entry.count} ${entry.status}`).join(', ');
 
 function truncate(value: string, max = 220): string {
   if (value.length <= max) return value;
   return `${value.slice(0, max).trimEnd()}…`;
 }
+
+const claimById = new Map(derived.claims.map((claim) => [claim.id, claim]));
 ---
 
 <Layout
@@ -63,6 +88,11 @@ function truncate(value: string, max = 220): string {
           </span>
         ))}
       </div>
+      <p class="badge-note">
+        These are the statuses the validator works out from the evidence, not the
+        ones written in the file. Run the command further down and you get this
+        row back.
+      </p>
 
       <div class="hero-actions">
         <a class="download-btn" href={downloadPath} download>Download raw .bundle</a>
@@ -74,10 +104,225 @@ function truncate(value: string, max = 220): string {
     </div>
   </Section>
 
+  <!-- Plain-language read -->
+  <Section size="lg" borderBottom tone="alt">
+    <div class="container container--readable">
+      <Eyebrow accent={receipt.accent} gap="sm">In plain language</Eyebrow>
+      <h2 class="section-heading">What this receipt says</h2>
+      <p class="section-lead read-headline">{headline}</p>
+
+      <dl class="read-grid">
+        <dt>What was checked</dt>
+        <dd>
+          {bundle.claims.length === 1
+            ? 'One claim, about one thing — a single assertion this run makes about itself, with its own policy attached.'
+            : `${bundle.claims.length} separate claims, each one a single assertion this run makes about itself — not one summary verdict you have to take or leave.`}
+          {' '}The {plural(derived.claimTypes.length, 'kind', 'kinds')} of thing being claimed:
+          <ul class="type-list">
+            {derived.claimTypes.map((type) => (
+              <li class="mono-inline">{type}</li>
+            ))}
+          </ul>
+        </dd>
+
+        <dt>How they came out</dt>
+        <dd>
+          {countsSentence}.
+          <ul class="gloss-list">
+            {counts.map((entry) => (
+              <li>
+                <span class={`trust-badge trust-badge--${badgeVariant(entry.status)}`}>
+                  {entry.status}
+                </span>
+                <span class="gloss-text">
+                  {STATUS_GLOSS[entry.status] ?? 'see the format spec for this status'}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </dd>
+
+        <dt>What backs them</dt>
+        <dd>
+          {derived.evidenceTotal} evidence {plural(derived.evidenceTotal, 'record', 'records')}
+          {' '}captured while the commands ran — {derived.evidencePassing} reporting a pass,
+          {' '}{derived.evidenceFailing} reporting a failure.
+          {derived.claimsWithNoSupportRecord > 0 ? (
+            <Fragment>
+              {' '}{derived.claimsWithNoSupportRecord}{' '}
+              {plural(derived.claimsWithNoSupportRecord, 'claim carries', 'claims carry')} neither
+              an evidence record nor a verification event, which is why{' '}
+              {plural(derived.claimsWithNoSupportRecord, 'it', 'they')} can't come out verified.
+            </Fragment>
+          ) : (
+            <Fragment>
+              {' '}Every claim here is backed by an evidence record, a verification event, or both.
+            </Fragment>
+          )}
+        </dd>
+
+        <dt>What's still open</dt>
+        <dd>
+          {derived.gaps.length === 0 ? (
+            <Fragment>
+              The validator finds no transparency gaps in this file.
+              {derived.highImpactUnsupported.length > 0 && (
+                <Fragment>
+                  {' '}It does list {derived.highImpactUnsupported.length} high-impact{' '}
+                  {plural(derived.highImpactUnsupported.length, 'claim', 'claims')} as unsupported —
+                  spelled out below.
+                </Fragment>
+              )}
+            </Fragment>
+          ) : (
+            <Fragment>
+              {derived.gaps.length} transparency {plural(derived.gaps.length, 'gap', 'gaps')}
+              {blockingGaps.length > 0 ? ', blocking,' : ','} listed in full below. The receipt
+              records {plural(derived.gaps.length, 'it', 'them')} rather than dropping
+              {plural(derived.gaps.length, ' it', ' them')}.
+            </Fragment>
+          )}
+        </dd>
+
+        {derived.storedStatusMismatches > 0 && (
+          <Fragment>
+            <dt>Where the file and the answer differ</dt>
+            <dd>
+              {derived.storedStatusMismatches}{' '}
+              {plural(derived.storedStatusMismatches, 'claim', 'claims')} in this file{' '}
+              {plural(derived.storedStatusMismatches, 'stores', 'store')} a status the validator
+              does not agree with. The stored string loses: it isn't part of the format's
+              required shape, and the answer is recomputed from the evidence every time. The raw
+              table below marks which {plural(derived.storedStatusMismatches, 'one', 'ones')}.
+            </dd>
+          </Fragment>
+        )}
+
+        <dt>What it doesn't tell you</dt>
+        <dd>
+          Whether the code is correct, or whether the checks that ran were the right checks. A
+          receipt records what was asked, what was run, and what came back. It narrows what you
+          have to take on faith; it doesn't get it to zero.
+        </dd>
+      </dl>
+    </div>
+  </Section>
+
+  <!-- Recompute — moved up: the command is the reason to trust the rest -->
+  <Section size="lg" borderBottom>
+    <div class="container container--readable">
+      <Eyebrow accent="green" gap="sm">Check it yourself</Eyebrow>
+      <h2 class="section-heading">Recompute this exact file</h2>
+      <p class="section-lead">
+        Download the raw <span class="mono-inline">.bundle</span> above and run it through
+        <span class="mono-inline">@kontourai/surface</span> — our implementation of the
+        <a href="https://github.com/hachure-org/spec" target="_blank" rel="noopener">Hachure
+        trust.bundle format</a>, an open spec we publish schemas for but don't own the
+        definition of. The command prints the same status row this page shows, and exits
+        non-zero if the artifact isn't a well-formed trust.bundle.
+      </p>
+      <Terminal title="validate this receipt">
+        <div><span class="prompt">$</span> <span class="cmd">npx @kontourai/surface@{surfacePin} report \</span></div>
+        <div><span class="cmd">    --input {receipt.slug}.trust.bundle --format summary</span></div>
+        <div class="muted"># exit 0 prints the trust summary; a broken file exits 1</div>
+      </Terminal>
+      <p class="section-lead recompute-second">
+        Want a second opinion from a different codebase? The
+        <span class="mono-inline">hachure</span> reference CLI reads the same file against the
+        spec's own schemas and reaches the same verdict. Both are still maintained by us — the
+        implementations are independent, the organization behind them isn't yet.
+      </p>
+      <Terminal title="second opinion — the reference CLI">
+        <div><span class="prompt">$</span> <span class="cmd">npx -y -p ajv@{ajvPin} -p hachure@{hachurePin} hachure validate \</span></div>
+        <div><span class="cmd">    {receipt.slug}.trust.bundle</span></div>
+        <div class="pass">valid TrustBundle (schemaVersion {receipt.bundle.schemaVersion})</div>
+      </Terminal>
+      <p class="section-lead recompute-foot">
+        Prefer the library directly? The CLI just calls it:
+      </p>
+      <Terminal title="node — the named validator">
+        <div><span class="t-kw">import</span> <span class="cmd">{'{ validateTrustBundle }'}</span> <span class="t-kw">from</span> <span class="t-str">"@kontourai/surface"</span>;</div>
+        <div><span class="t-kw">import</span> <span class="cmd">{'{ readFileSync }'}</span> <span class="t-kw">from</span> <span class="t-str">"node:fs"</span>;</div>
+        <div><span class="t-fn">validateTrustBundle</span>(<span class="t-fn">JSON.parse</span>(<span class="t-fn">readFileSync</span>(<span class="t-str">"{receipt.slug}.trust.bundle"</span>, <span class="t-str">"utf8"</span>)));</div>
+        <div class="muted"># throws if the bundle is invalid; returns the parsed bundle otherwise</div>
+      </Terminal>
+    </div>
+  </Section>
+
+  <!-- Gaps -->
+  <Section size="lg" borderBottom tone="alt">
+    <div class="container container--readable">
+      <Eyebrow accent={receipt.accent} gap="sm">Open questions</Eyebrow>
+      <h2 class="section-heading">What this receipt leaves open</h2>
+      <p class="section-lead">
+        Straight from the validator's own <span class="mono-inline">transparencyGaps</span> and
+        high-impact-unsupported lists — the same lines the command above prints. Not a count
+        this site works out for itself.
+      </p>
+
+      {derived.gaps.length === 0 ? (
+        <p class="section-lead gap-empty">
+          <span class="trust-badge trust-badge--verified">0 transparency gaps</span>
+          <span>
+            Nothing contradicts anything else, no policy went unsatisfied, and no evidence has
+            aged past what its policy allows.
+          </span>
+        </p>
+      ) : (
+        <ul class="gap-list">
+          {derived.gaps.map((gap) => (
+            <li class="gap-item">
+              <div class="gap-head">
+                <span class="trust-badge trust-badge--disputed">{gap.type}</span>
+                <span class="gap-sev">severity {gap.severity}</span>
+                {gap.blocking && <span class="gap-sev gap-sev--blocking">blocking</span>}
+              </div>
+              <p class="gap-detail">
+                <strong>{gap.message}</strong>
+                {GAP_TYPE_GLOSS[gap.type] ? ` — ${GAP_TYPE_GLOSS[gap.type]}.` : ''}
+              </p>
+              <p class="gap-claim">
+                On the claim: “{truncate(claimById.get(gap.claimId)?.fieldOrBehavior ?? gap.claimId, 400)}”
+              </p>
+              <p class="gap-meta mono-inline">{truncate(gap.claimId, 140)}</p>
+              {gap.policyId && <p class="gap-meta mono-inline">under policy {gap.policyId}</p>}
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {derived.highImpactUnsupported.length > 0 && (
+        <div class="gap-unsupported">
+          <h3 class="sub-heading">
+            High-impact claims counted as unsupported ({derived.highImpactUnsupported.length})
+          </h3>
+          <p class="fine">
+            Claims the run marked high-impact that no verified evidence stands behind. In these
+            receipts that is what a disclosed waiver looks like: the run wrote down what it
+            couldn't stand behind instead of leaving it out. The wording is the run's own,
+            verbatim.
+          </p>
+          <ul class="unsupported-list">
+            {derived.highImpactUnsupported.map((claim) => (
+              <li>
+                <span class={`trust-badge trust-badge--${badgeVariant(claim.status)}`}>
+                  {claim.status}
+                </span>
+                <p class="unsupported-text">{truncate(claim.fieldOrBehavior, 600)}</p>
+                <p class="unsupported-id mono-inline">{truncate(claim.id, 140)}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  </Section>
+
   <!-- Provenance -->
-  <Section size="md" borderBottom tone="alt">
+  <Section size="md" borderBottom>
     <div class="container container--readable">
       <Eyebrow accent={receipt.accent} gap="sm">Provenance</Eyebrow>
+      <h2 class="section-heading">Where this file came from</h2>
       <p class="prov-note">{provenance.note}</p>
       <dl class="prov-grid">
         <dt>Repository</dt>
@@ -86,57 +331,16 @@ function truncate(value: string, max = 220): string {
         <dd class="mono-inline">{provenance.path}</dd>
         <dt>Pinned commit</dt>
         <dd class="mono-inline">
-          <a href={commitUrl}>{provenance.commit}</a>
+          <a href={commitUrl} target="_blank" rel="noopener">{provenance.commit}</a>
         </dd>
         <dt>Bundle source</dt>
         <dd class="mono-inline">{bundle.source}</dd>
       </dl>
-    </div>
-  </Section>
-
-  <!-- Claims -->
-  <Section size="lg" borderBottom>
-    <div class="container container--readable">
-      <Eyebrow accent={receipt.accent} gap="sm">Claims</Eyebrow>
-      <h2 class="section-heading">What was gated, and how it landed</h2>
-      <p class="section-lead">
-        Each row is a claim the pipeline recorded — its type, the facet it
-        belongs to, the field or behavior it covers, its recorded value, and the
-        trust status the kernel derived. Read straight from the downloadable
-        artifact.
+      <p class="fine prov-fine">
+        Recomputing tells you the file is internally consistent and hasn't been edited since.
+        It doesn't tell you nobody rewrote the evidence before publishing — that's what the
+        pinned commit is for. Follow it and compare.
       </p>
-      <div class="table-scroll">
-        <table class="claims-table">
-          <thead>
-            <tr>
-              <th>Status</th>
-              <th>Subject / field</th>
-              <th>Type · facet</th>
-              <th>Value</th>
-            </tr>
-          </thead>
-          <tbody>
-            {bundle.claims.map((claim) => (
-              <tr>
-                <td>
-                  <span class={`trust-badge trust-badge--${badgeVariant(claim.status)}`}>
-                    {claim.status}
-                  </span>
-                </td>
-                <td>
-                  <span class="claim-subject mono-inline">{claim.subjectId}</span>
-                  <span class="claim-field">{truncate(claim.fieldOrBehavior, 200)}</span>
-                </td>
-                <td>
-                  <span class="claim-type">{claim.claimType}</span>
-                  <span class="claim-facet mono-inline">{claim.facet}</span>
-                </td>
-                <td class="claim-value mono-inline">{truncate(formatValue(claim.value), 120)}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
     </div>
   </Section>
 
@@ -144,7 +348,9 @@ function truncate(value: string, max = 220): string {
   <Section size="lg" borderBottom tone="alt">
     <div class="container container--readable">
       <Eyebrow accent={receipt.accent} gap="sm">Evidence</Eyebrow>
-      <h2 class="section-heading">What supports the claims</h2>
+      <h2 class="section-heading">
+        What actually ran — {derived.evidencePassing} passing, {derived.evidenceFailing} failing
+      </h2>
       <ul class="evidence-list">
         {bundle.evidence.map((item) => (
           <li class="evidence-item">
@@ -164,69 +370,78 @@ function truncate(value: string, max = 220): string {
     </div>
   </Section>
 
-  <!-- Gaps -->
+  <!-- Raw claims table, demoted behind a disclosure -->
   <Section size="lg" borderBottom>
     <div class="container container--readable">
-      <Eyebrow accent={receipt.accent} gap="sm">Open questions</Eyebrow>
-      <h2 class="section-heading">Gaps this receipt does not hide</h2>
-      {gaps.length === 0 ? (
-        <p class="section-lead">
-          No disputed claims, unsupported high-impact claims, or transparency
-          gaps were derived from this bundle. Every recorded claim carries
-          linked evidence.
-        </p>
-      ) : (
-        <ul class="gap-list">
-          {gaps.map((gap) => (
-            <li class="gap-item">
-              <span class={`trust-badge trust-badge--${gap.kind === 'disputed' ? 'disputed' : gap.kind === 'unsupported' ? 'stale' : 'unknown'}`}>
-                {gap.kind}
-              </span>
-              <span class="gap-detail">{gap.detail}</span>
-            </li>
-          ))}
-        </ul>
-      )}
+      <Eyebrow accent={receipt.accent} gap="sm">The artifact</Eyebrow>
+      <h2 class="section-heading">Every claim, raw</h2>
+      <p class="section-lead">
+        The unedited claim list as it sits in the file. The wording is the pipeline's own
+        note-taking — written for the next run, not for reading — and it's here so you can
+        check that the summary above didn't quietly skip anything.
+      </p>
+      <details class="raw-claims">
+        <summary>
+          Show all {bundle.claims.length} claims{derived.storedStatusMismatches > 0
+            ? ` · ${derived.storedStatusMismatches} where the file's stored status disagrees`
+            : ''}
+        </summary>
+        <div class="table-scroll">
+          <table class="claims-table">
+            <thead>
+              <tr>
+                <th>Derived status</th>
+                <th>Subject / field</th>
+                <th>Type · facet</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              {derived.claims.map((claim) => (
+                <tr>
+                  <td>
+                    <span class={`trust-badge trust-badge--${badgeVariant(claim.status)}`}>
+                      {claim.status}
+                    </span>
+                    {claim.storedStatusDiffers && (
+                      <span class="stored-flag">file says “{claim.storedStatus}”</span>
+                    )}
+                  </td>
+                  <td>
+                    <span class="claim-subject mono-inline">{claim.subjectId}</span>
+                    <span class="claim-field">{claim.fieldOrBehavior}</span>
+                  </td>
+                  <td>
+                    <span class="claim-type">{claim.claimType}</span>
+                    <span class="claim-facet mono-inline">{claim.facet}</span>
+                  </td>
+                  <td class="claim-value mono-inline">{formatValue(claim.value)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </details>
     </div>
   </Section>
 
-  <!-- Recompute -->
-  <Section size="lg" tone="alt">
+  <!-- Next -->
+  <Section size="md" tone="alt">
     <div class="container container--readable">
-      <Eyebrow accent="green" gap="sm">Check it yourself</Eyebrow>
-      <h2 class="section-heading">Recompute this exact file</h2>
-      <p class="section-lead">
-        Download the raw <span class="mono-inline">.bundle</span> above, then run
-        it through the named validator —
-        <span class="mono-inline">validateTrustBundle</span> from
-        <span class="mono-inline">@kontourai/surface</span>. The CLI wraps it and
-        exits non-zero if the artifact is not a well-formed trust.bundle.
-      </p>
-      <Terminal title="validate this receipt">
-        <div><span class="prompt">$</span> <span class="cmd">npx @kontourai/surface@{surfacePin} report \</span></div>
-        <div><span class="cmd">    --input {receipt.slug}.trust.bundle --format summary</span></div>
-        <div class="muted"># exit 0 prints the trust summary; a broken file exits 1</div>
-      </Terminal>
-      <p class="section-lead recompute-second">
-        Want a second opinion from a separate implementation? The
-        <span class="mono-inline">hachure</span> reference CLI validates the same
-        file — two implementations, same verdict (both currently
-        Kontour-maintained):
-      </p>
-      <Terminal title="second opinion — the reference CLI">
-        <div><span class="prompt">$</span> <span class="cmd">npx -y -p ajv@{ajvPin} -p hachure@{hachurePin} hachure validate \</span></div>
-        <div><span class="cmd">    {receipt.slug}.trust.bundle</span></div>
-        <div class="pass">valid TrustBundle (schemaVersion {receipt.bundle.schemaVersion})</div>
-      </Terminal>
-      <p class="section-lead recompute-foot">
-        Prefer the library directly? The CLI just calls it:
-      </p>
-      <Terminal title="node — the named validator">
-        <div><span class="t-kw">import</span> <span class="cmd">{'{ validateTrustBundle }'}</span> <span class="t-kw">from</span> <span class="t-str">"@kontourai/surface"</span>;</div>
-        <div><span class="t-kw">import</span> <span class="cmd">{'{ readFileSync }'}</span> <span class="t-kw">from</span> <span class="t-str">"node:fs"</span>;</div>
-        <div><span class="t-fn">validateTrustBundle</span>(<span class="t-fn">JSON.parse</span>(<span class="t-fn">readFileSync</span>(<span class="t-str">"{receipt.slug}.trust.bundle"</span>, <span class="t-str">"utf8"</span>)));</div>
-        <div class="muted"># throws if the bundle is invalid; returns the parsed bundle otherwise</div>
-      </Terminal>
+      <h2 class="section-heading">Next</h2>
+      <div class="next-links">
+        <a class="btn-ghost" href="/receipts/">← All receipts</a>
+        <a class="btn-ghost" href="/flow-agents/">Where these come from</a>
+        <a class="btn-ghost" href="/trust/">What this still can't catch</a>
+        <a
+          class="btn-ghost"
+          href="https://github.com/hachure-org/spec"
+          target="_blank"
+          rel="noopener"
+        >
+          The format spec
+        </a>
+      </div>
     </div>
   </Section>
 
@@ -269,7 +484,14 @@ function truncate(value: string, max = 220): string {
     display: flex;
     flex-wrap: wrap;
     gap: 0.4rem;
-    margin-bottom: 1.75rem;
+    margin-bottom: 0.75rem;
+  }
+  .badge-note {
+    color: var(--color-chalk-3);
+    font-size: 0.85rem;
+    line-height: 1.6;
+    max-width: 60ch;
+    margin: 0 0 1.75rem;
   }
   .hero-actions {
     display: flex;
@@ -295,6 +517,56 @@ function truncate(value: string, max = 220): string {
     font-size: 0.75rem;
     color: var(--color-chalk-3);
   }
+
+  /* Plain-language read */
+  .read-headline {
+    color: var(--color-chalk);
+    font-size: 1.15rem;
+    margin-bottom: 2rem;
+  }
+  .read-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.4rem;
+    margin: 0;
+    max-width: 72ch;
+  }
+  .read-grid dt {
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 0.65rem;
+    color: var(--accent, var(--color-chalk-3));
+    margin-top: 1.75rem;
+  }
+  .read-grid dt:first-of-type {
+    margin-top: 0;
+  }
+  .read-grid dd {
+    margin: 0;
+    color: var(--color-chalk-2);
+    line-height: 1.7;
+  }
+  .gloss-list {
+    list-style: none;
+    margin: 0.75rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0.5rem;
+  }
+  .gloss-list li {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    min-width: 0;
+  }
+  .gloss-text {
+    font-size: 0.9rem;
+    color: var(--color-chalk-3);
+    min-width: 0;
+  }
+
   .prov-note {
     color: var(--color-chalk-2);
     line-height: 1.7;
@@ -323,16 +595,28 @@ function truncate(value: string, max = 220): string {
   .prov-grid a {
     color: var(--accent, var(--color-gold));
   }
+  .prov-fine {
+    margin: 1.5rem 0 0;
+    max-width: 72ch;
+  }
   .section-heading {
     font-size: 1.6rem;
     margin: 0 0 1rem;
     color: var(--color-chalk);
+  }
+  .sub-heading {
+    font-size: 1.05rem;
+    color: var(--color-chalk);
+    margin: 0 0 0.5rem;
   }
   .section-lead {
     color: var(--color-chalk-2);
     line-height: 1.7;
     max-width: 70ch;
     margin: 0 0 1.75rem;
+  }
+  .section-lead a {
+    color: var(--color-gold);
   }
   .recompute-foot {
     margin: 1.5rem 0 0.75rem;
@@ -342,10 +626,25 @@ function truncate(value: string, max = 220): string {
     margin: 1.75rem 0 0.75rem;
   }
 
-  .table-scroll {
-    overflow-x: auto;
+  .raw-claims {
     border: 1px solid var(--color-edge);
     border-radius: 8px;
+    background: var(--color-ink-1);
+  }
+  .raw-claims summary {
+    cursor: pointer;
+    padding: 0.9rem 1.1rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--color-chalk-2);
+    line-height: 1.5;
+  }
+  .raw-claims summary:hover {
+    color: var(--color-chalk);
+  }
+  .table-scroll {
+    overflow-x: auto;
+    border-top: 1px solid var(--color-edge);
   }
   .claims-table {
     width: 100%;
@@ -373,6 +672,13 @@ function truncate(value: string, max = 220): string {
   .claims-table tr:last-child td {
     border-bottom: none;
   }
+  .stored-flag {
+    display: block;
+    margin-top: 0.35rem;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--color-chalk-3);
+  }
   .claim-subject {
     display: block;
     color: var(--color-chalk);
@@ -383,6 +689,7 @@ function truncate(value: string, max = 220): string {
     display: block;
     color: var(--color-chalk-3);
     line-height: 1.5;
+    overflow-wrap: anywhere;
   }
   .claim-type {
     display: block;
@@ -457,26 +764,116 @@ function truncate(value: string, max = 220): string {
     word-break: break-word;
   }
 
+  .gap-empty {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 0;
+  }
+  .gap-empty > span:last-child {
+    flex: 1 1 20ch;
+    min-width: 0;
+  }
   .gap-list {
     list-style: none;
     margin: 0;
     padding: 0;
     display: grid;
-    gap: 0.75rem;
+    gap: 1rem;
   }
   .gap-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.75rem;
+    background: var(--color-ink-1);
+    border: 1px solid var(--color-edge);
+    border-radius: 8px;
+    padding: 1.1rem 1.25rem;
     min-width: 0;
+  }
+  .gap-head {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.6rem;
+  }
+  .gap-sev {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-chalk-3);
+  }
+  .gap-sev--blocking {
+    color: var(--color-red);
   }
   .gap-detail {
     color: var(--color-chalk-2);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin: 0 0 0.5rem;
+    overflow-wrap: anywhere;
+  }
+  .gap-detail strong {
+    color: var(--color-chalk);
+    font-weight: 500;
+  }
+  .gap-claim {
+    color: var(--color-chalk-2);
     font-size: 0.85rem;
     line-height: 1.6;
-    /* Gap notes can embed long unbroken identifiers; let the flex child shrink
-       and break them rather than forcing the row wider than the viewport. */
-    min-width: 0;
+    margin: 0 0 0.6rem;
     overflow-wrap: anywhere;
+  }
+  .gap-meta {
+    margin: 0;
+    font-size: 0.7rem;
+    color: var(--color-chalk-3);
+    overflow-wrap: anywhere;
+  }
+  .gap-unsupported {
+    margin-top: 2.25rem;
+    padding-top: 1.75rem;
+    border-top: 1px solid var(--color-edge);
+  }
+  .unsupported-list {
+    list-style: none;
+    margin: 1rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0.6rem;
+  }
+  .unsupported-list li {
+    background: var(--color-ink-1);
+    border: 1px solid var(--color-edge);
+    border-radius: 6px;
+    padding: 1rem 1.1rem;
+    overflow-wrap: anywhere;
+    min-width: 0;
+  }
+  .unsupported-text {
+    color: var(--color-chalk-2);
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin: 0.6rem 0 0.6rem;
+  }
+  .unsupported-id {
+    margin: 0;
+    font-size: 0.68rem;
+    color: var(--color-chalk-3);
+  }
+  .type-list {
+    list-style: none;
+    margin: 0.6rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 0.9rem;
+    font-size: 0.8rem;
+  }
+
+  .next-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
   }
 </style>

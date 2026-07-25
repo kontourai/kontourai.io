@@ -1,5 +1,5 @@
 {
-  "comment": "Page-copy freshness manifest (#163). Each page maps to the products whose repos its prose claims depend on, with the version the copy was last editorially reconciled against. Stamped by humans/editors after each content pass \u2014 the freshness check flags pages whose mapped products moved a minor/major beyond the reviewed version. Advisory desk signal, not a gate.",
+  "comment": "Page-copy freshness manifest (#163). Each page maps to the products whose repos its prose claims depend on, with the version the copy was last editorially reconciled against. Stamped by humans/editors after each content pass — the freshness check flags pages whose mapped products moved a minor/major beyond the reviewed version. Advisory desk signal, not a gate.",
   "pages": [
     {
       "page": "src/pages/flow-agents.astro",
@@ -42,14 +42,14 @@
       "products": {
         "surface": "2.13.0"
       },
-      "reviewedDate": "2026-07-21"
+      "reviewedDate": "2026-07-25"
     },
     {
       "page": "src/pages/veritas.astro",
       "products": {
         "veritas": "1.5.3"
       },
-      "reviewedDate": "2026-07-21"
+      "reviewedDate": "2026-07-25"
     },
     {
       "page": "src/pages/flow.astro",
@@ -70,17 +70,10 @@
       "products": {
         "console": "2.8.0"
       },
-      "reviewedDate": "2026-07-24"
-    },
-    {
-      "page": "src/pages/trust.astro",
-      "products": {
-        "flow-agents": "5.3.0"
-      },
       "reviewedDate": "2026-07-25"
     },
     {
-      "page": "src/pages/memory.astro",
+      "page": "src/pages/trust.astro",
       "products": {
         "flow-agents": "5.3.0"
       },
@@ -91,7 +84,56 @@
       "products": {
         "fieldwork": "0.2.5"
       },
-      "reviewedDate": "2026-07-24"
+      "reviewedDate": "2026-07-25"
+    },
+    {
+      "page": "src/pages/hachure.astro",
+      "products": {
+        "surface": "2.13.0"
+      },
+      "reviewedDate": "2026-07-25"
+    },
+    {
+      "page": "src/pages/receipts/index.astro",
+      "products": {
+        "surface": "2.13.0"
+      },
+      "reviewedDate": "2026-07-25"
+    },
+    {
+      "page": "src/pages/receipts/[slug].astro",
+      "products": {
+        "surface": "2.13.0"
+      },
+      "reviewedDate": "2026-07-25"
+    },
+    {
+      "page": "src/pages/fieldwork-vs-langextract.astro",
+      "products": {
+        "fieldwork": "0.2.5"
+      },
+      "reviewedDate": "2026-07-25"
+    },
+    {
+      "page": "src/pages/early-access.astro",
+      "products": {
+        "flow-agents": "5.3.0"
+      },
+      "reviewedDate": "2026-07-25"
+    },
+    {
+      "page": "src/pages/writing/llm-proposes-structure-verifies.astro",
+      "products": {
+        "traverse": "0.23.0"
+      },
+      "reviewedDate": "2026-07-25"
+    },
+    {
+      "page": "src/pages/writing/index.astro",
+      "products": {
+        "traverse": "0.23.0"
+      },
+      "reviewedDate": "2026-07-25"
     }
   ]
 }

@@ -17,6 +17,8 @@ import type { Accent } from '@/lib/theme';
 
 const surfaceStatus = getProductStatus('surface');
 
+const DOCS = 'https://kontourai.github.io/surface';
+
 const answers: { q: string; accent?: Accent }[] = [
   { q: 'What does this product claim?' },
   { q: 'What evidence supports the claim, and where does it come from?' },
@@ -24,56 +26,76 @@ const answers: { q: string; accent?: Accent }[] = [
   { q: "What's missing, stale, or in conflict — and what should happen before anyone acts on it?", accent: 'red' },
 ];
 
-const roles: { title: string; label: string; body: string; accent: Accent }[] = [
-  { title: 'For your customers', label: 'Customer trust', body: "Inspect the trust state behind a product answer, report, recommendation, or agent output before they rely on it. Surface shows the claim, the evidence behind it, how current that evidence is, and what's still uncertain.", accent: 'gold' },
-  { title: 'For your product', label: 'Product integration', body: 'Emit claims, evidence, and policies from your product. Surface gives you a shared shape so the same trust state can be read by people, agents, and other systems downstream.', accent: 'green' },
-  { title: 'For your team', label: 'Operations', body: 'Manage the claims your product makes - evidence review, policies, transparency gaps, conflicts, and rechecks - from one workspace. Surface Console runs locally — no cloud, no account.', accent: 'cobalt-2' },
-];
-
-const vocab: { term: string; def: string; accent: Accent }[] = [
-  { term: 'Claim', def: 'The smallest trust-bearing unit. A statement about a subject — field, value, impact, and current integrity reference.', accent: 'cobalt-2' },
-  { term: 'Evidence', def: 'An observation, citation, attestation, test result, or traceable artifact that supports or challenges a Claim.', accent: 'green' },
-  { term: 'Policy', def: 'The rule that decides what evidence is required, how fresh it must be, and when a Claim needs review.', accent: 'chalk-2' },
-  { term: 'Trust Bundle', def: 'The portable artifact itself — the open Hachure trust.bundle format carrying Claims, Evidence, and Events. What producers emit and other products pass around.', accent: 'gold' },
-  { term: 'Trust Report', def: 'The evaluated read-out Surface builds from a bundle: verification summary, high-impact gaps, stale claims. What the CLI, JSON output, and API return.', accent: 'green' },
-  { term: 'Trust Snapshot', def: 'A point-in-time view of Claims, Evidence, Policies, status, gaps, and conflicts — each with when it was last checked — that humans and agents can inspect.', accent: 'cobalt-2' },
-  { term: 'Transparency Gap', def: 'A missing, weak, stale, private, unavailable, unverifiable, or unmapped element that limits inspectability.', accent: 'red' },
-];
-
-const statuses: { status: string; badge: string; label: string; pulse?: boolean }[] = [
-  { status: 'unknown', badge: 'trust-badge--unknown', label: 'No prior verification exists.' },
-  { status: 'proposed', badge: 'trust-badge--proposed', label: 'Submitted but not yet verified.' },
-  { status: 'assumed', badge: 'trust-badge--proposed', label: 'Accepted without verification — an explicit accepted gap, not evidence.' },
-  { status: 'verified', badge: 'trust-badge--verified', label: 'Evidence supports it. Currently valid.' },
-  { status: 'stale', badge: 'trust-badge--stale', label: 'Was valid. Freshness window exceeded.', pulse: true },
-  { status: 'disputed', badge: 'trust-badge--disputed', label: 'Conflicting evidence or policy.' },
-  { status: 'superseded', badge: 'trust-badge--unknown', label: 'Replaced by a newer verified claim.' },
-  { status: 'rejected', badge: 'trust-badge--disputed', label: 'Explicitly failed verification.' },
-  { status: 'revoked', badge: 'trust-badge--disputed', label: 'Withdrawn by an authority-gated dispute resolution.' },
+const roles: { title: string; body: string; accent: Accent }[] = [
+  {
+    title: 'Let a customer check the answer',
+    accent: 'gold',
+    body: "Before someone acts on a recommendation, a report, or an agent's reply, they can open what sits under it: the claim, what backs it, when it was last checked, and what nobody has checked yet.",
+  },
+  {
+    title: 'Write it once, read it everywhere',
+    accent: 'green',
+    body: 'Your product writes claims and evidence in one shape. People, agents, and other systems all read the same file — you never build a separate trust view for each audience.',
+  },
+  {
+    title: 'One place to work the queue',
+    accent: 'cobalt-2',
+    body: 'What has gone stale, what has no evidence behind it, what two producers disagree about. Surface Console opens all of it in a browser on your own machine — no cloud, no account, nothing to host.',
+  },
 ];
 
 const consoleFeatures = [
   { label: 'Run history', body: 'Switch between past runs in the toolbar to compare claim state before and after a change.' },
-  { label: 'Trust Panel', body: 'See the customer-facing view of any Claim alongside your full operator context.' },
-  { label: 'Filtered chips', body: 'Filter Verified, Attention, or total Claims instantly while reviewing the current Trust Snapshot.' },
-  { label: 'Claim Groups', body: 'Start from a framework, checklist, or requirement set, then drill into the Claims and Evidence that decide its status.' },
+  { label: 'Trust Panel', body: 'See the customer-facing view of any claim alongside your full operator context.' },
+  { label: 'Filtered chips', body: 'Filter verified claims, claims needing attention, or the whole list while you work through it.' },
+  { label: 'Claim groups', body: 'Start from a framework, checklist, or requirement set, then drill into the claims and evidence that decide its status.' },
   { label: 'Integrity scope', body: 'Inspect the source anchor and cryptographic fingerprints behind a verified claim.' },
   { label: 'Claim detail', body: 'Select any claim to inspect its full evidence, status, and gaps without leaving the list.' },
-  { label: 'Transparency gaps', body: 'When evidence is missing, private, stale, or conflicting, the gap stays visible beside the Claim.' },
+  { label: 'Transparency gaps', body: 'When evidence is missing, private, stale, or conflicting, the gap stays visible beside the claim.' },
 ];
 
 const moreThanStatus: { title: string; body: string; accent: Accent }[] = [
-  { title: 'Claim dependencies', accent: 'cobalt-2', body: 'A claim can depend on supporting claims. When an upstream claim goes stale or disputed, that state propagates to everything built on it — no silent rot.' },
-  { title: 'Reverification', accent: 'gold', body: 'Producers can advertise how to recheck a claim’s evidence, authority, freshness, or integrity — so a stale claim has a path back to verified instead of staying a dead end.' },
-  { title: 'Analytics reports', accent: 'green', body: 'Beyond the human summary, an analytics format exposes evidence and gaps as queryable data for dashboards, audits, and trust intelligence.' },
-  { title: 'Agent-queryable (MCP)', accent: 'chalk-2', body: 'The built-in MCP server (npx @kontourai/surface mcp) answers agents directly — stale claims, missing evidence, waiver validity, policy gaps — the same guardrails the CLI and JSON report expose to humans.' },
-  { title: 'Waiver validity', accent: 'red', body: 'Accepted gaps are not hand-waves. Waivers carry a canonical, derived validity — schema-validated against the Hachure extension — so an exception that quietly expired stops passing as current.' },
+  {
+    title: 'Claims built on other claims',
+    accent: 'cobalt-2',
+    body: 'A claim can rest on supporting claims, and its status is capped by the weakest one underneath it. A total cannot read verified while one of its inputs has gone stale or contested.',
+  },
+  {
+    title: 'Asking the source again',
+    accent: 'gold',
+    body: 'A stale claim is not a dead end. Surface ships the verification endpoint a producer stands up at /.well-known/hachure/verify, so anyone holding a claim can ask the system that made it for the current state of exactly the version they are holding. References it does not recognise come back named as unrecognised, never quietly dropped.',
+  },
+  {
+    title: 'Analytics reports',
+    accent: 'green',
+    body: 'The same report in plain JSON (--format analytics): coverage by producer, the stale queue, the gap rollup — ready to feed a dashboard or an audit export without anyone retyping it.',
+  },
+  {
+    title: 'Agent-queryable (MCP)',
+    accent: 'chalk-2',
+    body: "Point a coding agent or assistant at npx @kontourai/surface mcp and it can check, before it uses a number, whether that number's evidence is current, missing, or contested. It gets the same answer you would get at the command line, with nothing summarising it in between.",
+  },
+  {
+    title: 'Waiver validity',
+    accent: 'red',
+    body: "When someone signs off on a gap instead of closing it, Surface records who, why, and when — and checks the date. A waiver that has run out stops counting as an approval instead of quietly holding the line green. The approver's name is recorded, not cryptographically verified.",
+  },
+];
+
+const docLinks: { label: string; href: string; event: string; external?: boolean }[] = [
+  { label: 'Getting started', href: `${DOCS}/getting-started.html`, event: 'surface-docs-getting-started', external: true },
+  { label: 'CLI reference', href: `${DOCS}/cli.html`, event: 'surface-docs-cli', external: true },
+  { label: 'Console reference', href: `${DOCS}/console.html`, event: 'surface-docs-console', external: true },
+  { label: 'MCP reference', href: `${DOCS}/mcp.html`, event: 'surface-docs-mcp', external: true },
+  { label: 'The Hachure format', href: '/hachure/', event: 'surface-docs-hachure' },
+  { label: 'The spec repo', href: 'https://github.com/hachure-org/spec', event: 'surface-docs-spec', external: true },
+  { label: 'npm package', href: 'https://www.npmjs.com/package/@kontourai/surface', event: 'surface-docs-npm', external: true },
 ];
 ---
 
 <Layout
-  title="Surface — Inspectable claims for AI-assisted work · Kontour AI"
-  description="Surface makes claims inspectable with one shape for claims, evidence, policies, freshness, and gaps."
+  title="Surface — the receipt under every claim your product makes · Kontour AI"
+  description="Open the answer: what was claimed, what backs it, when it was last checked, and what nobody checked. Runs on your machine, in an open format anyone can re-check."
 >
   <Nav active="surface" />
 
@@ -94,23 +116,26 @@ const moreThanStatus: { title: string; body: string; accent: Accent }[] = [
           <p class="product-tagline animate-fade-up delay-100" data-accent="gold">make every claim show its evidence, freshness, and gaps</p>
 
           <p class="hero-copy animate-fade-up delay-200">
-            Every product makes claims. AI makes those claims faster, more
-            polished, and harder to inspect. Surface gives a product one shape
-            for the claim, the evidence behind it, the policy that decides what
-            counts, how fresh the evidence is, and the gaps that should slow
-            anyone down before they rely on it.
+            An agent tells your support team a listing is current. A dashboard
+            says the scan passed. Neither one shows when it was last checked,
+            what checked it, or what it couldn't see. Surface is the receipt
+            underneath — the claim, the evidence, when the check runs out, and
+            what's still missing — in an open file anyone can re-check without
+            trusting the tool that produced it.
           </p>
 
           <div class="hero-actions animate-fade-up delay-300">
-            <a href="https://github.com/kontourai/surface" target="_blank" rel="noopener" class="btn-primary" data-umami-event="surface-hero-github">View on GitHub →</a>
-            <a href="https://www.npmjs.com/package/@kontourai/surface" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="surface-hero-npm">npm package</a>
+            <a href="#first-run" class="btn-primary" data-umami-event="surface-hero-firstrun">Run it in five minutes ↓</a>
+            <a href="https://github.com/kontourai/surface" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="surface-hero-github">View on GitHub →</a>
           </div>
         </div>
 
         <Terminal class="animate-fade-in delay-300" title="surface report — summary">
-          <p><span class="prompt">$ </span><span class="cmd">npx @kontourai/surface report --input trust-bundle.json --format summary</span></p>
+          <p><span class="prompt">$ </span><span class="cmd">npx surface report \</span></p>
+          <p><span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;--input node_modules/@kontourai/surface/examples/surface-example-bundle.json \</span></p>
+          <p><span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;--format summary</span></p>
           <br />
-          <p class="info">  Kontour Surface report surface-1777090239260</p>
+          <p class="info">  Kontour Surface report surface-1785016678537</p>
           <p class="muted">  Source: kontour-surface-validation-examples</p>
           <br />
           <p>  Claims: <span class="pass">4</span> &nbsp;(unknown: 1, verified: 2, stale: 1)</p>
@@ -121,10 +146,85 @@ const moreThanStatus: { title: string; body: string; accent: Accent }[] = [
           <p>  Stale: &nbsp;&nbsp;&nbsp;<span class="warn">claim.field-attested-records.registration-status</span></p>
           <p>  Recompute needed: <span class="pass">none</span></p>
           <p>  Disputed: <span class="pass">none</span></p>
-          <p>  Claim groups: <span class="pass">1</span></p>
+          <p>  Claim groups: <span class="pass">0</span></p>
           <p>  Transparency gaps: <span class="warn">3</span></p>
         </Terminal>
       </Split>
+    </div>
+  </Section>
+
+  <!-- Your first five minutes -->
+  <Section id="first-run" tone="alt" borderBottom>
+    <div class="container">
+      <Eyebrow accent="gold" gap="sm">Your first five minutes</Eyebrow>
+      <h2 class="display-md measure-lg section-title">Two commands, no account, no config file.</h2>
+
+      <Split ratio="1-1" gap="lg" align="start">
+        <div>
+          <ol class="runsteps">
+            <li class="runstep">
+              <span class="runstep__n">01</span>
+              <div>
+                <p class="runstep__cmd"><code>npm install -D @kontourai/surface</code></p>
+                <p class="runstep__body">
+                  The example bundles used below ship inside the package. Nothing
+                  else to download.
+                </p>
+              </div>
+            </li>
+            <li class="runstep">
+              <span class="runstep__n">02</span>
+              <div>
+                <p class="runstep__cmd"><code>npx surface report --input node_modules/@kontourai/surface/examples/surface-example-bundle.json --format summary</code></p>
+                <p class="runstep__body">
+                  Read someone else's receipt. That's the output in the terminal
+                  above: four claims, one of them stale, three transparency gaps,
+                  and the id of the stale claim so you know which one to chase.
+                </p>
+              </div>
+            </li>
+            <li class="runstep">
+              <span class="runstep__n">03</span>
+              <div>
+                <p class="runstep__cmd"><code>npx surface console --input …/ci-producer.bundle.json --input …/review-producer.bundle.json --input …/security-producer.bundle.json</code></p>
+                <p class="runstep__body">
+                  Merge three teams' results into one page. The console prints one
+                  line — the address. Open it and you get exactly what's below.
+                </p>
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <Terminal title="surface console">
+          <p><span class="prompt">$ </span><span class="cmd">npx surface console \</span></p>
+          <p><span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;--input node_modules/@kontourai/surface/examples/console-multi-producer/ci-producer.bundle.json \</span></p>
+          <p><span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;--input node_modules/@kontourai/surface/examples/console-multi-producer/review-producer.bundle.json \</span></p>
+          <p><span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;--input node_modules/@kontourai/surface/examples/console-multi-producer/security-producer.bundle.json</span></p>
+          <br />
+          <p class="info">  Surface console running at http://localhost:4242</p>
+        </Terminal>
+      </Split>
+    </div>
+  </Section>
+
+  <!-- The console screenshot: the payoff of step 03 above. -->
+  <Section borderBottom>
+    <div class="container">
+      <Eyebrow accent="gold" gap="sm">See it</Eyebrow>
+      <h2 class="display-md measure-lg section-title">Three teams reported on the same release. Two of them disagree.</h2>
+      <figure class="product-shot">
+        <img src="/screenshots/surface-console.png" alt="Surface Console merging three producer bundles into one view: five claims, three verified, two needing attention, and a merge collision on the release artifact digest attributed to the colliding producers" loading="lazy" />
+        <figcaption>
+          CI, code review, and the security scanner each filed what they found;
+          the console merged them into one page. Look at the amber band first:
+          CI and the security scanner reported different content for the same
+          claim — the release artifact's sha256 digest — and Surface names the
+          record it set aside instead of silently dropping it. Two of the five
+          claims have never been checked at all. This is the example that ships
+          in the package; the command above reproduces it.
+        </figcaption>
+      </figure>
     </div>
   </Section>
 
@@ -137,52 +237,131 @@ const moreThanStatus: { title: string; body: string; accent: Accent }[] = [
     </div>
   </Section>
 
-  <!-- Example use case -->
+  <!-- Surface Console -->
   <Section tone="alt" borderTop borderBottom>
+    <div class="container">
+      <Eyebrow>Surface Console</Eyebrow>
+      <h2 class="display-md measure-lg section-title">See trust state where the work happens.</h2>
+      <p class="body measure-lg console__copy">
+        <code class="codechip">surface console</code> serves a live view from
+        <code class="codechip codechip--muted">.surface/runs/latest.json</code>,
+        and each new run updates it. It can also merge multiple producer bundles
+        — repeat <code class="codechip codechip--muted">--input</code>, as above —
+        into one view, attributing every claim to the producer that filed it and
+        reporting merge collisions instead of dropping them. It runs on your
+        machine: no cloud, no account, nothing to host.
+      </p>
+
+      <Grid cols={2} gap="md">
+        {consoleFeatures.map(({ label, body }) => (
+          <div class="kv feat">
+            <div class="feat__key">{label}</div>
+            <div class="kv__val">{body}</div>
+          </div>
+        ))}
+      </Grid>
+    </div>
+  </Section>
+
+  <!-- Example use case -->
+  <Section borderBottom>
     <div class="container">
       <Split ratio="1-1" gap="md" align="center">
         <div>
           <Eyebrow accent="gold">Example use case</Eyebrow>
-          <h2 class="display-md section-title">Inspect a claim before an agent acts on it.</h2>
+          <h2 class="display-md section-title">A support agent says: "This provider directory listing is current."</h2>
           <p class="body">
-            A support agent says, "This provider directory listing is current."
-            Surface turns that into an inspectable claim with a source anchor,
-            freshness policy, last verification time, and any gap that should
-            slow the agent down before it recommends the listing.
+            The sentence doesn't change. What changes is that the person reading
+            it — or the agent about to act on it — can see where it came from,
+            when it was last checked, how long that check is good for, and the
+            part nobody outside the registry can see. Surface keeps those four
+            things attached to the claim, in a file the reader can open
+            themselves.
           </p>
         </div>
 
-        <Terminal title="claim.provider-directory.current">
-          <p class="info">  claim: provider directory listing is current</p>
-          <p class="muted">  source: registry export · row 1842</p>
-          <p class="pass">  evidence: verified 2026-06-07</p>
-          <p class="warn">  freshness: recheck in 7 days</p>
-          <p class="muted">  gap: phone number attestation private</p>
-          <br />
-          <p>  action: <span class="warn">show uncertainty beside recommendation</span></p>
-        </Terminal>
+        <Card accent="gold" bar="top" pad="lg">
+          <p class="claim-card__id">claim.provider-directory.current</p>
+          <dl class="claim-rows">
+            <div class="claim-row">
+              <dt>Source</dt>
+              <dd>Registry export, row 1842</dd>
+            </div>
+            <div class="claim-row">
+              <dt>Last checked</dt>
+              <dd>7 June 2026</dd>
+            </div>
+            <div class="claim-row">
+              <dt>Good until</dt>
+              <dd data-accent="gold">Recheck due in 7 days</dd>
+            </div>
+            <div class="claim-row">
+              <dt>Gap</dt>
+              <dd data-accent="red">The phone number attestation is private</dd>
+            </div>
+          </dl>
+        </Card>
       </Split>
     </div>
   </Section>
 
-  <!-- Role paths -->
-    <Section borderBottom>
+  <!-- What's in a receipt -->
+  <Section tone="alt" borderTop borderBottom>
     <div class="container">
-      <Eyebrow accent="gold" gap="sm">See it</Eyebrow>
-      <figure class="product-shot">
-        <img src="/screenshots/surface-console.png" alt="Surface Console merging three producer bundles into one view: verified claims, attention gaps, and a merge collision attributed to the colliding producers" loading="lazy" />
-        <figcaption>The local Surface Console merging three producer bundles into one view — verified claims, attention gaps, and a merge collision surfaced with the colliding producers named. <a href="https://kontourai.github.io/surface/" target="_blank" rel="noopener">Explore the docs →</a></figcaption>
-      </figure>
+      <Eyebrow gap="sm">What's in a receipt</Eyebrow>
+      <h2 class="display-md measure-lg section-title">Four words, and you can read any receipt.</h2>
+      <div class="measure-lg receipt-prose">
+        <p class="body">
+          A <strong>claim</strong> is one specific statement — "the registration
+          status on this listing is current." <strong>Evidence</strong> is what
+          backs it: a test result, a source excerpt, a person signing off.
+          A <strong>policy</strong> says what would have to be true for that claim
+          to count as checked, and how long the check stays good.
+          A <strong>gap</strong> is anything the receipt can't show you — evidence
+          that's missing, private, expired, or contradicted. Surface's job is to
+          keep the gap as visible as the claim.
+        </p>
+        <p class="body">
+          Every claim carries a status derived from those four things. The one
+          worth learning first is
+          <span class="trust-badge trust-badge--stale"><span class="status-dot" data-pulse></span>stale</span> —
+          it doesn't mean wrong. It means this was checked, the check was good
+          for a set window, and the window has closed. Nobody has to remember
+          that; the status changes on its own.{' '}
+          <a href={`${DOCS}/concepts.html`} target="_blank" rel="noopener" data-umami-event="surface-vocab-docs">The full vocabulary and all nine statuses →</a>
+        </p>
+      </div>
     </div>
   </Section>
 
-<Section borderTop>
+  <!-- Signing -->
+  <Section>
+    <div class="container">
+      <Eyebrow gap="sm" accent="cobalt-2">Signing</Eyebrow>
+      <h2 class="display-md measure-lg section-title">You don't have to sign anything to start.</h2>
+      <p class="body measure-lg">
+        A bundle you generate on your laptop re-derives to the same answer on
+        anyone else's machine. What it doesn't do is prove who produced it —
+        that's <strong>L0</strong>, unsigned and local, and it's where everyone
+        starts. When provenance starts to matter, CI can sign its own results
+        with a short-lived identity it gets from the CI provider
+        (<strong>L1</strong>), and an organization can sign with keys it holds
+        itself (<strong>L2</strong>). Turning the dial up never changes the
+        answer: signing says where a bundle came from, not how it was derived.
+        Surface carries the signing block; the levels themselves are defined in
+        the open spec.{' '}
+        <a href="/trust/" data-umami-event="surface-assurance-trust">How the levels work →</a>
+      </p>
+    </div>
+  </Section>
+
+  <!-- Roles -->
+  <Section tone="alt" borderTop borderBottom>
     <div class="container">
       <Eyebrow gap="lg">What Surface gives you</Eyebrow>
       <Grid cols={3} gap="md">
-        {roles.map(({ title, label, body, accent }) => (
+        {roles.map(({ title, body, accent }) => (
           <Card accent={accent} bar="top" pad="sm">
-            <div class="feature-label">{label}</div>
             <h3 class="role-card__title">{title}</h3>
             <p class="feature-body">{body}</p>
           </Card>
@@ -191,90 +370,9 @@ const moreThanStatus: { title: string; body: string; accent: Accent }[] = [
     </div>
   </Section>
 
-  <!-- Trust vocabulary -->
-  <Section tone="alt" borderTop borderBottom>
-    <div class="container">
-      <Eyebrow gap="lg">Trust vocabulary</Eyebrow>
-      <Grid cols={3} gap="lg">
-        {vocab.map(({ term, def, accent }) => (
-          <div class="vocab" data-accent={accent}>
-            <div class="vocab__term">{term}</div>
-            <div class="vocab__def">{def}</div>
-          </div>
-        ))}
-      </Grid>
-    </div>
-  </Section>
-
-  <!-- Trust status model -->
-  <Section size="md">
-    <div class="container">
-      <Eyebrow gap="lg">Trust status model</Eyebrow>
-      <Grid min="200" gap="md">
-        {statuses.map(({ status, badge, label, pulse }) => (
-          <div class="status-card">
-            <span class={`trust-badge ${badge}`}>
-              <span class="status-dot" data-pulse={pulse}></span>
-              {status}
-            </span>
-            <p class="status-card__label">{label}</p>
-          </div>
-        ))}
-      </Grid>
-    </div>
-  </Section>
-
-  <!-- Surface Console -->
-  <Section borderTop>
-    <div class="container">
-      <Split ratio="1-1" gap="md" align="start">
-        <div>
-          <Eyebrow>Surface Console</Eyebrow>
-          <h2 class="display-md console__title">See trust state<br />where the work happens.</h2>
-          <p class="body console__copy">
-            <code class="codechip">surface console</code> serves a live view from
-            <code class="codechip codechip--muted">.surface/runs/latest.json</code>.
-            Each new run updates automatically. It can also merge multiple
-            producer bundles (repeatable <code class="codechip codechip--muted">--input</code>)
-            into one view, attributing every claim to its producer and showing
-            merge collisions instead of dropping them. Runs locally — no account,
-            nothing to host.
-          </p>
-
-          <div class="feat-list">
-            {consoleFeatures.map(({ label, body }) => (
-              <div class="kv feat">
-                <div class="feat__key">{label}</div>
-                <div class="kv__val">{body}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <Terminal title="surface console">
-          <p><span class="prompt">$ </span><span class="cmd">npx @kontourai/surface console</span></p>
-          <br />
-          <p class="info">  Surface console running at http://localhost:4242</p>
-          <br />
-          <p class="muted">  Reading: .surface/runs/latest.json</p>
-          <p class="muted">  Source: latest Surface run snapshot</p>
-          <br />
-          <p class="muted">  GET /              200  console shell</p>
-          <p class="muted">  GET /api/read-model  200  current trust snapshot</p>
-          <p class="muted">  GET /api/runs        200  [run-a, run-b, run-c]</p>
-          <br />
-          <p class="rule">  ───────────────────────────────</p>
-          <p class="pass">  verified  8 claims</p>
-          <p class="warn">  attention  2 claims</p>
-          <p class="muted">  eval  accepted · confidence: high</p>
-        </Terminal>
-      </Split>
-    </div>
-  </Section>
-
   <!-- Show it to your users: the customer-facing surfaces behind the
-       "For your customers" role card above. -->
-  <Section tone="alt" borderTop>
+       "Let a customer check the answer" role card above. -->
+  <Section borderTop>
     <div class="container">
       <Eyebrow gap="sm" accent="gold">Show it to your users</Eyebrow>
       <h2 class="display-md measure-lg section-title">The same trust state, embeddable where your customers already are.</h2>
@@ -295,6 +393,7 @@ const moreThanStatus: { title: string; body: string; accent: Accent }[] = [
             viewer — paste or load the JSON; it parses entirely in the
             browser and never leaves the page.
           </p>
+          <a href={`${DOCS}/viewer.html`} target="_blank" rel="noopener" class="built__link" data-accent="cobalt-2" data-umami-event="surface-viewer">Open the viewer →</a>
         </Card>
         <Card accent="green" bar="top" pad="md">
           <h3 class="feature-title">Built with Surface badge</h3>
@@ -311,7 +410,7 @@ const moreThanStatus: { title: string; body: string; accent: Accent }[] = [
   <Section borderTop size="lg">
     <div class="container">
       <Eyebrow>More than a status</Eyebrow>
-      <h2 class="display-md measure-lg section-title">Trust state that propagates, refreshes, and answers questions.</h2>
+      <h2 class="display-md measure-lg section-title">What keeps working after day one.</h2>
       <Grid min="260" gap="lg">
         {moreThanStatus.map(({ title, body, accent }) => (
           <Card accent={accent} bar="top" pad="md">
@@ -328,16 +427,17 @@ const moreThanStatus: { title: string; body: string; accent: Accent }[] = [
     <div class="container">
       <Eyebrow gap="sm">Products built with Surface</Eyebrow>
       <p class="fine measure built-note">
-        Products built with Surface keep their own workflow vocabulary while exposing
-        Claims, Evidence, Policies, Trust Snapshots, and Transparency Gaps in a shared
-        shape humans and agents can inspect.
-        Surface is the reference implementation of the <a href="https://hachure.org" target="_blank" rel="noopener">Hachure open trust format</a>,
-        and fully compatible with it — the portable, recomputable trust format anyone can implement independently.
-        Every product speaks the format through Surface, so the whole suite stays on one version of the
-        contract and anything built on Kontour is open-format-compatible through a single integration point.
-        A conformance suite lives in the Surface repo, so an alternate
-        implementation can verify it derives the same trust state from the
-        same bundle.
+        Each product keeps its own language — merge readiness, extraction review,
+        gate outcomes — and still writes receipts anyone else's tooling can read.
+        Flow Agents, Veritas, Flow, Survey, Console and Fieldwork all emit their
+        trust records through Surface, so anything built on Kontour reads and
+        writes the open format through one integration point rather than six.
+        Surface is Kontour's implementation of the{' '}
+        <a href="/hachure/" data-umami-event="surface-built-hachure">Hachure open trust format</a>;
+        the spec, its schemas, and the test vectors that define the format are
+        published separately from us, so anyone can write their own
+        implementation and prove it derives the same answers without running any
+        of our code.
       </p>
 
       <Grid cols={2} gap="lg">
@@ -366,6 +466,25 @@ const moreThanStatus: { title: string; body: string; accent: Accent }[] = [
     </div>
   </Section>
 
+  <!-- Docs -->
+  <Section size="sm" borderTop>
+    <div class="container">
+      <Eyebrow gap="sm">Read the rest</Eyebrow>
+      <ul class="doc-row">
+        {docLinks.map(({ label, href, event, external }) => (
+          <li>
+            <a
+              href={href}
+              data-umami-event={event}
+              target={external ? '_blank' : undefined}
+              rel={external ? 'noopener' : undefined}
+            >{label} →</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
   <Footer active="surface" />
 </Layout>
 
@@ -386,35 +505,97 @@ const moreThanStatus: { title: string; body: string; accent: Accent }[] = [
     letter-spacing: 0;
   }
 
-  .vocab {
-    padding: 1.5rem;
-    background: var(--color-ink-2);
-    border: 1px solid var(--color-edge);
-    border-radius: 6px;
+  /* First-run steps */
+  .runsteps {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    margin: 0;
+    padding: 0;
   }
-  .vocab__term {
-    font-family: var(--font-display);
-    font-size: 1.15rem;
-    font-weight: 400;
-    color: var(--accent);
-    margin-bottom: 0.6rem;
-    letter-spacing: 0;
+  .runstep {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
   }
-  .vocab__def {
-    font-size: 0.82rem;
-    color: var(--color-chalk-3);
+  .runstep__n {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--color-gold);
+    padding-top: 4px;
+    min-width: 1.75rem;
+  }
+  .runstep__cmd {
+    margin-bottom: 0.5rem;
+  }
+  .runstep__cmd code {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    line-height: 1.7;
+    color: var(--color-chalk);
+    overflow-wrap: anywhere;
+  }
+  .runstep__body {
+    font-size: 0.85rem;
+    color: var(--color-chalk-2);
     line-height: 1.65;
   }
 
-  .status-card {
-    padding: 1.25rem;
-    background: var(--color-ink-1);
-    border: 1px solid var(--color-edge);
-    border-radius: 4px;
+  /* Claim card (an illustration of a claim, not CLI output) */
+  .claim-card__id {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-gold);
+    margin-bottom: 1.25rem;
+    overflow-wrap: anywhere;
+  }
+  .claim-rows {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.9rem;
+    margin: 0;
   }
+  .claim-row {
+    display: grid;
+    grid-template-columns: 7.5rem 1fr;
+    gap: 0.75rem;
+    align-items: baseline;
+  }
+  .claim-row dt {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-chalk-3);
+  }
+  .claim-row dd {
+    margin: 0;
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--color-chalk-2);
+  }
+  .claim-row dd[data-accent] {
+    color: var(--accent);
+  }
+  @media (max-width: 520px) {
+    .claim-row {
+      grid-template-columns: 1fr;
+      gap: 0.2rem;
+    }
+  }
+
+  .receipt-prose p + p {
+    margin-top: 1.25rem;
+  }
+  .receipt-prose strong {
+    color: var(--color-chalk);
+    font-weight: 500;
+  }
+  .receipt-prose .trust-badge {
+    vertical-align: baseline;
+  }
+
   .status-dot {
     width: 5px;
     height: 5px;
@@ -425,22 +606,8 @@ const moreThanStatus: { title: string; body: string; accent: Accent }[] = [
   .status-dot[data-pulse] {
     animation: pulse-dot 2s ease-in-out infinite;
   }
-  .status-card__label {
-    font-size: 0.78rem;
-    color: var(--color-chalk-3);
-    line-height: 1.5;
-  }
 
-  .console__title {
-    margin-bottom: 1.25rem;
-  }
   .console__copy {
-    margin-bottom: 1.5rem;
-  }
-  .feat-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
     margin-bottom: 2rem;
   }
   .feat__key {
@@ -452,7 +619,25 @@ const moreThanStatus: { title: string; body: string; accent: Accent }[] = [
   }
 
   .section-title {
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .doc-row {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 2rem;
+    margin: 0;
+    padding: 0;
+  }
+  .doc-row a {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--color-chalk-2);
+    text-decoration: none;
+  }
+  .doc-row a:hover {
+    color: var(--color-gold);
   }
 
   .built-note {
@@ -491,6 +676,8 @@ const moreThanStatus: { title: string; body: string; accent: Accent }[] = [
     font-size: 0.72rem;
     color: var(--accent, var(--color-chalk-3));
     text-decoration: none;
+    display: inline-block;
+    margin-top: 1rem;
   }
   .built--muted {
     opacity: 0.6;
