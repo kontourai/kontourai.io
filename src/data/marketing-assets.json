@@ -29,9 +29,9 @@
       "asset": "public/screenshots/surface-console.png",
       "page": "src/pages/surface.astro",
       "product": "surface",
-      "capturedAgainstVersion": "2.12.0",
-      "capturedAt": "2026-07-20",
-      "sha256": "020cb418a56e9e72ba7d5dddc8bb08b0c2d18cb6d641bbfeafb65b2b82fc4be2"
+      "capturedAgainstVersion": "2.13.0",
+      "capturedAt": "2026-07-24",
+      "sha256": "bd6a2b9c9fd6331ab16b74555fda4f871f23ddf3964edd07599757f6fdb10665"
     },
     {
       "asset": "public/screenshots/flow-demo.gif",

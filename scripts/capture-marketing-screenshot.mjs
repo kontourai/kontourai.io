@@ -49,6 +49,7 @@ const { values: args } = parseArgs({
     dpr: { type: 'string', default: '1' },
     'full-page': { type: 'boolean', default: false },
     'delay-ms': { type: 'string', default: '500' },
+    'color-scheme': { type: 'string', default: 'light' },
     'product-version': { type: 'string' },
   },
 });
@@ -112,6 +113,12 @@ try {
   const page = await browser.newPage({
     viewport: { width: Number(args.width), height: Number(args.height) },
     deviceScaleFactor: Number(args.dpr),
+    // Matters for UIs that follow prefers-color-scheme (e.g. Surface Console);
+    // 'light' mirrors Playwright's default so existing captures don't shift.
+    colorScheme: args['color-scheme'],
+    // Deterministic captures: skip count-up/stagger animations so the shot
+    // shows final values, not whatever frame the settle delay happened to hit.
+    reducedMotion: 'reduce',
   });
   // 'load', not 'networkidle': consoles with SSE/live streams never go idle.
   await page.goto(args.url, { waitUntil: 'load' });
