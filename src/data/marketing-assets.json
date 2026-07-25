@@ -37,9 +37,9 @@
       "asset": "public/screenshots/flow-demo.gif",
       "page": "src/pages/flow.astro",
       "product": "flow",
-      "capturedAgainstVersion": "3.9.0",
+      "capturedAgainstVersion": "3.10.0",
       "capturedAt": "2026-07-25",
-      "sha256": "0bbe51bec9c275b13861caeb225ed37388fdc5e76d8e896c2b2b3b33a02fbb1b"
+      "sha256": "56f6645c19feb042bf80a52b542c4fba21d7e4eafeabaf9690190ec2e6410dab"
     },
     {
       "asset": "public/screenshots/fieldwork-review.png",
