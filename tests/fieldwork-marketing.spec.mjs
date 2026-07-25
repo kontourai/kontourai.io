@@ -8,6 +8,8 @@ import { expect, test } from "@playwright/test";
 const comparisonRoute = "src/pages/fieldwork-vs-langextract.astro";
 const ordinaryContentRoots = ["src/pages", "docs"];
 const execFileAsync = promisify(execFile);
+const productStatus = JSON.parse(await readFile("src/data/product-status.json", "utf8"));
+const fieldworkVersion = productStatus.products.fieldwork.version;
 
 async function walkFiles(root) {
   const entries = await readdir(root, { withFileTypes: true });
@@ -35,7 +37,7 @@ for (const viewport of [
     await page.goto("/fieldwork/");
 
     await expect(page.getByRole("heading", { level: 1, name: "Fieldwork" })).toBeVisible();
-    await expect(page.getByText("v0.2.4", { exact: true }).first()).toBeVisible();
+    await expect(page.getByText(`v${fieldworkVersion}`, { exact: true }).first()).toBeVisible();
     await expect(page.getByText("credential-free quickstart", { exact: true })).toBeVisible();
     await expect(page.getByText("npm install @kontourai/fieldwork", { exact: false })).toBeVisible();
     await expect(page.getByText("node_modules/@kontourai/fieldwork/examples/generic/task.json", { exact: false })).toBeVisible();
@@ -46,7 +48,7 @@ for (const viewport of [
     }
 
     await expect(page.getByText("Fieldwork does not include a PDF parser or OCR engine.")).toBeVisible();
-    await expect(page.getByRole("link", { name: "Read the v0.2.4 contract →" })).toHaveAttribute(
+    await expect(page.getByRole("link", { name: `Read the v${fieldworkVersion} contract →` })).toHaveAttribute(
       "href",
       /github\.com\/kontourai\/fieldwork\/blob\/[0-9a-f]{40}\/README\.md/,
     );
