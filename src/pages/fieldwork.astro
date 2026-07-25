@@ -31,32 +31,32 @@ const workflow: { step: string; owner: string; body: string; accent: Accent }[] 
   { step: 'Export proof', owner: 'Publish', body: 'Export only when the reviewed state is resolved, current, and tied back to source.', accent: 'chalk-2' },
 ];
 
-const boundaries: { title: string; accent: Accent; items: string[] }[] = [
+const adoptionPaths: { title: string; accent: Accent; items: string[] }[] = [
   {
-    title: 'Ready-made app',
+    title: 'Run the complete review app',
     accent: 'green',
     items: [
-      'run identity, local artifacts, and application policy',
-      'the loopback server and persisted review-event trail',
-      'the handoff from grounded proposals to reviewed export',
+      'Start locally with a task and source file',
+      'Inspect proposals beside exact supporting excerpts',
+      'Record review decisions and export resolved results',
     ],
   },
   {
-    title: 'Reusable libraries',
+    title: 'Embed the experience',
     accent: 'gold-2',
     items: [
-      'Forage acquisition and exact source snapshots',
-      'Traverse preparation, proposals, and locator grounding',
-      'Survey inspection, review, and replay; Lookout rechecks; Surface validation',
+      'Use the shared source inspector and review workbench',
+      'Keep your product labels, rules, and storage',
+      'Replay decisions against the exact reviewed snapshot',
     ],
   },
   {
-    title: 'The host supplies',
+    title: 'Connect more source formats',
     accent: 'cobalt-2',
     items: [
-      'the local task and source, or an exact acquired snapshot',
-      'any PDF parser or OCR adapter needed for those inputs',
-      'credentials and a runtime only when choosing live execution',
+      'Bring acquired web pages, API records, PDFs, or scans',
+      'Attach layout and table context to the evidence view',
+      'Choose local, CLI, SDK, or hosted runtime execution',
     ],
   },
 ];
@@ -156,10 +156,10 @@ const evidence: { title: string; body: string; href: string; label: string; acce
 
   <Section tone="alt" borderBottom>
     <div class="container">
-      <Eyebrow accent="green" gap="sm">For integration teams</Eyebrow>
-      <h2 class="display-md measure-lg">One ready-made app, with the parts still available separately.</h2>
+      <Eyebrow accent="green" gap="sm">Adopt it your way</Eyebrow>
+      <h2 class="display-md measure-lg">Use the app today, then embed the pieces your product needs.</h2>
       <Grid cols={3} gap="lg">
-        {boundaries.map(({ title, accent, items }) => (
+        {adoptionPaths.map(({ title, accent, items }) => (
           <Card accent={accent} bar="top" pad="md">
             <h3 class="boundary-title">{title}</h3>
             <ul class="boundary-list">
@@ -194,20 +194,19 @@ const evidence: { title: string; body: string; href: string; label: string; acce
       <Split ratio="1-1" gap="lg" align="center">
         <div>
           <Eyebrow accent="gold" gap="sm">Documents and scans</Eyebrow>
-          <h2 class="display-md">PDF and OCR context comes from your adapter.</h2>
+          <h2 class="display-md">Review PDF and OCR results with their layout context intact.</h2>
           <p class="body">
-            Fieldwork does not include a PDF parser or OCR engine. A programmatic
-            host supplies those adapters when it needs PDF or image inputs; the
-            adapter’s bounded identity participates in the run. When absent,
-            the CLI returns a typed adapter-required error instead of silently
-            changing how the source was prepared.
+            Connect the parser or OCR adapter you already trust, then show page,
+            layout, and table-cell context beside each proposed value. The
+            adapter identity stays attached to the run, so reviewers can see
+            how the source was prepared.
           </p>
-          <p class="body">The public format conformance test below verifies that host-supplied PDF layout context is visible in the shared inspector. It proves the inspector can show that context; it does not claim built-in document parsing or OCR.</p>
+          <p class="body">Fieldwork includes the review and evidence experience; PDF parsing and OCR enter through explicit adapters. If one is missing, the CLI returns a typed adapter-required result.</p>
           <a href={sources.browser} target="_blank" rel="noopener" class="handoff-link" data-umami-event="fieldwork-format-test">Inspect the format browser test →</a>
         </div>
         <figure class="product-shot">
           <img src="/screenshots/fieldwork-format-inspection.png" alt="Fieldwork Grounded Review desktop view of a format conformance fixture, showing PDF page, layout element, and table-cell context beside the proposed record status." loading="lazy" />
-          <figcaption>Exact {productBadge(fieldworkStatus)} snapshot of a host-supplied PDF-format fixture in the inspector; Fieldwork itself is not represented as a PDF parser or OCR engine.</figcaption>
+          <figcaption>Exact {productBadge(fieldworkStatus)} snapshot of PDF page, layout, and table-cell context carried into the inspector by an explicit format adapter.</figcaption>
         </figure>
       </Split>
     </div>

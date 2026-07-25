@@ -47,7 +47,9 @@ for (const viewport of [
       await expect(page.getByRole("heading", { level: 3, name: step, exact: true })).toBeVisible();
     }
 
-    await expect(page.getByText("PDF and OCR context comes from your adapter.")).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "Review PDF and OCR results with their layout context intact." }),
+    ).toBeVisible();
     await expect(page.getByRole("link", { name: `Read the v${fieldworkVersion} contract →` })).toHaveAttribute(
       "href",
       /github\.com\/kontourai\/fieldwork\/blob\/[0-9a-f]{40}\/README\.md/,
@@ -124,6 +126,29 @@ test("the content boundary ignores private untracked context but rejects tracked
       execFileAsync("node", ["scripts/check-content-boundary.cjs"], { cwd: root }),
     ).rejects.toMatchObject({
       stderr: expect.stringContaining("private runtime context must not be tracked in this public repo"),
+    });
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
+test("the content boundary rejects architecture-first product marketing", async () => {
+  const root = await mkdtemp(join(tmpdir(), "kontour-marketing-boundary-"));
+  try {
+    await mkdir(join(root, "scripts"), { recursive: true });
+    await mkdir(join(root, "src", "pages"), { recursive: true });
+    await cp("scripts/check-content-boundary.cjs", join(root, "scripts", "check-content-boundary.cjs"));
+    await writeFile(
+      join(root, "src", "pages", "console.astro"),
+      "<section><h2>Contracts first</h2><p>Git stays the authority.</p></section>",
+    );
+    await execFileAsync("git", ["init", "-q"], { cwd: root });
+    await execFileAsync("git", ["add", "src/pages/console.astro"], { cwd: root });
+
+    await expect(
+      execFileAsync("node", ["scripts/check-content-boundary.cjs"], { cwd: root }),
+    ).rejects.toMatchObject({
+      stderr: expect.stringContaining("product marketing includes an ownership reminder"),
     });
   } finally {
     await rm(root, { recursive: true, force: true });

@@ -264,11 +264,14 @@ test("flow page explains process transparency and proof-first outcomes", async (
   await expect(page.locator(".label-sm").filter({ hasText: "Example use case" })).toBeVisible();
   await expect(page.getByText("A release path that waits for evidence.")).toBeVisible();
   await expect(page.getByText("rendered-page screenshot missing")).toBeVisible();
-  await expect(page.locator(".label-sm").filter({ hasText: "What Flow does not replace" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Workflow engines" })).toBeVisible();
+  await expect(page.locator(".label-sm").filter({ hasText: "Fits your stack" })).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Give the tools you already use one visible definition of done." }),
+  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Durable workflow engines" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Agent frameworks" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Observability" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Policy systems" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Observability stacks" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Policy and security tools" })).toBeVisible();
 
   // Flow 3.0 runtime root: generated run state lives under .kontourai/flow, not .flow.
   await expect(page.getByText(".kontourai/flow/runs/dev-1847/report.md")).toBeVisible();
@@ -395,10 +398,11 @@ test("survey page explains the producer pipeline and surface handoff", async ({ 
   await expect(page.getByText("facet").first()).toBeVisible();
   await expect(page.getByText("fieldOrBehavior").first()).toBeVisible();
 
-  // Integration shape and helpers
-  await expect(page.getByRole("heading", { name: "Review record" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Your product policy" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Published trust state" })).toBeVisible();
+  // Customer outcomes and integration helpers
+  await expect(page.locator(".label-sm").filter({ hasText: "What teams gain" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Everything needed to decide" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Fits the review you already run" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Reviewed data stays useful" })).toBeVisible();
   await expect(page.locator(".label-sm").filter({ hasText: "Consumer adapter contract" })).toBeVisible();
   await expect(page.getByText("ReviewPresentationAdapter").first()).toBeVisible();
   await expect(page.getByRole("link", { name: "Read the integration guide" })).toHaveAttribute(
@@ -476,8 +480,7 @@ test("console page presents the suite operating plane and operator outcomes", as
   await expect(page.getByText("OIDC").first()).toBeVisible();
   await expect(page.getByText("No hosted service. No login.")).toHaveCount(0);
   // Provenance claims stay attributable: the trust panel via the Flow bridge, no ledger indexing.
-  await expect(page.getByText("Console doesn't index those delivery")).toBeVisible();
-  await expect(page.getByText("Console indexes")).toHaveCount(0);
+  await expect(page.getByText("brings the evidence relevant to each run into Console's trust panel")).toBeVisible();
 
   // Unified work queue
   await expect(page.locator(".label-sm").filter({ hasText: "Unified work queue" })).toBeVisible();
@@ -490,14 +493,15 @@ test("console page presents the suite operating plane and operator outcomes", as
   await expect(page.getByText("kontour console serve")).toBeVisible();
   await expect(page.getByText("kontour-flow-bridge --flow-root .kontourai/flow --watch")).toBeVisible();
   await expect(page.getByText("publishes an OpenAPI spec for everything the UI")).toBeVisible();
-  // The stale "Shared UI later" framing is retired (UI ships in the package).
-  await expect(page.getByText("Shared UI later.")).toHaveCount(0);
-  await expect(page.getByText("The shared UI shipped on top.")).toBeVisible();
+  // The integration surface is framed by what customers can build with it.
+  await expect(page.getByRole("heading", { name: "Use the UI. Build on the same live API." })).toBeVisible();
+  await expect(page.getByText("Build a focused operator view, automate a response")).toBeVisible();
 
-  // Integration note — same architecture, phrased as operator value.
-  await expect(page.getByRole("heading", { name: "Operator view" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Source records" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Portable adoption" })).toBeVisible();
+  // Daily operating value.
+  await expect(page.locator(".label-sm").filter({ hasText: "Built for daily operations" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Orient in seconds" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Understand before acting" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Start local, grow with the team" })).toBeVisible();
 });
 
 test("kit pages show real sidecar/store shapes and record dimensions", async ({ page }) => {
@@ -526,7 +530,8 @@ test("kit pages show real sidecar/store shapes and record dimensions", async ({ 
   await expect(page.getByRole("heading", { name: "The delivery discipline kept compounding." })).toBeVisible();
   await expect(page.getByText("builder.publish-learn")).toBeVisible();
   await expect(page.getByRole("heading", { name: "Model routing + escalation" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Bounded continuation" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "One run across every client" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Long work that resumes cleanly" })).toBeVisible();
   await expect(page.getByText(".kontourai/flow-agents/knowledge/")).toHaveCount(0);
 });
 
@@ -698,7 +703,10 @@ test("flow agents page presents agent-tool discipline and status", async ({ page
   await expect(page.getByText("Claude Code").first()).toBeVisible();
   await expect(page.getByText("Codex").first()).toBeVisible();
   await expect(page.getByText("npx @kontourai/flow-agents init").first()).toBeVisible();
-  await expect(page.getByText("not one blessed workflow")).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Install one engine, then add the workflows your team needs." }),
+  ).toBeVisible();
+  await expect(page.getByText("Evidence that survives the session")).toBeVisible();
 
   // Guard against the old "coming soon" framing regressing back in
   await expect(page.getByText("coming soon")).toHaveCount(0);
@@ -719,21 +727,20 @@ test("flow agents page presents agent-tool discipline and status", async ({ page
   await expect(faMatrix.getByRole("row", { name: /Other harnesses/ }).locator('[data-enforcement="spec-only"]')).toHaveText("Spec-only");
 });
 
-test("memory interop note states the do-not-build guard and the two-layer stance", async ({ page }) => {
+test("memory page leads with proof value and explains compatible composition", async ({ page }) => {
   await page.goto("/memory/");
 
-  await expect(page.getByRole("heading", { level: 1, name: "Works with your memory layer" })).toBeVisible();
-  // The recorded do-NOT-build guard, stated as a guard (not a deferral).
-  await expect(page.getByText("We build no memory platform.")).toBeVisible();
-  await expect(page.getByText("a recorded do-not-build guard, not a roadmap gap")).toBeVisible();
-  // The memory-vs-trust line (required by #71).
-  await expect(page.getByText("Memory tells the agent what it knows. Kontour proves what its answers")).toBeVisible();
+  await expect(
+    page.getByRole("heading", { level: 1, name: "Keep your memory stack. Add proof to the work it produces." }),
+  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Context goes in. Inspectable evidence comes out." })).toBeVisible();
+  await expect(page.getByText("Your memory layer helps the agent recall useful context")).toBeVisible();
   // Named example categories/systems — as pattern examples only.
   await expect(page.getByText("OKF (Open Knowledge Format)")).toBeVisible();
   await expect(page.getByText("Context Lattice")).toBeVisible();
   await expect(page.getByText("hooks writing to your own store")).toBeVisible();
   // Honest scope: no vendor certification claims.
-  await expect(page.getByText("not tested integrations or partnership claims")).toBeVisible();
+  await expect(page.getByText("not partnership or certified-integration claims")).toBeVisible();
   await expect(page.locator('[data-umami-event="memory-trust"]')).toHaveAttribute("href", "/trust/");
 
   // Reachable from developer-facing navigation (R1 reachability).

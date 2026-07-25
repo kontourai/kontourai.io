@@ -92,7 +92,7 @@ const trustTiers: { title: string; body: string; accent: Accent }[] = [
   <Section size="lg">
     <div class="container">
       <Eyebrow gap="sm">The engine</Eyebrow>
-      <h2 class="display-md measure-lg engine-title">The same trust machinery for every kit — not one blessed workflow.</h2>
+      <h2 class="display-md measure-lg engine-title">Install one engine, then add the workflows your team needs.</h2>
       <p class="fine measure engine-note">
         The engine interprets structured triggers and renders tool-native
         instructions across four policy classes — workflow steering, quality
@@ -118,8 +118,8 @@ const trustTiers: { title: string; body: string; accent: Accent }[] = [
       <p class="body measure kit-copy">
         Kits are swappable solutions declared in <code>kit.json</code> and
         registered in <code>kits/catalog.json</code>. Install what you want,
-        leave the rest out — and bring your own: "first-party" is a catalog
-        label, not runtime authority.
+        leave the rest out, or bring your own workflow with the same manifest,
+        validation, and evidence model.
       </p>
 
       <Grid cols={4} gap="md">
@@ -168,14 +168,13 @@ const trustTiers: { title: string; body: string; accent: Accent }[] = [
 
   <Section tone="alt" borderTop>
     <div class="container">
-      <Eyebrow gap="lg">Trust posture</Eyebrow>
-      <h2 class="display-md measure-lg trust-title">Tamper-evident. Not magic.</h2>
+      <Eyebrow gap="lg">Evidence that survives the session</Eyebrow>
+      <h2 class="display-md measure-lg trust-title">Know what ran, what passed, and what still needs a decision.</h2>
       <p class="fine measure trust-note">
-        Flow Agents does not claim agent behavior is impossible to manipulate.
-        It records what the agent claimed, what evidence exists, what actually
-        changed, and what a controlled rerun could verify. Git and
-        CI are where those records anchor for code work today — instances of
-        the principle, not the principle itself.
+        Flow Agents records the agent’s claim, the available evidence, the
+        actual change, and the result of a controlled rerun. For code work,
+        those records anchor in git and CI so they remain inspectable after the
+        chat, context window, and local session are gone.
       </p>
 
       <Grid cols={3} gap="lg">
@@ -189,8 +188,8 @@ const trustTiers: { title: string; body: string; accent: Accent }[] = [
 
       <h3 class="enforcement-heading">Where the gate actually blocks, per runtime</h3>
       <p class="fine measure enforcement-note">
-        Enforcement isn't uniform across harnesses, and we badge the difference
-        instead of blurring it — the same table the <a href="/trust/">trust page</a> leads with.
+        See the exact enforcement level available in each supported harness,
+        including where a runtime can block and where it can only advise.
       </p>
       <EnforcementMatrix />
     </div>
@@ -199,9 +198,10 @@ const trustTiers: { title: string; body: string; accent: Accent }[] = [
   <Section size="note" borderTop>
     <div class="container">
       <p class="closing-note">
-        Flow Agents is the engine. Builder, Knowledge, Release Evidence, and
-        Veritas Governance are kits. The engine stays neutral so the catalog
-        can grow without turning one workflow into the runtime's authority.
+        Start with Builder for delivery, add Knowledge for durable context,
+        and bring in Release Evidence or Veritas Governance when the work
+        needs stronger proof. Every kit runs through the same install,
+        lifecycle, and evidence experience.
       </p>
     </div>
   </Section>

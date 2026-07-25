@@ -35,11 +35,11 @@ const objects: { label: string; detail: string; accent: Accent }[] = [
   { label: 'Flow Report', detail: 'Current state, blocked gates, next action', accent: 'chalk-2' },
 ];
 
-const notReplace: { title: string; body: string; accent: Accent }[] = [
-  { title: 'Workflow engines', body: 'Camunda, Temporal, Dapr, Inngest, and Trigger.dev can still run durable work. Flow records gate state and evidence.', accent: 'gold' },
-  { title: 'Agent frameworks', body: 'LangGraph, CrewAI, OpenAI Agents, Microsoft Agent Framework, and runtime SDKs can still execute agent loops.', accent: 'cobalt-2' },
-  { title: 'Observability', body: 'Phoenix, LangSmith, AgentOps, and OpenTelemetry can still store traces. Flow interprets traces against gate expectations.', accent: 'green' },
-  { title: 'Policy systems', body: 'OPA, security tools, and Veritas can still evaluate rules. Flow records their decisions as process evidence.', accent: 'red' },
+const integrations: { title: string; body: string; accent: Accent }[] = [
+  { title: 'Durable workflow engines', body: 'Keep Camunda, Temporal, Dapr, Inngest, or Trigger.dev running the work while Flow makes required gates and their evidence inspectable.', accent: 'gold' },
+  { title: 'Agent frameworks', body: 'Run LangGraph, CrewAI, OpenAI Agents, Microsoft Agent Framework, or your SDK of choice and give every loop the same visible completion criteria.', accent: 'cobalt-2' },
+  { title: 'Observability stacks', body: 'Turn Phoenix, LangSmith, AgentOps, and OpenTelemetry traces into evidence evaluated against a declared gate.', accent: 'green' },
+  { title: 'Policy and security tools', body: 'Carry OPA, security scanners, and Veritas decisions into the run history so reviewers can see what passed and what was waived.', accent: 'red' },
 ];
 
 const consoleFeatures = [
@@ -259,12 +259,13 @@ const consoleFeatures = [
     </div>
   </Section>
 
-  <!-- What Flow does not replace -->
+  <!-- Integrations -->
   <Section borderTop>
     <div class="container">
-      <Eyebrow gap="lg">What Flow does not replace</Eyebrow>
+      <Eyebrow gap="sm">Fits your stack</Eyebrow>
+      <h2 class="display-md measure-lg">Give the tools you already use one visible definition of done.</h2>
       <Grid cols={4} gap="md">
-        {notReplace.map(({ title, body, accent }) => (
+        {integrations.map(({ title, body, accent }) => (
           <Card accent={accent} bar="top" pad="sm">
             <h3 class="feature-title">{title}</h3>
             <p class="feature-body">{body}</p>
