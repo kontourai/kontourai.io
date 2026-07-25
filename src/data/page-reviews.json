@@ -134,6 +134,11 @@
         "traverse": "0.23.0"
       },
       "reviewedDate": "2026-07-25"
+    },
+    {
+      "page": "src/pages/privacy.astro",
+      "products": {},
+      "reviewedDate": "2026-07-25"
     }
   ]
 }

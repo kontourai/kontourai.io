@@ -84,9 +84,10 @@ const mailto = (subject: string, body: string) =>
             <Subscribe source="early-access" cta="Get build updates" event="early-access-subscribe" />
             <p class="fine early-signup__terms">
               One email when there's something real to show — no pitch sequence.
-              We keep your address, the page you signed up from, the date, and
-              the browser string the request carried. Ask us to delete it any
-              time at hello@kontourai.io.
+              We keep your address, the page you signed up from, the date, the
+              browser string the request carried, and the page that referred you.
+              Ask us to delete it any time at hello@kontourai.io.
+              <a href="/privacy/" data-umami-event="early-access-privacy">The full list, and the code that writes it →</a>
             </p>
             <p class="early-signup__alt">
               Ready to talk instead? <a href={mailto('Kontour design partner', 'I want to talk about a design partner fit for Kontour. The trust break I see is:')} class="early-signup__link" data-umami-event="early-access-hero-email">hello@kontourai.io</a>

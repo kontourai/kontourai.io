@@ -17,6 +17,9 @@ const receipts = { href: '/receipts/', label: 'Receipts', event: 'footer-receipt
 // Trust is public credibility surface — the honest-ceiling / bypass-list page —
 // not a product, so it appears in both footer arrays alongside receipts.
 const trust = { href: '/trust/', label: 'Trust', event: 'footer-trust' };
+// Privacy belongs on every page, teaser or not — the form that collects an
+// email appears on the teaser pages too.
+const privacy = { href: '/privacy/', label: 'Privacy', event: 'footer-privacy' };
 const links = teaserNav
   ? [
       { href: '/developers/', label: 'Developers', event: 'footer-developers' },
@@ -24,6 +27,7 @@ const links = teaserNav
       trust,
       github,
       { href: '/early-access/', label: 'Early access', event: 'footer-contact' },
+      privacy,
     ]
   : [
       { href: '/developers/', label: 'Developers', event: 'footer-developers' },
@@ -36,6 +40,7 @@ const links = teaserNav
       ...products.slice(1).map(({ href, label, key }) => ({ href, label, event: `footer-${key}` })),
       ...applications.map(({ href, label, key }) => ({ href, label, event: `footer-${key}` })),
       github,
+      privacy,
     ];
 ---
 

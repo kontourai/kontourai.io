@@ -518,6 +518,22 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--color-cobalt-2);
 }
 
+/* A claim the evidence has moved past, and one withdrawn outright. Both are
+   real derived statuses; without variants they fell through to `unknown`,
+   which reads as "we don't know" rather than "this was replaced". */
+.trust-badge--superseded {
+  background: rgba(139, 145, 176, 0.08);
+  border-color: rgba(139, 145, 176, 0.28);
+  color: var(--color-chalk-3);
+  text-decoration: line-through;
+}
+
+.trust-badge--revoked {
+  background: rgba(196, 92, 92, 0.08);
+  border-color: rgba(196, 92, 92, 0.28);
+  color: var(--color-red-2);
+}
+
 /* ─────────────────────────────────────────────────────────────
    Terminal / code blocks
 ───────────────────────────────────────────────────────────── */

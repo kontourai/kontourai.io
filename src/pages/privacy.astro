@@ -1,0 +1,180 @@
+---
+/**
+ * Privacy policy.
+ *
+ * Every statement here is checkable against committed source, and the source
+ * is linked where it is. Written from: src/layouts/Layout.astro (which
+ * analytics load), public/analytics.js (how PostHog is configured),
+ * public/_worker.js (what the signup form stores), public/_headers (which
+ * third-party hosts the page is allowed to talk to at all).
+ *
+ * If you change what the site collects, change this page in the same commit.
+ */
+import Layout from '@/layouts/Layout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import Section from '@/components/Section.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+
+const updated = '25 July 2026';
+const repo = 'https://github.com/kontourai/kontourai.io/blob/main';
+---
+
+<Layout
+  title="Privacy — what this site collects, in plain terms · Kontour AI"
+  description="What kontourai.io collects when you read it, what it stores if you give us your email, which third parties are involved, and how to get your data deleted."
+>
+  <Nav />
+
+  <Section contour size="hero" borderBottom>
+    <div class="container container--readable">
+      <Eyebrow accent="gold" gap="sm">Privacy</Eyebrow>
+      <h1 class="display-lg privacy-title">What this site collects.</h1>
+      <p class="lead measure privacy-lead">
+        We sell receipts for a living, so here is one for the site itself. Every
+        line below can be checked against the source that implements it — the
+        links go to the actual files.
+      </p>
+      <p class="fine privacy-updated">Last updated {updated} · Kontour AI LLC</p>
+    </div>
+  </Section>
+
+  <Section borderBottom>
+    <div class="container container--readable">
+      <h2 class="display-md privacy-h2">If you just read the site</h2>
+      <p class="body measure">
+        No account, no cookies, and nothing you type — because there is nothing
+        to type. Three things still happen that you should know about.
+      </p>
+
+      <h3 class="privacy-h3">Analytics</h3>
+      <p class="body measure">
+        Two analytics tools run in production: <a href="https://umami.is/" target="_blank" rel="noopener">Umami</a>
+        and <a href="https://posthog.com/" target="_blank" rel="noopener">PostHog</a>.
+        They record which pages get visited, which links get clicked, and coarse
+        technical detail like browser, operating system, and country. PostHog is
+        configured to keep no cookies (it uses your browser's local storage), and
+        we never attach a name or email to any of it — the code never calls
+        <code class="code-plain">identify</code>, so events are not tied to a
+        person. Both tools honour the "Do Not Track" setting: switch it on and
+        neither one loads.
+        <a href={`${repo}/public/analytics.js`} target="_blank" rel="noopener">See the configuration →</a>
+      </p>
+
+      <h3 class="privacy-h3">Session recordings</h3>
+      <p class="body measure">
+        PostHog records anonymous playback of site sessions, so we can see where
+        a page confuses people. Every input field is masked before anything is
+        sent, so the one thing you could type here — your email address in the
+        signup box — is never captured in a recording. Recordings are not linked
+        to an identity.
+      </p>
+
+      <h3 class="privacy-h3">Fonts and hosting</h3>
+      <p class="body measure">
+        The site's typefaces load from Google Fonts, which means Google receives
+        your IP address and browser details when a page loads. The site is hosted
+        on Cloudflare Pages, so Cloudflare handles the request and keeps its own
+        standard server-side logs. Neither is something we control beyond the
+        decision to use them.
+      </p>
+    </div>
+  </Section>
+
+  <Section borderBottom>
+    <div class="container container--readable">
+      <h2 class="display-md privacy-h2">If you give us your email</h2>
+      <p class="body measure">
+        The signup form stores exactly five things, and this is the complete
+        list: your email address, which page you submitted it from, the time you
+        submitted it, your browser's user-agent string, and the page that
+        referred you. That's it — there is no hidden field and no enrichment
+        step. It goes into a private Cloudflare key-value store that only we can
+        read.
+        <a href={`${repo}/public/_worker.js`} target="_blank" rel="noopener">See the code that writes it →</a>
+      </p>
+      <p class="body measure">
+        To stop the form being hammered, the same code counts submissions per IP
+        address for ten minutes at a time. That counter expires on its own and is
+        never written into your signup record.
+      </p>
+      <p class="body measure">
+        We use the address to send occasional build updates, and to reply if you
+        started a conversation. We do not sell it, rent it, share it with
+        advertisers, or load it into an ad network.
+      </p>
+      <p class="body measure">
+        We keep it until you ask us to delete it. There is no self-serve
+        unsubscribe link yet — that is a real gap, not a policy — so for now,
+        email <a href="mailto:hello@kontourai.io">hello@kontourai.io</a> and ask,
+        and we will delete the record and confirm. You can ask for a copy of what
+        we hold the same way.
+      </p>
+    </div>
+  </Section>
+
+  <Section borderBottom>
+    <div class="container container--readable">
+      <h2 class="display-md privacy-h2">Everyone we hand data to</h2>
+      <p class="body measure">
+        This is the full list. The site's security policy blocks the browser from
+        contacting any other outside host, so it can't quietly grow — you can
+        read the allowlist yourself.
+        <a href={`${repo}/public/_headers`} target="_blank" rel="noopener">See the allowlist →</a>
+      </p>
+      <ul class="privacy-list">
+        <li><strong>Cloudflare</strong> — hosting, request logs, and the store holding signup emails.</li>
+        <li><strong>Umami</strong> — page and click analytics.</li>
+        <li><strong>PostHog</strong> — page and click analytics, plus masked session recordings.</li>
+        <li><strong>Google Fonts</strong> — serves the typefaces; receives your IP address as a result.</li>
+      </ul>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="container container--readable">
+      <h2 class="display-md privacy-h2">Changes, and how to reach us</h2>
+      <p class="body measure">
+        If what the site collects changes, this page changes in the same commit —
+        the history is public, so you can see what it said before.
+        Questions, deletions, or anything else:
+        <a href="mailto:hello@kontourai.io">hello@kontourai.io</a>.
+      </p>
+    </div>
+  </Section>
+
+  <Footer />
+</Layout>
+
+<style>
+  .privacy-title {
+    margin-bottom: 1.25rem;
+  }
+  .privacy-lead {
+    margin-bottom: 1.5rem;
+  }
+  .privacy-updated {
+    color: var(--color-chalk-3);
+  }
+  .privacy-h2 {
+    margin-bottom: 1.25rem;
+  }
+  .privacy-h3 {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    color: var(--color-chalk);
+    margin: 2rem 0 0.75rem;
+  }
+  .privacy-list {
+    margin: 1.25rem 0 0;
+    padding-left: 1.1rem;
+    display: grid;
+    gap: 0.6rem;
+    max-width: 66ch;
+    color: var(--color-chalk-2);
+  }
+  .privacy-list strong {
+    color: var(--color-chalk);
+    font-weight: 500;
+  }
+</style>
