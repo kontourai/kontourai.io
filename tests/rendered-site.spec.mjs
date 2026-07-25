@@ -242,7 +242,7 @@ test("production analytics scripts are configured defensively", async ({ page })
   await expect(umami).toHaveAttribute("data-exclude-search", "true");
 });
 
-test("flow page explains process transparency and product boundaries", async ({ page }) => {
+test("flow page explains process transparency and proof-first outcomes", async ({ page }) => {
   await page.goto("/flow/");
 
   // #91 F12: published packages link their npmjs page (parity with Surface/Survey/Veritas).
@@ -251,13 +251,13 @@ test("flow page explains process transparency and product boundaries", async ({ 
     "https://www.npmjs.com/package/@kontourai/flow",
   );
 
-  await expect(page.getByText("required paths, gates, evidence, and exceptions made inspectable")).toBeVisible();
+  await expect(page.getByText("know why work advanced, blocked, or routed back")).toBeVisible();
 
   // Order-independence framing (#209): gates judge accumulated evidence state, not step order.
   await expect(page.getByRole("heading", { name: /The conversation can wander/ })).toBeVisible();
   await expect(page.getByText("accumulated evidence state", { exact: false }).first()).toBeVisible();
   await expect(page.getByText("A trace says what happened.")).toBeVisible();
-  await expect(page.getByText("Flow says why it was enough.")).toBeVisible();
+  await expect(page.getByText("Flow says whether it was enough.")).toBeVisible();
   await expect(page.locator(".label-sm").filter({ hasText: "What Flow answers" })).toBeVisible();
   await expect(page.getByText("What process path was required?")).toBeVisible();
   await expect(page.getByText("Why was the transition allowed or blocked?")).toBeVisible();
@@ -289,7 +289,7 @@ test("flow page explains process transparency and product boundaries", async ({ 
 test("surface page presents inspectable claims and trust vocabulary", async ({ page }) => {
   await page.goto("/surface/");
 
-  await expect(page.getByText("claims, evidence, freshness, and gaps in one inspectable shape").first()).toBeVisible();
+  await expect(page.getByText("make every claim show its evidence, freshness, and gaps").first()).toBeVisible();
   await expect(page.locator(".label-sm").filter({ hasText: "What Surface answers" })).toBeVisible();
   await expect(page.locator(".label-sm").filter({ hasText: "Example use case" })).toBeVisible();
   await expect(page.getByText("This provider directory listing is current")).toBeVisible();
@@ -344,7 +344,7 @@ test("surface page presents inspectable claims and trust vocabulary", async ({ p
 test("veritas page shows the promise, a concrete catch, and the surface handoff", async ({ page }) => {
   await page.goto("/veritas/");
 
-  await expect(page.getByText("code and change readiness made inspectable").first()).toBeVisible();
+  await expect(page.getByText("show whether a change is ready before it reaches review").first()).toBeVisible();
   await expect(page.locator(".label-sm").filter({ hasText: "What Veritas makes possible" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Define what good looks like" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Guide work at the moment of change" })).toBeVisible();
@@ -373,9 +373,9 @@ test("veritas page shows the promise, a concrete catch, and the surface handoff"
 test("survey page explains the producer pipeline and surface handoff", async ({ page }) => {
   await page.goto("/survey/");
 
-  await expect(page.getByText("the contract that keeps the story behind every reviewed value").first()).toBeVisible();
-  // Hero leads with the information-loss story: the approve click is where provenance dies.
-  await expect(page.getByText("destroy that story the moment someone clicks approve").first()).toBeVisible();
+  await expect(page.getByText("review facts without losing where they came from").first()).toBeVisible();
+  // Hero leads with the information-preservation story: approval becomes an inspectable record.
+  await expect(page.getByText("turns approval from a disappearing click into a record").first()).toBeVisible();
   await expect(page.getByRole("heading", { name: "Survey", exact: true })).toBeVisible();
 
   // Producer pipeline
@@ -395,10 +395,10 @@ test("survey page explains the producer pipeline and surface handoff", async ({ 
   await expect(page.getByText("facet").first()).toBeVisible();
   await expect(page.getByText("fieldOrBehavior").first()).toBeVisible();
 
-  // Boundary and helpers
-  await expect(page.getByRole("heading", { name: "Survey owns" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Producers own" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Surface owns" })).toBeVisible();
+  // Integration shape and helpers
+  await expect(page.getByRole("heading", { name: "Review record" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Your product policy" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Published trust state" })).toBeVisible();
   await expect(page.locator(".label-sm").filter({ hasText: "Consumer adapter contract" })).toBeVisible();
   await expect(page.getByText("ReviewPresentationAdapter").first()).toBeVisible();
   await expect(page.getByRole("link", { name: "Read the integration guide" })).toHaveAttribute(
@@ -450,10 +450,10 @@ test("reference story: LLM proposes, structure verifies (#74)", async ({ page })
   );
 });
 
-test("console page presents the suite operating plane and boundary", async ({ page }) => {
+test("console page presents the suite operating plane and operator outcomes", async ({ page }) => {
   await page.goto("/console/");
 
-  await expect(page.getByText("suite trust state made operable without becoming the source of truth").first()).toBeVisible();
+  await expect(page.getByText("see what is live, stale, blocked, waiting, and backed by proof").first()).toBeVisible();
   await expect(page.getByRole("heading", { name: "Console", exact: true })).toBeVisible();
   const consoleStatus = JSON.parse(
     await readFile(new URL("../src/data/product-status.json", import.meta.url), "utf8"),
@@ -461,8 +461,8 @@ test("console page presents the suite operating plane and boundary", async ({ pa
   await expect(page.getByText(`v${consoleStatus.version}`).first()).toBeVisible();
 
   // Operating state + plane
-  await expect(page.locator(".label-sm").filter({ hasText: "What it's built to answer" })).toBeVisible();
-  await expect(page.getByText("Primitives make transparency portable.").first()).toBeVisible();
+  await expect(page.locator(".label-sm").filter({ hasText: "What it answers" })).toBeVisible();
+  await expect(page.getByText("One screen for sessions, gates, proof, queues, and next actions.").first()).toBeVisible();
 
   // Honest framing: illustrative where feeds aren't live; Flow IS live via the bridge.
   await expect(page.getByText("illustrative").first()).toBeVisible();
@@ -494,10 +494,10 @@ test("console page presents the suite operating plane and boundary", async ({ pa
   await expect(page.getByText("Shared UI later.")).toHaveCount(0);
   await expect(page.getByText("The shared UI shipped on top.")).toBeVisible();
 
-  // Boundary — Console owns / does not own / primitives stay portable
-  await expect(page.getByRole("heading", { name: "Console owns" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Console does not own" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Primitives stay portable" })).toBeVisible();
+  // Integration note — same architecture, phrased as operator value.
+  await expect(page.getByRole("heading", { name: "Operator view" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Source records" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Portable adoption" })).toBeVisible();
 });
 
 test("kit pages show real sidecar/store shapes and record dimensions", async ({ page }) => {
@@ -530,7 +530,7 @@ test("kit pages show real sidecar/store shapes and record dimensions", async ({ 
   await expect(page.getByText(".kontourai/flow-agents/knowledge/")).toHaveCount(0);
 });
 
-test("developers page leads with the engine and kits, states ownership once", async ({ page }) => {
+test("developers page leads with the engine and kits, then exposes the proof chain", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1100 });
   await page.goto("/developers/");
 
@@ -545,8 +545,8 @@ test("developers page leads with the engine and kits, states ownership once", as
   await expect(page.getByRole("heading", { name: "Kontour for developers" })).toBeVisible();
 
   // Single-story restructure: engine+kits lead; the six-product tour, the
-  // hero mini-map, the lifecycle strip, and the composition-contracts grid
-  // (four restatements of the same ownership idea) are gone.
+  // Older duplicated architecture maps are gone; the page leads with the
+  // installable engine and kits, then offers one lower proof-chain map.
   await expect(page.getByText("Six products. One job.")).toHaveCount(0);
   await expect(page.getByLabel("Kontour product relationship summary")).toHaveCount(0);
   await expect(page.getByLabel("Evidence lifecycle flow")).toHaveCount(0);
@@ -582,7 +582,7 @@ test("developers page leads with the engine and kits, states ownership once", as
   expect(kitsBox).not.toBeNull();
   expect(quickstartBox.y).toBeLessThan(kitsBox.y);
 
-  // The ONE ownership artifact: the layer map, now covering all six products
+  // The one technical map: the lower proof-chain view.
   // (Survey joined the trust-substrate lane when the tour cards left).
   await expect(page.getByLabel("Product relationship layer map")).toBeVisible();
   await expect(page.getByLabel("Product relationship layer map").getByText("Trust substrate")).toBeVisible();

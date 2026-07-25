@@ -24,25 +24,25 @@ const sources = {
 };
 
 const workflow: { step: string; owner: string; body: string; accent: Accent }[] = [
-  { step: 'Extract', owner: 'Traverse', body: 'Proposes typed field values and verifies each locator against prepared source text.', accent: 'cobalt-2' },
-  { step: 'Inspect', owner: 'Survey', body: 'Shows the source excerpt, locator, candidate, and prepared-source context together.', accent: 'gold-2' },
-  { step: 'Review', owner: 'Survey', body: 'Captures a reviewer decision in the shared workbench; Fieldwork persists the event trail.', accent: 'green' },
-  { step: 'Recheck', owner: 'Lookout + Fieldwork', body: 'Compares a later source observation with the prior run and opens a new review round only when needed.', accent: 'gold' },
-  { step: 'Export', owner: 'Surface + Fieldwork', body: 'Exports only a resolved, current, grounded reviewed trust bundle.', accent: 'chalk-2' },
+  { step: 'Find the values', owner: 'Extract', body: 'Pull renewal dates, amounts, obligations, status values, or other typed fields from the source text you give it.', accent: 'cobalt-2' },
+  { step: 'Show the evidence', owner: 'Inspect', body: 'Put every proposed value beside the exact excerpt and locator that support it.', accent: 'gold-2' },
+  { step: 'Record review', owner: 'Decide', body: 'Capture accept, reject, hold, and notes as a replayable review trail instead of a loose browser click.', accent: 'green' },
+  { step: 'Catch changes', owner: 'Recheck', body: 'Compare a later source observation with the reviewed run so stale evidence reopens the work.', accent: 'gold' },
+  { step: 'Export proof', owner: 'Publish', body: 'Export only when the reviewed state is resolved, current, and tied back to source.', accent: 'chalk-2' },
 ];
 
 const boundaries: { title: string; accent: Accent; items: string[] }[] = [
   {
-    title: 'Fieldwork composes',
+    title: 'Ready-made app',
     accent: 'green',
     items: [
       'run identity, local artifacts, and application policy',
-      'the loopback server and persisted review-event boundary',
+      'the loopback server and persisted review-event trail',
       'the handoff from grounded proposals to reviewed export',
     ],
   },
   {
-    title: 'The shared components own',
+    title: 'Reusable libraries',
     accent: 'gold-2',
     items: [
       'Forage acquisition and exact source snapshots',
@@ -87,7 +87,7 @@ const evidence: { title: string; body: string; href: string; label: string; acce
     title: 'Runtime receipts',
     body: 'A host may select a live runtime. Dispatch receipts retain bounded execution evidence, but optional provider execution remains separate from the deterministic contract.',
     href: sources.readme,
-    label: 'Read the runtime boundary →',
+    label: 'Read the runtime note →',
     accent: 'gold',
   },
 ];
@@ -110,14 +110,13 @@ const evidence: { title: string; body: string; href: string; label: string; acce
           </div>
           <Eyebrow accent="green" gap="sm">Standalone application</Eyebrow>
           <h1 class="product-title animate-fade-up">Fieldwork</h1>
-          <p class="product-tagline animate-fade-up delay-100" data-accent="green">grounded extraction that stays inspectable through review</p>
+          <p class="product-tagline animate-fade-up delay-100" data-accent="green">extract facts from messy sources, then prove what was reviewed</p>
           <p class="hero-copy animate-fade-up delay-200">
-            Fieldwork is a local, credential-free application for moving from a
-            source to a reviewed trust artifact without losing the evidence in
-            the middle. It composes focused Kontour components: extraction
-            proposals stay tied to exact source text, reviewers work in the
-            shared inspection surface, and export waits for resolved, current,
-            grounded review state.
+            Fieldwork is the local review app for work like vendor renewals,
+            policy tables, public records, and research notes: source text goes
+            in, typed proposals come out, and every accepted value keeps the
+            excerpt, locator, reviewer decision, and recheck history that made
+            it safe to use.
           </p>
           <div class="hero-actions animate-fade-up delay-300">
             <a href={sources.release} target="_blank" rel="noopener" class="btn-primary" data-umami-event="fieldwork-hero-release">Release source →</a>
@@ -127,7 +126,7 @@ const evidence: { title: string; body: string; href: string; label: string; acce
         </div>
 
         <Terminal class="animate-fade-in delay-300" title="credential-free quickstart">
-          <pre class="code"><span class="t-com"># Node 22 · no API key needed</span>{'\n'}<span class="t-kw">npm</span> install <span class="t-str">@kontourai/fieldwork</span>{'\n'}<span class="t-kw">npm</span> exec -- fieldwork run \{'\n'}  --task node_modules/@kontourai/fieldwork/examples/generic/task.json \{'\n'}  --source node_modules/@kontourai/fieldwork/examples/generic/source.txt \{'\n'}  --json{'\n'}<span class="t-com"># copy runDirectory from the JSON response</span>{'\n'}<span class="t-kw">npm</span> exec -- fieldwork open /path/from/runDirectory{'\n'}<span class="t-com"># review in the loopback browser, then export</span>{'\n'}<span class="t-kw">npm</span> exec -- fieldwork export /path/from/runDirectory --output reviewed.json --json</pre>
+          <pre class="code"><span class="t-com"># Node 22 · no API key needed</span>{'\n'}<span class="t-kw">npm</span> install <span class="t-str">@kontourai/fieldwork</span>{'\n'}<span class="t-kw">npm</span> exec -- fieldwork run \{'\n'}  --task node_modules/@kontourai/fieldwork/examples/generic/task.json \{'\n'}  --source node_modules/@kontourai/fieldwork/examples/generic/source.txt \{'\n'}  --json{'\n'}<span class="t-com"># open the generated review run</span>{'\n'}<span class="t-kw">npm</span> exec -- fieldwork open /path/from/runDirectory{'\n'}<span class="t-com"># approve or reject the grounded proposal, then export</span>{'\n'}<span class="t-kw">npm</span> exec -- fieldwork export /path/from/runDirectory --output reviewed.json --json</pre>
         </Terminal>
       </Split>
       <p class="quickstart-note">
@@ -138,9 +137,9 @@ const evidence: { title: string; body: string; href: string; label: string; acce
 
   <Section size="lg" borderBottom>
     <div class="container">
-      <Eyebrow accent="green" gap="sm">The application path</Eyebrow>
-      <h2 class="display-md measure-lg">Extraction → inspection → review → recheck → trusted export.</h2>
-      <p class="body measure-lg workflow-intro">Each step keeps a narrow owner. Fieldwork coordinates the path; it does not replace the component contracts that make the result inspectable.</p>
+      <Eyebrow accent="green" gap="sm">What the reviewer gets</Eyebrow>
+      <h2 class="display-md measure-lg">A worked path from source text to reviewed data.</h2>
+      <p class="body measure-lg workflow-intro">Use it when a value should not become operational data until someone can see where it came from, decide on it, and rerun the check when the source changes.</p>
       <Grid cols={5} gap="sm">
         {workflow.map(({ step, owner, body, accent }, index) => (
           <Card accent={accent} bar="top" pad="sm" class="workflow-card">
@@ -157,8 +156,8 @@ const evidence: { title: string; body: string; href: string; label: string; acce
 
   <Section tone="alt" borderBottom>
     <div class="container">
-      <Eyebrow accent="green" gap="sm">Composition, not a second review system</Eyebrow>
-      <h2 class="display-md measure-lg">One application boundary, with the right work left to the right component.</h2>
+      <Eyebrow accent="green" gap="sm">For integration teams</Eyebrow>
+      <h2 class="display-md measure-lg">One ready-made app, with the parts still available separately.</h2>
       <Grid cols={3} gap="lg">
         {boundaries.map(({ title, accent, items }) => (
           <Card accent={accent} bar="top" pad="md">
@@ -169,7 +168,7 @@ const evidence: { title: string; body: string; href: string; label: string; acce
           </Card>
         ))}
       </Grid>
-      <p class="boundary-proof"><a href={sources.readme} target="_blank" rel="noopener">Fieldwork's public boundary and host contract →</a></p>
+      <p class="boundary-proof"><a href={sources.readme} target="_blank" rel="noopener">Fieldwork's public host contract →</a></p>
     </div>
   </Section>
 
@@ -194,8 +193,8 @@ const evidence: { title: string; body: string; href: string; label: string; acce
     <div class="container">
       <Split ratio="1-1" gap="lg" align="center">
         <div>
-          <Eyebrow accent="gold" gap="sm">Format boundary</Eyebrow>
-          <h2 class="display-md">PDF and OCR context are adapter-supplied.</h2>
+          <Eyebrow accent="gold" gap="sm">Documents and scans</Eyebrow>
+          <h2 class="display-md">PDF and OCR context comes from your adapter.</h2>
           <p class="body">
             Fieldwork does not include a PDF parser or OCR engine. A programmatic
             host supplies those adapters when it needs PDF or image inputs; the
@@ -203,7 +202,7 @@ const evidence: { title: string; body: string; href: string; label: string; acce
             the CLI returns a typed adapter-required error instead of silently
             changing how the source was prepared.
           </p>
-          <p class="body">The public format conformance test below verifies that host-supplied PDF layout context is visible in the shared inspector. It is evidence of that integration boundary, not of built-in document parsing or OCR.</p>
+          <p class="body">The public format conformance test below verifies that host-supplied PDF layout context is visible in the shared inspector. It proves the inspector can show that context; it does not claim built-in document parsing or OCR.</p>
           <a href={sources.browser} target="_blank" rel="noopener" class="handoff-link" data-umami-event="fieldwork-format-test">Inspect the format browser test →</a>
         </div>
         <figure class="product-shot">
