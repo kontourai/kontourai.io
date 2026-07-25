@@ -36,22 +36,22 @@ const producers: { product: string; detail: string; accent: Accent }[] = [
   { product: 'Flow Agents', detail: 'session + continuation state', accent: 'chalk-2' },
 ];
 
-const boundary: { title: string; accent: Accent; items: string[] }[] = [
-  { title: 'Operator view', accent: 'cobalt', items: ['Suite navigation & workspace structure', 'Cross-product aggregation & correlation', 'Unified queues & action routing', 'Identity links across product objects', 'Extension composition across consoles'] },
-  { title: 'Source records', accent: 'chalk-2', items: ['Surface trust derivation', 'Flow gate & transition logic', 'Survey fact-review records', 'Veritas governance policy', 'Hosted infrastructure stays optional'] },
-  { title: 'Portable adoption', accent: 'gold', items: ['Adopt Surface, Flow, Survey, or Veritas alone', 'Event streams are the durable contract', 'Projections are cached, product-owned views', 'Actions route to the product that can resolve them', 'No .kontourai/console dependency for verticals'] },
+const operatingBenefits: { title: string; accent: Accent; items: string[] }[] = [
+  { title: 'Orient in seconds', accent: 'cobalt', items: ['See active, blocked, stale, and waiting work', 'Follow one session from start to current gate', 'Correlate claims, reviews, runs, and readiness', 'Filter the queue to what needs attention', 'Open the next action from the same screen'] },
+  { title: 'Understand before acting', accent: 'chalk-2', items: ['Read the evidence behind a gate', 'See who made a decision and when', 'Inspect accepted exceptions and missing proof', 'Distinguish a live run from an old record', 'Trace every status back to its supporting event'] },
+  { title: 'Start local, grow with the team', accent: 'gold', items: ['Inspect local files with no hosted dependency', 'Stream live updates into the bundled UI', 'Keep durable event history outside the dashboard', 'Connect additional product feeds over time', 'Use the same operating vocabulary in hosted deployments'] },
 ];
 
 const provenance: { title: string; accent: Accent; body: string }[] = [
   { title: 'Un-fakeable at merge', accent: 'green', body: 'The trust gate fires at PR time and re-runs verification in an environment the agent never controls. "I verified everything" stops being unfalsifiable.' },
-  { title: 'Permanent in git', accent: 'cobalt', body: 'The signed bundle is committed and pinned to the merge commit — distributed, tamper-evident, and outliving any dashboard. Git stays the authority; Console never becomes it.' },
+  { title: 'Permanent in git', accent: 'cobalt', body: 'The signed bundle is committed and pinned to the merge commit — distributed, tamper-evident, and available long after a dashboard view changes.' },
   { title: 'Inspectable beside the run', accent: 'gold', body: 'The Flow bridge reads a run\'s trust-bundle evidence into Console\'s trust panel, so the proof behind each gate — what was verified, how, and by whom — sits next to the run it belongs to.' },
 ];
 ---
 
 <Layout
   title="Console — One operating plane for the suite · Kontour AI"
-  description="Console makes the suite operable by aggregating claim status, process state, proof, and next actions without owning product semantics."
+  description="Console shows what is live, blocked, stale, waiting, and backed by proof, with the context and next action for each session."
 >
   <Nav active="console" />
 
@@ -136,10 +136,10 @@ const provenance: { title: string; accent: Accent; body: string }[] = [
             the stale claim it depends on, and the action that will move it.
           </p>
           <p class="body plane__copy plane__copy--last">
-            Under the hood, each product still publishes its own records.
-            Console correlates, filters, and routes them; when action is needed,
-            the item points back to the product that can actually resolve it.
-            Flow feeds this live today through <code class="codechip" data-accent="cobalt-2">kontour-flow-bridge</code>.
+            Every item keeps a direct path to the product and action that can
+            resolve it, so operators can move from “what is stuck?” to the
+            right intervention without reconstructing the run. Flow feeds this
+            live today through <code class="codechip" data-accent="cobalt-2">kontour-flow-bridge</code>.
           </p>
         </div>
 
@@ -255,8 +255,9 @@ const provenance: { title: string; accent: Accent; body: string }[] = [
             and routes each action back to the product that can resolve it.
           </p>
           <p class="body queue__copy queue__copy--last">
-            The source of truth does not move. Console makes the next action
-            visible without turning the operating screen into a second workflow engine.
+            Every status keeps its supporting event and deep link, so the
+            operator can move from “something is blocked” to the exact gate,
+            evidence, and action that will unblock it.
           </p>
         </div>
 
@@ -280,11 +281,10 @@ const provenance: { title: string; accent: Accent; body: string }[] = [
       <h2 class="display-md measure-lg">Trust you can query. Not trust you take on faith.</h2>
       <p class="fine ans-note">
         Every gated delivery ships a signed trust bundle — the claims that were
-        made, how they were verified, and a fresh CI reconciliation the agent
-        never controls — pinned to the merge commit. The agent proposes, CI
-        disposes, and git remembers. Console doesn't index those delivery
-        ledgers; the Flow bridge reads a run's trust-bundle evidence into the
-        trust panel, where you can still ask what was verified, how, and by whom.
+        made, how they were verified, and a fresh CI reconciliation — pinned
+        to the merge commit. The Flow bridge brings the evidence relevant to
+        each run into Console's trust panel, where you can ask what was
+        verified, how, and by whom.
       </p>
 
       <Grid cols={3} gap="lg">
@@ -298,17 +298,18 @@ const provenance: { title: string; accent: Accent; body: string }[] = [
     </div>
   </Section>
 
-  <!-- Boundary -->
+  <!-- Operating value -->
   <Section tone="alt" borderTop borderBottom>
     <div class="container">
-      <Eyebrow gap="sm">Integration note</Eyebrow>
+      <Eyebrow gap="sm">Built for daily operations</Eyebrow>
       <p class="fine boundary-note">
-        Console is a management plane. It can host collaboration and monitoring,
-        while the source records remain portable and independently adoptable.
+        Console turns scattered process events into a practical attention
+        system: what changed, what is stuck, why it matters, and where to go
+        next.
       </p>
 
       <Grid cols={3} gap="lg">
-        {boundary.map(({ title, accent, items }) => (
+        {operatingBenefits.map(({ title, accent, items }) => (
           <Card accent={accent} pad="md">
             <h3 class="boundary__title">{title}</h3>
             <ul class="def-list">
@@ -325,19 +326,18 @@ const provenance: { title: string; accent: Accent; body: string }[] = [
     </div>
   </Section>
 
-  <!-- Contracts first -->
+  <!-- Open integration surface -->
   <Section size="lg">
     <div class="container">
       <Split ratio="1-1.15" gap="md" align="center">
         <div>
-          <Eyebrow accent="cobalt">Where it stands</Eyebrow>
-          <h2 class="display-md cf__title">Contracts first.<br />The shared UI shipped on top.</h2>
+          <Eyebrow accent="cobalt">Open integration surface</Eyebrow>
+          <h2 class="display-md cf__title">Use the UI.<br />Build on the same live API.</h2>
           <p class="body cf__copy">
-            Console started with the contracts that make a suite plane possible —
-            event streams, projection boundaries, identity links, and a queue
-            and action vocabulary. The bundled UI now renders live suite state
-            over those same contracts; they stay the product, the shell stays
-            replaceable.
+            Event streams, identity links, queue actions, and live projections
+            are available through the same contracts that power the bundled
+            interface. Build a focused operator view, automate a response, or
+            embed the live state in the tools your team already watches.
           </p>
           <p class="body cf__copy cf__copy--last">
             The repo ships a local read-only fixture inspector, a

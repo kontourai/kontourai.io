@@ -24,10 +24,10 @@ const pipeline = [
   { step: 'Claim', body: 'A Surface-ready claim with its full provenance trail attached, ready to be reported on.' },
 ];
 
-const boundary: { title: string; accent: Accent; items: string[] }[] = [
-  { title: 'Review record', accent: 'gold-2', items: ['Raw Source identity & retrieval context', 'Source Reference locations', 'Extraction observations & locators', 'Candidate sets and resolutions', 'Review outcomes', 'Projection into a Surface TrustBundle'] },
-  { title: 'Your product policy', accent: 'cobalt-2', items: ['Acquisition, crawling, and parsing', 'Candidate ranking and scoring', 'Review UX and policy', 'Materiality and domain rules', 'Whether a value is verified or assumed'] },
-  { title: 'Published trust state', accent: 'gold', items: ['Claim status vocabulary', 'Evidence display & support strength', 'Claim dependencies & derived edges', 'Freshness and stale cascades', 'Trust reports and console views'] },
+const reviewBenefits: { title: string; accent: Accent; items: string[] }[] = [
+  { title: 'Everything needed to decide', accent: 'gold-2', items: ['The value being proposed', 'The exact source and locator', 'Competing candidates side by side', 'Reviewer notes, actor, and time', 'A clear accepted, rejected, or held outcome'] },
+  { title: 'Fits the review you already run', accent: 'cobalt-2', items: ['Use your domain labels and summaries', 'Apply your ranking and materiality rules', 'Embed the workbench in your product', 'Persist decisions on your server', 'Replay every decision against the reviewed snapshot'] },
+  { title: 'Reviewed data stays useful', accent: 'gold', items: ['Publish source-linked claims', 'Show evidence and support strength', 'Reopen stale decisions when inputs change', 'Build calibration from labeled outcomes', 'Carry the review trail into reports and downstream products'] },
 ];
 
 const helpers = [
@@ -145,7 +145,7 @@ const helpers = [
     </div>
   </Section>
 
-  <!-- Boundary -->
+  <!-- Review value -->
   <Section borderBottom>
     <div class="container">
       <Eyebrow accent="gold-2" gap="sm">See it</Eyebrow>
@@ -158,15 +158,15 @@ const helpers = [
 
   <Section tone="alt" borderTop borderBottom>
     <div class="container">
-      <Eyebrow gap="sm">Integration note</Eyebrow>
+      <Eyebrow gap="sm">What teams gain</Eyebrow>
       <p class="fine boundary-note">
-        Survey gives producers a consistent review record and workbench. Your
-        product still chooses how sources are acquired, how candidates are
-        ranked, and which domain policy makes a reviewed value acceptable.
+        Give reviewers the context to make a confident decision, keep the
+        decision tied to the exact snapshot they saw, and publish the result
+        without flattening away its evidence.
       </p>
 
       <Grid cols={3} gap="lg">
-        {boundary.map(({ title, accent, items }) => (
+        {reviewBenefits.map(({ title, accent, items }) => (
           <Card accent={accent} pad="md">
             <h3 class="boundary__title">{title}</h3>
             <ul class="def-list">

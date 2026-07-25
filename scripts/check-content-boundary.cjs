@@ -38,6 +38,53 @@ const bannedTerms = [
   },
 ];
 
+const primaryProductMarketingPages = new Set([
+  "src/pages/builder-kit.astro",
+  "src/pages/console.astro",
+  "src/pages/fieldwork.astro",
+  "src/pages/flow-agents.astro",
+  "src/pages/flow.astro",
+  "src/pages/knowledge-kit.astro",
+  "src/pages/memory.astro",
+  "src/pages/surface.astro",
+  "src/pages/survey.astro",
+]);
+
+const marketingSelfReminderPatterns = [
+  {
+    label: "product marketing section is organized as an internal boundary memo",
+    pattern: /<!--\s*Boundary\s*-->/i,
+  },
+  {
+    label: "product marketing data is organized around internal boundary ownership",
+    pattern: /const\s+(?:boundary|boundaries|notReplace)\b/,
+  },
+  {
+    label: "product marketing heading leads with what the product does not do",
+    pattern: /<Eyebrow[^>]*>\s*What\s+[^<]+\s+does\s+not\b/i,
+  },
+  {
+    label: "product marketing includes an architecture disclaimer",
+    pattern: /\b(?:does not|doesn't|do not|don't)\s+(?:own|replace|index)\b|\b(?:does not|doesn't)\s+become\s+(?:the\s+)?(?:authority|source of truth)\b/i,
+  },
+  {
+    label: "product marketing includes an ownership reminder",
+    pattern: /\bstays?\s+the\s+(?:authority|source of truth)\b/i,
+  },
+  {
+    label: "product marketing includes an internal engine-boundary reminder",
+    pattern: /\bengine\s+stays\s+neutral\b/i,
+  },
+  {
+    label: "product marketing leads with architecture history",
+    pattern: /\bcontracts?\s+first\b/i,
+  },
+  {
+    label: "product marketing defines value by architecture negation",
+    pattern: /\b(?:is|are)\s+an?\s+[^.\n]{0,40},\s+not\s+an?\s+/i,
+  },
+];
+
 const ignoredPathPatterns = [
   /^node_modules\//,
   /^dist\//,
@@ -134,6 +181,19 @@ for (const filePath of repositoryFiles) {
         line: lineNumberFor(content, match.index),
         label: term.label,
       });
+    }
+  }
+
+  if (primaryProductMarketingPages.has(filePath)) {
+    for (const term of marketingSelfReminderPatterns) {
+      const match = term.pattern.exec(content);
+      if (match) {
+        findings.push({
+          filePath,
+          line: lineNumberFor(content, match.index),
+          label: term.label,
+        });
+      }
     }
   }
 }

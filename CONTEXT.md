@@ -47,6 +47,10 @@ generated page as publishable public material.
 
 - Keep this site aligned to public facts only. If a claim cannot be verified
   from public package metadata, public docs, or committed source, do not add it.
+- Product marketing should lead with the user problem, recognizable outcome,
+  concrete workflow, and proof. Keep necessary limitations close to the claim
+  they qualify; do not organize primary product pages as internal ownership,
+  boundary, or non-goal memos.
 - Use `npm run validate && npm run test:rendered` for merge readiness.
 - Use focused commands from `AGENTS.md` while iterating, but do not treat them as
   a replacement for the broad verification command.

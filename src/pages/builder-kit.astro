@@ -100,17 +100,17 @@ const gates: { title: string; body: string; accent: Accent }[] = [
     <div class="container">
       <Split ratio="1-1" gap="md" align="center">
         <div>
-          <Eyebrow accent="chalk-2">What Builder sells</Eyebrow>
+          <Eyebrow accent="chalk-2">What Builder changes</Eyebrow>
           <h2 class="display-md builder-title">The agent can move fast. The workflow decides when it is allowed to advance.</h2>
           <p class="body builder-copy">
-            Builder is not a new coding agent. It is the delivery discipline
-            around the one you already use. The kit tells the engine which flow
-            to run, what evidence each gate expects, where findings route back,
-            and when a human decision is required.
+            Keep the coding agent you already use and give it a delivery path
+            reviewers can trust. Builder declares the flow, the evidence each
+            gate expects, where findings route back, and when a human decision
+            is required.
           </p>
           <p class="body builder-copy builder-copy--last">
-            That makes "done" a verifiable state: not a vibe, not a summary, not
-            a memory artifact from the last context window.
+            “Done” becomes a state another person can inspect and reproduce,
+            even after the original context window is gone.
           </p>
         </div>
 
@@ -144,12 +144,12 @@ const gates: { title: string; body: string; accent: Accent }[] = [
           <p class="feature-body">Steps carry model-routing hints, and a failed gate can escalate to a stronger model instead of retrying the same one harder.</p>
         </Card>
         <Card accent="cobalt-2" bar="top" pad="md">
-          <h3 class="feature-title">Canonical Flow runs</h3>
-          <p class="feature-body">Builder sessions can be driven by a canonical Flow run — the process engine's gates and route-backs, not a lookalike.</p>
+          <h3 class="feature-title">One run across every client</h3>
+          <p class="feature-body">Builder sessions keep the same gates, route-backs, process state, and next action when work moves between coding clients.</p>
         </Card>
         <Card accent="chalk-2" bar="top" pad="md">
-          <h3 class="feature-title">Bounded continuation</h3>
-          <p class="feature-body">Long work continues across driver invocations under an authority-aware driver with explicit bounds — resumable by contract, not by vibes.</p>
+          <h3 class="feature-title">Long work that resumes cleanly</h3>
+          <p class="feature-body">Explicit continuation bounds let a long delivery resume across driver invocations without losing its scope, evidence, or next action.</p>
         </Card>
       </Grid>
     </div>
