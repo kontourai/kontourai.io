@@ -25,9 +25,9 @@ const pipeline = [
 ];
 
 const boundary: { title: string; accent: Accent; items: string[] }[] = [
-  { title: 'Survey owns', accent: 'gold-2', items: ['Raw Source identity & retrieval context', 'Source Reference locations', 'Extraction observations & locators', 'Candidate sets and resolutions', 'Review outcomes', 'Projection into a Surface TrustBundle'] },
-  { title: 'Producers own', accent: 'cobalt-2', items: ['Acquisition, crawling, and parsing', 'Candidate ranking and scoring', 'Review UX and policy', 'Materiality and domain rules', 'Whether a value is verified or assumed'] },
-  { title: 'Surface owns', accent: 'gold', items: ['Claim status vocabulary', 'Evidence display & support strength', 'Claim dependencies & derived edges', 'Freshness and stale cascades', 'Trust reports and console views'] },
+  { title: 'Review record', accent: 'gold-2', items: ['Raw Source identity & retrieval context', 'Source Reference locations', 'Extraction observations & locators', 'Candidate sets and resolutions', 'Review outcomes', 'Projection into a Surface TrustBundle'] },
+  { title: 'Your product policy', accent: 'cobalt-2', items: ['Acquisition, crawling, and parsing', 'Candidate ranking and scoring', 'Review UX and policy', 'Materiality and domain rules', 'Whether a value is verified or assumed'] },
+  { title: 'Published trust state', accent: 'gold', items: ['Claim status vocabulary', 'Evidence display & support strength', 'Claim dependencies & derived edges', 'Freshness and stale cascades', 'Trust reports and console views'] },
 ];
 
 const helpers = [
@@ -71,18 +71,15 @@ const helpers = [
 
           <ProductMark product="survey" size={40} class="product-hero-mark animate-fade-up" data-accent="gold-2" />
           <h1 class="product-title animate-fade-up">Survey</h1>
-          <p class="product-tagline animate-fade-up delay-100" data-accent="gold-2">the contract that keeps the story behind every reviewed value</p>
+          <p class="product-tagline animate-fade-up delay-100" data-accent="gold-2">review facts without losing where they came from</p>
 
           <p class="hero-copy animate-fade-up delay-200">
-            Every reviewed value has a story — where it was observed, what was
-            extracted, what the alternatives were, who decided, and how sure
-            they were. Most systems destroy that story the moment someone
-            clicks approve, leaving a bare value nobody can re-inspect. Survey
-            is the small contract that keeps it: typed records for the
-            source → extraction → candidate → review → claim chain, a durable
-            review workflow on top, and one projection into Surface-ready
-            claims with provenance attached — without crawling, parsing,
-            ranking, or absorbing your domain policy.
+            Survey is for producer teams that need reviewed values to keep
+            their receipts: the source that was observed, the excerpt and
+            locator, competing candidates, reviewer decision, notes, actor,
+            time, and the claim that gets published. It turns approval from a
+            disappearing click into a record another person or agent can inspect
+            later.
           </p>
 
           <div class="hero-actions animate-fade-up delay-300">
@@ -131,7 +128,7 @@ const helpers = [
     <div class="container">
       <Eyebrow accent="gold-2" gap="sm">The producer pipeline</Eyebrow>
       <h2 class="display-md measure-lg pipeline-title">
-        One path from Raw Source to a claim Surface can inspect.
+        One path from observed source to a claim someone can re-inspect.
       </h2>
 
       <Grid cols={5} gap="sm">
@@ -161,11 +158,11 @@ const helpers = [
 
   <Section tone="alt" borderTop borderBottom>
     <div class="container">
-      <Eyebrow gap="sm">A deliberately narrow boundary</Eyebrow>
+      <Eyebrow gap="sm">Integration note</Eyebrow>
       <p class="fine boundary-note">
-        Survey does not crawl pages, parse PDFs, rank candidates, decide review
-        policy, or claim a value is true. It gives producers a consistent
-        contract so the same provenance shape reaches Surface every time.
+        Survey gives producers a consistent review record and workbench. Your
+        product still chooses how sources are acquired, how candidates are
+        ranked, and which domain policy makes a reviewed value acceptable.
       </p>
 
       <Grid cols={3} gap="lg">
@@ -192,7 +189,7 @@ const helpers = [
       <Split ratio="1-1" gap="md" align="center">
         <div>
           <Eyebrow accent="gold-2">Consumer adapter contract</Eyebrow>
-          <h2 class="display-md apply__title">Products keep their policy. Survey standardizes the review trail.</h2>
+          <h2 class="display-md apply__title">Bring your labels and policy; keep the same review trail.</h2>
           <p class="body apply__copy">
             A producer builds <code class="codechip" data-accent="gold-2">ReviewItem</code>
             records from its own queue, supplies a
@@ -289,7 +286,7 @@ const helpers = [
       <Split ratio="1-1" gap="md" align="center">
         <div>
           <Eyebrow accent="gold-2">Review apply contract</Eyebrow>
-          <h2 class="display-md apply__title">Survey can derive the review result. Your product still owns the write.</h2>
+          <h2 class="display-md apply__title">Survey derives the review result; your product applies the change.</h2>
           <p class="body apply__copy">
             The workbench gives downstream products the same session, event,
             decision, and selected-candidate mechanics. That removes boilerplate
@@ -340,7 +337,7 @@ const helpers = [
       <Split ratio="1-1.15" gap="md" align="center">
         <div>
           <Eyebrow accent="gold-2">Example use case</Eyebrow>
-          <h2 class="display-md worked__title">One field. Full provenance.</h2>
+          <h2 class="display-md worked__title">A public-record status changes from rumor to reviewed claim.</h2>
           <p class="body worked__copy">
             A crawler reads a registration status off a public record and needs
             to preserve the extraction before it becomes a claim. With
@@ -408,8 +405,8 @@ const helpers = [
             <code class="codechip" data-accent="gold-2">buildSurveyTrustBundle</code>
             projects Survey records into a Surface
             <code class="codechip" data-accent="gold">TrustBundle</code>.
-            From there, Surface owns claim status, evidence, dependencies,
-            freshness, and the trust reports humans and agents inspect.
+            From there, Surface reports claim status, evidence, dependencies,
+            freshness, and the trust state humans and agents inspect.
           </p>
           <a href="/surface/" data-umami-event="survey-explore-surface" class="handoff__link">Explore Surface →</a>
         </div>

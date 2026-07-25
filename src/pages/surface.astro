@@ -27,7 +27,7 @@ const answers: { q: string; accent?: Accent }[] = [
 const roles: { title: string; label: string; body: string; accent: Accent }[] = [
   { title: 'For your customers', label: 'Customer trust', body: "Inspect the trust state behind a product answer, report, recommendation, or agent output before they rely on it. Surface shows the claim, the evidence behind it, how current that evidence is, and what's still uncertain.", accent: 'gold' },
   { title: 'For your product', label: 'Product integration', body: 'Emit claims, evidence, and policies from your product. Surface gives you a shared shape so the same trust state can be read by people, agents, and other systems downstream.', accent: 'green' },
-  { title: 'For your team', label: 'Operations', body: 'Manage the claims your product makes - ownership, evidence review, policies, transparency gaps, conflicts - from one workspace. Surface Console runs locally — no cloud, no account.', accent: 'cobalt-2' },
+  { title: 'For your team', label: 'Operations', body: 'Manage the claims your product makes - evidence review, policies, transparency gaps, conflicts, and rechecks - from one workspace. Surface Console runs locally — no cloud, no account.', accent: 'cobalt-2' },
 ];
 
 const vocab: { term: string; def: string; accent: Accent }[] = [
@@ -91,15 +91,14 @@ const moreThanStatus: { title: string; body: string; accent: Accent }[] = [
 
           <ProductMark product="surface" size={40} class="product-hero-mark animate-fade-up" data-accent="gold" />
           <h1 class="product-title animate-fade-up">Surface</h1>
-          <p class="product-tagline animate-fade-up delay-100" data-accent="gold">claims, evidence, freshness, and gaps in one inspectable shape</p>
+          <p class="product-tagline animate-fade-up delay-100" data-accent="gold">make every claim show its evidence, freshness, and gaps</p>
 
           <p class="hero-copy animate-fade-up delay-200">
             Every product makes claims. AI makes those claims faster, more
             polished, and harder to inspect. Surface gives a product one shape
             for the claim, the evidence behind it, the policy that decides what
             counts, how fresh the evidence is, and the gaps that should slow
-            anyone down before they rely on it. Surface does not decide domain
-            truth; it makes the trust state portable and inspectable.
+            anyone down before they rely on it.
           </p>
 
           <div class="hero-actions animate-fade-up delay-300">
@@ -133,6 +132,7 @@ const moreThanStatus: { title: string; body: string; accent: Accent }[] = [
   <Section size="lg">
     <div class="container">
       <Eyebrow gap="lg">What Surface answers</Eyebrow>
+      <h2 class="display-md measure-lg surface-answers-title">The trust questions behind any product answer.</h2>
       <QuestionGrid items={answers} min="300" />
     </div>
   </Section>

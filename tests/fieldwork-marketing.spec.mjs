@@ -43,11 +43,11 @@ for (const viewport of [
     await expect(page.getByText("node_modules/@kontourai/fieldwork/examples/generic/task.json", { exact: false })).toBeVisible();
     await expect(page.getByText("node_modules/@kontourai/fieldwork/examples/generic/source.txt", { exact: false })).toBeVisible();
 
-    for (const step of ["Extract", "Inspect", "Review", "Recheck", "Export"]) {
+    for (const step of ["Find the values", "Show the evidence", "Record review", "Catch changes", "Export proof"]) {
       await expect(page.getByRole("heading", { level: 3, name: step, exact: true })).toBeVisible();
     }
 
-    await expect(page.getByText("Fieldwork does not include a PDF parser or OCR engine.")).toBeVisible();
+    await expect(page.getByText("PDF and OCR context comes from your adapter.")).toBeVisible();
     await expect(page.getByRole("link", { name: `Read the v${fieldworkVersion} contract →` })).toHaveAttribute(
       "href",
       /github\.com\/kontourai\/fieldwork\/blob\/[0-9a-f]{40}\/README\.md/,
@@ -72,7 +72,7 @@ for (const viewport of [
     await page.goto("/fieldwork-vs-langextract/");
 
     await expect(
-      page.getByRole("heading", { level: 1, name: "Same grounded-extraction premise. Different completion boundary." }),
+      page.getByRole("heading", { level: 1, name: "Grounded extraction that continues through review, recheck, and proof." }),
     ).toBeVisible();
     await expect(page.getByRole("region", { name: "Fieldwork and Google LangExtract comparison table" })).toBeVisible();
     await expect(page.getByText("No drop-in API compatibility")).toBeVisible();

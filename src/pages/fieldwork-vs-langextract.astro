@@ -35,7 +35,7 @@ const rows = [
   {
     concern: 'Core premise',
     upstream: 'Schema- and example-guided structured extraction from unstructured text, with source locations for inspection.',
-    kontour: 'Schema-directed, source-grounded proposals are the starting point; Fieldwork composes that work into an application review loop.',
+    kontour: 'Schema-directed, source-grounded proposals are the starting point; Fieldwork carries that work into an application review loop.',
     evidence: claimSources.corePremise,
   },
   {
@@ -47,7 +47,7 @@ const rows = [
   {
     concern: 'Human review',
     upstream: 'Provides an interactive HTML view for inspecting extractions in context.',
-    kontour: 'Survey owns first-class source → extraction → candidate → review records; Fieldwork persists and validates the reviewed workflow before export.',
+    kontour: 'Survey supplies first-class source → extraction → candidate → review records; Fieldwork persists and validates the reviewed workflow before export.',
     evidence: claimSources.humanReview,
   },
   {
@@ -93,11 +93,12 @@ const sourceNames: Record<string, string> = {
     <div class="container comparison-hero">
       <Eyebrow accent="cobalt-2">Deliberate comparison</Eyebrow>
       <p class="comparison-hero__label">Fieldwork and Google LangExtract</p>
-      <h1 class="display-xl comparison-hero__title">Same grounded-extraction premise. Different completion boundary.</h1>
+      <h1 class="display-xl comparison-hero__title">Grounded extraction that continues through review, recheck, and proof.</h1>
       <p class="hero-copy comparison-hero__copy">
-        Both begin with structured information tied back to source text. Fieldwork is a
-        composed application path: proposals are reviewed, rechecked against later source
-        snapshots, and exported as portable trust evidence only after the review state is valid.
+        If the job stops at “find structured fields in text,” these projects
+        occupy similar ground. Fieldwork is for the next question: can a person
+        inspect the excerpt, accept or reject the value, recheck when the source
+        changes, and export proof of the reviewed result?
       </p>
       <div class="comparison-hero__actions">
         <a class="btn-primary" href="/fieldwork/">Explore Fieldwork →</a>
@@ -113,17 +114,17 @@ const sourceNames: Record<string, string> = {
   <Section borderBottom>
     <div class="container container--readable">
       <Eyebrow accent="gold-2">The shared ground</Eyebrow>
-      <h2 class="display-md">Useful comparison starts with what is actually alike.</h2>
+      <h2 class="display-md">The overlap is real: source-grounded extraction.</h2>
       <p class="lead measure">
         Google LangExtract and Kontour's extraction path both make a deliberate move away from
         untraceable free-form answers: a caller describes a structure, an extraction is tied to
         source text, and a person can inspect the result. That is the supported equivalence.
       </p>
       <p class="body measure">
-        Fieldwork then composes public Kontour libraries around that premise: Traverse proposes
-        and grounds; Survey records review; Lookout rechecks and diffs; Surface validates the
-        reviewed trust export. The added layers are workflow and evidence boundaries—not a claim
-        that any provider or model is generally more accurate.
+        Fieldwork then adds the operating path around that premise: propose the
+        value, inspect the source, record the review, recheck later changes, and
+        export a reviewed trust artifact. That is a workflow and evidence claim,
+        not a claim that one provider or model is generally more accurate.
       </p>
     </div>
   </Section>
@@ -133,8 +134,8 @@ const sourceNames: Record<string, string> = {
       <Eyebrow accent="cobalt-2">Capability map</Eyebrow>
       <h2 class="display-md comparison-heading">A source-linked comparison, row by row.</h2>
       <p class="body measure comparison-intro">
-        “Kontour” below means the Fieldwork composition and its public dependencies, not a
-        replacement API for a Python library.
+        The table focuses on what a team can do with the result after extraction,
+        with links to the public source behind each claim.
       </p>
 
       <div class="comparison-table-wrap" tabindex="0" role="region" aria-label="Fieldwork and Google LangExtract comparison table">
@@ -143,7 +144,7 @@ const sourceNames: Record<string, string> = {
             <tr>
               <th scope="col">Concern</th>
               <th scope="col">Google LangExtract</th>
-              <th scope="col">Fieldwork composition</th>
+              <th scope="col">Fieldwork path</th>
               <th scope="col">Public evidence</th>
             </tr>
           </thead>
@@ -170,8 +171,8 @@ const sourceNames: Record<string, string> = {
 
   <Section borderBottom>
     <div class="container">
-      <Eyebrow accent="gold-2">What the composition adds</Eyebrow>
-      <h2 class="display-md comparison-heading">Evidence has a life after extraction.</h2>
+      <Eyebrow accent="gold-2">What Fieldwork adds</Eyebrow>
+      <h2 class="display-md comparison-heading">What Fieldwork adds after a value is found.</h2>
       <Grid cols={3} gap="md" class="difference-grid">
         <Card accent="gold-2" bar="top">
           <p class="label-md difference-card__number">01 / Review</p>
@@ -189,7 +190,7 @@ const sourceNames: Record<string, string> = {
           <p class="label-md difference-card__number">03 / Action</p>
           <h3>Portable trust, evidence-gated action</h3>
           <p class="body">A reviewed export carries its provenance into a Surface-validated trust bundle; action remains gated on the evidence the application requires.</p>
-          <a href={sources.fieldwork} target="_blank" rel="noopener">Fieldwork export boundary ↗</a>
+          <a href={sources.fieldwork} target="_blank" rel="noopener">Fieldwork export contract ↗</a>
         </Card>
       </Grid>
     </div>
@@ -202,7 +203,7 @@ const sourceNames: Record<string, string> = {
       <Grid cols={2} gap="md" class="limits-grid">
         <Card accent="red-2" bar="top" class="limit-card">
           <h3>No drop-in API compatibility</h3>
-          <p class="body">The public interfaces, languages, data models, and composition boundaries differ. Moving between them requires an intentional integration.</p>
+          <p class="body">The public interfaces, languages, and data models differ. Moving between them requires an intentional integration.</p>
         </Card>
         <Card accent="red-2" bar="top" class="limit-card">
           <h3>No general accuracy or provider superiority</h3>
@@ -236,12 +237,12 @@ const sourceNames: Record<string, string> = {
 
   <Section>
     <div class="container container--readable comparison-close">
-      <Eyebrow accent="cobalt-2">Choose the boundary you need</Eyebrow>
+      <Eyebrow accent="cobalt-2">Choose the workflow you need</Eyebrow>
       <h2 class="display-md">Extraction inspection is valuable. So is knowing what happens next.</h2>
       <p class="lead measure">
         If your job ends with structured output and source inspection, Google LangExtract’s documented
         visualization path may be a direct fit. If your job needs reviewed decisions, source rechecks,
-        replayable evidence, and a portable trust export, explore Fieldwork’s composition boundary.
+        replayable evidence, and a portable trust export, explore Fieldwork’s review workflow.
       </p>
       <div class="comparison-close__actions">
         <a class="btn-primary" href="/fieldwork/">Explore Fieldwork →</a>

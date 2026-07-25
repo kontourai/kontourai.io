@@ -70,17 +70,14 @@ const consoleFeatures = [
 
           <ProductMark product="flow" size={40} class="product-hero-mark animate-fade-up" data-accent="cobalt-2" />
           <h1 class="product-title animate-fade-up">Flow</h1>
-          <p class="product-tagline animate-fade-up delay-100" data-accent="cobalt-2">required paths, gates, evidence, and exceptions made inspectable</p>
+          <p class="product-tagline animate-fade-up delay-100" data-accent="cobalt-2">know why work advanced, blocked, or routed back</p>
 
           <p class="hero-copy hero-copy--wide animate-fade-up delay-200">
-            Agents skip steps, accept weak evidence, summarize work as complete,
-            and lose the thread after compaction. Flow is the small thing
-            missing in the middle: a record of the required path, the evidence
-            each gate expected, the evidence that was actually collected, and
-            the exceptions that need explicit human trust. It does not replace
-            workflow engines, agent runtimes, observability tools, approval
-            apps, or policy engines. It explains why the work was allowed to
-            advance.
+            Flow is the record behind a process that cannot rely on chat memory:
+            the required path, the current step, the gate that controls the next
+            transition, the evidence expected, the evidence collected, and any
+            exception a human accepted. When an agent says the work is done,
+            Flow shows whether the proof is actually there.
           </p>
 
           <div class="hero-actions animate-fade-up delay-300">
@@ -139,6 +136,7 @@ const consoleFeatures = [
   <Section size="lg">
     <div class="container">
       <Eyebrow gap="lg">What Flow answers</Eyebrow>
+      <h2 class="display-md measure-lg flow-answers-title">The status questions that should not depend on a transcript.</h2>
       <QuestionGrid items={answers} min="280" />
     </div>
   </Section>
@@ -178,9 +176,9 @@ const consoleFeatures = [
   <!-- The difference -->
   <Section borderTop>
     <div class="container container--readable order-free">
-      <Eyebrow accent="cobalt-2">Deterministic evidence, nondeterministic path</Eyebrow>
+      <Eyebrow accent="cobalt-2">Flexible work, fixed proof</Eyebrow>
       <h2 class="display-md order-free__title">
-        The conversation can wander.<br />The evidence contract can't.
+        The conversation can wander.<br />The gate still asks for proof.
       </h2>
       <p class="body measure order-free__copy">
         Agent-mediated work is nondeterministic by nature: an intake
@@ -206,7 +204,7 @@ const consoleFeatures = [
       <Split ratio="1-1" gap="md" align="center">
         <div>
           <Eyebrow accent="cobalt-2">The difference</Eyebrow>
-          <h2 class="display-md diff__title">A trace says what happened.<br />Flow says why it was enough.</h2>
+          <h2 class="display-md diff__title">A trace says what happened.<br />Flow says whether it was enough.</h2>
           <p class="body diff__copy">
             Observability is necessary, but a trace alone does not know whether
             the right verification happened, whether approval had enough context,
@@ -362,6 +360,7 @@ const consoleFeatures = [
   }
 
   .diff__title,
+  .flow-answers-title,
   .fc__title,
   .line__title,
   .order-free__title {

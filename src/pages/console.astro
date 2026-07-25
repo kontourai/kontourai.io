@@ -37,9 +37,9 @@ const producers: { product: string; detail: string; accent: Accent }[] = [
 ];
 
 const boundary: { title: string; accent: Accent; items: string[] }[] = [
-  { title: 'Console owns', accent: 'cobalt', items: ['Suite navigation & workspace structure', 'Cross-product aggregation & correlation', 'Unified queues & action routing', 'Identity links across product objects', 'Extension composition across consoles'] },
-  { title: 'Console does not own', accent: 'chalk-2', items: ['Surface trust derivation', 'Flow gate & transition semantics', 'Survey fact-review semantics', 'Veritas governance policy', 'Any hosted-infrastructure requirement'] },
-  { title: 'Primitives stay portable', accent: 'gold', items: ['Adopt Surface, Flow, Survey, or Veritas alone', 'Event streams are the durable contract', 'Projections are cached, product-owned views', 'Actions execute through the owning product', 'No .kontourai/console dependency for verticals'] },
+  { title: 'Operator view', accent: 'cobalt', items: ['Suite navigation & workspace structure', 'Cross-product aggregation & correlation', 'Unified queues & action routing', 'Identity links across product objects', 'Extension composition across consoles'] },
+  { title: 'Source records', accent: 'chalk-2', items: ['Surface trust derivation', 'Flow gate & transition logic', 'Survey fact-review records', 'Veritas governance policy', 'Hosted infrastructure stays optional'] },
+  { title: 'Portable adoption', accent: 'gold', items: ['Adopt Surface, Flow, Survey, or Veritas alone', 'Event streams are the durable contract', 'Projections are cached, product-owned views', 'Actions route to the product that can resolve them', 'No .kontourai/console dependency for verticals'] },
 ];
 
 const provenance: { title: string; accent: Accent; body: string }[] = [
@@ -69,22 +69,19 @@ const provenance: { title: string; accent: Accent; body: string }[] = [
 
           <ProductMark product="console" size={40} class="product-hero-mark animate-fade-up" data-accent="cobalt" />
           <h1 class="product-title animate-fade-up">Console</h1>
-          <p class="product-tagline animate-fade-up delay-100" data-accent="cobalt">suite trust state made operable without becoming the source of truth</p>
+          <p class="product-tagline animate-fade-up delay-100" data-accent="cobalt">see what is live, stale, blocked, waiting, and backed by proof</p>
 
           <p class="hero-copy hero-copy--wide animate-fade-up delay-200">
-            Each Kontour product makes one kind of trust state portable —
-            Surface claims, Survey reviews, Flow runs, Veritas readiness, agent
-            sessions. Kontour Console brings them into a single place to see
-            what's true, what's in progress, what's stale, what's blocked, what
-            proof exists, and what should happen next — without taking over the
-            products it observes. Product semantics stay with Surface, Survey,
-            Flow, Veritas, and Flow Agents; Console aggregates, correlates, and
-            routes.
+            Console is the operating screen for work that should not disappear
+            into logs: active runs, stalled gates, stale claims, review queues,
+            readiness reports, proof, decisions, and next actions. Open it to
+            understand what is moving now, what needs a person, and what evidence
+            sits behind a session before you trust it.
           </p>
 
           <div class="hero-actions animate-fade-up delay-300">
             <a href="https://github.com/kontourai/console" target="_blank" rel="noopener" class="btn-primary" data-umami-event="console-hero-github">View on GitHub →</a>
-            <a href="/surface/" class="btn-ghost" data-umami-event="console-hero-surface">Built on the primitives</a>
+            <a href="#questions" class="btn-ghost" data-umami-event="console-hero-questions">What it answers</a>
           </div>
         </div>
 
@@ -111,16 +108,15 @@ const provenance: { title: string; accent: Accent; body: string }[] = [
   </Section>
 
   <!-- What Console brings together -->
-  <Section size="lg">
+  <Section id="questions" size="lg">
     <div class="container">
-      <Eyebrow accent="cobalt" gap="sm">What it's built to answer</Eyebrow>
-      <h2 class="display-md measure-lg ans-title">The cross-product questions a suite plane has to answer.</h2>
+      <Eyebrow accent="cobalt" gap="sm">What it answers</Eyebrow>
+      <h2 class="display-md measure-lg ans-title">The questions operators ask when work is moving.</h2>
       <p class="fine ans-note">
-        These are the questions Console is designed around. Today it answers
-        them live for Flow — the bridge follows real runs, no demo scripting —
-        and from local fixtures and producer helpers for the rest; live Surface,
-        Survey, and Veritas feeds are what the contracts below are being built
-        toward.
+        Today, the Flow bridge follows real runs live. Other feeds are arriving
+        product by product through local producer helpers and fixtures, so the
+        public page stays honest about what is live while still showing the
+        intended operating shape.
       </p>
 
       <QuestionGrid items={questions} min="260" />
@@ -133,21 +129,17 @@ const provenance: { title: string; accent: Accent; body: string }[] = [
       <Split ratio="1-1.15" gap="md" align="center">
         <div>
           <Eyebrow accent="cobalt">The operating plane</Eyebrow>
-          <h2 class="display-md plane__title">Primitives make transparency portable.<br />Console makes it operable.</h2>
+          <h2 class="display-md plane__title">One screen for sessions, gates, proof, queues, and next actions.</h2>
           <p class="body plane__copy">
-            The contract is simple: each product publishes a
-            <strong class="strong">console projection</strong> —
-            a read model shaped for display and action — backed by an
-            append-only event stream. Console composes those projections and
-            links related objects across products by their own IDs.
+            Console turns product records into an operator view: a run can show
+            its active step, the gate that blocks it, the proof already gathered,
+            the stale claim it depends on, and the action that will move it.
           </p>
           <p class="body plane__copy plane__copy--last">
-            Projections stay product-owned; Console aggregates, correlates,
-            filters, and routes — it never becomes a second source of truth.
-            Flow feeds this live today: <code class="codechip" data-accent="cobalt-2">kontour-flow-bridge</code>
-            derives Console events from real run files. Surface, Survey, and
-            Veritas still arrive through dependency-free producer helpers and
-            local fixtures.
+            Under the hood, each product still publishes its own records.
+            Console correlates, filters, and routes them; when action is needed,
+            the item points back to the product that can actually resolve it.
+            Flow feeds this live today through <code class="codechip" data-accent="cobalt-2">kontour-flow-bridge</code>.
           </p>
         </div>
 
@@ -226,8 +218,7 @@ const provenance: { title: string; accent: Accent; body: string }[] = [
             one suite-level view so nothing waits unseen.
           </p>
           <p class="body queue__copy queue__copy--last">
-            Each item keeps a link back to the product that owns it — and the
-            product that owns the action stays the authority that runs it. The
+            Each item keeps a link back to the product that can resolve it. The
             view below is illustrative; Flow items arrive live via the bridge,
             while Surface, Survey, and Veritas feeds are still being wired in.
           </p>
@@ -261,11 +252,11 @@ const provenance: { title: string; accent: Accent; body: string }[] = [
             Before a launch, an operator opens Console and sees one stale Surface
             claim, one Flow gate blocked on missing browser evidence, and one
             Veritas readiness report that passed. Console correlates the objects
-            and routes each action back to the product that owns it.
+            and routes each action back to the product that can resolve it.
           </p>
           <p class="body queue__copy queue__copy--last">
             The source of truth does not move. Console makes the next action
-            visible without owning claim semantics, gate semantics, or policy.
+            visible without turning the operating screen into a second workflow engine.
           </p>
         </div>
 
@@ -310,11 +301,10 @@ const provenance: { title: string; accent: Accent; body: string }[] = [
   <!-- Boundary -->
   <Section tone="alt" borderTop borderBottom>
     <div class="container">
-      <Eyebrow gap="sm">Operable, not authoritative</Eyebrow>
+      <Eyebrow gap="sm">Integration note</Eyebrow>
       <p class="fine boundary-note">
-        Console is a management plane, not a product kernel. It can host
-        collaboration and monitoring, but it must not own the core semantics of
-        the products it observes — and primitives never have to depend on it.
+        Console is a management plane. It can host collaboration and monitoring,
+        while the source records remain portable and independently adoptable.
       </p>
 
       <Grid cols={3} gap="lg">

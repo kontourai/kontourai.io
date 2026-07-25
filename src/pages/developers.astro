@@ -247,9 +247,11 @@ const labRepos = [
   <Section id="applications" borderBottom>
     <div class="container">
       <Eyebrow gap="sm" accent="gold-2">Applications</Eyebrow>
-      <h2 class="display-md measure-lg">Standalone front doors that compose the building blocks.</h2>
+      <h2 class="display-md measure-lg">Standalone products for jobs people recognize.</h2>
       <p class="body measure applications-intro">
-        Applications make a complete workflow approachable without changing who owns the underlying contracts. Their components stay independently adoptable.
+        Start with the app when you want the complete workflow. Drop lower
+        into the libraries when you need to embed the same evidence pattern in
+        your own product.
       </p>
       <Grid min="280" gap="md">
         {applicationCards.map(({ href, label, accent, repo, packageName, job, composition, status, badge, key }) => (
@@ -269,18 +271,16 @@ const labRepos = [
     </div>
   </Section>
 
-  <!-- The one ownership artifact: the disciplines the engine wires in ------ -->
+  <!-- The one technical map: the disciplines the engine wires in ----------- -->
   <Section id="ownership" size="lg">
     <div class="container">
       <Eyebrow gap="sm">Under the hood</Eyebrow>
-      <h2 class="display-md measure-lg">The components the engine wires in.</h2>
+      <h2 class="display-md measure-lg">The proof chain you can audit when you need to.</h2>
       <p class="fine measure ownership-note">
-        None of this is required reading — <code>init</code> assembles these
-        for you. This map is for auditing the proof chain, or adopting a
-        single component on its own. Each one owns one layer, and
-        composition is intentionally one-way: tools and workflows consume
-        trust and process evidence, but the evidence substrate never depends
-        on a specific agent, workflow, or application.
+        None of this is required reading for the happy path:
+        <code>init</code> assembles the engine and kits for you. This map is
+        for developers who want to audit why a receipt is trusted, or adopt one
+        layer without the rest of the product.
       </p>
 
       <div class="ownership-map" aria-label="Product relationship layer map">
@@ -289,11 +289,11 @@ const labRepos = [
           <div class="lane-grid lane-grid--two">
             <div class="map-card" data-accent="chalk-2">
               <strong><a href="/flow-agents/" data-umami-event="developers-map-flow-agents">Flow Agents</a></strong>
-              <span>runs local agent workflows, skills, sidecars, and kits</span>
+              <span>adds gates, skills, sidecars, kits, and receipts to agent work</span>
             </div>
             <div class="map-card" data-accent="chalk-2">
               <strong><a href="/builder-kit/" data-umami-event="developers-map-builder-kit">Builder Kit</a></strong>
-              <span>consumes Flow, Veritas, and Surface signals for build work</span>
+              <span>turns delivery into plan, build, review, verify, and learn steps</span>
             </div>
           </div>
         </div>
@@ -303,11 +303,11 @@ const labRepos = [
           <div class="lane-grid lane-grid--two">
             <div class="map-card" data-accent="green">
               <strong><a href="/veritas/" data-umami-event="developers-map-veritas">Veritas</a></strong>
-              <span>owns repo standards, readiness, evidence findings, and exceptions</span>
+              <span>shows whether a change satisfies repo standards and evidence expectations</span>
             </div>
             <div class="map-card" data-accent="cobalt-2">
               <strong><a href="/flow/" data-umami-event="developers-map-flow">Flow</a></strong>
-              <span>owns paths, transitions, gates, route-backs, and next action</span>
+              <span>shows why a run advanced, blocked, routed back, or needs a person</span>
             </div>
           </div>
         </div>
@@ -317,11 +317,11 @@ const labRepos = [
           <div class="lane-grid lane-grid--two">
             <div class="map-card" data-accent="gold">
               <strong><a href="/surface/" data-umami-event="developers-map-surface">Surface</a></strong>
-              <span>owns portable claims, evidence, policies, status, Trust Reports, and transparency gaps</span>
+              <span>keeps claims tied to evidence, freshness, policy, status, and gaps</span>
             </div>
             <div class="map-card" data-accent="gold-2">
               <strong><a href="/survey/" data-umami-event="developers-map-survey">Survey</a></strong>
-              <span>feeds Surface — sources, extractions, and reviews become claims with provenance</span>
+              <span>keeps source, extraction, candidate, review, and claim provenance together</span>
             </div>
           </div>
         </div>
@@ -330,7 +330,7 @@ const labRepos = [
           <span class="lane-label">Operating view</span>
           <div class="map-card map-card--wide" data-accent="cobalt">
             <strong><a href="/console/" data-umami-event="developers-map-console">Console</a></strong>
-            <span>aggregates product-owned projections and routes attention back to the owner</span>
+            <span>shows live status, proof, queues, and next actions across the suite</span>
           </div>
         </div>
       </div>
@@ -402,10 +402,9 @@ const labRepos = [
     <div class="container">
       <Eyebrow gap="sm">More from the lab</Eyebrow>
       <p class="fine measure lab-intro">
-        A few smaller, early public repos in the Kontour org that the product
-        line above builds on — nested building blocks, not top-level
-        products, published as-is for anyone who wants to look under the
-        hood.
+        Smaller public repos in the Kontour org that are useful on their own
+        and also feed the products above. They are lower-level tools, so their
+        pages stay closer to implementation detail.
       </p>
       <Grid min="280" gap="md">
         {labRepos.map(({ slug, label, repo, description }) => (

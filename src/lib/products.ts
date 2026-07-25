@@ -83,8 +83,8 @@ export const applications: Application[] = [
     accent: "gold-2",
     repo: "https://github.com/kontourai/fieldwork",
     packageName: "@kontourai/fieldwork",
-    job: "A standalone application for grounded extraction, inspection, review, rechecks, and trusted export.",
-    composition: "Composes source acquisition, extraction proposals, Survey-owned review, drift rechecks, and Surface-ready exports without absorbing those contracts.",
+    job: "Turn messy source text into reviewed, source-linked data you can recheck and export.",
+    composition: "Use it as the ready-made front door for extraction review; the underlying libraries remain available when you need a custom host.",
   },
 ];
 
@@ -98,8 +98,8 @@ export const products: Product[] = [
     accent: "chalk-2",
     repo: "https://github.com/kontourai/flow-agents",
     homepage: {
-      job: "Flow and Veritas discipline inside Claude Code, Codex, Kiro, opencode, pi, and GitHub Actions — without becoming a runtime.",
-      relation: "Carries Flow and Veritas discipline into the agent tools you already run, without becoming a runtime.",
+      job: "Keep AI coding work on a reviewable path across Claude Code, Codex, Kiro, opencode, pi, and GitHub Actions.",
+      relation: "Adds evidence gates, resumable state, and receipts to the agent tools you already run.",
     },
     developerComposition: {
       owns: "agent workflows, skills, kits, local sidecars, verification loops, and handoff discipline",
@@ -128,8 +128,8 @@ export const products: Product[] = [
     accent: "gold",
     repo: "https://github.com/kontourai/surface",
     homepage: {
-      job: "One shape for claims, evidence, freshness, policies, and gaps — readable by a person, an agent, or another system.",
-      relation: "The foundation: every other product reads and writes its trust state as one Surface shape.",
+      job: "Make a claim show its evidence, freshness, policies, and unresolved gaps in one portable record.",
+      relation: "Gives the rest of the suite one inspectable trust record to read and write.",
     },
     developerComposition: {
       owns: "portable claims, evidence, policies, status, Trust Reports, and trust vocabulary",
@@ -143,8 +143,8 @@ export const products: Product[] = [
     accent: "cobalt-2",
     repo: "https://github.com/kontourai/flow",
     homepage: {
-      job: "Shows why a process was allowed to advance — gate by gate, with the evidence behind each transition.",
-      relation: "Reads that evidence to gate work, advancing a process only when the proof for each step is there.",
+      job: "Show why work advanced, blocked, or routed back, gate by gate, with the evidence behind each transition.",
+      relation: "Keeps a process from becoming done until the required proof is present or an exception is explicit.",
     },
     developerComposition: {
       owns: "process paths, transitions, gates, route-backs, exceptions, and next-action semantics",
@@ -158,8 +158,8 @@ export const products: Product[] = [
     accent: "gold-2",
     repo: "https://github.com/kontourai/survey",
     homepage: {
-      job: "Turns sources, extractions, candidates, and reviews into Surface-ready claims with provenance attached.",
-      relation: "Feeds Surface — turning raw sources, extractions, and reviews into claims with provenance attached.",
+      job: "Keep the source, extracted value, alternatives, reviewer decision, and provenance together.",
+      relation: "Turns reviewed producer facts into inspectable claims with the story still attached.",
     },
   },
   {
@@ -169,8 +169,8 @@ export const products: Product[] = [
     accent: "cobalt",
     repo: "https://github.com/kontourai/console",
     homepage: {
-      job: "Claim status, process state, proof, queues, decisions, and next actions across all products in one operating plane.",
-      relation: "Sits over all of it — one operating plane for status, proof, queues, and decisions across the suite.",
+      job: "See what is live, stale, blocked, waiting on you, and backed by proof across the suite.",
+      relation: "Turns scattered evidence and process state into one operating view with clear next actions.",
     },
   },
 ];
