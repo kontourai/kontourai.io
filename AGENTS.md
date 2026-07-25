@@ -30,6 +30,7 @@ publishable.
 - Before PR merge readiness: `npm run validate && npm run test:rendered`.
 - After any Kontour package release: run `npm run sync-versions` to pull the latest npm versions into `product-status.json`, then commit. The validator enforces the match at deploy; `sync-versions --check` catches drift in CI.
 - After refreshing a product page's copy/screenshots: set that product's `marketingReviewed` to the version you reconciled against (`node scripts/check-marketing-freshness.mjs` is the advisory signal the ops desk watches).
+- Screenshot recaptures MUST go through `node scripts/capture-marketing-screenshot.mjs --asset <path> --url <local product UI> --product-version <ver>`: it rejects unstyled/broken renders (styled-render guard) and stamps `marketing-assets.json` with the file's sha256. `npm run check:marketing-assets` (part of `npm run validate`, deploy-blocking) fails if any committed visual's bytes don't match its manifest hash — never hand-edit a `sha256`. Externally produced assets (GIFs) are stamped with `--stamp <path>`. Human-review every new capture visually before commit.
 
 ## Useful Commands
 
