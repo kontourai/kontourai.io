@@ -1,0 +1,129 @@
+{
+  "schemaVersion": 1,
+  "sources": [
+    {
+      "id": "fieldwork.readme",
+      "subject": "fieldwork",
+      "sourcePath": "README.md",
+      "url": "https://github.com/kontourai/fieldwork/blob/20d2e8f760cddebb120ff53412c09df1d17f0615/README.md"
+    },
+    {
+      "id": "fieldwork.browser-review",
+      "subject": "fieldwork",
+      "sourcePath": "test/browser/review.spec.ts",
+      "url": "https://github.com/kontourai/fieldwork/blob/20d2e8f760cddebb120ff53412c09df1d17f0615/test/browser/review.spec.ts"
+    },
+    {
+      "id": "fieldwork.conformance",
+      "subject": "fieldwork",
+      "sourcePath": "conformance",
+      "url": "https://github.com/kontourai/fieldwork/tree/20d2e8f760cddebb120ff53412c09df1d17f0615/conformance"
+    },
+    {
+      "id": "fieldwork.release",
+      "subject": "fieldwork",
+      "sourcePath": ".",
+      "url": "https://github.com/kontourai/fieldwork/tree/20d2e8f760cddebb120ff53412c09df1d17f0615"
+    },
+    {
+      "id": "comparison.langextract-readme",
+      "subject": "google-langextract",
+      "scope": "comparison-only",
+      "sourcePath": "README.md",
+      "url": "https://github.com/google/langextract/blob/0dff5479aa51934c7d5833a7c38e2a5abba4e0c2/README.md"
+    },
+    {
+      "id": "traverse.readme",
+      "subject": "traverse",
+      "sourcePath": "README.md",
+      "url": "https://github.com/kontourai/traverse/blob/67ab505e4b7096760741c6d522991bad2b94c016/README.md"
+    },
+    {
+      "id": "survey.readme",
+      "subject": "survey",
+      "sourcePath": "README.md",
+      "url": "https://github.com/kontourai/survey/blob/4394d8a2389654334fe5372e240e53106c7a074c/README.md"
+    },
+    {
+      "id": "lookout.readme",
+      "subject": "lookout",
+      "sourcePath": "README.md",
+      "url": "https://github.com/kontourai/lookout/blob/c90fb403d4c6ae3540e0c2555a5a5b5be5c02d94/README.md"
+    },
+    {
+      "id": "surface.readme",
+      "subject": "surface",
+      "sourcePath": "README.md",
+      "url": "https://github.com/kontourai/surface/blob/d3ddf3d39fac6d81e0c983f9a189426ddcad2501/README.md"
+    },
+    {
+      "id": "relay.readme",
+      "subject": "relay",
+      "sourcePath": "README.md",
+      "url": "https://github.com/kontourai/relay/blob/93d386885062a629432f91a958967f1498b3a15f/README.md"
+    },
+    {
+      "id": "dispatch.readme",
+      "subject": "dispatch",
+      "sourcePath": "README.md",
+      "url": "https://github.com/kontourai/dispatch/blob/05c823e460a618a77900ce9e2b361aa8868480d1/README.md"
+    }
+  ],
+  "claims": [
+    {
+      "id": "fieldwork.published-contract",
+      "pagePath": "src/pages/fieldwork.astro",
+      "sourceIds": ["fieldwork.readme"]
+    },
+    {
+      "id": "fieldwork.browser-review-evidence",
+      "pagePath": "src/pages/fieldwork.astro",
+      "sourceIds": ["fieldwork.browser-review"]
+    },
+    {
+      "id": "fieldwork.deterministic-conformance",
+      "pagePath": "src/pages/fieldwork.astro",
+      "sourceIds": ["fieldwork.conformance"]
+    },
+    {
+      "id": "fieldwork.runtime-boundary",
+      "pagePath": "src/pages/fieldwork.astro",
+      "sourceIds": ["fieldwork.readme"]
+    },
+    {
+      "id": "fieldwork.release-source",
+      "pagePath": "src/pages/fieldwork.astro",
+      "sourceIds": ["fieldwork.release"]
+    },
+    {
+      "id": "fieldwork.comparison.core-premise",
+      "pagePath": "src/pages/fieldwork-vs-langextract.astro",
+      "sourceIds": ["comparison.langextract-readme", "fieldwork.readme", "traverse.readme"]
+    },
+    {
+      "id": "fieldwork.comparison.grounding",
+      "pagePath": "src/pages/fieldwork-vs-langextract.astro",
+      "sourceIds": ["comparison.langextract-readme", "traverse.readme"]
+    },
+    {
+      "id": "fieldwork.comparison.human-review",
+      "pagePath": "src/pages/fieldwork-vs-langextract.astro",
+      "sourceIds": ["comparison.langextract-readme", "fieldwork.readme", "survey.readme"]
+    },
+    {
+      "id": "fieldwork.comparison.recheck-and-replay",
+      "pagePath": "src/pages/fieldwork-vs-langextract.astro",
+      "sourceIds": ["fieldwork.readme", "lookout.readme"]
+    },
+    {
+      "id": "fieldwork.comparison.reviewed-output",
+      "pagePath": "src/pages/fieldwork-vs-langextract.astro",
+      "sourceIds": ["comparison.langextract-readme", "fieldwork.readme", "surface.readme"]
+    },
+    {
+      "id": "fieldwork.comparison.runtime-posture",
+      "pagePath": "src/pages/fieldwork-vs-langextract.astro",
+      "sourceIds": ["comparison.langextract-readme", "fieldwork.readme", "relay.readme", "dispatch.readme"]
+    }
+  ]
+}
