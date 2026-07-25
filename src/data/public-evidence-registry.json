@@ -5,25 +5,25 @@
       "id": "fieldwork.readme",
       "subject": "fieldwork",
       "sourcePath": "README.md",
-      "url": "https://github.com/kontourai/fieldwork/blob/20d2e8f760cddebb120ff53412c09df1d17f0615/README.md"
+      "url": "https://github.com/kontourai/fieldwork/blob/76d7c562438884623150cecf4e3fc9d10d8c3a92/README.md"
     },
     {
       "id": "fieldwork.browser-review",
       "subject": "fieldwork",
       "sourcePath": "test/browser/review.spec.ts",
-      "url": "https://github.com/kontourai/fieldwork/blob/20d2e8f760cddebb120ff53412c09df1d17f0615/test/browser/review.spec.ts"
+      "url": "https://github.com/kontourai/fieldwork/blob/76d7c562438884623150cecf4e3fc9d10d8c3a92/test/browser/review.spec.ts"
     },
     {
       "id": "fieldwork.conformance",
       "subject": "fieldwork",
       "sourcePath": "conformance",
-      "url": "https://github.com/kontourai/fieldwork/tree/20d2e8f760cddebb120ff53412c09df1d17f0615/conformance"
+      "url": "https://github.com/kontourai/fieldwork/tree/76d7c562438884623150cecf4e3fc9d10d8c3a92/conformance"
     },
     {
       "id": "fieldwork.release",
       "subject": "fieldwork",
       "sourcePath": ".",
-      "url": "https://github.com/kontourai/fieldwork/tree/20d2e8f760cddebb120ff53412c09df1d17f0615"
+      "url": "https://github.com/kontourai/fieldwork/tree/76d7c562438884623150cecf4e3fc9d10d8c3a92"
     },
     {
       "id": "comparison.langextract-readme",
