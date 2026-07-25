@@ -37,10 +37,18 @@ const { source = "site", cta = "Get early access", event = "subscribe-submit" } 
     <button class="btn-primary subscribe__btn" type="submit" data-umami-event={event}>{cta} →</button>
   </div>
 
-  <!-- Honeypot: hidden from humans, tempting to bots. Never filled by users. -->
+  <!-- Honeypot: hidden from humans, tempting to bots. Deliberately NOT named
+       after a real field (`company`, `name`, `phone`) — browser org-autofill
+       recognises those by name/label and fills them even when the input is
+       off-screen and marked autocomplete="off", which silently classified real
+       signups as bots. -->
   <div class="subscribe__hp" aria-hidden="true">
-    <label>Company<input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
+    <label>Leave this field empty<input type="text" name="subscribe_hp" tabindex="-1" autocomplete="off" /></label>
   </div>
+
+  <!-- Carries the conversion source when JS is unavailable and the browser
+       posts the form natively. -->
+  <input type="hidden" name="source" value={source} />
 
   <p class="subscribe__status" role="status" aria-live="polite"></p>
 </form>

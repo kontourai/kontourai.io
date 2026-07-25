@@ -21,41 +21,68 @@ function json(body, status = 200) {
   });
 }
 
-async function handleSubscribe(request, env) {
+// The bundled script posts JSON; a browser with JS disabled (or blocked) posts
+// the form natively as urlencoded. Both are real submissions, so both are
+// accepted — and each gets the reply shape it can actually use: JSON for fetch,
+// a redirect to a real page for a native form post.
+async function readPayload(request) {
+  const contentType = (request.headers.get("content-type") || "").toLowerCase();
+
+  if (contentType.includes("application/json")) {
+    try {
+      return { payload: await request.json(), wantsJson: true };
+    } catch {
+      return { payload: null, wantsJson: true };
+    }
+  }
+
+  try {
+    const form = await request.formData();
+    return { payload: Object.fromEntries(form.entries()), wantsJson: false };
+  } catch {
+    return { payload: null, wantsJson: false };
+  }
+}
+
+function reply(url, wantsJson, body, status, redirectPath) {
+  if (wantsJson) return json(body, status);
+  return Response.redirect(new URL(redirectPath, url).toString(), 303);
+}
+
+async function handleSubscribe(request, env, url) {
   if (request.method !== "POST") {
     return json({ ok: false, error: "method-not-allowed" }, 405);
   }
 
+  const { payload, wantsJson } = await readPayload(request);
+
   if (!env.SUBSCRIBERS) {
-    return json({ ok: false, error: "not-configured" }, 503);
+    return reply(url, wantsJson, { ok: false, error: "not-configured" }, 503, "/early-access/");
   }
 
-  let payload;
-  try {
-    payload = await request.json();
-  } catch {
-    return json({ ok: false, error: "invalid-body" }, 400);
+  if (!payload) {
+    return reply(url, wantsJson, { ok: false, error: "invalid-body" }, 400, "/early-access/");
   }
 
   // Honeypot: real users leave this empty. Bots fill every field. Pretend
   // success so the bot does not learn it was filtered.
-  if (payload && typeof payload.company === "string" && payload.company.trim() !== "") {
-    return json({ ok: true });
+  if (typeof payload.subscribe_hp === "string" && payload.subscribe_hp.trim() !== "") {
+    return reply(url, wantsJson, { ok: true }, 200, "/subscribed/");
   }
 
-  const email = typeof payload?.email === "string" ? payload.email.trim().toLowerCase() : "";
+  const email = typeof payload.email === "string" ? payload.email.trim().toLowerCase() : "";
   if (!EMAIL_RE.test(email) || email.length > 254) {
-    return json({ ok: false, error: "invalid-email" }, 422);
+    return reply(url, wantsJson, { ok: false, error: "invalid-email" }, 422, "/early-access/");
   }
 
-  const source = typeof payload?.source === "string" ? payload.source.slice(0, 64) : "site";
+  const source = typeof payload.source === "string" ? payload.source.slice(0, 64) : "site";
 
   // Light per-IP throttle: 5 writes / 10 min. Best-effort, KV-backed.
   const ip = request.headers.get("cf-connecting-ip") || "unknown";
   const rateKey = `rate:${ip}`;
   const hits = Number((await env.SUBSCRIBERS.get(rateKey)) || "0");
   if (hits >= 5) {
-    return json({ ok: false, error: "rate-limited" }, 429);
+    return reply(url, wantsJson, { ok: false, error: "rate-limited" }, 429, "/early-access/");
   }
   await env.SUBSCRIBERS.put(rateKey, String(hits + 1), { expirationTtl: 600 });
 
@@ -70,7 +97,7 @@ async function handleSubscribe(request, env) {
     })
   );
 
-  return json({ ok: true });
+  return reply(url, wantsJson, { ok: true }, 200, "/subscribed/");
 }
 
 export default {
@@ -88,7 +115,7 @@ export default {
     }
 
     if (url.pathname === "/api/subscribe") {
-      return handleSubscribe(request, env);
+      return handleSubscribe(request, env, url);
     }
 
     return env.ASSETS.fetch(request);

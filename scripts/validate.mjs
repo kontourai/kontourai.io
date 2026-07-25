@@ -106,13 +106,11 @@ async function checkProductCatalogCoverage(catalog) {
   const catalogKeys = [...productKeys, ...applicationKeys];
   const statusKeys = Object.keys(statusData.products);
   const homepageKeys = catalog.homepageProducts.map((product) => product.key);
-  const developerCompositionKeys = catalog.developerCompositionProducts.map((product) => product.key);
 
   assertUniqueKeys(productKeys, "src/lib/products.ts products");
   assertUniqueKeys(applicationKeys, "src/lib/products.ts applications");
   assertUniqueKeys(catalogKeys, "src/lib/products.ts products and applications");
   assertUniqueKeys(homepageKeys, "src/lib/products.ts homepageProducts");
-  assertUniqueKeys(developerCompositionKeys, "src/lib/products.ts developerCompositionProducts");
 
   const requiredApplicationKeys = ["fieldwork"];
   for (const key of requiredApplicationKeys) {
@@ -137,24 +135,6 @@ async function checkProductCatalogCoverage(catalog) {
   for (const key of productKeys) {
     if (!homepageKeys.includes(key)) {
       error(`src/lib/products.ts: homepageProducts omits catalog product ${key}`);
-    }
-  }
-  for (const product of catalog.developerCompositionProducts) {
-    if (!product.developerComposition) {
-      error(`src/lib/products.ts: developerCompositionProducts includes ${product.key} without composition copy`);
-    }
-  }
-
-  const intentionalDeveloperOmissions = ["survey", "console"];
-  for (const key of productKeys) {
-    const isOmitted = !developerCompositionKeys.includes(key);
-    if (isOmitted && !intentionalDeveloperOmissions.includes(key)) {
-      error(`src/lib/products.ts: developerCompositionProducts omits ${key} without an explicit validation allowance`);
-    }
-  }
-  for (const key of intentionalDeveloperOmissions) {
-    if (!productKeys.includes(key)) {
-      error(`src/lib/products.ts: intentional developer omission ${key} is not a catalog product`);
     }
   }
 

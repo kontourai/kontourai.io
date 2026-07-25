@@ -1,12 +1,13 @@
 ---
-import { products, kits, type ProductKey, type KitKey } from '@/lib/products';
+import { products, kits, applications, type ProductKey, type KitKey, type ApplicationKey } from '@/lib/products';
 import ProductMark from '@/components/ProductMark.astro';
 
-type NavKey = 'home' | ProductKey | KitKey;
+type NavKey = 'home' | ProductKey | KitKey | ApplicationKey;
 type SiteNavKey = NavKey | 'developers' | 'receipts';
 
-// The engine leads and its two paged kits ride directly behind it; the
-// disciplines it wires in sit past the divider (single-story IA).
+// The engine leads; the kits that run on it live in its own menu rather than
+// taking top-level slots of their own. Both kit pages open by explaining the
+// engine — a page that has to explain its parent belongs under the parent.
 const [engine, ...disciplines] = products;
 
 interface Props {
@@ -15,8 +16,11 @@ interface Props {
   teaser?: boolean;
 }
 const { active, teaser } = Astro.props;
+const engineMenuActive = active === engine.key || kits.some(({ key }) => active === key);
 const developersMenuActive =
-  active === 'developers' || disciplines.some(({ key }) => active === key);
+  active === 'developers' ||
+  disciplines.some(({ key }) => active === key) ||
+  applications.some(({ key }) => active === key);
 const hideProducts = teaser || active === 'home';
 ---
 
@@ -44,23 +48,33 @@ const hideProducts = teaser || active === 'home';
       <div class="nav-links nav__links">
         {!hideProducts && (
           <>
-            <a
-              href={engine.href}
-              class="nav-link nav-link--product"
-              aria-current={active === engine.key ? 'page' : undefined}
-              data-accent={active === engine.key ? engine.accent : undefined}
-              data-umami-event={`nav-${engine.key}`}
-            ><ProductMark product={engine.key} size={16} class="nav-link__mark" />{engine.label}</a>
-
-            {kits.map(({ href, label, key, accent }) => (
-              <a
-                href={href}
-                class="nav-link nav-link--product"
-                aria-current={active === key ? 'page' : undefined}
-                data-accent={active === key ? accent : undefined}
-                data-umami-event={`nav-${key}`}
-              >{label}</a>
-            ))}
+            {/* The engine and the kits that run on it, in one menu. The
+               summary is not a link, so the panel carries the engine page
+               itself as its first item. */}
+            <details class="nav-dropdown">
+              <summary class:list={["nav-link", "nav-link--product", "nav-dropdown__summary", { "nav-dropdown__summary--active": engineMenuActive }]} data-umami-event="nav-flow-agents-menu">
+                <ProductMark product={engine.key} size={16} class="nav-link__mark" />{engine.label}<span class="nav-dropdown__caret" aria-hidden="true">▾</span>
+              </summary>
+              <div class="nav-dropdown__panel">
+                <a
+                  href={engine.href}
+                  class="nav-link nav-dropdown__item"
+                  aria-current={active === engine.key ? 'page' : undefined}
+                  data-accent={active === engine.key ? engine.accent : undefined}
+                  data-umami-event={`nav-${engine.key}`}
+                >Overview</a>
+                <span class="nav-dropdown__group" aria-hidden="true">Kits that run on it</span>
+                {kits.map(({ href, label, key, accent }) => (
+                  <a
+                    href={href}
+                    class="nav-link nav-dropdown__item"
+                    aria-current={active === key ? 'page' : undefined}
+                    data-accent={active === key ? accent : undefined}
+                    data-umami-event={`nav-${key}`}
+                  >{label}</a>
+                ))}
+              </div>
+            </details>
 
             <div class="nav__divider"></div>
 
@@ -89,6 +103,18 @@ const hideProducts = teaser || active === 'home';
                     data-accent={active === key ? accent : undefined}
                     data-umami-event={`nav-${key}`}
                   ><ProductMark product={key} size={16} class="nav-link__mark" />{label}</a>
+                ))}
+                {/* Applications are finished front doors rather than parts of
+                   the engine, but they were reachable from nowhere at all. */}
+                <span class="nav-dropdown__group" aria-hidden="true">Applications</span>
+                {applications.map(({ href, label, key, accent }) => (
+                  <a
+                    href={href}
+                    class="nav-link nav-dropdown__item"
+                    aria-current={active === key ? 'page' : undefined}
+                    data-accent={active === key ? accent : undefined}
+                    data-umami-event={`nav-${key}`}
+                  >{label}</a>
                 ))}
               </div>
             </details>

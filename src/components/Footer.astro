@@ -1,8 +1,8 @@
 ---
-import { products, kits, type ProductKey, type KitKey } from '@/lib/products';
+import { products, kits, applications, type ProductKey, type KitKey, type ApplicationKey } from '@/lib/products';
 
 interface Props {
-  active?: 'home' | 'developers' | ProductKey | KitKey;
+  active?: 'home' | 'developers' | ProductKey | KitKey | ApplicationKey;
   /** Hide product links regardless of active page (teaser pages like home/early access). */
   teaser?: boolean;
 }
@@ -29,10 +29,12 @@ const links = teaserNav
       { href: '/developers/', label: 'Developers', event: 'footer-developers' },
       receipts,
       trust,
-      // Engine first, its paged kits directly behind it, then the disciplines.
+      // Engine first, its paged kits directly behind it, then the disciplines,
+      // then the standalone applications built on them.
       ...products.slice(0, 1).map(({ href, label, key }) => ({ href, label, event: `footer-${key}` })),
       ...kits.map(({ href, label, key }) => ({ href, label, event: `footer-${key}` })),
       ...products.slice(1).map(({ href, label, key }) => ({ href, label, event: `footer-${key}` })),
+      ...applications.map(({ href, label, key }) => ({ href, label, event: `footer-${key}` })),
       github,
     ];
 ---
@@ -43,7 +45,7 @@ const links = teaserNav
       <a href="/" class="footer__brand" aria-label="Kontour AI home">
         <span class="footer__wordmark">Kontour<span class="footer__dot">.</span></span>
       </a>
-      <p class="footer__tagline">Evidence-backed confidence. Not certainty theater.</p>
+      <p class="footer__tagline">Make your agents show their work.</p>
       <p class="footer__tagline footer__category">The receipt layer for AI work.</p>
       <p class="footer__legal">Apache 2.0 &nbsp;·&nbsp; Open source &nbsp;·&nbsp; © 2026 Kontour AI LLC</p>
     </div>

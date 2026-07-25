@@ -810,7 +810,12 @@ h1, h2, h3, h4, h5, h6 {
 
 .product-shot img {
   display: block;
-  width: 100%;
+  /* Never upscale. `width: 100%` stretched every shot to the container width,
+     which blew the 1000px flow demo up to 1280 (2.56x on retina) and read as
+     grainy. Natural size, capped by the container, centred. */
+  width: auto;
+  max-width: 100%;
+  margin-inline: auto;
   height: auto;
   border: 1px solid var(--line, rgba(120, 140, 160, 0.25));
   border-radius: 14px;

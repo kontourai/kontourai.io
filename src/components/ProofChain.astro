@@ -1,0 +1,228 @@
+---
+/**
+ * The layer map behind a receipt, read the way an audit reads it: start at the
+ * artifact and work back to what produced it.
+ *
+ * Lives here rather than inline on a page because the map had drifted into two
+ * different shapes on two pages. One definition, so the hierarchy can only be
+ * wrong in one place.
+ *
+ * Ordering is the life of one receipt, not abstraction level — lane 1 is the
+ * file the reader just validated in the quickstart.
+ */
+
+import type { Accent } from '@/lib/theme';
+
+type MapCard = {
+  label: string;
+  href: string;
+  external?: boolean;
+  accent: Accent;
+  event: string;
+  body: string;
+};
+
+type Lane = {
+  label: string;
+  cards: MapCard[];
+};
+
+const lanes: Lane[] = [
+  {
+    label: 'The receipt format',
+    cards: [
+      {
+        label: 'Hachure',
+        href: 'https://github.com/hachure-org/spec',
+        external: true,
+        accent: 'chalk-3',
+        event: 'map-hachure',
+        body: "The open format the receipt is written in. Published outside Kontour, so the rules aren't ours to bend.",
+      },
+      {
+        label: 'Surface',
+        href: '/surface/',
+        accent: 'gold',
+        event: 'map-surface',
+        body: 'Reads a receipt and tells you which claims still hold, which went stale, and which are contradicted.',
+      },
+    ],
+  },
+  {
+    label: 'Where evidence comes from',
+    cards: [
+      {
+        label: 'Veritas',
+        href: '/veritas/',
+        accent: 'green',
+        event: 'map-veritas',
+        body: "Checks a code change against your repo's own rules and writes down what it found — and what it couldn't check.",
+      },
+      {
+        label: 'Survey',
+        href: '/survey/',
+        accent: 'gold-2',
+        event: 'map-survey',
+        body: "Keeps the original text, the value pulled out of it, and the reviewer's decision attached to each other.",
+      },
+    ],
+  },
+  {
+    label: 'What decides pass or block',
+    cards: [
+      {
+        label: 'Flow',
+        href: '/flow/',
+        accent: 'cobalt-2',
+        event: 'map-flow',
+        body: 'Holds work at a gate until the evidence it asked for shows up — or until a person signs off on going without it, on the record.',
+      },
+    ],
+  },
+  {
+    label: 'What runs in your agent',
+    cards: [
+      {
+        label: 'Flow Agents',
+        href: '/flow-agents/',
+        accent: 'chalk-2',
+        event: 'map-flow-agents',
+        body: 'Puts those gates inside Claude Code, Codex, Kiro, opencode, and pi, runs whichever kit you picked, and writes the receipt on the way out.',
+      },
+    ],
+  },
+  {
+    label: 'Where you watch it',
+    cards: [
+      {
+        label: 'Console',
+        href: '/console/',
+        accent: 'cobalt',
+        event: 'map-console',
+        body: "One screen for what passed, what's stuck, what went stale, and what's waiting on you.",
+      },
+    ],
+  },
+];
+
+interface Props {
+  /** Prefix for umami events so each host page reports separately. */
+  eventPrefix?: string;
+}
+const { eventPrefix = 'proof-chain' } = Astro.props;
+---
+
+<div class="ownership-map" aria-label="What produces a Kontour receipt, layer by layer">
+  {lanes.map(({ label, cards }) => (
+    <div class="ownership-map__lane">
+      <span class="lane-label">{label}</span>
+      <div class:list={['lane-grid', cards.length > 1 && 'lane-grid--two']}>
+        {cards.map(({ label: name, href, external, accent, event, body }) => (
+          <div
+            class:list={['map-card', cards.length === 1 && 'map-card--wide']}
+            data-accent={accent}
+          >
+            <strong>
+              <a
+                href={href}
+                target={external ? '_blank' : undefined}
+                rel={external ? 'noopener' : undefined}
+                data-umami-event={`${eventPrefix}-${event}`}
+              >{name}</a>
+            </strong>
+            <span>{body}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  ))}
+</div>
+
+<style>
+  .ownership-map {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .ownership-map__lane {
+    display: grid;
+    grid-template-columns: 160px minmax(0, 1fr);
+    gap: 1rem;
+    align-items: stretch;
+  }
+
+  .lane-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 86px;
+    padding: 0.8rem;
+    border: 1px solid var(--color-edge);
+    color: var(--color-chalk-3);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    text-align: center;
+    background: rgba(7, 9, 14, 0.58);
+  }
+
+  .lane-grid {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .lane-grid--two {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .map-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 86px;
+    padding: 1rem;
+    border: 1px solid var(--color-edge);
+    border-left: 3px solid var(--accent, var(--color-edge-2));
+    background: linear-gradient(135deg, rgba(18, 22, 35, 0.92), rgba(12, 15, 25, 0.86));
+  }
+
+  .map-card strong {
+    color: var(--accent, var(--color-chalk));
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+  }
+
+  .map-card strong a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .map-card strong a:hover {
+    text-decoration: underline;
+  }
+
+  .map-card span {
+    color: var(--color-chalk-2);
+    font-size: 0.86rem;
+    line-height: 1.5;
+    margin-top: 0.35rem;
+  }
+
+  @media (max-width: 720px) {
+    .ownership-map__lane {
+      grid-template-columns: 1fr;
+    }
+
+    .lane-label {
+      min-height: auto;
+      justify-content: flex-start;
+      text-align: left;
+    }
+
+    .lane-grid--two {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -42,13 +42,13 @@
         setStatus(status, "", "Sending…");
 
         try {
-          var hp = form.querySelector('input[name="company"]');
+          var hp = form.querySelector('input[name="subscribe_hp"]');
           var res = await fetch("/api/subscribe", {
             method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify({
               email: email,
-              company: (hp && hp.value) || "",
+              subscribe_hp: (hp && hp.value) || "",
               source: form.dataset.source || "site",
             }),
           });
