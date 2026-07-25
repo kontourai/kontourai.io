@@ -30,16 +30,18 @@ export const runtimeEnforcement: RuntimeEnforcement[] = [
   },
   {
     // Kiro's adapter has the full blocking capability (hook-surface L2), but
-    // unlike Claude Code and Codex, the Kiro bundle ships no host-config
-    // directory at all — `dist/kiro/` has no counterpart to `dist/codex/.codex/`
-    // — so `init --runtime kiro` writes hook scripts nothing invokes, and
-    // FLOW_AGENTS_GOAL_FIT_MODE=block arms nothing. Upstream's own matrix still
-    // grades kiro L2/blocking; that disagreement is an upstream bug, not ours.
+    // Kiro wires its hooks inside the agent JSON (its native config model), so
+    // there is no `.kiro/` host-config directory to look for — all four policy
+    // classes really do ship. What does NOT ship is the block-mode default:
+    // GOAL_FIT_MODE_PREFIX is applied only in exportClaudeSettings() and
+    // exportCodexHooks(), so Kiro's done-check resolves to `warn` unless the
+    // reader sets the variable. Upstream grades it L2/blocking regardless —
+    // flow-agents#1002.
     runtime: "Kiro",
     level: "advisory",
     label: "Advisory / opt-in block",
     meaning:
-      "The policy scripts install, but the bundle doesn't wire the stop hook for you yet — nothing enforces until you wire it yourself.",
+      "All four policies ship and config protection blocks at tool-call time, but the done-check arrives in warn mode — set FLOW_AGENTS_GOAL_FIT_MODE=block to make it stop the turn.",
   },
   {
     runtime: "opencode",

@@ -63,8 +63,8 @@ const langextractWins = [
     link: { label: 'Pinned quick start ↗', url: `${sources.langextract}#quick-start` },
   },
   {
-    title: 'It handles far longer documents',
-    body: 'Chunking, parallel calls and repeat passes are built for book-length input — the pinned README walks through all 147,843 characters of Romeo and Juliet. The largest source Fieldwork proves in its own fixtures is 25,018 characters.',
+    title: 'Long documents are tunable there, capped here',
+    body: 'Both tools chunk. LangExtract exposes the controls — chunk size, parallel workers, repeat passes for recall — and its pinned README runs all 147,843 characters of Romeo and Juliet through them. Fieldwork chunks too, in fixed 12,000-character windows with 200-character overlap and a single pass, and exposes none of those controls. It also stops after 40 chunks: past roughly 472,000 prepared characters the rest of the document is not extracted and the run still reports success, and a source above 2 MiB is refused outright.',
     link: { label: 'Pinned long-document example ↗', url: `${sources.langextract}#romeo-and-juliet-full-text-extraction` },
   },
   {
@@ -362,7 +362,7 @@ const sourceNames: Record<string, string> = {
         <Card accent="green" bar="top" class="pick-card">
           <h3>Pick LangExtract if…</h3>
           <p class="body">
-            …you work in Python, your documents are long, you want to <code>pip install</code> and be
+            …you work in Python, your documents run past a few hundred thousand characters, you want to <code>pip install</code> and be
             extracting inside ten minutes, you need a provider it already supports, or you are
             publishing research and need something citable.
           </p>
