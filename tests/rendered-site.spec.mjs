@@ -2,6 +2,17 @@ import { readFile } from "node:fs/promises";
 import { expect, test } from "@playwright/test";
 import { validateTrustBundle } from "@kontourai/surface";
 
+async function expectTextBefore(page, firstText, secondText) {
+  const ordered = await page.evaluate(({ firstText, secondText }) => {
+    const normalize = (value) => value.replace(/\s+/g, " ").trim();
+    const elements = [...document.querySelectorAll("h2, p")];
+    const first = elements.find((element) => normalize(element.textContent ?? "").includes(firstText));
+    const second = elements.find((element) => normalize(element.textContent ?? "").includes(secondText));
+    return Boolean(first && second && (first.compareDocumentPosition(second) & Node.DOCUMENT_POSITION_FOLLOWING));
+  }, { firstText, secondText });
+  expect(ordered).toBe(true);
+}
+
 test("homepage leads with a single Flow Agents headline and Survey as the proof story", async ({ page }) => {
   await page.goto("/");
 
@@ -242,7 +253,7 @@ test("production analytics scripts are configured defensively", async ({ page })
   await expect(umami).toHaveAttribute("data-exclude-search", "true");
 });
 
-test("flow page explains process transparency and product boundaries", async ({ page }) => {
+test("flow page leads with a blocked-release outcome and keeps product boundaries available", async ({ page }) => {
   await page.goto("/flow/");
 
   // #91 F12: published packages link their npmjs page (parity with Surface/Survey/Veritas).
@@ -251,7 +262,8 @@ test("flow page explains process transparency and product boundaries", async ({ 
     "https://www.npmjs.com/package/@kontourai/flow",
   );
 
-  await expect(page.getByText("required paths, gates, evidence, and exceptions made inspectable")).toBeVisible();
+  await expect(page.getByText("your agent can't talk its way past a gate")).toBeVisible();
+  await expect(page.getByText("the run advances only when the record supports it").first()).toBeVisible();
 
   // Order-independence framing (#209): gates judge accumulated evidence state, not step order.
   await expect(page.getByRole("heading", { name: /The conversation can wander/ })).toBeVisible();
@@ -263,6 +275,7 @@ test("flow page explains process transparency and product boundaries", async ({ 
   await expect(page.getByText("Why was the transition allowed or blocked?")).toBeVisible();
   await expect(page.locator(".label-sm").filter({ hasText: "Example use case" })).toBeVisible();
   await expect(page.getByText("A release path that waits for evidence.")).toBeVisible();
+  await expectTextBefore(page, "A release path that waits for evidence.", "What Flow answers");
   await expect(page.getByText("rendered-page screenshot missing")).toBeVisible();
   await expect(page.locator(".label-sm").filter({ hasText: "What Flow does not replace" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Workflow engines" })).toBeVisible();
@@ -286,14 +299,15 @@ test("flow page explains process transparency and product boundaries", async ({ 
   await expect(page.getByText("The user sees a useful workflow")).toHaveCount(0);
 });
 
-test("surface page presents inspectable claims and trust vocabulary", async ({ page }) => {
+test("surface page leads with an inspectable claim outcome and keeps trust vocabulary available", async ({ page }) => {
   await page.goto("/surface/");
 
-  await expect(page.getByText("claims, evidence, freshness, and gaps in one inspectable shape").first()).toBeVisible();
+  await expect(page.getByText("show the work behind what your product asks people to trust").first()).toBeVisible();
   await expect(page.locator(".label-sm").filter({ hasText: "What Surface answers" })).toBeVisible();
   await expect(page.locator(".label-sm").filter({ hasText: "Example use case" })).toBeVisible();
   await expect(page.getByText("This provider directory listing is current")).toBeVisible();
   await expect(page.getByText("show uncertainty beside recommendation")).toBeVisible();
+  await expectTextBefore(page, "Inspect a claim before an agent acts on it.", "What Surface answers");
 
   // Trust report output
   await expect(page.getByText("Transparency gaps:")).toBeVisible();
@@ -344,7 +358,7 @@ test("surface page presents inspectable claims and trust vocabulary", async ({ p
 test("veritas page shows the promise, a concrete catch, and the surface handoff", async ({ page }) => {
   await page.goto("/veritas/");
 
-  await expect(page.getByText("code and change readiness made inspectable").first()).toBeVisible();
+  await expect(page.getByText("your repo's standards, enforced at the moment of change").first()).toBeVisible();
   await expect(page.locator(".label-sm").filter({ hasText: "What Veritas makes possible" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Define what good looks like" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Guide work at the moment of change" })).toBeVisible();
@@ -354,6 +368,7 @@ test("veritas page shows the promise, a concrete catch, and the surface handoff"
   await expect(page.locator(".label-sm").filter({ hasText: "Example use case" })).toBeVisible();
   await expect(page.getByText("The catch you'd")).toBeVisible();
   await expect(page.getByText("api handler changed, test missing")).toBeVisible();
+  await expectTextBefore(page, "The catch you'd", "What Veritas makes possible");
 
   // Current CLI and the Surface handoff
   await expect(page.locator(".label-sm").filter({ hasText: "Current CLI" })).toBeVisible();
@@ -370,16 +385,19 @@ test("veritas page shows the promise, a concrete catch, and the surface handoff"
   await expect(page.getByText("the channel, the environment")).toHaveCount(0);
 });
 
-test("survey page explains the producer pipeline and surface handoff", async ({ page }) => {
+test("survey page leads with a provenance-preserving review outcome and shows the surface handoff", async ({ page }) => {
   await page.goto("/survey/");
 
-  await expect(page.getByText("the contract that keeps the story behind every reviewed value").first()).toBeVisible();
+  await expect(page.getByText("approve a value without destroying its story").first()).toBeVisible();
   // Hero leads with the information-loss story: the approve click is where provenance dies.
   await expect(page.getByText("destroy that story the moment someone clicks approve").first()).toBeVisible();
   await expect(page.getByRole("heading", { name: "Survey", exact: true })).toBeVisible();
 
   // Producer pipeline
+  await expect(page.locator(".label-sm").filter({ hasText: "A reviewed value, end to end" })).toBeVisible();
+  await expect(page.getByText("One field. Full provenance.")).toBeVisible();
   await expect(page.locator(".label-sm").filter({ hasText: "The producer pipeline" })).toBeVisible();
+  await expectTextBefore(page, "One field. Full provenance.", "The producer pipeline");
   await expect(page.getByText("Raw Source", { exact: true }).first()).toBeVisible();
   await expect(page.getByText("Source Reference").first()).toBeVisible();
   await expect(page.getByText("Extraction", { exact: true }).first()).toBeVisible();
@@ -406,8 +424,8 @@ test("survey page explains the producer pipeline and surface handoff", async ({ 
     "https://github.com/kontourai/survey/blob/main/docs/consumer-integration-guide.md",
   );
   await expect(page.getByText("fieldObservation()").first()).toBeVisible();
-  await expect(page.locator(".label-sm").filter({ hasText: "Example use case" })).toBeVisible();
-  await expect(page.getByText("public record and needs to preserve the extraction")).toBeVisible();
+  await expect(page.locator(".label-sm").filter({ hasText: "Use the contract" })).toBeVisible();
+  await expect(page.getByText("registration-status story above becomes a typed record")).toBeVisible();
 
   // #164 enrichment: review surfaces (MCP, standalone console, flywheel).
   await expect(page.getByRole("heading", { name: "The queue meets the reviewer where they already are." })).toBeVisible();
@@ -450,10 +468,10 @@ test("reference story: LLM proposes, structure verifies (#74)", async ({ page })
   );
 });
 
-test("console page presents the suite operating plane and boundary", async ({ page }) => {
+test("console page leads with an operator outcome and preserves the operating-plane boundary", async ({ page }) => {
   await page.goto("/console/");
 
-  await expect(page.getByText("suite trust state made operable without becoming the source of truth").first()).toBeVisible();
+  await expect(page.getByText("everything your gated work is waiting on, in one screen").first()).toBeVisible();
   await expect(page.getByRole("heading", { name: "Console", exact: true })).toBeVisible();
   const consoleStatus = JSON.parse(
     await readFile(new URL("../src/data/product-status.json", import.meta.url), "utf8"),
@@ -461,8 +479,10 @@ test("console page presents the suite operating plane and boundary", async ({ pa
   await expect(page.getByText(`v${consoleStatus.version}`).first()).toBeVisible();
 
   // Operating state + plane
-  await expect(page.locator(".label-sm").filter({ hasText: "What it's built to answer" })).toBeVisible();
+  await expect(page.locator(".label-sm").filter({ hasText: "Ten minutes before a release" })).toBeVisible();
+  await expect(page.getByText("One look tells you what needs attention.")).toBeVisible();
   await expect(page.getByText("Primitives make transparency portable.").first()).toBeVisible();
+  await expectTextBefore(page, "One look tells you what needs attention.", "Primitives make transparency portable.");
 
   // Honest framing: illustrative where feeds aren't live; Flow IS live via the bridge.
   await expect(page.getByText("illustrative").first()).toBeVisible();
@@ -481,8 +501,7 @@ test("console page presents the suite operating plane and boundary", async ({ pa
 
   // Unified work queue
   await expect(page.locator(".label-sm").filter({ hasText: "Unified work queue" })).toBeVisible();
-  await expect(page.locator(".label-sm").filter({ hasText: "Example use case" })).toBeVisible();
-  await expect(page.getByText("A release operator sees what needs attention.")).toBeVisible();
+  await expect(page.locator(".label-sm").filter({ hasText: "Questions you can answer" })).toBeVisible();
   await expect(page.getByText("release-browser-check missing")).toBeVisible();
 
   // #164 enrichment: the run-it-locally quickstart with real suite-CLI commands.
@@ -503,11 +522,15 @@ test("console page presents the suite operating plane and boundary", async ({ pa
 test("kit pages show real sidecar/store shapes and record dimensions", async ({ page }) => {
   // Builder Kit: sidecar state is keyed by work-item slug (flow-agents getting-started).
   await page.goto("/builder-kit/");
+  await expect(page.getByText("hand your agent an issue; get back a “done” you can verify")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "The agent can move fast. The workflow decides when it is allowed to advance." })).toBeVisible();
   await expect(page.getByText(".kontourai/flow-agents/issue-214-search-filters/")).toBeVisible();
   await expect(page.getByText(".kontourai/flow-agents/builder.build/")).toHaveCount(0);
 
   // Knowledge Kit: the shipped record dimensions — no "Authority" field exists in the store contract.
   await page.goto("/knowledge-kit/");
+  await expect(page.getByText("memory your agent can reuse — because it shows where it came from")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Stop treating memory as proof." })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Record type" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Authority" })).toHaveCount(0);
   await expect(page.getByText("owner label present")).toHaveCount(0);
@@ -675,11 +698,12 @@ test("developers page keeps visual maps readable on mobile", async ({ page }) =>
   expect(mobileHit).toBe(true);
 });
 
-test("flow agents page presents agent-tool discipline and status", async ({ page }) => {
+test("flow agents page leads with checkable agent work and preserves runtime enforcement detail", async ({ page }) => {
   await page.goto("/flow-agents/");
 
   await expect(page.getByRole("heading", { name: "Flow Agents", exact: true })).toBeVisible();
   await expect(page.getByText("keep your agent on the required path — in the tools you already run").first()).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Know what the agent claimed, what was checked, and what still needs judgment." })).toBeVisible();
 
   // Published status, not vapor: badge shows the released version from metadata
   const { products } = JSON.parse(
@@ -688,8 +712,7 @@ test("flow agents page presents agent-tool discipline and status", async ({ page
   await expect(page.getByText(`v${products["flow-agents"].version}`).first()).toBeVisible();
 
   // Real capabilities: engine discipline, kit portfolio, runtime adapters, and an install path
-  await expect(page.getByText("Install the engine into your coding agent")).toBeVisible();
-  await expect(page.getByText("Builder for delivery, Knowledge")).toBeVisible();
+  await expect(page.getByText("turns that from a promise into a checkable record")).toBeVisible();
   await expect(page.getByText("The engine", { exact: true })).toBeVisible();
   await expect(page.getByText("Kit portfolio", { exact: true })).toBeVisible();
   await expect(page.getByText("Builder Kit").first()).toBeVisible();

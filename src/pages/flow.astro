@@ -70,17 +70,16 @@ const consoleFeatures = [
 
           <ProductMark product="flow" size={40} class="product-hero-mark animate-fade-up" data-accent="cobalt-2" />
           <h1 class="product-title animate-fade-up">Flow</h1>
-          <p class="product-tagline animate-fade-up delay-100" data-accent="cobalt-2">required paths, gates, evidence, and exceptions made inspectable</p>
+          <p class="product-tagline animate-fade-up delay-100" data-accent="cobalt-2">your agent can't talk its way past a gate</p>
 
           <p class="hero-copy hero-copy--wide animate-fade-up delay-200">
-            Agents skip steps, accept weak evidence, summarize work as complete,
-            and lose the thread after compaction. Flow is the small thing
-            missing in the middle: a record of the required path, the evidence
-            each gate expected, the evidence that was actually collected, and
-            the exceptions that need explicit human trust. It does not replace
-            workflow engines, agent runtimes, observability tools, approval
-            apps, or policy engines. It explains why the work was allowed to
-            advance.
+            Agents skip steps, accept weak evidence, and summarize unfinished
+            work as complete. Flow makes that visible and stoppable: it records
+            the path the work must take, the evidence each gate demands, and the
+            evidence actually collected, so the run advances only when the
+            record supports it. Your workflow engine, agent framework, and
+            observability stack keep their jobs; Flow records why the work was
+            allowed to advance.
           </p>
 
           <div class="hero-actions animate-fade-up delay-300">
@@ -135,14 +134,6 @@ const consoleFeatures = [
     </div>
   </Section>
 
-  <!-- What Flow answers -->
-  <Section size="lg">
-    <div class="container">
-      <Eyebrow gap="lg">What Flow answers</Eyebrow>
-      <QuestionGrid items={answers} min="280" />
-    </div>
-  </Section>
-
   <!-- Example use case -->
   <Section borderTop>
     <div class="container">
@@ -158,7 +149,8 @@ const consoleFeatures = [
           </p>
           <p class="body diff__copy diff__copy--last">
             If the browser check is missing, the run does not become "done." It
-            stays blocked with a resumable next action.
+            stays blocked, says exactly what is expected, and resumes from
+            recorded state — not from chat memory.
           </p>
         </div>
 
@@ -172,6 +164,14 @@ const consoleFeatures = [
           <p>  next action: <span class="warn">capture browser evidence, then resume</span></p>
         </Terminal>
       </Split>
+    </div>
+  </Section>
+
+  <!-- What Flow answers -->
+  <Section size="lg">
+    <div class="container">
+      <Eyebrow gap="lg">What Flow answers</Eyebrow>
+      <QuestionGrid items={answers} min="280" />
     </div>
   </Section>
 

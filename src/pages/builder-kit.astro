@@ -45,16 +45,15 @@ const gates: { title: string; body: string; accent: Accent }[] = [
           </div>
 
           <h1 class="product-title animate-fade-up">Builder Kit</h1>
-          <p class="product-tagline animate-fade-up delay-100" data-accent="chalk-2">verifiable agent delivery, from idea to learning</p>
+          <p class="product-tagline animate-fade-up delay-100" data-accent="chalk-2">hand your agent an issue; get back a “done” you can verify</p>
 
           <p class="hero-copy hero-copy--wide animate-fade-up delay-200">
-            Builder Kit is the agent-delivery kit on top of the Flow Agents
-            engine. It gives the agent a required path: shape the work, probe
-            the repo, plan the change, build it, review it, verify it, publish
-            with evidence, and learn from what reviewers correct. The engine
-            underneath supplies FlowDefinition interpretation, gates, adapters,
-            sidecars, and Trust Bundle evidence. Builder supplies the delivery
-            job.
+            Builder Kit is the delivery discipline around the coding agent you
+            already use. Give it an issue and the work follows a required path:
+            shape, plan, build, review, verify, publish, and learn. Findings
+            route back instead of disappearing into a summary, and “done”
+            becomes a state backed by evidence instead of a memory from the last
+            context window.
           </p>
 
           <div class="hero-actions animate-fade-up delay-300">
@@ -78,21 +77,6 @@ const gates: { title: string; body: string; accent: Accent }[] = [
           <p class="muted">  state: .kontourai/flow-agents/issue-214-search-filters/</p>
         </Terminal>
       </Split>
-    </div>
-  </Section>
-
-  <Section size="lg">
-    <div class="container">
-      <Eyebrow gap="lg">Delivery path</Eyebrow>
-      <Grid cols={4} gap="md">
-        {path.map(({ step, title, body, accent }) => (
-          <Card accent={accent} bar="top" pad="md">
-            <div class="step">{step}</div>
-            <h3 class="feature-title">{title}</h3>
-            <p class="feature-body">{body}</p>
-          </Card>
-        ))}
-      </Grid>
     </div>
   </Section>
 
@@ -127,6 +111,21 @@ const gates: { title: string; body: string; accent: Accent }[] = [
           <p class="muted">  Trust Bundle: claims, evidence, gaps, exceptions</p>
         </Terminal>
       </Split>
+    </div>
+  </Section>
+
+  <Section size="lg">
+    <div class="container">
+      <Eyebrow gap="lg">Delivery path</Eyebrow>
+      <Grid cols={4} gap="md">
+        {path.map(({ step, title, body, accent }) => (
+          <Card accent={accent} bar="top" pad="md">
+            <div class="step">{step}</div>
+            <h3 class="feature-title">{title}</h3>
+            <p class="feature-body">{body}</p>
+          </Card>
+        ))}
+      </Grid>
     </div>
   </Section>
 

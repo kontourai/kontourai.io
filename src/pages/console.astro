@@ -69,17 +69,16 @@ const provenance: { title: string; accent: Accent; body: string }[] = [
 
           <ProductMark product="console" size={40} class="product-hero-mark animate-fade-up" data-accent="cobalt" />
           <h1 class="product-title animate-fade-up">Console</h1>
-          <p class="product-tagline animate-fade-up delay-100" data-accent="cobalt">suite trust state made operable without becoming the source of truth</p>
+          <p class="product-tagline animate-fade-up delay-100" data-accent="cobalt">everything your gated work is waiting on, in one screen</p>
 
           <p class="hero-copy hero-copy--wide animate-fade-up delay-200">
-            Each Kontour product makes one kind of trust state portable —
-            Surface claims, Survey reviews, Flow runs, Veritas readiness, agent
-            sessions. Kontour Console brings them into a single place to see
-            what's true, what's in progress, what's stale, what's blocked, what
-            proof exists, and what should happen next — without taking over the
-            products it observes. Product semantics stay with Surface, Survey,
-            Flow, Veritas, and Flow Agents; Console aggregates, correlates, and
-            routes.
+            Stale claims, blocked gates, open reviews, and readiness gaps scatter
+            across tools — and whatever waits unseen becomes the surprise at
+            release time. Console puts it on one screen: what's true, what's
+            blocked, what proof exists, and what should happen next, with every
+            action routed back to the product that owns it. Flow is live today.
+            Surface, Survey, and Veritas feeds still arrive from fixtures and
+            producer helpers while their live contracts are built.
           </p>
 
           <div class="hero-actions animate-fade-up delay-300">
@@ -110,20 +109,35 @@ const provenance: { title: string; accent: Accent; body: string }[] = [
     </div>
   </Section>
 
-  <!-- What Console brings together -->
+  <!-- Lead with the operator outcome -->
   <Section size="lg">
     <div class="container">
-      <Eyebrow accent="cobalt" gap="sm">What it's built to answer</Eyebrow>
-      <h2 class="display-md measure-lg ans-title">The cross-product questions a suite plane has to answer.</h2>
-      <p class="fine ans-note">
-        These are the questions Console is designed around. Today it answers
-        them live for Flow — the bridge follows real runs, no demo scripting —
-        and from local fixtures and producer helpers for the rest; live Surface,
-        Survey, and Veritas feeds are what the contracts below are being built
-        toward.
-      </p>
+      <Split ratio="1-1" gap="md" align="center">
+        <div>
+          <Eyebrow accent="cobalt" gap="sm">Ten minutes before a release</Eyebrow>
+          <h2 class="display-md ans-title">One look tells you what needs attention.</h2>
+          <p class="body queue__copy">
+            Before a launch, an operator opens Console and sees one stale Surface
+            claim, one Flow gate blocked on missing browser evidence, and one
+            Veritas readiness report that passed. Console correlates the three
+            and routes each next action to the product that owns it.
+          </p>
+          <p class="body queue__copy queue__copy--last">
+            The source of truth never moves. Console makes the work visible and
+            actionable from one place.
+          </p>
+        </div>
 
-      <QuestionGrid items={questions} min="260" />
+        <Terminal title="operator attention view">
+          <p class="warn">  attention  surface · claim-provider-directory stale</p>
+          <p class="info">  blocked    flow · release-browser-check missing</p>
+          <p class="pass">  ready      veritas · readiness-report passed</p>
+          <br />
+          <p class="muted">  route stale claim → Surface</p>
+          <p class="muted">  route blocked gate → Flow</p>
+          <p class="muted">  route readiness evidence → Veritas</p>
+        </Terminal>
+      </Split>
     </div>
   </Section>
 
@@ -250,35 +264,12 @@ const provenance: { title: string; accent: Accent; body: string }[] = [
     </div>
   </Section>
 
-  <!-- Example use case -->
+  <!-- Supporting operating-plane questions -->
   <Section tone="alt" borderTop>
     <div class="container">
-      <Split ratio="1-1" gap="md" align="center">
-        <div>
-          <Eyebrow accent="cobalt">Example use case</Eyebrow>
-          <h2 class="display-md queue__title">A release operator sees what needs attention.</h2>
-          <p class="body queue__copy">
-            Before a launch, an operator opens Console and sees one stale Surface
-            claim, one Flow gate blocked on missing browser evidence, and one
-            Veritas readiness report that passed. Console correlates the objects
-            and routes each action back to the product that owns it.
-          </p>
-          <p class="body queue__copy queue__copy--last">
-            The source of truth does not move. Console makes the next action
-            visible without owning claim semantics, gate semantics, or policy.
-          </p>
-        </div>
-
-        <Terminal title="operator attention view">
-          <p class="warn">  attention  surface · claim-provider-directory stale</p>
-          <p class="info">  blocked    flow · release-browser-check missing</p>
-          <p class="pass">  ready      veritas · readiness-report passed</p>
-          <br />
-          <p class="muted">  route stale claim → Surface</p>
-          <p class="muted">  route blocked gate → Flow</p>
-          <p class="muted">  route readiness evidence → Veritas</p>
-        </Terminal>
-      </Split>
+      <Eyebrow accent="cobalt" gap="sm">Questions you can answer</Eyebrow>
+      <h2 class="display-md measure-lg ans-title">From “what changed?” to “what needs me?”</h2>
+      <QuestionGrid items={questions} min="260" />
     </div>
   </Section>
 

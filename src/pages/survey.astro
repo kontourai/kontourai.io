@@ -71,18 +71,17 @@ const helpers = [
 
           <ProductMark product="survey" size={40} class="product-hero-mark animate-fade-up" data-accent="gold-2" />
           <h1 class="product-title animate-fade-up">Survey</h1>
-          <p class="product-tagline animate-fade-up delay-100" data-accent="gold-2">the contract that keeps the story behind every reviewed value</p>
+          <p class="product-tagline animate-fade-up delay-100" data-accent="gold-2">approve a value without destroying its story</p>
 
           <p class="hero-copy animate-fade-up delay-200">
             Every reviewed value has a story — where it was observed, what was
             extracted, what the alternatives were, who decided, and how sure
             they were. Most systems destroy that story the moment someone
             clicks approve, leaving a bare value nobody can re-inspect. Survey
-            is the small contract that keeps it: typed records for the
-            source → extraction → candidate → review → claim chain, a durable
-            review workflow on top, and one projection into Surface-ready
-            claims with provenance attached — without crawling, parsing,
-            ranking, or absorbing your domain policy.
+            keeps it: the source → extraction → candidate → review → claim
+            chain travels with the value into a Surface-ready claim, so you can
+            still answer where a value came from and why it won. Your crawling,
+            ranking, and review policy stay yours — Survey never absorbs them.
           </p>
 
           <div class="hero-actions animate-fade-up delay-300">
@@ -128,6 +127,25 @@ const helpers = [
 
   <!-- The pipeline -->
   <Section size="lg">
+    <div class="container">
+      <Eyebrow accent="gold-2" gap="sm">A reviewed value, end to end</Eyebrow>
+      <h2 class="display-md measure-lg pipeline-title">One field. Full provenance.</h2>
+      <p class="body measure-lg boundary-note">
+        A crawler reads a registration status from a public record. Survey keeps
+        the Raw Source, exact Source Reference, extraction, alternatives, review
+        outcome, and final claim together, so the approved value never loses the
+        evidence that explains it.
+      </p>
+      <p class="body measure-lg boundary-note">
+        Conflicting candidates do not disappear: a losing source remains
+        <code class="code-plain">superseded</code>, while an unresolved conflict
+        reaches Surface as <code class="code-plain">disputed</code>.
+        <a href="/writing/llm-proposes-structure-verifies/">See the pattern on real filings →</a>
+      </p>
+    </div>
+  </Section>
+
+  <Section tone="alt" borderTop size="lg">
     <div class="container">
       <Eyebrow accent="gold-2" gap="sm">The producer pipeline</Eyebrow>
       <h2 class="display-md measure-lg pipeline-title">
@@ -334,18 +352,18 @@ const helpers = [
     </div>
   </Section>
 
-  <!-- Example use case -->
+  <!-- Code example -->
   <Section tone="alt" borderTop>
     <div class="container">
       <Split ratio="1-1.15" gap="md" align="center">
         <div>
-          <Eyebrow accent="gold-2">Example use case</Eyebrow>
-          <h2 class="display-md worked__title">One field. Full provenance.</h2>
+          <Eyebrow accent="gold-2">Use the contract</Eyebrow>
+          <h2 class="display-md worked__title">Keep provenance attached in code.</h2>
           <p class="body worked__copy">
-            A crawler reads a registration status off a public record and needs
-            to preserve the extraction before it becomes a claim. With
+            The registration-status story above becomes a typed record with
             <code class="codechip" data-accent="gold-2">fieldObservation</code>,
-            the Raw Source, Source Reference, extraction, review outcome, and claim travel together —
+            where the Raw Source, Source Reference, extraction, review outcome,
+            and claim travel together —
             so Surface can report not just the value, but where it came from
             and how fresh it is.
           </p>

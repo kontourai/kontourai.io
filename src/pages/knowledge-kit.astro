@@ -45,15 +45,14 @@ const promises: { title: string; body: string; accent: Accent }[] = [
           </div>
 
           <h1 class="product-title animate-fade-up">Knowledge Kit</h1>
-          <p class="product-tagline animate-fade-up delay-100" data-accent="gold">durable memory that has to show where it came from</p>
+          <p class="product-tagline animate-fade-up delay-100" data-accent="gold">memory your agent can reuse — because it shows where it came from</p>
 
           <p class="hero-copy hero-copy--wide animate-fade-up delay-200">
-            Knowledge Kit turns useful session memory into a durable,
-            provenance-gated knowledge store. It is for the facts, decisions,
-            repo conventions, product boundaries, and lessons an agent should be
-            able to reuse later without pretending chat history is evidence.
-            Flow Agents provides the engine underneath: structured triggers,
-            gates, adapters, sidecars, evidence, and trust records.
+            Agents need reusable context, and they need to know when that
+            context is stale, disputed, or source-less. Knowledge Kit turns
+            useful session memory into a durable store where a promoted record
+            needs provenance, a stale record asks for recheck, and a disputed
+            record escalates instead of silently steering the next session.
           </p>
 
           <div class="hero-actions animate-fade-up delay-300">
@@ -81,15 +80,27 @@ const promises: { title: string; body: string; accent: Accent }[] = [
 
   <Section size="lg">
     <div class="container">
-      <Eyebrow gap="lg">Knowledge record</Eyebrow>
-      <Grid cols={4} gap="md">
-        {records.map(({ title, body, accent }) => (
-          <Card accent={accent} bar="top" pad="md">
-            <h3 class="feature-title">{title}</h3>
-            <p class="feature-body">{body}</p>
-          </Card>
-        ))}
-      </Grid>
+      <Split ratio="1-1" gap="md" align="center">
+        <div>
+          <Eyebrow accent="gold">The job</Eyebrow>
+          <h2 class="display-md knowledge-title">Stop treating memory as proof.</h2>
+          <p class="body knowledge-copy">
+            Useful memory is easy to save and dangerous to trust blindly. The
+            gate asks whether the source still supports it, whether newer
+            evidence supersedes it, and whether a disagreement needs review
+            before the record can guide another session.
+          </p>
+        </div>
+        <Terminal title="knowledge gate">
+          <p class="pass">  PASS  source link exists</p>
+          <p class="pass">  PASS  public-boundary check clean</p>
+          <p class="pass">  PASS  mutation log intact</p>
+          <p class="warn">  BLOCK promotion: freshness expired</p>
+          <br />
+          <p class="muted">  next action: re-read source, then refresh record</p>
+          <p class="muted">  result: advisory until refreshed</p>
+        </Terminal>
+      </Split>
     </div>
   </Section>
 
@@ -126,32 +137,15 @@ const promises: { title: string; body: string; accent: Accent }[] = [
 
   <Section tone="alt" borderTop borderBottom>
     <div class="container">
-      <Split ratio="1-1" gap="md" align="center">
-        <div>
-          <Eyebrow accent="gold">The job</Eyebrow>
-          <h2 class="display-md knowledge-title">Stop treating memory as proof.</h2>
-          <p class="body knowledge-copy">
-            Agents need reusable context. They also need to know when context is
-            stale, private, disputed, source-less, or too weak to guide the next
-            change. Knowledge Kit makes that boundary explicit.
-          </p>
-          <p class="body knowledge-copy knowledge-copy--last">
-            A useful note can be captured. A promoted record needs provenance.
-            A stale record asks for recheck. A disputed record blocks or
-            escalates instead of silently steering the next session.
-          </p>
-        </div>
-
-        <Terminal title="knowledge gate">
-          <p class="pass">  PASS  source link exists</p>
-          <p class="pass">  PASS  public-boundary check clean</p>
-          <p class="pass">  PASS  mutation log intact</p>
-          <p class="warn">  BLOCK promotion: freshness expired</p>
-          <br />
-          <p class="muted">  next action: re-read source, then refresh record</p>
-          <p class="muted">  result: advisory until refreshed</p>
-        </Terminal>
-      </Split>
+      <Eyebrow gap="lg">Knowledge record</Eyebrow>
+      <Grid cols={4} gap="md">
+        {records.map(({ title, body, accent }) => (
+          <Card accent={accent} bar="top" pad="md">
+            <h3 class="feature-title">{title}</h3>
+            <p class="feature-body">{body}</p>
+          </Card>
+        ))}
+      </Grid>
     </div>
   </Section>
 

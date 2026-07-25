@@ -58,11 +58,11 @@ const trustTiers: { title: string; body: string; accent: Accent }[] = [
           <p class="product-tagline animate-fade-up delay-100" data-accent="chalk-2">keep your agent on the required path — in the tools you already run</p>
 
           <p class="hero-copy hero-copy--wide animate-fade-up delay-200">
-            Install the engine into your coding agent, then add
-            the workflows you want as kits — Builder for delivery, Knowledge
-            for durable memory. The engine interprets declared flows, gates
-            the work on evidence instead of promises, and leaves behind Trust
-            Bundles a reviewer, a CI job, or a skeptic can recompute.
+            Your coding agent says the tests pass and the work is done. Flow
+            Agents turns that from a promise into a checkable record inside the
+            tools you already run. Install the engine, add the workflows you
+            want as kits, and every gate, route-back, and claim comes out as a
+            Trust Bundle a reviewer, a CI job, or a skeptic can recompute.
           </p>
 
           <div class="hero-actions animate-fade-up delay-300">
@@ -91,15 +91,30 @@ const trustTiers: { title: string; body: string; accent: Accent }[] = [
 
   <Section size="lg">
     <div class="container">
-      <Eyebrow gap="sm">The engine</Eyebrow>
-      <h2 class="display-md measure-lg engine-title">The same trust machinery for every kit — not one blessed workflow.</h2>
+      <Eyebrow gap="sm">From claim to checked result</Eyebrow>
+      <h2 class="display-md measure-lg engine-title">Know what the agent claimed, what was checked, and what still needs judgment.</h2>
       <p class="fine measure engine-note">
-        The engine interprets structured triggers and renders tool-native
-        instructions across four policy classes — workflow steering, quality
-        gates, stop goal-fit, and config protection — the same way for every
-        kit it runs.
+        Local gates stop obvious misses while the agent is working. A controlled
+        environment reruns declared checks against the code that will ship. If
+        evidence is still missing, the workflow refuses or records the human
+        exception instead of quietly calling the work complete.
       </p>
 
+      <Grid cols={3} gap="lg">
+        {trustTiers.map(({ title, body, accent }) => (
+          <Card accent={accent} bar="top" pad="md">
+            <h3 class="feature-title">{title}</h3>
+            <p class="feature-body">{body}</p>
+          </Card>
+        ))}
+      </Grid>
+    </div>
+  </Section>
+
+  <Section borderBottom>
+    <div class="container">
+      <Eyebrow gap="sm">The engine</Eyebrow>
+      <h2 class="display-md measure-lg engine-title">The same trust machinery for every kit — not one blessed workflow.</h2>
       <Grid cols={4} gap="md">
         {engineParts.map(({ title, body, accent }) => (
           <Card accent={accent} bar="top" pad="sm">
@@ -177,15 +192,6 @@ const trustTiers: { title: string; body: string; accent: Accent }[] = [
         CI are where those records anchor for code work today — instances of
         the principle, not the principle itself.
       </p>
-
-      <Grid cols={3} gap="lg">
-        {trustTiers.map(({ title, body, accent }) => (
-          <Card accent={accent} bar="top" pad="md">
-            <h3 class="feature-title">{title}</h3>
-            <p class="feature-body">{body}</p>
-          </Card>
-        ))}
-      </Grid>
 
       <h3 class="enforcement-heading">Where the gate actually blocks, per runtime</h3>
       <p class="fine measure enforcement-note">

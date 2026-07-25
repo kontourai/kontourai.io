@@ -68,7 +68,7 @@ const cli = [
 
           <ProductMark product="veritas" size={40} class="product-hero-mark animate-fade-up" data-accent="green" />
           <h1 class="product-title animate-fade-up">Veritas</h1>
-          <p class="product-tagline animate-fade-up delay-100" data-accent="green">code and change readiness made inspectable</p>
+          <p class="product-tagline animate-fade-up delay-100" data-accent="green">your repo's standards, enforced at the moment of change</p>
 
           <p class="hero-copy animate-fade-up delay-200">
             Define what good looks like for your repo. Veritas checks each
@@ -110,37 +110,35 @@ const cli = [
     </div>
   </Section>
 
-  <!-- Change boundaries -->
+  <!-- Lead with the concrete catch -->
   <Section tone="alt" borderTop borderBottom>
     <div class="container">
       <Split ratio="1-1" gap="md" align="center">
         <div>
-          <Eyebrow accent="cobalt-2">Change boundaries</Eyebrow>
-          <h2 class="display-md cb__title">Shared code without<br />shared confusion.</h2>
+          <Eyebrow accent="green">Example use case</Eyebrow>
+          <h2 class="display-md cb__title">The catch you'd<br />otherwise miss.</h2>
           <p class="body cb__copy">
-            Fast AI development breaks down when several agents and developers touch
-            the same repo without knowing which work areas are independent, protected,
-            or coupled. Veritas makes those boundaries explicit.
-          </p>
-          <p class="body cb__copy">
-            A change that stays inside its work area can move quickly. A boundary crossing
-            asks for the right evidence, owner context, or coordination before it becomes
-            another surprise in review.
+            An agent rewrites an API handler but skips the test that covers it.
+            Instead of surfacing days later in review, Veritas flags the missing
+            evidence at the moment of change and tells the agent exactly what it
+            needs before the work is submitted.
           </p>
           <p class="body cb__copy cb__copy--last">
-            This is how teams keep code DRY without turning every shared package,
-            contract, or generated artifact into a manual-review bottleneck.
+            Reviewers spend their attention inspecting evidence, not
+            rediscovering the standard from a diff.
           </p>
         </div>
 
-        <Grid cols={2} gap="md">
-          {boundaries.map(({ label, detail, accent }) => (
-            <div class="minicard" data-accent={accent}>
-              <div class="minicard__label">{label}</div>
-              <div class="minicard__detail">{detail}</div>
-            </div>
-          ))}
-        </Grid>
+        <Terminal title="veritas readiness — blocked">
+          <p><span class="prompt">$ </span><span class="cmd">npx @kontourai/veritas readiness --working-tree</span></p>
+          <br />
+          <p class="pass">  PASS  change-boundaries: within work area</p>
+          <p class="warn">  BLOCK evidence-check: api handler changed, test missing</p>
+          <p class="sub">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ expected: test covering src/api/handler.ts</p>
+          <br />
+          <p>  merge-readiness: <span class="warn">blocked — 1 requirement unmet</span></p>
+          <p class="muted">  next action: add the missing test, then re-run</p>
+        </Terminal>
       </Split>
     </div>
   </Section>
@@ -166,38 +164,33 @@ const cli = [
     </div>
   </Section>
 
-  <!-- Example use case -->
+  <!-- Change boundaries -->
   <Section tone="alt" borderTop>
     <div class="container">
       <Split ratio="1-1" gap="md" align="center">
         <div>
-          <Eyebrow accent="green">Example use case</Eyebrow>
-          <h2 class="display-md ip__title">The catch you'd<br />otherwise miss.</h2>
+          <Eyebrow accent="cobalt-2">Change boundaries</Eyebrow>
+          <h2 class="display-md ip__title">Shared code without<br />shared confusion.</h2>
           <p class="body ip__copy">
-            An agent rewrites an API handler but skips the test that covers it.
-            Instead of surfacing days later in review, Veritas flags the missing
-            evidence at the moment of change — and tells the agent exactly what
-            it needs before the work is submitted.
+            Fast AI development breaks down when agents and developers touch the
+            same repo without knowing which work areas are independent,
+            protected, or coupled. Veritas makes those boundaries explicit.
           </p>
           <p class="body ip__copy ip__copy--last">
-            Reviewers spend their attention inspecting evidence, not
-            rediscovering the standard from a diff.
+            A change inside its work area can move quickly. A boundary crossing
+            asks for the right evidence, owner context, or coordination before
+            it becomes another surprise in review.
           </p>
         </div>
 
-        <Terminal title="veritas readiness — blocked">
-          <p><span class="prompt">$ </span><span class="cmd">npx @kontourai/veritas readiness --working-tree</span></p>
-          <br />
-          <p class="info">  veritas {veritasStatus.version} — readiness</p>
-          <p class="muted">  repo standards: loaded</p>
-          <br />
-          <p class="pass">  PASS  change-boundaries: within work area</p>
-          <p class="warn">  BLOCK evidence-check: api handler changed, test missing</p>
-          <p class="sub">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ expected: test covering src/api/handler.ts</p>
-          <br />
-          <p>  merge-readiness: <span class="warn">blocked — 1 requirement unmet</span></p>
-          <p class="muted">  next action: add the missing test, then re-run</p>
-        </Terminal>
+        <Grid cols={2} gap="md">
+          {boundaries.map(({ label, detail, accent }) => (
+            <div class="minicard" data-accent={accent}>
+              <div class="minicard__label">{label}</div>
+              <div class="minicard__detail">{detail}</div>
+            </div>
+          ))}
+        </Grid>
       </Split>
     </div>
   </Section>

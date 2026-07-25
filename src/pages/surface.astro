@@ -91,15 +91,15 @@ const moreThanStatus: { title: string; body: string; accent: Accent }[] = [
 
           <ProductMark product="surface" size={40} class="product-hero-mark animate-fade-up" data-accent="gold" />
           <h1 class="product-title animate-fade-up">Surface</h1>
-          <p class="product-tagline animate-fade-up delay-100" data-accent="gold">claims, evidence, freshness, and gaps in one inspectable shape</p>
+          <p class="product-tagline animate-fade-up delay-100" data-accent="gold">show the work behind what your product asks people to trust</p>
 
           <p class="hero-copy animate-fade-up delay-200">
             Every product makes claims. AI makes those claims faster, more
             polished, and harder to inspect. Surface gives a product one shape
             for the claim, the evidence behind it, the policy that decides what
             counts, how fresh the evidence is, and the gaps that should slow
-            anyone down before they rely on it. Surface does not decide domain
-            truth; it makes the trust state portable and inspectable.
+            anyone down before they rely on it. Surface leaves domain truth
+            with your product; it makes the trust state portable and inspectable.
           </p>
 
           <div class="hero-actions animate-fade-up delay-300">
@@ -129,14 +129,6 @@ const moreThanStatus: { title: string; body: string; accent: Accent }[] = [
     </div>
   </Section>
 
-  <!-- What Surface answers -->
-  <Section size="lg">
-    <div class="container">
-      <Eyebrow gap="lg">What Surface answers</Eyebrow>
-      <QuestionGrid items={answers} min="300" />
-    </div>
-  </Section>
-
   <!-- Example use case -->
   <Section tone="alt" borderTop borderBottom>
     <div class="container">
@@ -162,6 +154,14 @@ const moreThanStatus: { title: string; body: string; accent: Accent }[] = [
           <p>  action: <span class="warn">show uncertainty beside recommendation</span></p>
         </Terminal>
       </Split>
+    </div>
+  </Section>
+
+  <!-- What Surface answers -->
+  <Section size="lg">
+    <div class="container">
+      <Eyebrow gap="lg">What Surface answers</Eyebrow>
+      <QuestionGrid items={answers} min="300" />
     </div>
   </Section>
 
