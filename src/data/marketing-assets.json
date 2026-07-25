@@ -5,17 +5,17 @@
       "asset": "public/screenshots/console-environment.png",
       "page": "src/pages/console.astro",
       "product": "console",
-      "capturedAgainstVersion": "2.7.0",
-      "capturedAt": "2026-07-20",
-      "sha256": "ba3af50157a7a0204423df954b06693d0efecd0f512b62930ba3c2ff9a5be3d4"
+      "capturedAgainstVersion": "2.8.0",
+      "capturedAt": "2026-07-24",
+      "sha256": "efdf58f8cd205e077b0e9162cee5d85a1e41de3f314f43428339fab987f09859"
     },
     {
       "asset": "public/screenshots/console-operating-plane.png",
       "page": "src/pages/console.astro",
       "product": "console",
-      "capturedAgainstVersion": "2.7.0",
-      "capturedAt": "2026-07-20",
-      "sha256": "3c36bce7002fa4edde8cb3aa048fe8dafbfc4af63ec1c1a7f425367a443d32b7"
+      "capturedAgainstVersion": "2.8.0",
+      "capturedAt": "2026-07-24",
+      "sha256": "38cef309a85f2aeebef38a16bbda0ecf1711e97f73c519d6055f5dba27587c83"
     },
     {
       "asset": "public/screenshots/survey-workbench.png",
