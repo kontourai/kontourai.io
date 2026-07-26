@@ -204,6 +204,19 @@ const operatingBenefits: { title: string; accent: Accent; items: string[] }[] = 
             and re-running either one changes nothing — the run below is this
             site's own repo.
           </p>
+          <p class="fine run__cli">
+            About that <code class="codechip" data-accent="cobalt">kontour</code> word:
+            there is also a separate suite router,
+            <a href="https://github.com/kontourai/cli" target="_blank" rel="noopener" data-umami-event="console-run-cli">@kontourai/cli</a>,
+            which owns the same command name across Flow, Flow Agents, and
+            Console — it looks at which Kontour packages you already have and
+            passes your command to the matching one, without ever fetching
+            anything. Because both packages provide a
+            <code class="codechip" data-accent="cobalt">kontour</code> binary,
+            install one of them globally rather than both; the
+            <code class="codechip" data-accent="cobalt">npx --package</code> form
+            above picks explicitly and sidesteps the question.
+          </p>
         </div>
 
         <Terminal title="terminal">
@@ -426,6 +439,19 @@ const operatingBenefits: { title: string; accent: Accent; items: string[] }[] = 
   .cf__copy--last,
   .use__copy--last {
     margin-bottom: 0;
+  }
+
+  /* The suite-router footnote: quieter than the body copy it qualifies, but
+     it has to be here — the page prints `kontour` a dozen times and two
+     published packages answer to that name. */
+  .run__cli {
+    margin: 1.5rem 0 0;
+    color: var(--color-chalk-2);
+  }
+
+  .run__cli a {
+    color: var(--color-gold);
+    text-decoration: none;
   }
 
   .boundary-note {

@@ -9,6 +9,7 @@ import Grid from '@/components/Grid.astro';
 import Card from '@/components/Card.astro';
 import Split from '@/components/Split.astro';
 import Terminal from '@/components/Terminal.astro';
+import ProductMark from '@/components/ProductMark.astro';
 import { getProductStatus, productBadge } from '@/lib/product-status';
 import { getPublicEvidenceClaimSourceUrl } from '@/lib/public-evidence';
 import { assetCapture } from '@/lib/marketing-assets';
@@ -129,6 +130,7 @@ const evidence: { title: string; body: string; href: string; label: string; acce
             <span class="install-hint">{fieldworkStatus.packageName}</span>
           </div>
           <Eyebrow accent="green" gap="sm">Standalone application</Eyebrow>
+          <ProductMark product="fieldwork" size={40} class="product-hero-mark animate-fade-up" data-accent="green" />
           <h1 class="product-title animate-fade-up">Fieldwork</h1>
           <p class="product-tagline animate-fade-up delay-100" data-accent="green">every value carries the line it came from</p>
           <p class="hero-copy animate-fade-up delay-200">

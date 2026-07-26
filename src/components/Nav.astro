@@ -1,14 +1,17 @@
 ---
-import { products, kits, applications, type ProductKey, type KitKey, type ApplicationKey } from '@/lib/products';
+import { kits, applications, engine, operatingView, disciplines, type ProductKey, type KitKey, type ApplicationKey } from '@/lib/products';
 import ProductMark from '@/components/ProductMark.astro';
 
 type NavKey = 'home' | ProductKey | KitKey | ApplicationKey;
 type SiteNavKey = NavKey | 'developers' | 'receipts' | 'hachure';
 
-// The engine leads; the kits that run on it live in its own menu rather than
-// taking top-level slots of their own. Both kit pages open by explaining the
-// engine — a page that has to explain its parent belongs under the parent.
-const [engine, ...disciplines] = products;
+// Products is what somebody arrives wanting to use: the engine, the finished
+// app built on it, and the screen you watch either one run on. The two kits
+// stay inside that menu under a label naming the engine they run on, so the
+// engine→kits relationship survives without costing a top-level slot. The
+// parts of the machine — the trust record, the gates, the readiness reports,
+// the review workbench — are a developer's concern and live under Developers.
+const shopfront = [engine, ...applications, operatingView];
 
 interface Props {
   active?: SiteNavKey;
@@ -16,12 +19,12 @@ interface Props {
   teaser?: boolean;
 }
 const { active, teaser } = Astro.props;
-const engineMenuActive = active === engine.key || kits.some(({ key }) => active === key);
+const productsMenuActive =
+  shopfront.some(({ key }) => active === key) || kits.some(({ key }) => active === key);
 const developersMenuActive =
   active === 'developers' ||
   active === 'hachure' ||
-  disciplines.some(({ key }) => active === key) ||
-  applications.some(({ key }) => active === key);
+  disciplines.some(({ key }) => active === key);
 const hideProducts = teaser || active === 'home';
 ---
 
@@ -49,22 +52,25 @@ const hideProducts = teaser || active === 'home';
       <div class="nav-links nav__links">
         {!hideProducts && (
           <>
-            {/* The engine and the kits that run on it, in one menu. The
-               summary is not a link, so the panel carries the engine page
-               itself as its first item. */}
+            {/* Products: the three things you can install and run today, each
+               with its own mark, then the kits under the engine that runs
+               them. The summary is a category rather than a page, so it is not
+               a link. */}
             <details class="nav-dropdown">
-              <summary class:list={["nav-link", "nav-link--product", "nav-dropdown__summary", { "nav-dropdown__summary--active": engineMenuActive }]} data-umami-event="nav-flow-agents-menu">
-                <ProductMark product={engine.key} size={16} class="nav-link__mark" />{engine.label}<span class="nav-dropdown__caret" aria-hidden="true">▾</span>
+              <summary class:list={["nav-link", "nav-dropdown__summary", { "nav-dropdown__summary--active": productsMenuActive }]} data-umami-event="nav-products-menu">
+                Products<span class="nav-dropdown__caret" aria-hidden="true">▾</span>
               </summary>
               <div class="nav-dropdown__panel">
-                <a
-                  href={engine.href}
-                  class="nav-link nav-dropdown__item"
-                  aria-current={active === engine.key ? 'page' : undefined}
-                  data-accent={active === engine.key ? engine.accent : undefined}
-                  data-umami-event={`nav-${engine.key}`}
-                >Overview</a>
-                <span class="nav-dropdown__group" aria-hidden="true">Kits that run on it</span>
+                {shopfront.map(({ href, label, key, accent }) => (
+                  <a
+                    href={href}
+                    class="nav-link nav-link--product nav-dropdown__item"
+                    aria-current={active === key ? 'page' : undefined}
+                    data-accent={active === key ? accent : undefined}
+                    data-umami-event={`nav-${key}`}
+                  ><ProductMark product={key} size={16} class="nav-link__mark" />{label}</a>
+                ))}
+                <span class="nav-dropdown__group" aria-hidden="true">Kits that run on {engine.label}</span>
                 {kits.map(({ href, label, key, accent }) => (
                   <a
                     href={href}
@@ -80,10 +86,9 @@ const hideProducts = teaser || active === 'home';
             <div class="nav__divider"></div>
 
             {/* The platform components live under Developers: the top-level
-               row carries the cohesive product (engine + kits), and the
-               parts stay one click away for people who want to dig in.
-               <details> keeps it JS-free under the strict CSP and
-               keyboard/AT-accessible. */}
+               row carries what you buy, and the parts stay one click away for
+               people who want to dig in. <details> keeps it JS-free under the
+               strict CSP and keyboard/AT-accessible. */}
             <details class="nav-dropdown">
               <summary class:list={["nav-link", "nav-dropdown__summary", { "nav-dropdown__summary--active": developersMenuActive }]} data-umami-event="nav-developers-menu">
                 Developers<span class="nav-dropdown__caret" aria-hidden="true">▾</span>
@@ -101,10 +106,10 @@ const hideProducts = teaser || active === 'home';
                 <span class="nav-dropdown__group" aria-hidden="true">The open format</span>
                 <a
                   href="/hachure/"
-                  class="nav-link nav-dropdown__item"
+                  class="nav-link nav-link--product nav-dropdown__item"
                   aria-current={active === 'hachure' ? 'page' : undefined}
                   data-umami-event="nav-hachure"
-                >Hachure</a>
+                ><ProductMark product="hachure" size={16} class="nav-link__mark" />Hachure</a>
                 <span class="nav-dropdown__group" aria-hidden="true">Under the hood</span>
                 {disciplines.map(({ href, label, key, accent }) => (
                   <a
@@ -114,18 +119,6 @@ const hideProducts = teaser || active === 'home';
                     data-accent={active === key ? accent : undefined}
                     data-umami-event={`nav-${key}`}
                   ><ProductMark product={key} size={16} class="nav-link__mark" />{label}</a>
-                ))}
-                {/* Applications are finished front doors rather than parts of
-                   the engine, but they were reachable from nowhere at all. */}
-                <span class="nav-dropdown__group" aria-hidden="true">Applications</span>
-                {applications.map(({ href, label, key, accent }) => (
-                  <a
-                    href={href}
-                    class="nav-link nav-dropdown__item"
-                    aria-current={active === key ? 'page' : undefined}
-                    data-accent={active === key ? accent : undefined}
-                    data-umami-event={`nav-${key}`}
-                  >{label}</a>
                 ))}
               </div>
             </details>
