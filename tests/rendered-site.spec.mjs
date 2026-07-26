@@ -5,12 +5,18 @@ import { validateTrustBundle } from "@kontourai/surface";
 test("homepage leads with a single Flow Agents headline and the recognition-then-mechanism argument", async ({ page }) => {
   await page.goto("/");
 
-  // AC1: exactly one hero headline story — the Flow Agents wedge — above the fold.
-  await expect(page.locator(".label-sm").filter({ hasText: "Kontour · Flow Agents" }).first()).toBeVisible();
+  // AC1: exactly one hero headline story above the fold, and the slogan is the
+  // first thing in it. The "Kontour · Flow Agents" kicker that used to sit above
+  // the h1 is gone by owner direction — the guard stays so it does not creep
+  // back, because the whole point of the hero is that the slogan leads.
+  await expect(page.locator(".label-sm").filter({ hasText: "Kontour · Flow Agents" })).toHaveCount(0);
+  await expect(page.locator(".hero-kicker")).toHaveCount(0);
   await expect(
     page.getByRole("heading", { level: 1, name: "Make your agents show their work.", exact: true }),
   ).toBeVisible();
   await expect(page.locator("h1")).toHaveCount(1);
+  // Nothing renders above the headline inside the hero block.
+  await expect(page.locator(".hero-inner > *").first()).toHaveClass(/hero-title/);
   await expect(page.getByText("AI writes more code than anyone can read line by line.").first()).toBeVisible();
 
   // Hero CTAs
@@ -286,9 +292,12 @@ const findCollapsedWordJoins = (minGapPx) => {
     if (insideCodeSample) continue;
 
     // A missing space is only visible when a word follows. Punctuation hugging
-    // a word ("</code>." or "(<a>ADR 0018</a>") is correct typography.
+    // a word ("</code>." or "(<a>ADR 0018</a>") is correct typography — except
+    // for a leading "@", which on this site always starts a scoped package name
+    // and reads as a word. "suite router,@kontourai/cli" shipped past this
+    // check on its first cut precisely because "@" was treated as punctuation.
     const lastChar = before.data[before.data.length - 1];
-    if (!/[\p{L}\p{N}]/u.test(after.data[0])) continue;
+    if (!/[\p{L}\p{N}@]/u.test(after.data[0])) continue;
     if (/[(\[{<"'“‘«/\\@#$&+=~^|*·•‐-― -]/u.test(lastChar)) continue;
 
     const beforeRect = charRect(before, before.data.length - 1);
