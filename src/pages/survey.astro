@@ -12,9 +12,15 @@ import Grid from '@/components/Grid.astro';
 import Split from '@/components/Split.astro';
 import ProductMark from '@/components/ProductMark.astro';
 import { getProductStatus, productBadge } from '@/lib/product-status';
+import { assetCapture } from '@/lib/marketing-assets';
 import type { Accent } from '@/lib/theme';
 
 const surveyStatus = getProductStatus('survey');
+
+// Capture provenance comes from the asset manifest, never from live product
+// status: a caption is a claim about a frozen file, and deriving it would
+// re-stamp the image at every release with no capture having happened.
+const surveyCaptureShot = assetCapture('public/screenshots/survey-workbench.png');
 
 const pipeline = [
   { step: 'Raw Source', body: 'The observed material — a page, a document, an API record, a manual entry — with Source Reference, time, and checksum.' },
@@ -180,6 +186,16 @@ const reviewBenefits: { title: string; accent: Accent; items: string[] }[] = [
       <Terminal title="review console">
         <p><span class="prompt">$ </span><span class="cmd">npx -p @kontourai/survey survey-review-console --session your-session.json</span></p>
       </Terminal>
+      <figure class="product-shot survey-shot">
+        <img src="/screenshots/survey-workbench.png" alt="Survey review console. The Hours row proposes changing Weekdays 9am-5pm to Weekdays 8am-6pm, with confidence 0.82 and the excerpt it came from: &quot;Extended schedule for the fall term — program hours are now Weekdays 8am-6pm.&quot; linked to its source. Below it, Phone Number proposes +1-555-0199, quoting &quot;Our enrollment line has moved. Call +1-555-0199 to reach the office.&quot; Each row offers Keep current, Use proposed, and Could not confirm." loading="lazy" width="1400" height="900" />
+        <figcaption>
+          Read the excerpt under each proposed value and check it yourself: the
+          hours change quotes the sentence announcing it, the phone change quotes
+          the line that gives the new number. That is the whole point — a value
+          you cannot trace back to a sentence is a value you are taking on faith.
+          Captured against {surveyCaptureShot.capturedAgainstVersion} on {surveyCaptureShot.capturedAt}.
+        </figcaption>
+      </figure>
     </div>
   </Section>
 

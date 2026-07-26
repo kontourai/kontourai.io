@@ -18,7 +18,7 @@
       "key": "survey",
       "label": "Survey",
       "packageName": "@kontourai/survey",
-      "version": "2.2.1",
+      "version": "2.2.2",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/survey",
       "publicNotes": "Human review and trust projection for extracted facts.",
