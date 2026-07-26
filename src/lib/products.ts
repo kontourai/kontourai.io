@@ -197,7 +197,7 @@ function requireProduct(key: ProductKey): Product {
 // The top bar splits on what the reader is doing, not on how we built the
 // suite. `Products` holds the three things somebody arrives wanting to use —
 // the engine, the finished app, and the screen you watch it on — and the two
-// kits sit under the engine, labelled with the engine they run on so the
+// kits sit under the engine, labeled with the engine they run on so the
 // relationship survives the regrouping. Everything else is a part of the
 // machine and lives under `Developers`.
 export const engine = requireProduct("flow-agents");

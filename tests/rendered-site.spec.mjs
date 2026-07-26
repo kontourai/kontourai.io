@@ -107,8 +107,8 @@ test("homepage leads with a single Flow Agents headline and the recognition-then
   // The deleted overclaim: Survey does not run pipelines, and no public artifact
   // backed the "real pipelines run on it today" framing either.
   await expect(page.getByText("Survey runs real pipelines")).toHaveCount(0);
-  // The IA lie: a link labelled "See the Builder Kit loop" that pointed at
-  // /flow-agents/. Deleted rather than relabelled.
+  // The IA lie: a link labeled "See the Builder Kit loop" that pointed at
+  // /flow-agents/. Deleted rather than relabeled.
   await expect(page.getByText("See the Builder Kit loop")).toHaveCount(0);
 
   // AC3: the "Six products. One job." architecture tour is NOT on the index.
@@ -187,6 +187,33 @@ test("/preview no longer serves the old preview page", async ({ page }) => {
   const got404 = await page.getByText("PRODUCT LINE PREVIEW").count() === 0;
   // Acceptable: redirected to home, or serving 404 without old preview content
   expect(redirectedAway || got404, `Old /preview content is still accessible at ${finalUrl}`).toBe(true);
+});
+
+test("no page ships a British spelling", async () => {
+  // Kontour AI LLC is a US company and the site copy is US English. These crept
+  // in across a long authoring pass -- "licence" was the one a reader noticed.
+  // Scans built output so a new page is covered the moment it exists.
+  const { readdirSync, readFileSync } = await import("node:fs");
+  const { join } = await import("node:path");
+
+  const BRITISH =
+    /\b(licence|behaviour|colour|recognis\w*|summaris\w*|organis\w*|prioritis\w*|scrutinis\w*|normalis\w*|apologis\w*|defence|artefact|centre|labelled|modelled|whilst|amongst|learnt|fulfil)\b/i;
+
+  const files = [];
+  const walk = (dir) => {
+    for (const e of readdirSync(dir, { withFileTypes: true })) {
+      const full = join(dir, e.name);
+      if (e.isDirectory()) walk(full);
+      else if (e.name.endsWith(".html")) files.push(full);
+    }
+  };
+  walk("dist");
+
+  expect(files.length).toBeGreaterThanOrEqual(10);
+  for (const f of files) {
+    const m = readFileSync(f, "utf8").match(BRITISH);
+    expect(m?.[0], `${f} uses the British spelling "${m?.[0]}"`).toBeUndefined();
+  }
 });
 
 test("no page ships an unfilled authoring placeholder", async () => {
