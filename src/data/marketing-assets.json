@@ -45,25 +45,9 @@
       "asset": "public/screenshots/fieldwork-review.png",
       "page": "src/pages/fieldwork.astro",
       "product": "fieldwork",
-      "capturedAgainstVersion": "0.2.4",
-      "capturedAt": "2026-07-24",
-      "sha256": "bfc83b4f388fddb00bbd306247108d8100473860902afab41adaabd69ad95309"
-    },
-    {
-      "asset": "public/screenshots/fieldwork-review-mobile.png",
-      "page": "src/pages/fieldwork.astro",
-      "product": "fieldwork",
-      "capturedAgainstVersion": "0.2.4",
-      "capturedAt": "2026-07-24",
-      "sha256": "51fb39a82de741e503a13a44b45a36b4f296fb56ac46256c26c30faf61a1553f"
-    },
-    {
-      "asset": "public/screenshots/fieldwork-format-inspection.png",
-      "page": "src/pages/fieldwork.astro",
-      "product": "fieldwork",
-      "capturedAgainstVersion": "0.2.4",
-      "capturedAt": "2026-07-24",
-      "sha256": "e3806742cde68196c5e48e9c52452944b615e1dd5da6331cc99788834cf8f28b"
+      "capturedAgainstVersion": "0.2.6",
+      "capturedAt": "2026-07-26",
+      "sha256": "5b7699c0cb189b64d9076177e1f6c6492d14f1637e0923b03e969899e821fc4e"
     }
   ]
 }
