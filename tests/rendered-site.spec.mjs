@@ -8,7 +8,7 @@ test("homepage leads with a single Flow Agents headline and the recognition-then
   // AC1: exactly one hero headline story — the Flow Agents wedge — above the fold.
   await expect(page.locator(".label-sm").filter({ hasText: "Kontour · Flow Agents" }).first()).toBeVisible();
   await expect(
-    page.getByRole("heading", { level: 1, name: "Make your coding agent show its work.", exact: true }),
+    page.getByRole("heading", { level: 1, name: "Make your agents show their work.", exact: true }),
   ).toBeVisible();
   await expect(page.locator("h1")).toHaveCount(1);
   await expect(page.getByText("AI writes more code than anyone can read line by line.").first()).toBeVisible();
