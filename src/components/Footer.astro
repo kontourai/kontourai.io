@@ -1,8 +1,8 @@
 ---
-import { products, kits, type ProductKey, type KitKey } from '@/lib/products';
+import { products, kits, applications, type ProductKey, type KitKey, type ApplicationKey } from '@/lib/products';
 
 interface Props {
-  active?: 'home' | 'developers' | ProductKey | KitKey;
+  active?: 'home' | 'developers' | ProductKey | KitKey | ApplicationKey;
   /** Hide product links regardless of active page (teaser pages like home/early access). */
   teaser?: boolean;
 }
@@ -17,23 +17,37 @@ const receipts = { href: '/receipts/', label: 'Receipts', event: 'footer-receipt
 // Trust is public credibility surface — the honest-ceiling / bypass-list page —
 // not a product, so it appears in both footer arrays alongside receipts.
 const trust = { href: '/trust/', label: 'Trust', event: 'footer-trust' };
+// Privacy belongs on every page, teaser or not — the form that collects an
+// email appears on the teaser pages too.
+const privacy = { href: '/privacy/', label: 'Privacy', event: 'footer-privacy' };
+// Writing and Early access were reachable only from inline copy on a handful of
+// pages, so most of the site had no chrome path to either.
+const writing = { href: '/writing/', label: 'Writing', event: 'footer-writing' };
+const earlyAccess = { href: '/early-access/', label: 'Early access', event: 'footer-contact' };
 const links = teaserNav
   ? [
       { href: '/developers/', label: 'Developers', event: 'footer-developers' },
       receipts,
       trust,
+      writing,
       github,
-      { href: '/early-access/', label: 'Early access', event: 'footer-contact' },
+      earlyAccess,
+      privacy,
     ]
   : [
       { href: '/developers/', label: 'Developers', event: 'footer-developers' },
       receipts,
       trust,
-      // Engine first, its paged kits directly behind it, then the disciplines.
+      // Engine first, its paged kits directly behind it, then the disciplines,
+      // then the standalone applications built on them.
       ...products.slice(0, 1).map(({ href, label, key }) => ({ href, label, event: `footer-${key}` })),
       ...kits.map(({ href, label, key }) => ({ href, label, event: `footer-${key}` })),
       ...products.slice(1).map(({ href, label, key }) => ({ href, label, event: `footer-${key}` })),
+      ...applications.map(({ href, label, key }) => ({ href, label, event: `footer-${key}` })),
+      writing,
       github,
+      earlyAccess,
+      privacy,
     ];
 ---
 
@@ -43,7 +57,7 @@ const links = teaserNav
       <a href="/" class="footer__brand" aria-label="Kontour AI home">
         <span class="footer__wordmark">Kontour<span class="footer__dot">.</span></span>
       </a>
-      <p class="footer__tagline">Evidence-backed confidence. Not certainty theater.</p>
+      <p class="footer__tagline">Make your agents show their work.</p>
       <p class="footer__tagline footer__category">The receipt layer for AI work.</p>
       <p class="footer__legal">Apache 2.0 &nbsp;·&nbsp; Open source &nbsp;·&nbsp; © 2026 Kontour AI LLC</p>
     </div>

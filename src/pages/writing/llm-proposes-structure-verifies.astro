@@ -5,11 +5,49 @@ import Footer from '@/components/Footer.astro';
 import Section from '@/components/Section.astro';
 import Glow from '@/components/Glow.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
+import Terminal from '@/components/Terminal.astro';
+
+// The demo below is not an illustration. `demoScript` is the exact file that
+// was run against the published @kontourai/traverse@0.23.0, and `demoOutput` is
+// its stdout, verbatim. Both are rendered as data rather than hand-written
+// markup so the page cannot drift away from the run that produced it.
+const traversePin = '0.23.0';
+
+const demoScript = `import { extract } from "@kontourai/traverse";
+
+// A synthetic 1099-INT. 412.18 is the only interest figure on the page.
+const statement = "FIRST MERIDIAN BANK -- Form 1099-INT (sample)\\n"
+  + "Box 1  Interest income          412.18\\n"
+  + "Box 4  Federal income tax withheld    0.00";
+
+// Two proposals for the same field: one quotes the page, one invents a
+// figure and a quote to match.
+const proposals = [
+  { fieldPath: "interestIncome", candidateValue: 412.18, confidence: 0.96, extractor: "demo",
+    provenance: { excerpt: "Box 1  Interest income          412.18" } },
+  { fieldPath: "interestIncome", candidateValue: 1204.60, confidence: 0.93, extractor: "demo",
+    provenance: { excerpt: "Box 1  Interest income        1,204.60" } },
+];
+
+const result = await extract({
+  content: statement,
+  contentType: "text",
+  sourceRef: "first-meridian-1099int.txt",
+  targetSchema: [{ path: "interestIncome", type: "number" }],
+  provider: { name: "demo", async extract() { return { proposals, raw: { response: "{}" } }; } },
+});
+
+for (const p of result.proposals)
+  console.log("kept     " + p.candidateValue + "  verified at " + p.provenance.locator);
+for (const w of result.warnings) console.log("dropped  " + w);`;
+
+const demoOutput = `kept     412.18  verified at chars:46-84
+dropped  dropped proposal for "interestIncome": excerpt not found in prepared content`;
 ---
 
 <Layout
-  title="LLM proposes, structure verifies · Kontour AI"
-  description="Self-hosted document organizers let a model extract your records and trust whatever comes back. A reference implementation of the opposite architecture: no fact reaches the math until it survives a gate."
+  title="The AI read your tax form. Nothing checked it. · Kontour AI"
+  description="Most AI document tools save whatever the model extracts. We built a tax pipeline where a number can't reach the math until something other than the extractor has confirmed where it came from — with a runnable example of the check throwing a number away."
 >
   <Nav active="developers" />
 
@@ -17,14 +55,15 @@ import Eyebrow from '@/components/Eyebrow.astro';
     <Glow accent="gold" position="top-right" />
     <div class="container container--readable">
       <Eyebrow accent="gold">Writing</Eyebrow>
-      <h1 class="product-title animate-fade-up">LLM proposes, structure verifies</h1>
+      <h1 class="product-title animate-fade-up">The AI read your tax form. Nothing checked it.</h1>
       <p class="hero-copy animate-fade-up delay-200">
-        There's a popular class of self-hosted tools right now: upload your
-        documents, a model extracts the fields, the fields get saved. It
-        feels like magic until you notice what never happened — nothing ever
-        checked the extraction. We built a tax pipeline on the opposite
-        architecture, and the difference shows up exactly where it hurts:
-        the numbers you file.
+        Upload a document, a model pulls the numbers out, the numbers get
+        saved. That's how most AI document tools work — and not one of them
+        can tell you whether the number it saved is the number on the page.
+        We built a tax pipeline that can't save a number until something
+        other than the extractor has confirmed where it came from. Halfway
+        down this page you can run that check yourself and watch it throw a
+        number away.
       </p>
     </div>
   </Section>
@@ -33,124 +72,210 @@ import Eyebrow from '@/components/Eyebrow.astro';
     <div class="container container--readable">
       <h2 class="section-heading">The pattern everyone ships</h2>
       <p class="body measure-lg prose">
-        The extract-and-trust pattern is easy to build and demos beautifully:
-        the model reads a PDF, returns structured fields, and the fields go
-        straight into your database. The extraction <em>is</em> the record.
-        When the model reads a wage box correctly, you saved twenty minutes.
-        When it hallucinates one digit, you saved twenty minutes and filed a
-        wrong number — and nothing in the system can tell you which of those
-        two things happened, because the output was trusted the moment it
-        appeared.
+        The demo is irresistible: drop in a PDF, watch the fields fill
+        themselves, hit save. When the model reads the wage box correctly you
+        just saved twenty minutes. When it reads one digit wrong you saved
+        twenty minutes and filed a wrong number — and nothing in the system
+        can tell you which of those two things happened, because the output
+        was trusted the moment it appeared.
       </p>
       <p class="body measure-lg prose">
-        That's not an LLM problem. It's an architecture problem: the proposer
-        and the record-keeper are the same step. Any extractor — a model, a
-        regex, a person having a bad day — will sometimes be wrong. The
-        question is whether the system is built to notice.
+        That isn't a model problem. <strong>The proposer and the record-keeper
+        are the same step.</strong> Any extractor — a model, a regex, a person
+        having a bad afternoon — will sometimes be wrong. The only question
+        that matters is whether the system is built to notice.
       </p>
     </div>
   </Section>
 
   <Section size="lg" borderBottom>
     <div class="container container--readable">
-      <h2 class="section-heading">The inversion: every proposal is untrusted</h2>
+      <h2 class="section-heading">Make the extractor quote its source</h2>
       <p class="body measure-lg prose">
-        Our reference implementation is a household tax workspace — a real
-        one, filing real returns. Its extraction seam is built on
+        Our extraction step is built on{' '}
         <a href="https://github.com/kontourai/traverse">Traverse</a>, and
-        Traverse's contract is blunt: an extraction is a <em>proposal</em>,
-        and a proposal must carry a verbatim excerpt of the source text it
-        claims to come from. The pipeline checks that the excerpt actually
-        occurs in the document. If it doesn't — because the extractor
-        paraphrased, summarized, or invented — the proposal is dropped.
-        Surviving proposals don't even get to keep their own source
-        locations: the pipeline recomputes every locator from the verified
-        match, so "where this fact came from" is never taken on the
-        extractor's word.
+        Traverse's contract is blunt: an extraction is a <em>proposal</em>, and
+        a proposal has to quote the passage it came from, word for word.
+        Traverse then goes looking for that quote in the text it actually
+        handed the extractor — a prepared, plain rendering of the document,
+        not the original file. If the quote isn't there, because the extractor
+        paraphrased, summarised, or invented, the proposal is dropped instead
+        of saved. Surviving proposals don't even keep their own source
+        positions: Traverse recomputes every offset from the quote it just
+        located, so "where this came from" is never taken on the extractor's
+        word.
       </p>
       <p class="body measure-lg prose">
-        Note what the contract doesn't care about: <strong>who proposed.</strong>
-        A hallucination-prone model and a deterministic parser go through the
-        same check, because the check costs the same either way and the
-        failure it prevents is identical.
+        Notice what the contract doesn't ask: <strong>who proposed.</strong> A
+        hallucination-prone model and a hand-written parser go through the
+        identical check, because the check costs the same either way and the
+        failure it catches is the same failure. Today the production extractors
+        in our own pipeline are <strong>deterministic parsers, not LLMs</strong>
+        — and they get exactly the same distrust. That's the point: the
+        contract didn't have to change when the proposer did.
       </p>
     </div>
   </Section>
 
   <Section tone="alt" size="lg" borderBottom>
     <div class="container container--readable">
-      <h2 class="section-heading">Four states, one direction</h2>
+      <h2 class="section-heading">Watch it refuse</h2>
       <p class="body measure-lg prose">
-        Past extraction, every fact moves through an explicit spine:
+        Traverse is a public package, so you can run the check without our
+        pipeline, our documents, or an API key. Below is a synthetic 1099-INT
+        with exactly one interest figure on it, and an extractor that proposes
+        two values for that field: one it quotes correctly, and one it made up
+        along with a matching quote — the failure mode the whole architecture
+        exists for.
+      </p>
+      <Terminal title="gate-demo.mjs">
+        <pre class="code demo-code">{demoScript}</pre>
+      </Terminal>
+      <p class="body measure-lg prose demo-gap">
+        Install the package and run the file. Nothing in the script tells
+        Traverse which proposal to believe — it checks both quotes against the
+        page and keeps the one that is really there.
+      </p>
+      <Terminal title={`@kontourai/traverse@${traversePin}`}>
+        <div><span class="prompt">$</span> <span class="cmd">npm i @kontourai/traverse@{traversePin}</span></div>
+        <div class="muted"># install output omitted</div>
+        <div><span class="prompt">$</span> <span class="cmd">node gate-demo.mjs</span></div>
+        <pre class="code demo-out">{demoOutput}</pre>
+      </Terminal>
+      <p class="body measure-lg prose demo-gap">
+        The invented $1,204.60 never becomes a fact. It isn't flagged, scored,
+        or filed under low confidence — it does not survive into the output at
+        all, and the reason is on the record. That refusal is the whole
+        mechanism, and it is one npm install away from any pipeline you are
+        already running.
+      </p>
+      <p class="body measure-lg prose">
+        Here is what it does <em>not</em> prove. The check confirms the quoted
+        passage is really in the document. It does not confirm the{' '}
+        <em>number</em> is: an extractor that quotes the right line and
+        transcribes the wrong digit still produces a proposal, and this check
+        will pass it. Catching that is a different job, and it belongs to the
+        stage after extraction.
+      </p>
+    </div>
+  </Section>
+
+  <Section size="lg" borderBottom>
+    <div class="container container--readable">
+      <h2 class="section-heading">Three stores, and a place for what lost</h2>
+      <p class="body measure-lg prose">
+        Past extraction, every fact moves through the same three places:{' '}
         <strong>extracted → resolved → verified</strong> — three separate
         stores, not a status column someone remembers to update. Extracted
-        facts carry their excerpt, locator, confidence, and rationale.
-        Resolution collapses competing candidates into one winner by a
-        deterministic precedence order — a user's correction beats a
-        corrected form, which beats the original document — and keeps every
-        losing candidate on the record. Verification is the gate: a fact
-        that's medium-confidence, or OCR-derived, or has more than one
-        candidate, is held with a recorded reason until a person resolves
-        it.
+        facts carry their quote, their position, a confidence, and a reason.
+        Resolution collapses competing candidates for one slot into a single
+        winner by a fixed precedence order — a person's correction beats a
+        corrected form, which beats the original document — and every losing
+        candidate stays on the record as <em>superseded</em>, which is the
+        fourth place. Nothing is overwritten, so nothing has to be taken on
+        faith later.
       </p>
       <p class="body measure-lg prose">
         The part that makes it structural rather than aspirational: the tax
         math <strong>can only read verified facts.</strong> Withholding
-        analysis, the return package, year-over-year diffs — all of it
-        queries the verified store and nothing else. An unverified fact
-        isn't flagged for caution; it's invisible to the engine. And the
-        gate swings both ways: when a new document makes an old fact
-        ambiguous, the old fact is <em>demoted</em> — pulled back out of the
-        verified store, with both candidates preserved — rather than left to
-        coast on a stale approval.
-      </p>
-    </div>
-  </Section>
-
-  <Section size="lg" borderBottom>
-    <div class="container container--readable">
-      <h2 class="section-heading">Two moments where it mattered</h2>
-      <p class="body measure-lg prose">
-        <strong>The corrected W-2.</strong> A W-2 comes in and its six wage
-        fields extract cleanly — verbatim excerpts verified, single
-        candidates, promoted. Later a corrected W-2 arrives from the same
-        employer. In the extract-and-trust pattern the new numbers would
-        overwrite the old, or worse, coexist silently. Here, both versions
-        become candidates for the same fact keys, promotion is blocked, and
-        the pipeline refuses to verify until a person picks — recording the
-        choice, and keeping the losing original visible as a
-        <em>superseded</em> claim instead of deleting it.
+        analysis, the return package, year-over-year comparisons — all of it
+        queries the verified store and nothing else. An unverified fact isn't
+        flagged for caution; it is invisible to the engine. The gate swings
+        both ways, too: when a new document makes an old fact ambiguous, the
+        old fact is <em>demoted</em> — pulled back out of the verified store,
+        both candidates preserved — rather than left coasting on a stale
+        approval.
       </p>
       <p class="body measure-lg prose">
-        <strong>The duplicate interest statement.</strong> Two interest
-        statements from the same bank, different account labels, different
-        amounts, land on the same fact key. Resolution holds one conflicting
-        fact at the gate with both candidates preserved; the year's readiness
-        flips to needs-review; and exactly zero of those dollars reach the
-        tax engine until the conflict is explicitly resolved. The failure
-        mode of the trusting pattern — two numbers, one silently wins — is
-        structurally unrepresentable.
+        Most facts never need a person. A fact whose quote checked out, with
+        one candidate and high confidence, promotes automatically. That is not
+        the extractor grading its own work: the quote check already ran, and
+        the extractor had no vote in it. Confidence decides only what gets
+        escalated to a human — it can escalate, it can never excuse. The gate
+        holds back what's ambiguous; it doesn't make you read every number.
       </p>
     </div>
   </Section>
 
   <Section tone="alt" size="lg" borderBottom>
     <div class="container container--readable">
-      <h2 class="section-heading">What we're not claiming</h2>
+      <h2 class="section-heading">Two ways a number gets stopped</h2>
       <p class="body measure-lg prose">
-        Honesty is the product, so: the reference implementation's production
-        extractors are currently <strong>deterministic parsers, not LLMs</strong> —
-        the seam is LLM-shaped and hallucination-proofed, and a model provider
-        plugs into the same verified-excerpt contract, but today's facts come
-        from regex that gets the same distrust. Only some document paths run
-        the full Traverse machinery; the rest use direct parsers whose
-        provenance is recorded but not excerpt-verified. High-confidence,
-        single-candidate facts auto-promote as system-verified — the gate
-        holds the ambiguous residue for humans, it doesn't make a person
-        stare at every number. And the gate checks structure and provenance,
-        not arithmetic: nothing in it recomputes your return against an
-        oracle. One household, federal plus one state, sixteen document
-        types. A reference implementation, not a product.
+        Both sketches below use invented figures. They are the <em>shapes</em>{' '}
+        of catch the gate exists for, not incidents from anyone's return.
+      </p>
+      <p class="body measure-lg prose">
+        <strong>A corrected form arrives.</strong> Six wage fields extract
+        cleanly from the first copy of a form — each quoting the box it came
+        from, one candidate apiece, promoted. Then a corrected copy of the same
+        form shows up. Under extract-and-trust the new numbers overwrite the
+        old, or worse, sit alongside them and something downstream quietly
+        picks. Here both versions become candidates for the same six fact keys
+        — a fact key being one slot in the return: one place, one number —
+        promotion stops, and nothing reaches the tax math until a person
+        chooses. The choice is recorded, and the original stays visible as
+        superseded rather than being deleted.
+      </p>
+      <p class="body measure-lg prose">
+        <strong>Two statements, one slot.</strong> Two interest statements land
+        on the same fact key carrying different amounts. The fact is held at
+        the gate with both candidates preserved, the year's status flips to
+        needs-review — <code class="code-plain">disputed</code>, in Surface's
+        vocabulary — and none of those dollars reach the return until the
+        conflict is explicitly resolved. The failure the trusting pattern
+        can't even detect — two numbers, one silently wins — has nowhere to
+        happen here: there is no path where a fact key with two live
+        candidates is readable by the math.
+      </p>
+    </div>
+  </Section>
+
+  <Section size="lg" borderBottom>
+    <div class="container container--readable">
+      <h2 class="section-heading">What the gate can't do</h2>
+      <p class="body measure-lg prose">
+        It doesn't check arithmetic. Nothing in it recomputes a return against
+        an oracle — it checks where a number came from, not whether the return
+        built on it is right.
+      </p>
+      <p class="body measure-lg prose">
+        It isn't uniform, either. Some document types run the full
+        quote-checked route through Traverse; others use direct parsers whose
+        source is recorded but whose values are never checked against a quote.
+        Facts from those paths still have to clear resolution and the gate
+        before the math can see them, but "verified" is doing weaker work for
+        them — it means a known parser and a known source, not a checked quote.
+        The record says which is which, which is the only reason that
+        difference is safe to admit.
+      </p>
+      <p class="body measure-lg prose">
+        And it is a reference implementation, not a product: one filing domain,
+        built to prove that the architecture survives contact with real
+        deadlines.
+      </p>
+    </div>
+  </Section>
+
+  <Section tone="alt" size="lg" borderBottom>
+    <div class="container container--readable">
+      <h2 class="section-heading">The same rule, somewhere else</h2>
+      <p class="body measure-lg prose">
+        None of this is really about tax. Our day job is a harness for coding
+        agents, and the rule there is the same sentence with a different noun:
+        an agent's claim doesn't count as done until a check the agent didn't
+        write agrees with it. Here: a number doesn't reach the math until
+        something other than the extractor confirms where it came from. Same
+        shape, different work.
+      </p>
+      <p class="body measure-lg prose">
+        That's why the mechanism never asks what the work <em>is</em>. It asks
+        two things only: was "done" written down as something a machine can
+        check, and did the thing being checked have a vote in the check.
+        Filing is a good stress test because "done" has a deadline and a wrong
+        answer has a penalty attached — but a claims file, an intake summary,
+        or a merged pull request has the same shape underneath. So does the
+        failure: a system that reports success in the same breath it does the
+        work.
       </p>
     </div>
   </Section>
@@ -159,26 +284,31 @@ import Eyebrow from '@/components/Eyebrow.astro';
     <div class="container container--readable">
       <h2 class="section-heading">The receipts</h2>
       <p class="body measure-lg prose">
-        Because every stage is Survey-shaped on the way in and
-        Surface-shaped on the way out, the pipeline's whole trust state
-        exports as one inspectable record: documents, extractions,
-        resolutions, verified and superseded claims, each with provenance
-        and status. The same architecture this site publishes for its own
-        deliveries — <a href="/receipts/">recomputable receipts</a> — applied
-        to a domain where a wrong number has a filing deadline. The
-        implementation is a private household repo (it holds real financial
-        records), so this story describes its mechanics rather than linking
-        its internals; the products it composes are public:
-        <a href="/survey/">Survey</a> for extraction review,
-        <a href="https://github.com/kontourai/traverse">Traverse</a> for
-        verified extraction, <a href="/surface/">Surface</a> for the trust
-        state itself.
+        Because every stage records the same four things — what was proposed,
+        what was chosen, what was rejected, and why — the pipeline's whole
+        trust state comes out as one record you can read end to end:
+        documents, extractions, resolutions, verified and superseded claims,
+        each with its source and status. It's the same architecture this site
+        publishes for its own deliveries —
+        <a href="/receipts/">recomputable receipts</a> — pointed at a domain
+        where a wrong number has a filing deadline.
       </p>
       <p class="body measure-lg prose">
-        If you're building on the extract-and-trust pattern, the upgrade
-        path isn't a better model. It's a gate the model can't talk its way
-        past.
+        The pipeline itself isn't open source, so what's public is the
+        architecture and the check you just ran, not the records. The pieces it
+        composes are public too:{' '}
+        <a href="https://github.com/kontourai/traverse">Traverse</a> for
+        quote-verified extraction, <a href="/survey/">Survey</a> for the review
+        record, <a href="/surface/">Surface</a> for the trust state itself.
       </p>
+      <p class="body measure-lg prose">
+        If you're building on extract-and-trust, the upgrade isn't a better
+        model. It's a gate the model can't talk its way past.
+      </p>
+      <div class="essay-actions">
+        <a href="/flow-agents/" class="btn-ghost" data-umami-event="writing-essay-flow-agents">See the same rule in the coding loop →</a>
+        <a href="/early-access/" class="btn-ghost" data-umami-event="writing-essay-early-access">Bring us a process →</a>
+      </div>
     </div>
   </Section>
 
@@ -209,5 +339,23 @@ import Eyebrow from '@/components/Eyebrow.astro';
   .prose strong {
     color: var(--color-chalk);
     font-weight: 500;
+  }
+
+  .demo-code,
+  .demo-out {
+    white-space: pre;
+    overflow-x: auto;
+    margin: 0;
+  }
+
+  .demo-gap {
+    margin-top: 1.4rem;
+  }
+
+  .essay-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2rem;
   }
 </style>

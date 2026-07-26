@@ -7,6 +7,9 @@ import Glow from '@/components/Glow.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
 import Card from '@/components/Card.astro';
 import Grid from '@/components/Grid.astro';
+import Split from '@/components/Split.astro';
+import Terminal from '@/components/Terminal.astro';
+import productStatus from '@/data/product-status.json';
 import { getPublicEvidenceClaimSources } from '@/lib/public-evidence';
 
 const claimSources = {
@@ -31,41 +34,87 @@ const sources = {
   lookout: sourceUrl(claimSources.recheckAndReplay, 'lookout.readme'),
 };
 
+// Every upstream link on this page is derived from the one commit the evidence
+// registry pins, so the page can never end up citing two different revisions.
+const upstreamCommit = /\/blob\/([0-9a-f]{40})\//.exec(sources.langextract)?.[1];
+if (!upstreamCommit) throw new Error('The pinned upstream README URL is not an immutable commit URL');
+const upstreamShort = upstreamCommit.slice(0, 8);
+const upstreamBlob = (path: string) => `https://github.com/google/langextract/blob/${upstreamCommit}/${path}`;
+const upstreamTree = (path: string) => `https://github.com/google/langextract/tree/${upstreamCommit}/${path}`;
+const upstreamDemo = 'https://google-langextract.hf.space/';
+
+// Live status claim — tracks whatever version is current.
+const fieldworkVersion = productStatus.products.fieldwork.version;
+// Provenance of the terminal transcript below: the version that actually
+// produced that output, deliberately NOT derived from product-status. When
+// Fieldwork ships a new version this must stay 0.2.5 until the run is redone.
+const transcriptVersion = '0.2.5';
+const transcriptRunOn = '25 July 2026';
+
+// Facts about LangExtract checked on 25 July 2026: repository language and star
+// count from the GitHub API, release tag from the latest GitHub release, package
+// version and Python floor from PyPI, demo reachability by request.
+const upstreamCheckedOn = '25 July 2026';
+
+const langextractWins = [
+  {
+    title: 'It is Python, and it is much further along',
+    body: `pip install langextract, five lines of code, and you are extracting. LangExtract is at v1.6.0 with more than 37,800 GitHub stars. Fieldwork is a Node 22 command-line app at v${fieldworkVersion}. If your work lives in Python, that probably settles it before you read another word.`,
+    link: { label: 'Pinned quick start ↗', url: `${sources.langextract}#quick-start` },
+  },
+  {
+    title: 'Long documents are tunable there, capped here',
+    body: 'Both tools chunk. LangExtract exposes the controls — chunk size, parallel workers, repeat passes for recall — and its pinned README runs all 147,843 characters of Romeo and Juliet through them. Fieldwork chunks too, in fixed 12,000-character windows with 200-character overlap and a single pass, and exposes none of those controls. It also stops after 40 chunks: past roughly 472,000 prepared characters the rest of the document is not extracted and the run still reports success, and a source above 2 MiB is refused outright.',
+    link: { label: 'Pinned long-document example ↗', url: `${sources.langextract}#romeo-and-juliet-full-text-extraction` },
+  },
+  {
+    title: 'You can try it in a browser right now',
+    body: 'A hosted demo runs grounded extraction with nothing installed. Fieldwork needs Node 22 and a terminal before you see anything at all.',
+    link: { label: 'LangExtract live demo ↗', url: upstreamDemo },
+  },
+  {
+    title: 'More runtimes, published benchmarks, and something to cite',
+    body: 'Gemini, Vertex AI, OpenAI, OpenAI-compatible endpoints and local Ollama models, batch modes for large jobs, a provider plugin system with a community registry, a benchmarks directory in the repository, and a Zenodo DOI for papers. Fieldwork has none of that.',
+    link: { label: 'Pinned benchmarks directory ↗', url: upstreamTree('benchmarks') },
+  },
+];
+
 const rows = [
   {
     concern: 'Core premise',
-    upstream: 'Schema- and example-guided structured extraction from unstructured text, with source locations for inspection.',
-    kontour: 'Schema-directed, source-grounded proposals are the starting point; Fieldwork carries that work into an application review loop.',
+    upstream: 'Schema- and example-guided extraction of structured fields from unstructured text, with every value mapped back to its place in the source.',
+    kontour: 'The same starting point — a described structure, a proposed value, and the excerpt it came from. The difference is what happens next: the proposal goes into a review queue instead of being returned as the answer.',
     evidence: claimSources.corePremise,
   },
   {
     concern: 'Grounding',
-    upstream: 'Reports character intervals when an extraction can be located in the source; unlocatable output is marked without an interval.',
-    kontour: 'Traverse verifies excerpts against prepared text and derives exact chars: start–end locators rather than trusting provider-supplied offsets.',
+    upstream: 'Aligns each extracted span against the tokenized source itself, exact match first and an optional fuzzy fallback second, and records which of those it was. Anything it cannot place is returned with char_interval = None so you can filter it out.',
+    kontour: 'Checks that the excerpt appears verbatim in the prepared text, then derives the locator (chars:27-74) from that verified offset. There is no fuzzy tier: an excerpt that is not found exactly is rejected rather than approximated. LangExtract recovers more; Fieldwork never guesses. Both are defensible; neither is free.',
     evidence: claimSources.grounding,
+    extraEvidence: [{ label: 'Pinned upstream aligner (resolver.py) ↗', url: upstreamBlob('langextract/resolver.py') }],
   },
   {
     concern: 'Human review',
-    upstream: 'Provides an interactive HTML view for inspecting extractions in context.',
-    kontour: 'Survey supplies first-class source → extraction → candidate → review records; Fieldwork persists and validates the reviewed workflow before export.',
+    upstream: 'Generates a self-contained interactive HTML file for reading thousands of extractions in their original context.',
+    kontour: 'A local review app where a person accepts or rejects each value. The decision is written and validated by the local server against the record it came from, so it outlives the browser tab that made it.',
     evidence: claimSources.humanReview,
   },
   {
-    concern: 'Recheck and replay',
-    upstream: 'The pinned README describes extraction and visualization; this comparison does not attribute a source-drift workflow to it.',
-    kontour: 'Forage snapshots enable exact replay; Lookout compares proposal observations so changed evidence can become a new review round.',
+    concern: 'Rechecking a source later',
+    upstream: 'Out of scope by design. LangExtract extracts and visualizes; it is not a monitoring tool and does not claim to be.',
+    kontour: 'Content-addressed snapshots make a run exactly replayable, and a later check compares the new proposals against the old ones. Evidence that was added, removed, moved or changed opens a new review round rather than quietly overwriting the old decision.',
     evidence: claimSources.recheckAndReplay,
   },
   {
     concern: 'Reviewed output',
-    upstream: 'Writes extraction results for downstream use and visualization.',
-    kontour: 'After server-owned review, Fieldwork exports a Surface-validated, portable reviewed trust bundle with provenance rather than treating a model response as reviewed truth.',
+    upstream: 'Writes results as JSONL for downstream use, alongside the HTML view.',
+    kontour: 'Exports only after review is finished, and refuses when the review state is unresolved, stale, malformed, tampered or ungrounded. What comes out carries the excerpt, locator, decision and provenance with it.',
     evidence: claimSources.reviewedOutput,
   },
   {
-    concern: 'Runtime posture',
-    upstream: 'Documents cloud and local model options, plus provider extension points.',
-    kontour: 'Relay carries invocations; Dispatch can apply explicit budgets, fallback, and receipts. Those adapters describe execution mechanics, not model quality.',
+    concern: 'Model runtimes',
+    upstream: 'Gemini, Vertex AI, OpenAI, OpenAI-compatible endpoints and local models via Ollama, plus batch modes for large jobs and a plugin system with a community provider registry.',
+    kontour: 'Far fewer runtimes out of the box. What it adds is a capacity ceiling set before the run, ordered fallback between runtimes, and a portable receipt for every call stored with the run. None of that says anything about how good a model is at your task.',
     evidence: claimSources.runtimePosture,
   },
 ];
@@ -84,7 +133,7 @@ const sourceNames: Record<string, string> = {
 
 <Layout
   title="Fieldwork vs. Google LangExtract — a bounded comparison · Kontour AI"
-  description="A source-linked comparison of Fieldwork's reviewed grounded-extraction workflow and Google LangExtract, with explicit evidence and claim limits."
+  description="A source-linked comparison of Fieldwork's reviewed grounded-extraction workflow and Google LangExtract, including where LangExtract is the better choice."
 >
   <Nav active="developers" />
 
@@ -96,17 +145,22 @@ const sourceNames: Record<string, string> = {
       <h1 class="display-xl comparison-hero__title">Grounded extraction that continues through review, recheck, and proof.</h1>
       <p class="hero-copy comparison-hero__copy">
         If the job stops at “find structured fields in text,” these projects
-        occupy similar ground. Fieldwork is for the next question: can a person
-        inspect the excerpt, accept or reject the value, recheck when the source
-        changes, and export proof of the reviewed result?
+        occupy similar ground, and LangExtract is the more mature tool on it.
+        Fieldwork is for the next question: a person has to sign off on the
+        value, and someone will ask six months from now who signed off and what
+        the source said at the time.
       </p>
       <div class="comparison-hero__actions">
-        <a class="btn-primary" href="/fieldwork/">Explore Fieldwork →</a>
+        <a class="btn-primary" href="#pick">Which one fits you →</a>
         <a class="btn-ghost" href={sources.langextract} target="_blank" rel="noopener">Read pinned upstream source ↗</a>
       </div>
       <p class="fine comparison-hero__receipt">
-        Upstream reference pinned to public commit <code>0dff5479</code>. This page compares
-        documented interfaces and repository evidence; it is not a benchmark.
+        Fieldwork is a free Apache-2.0 command-line app for Node 22
+        (<code>npm install @kontourai/fieldwork</code>), currently v{fieldworkVersion}, and it runs
+        without a credential or a network call. LangExtract is a Python library. If you need a
+        Python import, that is a real blocker and this page will not solve it. Every upstream claim
+        below links to public commit <code>{upstreamShort}</code>; live figures such as the star count
+        were checked on {upstreamCheckedOn}. This compares documented and demonstrated behavior. It is not a benchmark.
       </p>
     </div>
   </Section>
@@ -116,16 +170,81 @@ const sourceNames: Record<string, string> = {
       <Eyebrow accent="gold-2">The shared ground</Eyebrow>
       <h2 class="display-md">The overlap is real: source-grounded extraction.</h2>
       <p class="lead measure">
-        Google LangExtract and Kontour's extraction path both make a deliberate move away from
-        untraceable free-form answers: a caller describes a structure, an extraction is tied to
-        source text, and a person can inspect the result. That is the supported equivalence.
+        Google LangExtract and Fieldwork both make the same deliberate move away from untraceable
+        free-form answers: you describe a structure, the extracted value is tied to the text it came
+        from, and a person can go and look. That much is genuinely equivalent.
       </p>
       <p class="body measure">
-        Fieldwork then adds the operating path around that premise: propose the
-        value, inspect the source, record the review, recheck later changes, and
-        export a reviewed trust artifact. That is a workflow and evidence claim,
-        not a claim that one provider or model is generally more accurate.
+        What Fieldwork adds is the loop around it — propose the value, inspect the source, record
+        the decision, recheck when the source changes, export the result with its evidence attached.
+        That is a claim about workflow, not a claim that one model or provider is more accurate than
+        another.
       </p>
+    </div>
+  </Section>
+
+  <Section tone="alt" borderBottom>
+    <div class="container">
+      <Eyebrow accent="green">Where LangExtract wins</Eyebrow>
+      <h2 class="display-md comparison-heading">Four reasons to close this tab and use LangExtract.</h2>
+      <p class="body measure comparison-intro">
+        A comparison page written by one side is worth reading only if it is willing to lose rows.
+        These are the ones we lose.
+      </p>
+      <Grid cols={2} gap="md" class="wins-grid">
+        {langextractWins.map((win) => (
+          <Card accent="green" bar="top" class="win-card">
+            <h3>{win.title}</h3>
+            <p class="body">{win.body}</p>
+            <a href={win.link.url} target="_blank" rel="noopener">{win.link.label}</a>
+          </Card>
+        ))}
+      </Grid>
+      <p class="fine wins-receipt">
+        If any of those decides it for you, LangExtract is the right answer and nothing further down
+        this page will change that.
+      </p>
+    </div>
+  </Section>
+
+  <Section borderBottom>
+    <div class="container">
+      <Eyebrow accent="cobalt-2">What using it looks like</Eyebrow>
+      <h2 class="display-md comparison-heading">Two fields out of a contract, and an export that refuses.</h2>
+      <p class="body measure comparison-intro">
+        A three-line synthetic vendor agreement, the example task that ships in the package, and no
+        credential anywhere. The last command is the point of the whole product: nobody has reviewed
+        these values yet, so there is nothing to export.
+      </p>
+
+      <Terminal title={`fieldwork v${transcriptVersion} · vendor-obligations example · real output`}>
+        <pre class="code"><span class="t-com"># Node 22 · no API key, no network · install output omitted</span>{'\n'}<span class="t-kw">npm</span> install <span class="t-str">@kontourai/fieldwork</span>{'\n'}{'\n'}<span class="t-kw">npx</span> fieldwork run --task task.json --source vendor-agreement.txt --json{'\n'}<span class="t-str">&#123;"ok":true,"apiVersion":"fieldwork.kontourai.io/v1","kind":"FieldworkRunResult",</span>{'\n'}<span class="t-str"> "runDirectory":"…/.fieldwork/runs/run-bc32a8a21fef4afa",</span>{'\n'}<span class="t-str"> "runResource":"fieldwork-run:v1:vendor-obligations:bc32a8a21fef4afa","proposalCount":2&#125;</span>{'\n'}{'\n'}<span class="t-kw">npx</span> fieldwork inspect .fieldwork/runs/run-bc32a8a21fef4afa --include-excerpts --output inspect.json --json{'\n'}<span class="t-str">&#123;"ok":true,"output":"inspect.json"&#125;</span>{'\n'}{'\n'}<span class="t-kw">jq</span> -c '.spec.candidates[] | &#123;field, excerpt, locator: "chars:\(.start)-\(.end)"&#125;' inspect.json{'\n'}<span class="t-str">&#123;"field":"obligation","excerpt":"Obligation: Deliver the monthly security report","locator":"chars:27-74"&#125;</span>{'\n'}<span class="t-str">&#123;"field":"deadline","excerpt":"Deadline: 2027-03-31","locator":"chars:75-95"&#125;</span>{'\n'}{'\n'}<span class="t-kw">npx</span> fieldwork export .fieldwork/runs/run-bc32a8a21fef4afa --output reviewed.json --json{'\n'}<span class="warn">&#123;"ok":false,"error":&#123;"code":"FIELDWORK_ERROR","message":"Export refused: unresolved-review-item, unresolved-review-item"&#125;&#125;</span></pre>
+      </Terminal>
+      <p class="fine terminal-receipt">
+        Verbatim output from <code>@kontourai/fieldwork@{transcriptVersion}</code> run on {transcriptRunOn}, with
+        two edits for length: the absolute <code>runDirectory</code> path is shortened to <code>…</code>,
+        and the first JSON response is wrapped across three lines. Nothing else was changed. Run
+        identifiers are derived from the task and source, so the same inputs reproduce{' '}
+        <code>run-bc32a8a21fef4afa</code> on your machine too.
+      </p>
+
+      <Split ratio="1-1" gap="lg" align="center" class="review-split">
+        <div>
+          <h3 class="review-split__title">Then a person decides.</h3>
+          <p class="body">
+            <code>fieldwork open</code> serves the run on a loopback address. The reviewer sees the
+            proposed value next to the exact sentence it came from and either takes it or does not.
+            The accept is sent to the local server, validated against the record it came from, and
+            stored there — the browser is the interface, not the authority. After that, the export
+            that just refused will succeed and will carry the excerpt, locator and decision with it.
+          </p>
+          <a href={sources.survey} target="_blank" rel="noopener">The review record contract ↗</a>
+        </div>
+        <figure class="product-shot">
+          <img src="/screenshots/fieldwork-review.png" alt="Fieldwork Grounded Review desktop view with a source inspector, extraction evidence for record status, and a Survey review workbench showing an accepted proposal." loading="lazy" />
+          <figcaption>Exact desktop snapshot from Fieldwork’s public browser test: source inspection above the review queue, one proposal accepted, decided on the local server.</figcaption>
+        </figure>
+      </Split>
     </div>
   </Section>
 
@@ -134,8 +253,8 @@ const sourceNames: Record<string, string> = {
       <Eyebrow accent="cobalt-2">Capability map</Eyebrow>
       <h2 class="display-md comparison-heading">A source-linked comparison, row by row.</h2>
       <p class="body measure comparison-intro">
-        The table focuses on what a team can do with the result after extraction,
-        with links to the public source behind each claim.
+        Both columns link to the public source behind the claim. The upstream links all point at the
+        same pinned commit, so you can check us rather than take our word for it.
       </p>
 
       <div class="comparison-table-wrap" tabindex="0" role="region" aria-label="Fieldwork and Google LangExtract comparison table">
@@ -144,7 +263,7 @@ const sourceNames: Record<string, string> = {
             <tr>
               <th scope="col">Concern</th>
               <th scope="col">Google LangExtract</th>
-              <th scope="col">Fieldwork path</th>
+              <th scope="col">Fieldwork</th>
               <th scope="col">Public evidence</th>
             </tr>
           </thead>
@@ -159,6 +278,9 @@ const sourceNames: Record<string, string> = {
                     {row.evidence.map((source) => (
                       <li><a href={source.url} target="_blank" rel="noopener">{sourceNames[source.id]} ↗</a></li>
                     ))}
+                    {(row.extraEvidence ?? []).map((extra) => (
+                      <li><a href={extra.url} target="_blank" rel="noopener">{extra.label}</a></li>
+                    ))}
                   </ul>
                 </td>
               </tr>
@@ -166,6 +288,11 @@ const sourceNames: Record<string, string> = {
           </tbody>
         </table>
       </div>
+      <p class="fine table-receipt">
+        Fieldwork is one app you install once. Traverse, Survey and Lookout in the evidence column
+        are libraries it depends on — not separate installs, and not paid add-ons. If you want the
+        map of how those pieces fit together, it lives on the <a href="/developers/#ownership">developers page</a>.
+      </p>
     </div>
   </Section>
 
@@ -176,21 +303,21 @@ const sourceNames: Record<string, string> = {
       <Grid cols={3} gap="md" class="difference-grid">
         <Card accent="gold-2" bar="top">
           <p class="label-md difference-card__number">01 / Review</p>
-          <h3>First-class human review</h3>
-          <p class="body">Candidates and decisions stay attached to their source and extraction records. A browser approval alone is not the final authority.</p>
-          <a href={sources.survey} target="_blank" rel="noopener">Survey review contract ↗</a>
+          <h3>A decision that outlives the tab</h3>
+          <p class="body">LangExtract’s HTML view is for looking; Fieldwork’s is for deciding. Each accept or reject is sent to the local server, checked against the record it came from, and stored with it.</p>
+          <a href={sources.survey} target="_blank" rel="noopener">Review record contract ↗</a>
         </Card>
         <Card accent="cobalt-2" bar="top">
           <p class="label-md difference-card__number">02 / Change</p>
-          <h3>Drift and replay</h3>
-          <p class="body">Snapshot references and proposal-observation diffs distinguish a changed source from a changed review decision, so work can be re-opened deliberately.</p>
-          <a href={sources.lookout} target="_blank" rel="noopener">Lookout recheck contract ↗</a>
+          <h3>Sources move; rechecks notice</h3>
+          <p class="body">A recheck compares today’s proposals against the ones you already reviewed, and separates “the source changed” from “someone changed their mind,” so work reopens deliberately instead of silently.</p>
+          <a href={sources.lookout} target="_blank" rel="noopener">Recheck contract ↗</a>
         </Card>
         <Card accent="green" bar="top">
-          <p class="label-md difference-card__number">03 / Action</p>
-          <h3>Portable trust, evidence-gated action</h3>
-          <p class="body">A reviewed export carries its provenance into a Surface-validated trust bundle; action remains gated on the evidence the application requires.</p>
-          <a href={sources.fieldwork} target="_blank" rel="noopener">Fieldwork export contract ↗</a>
+          <p class="label-md difference-card__number">03 / Export</p>
+          <h3>An export that refuses</h3>
+          <p class="body">The export you saw fail above refuses on unresolved, stale, malformed, tampered or ungrounded review state. What it does emit carries its excerpts, locators and decisions with it.</p>
+          <a href={sources.fieldwork} target="_blank" rel="noopener">Export contract ↗</a>
         </Card>
       </Grid>
     </div>
@@ -198,51 +325,62 @@ const sourceNames: Record<string, string> = {
 
   <Section tone="alt" borderBottom>
     <div class="container">
-      <Eyebrow accent="red-2">Evidence ceiling</Eyebrow>
-      <h2 class="display-md comparison-heading">What this page does not claim.</h2>
+      <Eyebrow accent="red-2">Before you switch</Eyebrow>
+      <h2 class="display-md comparison-heading">Four things this page cannot tell you.</h2>
       <Grid cols={2} gap="md" class="limits-grid">
         <Card accent="red-2" bar="top" class="limit-card">
-          <h3>No drop-in API compatibility</h3>
-          <p class="body">The public interfaces, languages, and data models differ. Moving between them requires an intentional integration.</p>
+          <h3>You cannot swap one for the other</h3>
+          <p class="body">LangExtract is a Python library you import. Fieldwork is a Node command-line app you run. Moving between them is a rewrite, not a config change — and there is no adapter that makes it one.</p>
         </Card>
         <Card accent="red-2" bar="top" class="limit-card">
-          <h3>No general accuracy or provider superiority</h3>
-          <p class="body">Grounding mechanics, review records, and runtime adapters do not establish that one model, provider, or system is generally more accurate.</p>
+          <h3>Nothing here says either one is more accurate</h3>
+          <p class="body">Locators, review records and runtime adapters are mechanics. They do not establish that one model, provider or system extracts better than another, and we have not run a head-to-head that would.</p>
         </Card>
         <Card accent="red-2" bar="top" class="limit-card">
-          <h3>No multipass-gain claim</h3>
-          <p class="body">The upstream README describes multiple passes for higher recall. Kontour does not claim a recall gain from multipass processing here.</p>
+          <h3>We make no claim about multipass recall</h3>
+          <p class="body">The pinned README describes multiple passes for higher recall. We have not measured that, so we neither confirm nor dispute the gain — we simply have nothing to say about it.</p>
         </Card>
         <Card accent="red-2" bar="top" class="limit-card">
-          <h3>No upstream-suite result</h3>
-          <p class="body">Kontour has not claimed to run or pass Google LangExtract’s exact upstream test suite. Its deterministic fixtures test its own contracts.</p>
-        </Card>
-        <Card accent="red-2" bar="top" class="limit-card">
-          <h3>PDF and OCR are host adapters</h3>
-          <p class="body">PDF parsing and OCR require explicit host-supplied adapters. They are not built-in engines, and an adapter’s existence does not prove extraction quality.</p>
-        </Card>
-        <Card accent="red-2" bar="top" class="limit-card">
-          <h3>Runtime adapters are not a quality score</h3>
-          <p class="body">Relay and Dispatch describe invocation, policy, receipts, budgets, and fallback. They do not prove a model’s quality for a task.</p>
+          <h3>PDFs and scans need an adapter you supply</h3>
+          <p class="body">Fieldwork reviews PDF and OCR output with its page and table-cell context intact, but it ships no parser or OCR engine of its own. Without an adapter the run fails with a typed error, and having one proves nothing about extraction quality.</p>
         </Card>
       </Grid>
       <p class="fine limits-receipt">
-        Evidence tiers: the linked public repositories establish documented interfaces and deterministic mechanics.
-        They do not establish live-provider performance. Fieldwork’s checked-in comparison-neutral oracles retain
-        expected typed values, proposal order, exact excerpts and locators, and reviewed claim evidence.
-        A provider-quality claim would still require a task-specific, independently authored oracle.
+        Everything above is checked against public repositories and frozen test fixtures, so the
+        mechanics are real and you can re-run them. None of it tells you how well a given model will
+        do on your documents. That would take a test set built for your task by someone with no
+        stake in the answer, and neither project has published one for the other.
       </p>
     </div>
   </Section>
 
   <Section>
-    <div class="container container--readable comparison-close">
+    <div class="container comparison-close" id="pick">
       <Eyebrow accent="cobalt-2">Choose the workflow you need</Eyebrow>
-      <h2 class="display-md">Extraction inspection is valuable. So is knowing what happens next.</h2>
-      <p class="lead measure">
-        If your job ends with structured output and source inspection, Google LangExtract’s documented
-        visualization path may be a direct fit. If your job needs reviewed decisions, source rechecks,
-        replayable evidence, and a portable trust export, explore Fieldwork’s review workflow.
+      <h2 class="display-md">So which one?</h2>
+      <Grid cols={2} gap="md" class="pick-grid">
+        <Card accent="green" bar="top" class="pick-card">
+          <h3>Pick LangExtract if…</h3>
+          <p class="body">
+            …you work in Python, your documents run past a few hundred thousand characters, you want to <code>pip install</code> and be
+            extracting inside ten minutes, you need a provider it already supports, or you are
+            publishing research and need something citable.
+          </p>
+        </Card>
+        <Card accent="gold-2" bar="top" class="pick-card">
+          <h3>Pick Fieldwork if…</h3>
+          <p class="body">
+            …a person has to sign off before a value becomes real data, and you will be asked later
+            who signed off and what the source said at the time. Vendor renewals, policy tables,
+            public records, grant eligibility — work where “the model said so” is not an acceptable
+            answer.
+          </p>
+        </Card>
+      </Grid>
+      <p class="lead measure comparison-close__note">
+        Plenty of teams should use LangExtract for the extraction and put a review loop like
+        Fieldwork’s downstream of it. These are not mutually exclusive, and we would rather say so
+        than pretend otherwise.
       </p>
       <div class="comparison-close__actions">
         <a class="btn-primary" href="/fieldwork/">Explore Fieldwork →</a>
@@ -260,9 +398,17 @@ const sourceNames: Record<string, string> = {
   .comparison-hero__title { max-width: 900px; margin: 0.75rem 0 1.5rem; }
   .comparison-hero__copy { max-width: 700px; }
   .comparison-hero__actions, .comparison-close__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; }
-  .comparison-hero__receipt { margin-top: 1.25rem; max-width: 680px; }
+  .comparison-hero__receipt { margin-top: 1.25rem; max-width: 720px; }
   .comparison-heading { margin: 0.5rem 0 1rem; }
   .comparison-intro { margin-bottom: 2rem; }
+  .wins-grid h3, .difference-grid h3, .limits-grid h3, .pick-grid h3 { margin: 0.25rem 0 0.75rem; color: var(--color-chalk); font-family: var(--font-display); font-size: 1.45rem; font-weight: 400; }
+  .wins-grid .body, .difference-grid .body, .limits-grid .body, .pick-grid .body { margin: 0 0 1rem; }
+  .wins-grid a, .difference-grid a { font-size: 0.85rem; }
+  .win-card { min-height: 100%; }
+  .wins-receipt { margin-top: 1.5rem; max-width: 720px; }
+  .terminal-receipt { margin-top: 1rem; max-width: 820px; }
+  .review-split { margin-top: 3rem; }
+  .review-split__title { margin: 0 0 0.75rem; color: var(--color-chalk); font-family: var(--font-display); font-size: 1.6rem; font-weight: 400; }
   .comparison-table-wrap { overflow-x: auto; border: 1px solid var(--color-edge); border-radius: 0.5rem; }
   .comparison-table { width: 100%; min-width: 920px; border-collapse: collapse; text-align: left; }
   .comparison-table th, .comparison-table td { padding: 1.25rem; vertical-align: top; border-bottom: 1px solid var(--color-edge); }
@@ -271,15 +417,14 @@ const sourceNames: Record<string, string> = {
   .comparison-table td { width: 29%; color: var(--color-chalk-2); font-size: 0.9rem; line-height: 1.65; }
   .comparison-table tbody tr:last-child th, .comparison-table tbody tr:last-child td { border-bottom: 0; }
   .source-links { display: grid; gap: 0.45rem; margin: 0; padding: 0; list-style: none; font-size: 0.8rem; }
-  .source-links a, .difference-grid a, .limits-receipt a { color: var(--color-cobalt-2); text-decoration: underline; text-underline-offset: 0.2em; }
-  .difference-grid h3, .limits-grid h3 { margin: 0.25rem 0 0.75rem; color: var(--color-chalk); font-family: var(--font-display); font-size: 1.45rem; font-weight: 400; }
-  .difference-grid .body, .limits-grid .body { margin: 0 0 1rem; }
-  .difference-grid a { font-size: 0.85rem; }
+  .source-links a, .wins-grid a, .difference-grid a, .review-split a, .table-receipt a, .limits-receipt a { color: var(--color-cobalt-2); text-decoration: underline; text-underline-offset: 0.2em; }
+  .table-receipt { margin-top: 1.25rem; max-width: 780px; }
   .difference-card__number { margin: 0; color: var(--accent); }
-  .limits-grid { margin-top: 2rem; }
-  .limit-card { min-height: 100%; }
-  .limits-receipt { margin-top: 1.5rem; max-width: 760px; }
+  .limits-grid, .pick-grid { margin-top: 2rem; }
+  .limit-card, .pick-card { min-height: 100%; }
+  .limits-receipt { margin-top: 1.5rem; max-width: 780px; }
   .comparison-close { padding-bottom: 2rem; }
+  .comparison-close__note { margin-top: 2rem; }
   @media (max-width: 700px) {
     .comparison-hero__title { font-size: clamp(2.65rem, 13vw, 4rem); }
     .comparison-table-wrap { margin-inline: -0.25rem; }

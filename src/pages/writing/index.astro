@@ -1,0 +1,138 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import Section from '@/components/Section.astro';
+import Glow from '@/components/Glow.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+import Card from '@/components/Card.astro';
+import Grid from '@/components/Grid.astro';
+
+// Hand-maintained until there is enough here to warrant a content collection.
+// Each entry has to point at a real page under src/pages/writing/.
+const essays = [
+  {
+    slug: '/writing/llm-proposes-structure-verifies/',
+    title: 'The AI read your tax form. Nothing checked it.',
+    standfirst:
+      "Most AI document tools save whatever the model extracts. We built a tax pipeline where a number can't reach the math until something other than the extractor has confirmed where it came from — and you can run the check yourself.",
+    kicker: 'Worked example',
+    accent: 'gold' as const,
+    published: '2026-07-12',
+    readable: 'July 2026',
+    event: 'writing-index-llm-proposes',
+  },
+];
+---
+
+<Layout
+  title="Writing · Kontour AI"
+  description="Worked examples and arguments from Kontour AI: how to make AI-produced work checkable, and what happens when nothing checks it."
+>
+  <Nav active="developers" />
+
+  <Section contour size="hero" borderBottom>
+    <Glow accent="gold" position="top-right" />
+    <div class="container container--readable">
+      <Eyebrow accent="gold">Writing</Eyebrow>
+      <h1 class="product-title animate-fade-up">Worked examples, not thought leadership.</h1>
+      <p class="hero-copy animate-fade-up delay-200">
+        Pieces we write when something is worked out far enough to show rather
+        than assert — a real mechanism, a command you can run, and the parts
+        that don't work yet stated next to the parts that do. There aren't
+        many, on purpose.
+      </p>
+    </div>
+  </Section>
+
+  <Section size="lg" borderBottom>
+    <div class="container container--readable">
+      <Grid min="320" gap="lg">
+        {essays.map((essay) => (
+          <Card accent={essay.accent} bar="top" pad="lg" data-accent={essay.accent}>
+            <p class="label-sm essay-kicker">{essay.kicker}</p>
+            <h2 class="essay-title">
+              <a href={essay.slug} data-umami-event={essay.event}>{essay.title}</a>
+            </h2>
+            <p class="essay-standfirst">{essay.standfirst}</p>
+            <p class="essay-meta">
+              <time datetime={essay.published}>{essay.readable}</time>
+            </p>
+            <a class="essay-link" href={essay.slug} data-umami-event={`${essay.event}-cta`}>Read it →</a>
+          </Card>
+        ))}
+      </Grid>
+    </div>
+  </Section>
+
+  <Section tone="alt" size="lg" borderTop>
+    <div class="container container--readable">
+      <h2 class="section-heading">Elsewhere on the site</h2>
+      <p class="body measure-lg writing-copy">
+        Most of what we'd otherwise write up lives closer to the thing it
+        describes. The <a href="/receipts/">receipts</a> are real artifacts you
+        can download and recompute rather than read about, and the{' '}
+        <a href="/developers/">developers page</a> is the shortest path from
+        "explain the idea" to "run the command".
+      </p>
+    </div>
+  </Section>
+
+  <Footer active="developers" />
+</Layout>
+
+<style>
+  .essay-kicker {
+    color: var(--accent, var(--color-chalk-3));
+    margin: 0 0 0.75rem;
+  }
+  .essay-title {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 400;
+    line-height: 1.25;
+    margin: 0 0 0.9rem;
+    color: var(--color-chalk);
+  }
+  .essay-title a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .essay-title a:hover {
+    text-decoration: underline;
+  }
+  .essay-standfirst {
+    color: var(--color-chalk-2);
+    line-height: 1.7;
+    margin: 0 0 1.25rem;
+  }
+  .essay-meta {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    color: var(--color-chalk-3);
+    margin: 0 0 1.25rem;
+  }
+  .essay-link {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--accent, var(--color-gold));
+    text-decoration: none;
+  }
+  .essay-link:hover {
+    text-decoration: underline;
+  }
+  .section-heading {
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+    font-weight: 400;
+    color: var(--color-chalk);
+    margin-bottom: 1.2rem;
+  }
+  .writing-copy {
+    margin: 0;
+  }
+  .writing-copy a {
+    color: var(--color-gold);
+  }
+</style>

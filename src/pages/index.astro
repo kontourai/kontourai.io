@@ -21,7 +21,7 @@ const narratorMoments = [
     detail:
       "Long session, compacted context. The agent reports the check it remembers intending to run. Not a liar — an unreliable narrator trusting its own memory.",
     caught:
-      "no capture exists for that command, so the gate re-runs the project's own declared check itself — not the agent's story. A real failure surfaces here.",
+      "nothing in the log shows that command ever ran. If the project declared that check, the gate runs it itself and uses the result — not the agent's memory. If it can't, the claim is marked unverified rather than accepted.",
   },
   {
     moment: 'The summary said pass; the log said fail.',
@@ -34,7 +34,7 @@ const narratorMoments = [
     moment: 'Masked the exit code.',
     detail: 'npm test || true, a trailing exit 0 — the command can no longer fail.',
     caught:
-      'the laundering screen rejects the command as evidence before the claim is even recorded — at the local gate and again in CI.',
+      "a command that masks its own exit code can't stand as evidence: the gate flags the claimed pass as untrustworthy, and CI refuses to reconcile it.",
   },
   {
     moment: 'Edited the evidence record.',
@@ -52,8 +52,8 @@ const narratorMoments = [
 ---
 
 <Layout
-  title="Kontour AI — Ship AI-built code you can stand behind"
-  description="Flow Agents puts gates in the agent loop, so AI-built code earns its merge with evidence a human can check, bound to the sources it stood on."
+  title="Kontour AI — Make your coding agent show its work"
+  description="AI writes more code than anyone can read line by line. Flow Agents puts gates in the loop, so a change arrives with the commands that actually ran and the exit codes they returned — and stops when the agent's story and the log disagree."
 >
   <Nav active="home" />
 
@@ -68,13 +68,14 @@ const narratorMoments = [
         </div>
 
         <h1 class="display-xl animate-fade-up delay-100 hero-title">
-          Ship AI-built code<br />you can stand behind.
+          Make your coding agent<br />show its work.
         </h1>
 
         <p class="lead measure animate-fade-up delay-200 hero-lead">
-          AI agents write more code than anyone can review by hand. Flow Agents
-          puts gates in the loop — every change has to earn its merge with
-          evidence a human can check, not a model's say-so.
+          AI writes more code than anyone can read line by line. Flow Agents
+          puts gates in the loop, so a change arrives with the commands that
+          actually ran and the exit codes they returned — and stops when the
+          agent's story and the log disagree.
         </p>
 
         <div class="animate-fade-up delay-300 hero-actions">
@@ -86,35 +87,16 @@ const narratorMoments = [
     </div>
   </Section>
 
-  <!-- Enforcement framing ------------------------------------------------- -->
+  <!-- Recognition moments: the unreliable narrator (#113) ------------------ -->
   <Section tone="alt" borderTop>
     <Glow accent="cobalt-2" position="top-left" />
-    <div class="container container--readable enforce">
-      <Eyebrow accent="cobalt-2">Enforcement, not suggestion</Eyebrow>
-      <h2 class="display-md enforce__title">
-        Prompts are advice.<br />Gates are laws.
-      </h2>
-      <p class="body measure enforce__copy">
-        A prompt asks an agent to be careful. A gate refuses to let work pass
-        until the evidence is there. Flow Agents runs the plan → build → review →
-        verify loop against gates an agent can't talk its way past — so "done"
-        means checked, not claimed.
-      </p>
-      <div class="enforce__actions">
-        <a href="/flow-agents/" class="btn-ghost" data-umami-event="home-enforce-flow-agents">See the Builder Kit loop →</a>
-      </div>
-    </div>
-  </Section>
-
-  <!-- Recognition moments: the unreliable narrator (#113) ------------------ -->
-  <Section borderTop>
     <div class="container container--readable narrator">
       <Eyebrow accent="gold">The unreliable narrator</Eyebrow>
-      <h2 class="display-md narrator__title">You've watched this happen.</h2>
+      <h2 class="display-md narrator__title">Anyone can say the tests passed.</h2>
       <p class="body measure narrator__copy">
         Agents rarely lie — they narrate. Long session, compacted context, and
-        the story drifts from the log. Five moments every agent user
-        recognizes, and how each one gets caught:
+        the story drifts from the log. You've probably watched all five of
+        these:
       </p>
 
       <ul class="narrator__moments">
@@ -128,14 +110,11 @@ const narratorMoments = [
       </ul>
 
       <p class="fine narrator__residual">
-        Honest residuals: a genuinely-passed check isn't auto-invalidated when
-        the code changes afterward, a narrowed test scope isn't detected, and
-        an edited test slips the runtime gate. We name what isn't caught —
-        <a href="/trust/" data-umami-event="home-narrator-trust">the rest of the honest ceiling is on the trust page</a>.
-      </p>
-
-      <p class="body measure narrator__handoff">
-        The mechanism below is just the answer to "so how was that caught?"
+        Three things this doesn't catch: a check that genuinely passed isn't
+        re-invalidated when the code changes afterward, running one test file
+        instead of the suite looks the same as running the suite, and an
+        edited test slips through the runtime gate.{' '}
+        <a href="/trust/" data-umami-event="home-narrator-trust">The full list of what gets past it →</a>
       </p>
     </div>
   </Section>
@@ -178,48 +157,29 @@ const narratorMoments = [
       </ol>
 
       <p class="body measure mechanism__foot">
-        You don't have to take our word for any of this — this site ships
-        through the same gates. Every change here merges behind a required
-        Trust Verify check, and the published receipts re-derive to the same
-        verdict on any machine, or it's a bug.
+        A prompt asks an agent to be careful; a gate refuses to let the work
+        pass until the evidence is there. In Claude Code and Codex, Flow Agents
+        blocks the turn when a claimed pass and the recorded result disagree —
+        in other runtimes it surfaces the disagreement to you instead of
+        blocking. Either way, CI re-runs the same checks fresh, in an
+        environment the agent never touched, before "done" counts.
       </p>
       <div class="mechanism__actions">
         <a href="/receipts/" class="btn-ghost" data-umami-event="home-mechanism-receipts">Recompute a receipt yourself →</a>
-        <a href="/trust/" class="btn-ghost" data-umami-event="home-mechanism-trust">See the honest ceiling →</a>
       </div>
     </div>
   </Section>
 
-  <!-- Survey proof story (subordinate to the hero) ------------------------ -->
+  <!-- Dogfood + peak-conviction dual CTA (#109) ---------------------------- -->
   <Section tone="alt" borderTop>
-    <div class="container proof">
-      <Eyebrow accent="gold">The proof</Eyebrow>
-      <h2 class="display-md proof__title">
-        Grounded claims, not confident guesses.
-      </h2>
-      <p class="body measure proof__copy">
-        Flow Agents is the discipline; <strong>Survey</strong> is the receipts.
-        Survey runs real pipelines — an outdoor-recreation directory and a
-        document-heavy public-filing workflow — that turn raw sources into
-        claims bound to their evidence, so every answer can show what it stood
-        on instead of asking you to trust the tone.
-      </p>
-
-      <blockquote class="proof__pull">
-        Memory tells the agent what it knows. Kontour proves what its answers
-        stood on.
-      </blockquote>
-
-      <div class="proof__actions">
-        <a href="/survey/" class="btn-ghost" data-umami-event="home-proof-survey">How Survey produces claims →</a>
-        <a href="/receipts/" class="btn-ghost" data-umami-event="home-proof-receipts">Check the receipts yourself →</a>
-      </div>
-    </div>
-  </Section>
-
-  <!-- Peak-conviction dual CTA (#109): after the proof, fork both readers -- -->
-  <Section borderTop>
     <div class="container container--readable fork">
+      <p class="body measure fork__lead">
+        You don't have to take our word for any of this — this site ships
+        through the same gates. Every change here merges behind a required
+        check that re-runs this repo's own verification in CI and, when an
+        agent published its claims, fails on any disagreement with what CI
+        actually observed.
+      </p>
       <div class="fork__paths">
         <div class="fork__path" data-accent="gold">
           <p class="label-sm fork__label">Convinced?</p>
@@ -232,8 +192,8 @@ const narratorMoments = [
         <div class="fork__path" data-accent="cobalt-2">
           <p class="label-sm fork__label">Skeptical? Good.</p>
           <p class="body fork__copy">
-            The trust page leads with what we <em>can't</em> certify — the honest
-            ceiling, and three ways to cheat the gate.
+            The trust page leads with what we <em>can't</em> certify — and
+            four ways to cheat the gate.
           </p>
           <a href="/trust/" class="btn-ghost" data-umami-event="home-fork-trust">See how to cheat it →</a>
         </div>
@@ -241,39 +201,33 @@ const narratorMoments = [
     </div>
   </Section>
 
-  <!-- Promise ------------------------------------------------------------- -->
-  <Section borderTop>
-    <div class="container container--readable promise">
-      <Eyebrow accent="gold">The promise</Eyebrow>
-      <h2 class="display-md promise__title">
-        Evidence-backed confidence.<br />Not certainty theater.
-      </h2>
-      <p class="body measure promise__copy">
-        We can't certify that an agent is right — no one can. What Kontour does
-        is make what an answer stood on, and what it skipped, visible and
-        attributable instead of hidden behind a green checkmark.
-      </p>
-    </div>
-  </Section>
-
-  <!-- Beyond code: the discipline generalizes ------------------------------ -->
+  <!-- Beyond code: the same rule on work that isn't code ------------------- -->
   <Section borderTop>
     <div class="container container--readable beyond">
       <Eyebrow accent="cobalt-2">Beyond code</Eyebrow>
       <h2 class="display-md beyond__title">Any work with a definition of done.</h2>
       <p class="body measure beyond__copy">
-        Code is where we prove the discipline in public — it's the hardest
-        adversary and our own daily dogfood. But the mechanism never asks what
-        the work is. Legal intake, insurance evidence gathering,
-        customer-service follow-through, research synthesis, investment
-        decisioning: if "done" can be written down as checks, an agent can be
-        gated on it — and the result arrives with receipts instead of
-        reassurance. It's not hypothetical, either: our reference tax pipeline
-        files real returns under the same rule — no fact reaches the math
-        until it survives a gate.
+        A paralegal checks that every fact in an intake summary traces to a
+        document in the file. An adjuster checks that a claim's evidence was
+        actually collected, not assumed. Neither of those is code — but both
+        are a list of checks, and anything that can be written down as checks
+        can be gated the same way. The result arrives with the record of what
+        was checked, and what wasn't.
+      </p>
+      <p class="body measure beyond__copy">
+        We run this on our own tax filings. On the paths that check it, an
+        extracted figure that can't point to the words it came from is dropped
+        before it ever reaches the math.
+      </p>
+      <p class="body measure beyond__copy">
+        Facts need the same chain code does. <strong>Survey</strong> is the
+        record format for it: an extracted value stays tied to the page it came
+        from, the alternatives that lost, and the reviewer who decided — so an
+        answer built on it can show what it stood on instead of asking you to
+        trust the tone.
       </p>
       <div class="beyond__actions">
-        <a href="/early-access/" class="btn-ghost" data-umami-event="home-beyond-early-access">Bring us a process →</a>
+        <a href="/survey/" class="btn-ghost" data-umami-event="home-proof-survey">How Survey produces claims →</a>
         <a href="/writing/llm-proposes-structure-verifies/" class="btn-ghost" data-umami-event="home-beyond-writing">Read the worked example →</a>
       </div>
     </div>
@@ -292,7 +246,7 @@ const narratorMoments = [
       </p>
       <Subscribe source="home" cta="Get early access" event="home-subscribe" />
       <p class="cta__alt">
-        Developer? Two commands — install the engine, verify a receipt — on the
+        Developer? Two commands — install the engine, verify a receipt — on the{' '}
         <a href="/developers/" class="cta__alt-link" data-umami-event="home-cta-developers">developers page →</a>
       </p>
     </div>
@@ -323,19 +277,6 @@ const narratorMoments = [
     gap: 0.75rem;
     flex-wrap: wrap;
     align-items: center;
-  }
-
-  /* Enforcement ---------------------------------------------------------- */
-  .enforce__title {
-    margin-bottom: 1.25rem;
-  }
-  .enforce__copy {
-    margin-bottom: 2rem;
-  }
-  .enforce__actions {
-    display: flex;
-    gap: 0.75rem;
-    flex-wrap: wrap;
   }
 
   /* Recognition moments (#113) ------------------------------------------- */
@@ -377,15 +318,11 @@ const narratorMoments = [
     margin-right: 0.35rem;
   }
   .narrator__residual {
-    margin: 0 0 1.75rem;
+    margin: 0;
     max-width: 72ch;
     color: var(--color-chalk-2);
   }
   .narrator__residual a {
-    color: var(--color-chalk-2);
-  }
-  .narrator__handoff {
-    margin: 0;
     color: var(--color-chalk-2);
   }
 
@@ -420,35 +357,10 @@ const narratorMoments = [
     flex-wrap: wrap;
   }
 
-  /* Survey proof --------------------------------------------------------- */
-  .proof__title {
-    margin-bottom: 1.25rem;
+  /* Dogfood + peak-conviction fork (#109) -------------------------------- */
+  .fork__lead {
+    margin-bottom: 2.5rem;
   }
-  .proof__copy {
-    margin-bottom: 2rem;
-  }
-  .proof__copy strong {
-    color: var(--color-chalk);
-    font-weight: 500;
-  }
-  .proof__pull {
-    margin: 0 0 2rem;
-    padding: 1.1rem 1.5rem;
-    border-left: 3px solid var(--color-gold);
-    background: var(--color-ink-2);
-    font-family: var(--font-display);
-    font-size: 1.15rem;
-    line-height: 1.5;
-    color: var(--color-chalk);
-    max-width: 680px;
-  }
-  .proof__actions {
-    display: flex;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-  }
-
-  /* Peak-conviction fork (#109) ------------------------------------------ */
   .fork__paths {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -467,23 +379,19 @@ const narratorMoments = [
     max-width: 46ch;
   }
 
-  /* Promise + CTA -------------------------------------------------------- */
-  .promise {
-    text-align: center;
-  }
-  .promise__title {
-    margin-bottom: 1.25rem;
-  }
-  .promise__copy {
-    margin: 0 auto;
-  }
-
   /* Beyond code ----------------------------------------------------------- */
   .beyond__title {
     margin-bottom: 1.25rem;
   }
   .beyond__copy {
+    margin-bottom: 1.5rem;
+  }
+  .beyond__copy:last-of-type {
     margin-bottom: 2rem;
+  }
+  .beyond__copy strong {
+    color: var(--color-chalk);
+    font-weight: 500;
   }
   .beyond__actions {
     display: flex;

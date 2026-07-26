@@ -1,0 +1,520 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import Terminal from '@/components/Terminal.astro';
+import Section from '@/components/Section.astro';
+import Glow from '@/components/Glow.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+import Card from '@/components/Card.astro';
+import Grid from '@/components/Grid.astro';
+import Split from '@/components/Split.astro';
+import type { Accent } from '@/lib/theme';
+import pkg from '../../package.json';
+import notReadyBundle from '@/data/receipts/governance-readiness-not-ready.trust.bundle.json';
+
+// Same drift-proofing discipline as /receipts/: every command on this page
+// renders the exact versions pinned in package.json, and every block of output
+// below was produced by running that pinned stack against the bundles in
+// src/data/receipts/ (served byte-identical from public/receipts/). If a pin
+// moves, the advertised command moves with it and the output must be re-run.
+const hachurePin = pkg.devDependencies.hachure;
+const ajvPin = pkg.devDependencies.ajv;
+const surfacePin = pkg.dependencies['@kontourai/surface'];
+
+// The claim id both implementations independently derive a verdict for. Read
+// from the committed bundle rather than transcribed, so the page can't drift
+// from the artifact a visitor downloads.
+const notReadyClaims = (notReadyBundle as { claims: { id: string; status: string }[] }).claims;
+const notReadyClaim = notReadyClaims.find((c) => c.status === 'disputed');
+if (!notReadyClaim) {
+  throw new Error('hachure page: governance-readiness-not-ready bundle no longer carries a disputed claim');
+}
+const notReadyClaimId = notReadyClaim.id;
+
+const givesYou: { title: string; body: string; accent: Accent }[] = [
+  {
+    title: 'Check it without us',
+    accent: 'gold',
+    body: "The schemas, the status algorithm, and the conformance vectors are published. Anyone can write a checker and prove it agrees — the vectors exist so an independent implementation can demonstrate it derives the same answers we do.",
+  },
+  {
+    title: 'Keep it after us',
+    accent: 'green',
+    body: "A receipt is a JSON file against an MIT-licensed public schema. If you stop using Kontour — or Kontour stops existing — every receipt you already hold stays readable, and the schema it is checked against isn't ours to withdraw.",
+  },
+  {
+    title: 'Emit it beside us',
+    accent: 'cobalt-2',
+    body: "Your pipeline can produce bundles our tools read on exactly the same terms as our own. There is no privileged producer: a bundle from your CI merges with a bundle from ours, and collisions surface instead of one side quietly winning.",
+  },
+];
+
+const levels: { level: string; title: string; body: string; accent: Accent }[] = [
+  {
+    level: 'L0',
+    title: 'The producer says so',
+    accent: 'chalk-2',
+    body: "Nothing is signed. You are trusting whoever handed you the file and the channel it arrived over. This is the default, and an unsigned bundle is a valid bundle — not a degraded one. It is also why you can start today: writing a receipt costs you a JSON file.",
+  },
+  {
+    level: 'L1',
+    title: 'Signed by a CI identity',
+    accent: 'gold',
+    body: "A short-lived key issued to a specific workflow or account at the moment of signing. It shows which CI run produced the receipt — as far as you trust that CI provider's identity service. The signature can also be written to a public transparency log, though the format doesn't require it.",
+  },
+  {
+    level: 'L2',
+    title: 'Signed by a key you hold',
+    accent: 'green',
+    body: "A long-lived key in your own key-management system. For environments that can't lean on a public identity provider — air-gapped networks, internal PKI, regulated deployments. You distribute the public key yourself; the format deliberately doesn't specify how.",
+  },
+];
+
+const links: { title: string; href: string; body: string; event: string; accent: Accent; external?: boolean }[] = [
+  {
+    title: 'The specification',
+    href: 'https://github.com/hachure-org/spec',
+    body: 'Normative JSON schemas, the status function, merge rules, the assurance profile, and interop notes for in-toto, SCITT, and OSCAL. MIT.',
+    event: 'hachure-spec',
+    accent: 'gold',
+    external: true,
+  },
+  {
+    title: 'hachure.org',
+    href: 'https://hachure.org',
+    body: "The format's own site: the three verbs, the status function walked through, and a worked recompute example.",
+    event: 'hachure-org',
+    accent: 'cobalt-2',
+    external: true,
+  },
+  {
+    title: 'hachure on npm',
+    href: 'https://www.npmjs.com/package/hachure',
+    body: 'The schemas, the conformance vectors, and the reference CLI in one dependency-free package.',
+    event: 'hachure-npm',
+    accent: 'green',
+    external: true,
+  },
+  {
+    title: 'hachure-action',
+    href: 'https://github.com/hachure-org/hachure-action',
+    body: 'A GitHub Action that turns a CI command into a trust.bundle — the shortest path from a check you already run to a receipt.',
+    event: 'hachure-action',
+    accent: 'chalk-2',
+    external: true,
+  },
+  {
+    title: 'Kontour receipts',
+    href: '/receipts/',
+    body: 'The bundles used on this page, downloadable as raw files, each rendered from its actual contents.',
+    event: 'hachure-receipts',
+    accent: 'gold',
+  },
+];
+---
+
+<Layout
+  title="Hachure — the open trust.bundle format · Kontour AI"
+  description="Hachure is the open, MIT-licensed format Kontour's receipts are written in. Two independent codebases read the same file, the verdict is a function you can re-run yourself, and signing is a dial that starts at zero."
+>
+  <Nav />
+
+  <!-- Hero -->
+  <Section contour size="hero" borderBottom>
+    <Glow accent="gold" position="top-left" />
+    <div class="container">
+      <Split ratio="1-1" gap="lg" align="start">
+        <div>
+          <div class="hero-badges">
+            <span class="trust-badge trust-badge--verified">hachure {hachurePin} · MIT · pre-1.0</span>
+            <span class="install-hint">npm i hachure</span>
+          </div>
+
+          <h1 class="product-title animate-fade-up">Hachure</h1>
+          <p class="product-tagline animate-fade-up delay-100" data-accent="gold">the receipt format we don't own</p>
+
+          <p class="hero-copy animate-fade-up delay-200">
+            An agent says it verified the change. Kontour hands you a receipt
+            saying the same thing. Why should the receipt be worth more than the
+            agent's word? Only one answer survives contact with a skeptic:
+            because checking it doesn't require us. Our receipts are written in
+            Hachure — a format with its own spec repo, its own MIT licence, and
+            two implementations that share no code. If Kontour disappeared
+            tomorrow, every receipt we ever produced would still be readable,
+            and the schemas and test vectors needed to check them would still be
+            sitting in a public repo under a licence we can't revoke.
+          </p>
+
+          <div class="hero-actions animate-fade-up delay-300">
+            <a href="https://github.com/hachure-org/spec" target="_blank" rel="noopener" class="btn-primary" data-umami-event="hachure-hero-spec">Read the spec →</a>
+            <a href="https://hachure.org" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="hachure-hero-site">hachure.org</a>
+          </div>
+        </div>
+
+        <Terminal class="animate-fade-in delay-300" title="two programs, one file">
+          <p class="muted"># a real receipt from /receipts/, checked by the format's own CLI</p>
+          <p><span class="prompt">$ </span><span class="cmd">npx -y -p ajv@{ajvPin} -p hachure@{hachurePin} hachure validate \</span></p>
+          <p><span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;governance-readiness-ready.trust.bundle</span></p>
+          <p class="pass">valid TrustBundle (schemaVersion 5)</p>
+          <br />
+          <p class="muted"># the same file, read by a separate implementation</p>
+          <p><span class="prompt">$ </span><span class="cmd">npx -y @kontourai/surface@{surfacePin} report --format summary \</span></p>
+          <p><span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;--input governance-readiness-ready.trust.bundle</span></p>
+          <p class="info">Kontour Surface report surface-1785016929678</p>
+          <p class="muted">Source: veritas-governance-kit/readiness-adapter</p>
+          <p>Claims: 1 (<span class="pass">verified: 1</span>)</p>
+          <p class="muted">Facets: veritas.readiness: 1</p>
+          <p class="muted">High-impact unsupported: none</p>
+          <p class="muted">Stale: none</p>
+          <p class="muted">Recompute needed: none</p>
+          <p class="muted">Disputed: none</p>
+          <p class="muted">Claim groups: 0</p>
+          <p class="muted">Transparency gaps: 0</p>
+        </Terminal>
+      </Split>
+    </div>
+  </Section>
+
+  <!-- Why we gave it away -->
+  <Section size="lg" borderBottom>
+    <div class="container container--readable">
+      <Eyebrow accent="gold">Why we gave it away</Eyebrow>
+      <h2 class="display-md measure-lg h-heading">A receipt you can only check with our software isn't a receipt.</h2>
+      <p class="body h-lead">
+        Every vendor selling trust has the same conflict of interest: it defines
+        the record, it writes the checker, and it grades its own homework. You
+        can read its dashboard. You cannot independently reproduce it. When the
+        dashboard and reality disagree, the dashboard wins, because the dashboard
+        is the only thing that can read the file.
+      </p>
+      <p class="body h-lead">
+        So we don't own the record. Hachure lives in its own org under its own
+        MIT licence, with normative schemas, a versioned status algorithm, and a
+        conformance suite anyone can run against their own implementation. The
+        spec names Kontour AI as the originator — and that's the extent of our
+        control. We can't quietly redefine what a receipt means, because doing
+        it means changing a public spec that other implementations are pinned to.
+      </p>
+      <p class="body h-lead h-lead--last">
+        That constraint is the product. It's the only thing that makes "check
+        this without trusting us" a statement rather than a slogan.
+      </p>
+
+      <Grid cols={3} gap="lg" class="h-gives">
+        {givesYou.map(({ title, body, accent }) => (
+          <Card accent={accent} bar="top" pad="md">
+            <h3 class="feature-title">{title}</h3>
+            <p class="feature-body">{body}</p>
+          </Card>
+        ))}
+      </Grid>
+    </div>
+  </Section>
+
+  <!-- Two implementations -->
+  <Section tone="alt" borderTop borderBottom size="lg">
+    <div class="container container--readable">
+      <Eyebrow accent="cobalt-2">Two implementations, one file</Eyebrow>
+      <h2 class="display-md measure-lg h-heading">The second opinion has to be a second implementation.</h2>
+      <p class="body h-lead">
+        <span class="mono-inline">hachure</span> is the reference CLI, shipped in
+        the spec's own npm package: a dependency-free implementation of
+        validation, status derivation, and merge. <span class="mono-inline">@kontourai/surface</span> is Kontour's
+        implementation — a separate codebase, also dependency-free, with its own
+        validator and its own status deriver. Neither package imports the other
+        or shares a line with it. Both declare the same algorithm revision, <span class="mono-inline">statusFunctionVersion 2</span>, which is what the spec actually pins
+        conformance to.
+      </p>
+      <p class="body h-lead">
+        Worth saying out loud: both of those trace back to us. We wrote Surface
+        and we originated the reference CLI. Two codebases that can't share a
+        bug is a real check, and it is a weaker one than a stranger's. The
+        vectors are published precisely so somebody else can build the third —
+        and until that exists, this is a second opinion, not an outside audit.
+      </p>
+      <p class="body h-lead h-lead--last">
+        This page previously described <span class="mono-inline">ajv</span> as
+        the second, independent opinion in the validate command. That was wrong,
+        and it's worth showing why rather than quietly deleting it. <span class="mono-inline">ajv</span> is the schema engine <span class="mono-inline">hachure validate</span> imports. The command
+        pins it because hachure needs it — not because it is a separate check:
+      </p>
+
+      <Terminal title="ajv is hachure's engine, not its auditor">
+        <p><span class="prompt">$ </span><span class="cmd">npx -y -p hachure@{hachurePin} hachure validate \</span></p>
+        <p><span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;governance-readiness-not-ready.trust.bundle</span></p>
+        <p class="fail">hachure: validate requires ajv — install it with: npm i ajv</p>
+        <p class="muted"># exit 1</p>
+      </Terminal>
+
+      <p class="body h-after-terminal">
+        A real second opinion is a program that read the spec and not our code.
+        Here are both, refusing the same damaged file — one required field
+        removed from a local copy of a receipt. Different codebases, different
+        wording, same refusal, both exit 1.
+      </p>
+
+      <Terminal title="both implementations refuse the same malformed bundle">
+        <p class="muted"># claims[0].claimType deleted from a local copy</p>
+        <p><span class="prompt">$ </span><span class="cmd">npx -y -p ajv@{ajvPin} -p hachure@{hachurePin} hachure validate malformed.trust.bundle</span></p>
+        <p class="fail">invalid TrustBundle:</p>
+        <p class="fail">&nbsp;&nbsp;/claims/0 must have required property 'claimType'</p>
+        <p class="muted"># exit 1</p>
+        <br />
+        <p><span class="prompt">$ </span><span class="cmd">npx -y @kontourai/surface@{surfacePin} report --input malformed.trust.bundle --format summary</span></p>
+        <p class="fail">Missing required string field: claimType</p>
+        <p class="muted"># exit 1</p>
+      </Terminal>
+    </div>
+  </Section>
+
+  <!-- Recompute -->
+  <Section borderTop size="lg">
+    <div class="container container--readable">
+      <Eyebrow accent="green">Recompute it yourself</Eyebrow>
+      <h2 class="display-md measure-lg h-heading">The verdict isn't a field. It's a function.</h2>
+      <p class="body h-lead">
+        A bundle does carry a status on each claim, but that value is a
+        convenience, not the authority. In Hachure, status is a pure function of
+        the evidence in the bundle and a timestamp you supply. Run the function
+        and you get the verdict yourself — same evidence in, same verdict out, on
+        any conforming implementation, at any moment you name.
+      </p>
+
+      <Terminal title="hachure derive — a blocked verdict, recomputed">
+        <p><span class="prompt">$ </span><span class="cmd">npx -y -p ajv@{ajvPin} -p hachure@{hachurePin} hachure derive \</span></p>
+        <p><span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;governance-readiness-not-ready.trust.bundle --now 2026-07-25T12:00:00Z</span></p>
+        <p class="muted">&#123;</p>
+        <p class="muted">&nbsp;&nbsp;"statusFunctionVersion": "2",</p>
+        <p class="muted">&nbsp;&nbsp;"evaluatedAt": "2026-07-25T12:00:00.000Z",</p>
+        <p class="muted">&nbsp;&nbsp;"statusByClaimId": &#123;</p>
+        <p class="claim-id">&nbsp;&nbsp;&nbsp;&nbsp;"{notReadyClaimId}": <span class="warn">"disputed"</span></p>
+        <p class="muted">&nbsp;&nbsp;&#125;</p>
+        <p class="muted">&#125;</p>
+      </Terminal>
+
+      <p class="body h-after-terminal">
+        Which is why editing the stored verdict buys nothing. Take a local copy
+        of that same receipt and hand-edit its claim status from <span class="mono-inline">disputed</span> to <span class="mono-inline">verified</span>. The file is still perfectly
+        schema-valid — nothing about it is corrupt. And both implementations
+        still derive <span class="mono-inline">disputed</span>, because the
+        evidence didn't change:
+      </p>
+
+      <Terminal title="the stored status is not the answer">
+        <p class="muted"># claims[0].status hand-edited: disputed → verified</p>
+        <p><span class="prompt">$ </span><span class="cmd">npx -y -p ajv@{ajvPin} -p hachure@{hachurePin} hachure validate tampered.trust.bundle</span></p>
+        <p class="pass">valid TrustBundle (schemaVersion 5)</p>
+        <br />
+        <p><span class="prompt">$ </span><span class="cmd">npx -y -p ajv@{ajvPin} -p hachure@{hachurePin} hachure derive \</span></p>
+        <p><span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;tampered.trust.bundle --now 2026-07-25T12:00:00Z</span></p>
+        <p class="muted">&#123;</p>
+        <p class="muted">&nbsp;&nbsp;"statusFunctionVersion": "2",</p>
+        <p class="muted">&nbsp;&nbsp;"evaluatedAt": "2026-07-25T12:00:00.000Z",</p>
+        <p class="muted">&nbsp;&nbsp;"statusByClaimId": &#123;</p>
+        <p class="claim-id">&nbsp;&nbsp;&nbsp;&nbsp;"{notReadyClaimId}": <span class="warn">"disputed"</span></p>
+        <p class="muted">&nbsp;&nbsp;&#125;</p>
+        <p class="muted">&#125;</p>
+        <br />
+        <p><span class="prompt">$ </span><span class="cmd">npx -y @kontourai/surface@{surfacePin} report --input tampered.trust.bundle --format summary</span></p>
+        <p class="info">Kontour Surface report surface-1785016942237</p>
+        <p class="muted">Source: veritas-governance-kit/readiness-adapter</p>
+        <p>Claims: 1 (<span class="warn">disputed: 1</span>)</p>
+        <p class="muted">Facets: veritas.readiness: 1</p>
+        <p class="muted">High-impact unsupported: none</p>
+        <p class="muted">Stale: none</p>
+        <p class="muted">Recompute needed: none</p>
+        <p class="claim-id">Disputed: <span class="warn">{notReadyClaimId}</span></p>
+        <p class="muted">Claim groups: 0</p>
+        <p class="warn">Transparency gaps: 1</p>
+      </Terminal>
+
+      <p class="body h-after-terminal h-lead--last">
+        That is what tamper-evident means in practice: editing the file doesn't
+        change what the file derives to. It is not tamper-proof. Someone who can
+        rewrite the evidence records — not just the verdict — will get a
+        different answer out, and nothing in an unsigned bundle stops them.
+        Signing is where that bar goes up, and it's the next section, including
+        where it stops.
+      </p>
+    </div>
+  </Section>
+
+  <!-- Conformance vectors -->
+  <Section tone="alt" borderTop borderBottom>
+    <div class="container">
+      <Split ratio="1-1" gap="md" align="center">
+        <div>
+          <Eyebrow accent="chalk-2">Proving an implementation</Eyebrow>
+          <h2 class="display-md h-heading">Nine vectors decide whether your deriver agrees.</h2>
+          <p class="body h-lead">
+            The spec ships the test cases, not just the prose. Each vector is an
+            input bundle, a timestamp, and the statuses a conforming
+            implementation has to derive from them — expired freshness windows,
+            revoked events, blocking disputes, resolved authorities. Passing all
+            of them for a given algorithm revision is the spec's stated bar for
+            conformance, and it's how a team writing their own checker proves it
+            agrees with ours without asking us.
+          </p>
+          <p class="body h-lead h-lead--last">
+            These nine cover status derivation; four more, covering how bundles
+            from different producers merge, ship alongside them. All of it is
+            inside the npm package, so running the suite is one command with
+            nothing cloned.
+          </p>
+        </div>
+
+        <Terminal title="hachure vectors">
+          <p><span class="prompt">$ </span><span class="cmd">npx -y -p ajv@{ajvPin} -p hachure@{hachurePin} hachure vectors</span></p>
+          <br />
+          <p class="pass">&nbsp;&nbsp;PASS sf-authority-resolved</p>
+          <p class="pass">&nbsp;&nbsp;PASS sf-disputed-blocking</p>
+          <p class="pass">&nbsp;&nbsp;PASS sf-expired-window</p>
+          <p class="pass">&nbsp;&nbsp;PASS sf-no-freshness-fields</p>
+          <p class="pass">&nbsp;&nbsp;PASS sf-reference-bundle-snapshot</p>
+          <p class="pass">&nbsp;&nbsp;PASS sf-revoked-event</p>
+          <p class="pass">&nbsp;&nbsp;PASS sf-runtime-observation-required</p>
+          <p class="pass">&nbsp;&nbsp;PASS sf-stale-duration</p>
+          <p class="pass">&nbsp;&nbsp;PASS sf-verified-commit</p>
+          <p class="info">all 9 vectors pass (statusFunctionVersion "2")</p>
+        </Terminal>
+      </Split>
+    </div>
+  </Section>
+
+  <!-- Signing dial -->
+  <Section borderTop size="lg">
+    <div class="container container--readable">
+      <Eyebrow accent="gold">How strongly it's signed</Eyebrow>
+      <h2 class="display-md measure-lg h-heading">Start unsigned in five minutes. Turn the dial up as the stakes rise.</h2>
+      <p class="body h-lead h-lead--last">
+        Signing is a dial, not a gate. An unsigned bundle is a valid bundle —
+        forever, by design — because a format nobody can afford to adopt protects
+        nobody. When "the producer says so" stops being enough, there are two
+        more notches, and each is a strict superset of the one below it.
+      </p>
+
+      <Grid cols={3} gap="lg" class="h-levels">
+        {levels.map(({ level, title, body, accent }) => (
+          <Card accent={accent} bar="top" pad="md">
+            <div class="level__tag">{level}</div>
+            <h3 class="feature-title">{title}</h3>
+            <p class="feature-body">{body}</p>
+          </Card>
+        ))}
+      </Grid>
+
+      <p class="body h-after-terminal">
+        Worth being exact about what any of that gets you. A Hachure receipt is
+        tamper-evident locally — change the file and the recomputed verdict tells
+        on you. It is tamper-resistant only up to the identity boundary of
+        whatever signed it: at L1 that boundary is your CI provider, and anyone
+        who can forge that workflow identity can forge the signature. And none of
+        it says the work was good. It says what evidence existed and what verdict
+        that evidence derives to.
+      </p>
+      <p class="body h-after-terminal h-lead--last">
+        The format is also pre-1.0, in its own words: hard versioning, no
+        compatibility promises yet. Breaking changes bump the schema version
+        outright rather than shipping compatibility shims — the bundles on this
+        page declare <span class="mono-inline">schemaVersion 5</span> while the
+        spec is already at 7, and the current validator still accepts 5, 6, and
+        7. Pin your version. That's the trade for a format still moving fast
+        enough to be worth adopting.
+      </p>
+    </div>
+  </Section>
+
+  <!-- Where to go -->
+  <Section tone="alt" borderTop>
+    <div class="container">
+      <Eyebrow gap="lg">Where to go next</Eyebrow>
+      <Grid min="280" gap="md">
+        {links.map(({ title, href, body, event, accent, external }) => (
+          <Card accent={accent} bar="bottom" pad="sm">
+            <a
+              class="link-card__title"
+              href={href}
+              data-accent={accent}
+              data-umami-event={event}
+              target={external ? '_blank' : undefined}
+              rel={external ? 'noopener' : undefined}
+            >{title} →</a>
+            <p class="feature-body">{body}</p>
+          </Card>
+        ))}
+      </Grid>
+    </div>
+  </Section>
+
+  <Section size="note" borderTop>
+    <div class="container">
+      <p class="closing-note">
+        Every bundle used on this page is a real receipt from one of Kontour's
+        own pipelines, committed to this site's repo and served byte-identical
+        for download. Take one and run the commands above — the verdicts you get
+        should be the verdicts you just read.
+      </p>
+    </div>
+  </Section>
+
+  <Footer />
+</Layout>
+
+<style>
+  .h-heading {
+    margin-bottom: 1.5rem;
+  }
+  .h-lead {
+    margin-bottom: 1.5rem;
+  }
+  .h-lead--last {
+    margin-bottom: 0;
+  }
+  .h-after-terminal {
+    margin: 2rem 0 1.5rem;
+  }
+  .h-gives,
+  .h-levels {
+    margin-top: 3rem;
+  }
+
+  .level__tag {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--accent, var(--color-chalk-3));
+    letter-spacing: 0.08em;
+    margin-bottom: 0.6rem;
+  }
+
+  /* Claim ids are long by design (they encode the subject). The tools print
+     them on one line, so keep them on one line and let the terminal's own
+     horizontal scroll absorb the width rather than wrapping mid-hash. */
+  .claim-id {
+    overflow-wrap: anywhere;
+    color: var(--color-chalk-3);
+  }
+
+  .link-card__title {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--accent, var(--color-chalk));
+    text-decoration: none;
+    margin-bottom: 0.6rem;
+    letter-spacing: 0;
+  }
+  .link-card__title:hover {
+    text-decoration: underline;
+  }
+
+  .closing-note {
+    color: var(--color-chalk-3);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    font-style: italic;
+    margin: 0;
+    max-width: 760px;
+  }
+</style>

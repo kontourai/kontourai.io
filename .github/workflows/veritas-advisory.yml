@@ -32,7 +32,7 @@ jobs:
             BASE_SHA="$(git rev-parse HEAD^)"
           fi
           set +e
-          npm exec --yes --package=@kontourai/veritas@1.5.2 -- veritas readiness \
+          npm exec --yes --package=@kontourai/veritas@1.5.3 -- veritas readiness \
             --check evidence \
             --run-id "github-${{ github.run_id }}" \
             --source-ref "${{ github.event_name }}:${{ github.ref }}" \

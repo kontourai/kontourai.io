@@ -25,35 +25,15 @@ const pipeline = [
 ];
 
 const reviewBenefits: { title: string; accent: Accent; items: string[] }[] = [
-  { title: 'Everything needed to decide', accent: 'gold-2', items: ['The value being proposed', 'The exact source and locator', 'Competing candidates side by side', 'Reviewer notes, actor, and time', 'A clear accepted, rejected, or held outcome'] },
+  { title: 'Everything needed to decide', accent: 'gold-2', items: ['The value being proposed', 'The exact source and locator', 'Competing candidates side by side', 'Reviewer notes, actor, and time', 'Accept, keep current, reject, or could not confirm'] },
   { title: 'Fits the review you already run', accent: 'cobalt-2', items: ['Use your domain labels and summaries', 'Apply your ranking and materiality rules', 'Embed the workbench in your product', 'Persist decisions on your server', 'Replay every decision against the reviewed snapshot'] },
-  { title: 'Reviewed data stays useful', accent: 'gold', items: ['Publish source-linked claims', 'Show evidence and support strength', 'Reopen stale decisions when inputs change', 'Build calibration from labeled outcomes', 'Carry the review trail into reports and downstream products'] },
-];
-
-const helpers = [
-  { fn: 'fieldObservation', desc: 'One scalar field value with its Raw Source, Source Reference, extraction, review, and claim defaults filled in.' },
-  { fn: 'repeatedObservation', desc: 'A repeated field or entity list described as one aggregate observation.' },
-  { fn: 'candidateReviewRecord', desc: 'Multiple candidates for one target, assembled into a shared candidate set with links.' },
-  { fn: 'reviewedCandidateResolution', desc: 'Attaches a review outcome to the selected candidate and supersedes the rest.' },
-  { fn: 'ReviewPresentationAdapter', call: false, desc: 'Product-owned labels, value summaries, and Source Reference/trace links for generic Survey review records.' },
-  { fn: 'buildReviewItemPresentation', desc: 'Turns a ReviewItem plus adapter hooks into human-readable review copy without changing canonical data.' },
-  { fn: 'buildReviewResultPresentation', desc: 'Explains a derived review result and selected value while keeping write authority on the product server.' },
-  { fn: 'buildReviewWorkbenchSessionExportForSnapshot', desc: 'Replays persisted review events against the reviewed snapshot before deriving selected candidates.' },
-  { fn: 'validateReviewSessionEventsForSnapshot', desc: 'Reports stale item or candidate references before a producer applies review results.' },
-  { fn: 'createServerReviewSessionRecord', desc: 'Stores the reviewed snapshot on the server so browser decisions can be replayed against the exact source state.' },
-  { fn: 'assertServerReviewSessionFreshness', desc: 'Checks that a submitted review still matches the server-owned snapshot before apply.' },
-  { fn: 'assertServerReviewSessionEvents', desc: 'Validates persisted review events for the reviewed snapshot before deriving write results.' },
-  { fn: 'deriveServerReviewSessionApplyResult', desc: 'Composes server-owned freshness, event replay, and apply-result derivation for product write paths.' },
-  { fn: 'uploadedDocumentSource', desc: 'A stable RawSource for a document a producer already retrieved.' },
-  { fn: 'apiRecordSource', desc: 'A stable RawSource for a structured record pulled from an API.' },
-  { fn: 'webPageSource', desc: 'A stable RawSource for a crawled web page, with locator scheme and checksum.' },
-  { fn: 'manualEntrySource', desc: 'A stable RawSource for a value entered by hand, kept inspectable like the rest.' },
+  { title: 'Reviewed data stays useful', accent: 'gold', items: ['Publish source-linked claims', 'Show evidence and support strength', 'Catch a decision whose source moved before it is applied', 'Build calibration from labeled outcomes', 'Carry the review trail into reports and downstream products'] },
 ];
 ---
 
 <Layout
-  title="Survey — Inspectable producer-side provenance for Surface · Kontour AI"
-  description="Survey gives producers a review workflow for trustworthy Surface-ready claims: Raw Sources, extractions, candidates, reviews, and provenance."
+  title="Survey — keep the evidence behind every reviewed value · Kontour AI"
+  description="Survey keeps the source, the sentence, the alternatives, and the reviewer's decision attached to every value your product publishes as reviewed."
 >
   <Nav active="survey" />
 
@@ -74,52 +54,132 @@ const helpers = [
           <p class="product-tagline animate-fade-up delay-100" data-accent="gold-2">review facts without losing where they came from</p>
 
           <p class="hero-copy animate-fade-up delay-200">
-            Survey is for producer teams that need reviewed values to keep
-            their receipts: the source that was observed, the excerpt and
-            locator, competing candidates, reviewer decision, notes, actor,
-            time, and the claim that gets published. It turns approval from a
-            disappearing click into a record another person or agent can inspect
-            later.
+            Every "verified" value in your product had a story: which document,
+            which sentence, what else it might have been, who signed off. Most
+            systems throw that away the second someone clicks approve. Survey
+            turns approval from a disappearing click into a record that stays
+            attached to the value — so anyone can re-check it later without
+            taking your word for it.
           </p>
 
           <div class="hero-actions animate-fade-up delay-300">
             <a href="https://kontourai.github.io/survey/" target="_blank" rel="noopener" class="btn-primary" data-umami-event="survey-hero-docs">Read the docs →</a>
             <a href="https://www.npmjs.com/package/@kontourai/survey" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="survey-hero-npm">npm</a>
-            <a href="/surface/" class="btn-ghost" data-umami-event="survey-hero-surface">Projects into Surface</a>
           </div>
         </div>
 
-        <Terminal class="animate-fade-in delay-300" title="quickstart.ts">
-<pre class="code"><span class="t-com">// proposed claim changes in → auditable review results out</span>
-<span class="t-kw">import</span> {'{'} buildReviewWorkbenchSessionExportForSnapshot,
-         createPersistentReviewSessionEventStore,
-         mountReviewWorkbench {'}'} <span class="t-kw">from</span> <span class="t-str">"@kontourai/survey/review-workbench"</span>;
-
-<span class="t-kw">const</span> session = {'{'}
-  items: [registrationStatusReviewItem],
-  activeItemName: <span class="t-str">"entity-123.registrationStatus"</span>,
-  notesByItemName: {'{'}{'}'},
-  decisionsByItemName: {'{'}{'}'},
-  actorId: <span class="t-str">"reviewer@example.test"</span>,
-  reviewedAt: <span class="t-kw">new</span> <span class="t-fn">Date</span>().<span class="t-fn">toISOString</span>(),
-{'}'};
-
-<span class="t-fn">mountReviewWorkbench</span>(document.<span class="t-fn">querySelector</span>(<span class="t-str">"#review"</span>)!, session, {'{'}
-  eventStore: <span class="t-fn">createPersistentReviewSessionEventStore</span>({'{'}
-    initialEvents,
-    persist: ({'{'} events, expectedEventCount {'}'}) =>
-      <span class="t-fn">saveReviewEvents</span>({'{'} events, expectedEventCount {'}'}),
-  {'}'}),
-{'}'});
-
-<span class="t-kw">const</span> exported = <span class="t-fn">buildReviewWorkbenchSessionExportForSnapshot</span>(
-  reviewedSnapshot,
-  persistedEvents,
-);
-
-<span class="t-kw">const</span> results = exported.results;</pre>
-        </Terminal>
+        <div class="hero-demo">
+          <Terminal class="animate-fade-in delay-300" title="node inspect-renewal.mjs">
+            <p class="muted">  # the document the reviewer signed off on</p>
+            <p>  source     msa-renewal-refresh  <span class="pass">[aligned]</span></p>
+            <p class="muted">             Prepared artifact identity verified. Exact source spans are available.</p>
+            <p>  candidate  renewalDate  chars:262-347  page 4  <span class="pass">[aligned]</span></p>
+            <p class="info">             "This agreement renews annually on March 31 unless either</p>
+            <p class="info">              party gives 60 days' notice."</p>
+            <p>  candidate  renewalDate  chars:71-96  page 1  <span class="pass">[aligned]</span></p>
+            <p class="info">             "Effective March 31, 2026."</p>
+            <br />
+            <p class="muted">  # the same extraction, after the document was re-fetched</p>
+            <p>  source     msa-renewal-refresh  <span class="fail">[digest-mismatch]</span></p>
+            <p class="muted">             Prepared artifact digest does not match the extraction artifact.</p>
+            <p class="muted">             Candidates are not grounded.</p>
+            <p>  candidate  renewalDate  chars:262-347  page 4  <span class="fail">[digest-mismatch]</span></p>
+            <p class="muted">             (no highlight — source not grounded)</p>
+            <p>  candidate  renewalDate  chars:71-96  page 1  <span class="fail">[digest-mismatch]</span></p>
+            <p class="muted">             (no highlight — source not grounded)</p>
+          </Terminal>
+          <p class="fine demo-note">
+            Real output from <code class="code-plain">@kontourai/survey</code> 2.2.1 against an example
+            contract. The row labels belong to the demo script; every span, page number, alignment
+            state, and message comes from the library. Long excerpts wrapped to fit the column.
+          </p>
+        </div>
       </Split>
+    </div>
+  </Section>
+
+  <!-- The five-second version -->
+  <Section tone="alt" borderBottom>
+    <div class="container">
+      <Eyebrow accent="gold-2" gap="sm">Where did this value come from?</Eyebrow>
+      <h2 class="display-md measure-lg pipeline-title">
+        A renewal date says March 31, 2027. Click it.
+      </h2>
+
+      <div class="story">
+        <p class="body story__p">
+          Survey highlights the exact sentence in the document —
+          <em>"This agreement renews annually on March 31 unless either party
+          gives 60 days' notice."</em> — page 4, characters 262 to 347. Next to
+          it: the extractor that read it, the 0.82 confidence it stated, the
+          other date it also found (March 31, <strong>2026</strong>, off the
+          cover page, confidence 0.41), and the reviewer who accepted it, with
+          the time they did it.
+        </p>
+        <p class="body story__p">
+          The highlight is not a search. Before a single character lights up,
+          Survey checks that the document in front of you is exactly the one
+          the extractor read: same digest, same length, and the recorded
+          excerpt still sitting at the recorded span. If the document has since
+          been re-fetched and any of that has moved, the highlight does not
+          appear at all. The value shows as not grounded rather than pointing
+          you at a sentence that may no longer be there — the second half of
+          the run above.
+        </p>
+        <p class="body story__p">
+          That is the whole product in one interaction. Everything else on this
+          page is the plumbing that makes it hold: a record shape where the
+          source, the excerpt, the alternatives, the decision, and the actor
+          travel together, and a set of checks that refuse to show evidence
+          they can no longer stand behind.
+        </p>
+
+        <div class="story__aside">
+          <h3 class="story__aside-title">What Survey doesn't do</h3>
+          <p class="body story__p">
+            It doesn't fetch pages, parse PDFs, rank candidates, or decide your
+            review policy — and it never says a value is true. You bring the
+            crawler, the parser, the ranking, and the rules about what matters.
+            Survey is what keeps the trail intact once you have them, so the
+            answer that comes out the far end can still show its sources.
+          </p>
+          <p class="body story__p story__p--last">
+            Want the finished application rather than the contracts?{' '}
+            <a href="/fieldwork/" data-umami-event="survey-fieldwork">Fieldwork</a> is
+            the ready-made front door: extract, inspect, decide, recheck,
+            and export, running locally with no integration work. Survey is
+            what you reach for when you already have a product and a queue and
+            need the evidence to survive into what you publish.
+          </p>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  {/* The review-console screenshot is pulled until it can be recaptured.
+      survey-workbench.png shows four proposed values sharing one excerpt that
+      supports none of them — a shipped-fixture defect, not a capture artifact
+      (kontourai/survey#199). Its caption invited the reader to check "the
+      sentence it was pulled from", which is precisely the check the image
+      failed, on the page whose argument is that evidence should check out.
+
+      Restore after survey 2.2.2 ships with the fixed fixture: copy the session
+      to a neutral path first (the console renders an absolute session path in
+      its title bar, so capturing in place leaks a local home directory), then
+      recapture through scripts/capture-marketing-screenshot.mjs so the manifest
+      stamps capturedAgainstVersion: 2.2.2. */}
+  <Section borderBottom>
+    <div class="container">
+      <Eyebrow accent="gold-2" gap="sm">See it</Eyebrow>
+      <p class="body measure">
+        The review console runs locally against a session file — one row per
+        proposed change, each with the value it would replace, the excerpt
+        behind it, and a link to the source.{' '}
+        <a href="https://kontourai.github.io/survey/demo/" target="_blank" rel="noopener" data-umami-event="survey-live-demo">Try the live demo →</a>
+      </p>
+      <Terminal title="review console">
+        <p><span class="prompt">$ </span><span class="cmd">npx -p @kontourai/survey survey-review-console --session your-session.json</span></p>
+      </Terminal>
     </div>
   </Section>
 
@@ -145,24 +205,13 @@ const helpers = [
     </div>
   </Section>
 
-  <!-- Review value -->
-  <Section borderBottom>
-    <div class="container">
-      <Eyebrow accent="gold-2" gap="sm">See it</Eyebrow>
-      <figure class="product-shot">
-        <img src="/screenshots/survey-workbench.png" alt="Survey Review Workbench: a review queue, current versus proposed values, Raw Source details, decision controls, and a Surface TrustBundle preview" loading="lazy" />
-        <figcaption>The embeddable Review Workbench working a fixture queue — current vs proposed values, Raw Source and Source Reference details, decision effect, and the Surface TrustBundle projection preview. <a href="https://kontourai.github.io/survey/demo/" target="_blank" rel="noopener">Try the live demo →</a></figcaption>
-      </figure>
-    </div>
-  </Section>
-
   <Section tone="alt" borderTop borderBottom>
     <div class="container">
       <Eyebrow gap="sm">What teams gain</Eyebrow>
       <p class="fine boundary-note">
-        Give reviewers the context to make a confident decision, keep the
-        decision tied to the exact snapshot they saw, and publish the result
-        without flattening away its evidence.
+        Reviewers see everything the decision depends on. The decision stays
+        tied to the exact snapshot they saw. And the result keeps its evidence
+        when it's published.
       </p>
 
       <Grid cols={3} gap="lg">
@@ -183,100 +232,86 @@ const helpers = [
     </div>
   </Section>
 
-  <!-- Consumer adapter -->
-  <Section borderTop>
-    <div class="container">
-      <Split ratio="1-1" gap="md" align="center">
-        <div>
-          <Eyebrow accent="gold-2">Consumer adapter contract</Eyebrow>
-          <h2 class="display-md apply__title">Bring your labels and policy; keep the same review trail.</h2>
-          <p class="body apply__copy">
-            A producer builds <code class="codechip" data-accent="gold-2">ReviewItem</code>
-            records from its own queue, supplies a
-            <code class="codechip" data-accent="gold-2">ReviewPresentationAdapter</code>
-            for readable labels and links, persists
-            <code class="codechip" data-accent="gold-2">ReviewSessionEvent</code>
-            resources, and replays those events on the server before applying a
-            decision.
-          </p>
-          <p class="body apply__copy apply__copy--last">
-            That gives future producers a clear checklist for trustworthy
-            claims: Raw Source identity, Source Reference, extraction locator, candidate history,
-            reviewer action, actor/time, and the Surface projection are all
-            explicit before the claim is published.
-          </p>
-          <a href="https://github.com/kontourai/survey/blob/main/docs/consumer-integration-guide.md" target="_blank" rel="noopener" data-umami-event="survey-consumer-guide" class="handoff__link">Read the integration guide →</a>
-        </div>
-
-        <Terminal title="consumer-adapter.ts">
-<pre class="code"><span class="t-kw">import</span> {'{'} buildReviewItemPresentation,
-         buildReviewWorkbenchSessionExportForSnapshot,
-         type ReviewPresentationAdapter {'}'} <span class="t-kw">from</span> <span class="t-str">"@kontourai/survey/review-workbench"</span>;
-
-<span class="t-kw">const</span> adapter = {'{'}
-  labelForTarget: (target) =>
-    target === <span class="t-str">"registrationStatus"</span> ? <span class="t-str">"Registration status"</span> : undefined,
-  summarizeValue: (value) => <span class="t-fn">humanizeProductValue</span>(value),
-  linkForReviewItem: (item) => ({'{'}
-    label: item.metadata.producer?.displayName,
-    href: <span class="t-str">"/review/"</span> + <span class="t-fn">encodeURIComponent</span>(item.metadata.name),
-  {'}'}),
-  linkForTraceRef: (ref) =>
-    ref.kind === <span class="t-str">"claim"</span> ? {'{'} href: <span class="t-str">"/claims/"</span> + ref.value {'}'} : undefined,
-{'}'} <span class="t-kw">satisfies</span> ReviewPresentationAdapter;
-
-<span class="t-kw">const</span> readable = <span class="t-fn">buildReviewItemPresentation</span>(reviewItem, adapter);
-<span class="t-kw">const</span> exported = <span class="t-fn">buildReviewWorkbenchSessionExportForSnapshot</span>(
-  reviewedSnapshot,
-  persistedEvents,
-);</pre>
-        </Terminal>
-      </Split>
-    </div>
-  </Section>
-
-  <!-- Authoring helpers -->
-  <Section size="lg">
-    <div class="container">
-      <Eyebrow gap="sm">Authoring helpers</Eyebrow>
-      <h2 class="display-md helpers-title">
-        Describe the common cases without hand-assembling every record.
-      </h2>
-
-      <Grid min="300" gap="md">
-        {helpers.map((helper) => (
-          <div class="helper">
-            <code class="helper__fn">{helper.fn}{helper.call === false ? '' : '()'}</code>
-            <span class="helper__desc">{helper.desc}</span>
-          </div>
-        ))}
-      </Grid>
-    </div>
-  </Section>
-
   <!-- Review surfaces (#164): the review queue meets the reviewer where they are -->
-  <Section borderTop tone="alt">
+  <Section borderTop>
     <div class="container">
       <Eyebrow accent="gold-2" gap="sm">Review anywhere</Eyebrow>
       <h2 class="display-md measure-lg surfaces__title">The queue meets the reviewer where they already are.</h2>
       <Grid min="260" gap="lg">
         <Card accent="gold-2" bar="top" pad="md">
           <h3 class="feature-title">Review MCP</h3>
-          <p class="feature-body"><code class="code-plain">npx survey-review-mcp</code> drives the queue from any MCP host — three tools with embedded review cards carrying Accept / Hold / Reject, decisions validated by the same apply contract.</p>
+          <p class="feature-body"><code class="code-plain">npx survey-review-mcp</code> drives the queue from any MCP host. The review card carries four outcomes, not two: accept the proposal, keep what's there, reject it — or say you couldn't confirm it. Every one of them goes through the same server check as a decision made in a browser.</p>
         </Card>
         <Card accent="cobalt-2" bar="top" pad="md">
           <h3 class="feature-title">Review Console</h3>
-          <p class="feature-body">A standalone local dashboard over the same session file. An SSE stream keeps the browser and any concurrent MCP agent converged on one event queue — no refresh, no divergence.</p>
+          <p class="feature-body">A local dashboard over the same session file, for when you want a browser and not a chat window. An SSE stream keeps it and any concurrent MCP agent converged on one event queue — no refresh, no divergence. For a full application rather than a queue viewer, that's <a href="/fieldwork/" data-umami-event="survey-console-fieldwork">Fieldwork</a>.</p>
         </Card>
         <Card accent="green" bar="top" pad="md">
           <h3 class="feature-title">Reviewed learning updates</h3>
-          <p class="feature-body">Producer profiles can auto-accept what has earned it, provenance records how each value was resolved, and the 1.8 flywheel contract turns review outcomes into proposed learning updates — themselves reviewed before anything durable changes.</p>
+          <p class="feature-body">When reviewers keep overturning the same kind of value, that pattern becomes a written proposal to change how it's extracted — and the proposal gets reviewed too. Producer profiles can auto-accept what has earned it, and provenance records how each value was resolved. Nothing durable changes because a metric moved.</p>
         </Card>
         <Card accent="red" bar="top" pad="md">
           <h3 class="feature-title">Calibrated confidence</h3>
-          <p class="feature-body">Every reviewed candidate is a labeled sample — the stated confidence against the human outcome. Survey derives its calibration curve from the review chain it owns, so conclusion confidence comes from that empirical curve, and it can inform auto-accept thresholds the same way everything else moves here: as reviewed proposals, never silent tuning.</p>
+          <p class="feature-body">Every reviewed candidate is a labeled sample: the extractor said 0.82, the reviewer said yes or no. Survey keeps the score and derives its calibration curve from the review chain it owns, so over time you learn what your 0.82 is actually worth. It can raise the bar for what gets auto-accepted — as a proposal someone approves, not a threshold that quietly moves.</p>
         </Card>
       </Grid>
+    </div>
+  </Section>
+
+  <!-- Could not confirm -->
+  <Section borderTop tone="alt">
+    <div class="container">
+      <Split ratio="1-1" gap="md" align="center">
+        <div>
+          <Eyebrow accent="gold-2">The fourth answer</Eyebrow>
+          <h2 class="display-md apply__title">"I couldn't confirm this" is a real outcome.</h2>
+          <p class="body apply__copy">
+            Review tools usually give a person two doors and a fire escape:
+            approve, reject, escalate. Real reviewers hit a fourth case
+            constantly — the sources disagree, or the page moved, or the
+            evidence just isn't there — and every one of those decisions gets
+            squeezed into an approval or a rejection it doesn't deserve.
+          </p>
+          <p class="body apply__copy apply__copy--last">
+            Survey gives it its own outcome. <strong>Could not confirm</strong> ends
+            the review round without changing the value, rejecting it, or
+            passing it to someone else, and it will not record without a
+            written reason. The claim stays exactly where it was, now with a
+            note saying why nobody could move it.
+          </p>
+        </div>
+
+        <Terminal title="survey-review-mcp">
+          <p><span class="prompt">$ </span><span class="cmd">npx -p @kontourai/survey survey-review-mcp</span></p>
+          <br />
+          <p class="muted">  (tool call) survey_review_decide {`{`} itemName: "public-directory-phone",</p>
+          <p class="muted">                                    decision: "could-not-confirm" {`}`}</p>
+          <br />
+          <p class="fail">  survey_review_decide requires a non-empty reason for could-not-confirm</p>
+          <br />
+          <p class="muted">  (tool call) survey_review_decide {`{`} … decision: "could-not-confirm",</p>
+          <p class="muted">                                    reason: "Directory page and the county</p>
+          <p class="muted">                                    record disagree; neither is newer." {`}`}</p>
+          <br />
+          <p class="pass">  Decision recorded: Could not confirm</p>
+          <p>  Effect: The review round ends without changing or escalating</p>
+          <p>  the proposed claim.</p>
+          <br />
+          <p>  Item: public-directory-phone</p>
+          <p>  Target: phoneNumber</p>
+          <p>  Status: <span class="warn">could-not-confirm</span></p>
+          <p>  Note: Directory page and the county record disagree; neither is newer.</p>
+          <p class="muted">  … candidate values and excerpts elided</p>
+          <br />
+          <p class="rule">  --- Updated queue ---</p>
+          <p>  Review queue: 3/6 resolved</p>
+          <p class="muted">  Active item: public-directory-hours (hours)</p>
+          <p class="muted">  Next unresolved: public-directory-address</p>
+          <br />
+          <p>  Session summary: accepted=1 keptCurrent=0 rejected=0</p>
+          <p>  <span class="warn">couldNotConfirm=1</span> escalated=1 unresolved=3</p>
+        </Terminal>
+      </Split>
     </div>
   </Section>
 
@@ -285,21 +320,24 @@ const helpers = [
     <div class="container">
       <Split ratio="1-1" gap="md" align="center">
         <div>
-          <Eyebrow accent="gold-2">Review apply contract</Eyebrow>
+          <Eyebrow accent="gold-2">Your server stays in charge of the write</Eyebrow>
           <h2 class="display-md apply__title">Survey derives the review result; your product applies the change.</h2>
           <p class="body apply__copy">
-            The workbench gives downstream products the same session, event,
-            decision, and selected-candidate mechanics. That removes boilerplate
-            from review flows without turning Survey into a product-specific
-            approval engine.
+            The reviewer's browser never decides anything. It records what the
+            reviewer did; your server replays those events against the snapshot
+            the reviewer actually saw and derives the result from it. If the
+            underlying data moved in between, the apply fails instead of
+            writing a decision made against a stale screen.
           </p>
-          <p class="body apply__copy apply__copy--last">
-            A server apply path should keep the reviewed snapshot server-owned,
-            accept browser-submitted review events, derive results with Survey's
-            server helper, validate that the target is still current, and stamp
-            the mutating actor from authenticated product context. Browser
-            exports are display and audit data, not write authority.
+          <p class="body apply__copy">
+            Your product keeps the parts that are yours. You supply the labels
+            reviewers read, the links they follow, the ranking and materiality
+            rules, and the storage — Survey supplies the record shape and the
+            checks. Nothing gets published as reviewed until that record can
+            answer: which source, which sentence, what else was on the table,
+            who decided, and when.
           </p>
+          <a href="https://github.com/kontourai/survey/blob/main/docs/consumer-integration-guide.md" target="_blank" rel="noopener" data-umami-event="survey-consumer-guide" class="handoff__link">Read the integration guide →</a>
         </div>
 
         <Terminal title="server-apply.ts">
@@ -340,19 +378,20 @@ const helpers = [
           <h2 class="display-md worked__title">A public-record status changes from rumor to reviewed claim.</h2>
           <p class="body worked__copy">
             A crawler reads a registration status off a public record and needs
-            to preserve the extraction before it becomes a claim. With
-            <code class="codechip" data-accent="gold-2">fieldObservation</code>,
-            the Raw Source, Source Reference, extraction, review outcome, and claim travel together —
-            so Surface can report not just the value, but where it came from
-            and how fresh it is.
+            to preserve the extraction before it becomes a claim. With <code
+            class="codechip" data-accent="gold-2">fieldObservation</code>,
+            the source, the sentence it was read from, the extraction, the
+            review outcome, and the claim travel together — so Surface can
+            report not just the value, but where it came from and how fresh it
+            is.
           </p>
           <p class="body worked__copy worked__copy--last">
-            Conflicting candidates don't disappear. A losing Raw Source stays on the
-            trail as <code class="code-plain">superseded</code>,
-            and an unresolved conflict projects to Surface as
-            <code class="code-plain">disputed</code>.
-            For this architecture running end-to-end on real filings, read the
-            reference story: <a href="/writing/llm-proposes-structure-verifies/" data-umami-event="survey-writing-story">LLM proposes, structure verifies →</a>
+            Conflicting candidates don't disappear. The value that lost keeps
+            its own source and excerpt, and its claim stays on the trail marked <code
+            class="code-plain">superseded</code>. A conflict nobody resolved
+            projects to Surface as <code class="code-plain">disputed</code>.
+            For a worked example of this architecture end to end, read the
+            reference story: <a href="/writing/llm-proposes-structure-verifies/" data-umami-event="survey-writing-story">The AI read your tax form. Nothing checked it. →</a>
           </p>
         </div>
 
@@ -374,6 +413,8 @@ const helpers = [
     extraction: {'{'}
       confidence: <span class="t-num">0.97</span>,
       locator: <span class="t-str">"css:#registration-status"</span>,
+      <span class="t-com">// the sentence a reviewer can click back to</span>
+      excerpt: <span class="t-str">"Registration status: Active as of 12 Mar 2026."</span>,
       extractor: <span class="t-str">"example-crawler"</span>,
       extractedAt: <span class="t-fn">now</span>(),
     {'}'},
@@ -402,9 +443,8 @@ const helpers = [
           <Eyebrow accent="gold">Built for Surface</Eyebrow>
           <h2 class="display-md handoff__title">Survey produces.<br />Surface makes it inspectable.</h2>
           <p class="body handoff__copy">
-            <code class="codechip" data-accent="gold-2">buildSurveyTrustBundle</code>
-            projects Survey records into a Surface
-            <code class="codechip" data-accent="gold">TrustBundle</code>.
+            <code class="codechip" data-accent="gold-2">buildSurveyTrustBundle</code> projects
+            Survey records into a Surface <code class="codechip" data-accent="gold">TrustBundle</code>.
             From there, Surface reports claim status, evidence, dependencies,
             freshness, and the trust state humans and agents inspect.
           </p>
@@ -466,6 +506,40 @@ const helpers = [
     margin: 0;
   }
 
+  .hero-demo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    min-width: 0;
+  }
+  .demo-note {
+    max-width: 46ch;
+    margin: 0;
+  }
+
+  .story {
+    max-width: 720px;
+  }
+  .story__p {
+    margin-bottom: 1.25rem;
+  }
+  .story__p--last {
+    margin-bottom: 0;
+  }
+  .story__aside {
+    margin-top: 2rem;
+    padding-top: 1.75rem;
+    border-top: 1px solid var(--color-edge);
+  }
+  .story__aside-title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--color-chalk);
+    margin-bottom: 1rem;
+    letter-spacing: 0;
+  }
+
   .boundary-note {
     max-width: 680px;
     margin-bottom: 2.5rem;
@@ -479,28 +553,17 @@ const helpers = [
     letter-spacing: 0;
   }
 
-  .helpers-title {
-    margin-bottom: 2.5rem;
-    max-width: 720px;
+  /* `.apply__*` were used on this page but defined nowhere, so the two
+     paragraphs in that section ran together. Defined here to match
+     `.worked__copy`. */
+  .apply__title {
+    margin-bottom: 1.25rem;
   }
-  .helper {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-    padding: 1.1rem 1.25rem;
-    background: var(--color-ink-1);
-    border: 1px solid var(--color-edge);
-    border-radius: 4px;
+  .apply__copy {
+    margin-bottom: 1.5rem;
   }
-  .helper__fn {
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: var(--color-gold-2);
-  }
-  .helper__desc {
-    font-size: 0.78rem;
-    color: var(--color-chalk-3);
-    line-height: 1.45;
+  .apply__copy--last {
+    margin-bottom: 0;
   }
 
   .worked__title,

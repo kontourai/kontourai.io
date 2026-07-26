@@ -15,22 +15,32 @@ import type { Accent } from '@/lib/theme';
 const flowAgentsStatus = getProductStatus('flow-agents');
 
 const records: { title: string; body: string; accent: Accent }[] = [
-  { title: 'Source', accent: 'gold', body: 'Where the knowledge came from: file, issue, docs page, human decision, PR, or generated artifact.' },
-  { title: 'Provenance', accent: 'green', body: 'Who captured it, when it was observed, what changed, and which evidence backs the statement.' },
-  { title: 'Freshness', accent: 'cobalt-2', body: 'Whether the record is current enough to reuse, stale enough to recheck, or disputed enough to block reuse.' },
-  { title: 'Record type', accent: 'chalk-2', body: 'Whether it is a raw capture, a compiled note, a named concept, or a consolidated topic snapshot — superseded records stay queryable, never deleted.' },
-];
-
-const promises: { title: string; body: string; accent: Accent }[] = [
-  { title: 'Memory with receipts', accent: 'gold', body: 'The agent can reuse prior knowledge only when the record still carries usable source and provenance.' },
-  { title: 'Gated promotion', accent: 'green', body: 'Draft notes do not silently become durable guidance. The kit routes uncertain knowledge through review or recheck.' },
-  { title: 'Engine underneath', accent: 'chalk-2', body: 'Flow Agents supplies triggers, gates, adapters, evidence records, and Trust Bundle shape. Knowledge supplies the store workflow.' },
+  {
+    title: 'Source',
+    accent: 'gold',
+    body: 'Where the note came from: a file, an issue, a docs page, a pull request, a generated artifact, or a decision someone made in a meeting. Every note points at one, and you can open it.',
+  },
+  {
+    title: 'Provenance',
+    accent: 'green',
+    body: 'Which agent captured it, when it was observed, and what changed on every later edit. The mutation log is append-only — edits get added to it, never written over.',
+  },
+  {
+    title: 'Freshness',
+    accent: 'cobalt-2',
+    body: 'Set how long notes in a category stay good. Past that date the record reads back as stale the moment anything queries it — and the record itself is never rewritten behind your back.',
+  },
+  {
+    title: 'Record type',
+    accent: 'chalk-2',
+    body: 'A raw capture, a compiled note, a named concept, or a topic snapshot. When one record replaces another, the older one stays queryable — superseded records are never deleted.',
+  },
 ];
 ---
 
 <Layout
-  title="Knowledge Kit - Provenance-gated memory on Flow Agents · Kontour AI"
-  description="Knowledge Kit is the Flow Agents kit for durable, provenance-gated knowledge: reusable memory with sources, freshness, provenance, and evidence."
+  title="Knowledge Kit - Agent notes that show where they came from · Kontour AI"
+  description="Your coding agent's notes about your repo, stored with the source each one was made from and the date it was made — so you can check them instead of trusting them."
 >
   <Nav active="knowledge-kit" />
 
@@ -41,47 +51,118 @@ const promises: { title: string; body: string; accent: Accent }[] = [
         <div>
           <div class="hero-badges">
             <span class="trust-badge trust-badge--verified">Flow Agents {productBadge(flowAgentsStatus)}</span>
-            <span class="install-hint">kit: Knowledge</span>
+            <span class="install-hint">npm install @kontourai/flow-agents</span>
           </div>
 
           <h1 class="product-title animate-fade-up">Knowledge Kit</h1>
-          <p class="product-tagline animate-fade-up delay-100" data-accent="gold">durable memory that has to show where it came from</p>
+          <p class="product-tagline animate-fade-up delay-100" data-accent="gold">notes your agent can't quietly make up</p>
 
           <p class="hero-copy hero-copy--wide animate-fade-up delay-200">
-            Knowledge Kit turns useful session memory into a durable,
-            provenance-gated knowledge store. It is for the facts, decisions,
-            repo conventions, product decisions, and lessons an agent should be
-            able to reuse later without pretending chat history is evidence.
-            Flow Agents provides the engine underneath: structured triggers,
-            gates, adapters, sidecars, evidence, and trust records.
+            Your coding agent learns things about your repo — that deploys go
+            through GitHub Actions, that the auth module belongs to another
+            team, that you tried Redis and backed it out. Ask it three months
+            later and it will tell you those things back with total confidence,
+            and you will have no way to check any of them.
+          </p>
+          <p class="hero-copy hero-copy--wide animate-fade-up delay-200">
+            Knowledge Kit stores each note with the thing it was made from and
+            the date it was made. When a note gets replaced, the one it replaced
+            stays readable instead of disappearing.
           </p>
 
           <div class="hero-actions animate-fade-up delay-300">
-            <a href="/flow-agents/" class="btn-primary" data-umami-event="knowledge-kit-hero-engine">Flow Agents engine -></a>
+            <a href="#try" class="btn-primary" data-umami-event="knowledge-kit-hero-try">Run it yourself -></a>
             <a href="https://kontourai.github.io/flow-agents/" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="knowledge-kit-hero-docs">Docs</a>
           </div>
         </div>
 
-        <Terminal class="animate-fade-in delay-300" title="knowledge capture">
-          <p><span class="prompt">$ </span><span class="cmd">flow-agents kit activate knowledge</span></p>
+        <Terminal class="animate-fade-in delay-300" title="obsidian-store demo">
+          <p><span class="prompt">$ </span><span class="cmd">npm install @kontourai/flow-agents</span></p>
+          <p><span class="prompt">$ </span><span class="cmd">node node_modules/@kontourai/flow-agents/kits/knowledge/adapters/obsidian-store/demo.js</span></p>
           <br />
-          <p class="info">  candidate: repo convention</p>
-          <p class="muted">  source: AGENTS.md + current diff</p>
-          <p class="muted">  subject: public-copy-boundary</p>
+          <p class="info">[1/4] Created raw capture: 6c4716e1…</p>
+          <p class="info">[2/4] Created compiled note: c48498d7…</p>
+          <p class="info">[3/4] Created placeholder snapshot: 4981bc88…</p>
+          <p class="info">[4/4] Created final snapshot 55a0c2ae… (supersedes 4981bc88…)</p>
           <br />
-          <p class="pass">  ✓ provenance present</p>
-          <p class="pass">  ✓ freshness checked</p>
-          <p class="warn">  REVIEW  compile gate: source refs to every raw required</p>
+          <p class="pass">Superseded placeholder archived at: archive/eng/decisions/ci-strategy-snapshot-draft.md</p>
+          <p class="pass">Archived record still queryable via get(): title = "CI Strategy Snapshot — Draft"</p>
           <br />
-          <p class="muted">  store: ./knowledge-store/ — root you configure</p>
+          <p class="muted">Real output from the demo that ships in the package. Record ids shortened; nothing added.</p>
         </Terminal>
+      </Split>
+    </div>
+  </Section>
+
+  <Section size="lg" borderBottom>
+    <div class="container">
+      <Split ratio="1-1" gap="lg" align="center">
+        <div>
+          <Eyebrow accent="gold">What came out</Eyebrow>
+          <h2 class="display-md example-title">A meeting transcript went in. This came out.</h2>
+          <p class="body example-copy">
+            The transcript lands in the store as a raw capture. A compiled note
+            distils the decision out of it. A snapshot records where the topic
+            ended up — one file, on disk, in the vault you already read.
+          </p>
+          <p class="body example-copy">
+            The snapshot names the note it was made from, twice: once in{' '}
+            <span class="mono-inline">provenance.source_ids</span> and once as a{' '}
+            <span class="mono-inline">kind: source</span> link. Six months later
+            you can walk from the decision back to the meeting it came out of
+            without asking the agent to remember.
+          </p>
+          <p class="body example-copy example-copy--last">
+            It also names the draft it replaced. That draft moved to{' '}
+            <span class="mono-inline">archive/</span>, still answers{' '}
+            <span class="mono-inline">get()</span>, and carries a log entry
+            saying what superseded it and why.
+          </p>
+        </div>
+
+        <div>
+          <Terminal title="eng/decisions/ci-strategy-snapshot-q2-2026.md">
+            <p class="muted">---</p>
+            <p class="muted">type: snapshot</p>
+            <p class="muted">title: CI Strategy Snapshot — Q2 2026</p>
+            <p class="muted">category: eng.decisions</p>
+            <p class="muted">status: active</p>
+            <p class="info">provenance:</p>
+            <p class="info">  agent: demo-agent</p>
+            <p class="info">  source_ids: [c48498d7…]</p>
+            <p class="info">links:</p>
+            <p class="info">  - target_id: c48498d7…</p>
+            <p class="info">    kind: source</p>
+            <p class="info">  - target_id: 4981bc88…</p>
+            <p class="info">    kind: supersedes</p>
+            <p class="info">mutation_log:</p>
+            <p class="info">  - op: supersede</p>
+            <p class="info">    agent: demo-agent</p>
+            <p class="info">    rationale: Q2 planning meeting resolved the CI strategy;</p>
+            <p class="info">      placeholder superseded by final snapshot.</p>
+            <p class="muted">---</p>
+            <br />
+            <p class="cmd">Decision: Migrate from Jenkins to GitHub Actions in Q2 2026.</p>
+            <p class="muted">…</p>
+            <br />
+            <p class="cmd">## Sources</p>
+            <br />
+            <p class="pass">[[jenkins-retirement-decision]]</p>
+          </Terminal>
+          <p class="fine terminal-caption">
+            The note as the demo wrote it. Trimmed for length: the record id,
+            timestamps, tags and the rest of the body are elided at the
+            <span class="mono-inline">…</span> marks. No line here is anything
+            other than what the run printed.
+          </p>
+        </div>
       </Split>
     </div>
   </Section>
 
   <Section size="lg">
     <div class="container">
-      <Eyebrow gap="lg">Knowledge record</Eyebrow>
+      <Eyebrow gap="lg">What a note carries</Eyebrow>
       <Grid cols={4} gap="md">
         {records.map(({ title, body, accent }) => (
           <Card accent={accent} bar="top" pad="md">
@@ -102,9 +183,11 @@ const promises: { title: string; body: string; accent: Accent }[] = [
       <p class="body measure store-intro">
         Choose the storage experience that fits the team. The default writes
         portable markdown with frontmatter and a graph index. The Obsidian
-        adapter creates vault-native notes. A local, Ollama-backed similarity
-        adapter powers synthesis clustering and contradiction checks while
-        keeping the knowledge on your machine.
+        adapter creates vault-native notes. Both write into a root you configure
+        — there is no default path, and the adapter refuses to start without
+        one. A local, Ollama-backed similarity adapter powers synthesis
+        clustering and contradiction checks while keeping the knowledge on your
+        machine.
       </p>
       <Grid cols={3} gap="lg">
         <Card accent="chalk-2" bar="top" pad="md">
@@ -113,68 +196,128 @@ const promises: { title: string; body: string; accent: Accent }[] = [
         </Card>
         <Card accent="gold" bar="top" pad="md">
           <h3 class="feature-title">Obsidian vault</h3>
-          <p class="feature-body">The same gated records as vault-native notes — your existing knowledge tooling keeps working on provenance-bearing content.</p>
+          <p class="feature-body">The same gated records as vault-native notes, so your existing knowledge tooling keeps working on content that carries its sources. Shipped and in use; layout refinements and person cards are still landing.</p>
         </Card>
         <Card accent="green" bar="top" pad="md">
           <h3 class="feature-title">Hygiene flows</h3>
-          <p class="feature-body">Contradiction detection, glossary sync, freshness audits, and consolidation run as flows with the same gates — the store earns trust by being maintained, not just written.</p>
+          <p class="feature-body">Four passes go looking for trouble: notes past their date, notes that contradict each other, glossary terms that drifted from the doc that defines them, categories that sprawled. Every one is read-only — it hands you a list with the evidence for each item and you decide. Off by default, on per category.</p>
         </Card>
       </Grid>
+
+      <div class="byo">
+        <Split ratio="1-1" gap="lg" align="center">
+          <div>
+            <h3 class="byo-title">Or bring your own.</h3>
+            <p class="body byo-copy">
+              The store is a written contract, not our file format: four record
+              types, the seven operations that can change a record, and the
+              evidence each one has to carry. A backend adopts it without
+              forking any of the kit's flows.
+            </p>
+            <p class="body byo-copy byo-copy--last">
+              The contract ships as a test suite you point at your own storage
+              — set <span class="mono-inline">KNOWLEDGE_ADAPTER</span> to your
+              adapter and it tells you what is missing. The two stores above are
+              just the first two things that passed it.
+            </p>
+          </div>
+
+          <Terminal title="store contract suite">
+            <p><span class="prompt">$ </span><span class="cmd">node node_modules/@kontourai/flow-agents/kits/knowledge/evals/contract-suite/suite.test.js</span></p>
+            <br />
+            <p class="info">▶ create: required field enforcement</p>
+            <p class="pass">  ✔ rejects missing provenance.agent</p>
+            <p class="pass">  ✔ rejects missing category</p>
+            <p class="info">▶ link: required evidence enforcement</p>
+            <p class="pass">  ✔ rejects nonexistent target_id</p>
+            <p class="info">▶ apply: required evidence enforcement</p>
+            <p class="pass">  ✔ rejects apply when no proposes link exists</p>
+            <p class="info">▶ identity: alias resolution survives restructure (AC3)</p>
+            <p class="pass">  ✔ old slug and short-id prefix still resolve after a recategorize</p>
+            <p class="muted">…</p>
+            <br />
+            <p class="info">ℹ tests 69</p>
+            <p class="pass">ℹ pass 69</p>
+            <p class="info">ℹ fail 0</p>
+          </Terminal>
+        </Split>
+      </div>
     </div>
   </Section>
 
-  <Section tone="alt" borderTop borderBottom>
-    <div class="container">
-      <Split ratio="1-1" gap="md" align="center">
-        <div>
-          <Eyebrow accent="gold">The job</Eyebrow>
-          <h2 class="display-md knowledge-title">Stop treating memory as proof.</h2>
-          <p class="body knowledge-copy">
-            Agents need reusable context. They also need to know when context is
-            stale, private, disputed, source-less, or too weak to guide the next
-            change. Knowledge Kit makes that difference explicit.
-          </p>
-          <p class="body knowledge-copy knowledge-copy--last">
-            A useful note can be captured. A promoted record needs provenance.
-            A stale record asks for recheck. A disputed record blocks or
-            escalates instead of silently steering the next session.
-          </p>
-        </div>
-
-        <Terminal title="knowledge gate">
-          <p class="pass">  PASS  source link exists</p>
-          <p class="pass">  PASS  public-boundary check clean</p>
-          <p class="pass">  PASS  mutation log intact</p>
-          <p class="warn">  BLOCK promotion: freshness expired</p>
-          <br />
-          <p class="muted">  next action: re-read source, then refresh record</p>
-          <p class="muted">  result: advisory until refreshed</p>
-        </Terminal>
-      </Split>
-    </div>
-  </Section>
-
-  <Section>
-    <div class="container">
-      <Eyebrow gap="lg">What keeps memory useful</Eyebrow>
-      <Grid cols={3} gap="lg">
-        {promises.map(({ title, body, accent }) => (
-          <Card accent={accent} bar="top" pad="md">
-            <h3 class="feature-title">{title}</h3>
-            <p class="feature-body">{body}</p>
-          </Card>
-        ))}
-      </Grid>
-    </div>
-  </Section>
-
-  <Section size="note" borderTop>
-    <div class="container">
-      <p class="closing-note">
-        Knowledge Kit is the memory workflow for Flow Agents: capture useful
-        context, promote only what has provenance, and keep stale records from
-        quietly steering future work.
+  <Section size="lg" borderBottom>
+    <div class="container container--readable">
+      <Eyebrow accent="gold">When a note goes bad</Eyebrow>
+      <h2 class="display-md knowledge-title">Where did the agent get that?</h2>
+      <p class="body knowledge-copy">
+        It told you the deploy pipeline runs on GitHub Actions. Maybe it read
+        that in a doc. Maybe it read it in a doc that was true last year. Maybe
+        it inferred it from a filename. Right now there is no difference between
+        those three, because the answer arrives the same way regardless.
       </p>
+      <p class="body knowledge-copy">
+        A record past its expiry reads back as stale the moment anything queries
+        it — the store never quietly rewrites the record to say so. A separate
+        pass compares notes filed under the same category and flags pairs that
+        contradict each other, citing both record ids and the reason it fired.
+      </p>
+      <p class="body knowledge-copy knowledge-copy--last">
+        Neither pass can change anything. Both hand you the list and stop; you
+        decide whether a note gets refreshed from its source or retired. Retired
+        notes drop out of the working set and stay queryable — the history is
+        still there when someone asks why the guidance changed.
+      </p>
+    </div>
+  </Section>
+
+  <Section id="bring-your-own" size="lg" tone="alt" borderBottom>
+    <div class="container container--readable">
+      <Eyebrow accent="cobalt-2">Already running a memory layer?</Eyebrow>
+      <h2 class="display-md knowledge-title">Keep it.</h2>
+      <p class="body knowledge-copy">
+        Plenty of teams already have something — an OKF-style knowledge bundle,
+        a hosted memory service, or a hook and a folder of markdown. Knowledge
+        Kit is for teams who want the store too. If you already have one, keep
+        using it: Kontour never touches the retrieval side, and there is nothing
+        to migrate.
+      </p>
+      <p class="body knowledge-copy knowledge-copy--last">
+        What Flow Agents adds is a record of the run that came after — the
+        commands the harness actually executed, their exit codes, and which
+        gates let the work advance. That record is a separate artifact from your
+        memory layer, so swapping retrieval out next quarter leaves the evidence
+        already attached to shipped work untouched.
+      </p>
+      <div class="memory-actions">
+        <a href="/receipts/" class="btn-ghost" data-umami-event="knowledge-kit-receipts">See a real receipt -></a>
+        <a href="/flow-agents/" class="btn-ghost" data-umami-event="knowledge-kit-engine">The engine underneath -></a>
+      </div>
+    </div>
+  </Section>
+
+  <Section id="try" size="lg" borderTop>
+    <div class="container container--readable">
+      <Eyebrow accent="green">Try it</Eyebrow>
+      <h2 class="display-md knowledge-title">Two commands, nothing to sign up for.</h2>
+      <p class="body knowledge-copy">
+        The demo builds a throwaway vault in your temp directory, writes the
+        four records above, prints the snapshot note verbatim, and deletes the
+        vault on the way out. The contract suite is the same one every store
+        adapter has to pass.
+      </p>
+      <Terminal title="try it">
+        <p><span class="prompt">$ </span><span class="cmd">npm install @kontourai/flow-agents</span></p>
+        <br />
+        <p class="muted"># the worked example</p>
+        <p><span class="prompt">$ </span><span class="cmd">node node_modules/@kontourai/flow-agents/kits/knowledge/adapters/obsidian-store/demo.js</span></p>
+        <br />
+        <p class="muted"># the contract every store adapter has to pass</p>
+        <p><span class="prompt">$ </span><span class="cmd">node node_modules/@kontourai/flow-agents/kits/knowledge/evals/contract-suite/suite.test.js</span></p>
+      </Terminal>
+      <div class="hero-actions try-actions">
+        <a href="https://kontourai.github.io/flow-agents/" target="_blank" rel="noopener" class="btn-primary" data-umami-event="knowledge-kit-try-docs">Store contract -></a>
+        <a href="/developers/#ownership" class="btn-ghost" data-umami-event="knowledge-kit-try-ownership">Where this sits in the stack -></a>
+      </div>
     </div>
   </Section>
 
@@ -185,6 +328,14 @@ const promises: { title: string; body: string; accent: Accent }[] = [
   .hero-copy--wide {
     max-width: 535px;
   }
+  .container--readable {
+    margin-inline: auto;
+  }
+  .mono-inline {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    color: var(--color-chalk-2);
+  }
   .knowledge-title {
     margin-bottom: 1.25rem;
   }
@@ -194,10 +345,49 @@ const promises: { title: string; body: string; accent: Accent }[] = [
   .knowledge-copy--last {
     margin-bottom: 0;
   }
+  .example-title {
+    margin-bottom: 1.25rem;
+  }
+  .example-copy {
+    margin-bottom: 1.25rem;
+  }
+  .example-copy--last {
+    margin-bottom: 0;
+  }
+  .terminal-caption {
+    margin: 0.85rem 0 0;
+    color: var(--color-chalk-3);
+  }
   .store-title {
     margin-bottom: 1rem;
   }
   .store-intro {
     margin-bottom: 2rem;
+  }
+  .byo {
+    margin-top: 3rem;
+  }
+  .byo-title {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 300;
+    line-height: 1.35;
+    color: var(--color-chalk);
+    margin: 0 0 1rem;
+  }
+  .byo-copy {
+    margin-bottom: 1.25rem;
+  }
+  .byo-copy--last {
+    margin-bottom: 0;
+  }
+  .memory-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .try-actions {
+    margin-top: 2rem;
   }
 </style>

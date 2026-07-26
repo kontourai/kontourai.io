@@ -11,6 +11,7 @@ import Split from '@/components/Split.astro';
 import Terminal from '@/components/Terminal.astro';
 import { getProductStatus, productBadge } from '@/lib/product-status';
 import { getPublicEvidenceClaimSourceUrl } from '@/lib/public-evidence';
+import { assetCapture } from '@/lib/marketing-assets';
 import type { Accent } from '@/lib/theme';
 
 const fieldworkStatus = getProductStatus('fieldwork');
@@ -23,69 +24,88 @@ const sources = {
   runtime: getPublicEvidenceClaimSourceUrl('fieldwork.runtime-boundary', 'fieldwork.readme'),
 };
 
-const workflow: { step: string; owner: string; body: string; accent: Accent }[] = [
-  { step: 'Find the values', owner: 'Extract', body: 'Pull renewal dates, amounts, obligations, status values, or other typed fields from the source text you give it.', accent: 'cobalt-2' },
-  { step: 'Show the evidence', owner: 'Inspect', body: 'Put every proposed value beside the exact excerpt and locator that support it.', accent: 'gold-2' },
-  { step: 'Record review', owner: 'Decide', body: 'Capture accept, reject, hold, and notes as a replayable review trail instead of a loose browser click.', accent: 'green' },
-  { step: 'Catch changes', owner: 'Recheck', body: 'Compare a later source observation with the reviewed run so stale evidence reopens the work.', accent: 'gold' },
-  { step: 'Export proof', owner: 'Publish', body: 'Export only when the reviewed state is resolved, current, and tied back to source.', accent: 'chalk-2' },
+// A screenshot caption is a claim about a frozen file, so it must cite the
+// version that file was captured against — src/data/marketing-assets.json —
+// not whatever version the product is on today. Interpolating live product
+// status here re-stamps the caption at every release with no capture having
+// happened.
+const reviewShot = assetCapture('public/screenshots/fieldwork-review.png');
+const formatShot = assetCapture('public/screenshots/fieldwork-format-inspection.png');
+
+// Verbatim from a local run of the published CLI against the
+// examples/vendor-obligations fixture that ships inside the npm package:
+// .fieldwork/runs/run-bc32a8a21fef4afa/extraction-envelope.json →
+// result.proposals[].candidateValue / provenance.excerpt / provenance.locator
+const proposals: { field: string; value: string; excerpt: string; locator: string }[] = [
+  {
+    field: 'obligation',
+    value: 'Deliver the monthly security report',
+    excerpt: 'Obligation: Deliver the monthly security report',
+    locator: 'chars:27-74',
+  },
+  {
+    field: 'deadline',
+    value: '2027-03-31',
+    excerpt: 'Deadline: 2027-03-31',
+    locator: 'chars:75-95',
+  },
 ];
 
 const adoptionPaths: { title: string; accent: Accent; items: string[] }[] = [
   {
-    title: 'Run the complete review app',
+    title: 'Run the app as it ships',
     accent: 'green',
     items: [
-      'Start locally with a task and source file',
-      'Inspect proposals beside exact supporting excerpts',
-      'Record review decisions and export resolved results',
+      'Start a run from a task file and a source document',
+      'Read every proposed value beside the line it came from',
+      'Record decisions and export only what was resolved',
     ],
   },
   {
-    title: 'Embed the experience',
+    title: 'Put the review inside your own product',
     accent: 'gold-2',
     items: [
-      'Use the shared source inspector and review workbench',
-      'Keep your product labels, rules, and storage',
-      'Replay decisions against the exact reviewed snapshot',
+      'Mount the same source inspector and review queue',
+      'Keep your own labels, rules, and storage',
+      'Replay decisions against the exact snapshot they were made on',
     ],
   },
   {
-    title: 'Connect more source formats',
+    title: 'Feed it more kinds of document',
     accent: 'cobalt-2',
     items: [
-      'Bring acquired web pages, API records, PDFs, or scans',
-      'Attach layout and table context to the evidence view',
-      'Choose local, CLI, SDK, or hosted runtime execution',
+      'Bring a page it fetched for you, a saved file, a PDF, or a scan',
+      'Carry page, layout, and table-cell context into the evidence view',
+      "Run offline, against a coding agent you're already signed in to, or against your own API key",
     ],
   },
 ];
 
 const evidence: { title: string; body: string; href: string; label: string; accent: Accent }[] = [
   {
-    title: 'Published contract',
-    body: 'The released CLI documents run, open, recheck, inspect, and export behavior, including the unresolved/stale/tampered export refusal.',
+    title: 'What the CLI promises',
+    body: 'The released contract documents run, open, recheck, inspect, and export behaviour, including the refusal you get when a row is unreviewed, stale, or tampered with.',
     href: sources.runtime,
     label: `Read the v${fieldworkStatus.version} contract →`,
     accent: 'green',
   },
   {
-    title: 'Browser review evidence',
-    body: 'The public browser tests exercise the shared inspection and review surfaces at desktop and mobile widths; the screenshots below are exact test snapshots.',
+    title: 'Where the screenshots come from',
+    body: 'The review screens on this page are frames from the public browser tests, which run at both desktop and phone widths. Nothing here is a mock-up.',
     href: sources.browser,
     label: 'Inspect the browser test →',
     accent: 'gold-2',
   },
   {
-    title: 'Deterministic conformance',
-    body: 'Checked-in fixtures and oracles establish mechanics such as locators, replay, review, and export. They do not establish live provider or model quality.',
+    title: 'What the fixtures establish',
+    body: 'Checked-in fixtures and oracles establish the mechanics: character locators, replay, review state, refusal, export. They establish nothing about how well a live model reads your documents.',
     href: sources.conformance,
     label: 'Inspect the fixtures →',
     accent: 'cobalt-2',
   },
   {
-    title: 'Runtime receipts',
-    body: 'A host may select a live runtime. Dispatch receipts retain bounded execution evidence, but optional provider execution remains separate from the deterministic contract.',
+    title: 'What a model call leaves behind',
+    body: 'When you point a run at a live model, each call records what ran, what it used, what it cost, and what failed — without your document text, your credentials, or raw diagnostics.',
     href: sources.readme,
     label: 'Read the runtime note →',
     accent: 'gold',
@@ -94,10 +114,10 @@ const evidence: { title: string; body: string; href: string; label: string; acce
 ---
 
 <Layout
-  title="Fieldwork — Grounded extraction reviewed before export · Kontour AI"
-  description="Fieldwork is a local, credential-free review application for grounded extraction: inspect proposals, review source-linked evidence, recheck changes, then export a reviewed trust bundle."
+  title="Fieldwork — Facts out of documents, with the source line attached · Kontour AI"
+  description="Fieldwork is a local review app for documents. It proposes each value beside the exact line it was found on, records your decision, refuses to export anything nobody has looked at, and reopens decisions when the source changes."
 >
-  <Nav active="developers" />
+  <Nav active="fieldwork" />
 
   <Section contour size="hero" borderBottom>
     <Glow accent="green" position="top-right" />
@@ -110,54 +130,177 @@ const evidence: { title: string; body: string; href: string; label: string; acce
           </div>
           <Eyebrow accent="green" gap="sm">Standalone application</Eyebrow>
           <h1 class="product-title animate-fade-up">Fieldwork</h1>
-          <p class="product-tagline animate-fade-up delay-100" data-accent="green">extract facts from messy sources, then prove what was reviewed</p>
+          <p class="product-tagline animate-fade-up delay-100" data-accent="green">every value carries the line it came from</p>
           <p class="hero-copy animate-fade-up delay-200">
-            Fieldwork is the local review app for work like vendor renewals,
-            policy tables, public records, and research notes: source text goes
-            in, typed proposals come out, and every accepted value keeps the
-            excerpt, locator, reviewer decision, and recheck history that made
-            it safe to use.
+            Somebody has to read the contract, the filing, the report and pull
+            the numbers out of it — and somebody downstream has to trust those
+            numbers. Fieldwork does the reading, puts each value next to the
+            exact line of the document it was found on, and makes you approve
+            it. It will not hand you a file until you have. When the source
+            changes underneath you, it reopens the decisions that just went
+            stale.
           </p>
           <div class="hero-actions animate-fade-up delay-300">
-            <a href={sources.release} target="_blank" rel="noopener" class="btn-primary" data-umami-event="fieldwork-hero-release">Release source →</a>
+            <a href="#see-it" class="btn-primary" data-umami-event="fieldwork-hero-example">See what comes out →</a>
             <a href={sources.readme} target="_blank" rel="noopener" class="btn-ghost" data-umami-event="fieldwork-hero-docs">Read the contract →</a>
             <a href="https://www.npmjs.com/package/@kontourai/fieldwork" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="fieldwork-hero-npm">npm</a>
           </div>
         </div>
 
         <Terminal class="animate-fade-in delay-300" title="credential-free quickstart">
-          <pre class="code"><span class="t-com"># Node 22 · no API key needed</span>{'\n'}<span class="t-kw">npm</span> install <span class="t-str">@kontourai/fieldwork</span>{'\n'}<span class="t-kw">npm</span> exec -- fieldwork run \{'\n'}  --task node_modules/@kontourai/fieldwork/examples/generic/task.json \{'\n'}  --source node_modules/@kontourai/fieldwork/examples/generic/source.txt \{'\n'}  --json{'\n'}<span class="t-com"># open the generated review run</span>{'\n'}<span class="t-kw">npm</span> exec -- fieldwork open /path/from/runDirectory{'\n'}<span class="t-com"># approve or reject the grounded proposal, then export</span>{'\n'}<span class="t-kw">npm</span> exec -- fieldwork export /path/from/runDirectory --output reviewed.json --json</pre>
+          <pre class="code"><span class="t-com"># Node 22 · offline demo, no signup</span>{'\n'}<span class="t-kw">npm</span> install <span class="t-str">@kontourai/fieldwork</span>{'\n'}{'\n'}<span class="t-com"># 1. pull the values out of the sample agreement</span>{'\n'}<span class="t-kw">npm</span> exec -- fieldwork run \{'\n'}  --task node_modules/@kontourai/fieldwork/examples/vendor-obligations/task.json \{'\n'}  --source node_modules/@kontourai/fieldwork/examples/vendor-obligations/source.txt \{'\n'}  --json{'\n'}<span class="t-com"># → {'{'}"ok":true,…,"runDirectory":"…/.fieldwork/runs/run-bc32a8a21fef4afa","proposalCount":2{'}'}</span>{'\n'}{'\n'}<span class="t-com"># 2. review it in your browser; Ctrl-C stops the server</span>{'\n'}<span class="t-kw">npm</span> exec -- fieldwork open .fieldwork/runs/run-bc32a8a21fef4afa --json{'\n'}<span class="t-com"># → {'{'}"ok":true,"url":"http://127.0.0.1:50651/#cap=…","loopbackOnly":true{'}'}</span>{'\n'}{'\n'}<span class="t-com"># 3. hand off only what you approved</span>{'\n'}<span class="t-kw">npm</span> exec -- fieldwork export .fieldwork/runs/run-bc32a8a21fef4afa --output reviewed.json --json</pre>
         </Terminal>
       </Split>
       <p class="quickstart-note">
-        The checked-in provider is deterministic and offline, so this path needs no credential, network, or private configuration. The loopback launch URL is capability-bearing; treat it as local and do not share it. <a href={sources.readme} target="_blank" rel="noopener">Public CLI contract →</a>
+        Output above is from a real run of the published package, trimmed at the
+        <span class="codechip">…</span> marks. The link that step 2 prints only works on your own machine,
+        and only while the command is running — don’t paste it into a chat. The demo needs
+        no account and no key; <a href="#what-it-costs">real documents need a model</a>.
       </p>
     </div>
   </Section>
 
-  <Section size="lg" borderBottom>
+  <Section size="sm" tone="alt" borderBottom>
     <div class="container">
-      <Eyebrow accent="green" gap="sm">What the reviewer gets</Eyebrow>
-      <h2 class="display-md measure-lg">A worked path from source text to reviewed data.</h2>
-      <p class="body measure-lg workflow-intro">Use it when a value should not become operational data until someone can see where it came from, decide on it, and rerun the check when the source changes.</p>
-      <Grid cols={5} gap="sm">
-        {workflow.map(({ step, owner, body, accent }, index) => (
-          <Card accent={accent} bar="top" pad="sm" class="workflow-card">
-            <span class="workflow-card__number">0{index + 1}</span>
-            <h3 class="workflow-card__title">{step}</h3>
-            <p class="workflow-card__owner">{owner}</p>
-            <p class="workflow-card__body">{body}</p>
-            <a href={sources.readme} target="_blank" rel="noopener" class="workflow-card__link">Contract evidence →</a>
-          </Card>
-        ))}
-      </Grid>
+      <Eyebrow accent="green" gap="sm">Who this is for</Eyebrow>
+      <p class="body measure-lg audience-copy">
+        If part of your job is reading documents so that other people can act on
+        what’s inside them — obligations and renewal dates out of contracts,
+        deadlines and criteria out of funding notices, findings out of reports,
+        facts out of public filings — and being wrong about one of those values
+        is expensive, this is built for you. Reviewing takes a browser and a
+        pair of eyes. Starting a run takes a terminal, so if that isn’t you,
+        you’ll want someone who’s comfortable there for the first ten minutes.
+      </p>
+    </div>
+  </Section>
+
+  <Section id="see-it" size="lg" borderBottom>
+    <div class="container">
+      <Eyebrow accent="green" gap="sm">A renewal you have to get right</Eyebrow>
+      <h2 class="display-md measure-lg">Here’s the document. Here’s what you get. Here’s what you can’t do until you’ve looked.</h2>
+      <p class="body measure-lg story-intro">
+        Everything below is the <span class="codechip">vendor-obligations</span> example that ships inside the
+        package, run on a laptop with no account and no key.
+      </p>
+
+      <div class="story-grid">
+        <Card accent="chalk-2" bar="top" pad="md" class="story-panel">
+          <p class="story-panel__step">01 — What you start with</p>
+          <h3 class="story-panel__title">A document nobody has checked</h3>
+          <pre class="doc-frame">Synthetic Vendor Agreement
+Obligation: Deliver the monthly security report
+Deadline: 2027-03-31</pre>
+          <p class="story-panel__note">
+            Somebody has to get that deadline into the system that will chase
+            it. Today somebody retypes it, and nobody can tell afterwards
+            whether they read the right line.
+          </p>
+        </Card>
+
+        <Card accent="gold-2" bar="top" pad="md" class="story-panel">
+          <p class="story-panel__step">02 — What Fieldwork proposes</p>
+          <h3 class="story-panel__title">Two values, each with its receipt</h3>
+          <ol class="proposal-list">
+            {proposals.map(({ field, value, excerpt, locator }) => (
+              <li class="proposal">
+                <p class="proposal__field">{field}</p>
+                <p class="proposal__value">{value}</p>
+                <p class="proposal__from">
+                  found in <span class="proposal__excerpt">“{excerpt}”</span>
+                  <span class="proposal__locator">{locator}</span>
+                </p>
+              </li>
+            ))}
+          </ol>
+          <p class="story-panel__note">
+            None of this is data yet. Both rows land in a review queue with the
+            source open beside them, and <span class="codechip">chars:27-74</span> is the exact stretch of
+            the document the value was read out of — so checking a value means
+            reading one line, not trusting a score.
+          </p>
+        </Card>
+
+        <Card accent="green" bar="top" pad="md" class="story-panel story-panel--wide">
+          <p class="story-panel__step">03 — What you can’t do until you’ve looked</p>
+          <h3 class="story-panel__title">The export refuses</h3>
+          <Terminal title="export before review">
+            <pre class="code"><span class="t-kw">npm</span> exec -- fieldwork export .fieldwork/runs/run-bc32a8a21fef4afa --output reviewed.json --json{'\n'}{'{'}"ok":false,"error":{'{'}"code":"FIELDWORK_ERROR","message":"Export refused: unresolved-review-item, unresolved-review-item"{'}'}{'}'}</pre>
+          </Terminal>
+          <p class="story-panel__note">
+            Two unreviewed rows, two refusals — one per value nobody has looked
+            at yet. <span class="codechip">reviewed.json</span> is never written. Once a person has
+            decided on every row, the file exists and each value in it carries
+            the line it came from, who accepted it, and when — so the next
+            person doesn’t have to take your word for it either.
+          </p>
+        </Card>
+      </div>
+
+      <p class="body measure-lg recheck-coda">
+        <strong>And a month later, when the vendor reissues the agreement:</strong>
+        <span class="codechip">fieldwork recheck</span> compares the new document against the run you
+        already approved. Identical bytes cost nothing and change nothing. A
+        moved, changed, or vanished value opens a new review round covering
+        exactly the rows it affects. The run you already signed off stays
+        intact and dated — you simply get told which of your decisions no
+        longer describes the document.
+      </p>
+    </div>
+  </Section>
+
+  <Section tone="alt" borderBottom>
+    <div class="container">
+      <Eyebrow accent="green" gap="sm">The review screen</Eyebrow>
+      <h2 class="display-md measure-lg">The source on top, the decision underneath.</h2>
+      <figure class="product-shot review-shot">
+        <img src="/screenshots/fieldwork-review.png" alt="The reviewed value “Active” shown beside the exact line of source text it was extracted from, with accept and reject controls underneath." loading="lazy" />
+        <figcaption>
+          You accept a value by reading the line it came from. Exact snapshot
+          from the browser test that ships with the release, captured against
+          v{reviewShot.capturedAgainstVersion} on {reviewShot.capturedAt}. The
+          fixture here is a deliberately tiny one, so the screen is emptier than
+          a real queue. <a href={sources.browser} target="_blank" rel="noopener">Source test →</a>
+        </figcaption>
+      </figure>
+      <p class="body measure-lg survey-note">
+        The queue in that screenshot is <a href="/survey/">Survey</a>, the review
+        workbench Kontour ships on its own. Fieldwork is the finished app;
+        Survey is the review queue inside it. Fieldwork mounts it rather than
+        building a second one, so a decision recorded here means the same thing
+        anywhere else in Kontour it shows up. The queue works on a phone too.
+      </p>
+    </div>
+  </Section>
+
+  <Section borderBottom>
+    <div class="container">
+      <Split ratio="1-1" gap="lg" align="center">
+        <div>
+          <Eyebrow accent="gold" gap="sm">Documents and scans</Eyebrow>
+          <h2 class="display-md">Review PDF and OCR results with their layout context intact.</h2>
+          <p class="body">
+            Connect the parser or OCR reader you already trust, and the evidence
+            keeps its address: page 2, this layout block, this table cell. You
+            can find the value in the original document without hunting for it.
+            Which reader prepared the source stays attached to the run, so a
+            reviewer can see how the text was produced.
+          </p>
+          <p class="body">Fieldwork brings the review and the evidence view; PDF parsing and OCR come from readers you plug in. If one is missing, the CLI stops and tells you which reader it needs rather than guessing at the text.</p>
+          <a href={sources.browser} target="_blank" rel="noopener" class="handoff-link" data-umami-event="fieldwork-format-test">Inspect the format browser test →</a>
+        </div>
+        <figure class="product-shot">
+          <img src="/screenshots/fieldwork-format-inspection.png" alt="A proposed value beside its PDF evidence, labelled PDF page 2, one layout element, one table cell." loading="lazy" />
+          <figcaption>The page, layout, and table-cell address travels with the value into the inspector. Exact snapshot from the format browser test, captured against v{formatShot.capturedAgainstVersion}.</figcaption>
+        </figure>
+      </Split>
     </div>
   </Section>
 
   <Section tone="alt" borderBottom>
     <div class="container">
       <Eyebrow accent="green" gap="sm">Adopt it your way</Eyebrow>
-      <h2 class="display-md measure-lg">Use the app today, then embed the pieces your product needs.</h2>
+      <h2 class="display-md measure-lg">Start with the app. Take it further when you need to.</h2>
       <Grid cols={3} gap="lg">
         {adoptionPaths.map(({ title, accent, items }) => (
           <Card accent={accent} bar="top" pad="md">
@@ -168,54 +311,14 @@ const evidence: { title: string; body: string; href: string; label: string; acce
           </Card>
         ))}
       </Grid>
-      <p class="boundary-proof"><a href={sources.readme} target="_blank" rel="noopener">Fieldwork's public host contract →</a></p>
+      <p class="boundary-proof"><a href={sources.readme} target="_blank" rel="noopener">The public contract for embedding it →</a></p>
     </div>
   </Section>
 
-  <Section borderBottom>
+  <Section size="lg" borderBottom>
     <div class="container">
-      <Eyebrow accent="green" gap="sm">Repository-backed review states</Eyebrow>
-      <h2 class="display-md measure-lg">A source-linked proposal can be inspected before anyone accepts it.</h2>
-      <div class="fieldwork-shot-grid">
-        <figure class="product-shot">
-          <img src="/screenshots/fieldwork-review.png" alt="Fieldwork Grounded Review desktop view with a source inspector, extraction evidence for record status, and a Survey review workbench showing an accepted proposal." loading="lazy" />
-          <figcaption>Exact desktop snapshot from Fieldwork {productBadge(fieldworkStatus)}’s public browser test: source inspection above the shared review workbench after the proposed value is accepted. <a href={sources.browser} target="_blank" rel="noopener">Source test →</a></figcaption>
-        </figure>
-        <figure class="product-shot fieldwork-shot--mobile">
-          <img src="/screenshots/fieldwork-review-mobile.png" alt="Fieldwork Grounded Review mobile view with source filters, a proposed record status value, and visible review controls including Use proposed and Could not confirm." loading="lazy" />
-          <figcaption>Exact 390px mobile snapshot from the same public browser coverage. The review actions remain visible without horizontal overflow. <a href={sources.browser} target="_blank" rel="noopener">Source test →</a></figcaption>
-        </figure>
-      </div>
-    </div>
-  </Section>
-
-  <Section tone="alt" borderBottom>
-    <div class="container">
-      <Split ratio="1-1" gap="lg" align="center">
-        <div>
-          <Eyebrow accent="gold" gap="sm">Documents and scans</Eyebrow>
-          <h2 class="display-md">Review PDF and OCR results with their layout context intact.</h2>
-          <p class="body">
-            Connect the parser or OCR adapter you already trust, then show page,
-            layout, and table-cell context beside each proposed value. The
-            adapter identity stays attached to the run, so reviewers can see
-            how the source was prepared.
-          </p>
-          <p class="body">Fieldwork includes the review and evidence experience; PDF parsing and OCR enter through explicit adapters. If one is missing, the CLI returns a typed adapter-required result.</p>
-          <a href={sources.browser} target="_blank" rel="noopener" class="handoff-link" data-umami-event="fieldwork-format-test">Inspect the format browser test →</a>
-        </div>
-        <figure class="product-shot">
-          <img src="/screenshots/fieldwork-format-inspection.png" alt="Fieldwork Grounded Review desktop view of a format conformance fixture, showing PDF page, layout element, and table-cell context beside the proposed record status." loading="lazy" />
-          <figcaption>Exact {productBadge(fieldworkStatus)} snapshot of PDF page, layout, and table-cell context carried into the inspector by an explicit format adapter.</figcaption>
-        </figure>
-      </Split>
-    </div>
-  </Section>
-
-  <Section size="lg">
-    <div class="container">
-      <Eyebrow accent="green" gap="sm">What the public evidence establishes</Eyebrow>
-      <h2 class="display-md measure-lg">Mechanics, interface evidence, and optional runtime execution are kept distinct.</h2>
+      <Eyebrow accent="green" gap="sm">Check it yourself</Eyebrow>
+      <h2 class="display-md measure-lg">What’s proven, and what isn’t.</h2>
       <Grid cols={4} gap="md">
         {evidence.map(({ title, body, href, label, accent }) => (
           <Card accent={accent} bar="top" pad="md">
@@ -225,29 +328,96 @@ const evidence: { title: string; body: string; href: string; label: string; acce
           </Card>
         ))}
       </Grid>
+      <p class="evidence-more">
+        <a href={sources.release} target="_blank" rel="noopener" data-umami-event="fieldwork-release-source">Browse the released source →</a>
+      </p>
     </div>
   </Section>
 
-  <Footer active="developers" />
+  <Section id="what-it-costs" size="lg">
+    <div class="container">
+      <Eyebrow accent="gold" gap="sm">What it costs to try</Eyebrow>
+      <h2 class="display-md measure-lg">The demo is free. Real documents need a model, and it’s yours.</h2>
+      <p class="body measure-lg">
+        The extractor in the box finds values by exact label — which is why the
+        sample file above looks like <span class="codechip">Deadline: 2027-03-31</span>. It runs offline with
+        no account, and it exists so you can see the review, the refusal, and
+        the export before deciding anything. Point that same task at an actual
+        renewal letter and the run comes back with <span class="codechip">"proposalCount":0</span> — a
+        real letter doesn’t label its own fields.
+      </p>
+      <p class="body measure-lg">
+        Real documents need a model, and Fieldwork doesn’t ship one or resell
+        one. You point a run at a coding agent you’re already signed in to
+        (<span class="codechip">--runtime claude-code:sonnet</span>, <span class="codechip">--runtime codex:gpt-5</span>), or at your own
+        API key — which requires a spend ceiling and a rate assumption you set
+        (<span class="codechip">--max-cost-usd</span>, <span class="codechip">--estimated-usd-per-1k-tokens</span>) before the first call.
+        Which runtime you chose is part of the run’s identity, and every call
+        records what it used and what it cost. The review, the refusal, and the
+        export behave identically either way.
+      </p>
+      <div class="hero-actions closing-actions">
+        <a href="/early-access/" class="btn-primary" data-umami-event="fieldwork-closing-early-access">Talk to us about your documents →</a>
+        <a href={sources.runtime} target="_blank" rel="noopener" class="btn-ghost" data-umami-event="fieldwork-closing-runtime">How runtime selection works →</a>
+      </div>
+    </div>
+  </Section>
+
+  <Footer active="fieldwork" />
 </Layout>
 
 <style>
   .quickstart-note { margin: 1.5rem 0 0; color: var(--color-chalk-3); font-size: 0.82rem; line-height: 1.6; max-width: 720px; }
-  .quickstart-note a, .boundary-proof a, .workflow-card__link, .evidence-link, .handoff-link { color: var(--color-green); }
-  .workflow-intro { margin: 1rem 0 2rem; color: var(--color-chalk-2); }
-  .workflow-card { min-height: 100%; display: flex; flex-direction: column; }
-  .workflow-card__number, .workflow-card__owner { font-family: var(--font-mono); font-size: 0.68rem; color: var(--color-chalk-3); }
-  .workflow-card__title, .boundary-title, .evidence-title { margin: 0.5rem 0 0; font-size: 1rem; }
-  .workflow-card__owner { color: var(--accent); margin: 0.35rem 0 0; }
-  .workflow-card__body, .evidence-body { color: var(--color-chalk-2); font-size: 0.83rem; line-height: 1.55; margin: 0.85rem 0; }
-  .workflow-card__link, .evidence-link, .handoff-link { font-family: var(--font-mono); font-size: 0.72rem; margin-top: auto; }
+  .quickstart-note a, .boundary-proof a, .evidence-link, .handoff-link, .evidence-more a, .survey-note a, .recheck-coda a { color: var(--color-green); }
+  .audience-copy { margin: 0; color: var(--color-chalk-2); }
+  .story-intro { margin: 1rem 0 2rem; color: var(--color-chalk-2); }
+
+  .story-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+  .story-panel { min-height: 100%; display: flex; flex-direction: column; min-width: 0; }
+  .story-panel--wide { grid-column: 1 / -1; }
+  .story-panel__step { margin: 0; font-family: var(--font-mono); font-size: 0.68rem; color: var(--color-chalk-3); }
+  .story-panel__title { margin: 0.5rem 0 1rem; font-size: 1rem; }
+  .story-panel__note { color: var(--color-chalk-2); font-size: 0.85rem; line-height: 1.6; margin: 1.1rem 0 0; }
+
+  .doc-frame {
+    margin: 0;
+    padding: 1rem 1.1rem;
+    border: 1px solid var(--color-edge);
+    border-left: 3px solid var(--color-chalk-3);
+    border-radius: 4px;
+    background: var(--color-ink-1);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    line-height: 1.7;
+    color: var(--color-chalk-2);
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
+  .proposal-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; }
+  .proposal { border: 1px solid var(--color-edge); border-radius: 4px; padding: 0.8rem 0.9rem; background: var(--color-ink-1); }
+  .proposal__field { margin: 0; font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--color-gold-2); }
+  .proposal__value { margin: 0.3rem 0 0; font-size: 0.92rem; color: var(--color-chalk); overflow-wrap: anywhere; }
+  .proposal__from { margin: 0.5rem 0 0; font-size: 0.74rem; line-height: 1.6; color: var(--color-chalk-3); }
+  .proposal__excerpt { color: var(--color-chalk-2); overflow-wrap: anywhere; }
+  .proposal__locator { display: inline-block; margin-left: 0.4rem; font-family: var(--font-mono); color: var(--color-green); }
+
+  .recheck-coda { margin: 2rem 0 0; color: var(--color-chalk-2); }
+  .recheck-coda strong { color: var(--color-chalk); }
+
+  .review-shot { margin-top: 2rem; }
+  .survey-note { margin: 1.75rem 0 0; color: var(--color-chalk-2); }
+
+  .boundary-title, .evidence-title { margin: 0.5rem 0 0; font-size: 1rem; }
+  .evidence-body { color: var(--color-chalk-2); font-size: 0.83rem; line-height: 1.55; margin: 0.85rem 0; }
+  .evidence-link, .handoff-link { font-family: var(--font-mono); font-size: 0.72rem; margin-top: auto; }
   .boundary-list { margin: 1rem 0 0; padding-left: 1.1rem; color: var(--color-chalk-2); font-size: 0.86rem; line-height: 1.6; }
   .boundary-list li + li { margin-top: 0.65rem; }
   .boundary-proof { margin: 1.5rem 0 0; font-family: var(--font-mono); font-size: 0.76rem; }
-  .fieldwork-shot-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(220px, 0.34fr); gap: 1.5rem; align-items: start; margin-top: 2rem; }
-  .fieldwork-shot--mobile { max-width: 390px; justify-self: center; }
-  @media (max-width: 760px) {
-    .fieldwork-shot-grid { grid-template-columns: 1fr; }
-    .fieldwork-shot--mobile { max-width: 390px; width: 100%; }
+  .evidence-more { display: flex; flex-wrap: wrap; gap: 0.75rem 2rem; margin: 1.75rem 0 0; font-family: var(--font-mono); font-size: 0.76rem; line-height: 1.5; }
+  .closing-actions { margin-top: 2rem; }
+
+  @media (max-width: 860px) {
+    .story-grid { grid-template-columns: 1fr; }
   }
 </style>

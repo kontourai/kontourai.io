@@ -20,6 +20,12 @@ export type KitKey = "builder-kit" | "knowledge-kit";
 // product, a ProductKey, or a navigation/icon identity.
 export type ApplicationKey = "fieldwork";
 
+// Packages the site cites as evidence but does not market: no page, no nav, no
+// icon. They still need tracked status, because page copy quotes their version
+// when it prints their output — an untracked citation is one nobody can catch
+// going stale.
+export type ReferenceKey = "traverse";
+
 export type Kit = {
   key: KitKey;
   href: string;
@@ -28,9 +34,9 @@ export type Kit = {
   job: string;
 };
 
-// The two kits with dedicated site pages. They ride the Flow Agents engine —
-// nav and footer surface them right after it so the engine+kits story is the
-// primary reading path (GTM direction 2026-07-03: single-story, wedge-first).
+// The two kits with dedicated site pages. They ride the Flow Agents engine, so
+// nav and footer file them inside the engine's own menu rather than giving them
+// top-level slots (GTM direction 2026-07-03: single-story, wedge-first).
 export const kits: Kit[] = [
   {
     key: "builder-kit",
@@ -44,7 +50,7 @@ export const kits: Kit[] = [
     href: "/knowledge-kit/",
     label: "Knowledge Kit",
     accent: "gold",
-    job: "Durable, provenance-gated knowledge on the engine.",
+    job: "What the agent learned, kept with the source it came from.",
   },
 ];
 
@@ -57,10 +63,6 @@ export type Product = {
   homepage: {
     job: string;
     relation: string;
-  };
-  developerComposition?: {
-    owns: string;
-    composes: string;
   };
 };
 
@@ -75,6 +77,22 @@ export type Application = {
   composition: string;
 };
 
+export type Reference = {
+  key: ReferenceKey;
+  label: string;
+  repo: string;
+  packageName: string;
+};
+
+export const referencedPackages: Reference[] = [
+  {
+    key: "traverse",
+    label: "Traverse",
+    repo: "https://github.com/kontourai/traverse",
+    packageName: "@kontourai/traverse",
+  },
+];
+
 export const applications: Application[] = [
   {
     key: "fieldwork",
@@ -84,7 +102,7 @@ export const applications: Application[] = [
     repo: "https://github.com/kontourai/fieldwork",
     packageName: "@kontourai/fieldwork",
     job: "Turn messy source text into reviewed, source-linked data you can recheck and export.",
-    composition: "Use it as the ready-made front door for extraction review; the underlying libraries remain available when you need a custom host.",
+    composition: "The finished app: install it and start reviewing. Survey is the review machinery inside it, if you would rather build your own screen around it.",
   },
 ];
 
@@ -98,12 +116,8 @@ export const products: Product[] = [
     accent: "chalk-2",
     repo: "https://github.com/kontourai/flow-agents",
     homepage: {
-      job: "Keep AI coding work on a reviewable path across Claude Code, Codex, Kiro, opencode, pi, and GitHub Actions.",
+      job: "Keep AI coding work on a reviewable path across Claude Code, Codex, Kiro, opencode, and pi.",
       relation: "Adds evidence gates, resumable state, and receipts to the agent tools you already run.",
-    },
-    developerComposition: {
-      owns: "agent workflows, skills, kits, local sidecars, verification loops, and handoff discipline",
-      composes: "coordinates Builder Kit work and can consume Flow, Veritas, and Surface signals",
     },
   },
   {
@@ -116,10 +130,6 @@ export const products: Product[] = [
       job: "Turns your repo's standards into evidence-backed readiness reports that agents and reviewers can rely on.",
       relation: "Brings the same evidence to merge — readiness reports a reviewer or agent can act on.",
     },
-    developerComposition: {
-      owns: "repo standards, readiness checks, evidence findings, exceptions, and code-change governance",
-      composes: "projects code-change readiness into evidence other products can inspect",
-    },
   },
   {
     key: "surface",
@@ -131,10 +141,6 @@ export const products: Product[] = [
       job: "Make a claim show its evidence, freshness, policies, and unresolved gaps in one portable record.",
       relation: "Gives the rest of the suite one inspectable trust record to read and write.",
     },
-    developerComposition: {
-      owns: "portable claims, evidence, policies, status, Trust Reports, and trust vocabulary",
-      composes: "makes product facts inspectable for Console, Flow gates, Veritas reports, and downstream operators",
-    },
   },
   {
     key: "flow",
@@ -145,10 +151,6 @@ export const products: Product[] = [
     homepage: {
       job: "Show why work advanced, blocked, or routed back, gate by gate, with the evidence behind each transition.",
       relation: "Keeps a process from becoming done until the required proof is present or an exception is explicit.",
-    },
-    developerComposition: {
-      owns: "process paths, transitions, gates, route-backs, exceptions, and next-action semantics",
-      composes: "uses Surface or Veritas evidence as gate input without owning claim truth or repo policy",
     },
   },
   {
@@ -179,7 +181,6 @@ export const products: Product[] = [
 // then products usable today (Veritas, Flow Agents), then Console last (the
 // operating plane over the suite).
 const homepageProductOrder: ProductKey[] = ["surface", "survey", "flow", "veritas", "flow-agents", "console"];
-const developerCompositionOrder: ProductKey[] = ["surface", "flow", "veritas", "flow-agents"];
 
 const productsByKey = new Map(products.map((product) => [product.key, product]));
 
@@ -195,15 +196,3 @@ function orderedProducts(keys: ProductKey[]): Product[] {
 
 export const homepageProducts = orderedProducts(homepageProductOrder);
 
-// Composition contracts cover implementation layers with product-owned contracts.
-// Survey feeds Surface and Console observes product-owned projections elsewhere
-// on the page, so they are intentionally omitted from this specific card list.
-export const developerCompositionProducts = orderedProducts(developerCompositionOrder).map((product) => {
-  if (!product.developerComposition) {
-    throw new Error(`Missing developer composition copy for ${product.key}`);
-  }
-  return {
-    ...product,
-    developerComposition: product.developerComposition,
-  };
-});

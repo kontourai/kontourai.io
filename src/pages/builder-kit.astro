@@ -9,28 +9,69 @@ import Eyebrow from '@/components/Eyebrow.astro';
 import Card from '@/components/Card.astro';
 import Grid from '@/components/Grid.astro';
 import Split from '@/components/Split.astro';
+import EnforcementBadge from '@/components/EnforcementBadge.astro';
 import { getProductStatus, productBadge } from '@/lib/product-status';
 import type { Accent } from '@/lib/theme';
 
 const flowAgentsStatus = getProductStatus('flow-agents');
 
+// Three cards, three flows — `kits/builder/kit.json` declares exactly
+// builder.shape, builder.build and builder.publish-learn. Publish and learn
+// are one flow, so the page no longer splits them into two peers.
 const path: { step: string; title: string; body: string; accent: Accent }[] = [
-  { step: '01', title: 'Shape', accent: 'gold', body: 'Turn a raw request into a backlog item with boundaries, acceptance criteria, and a reason to exist.' },
-  { step: '02', title: 'Build', accent: 'chalk-2', body: 'Plan the work, execute scoped waves, and route findings back instead of hiding them in a summary.' },
-  { step: '03', title: 'Publish', accent: 'green', body: 'Move from local evidence to PR, CI, release readiness, and explicit hold or merge decisions.' },
-  { step: '04', title: 'Learn', accent: 'cobalt-2', body: 'Capture corrections and repeated misses so the next run starts sharper than the last one.' },
+  {
+    step: '01',
+    title: 'Shape',
+    accent: 'gold',
+    body: 'In: "we should let people filter search results." Out: a scoped ticket with acceptance criteria, the things it deliberately will not do, and the questions nobody had asked yet.',
+  },
+  {
+    step: '02',
+    title: 'Build',
+    accent: 'chalk-2',
+    body: 'The agent pulls the ticket, probes the repo, writes a plan, implements it, gets critiqued, then has to prove it. Missing proof stops the run instead of ending it.',
+  },
+  {
+    step: '03',
+    title: 'Publish & learn',
+    accent: 'green',
+    body: 'PR opened, CI rerun reconciled against the diff that actually landed, merge-or-hold called out loud, and the corrections written down so the next run starts sharper.',
+  },
 ];
 
 const gates: { title: string; body: string; accent: Accent }[] = [
-  { title: 'Plan before code', accent: 'gold', body: 'Builder separates shaping, probing, and planning from implementation so the agent has a route, not just a prompt.' },
-  { title: 'Review before verify', accent: 'chalk-2', body: 'Critique happens before the proof pass, so obvious bugs and architecture misses route back early.' },
-  { title: 'Evidence before done', accent: 'green', body: 'Tests, browser checks, source inspection, CI state, and known gaps become durable artifacts under the Flow Agents engine.' },
+  {
+    title: 'A plan before code',
+    accent: 'gold',
+    body: 'Shaping, probing and planning are separate steps from implementation, and the planning steps are not allowed to write code. The agent arrives at the keyboard with a route instead of a prompt.',
+  },
+  {
+    title: 'A critique before the proof',
+    accent: 'chalk-2',
+    body: 'Review runs ahead of verification, so an architecture miss routes back to the step that caused it rather than getting absorbed into a summary and forgotten.',
+  },
+  {
+    title: 'Evidence before "done"',
+    accent: 'green',
+    body: 'Test runs, browser checks, source inspection, CI state and known gaps land as files in your repo. If the evidence is missing, the run refuses or escalates to you — it never quietly proceeds.',
+  },
+];
+
+// Annotations for the verbatim listing beside them:
+// `ls -1 .kontourai/flow-agents/kontourai-kontourai-io-206/`
+const leftBehind: { file: string; note: string }[] = [
+  { file: 'state.json', note: 'where the run got to, and the branch it worked on' },
+  { file: 'acceptance.json', note: 'what "done" was agreed to mean, before any code' },
+  { file: 'handoff.json', note: 'enough context for a fresh session to pick it up' },
+  { file: 'trust.bundle', note: 'every claim, the evidence for it, and the gaps' },
+  { file: 'command-log.jsonl', note: 'what actually ran' },
+  { file: 'learning.json', note: 'what the reviewers corrected' },
 ];
 ---
 
 <Layout
-  title="Builder Kit - Verifiable agent delivery on Flow Agents · Kontour AI"
-  description="Builder Kit is the Flow Agents kit for verifiable agent delivery: shape work, build it, publish with evidence, and learn from corrections."
+  title="Builder Kit - the delivery workflow your coding agent follows · Kontour AI"
+  description="Builder Kit is the Flow Agents kit for shipping code: the agent has to plan before it writes, get critiqued before it verifies, and leave the evidence in your repo as files."
 >
   <Nav active="builder-kit" />
 
@@ -45,46 +86,154 @@ const gates: { title: string; body: string; accent: Accent }[] = [
           </div>
 
           <h1 class="product-title animate-fade-up">Builder Kit</h1>
-          <p class="product-tagline animate-fade-up delay-100" data-accent="chalk-2">verifiable agent delivery, from idea to learning</p>
+          <p class="product-tagline animate-fade-up delay-100" data-accent="chalk-2">the delivery workflow your coding agent has to follow</p>
 
           <p class="hero-copy hero-copy--wide animate-fade-up delay-200">
-            Builder Kit is the agent-delivery kit on top of the Flow Agents
-            engine. It gives the agent a required path: shape the work, probe
-            the repo, plan the change, build it, review it, verify it, publish
-            with evidence, and learn from what reviewers correct. The engine
-            underneath supplies FlowDefinition interpretation, gates, adapters,
-            sidecars, and Trust Bundle evidence. Builder supplies the delivery
-            job.
+            A kit is a workflow your agent has to follow, packaged so you can
+            install it instead of writing it yourself. Builder Kit is the one
+            for shipping code.
+          </p>
+          <p class="hero-copy hero-copy--wide animate-fade-up delay-200">
+            Point your agent at a ticket. Before it writes a line it has to
+            pull the work, ask its questions, and produce a plan. Before it can
+            call the job done, something has to critique it and something has
+            to prove it — a test run, a browser check, a CI rerun, or a gap
+            written down with your name on it. What it can't prove, it hands
+            back to you.
           </p>
 
           <div class="hero-actions animate-fade-up delay-300">
-            <a href="/flow-agents/" class="btn-primary" data-umami-event="builder-kit-hero-engine">Flow Agents engine -></a>
+            <a href="#first-run" class="btn-primary" data-umami-event="builder-kit-hero-first-run">Try it on one ticket</a>
             <a href="https://kontourai.github.io/flow-agents/" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="builder-kit-hero-docs">Docs</a>
           </div>
         </div>
 
-        <Terminal class="animate-fade-in delay-300" title="builder.build">
-          <p><span class="prompt">$ </span><span class="cmd">flow-agents kit activate builder</span></p>
-          <p><span class="prompt">$ </span><span class="cmd">Use deliver for issue #214.</span></p>
-          <br />
-          <p class="pass">  ✓ pull-work</p>
-          <p class="pass">  ✓ pickup-probe</p>
-          <p class="pass">  ✓ plan-work</p>
-          <p class="pass">  ✓ execute-plan</p>
-          <p class="pass">  ✓ review-work</p>
-          <p class="warn">  BLOCK verify-work: rendered evidence missing</p>
-          <br />
-          <p class="muted">  next action: capture browser evidence, then resume</p>
-          <p class="muted">  state: .kontourai/flow-agents/issue-214-search-filters/</p>
-        </Terminal>
+        <div>
+          <Terminal class="animate-fade-in delay-300" title="install + check">
+            <p><span class="prompt">$ </span><span class="cmd">npx @kontourai/flow-agents init --runtime claude-code --activate-kit builder --yes</span></p>
+            <br />
+            <p>Installed Claude Code bundle into …/your-repo</p>
+            <br />
+            <p>Flow Agents install summary:</p>
+            <p class="pass">  ✓ Runtime: claude-code</p>
+            <p class="pass">  ✓ Destination: …/your-repo</p>
+            <p class="pass">  ✓ Telemetry sink: local-files</p>
+            <p class="muted">  - Console: local-only</p>
+            <br />
+            <p><span class="prompt">$ </span><span class="cmd">flow-agents workflow doctor</span></p>
+            <p>Flow Agents CLI: 5.3.0</p>
+            <p>Installed hooks/writer: 5.3.0</p>
+            <p>Builder Kit schema: installed=1.0 resolved=1.0</p>
+            <p>Flow: builder.build@1.3</p>
+            <p class="muted">Artifact schema: state=none trust=none</p>
+          </Terminal>
+          <p class="term-note animate-fade-in delay-300">
+            Real output from {productBadge(flowAgentsStatus)}. The absolute
+            install path is shortened to <code>…/your-repo</code> and the
+            trailing “Next steps” lines are trimmed; nothing else is changed.{' '}
+            <code>state=none trust=none</code> is correct on a fresh install —
+            no run has happened yet.
+          </p>
+        </div>
       </Split>
     </div>
   </Section>
 
   <Section size="lg">
     <div class="container">
-      <Eyebrow gap="lg">Delivery path</Eyebrow>
-      <Grid cols={4} gap="md">
+      <Split ratio="1-1" gap="md" align="center">
+        <div>
+          <Eyebrow accent="chalk-2">A run in progress</Eyebrow>
+          <h2 class="display-md builder-title">The run knows where it stopped. You shouldn't have to read the transcript to find out.</h2>
+          <p class="body builder-copy">
+            Every Builder run keeps its state in your repo, so you can ask it
+            where it is from any terminal — days later, from a different
+            machine, after the chat window is gone.
+          </p>
+          <p class="body builder-copy builder-copy--last">
+            When it can't advance, it doesn't quietly declare victory. It names
+            the step it stopped at and the next thing that has to happen, and
+            it stays there until someone does it.
+          </p>
+        </div>
+
+        <div>
+          <Terminal title="workflow status">
+            <p><span class="prompt">$ </span><span class="cmd">flow-agents workflow status \</span></p>
+            <p><span class="cmd">    --session-dir .kontourai/flow-agents/kontourai-flow-agents-944</span></p>
+            <br />
+            <p>builder.build@1.3 kontourai-flow-agents-944</p>
+            <p class="warn">Status: paused</p>
+            <p>Step: execute</p>
+            <p class="muted">Next: Canonical Flow run is paused. The current assignment actor may resume it with a reason.</p>
+          </Terminal>
+          <p class="term-note">
+            Verbatim output from a real paused run, with the command wrapped
+            onto two lines at the shell continuation. Those four lines come
+            from the run's own record on disk — not from anything the agent
+            said in chat.
+          </p>
+        </div>
+      </Split>
+    </div>
+  </Section>
+
+  <Section tone="alt" borderTop borderBottom>
+    <div class="container">
+      <Eyebrow accent="green" gap="sm">What “done” leaves behind</Eyebrow>
+      <h2 class="display-md measure-lg builder-recent-title">One is a sentence. The other is a folder you can open.</h2>
+      <Split ratio="1-1" gap="md">
+        <Card accent="gold" bar="top" pad="md">
+          <h3 class="feature-title">Your agent today</h3>
+          <p class="feature-body">
+            “I've implemented the search filters and everything is working.”
+          </p>
+          <p class="feature-body">
+            The reasoning behind that lives in a context window that gets
+            compacted. To check the claim you re-read the diff and take its
+            word for the rest. Six weeks later there is nothing to open.
+          </p>
+        </Card>
+
+        <div>
+          <Terminal title="one finished ticket">
+            <p><span class="prompt">$ </span><span class="cmd">ls -1 .kontourai/flow-agents/kontourai-kontourai-io-206/</span></p>
+            <br />
+            <p>acceptance.json</p>
+            <p>command-log.jsonl</p>
+            <p>handoff.json</p>
+            <p>kontourai-kontourai-io-206--deliver.md</p>
+            <p>learning.json</p>
+            <p>state.json</p>
+            <p>trust.bundle</p>
+            <p>trust.checkpoint.attestation.json</p>
+            <p>trust.checkpoint.intoto.json</p>
+            <p>trust.checkpoint.json</p>
+          </Terminal>
+          <p class="term-note">
+            Verbatim listing from this site's own repo — the session that
+            shipped <a href="https://github.com/kontourai/kontourai.io/pull/206" target="_blank" rel="noopener">kontourai.io#206</a>.
+            Plain files, committed alongside the change. No login, no
+            dashboard, no scrollback to lose.
+          </p>
+        </div>
+      </Split>
+
+      <dl class="artifacts">
+        {leftBehind.map(({ file, note }) => (
+          <div class="artifacts__row">
+            <dt><code>{file}</code></dt>
+            <dd>{note}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </Section>
+
+  <Section size="lg">
+    <div class="container">
+      <Eyebrow gap="lg">Three flows</Eyebrow>
+      <Grid cols={3} gap="md">
         {path.map(({ step, title, body, accent }) => (
           <Card accent={accent} bar="top" pad="md">
             <div class="step">{step}</div>
@@ -96,68 +245,9 @@ const gates: { title: string; body: string; accent: Accent }[] = [
     </div>
   </Section>
 
-  <Section tone="alt" borderTop borderBottom>
+  <Section borderTop>
     <div class="container">
-      <Split ratio="1-1" gap="md" align="center">
-        <div>
-          <Eyebrow accent="chalk-2">What Builder changes</Eyebrow>
-          <h2 class="display-md builder-title">The agent can move fast. The workflow decides when it is allowed to advance.</h2>
-          <p class="body builder-copy">
-            Keep the coding agent you already use and give it a delivery path
-            reviewers can trust. Builder declares the flow, the evidence each
-            gate expects, where findings route back, and when a human decision
-            is required.
-          </p>
-          <p class="body builder-copy builder-copy--last">
-            “Done” becomes a state another person can inspect and reproduce,
-            even after the original context window is gone.
-          </p>
-        </div>
-
-        <Terminal title="builder.shape -> builder.build">
-          <p class="info">  builder.shape</p>
-          <p class="muted">  raw idea -> clarified backlog -> executable issue</p>
-          <br />
-          <p class="info">  builder.build</p>
-          <p class="muted">  selected work -> plan -> implementation -> evidence</p>
-          <br />
-          <p class="pass">  PASS  scoped implementation</p>
-          <p class="pass">  PASS  review finding resolved</p>
-          <p class="pass">  PASS  CI rerun matched git ground truth</p>
-          <p class="muted">  Trust Bundle: claims, evidence, gaps, exceptions</p>
-        </Terminal>
-      </Split>
-    </div>
-  </Section>
-
-  <Section borderBottom>
-    <div class="container">
-      <Eyebrow accent="chalk-2" gap="sm">Shipped in the 3.x line</Eyebrow>
-      <h2 class="display-md measure-lg builder-recent-title">The delivery discipline kept compounding.</h2>
-      <Grid min="260" gap="md">
-        <Card accent="green" bar="top" pad="md">
-          <h3 class="feature-title">Named closeout flow</h3>
-          <p class="feature-body"><code>builder.publish-learn</code> is a third first-class flow beside shape and build — publish evidence and capture corrections as one reusable closeout, not an afterthought.</p>
-        </Card>
-        <Card accent="gold" bar="top" pad="md">
-          <h3 class="feature-title">Model routing + escalation</h3>
-          <p class="feature-body">Steps carry model-routing hints, and a failed gate can escalate to a stronger model instead of retrying the same one harder.</p>
-        </Card>
-        <Card accent="cobalt-2" bar="top" pad="md">
-          <h3 class="feature-title">One run across every client</h3>
-          <p class="feature-body">Builder sessions keep the same gates, route-backs, process state, and next action when work moves between coding clients.</p>
-        </Card>
-        <Card accent="chalk-2" bar="top" pad="md">
-          <h3 class="feature-title">Long work that resumes cleanly</h3>
-          <p class="feature-body">Explicit continuation bounds let a long delivery resume across driver invocations without losing its scope, evidence, or next action.</p>
-        </Card>
-      </Grid>
-    </div>
-  </Section>
-
-  <Section>
-    <div class="container">
-      <Eyebrow gap="lg">What keeps delivery honest</Eyebrow>
+      <Eyebrow gap="lg">What keeps it honest</Eyebrow>
       <Grid cols={3} gap="lg">
         {gates.map(({ title, body, accent }) => (
           <Card accent={accent} bar="top" pad="md">
@@ -166,16 +256,85 @@ const gates: { title: string; body: string; accent: Accent }[] = [
           </Card>
         ))}
       </Grid>
+      <p class="fine measure-lg gates-limit">
+        What it does not catch: a passing test run recorded before a later
+        edit, a test whose scope was quietly narrowed, or a test edited until
+        it passed. Those stay a reviewer's job — what the kit contributes is
+        that the reviewer has the plan, the commands and the diff in front of
+        them.
+      </p>
     </div>
   </Section>
 
-  <Section size="note" borderTop>
+  <Section tone="alt" borderTop borderBottom>
     <div class="container">
-      <p class="closing-note">
-        Builder Kit is one first-party kit. Flow Agents remains the neutral
-        engine underneath it, and other kits can run beside Builder without
-        inheriting Builder's delivery assumptions.
-      </p>
+      <Eyebrow accent="chalk-2" gap="sm">What it handles that a prompt doesn't</Eyebrow>
+      <h2 class="display-md measure-lg builder-recent-title">Long jobs, hard jobs, and the ones that move between tools.</h2>
+      <Grid min="260" gap="md">
+        <Card accent="green" bar="top" pad="md">
+          <h3 class="feature-title">Shipping is part of the job</h3>
+          <p class="feature-body">Opening the PR, reconciling CI against the diff that actually landed, calling merge or hold, and writing down the corrections is one flow — <code>builder.publish-learn</code> — not an afterthought bolted onto the end of a build.</p>
+        </Card>
+        <Card accent="gold" bar="top" pad="md">
+          <h3 class="feature-title">Model routing + escalation</h3>
+          <p class="feature-body">Steps carry routing hints for how much model the work needs, and a failed gate can escalate to a stronger one instead of retrying the same one harder.</p>
+        </Card>
+        <Card accent="cobalt-2" bar="top" pad="md">
+          <h3 class="feature-title">Work that moves between tools</h3>
+          <p class="feature-body">The session state lives in your repo, not the chat, so a job started in Claude Code can be picked up in Codex with the same plan, evidence and next action. How hard the gate can push depends on the tool you're in.</p>
+          <ul class="feature-meta">
+            <li><EnforcementBadge level="blocking" /> <span>in Claude Code and Codex</span></li>
+            <li><EnforcementBadge level="advisory" /> <span>everywhere else</span></li>
+          </ul>
+          <p class="feature-meta-link"><a href="/flow-agents/" data-umami-event="builder-kit-enforcement-matrix">The per-runtime matrix -></a></p>
+        </Card>
+        <Card accent="chalk-2" bar="top" pad="md">
+          <h3 class="feature-title">Long work that resumes cleanly</h3>
+          <p class="feature-body">A delivery too big for one sitting gets explicit continuation bounds, so the next session resumes with the scope, the evidence so far, and the next action intact instead of starting over from the ticket.</p>
+        </Card>
+      </Grid>
+    </div>
+  </Section>
+
+  <Section id="first-run" size="lg" borderBottom>
+    <div class="container">
+      <Split ratio="1-1" gap="md" align="center">
+        <div>
+          <Eyebrow accent="green">First run</Eyebrow>
+          <h2 class="display-md builder-title">Try it on one ticket you were going to do anyway.</h2>
+          <p class="body builder-copy">
+            Install it, then say to your agent: <em>“Use deliver for issue
+            #412”</em> — your issue number. It picks the work up, asks you
+            what it needs, and starts leaving files behind.
+          </p>
+          <p class="body builder-copy">
+            The honest cost: the first job is slower. You wait for a plan
+            before you see code, you wait for a critique before the verify
+            pass, and your repo gains a directory of evidence you didn't ask
+            for. If a gate blocks and you disagree with it, you can accept the
+            gap — it stays in the record with your name on it rather than
+            disappearing.
+          </p>
+          <p class="body builder-copy builder-copy--last">
+            Builder brings Knowledge Kit with it — the learning step uses it to
+            file what the reviewers corrected. Two kit directories land in your
+            repo, not one.
+          </p>
+        </div>
+
+        <Terminal title="one line">
+          <p><span class="prompt">$ </span><span class="cmd">npx @kontourai/flow-agents init \</span></p>
+          <p><span class="cmd">    --runtime claude-code \</span></p>
+          <p><span class="cmd">    --activate-kit builder --yes</span></p>
+          <br />
+          <p class="muted">runtimes: claude-code · codex · kiro · opencode · pi</p>
+        </Terminal>
+      </Split>
+
+      <div class="first-run-actions">
+        <a href="/flow-agents/" class="btn-primary" data-umami-event="builder-kit-footer-engine">The engine underneath -></a>
+        <a href="https://kontourai.github.io/flow-agents/" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="builder-kit-footer-docs">Read the docs</a>
+      </div>
     </div>
   </Section>
 
@@ -203,5 +362,67 @@ const gates: { title: string; body: string; accent: Accent }[] = [
   }
   .builder-recent-title {
     margin-bottom: 2rem;
+  }
+  .term-note {
+    font-size: 0.8rem;
+    line-height: 1.6;
+    color: var(--color-chalk-3);
+    margin-top: 0.9rem;
+    max-width: 52ch;
+  }
+  .term-note code {
+    font-size: 0.75rem;
+  }
+  .artifacts {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 0 2rem;
+  }
+  .artifacts__row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: baseline;
+    padding: 0.5rem 0;
+    border-top: 1px solid var(--color-edge);
+  }
+  .artifacts dt code {
+    font-size: 0.75rem;
+    color: var(--color-chalk-2);
+  }
+  .artifacts dd {
+    margin: 0;
+    font-size: 0.8rem;
+    color: var(--color-chalk-3);
+  }
+  .gates-limit {
+    margin-top: 2rem;
+  }
+  .feature-meta {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    color: var(--color-chalk-3);
+  }
+  .feature-meta li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .feature-meta-link {
+    margin-top: 0.75rem;
+    font-size: 0.75rem;
+  }
+  .first-run-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
   }
 </style>

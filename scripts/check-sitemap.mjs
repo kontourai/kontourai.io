@@ -32,7 +32,13 @@ if (!existsSync(distDir)) {
   process.exit(1);
 }
 
-// 1. Built indexable routes: every **/index.html under dist (404.html excluded by construction).
+// 1. Built indexable routes: every **/index.html under dist that is not marked
+// noindex (404.html is excluded by construction — it is not an index.html).
+// A page that tells crawlers not to index it must not be in the sitemap, so
+// the two signals are read from the same source rather than kept in sync by
+// hand.
+const NOINDEX_RE = /<meta\s+name=["']robots["']\s+content=["'][^"']*noindex/i;
+
 function collectRoutes(dir) {
   const routes = [];
   for (const entry of readdirSync(dir, { withFileTypes: true })) {
@@ -40,6 +46,7 @@ function collectRoutes(dir) {
     if (entry.isDirectory()) {
       routes.push(...collectRoutes(full));
     } else if (entry.name === "index.html") {
+      if (NOINDEX_RE.test(readFileSync(full, "utf8"))) continue;
       const rel = path.relative(distDir, dir);
       routes.push(rel === "" ? "/" : `/${rel.split(path.sep).join("/")}/`);
     }

@@ -1,0 +1,54 @@
+---
+/**
+ * Landing page for a native (no-JS) form post to /api/subscribe. With JS the
+ * form never navigates — the status line updates in place — so this page is
+ * only reached when scripting is unavailable or blocked.
+ */
+import Layout from '@/layouts/Layout.astro';
+import Nav from '@/components/Nav.astro';
+---
+
+<Layout title="You're on the list · Kontour AI" noindex>
+  <Nav teaser />
+  <main class="subscribed">
+    <p class="label-sm subscribed__kicker">Early access</p>
+    <h1 class="display-md subscribed__title">You're on the list.</h1>
+    <p class="body subscribed__copy">
+      We'll be in touch. If you want to start before we reach you, the engine is
+      public today — install it and check a receipt in two commands.
+    </p>
+    <div class="subscribed__actions">
+      <a href="/developers/" class="btn-primary" data-umami-event="subscribed-developers">Start with two commands →</a>
+      <a href="/" class="btn-ghost" data-umami-event="subscribed-home">Back home</a>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .subscribed {
+    min-height: calc(100dvh - 56px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-page);
+    text-align: center;
+  }
+  .subscribed__kicker {
+    margin-bottom: 1.5rem;
+  }
+  .subscribed__title {
+    margin-bottom: 1rem;
+  }
+  .subscribed__copy {
+    max-width: 46ch;
+    color: var(--color-chalk-2);
+    margin-bottom: 2rem;
+  }
+  .subscribed__actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+</style>

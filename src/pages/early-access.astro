@@ -44,8 +44,8 @@ const mailto = (subject: string, body: string) =>
 ---
 
 <Layout
-  title="Early Access — Design-partner and integration access · Kontour AI"
-  description="Talk with Kontour AI about design partner fit, product integrations, and inspectability infrastructure for AI-assisted work."
+  title="Talk to us — design-partner work and build updates · Kontour AI"
+  description="The Kontour engine is Apache-2.0 and installable today. Bring one real workflow and we build the gated version of it with you."
 >
   <Nav teaser />
 
@@ -55,48 +55,124 @@ const mailto = (subject: string, body: string) =>
       <Split ratio="1-1" gap="lg" align="center">
         <div>
           <div class="hero-badges">
-            <span class="trust-badge trust-badge--proposed">early access</span>
-            <span class="install-hint">hello@kontourai.io</span>
+            <span class="trust-badge trust-badge--verified">apache-2.0 · public on npm</span>
+            <span class="install-hint">npx @kontourai/flow-agents init</span>
           </div>
 
-          <h1 class="product-title animate-fade-up">Tell us where trust breaks.</h1>
+          <h1 class="product-title animate-fade-up">Nothing here is gated.</h1>
           <p class="product-tagline animate-fade-up delay-100" data-accent="gold">
-            Design partners, product builders, and teams shipping AI-assisted workflows.
+            The engine is free today. The conversation is about your workflow.
           </p>
           <p class="hero-copy animate-fade-up delay-200">
-            Kontour is early infrastructure for making AI-assisted work inspectable:
-            claims, evidence, required gates, readiness, uncertainty, and next
-            actions. The best conversations start with a concrete place where
-            polished output is moving faster than your ability to inspect it.
-            Where it fits, the design-partner path is hands-on: we build the
-            gated version of your workflow with you — your definition of done
-            encoded as checks, every result carrying its evidence. You judge
-            the engagement by outcomes you can verify, not a story you take on
-            faith.
+            An agent hands you forty pages of analysis and a green checkmark.
+            You have twenty minutes and no way to tell which parts were
+            actually checked. That's the moment Kontour is built for — and you
+            don't need us to start. Install the engine into the coding agent
+            you already run and it gates the work on evidence instead of
+            promises, today, for nothing.
           </p>
+          <p class="hero-copy animate-fade-up delay-200">
+            The separate thing on offer here is hands-on. Bring one process you
+            actually run and tell us what "done" means for it; we encode that
+            as checks the work has to pass, so what comes out carries evidence
+            you can re-check yourself. You judge it on outcomes you can verify,
+            not a story you take on faith.
+          </p>
+
           <div class="animate-fade-up delay-300 early-signup">
-            <Subscribe source="early-access" cta="Get early access" event="early-access-subscribe" />
+            <p class="early-signup__label">Want the occasional build update?</p>
+            <Subscribe source="early-access" cta="Get build updates" event="early-access-subscribe" />
+            <p class="fine early-signup__terms">
+              One email when there's something real to show — no pitch sequence.
+              We keep your address, the page you signed up from, the date, the
+              browser string the request carried, and the page that referred you.
+              Ask us to delete it any time at hello@kontourai.io.{' '}
+              <a href="/privacy/" data-umami-event="early-access-privacy">The full list, and the code that writes it →</a>
+            </p>
             <p class="early-signup__alt">
-              Or <a href={mailto('Kontour early access', 'I want to talk about Kontour early access. The trust break I see is:')} class="early-signup__link" data-umami-event="early-access-hero-email">email us directly</a>
+              Ready to talk instead? <a href={mailto('Kontour design partner', 'I want to talk about a design partner fit for Kontour. The trust break I see is:')} class="early-signup__link" data-umami-event="early-access-hero-email">hello@kontourai.io</a>
               · <a href="https://github.com/kontourai" target="_blank" rel="noopener" class="early-signup__link" data-umami-event="early-access-hero-github">follow on GitHub</a>
             </p>
           </div>
         </div>
 
-        <Terminal class="animate-fade-in delay-300" title="good fit signals">
-          <p class="pass">  ✓ claims need evidence and freshness</p>
-          <p class="pass">  ✓ agent work needs required gates</p>
-          <p class="pass">  ✓ reviewers need readiness state</p>
-          <p class="pass">  ✓ teams need durable handoffs</p>
-          <br />
-          <p class="warn">  not a fit if the only goal is a chatbot UI</p>
-          <p class="muted">  current mode: design partner conversations</p>
-        </Terminal>
+        <div class="animate-fade-in delay-300">
+          <Terminal title="the free path, in one command">
+            <p class="muted"># run it inside the repo you want gated</p>
+            <p><span class="prompt">$ </span><span class="cmd">npx @kontourai/flow-agents init</span></p>
+            <br />
+            <p>Installed Claude Code bundle into ~/your-repo</p>
+            <br />
+            <p>Flow Agents install summary:</p>
+            <p class="pass">  ✓ Runtime: claude-code (auto-detected)</p>
+            <p class="pass">  ✓ Destination: ~/your-repo</p>
+            <p class="pass">  ✓ Telemetry sink: local-files</p>
+            <p class="muted">  - Console: local-only</p>
+          </Terminal>
+          <p class="try__caption">
+            No key, no waitlist, no email required. Gates block on Claude Code
+            and Codex; everywhere else the engine advises rather than stops the
+            work. The two-command tour — install, then validate one of our own
+            receipts yourself — is on the <a href="/developers/" data-umami-event="early-access-hero-developers">developers page →</a>
+          </p>
+        </div>
       </Split>
     </div>
   </Section>
 
-  <Section size="lg">
+  <!-- The specifics below (cost, time, reply timing, NDA posture) are not
+       settled yet. They are written as "not settled, ask us" rather than
+       invented numbers — replace them with real terms once they exist, but
+       never with plausible-sounding ones. -->
+  <Section tone="alt" borderTop size="lg">
+    <div class="container container--readable">
+      <Eyebrow accent="gold">What you'd be signing up for</Eyebrow>
+      <h2 class="display-md send__title">One concrete workflow is enough.</h2>
+      <p class="body send__copy">
+        A useful first note says what the work is, who needs to trust it, what
+        evidence exists today, and what currently gets missed, stale, skipped,
+        or buried in chat. No procurement packet or polished brief required —
+        and you don't need to send us anything confidential to start. Describe
+        the shape of the work, and if it turns specific enough to need
+        paperwork, we'll sort that out before you send anything sensitive.
+      </p>
+
+      <ul class="terms__list">
+        <li class="terms__item" data-accent="gold">
+          <strong class="terms__item-title">What you bring</strong>
+          <span class="terms__item-body">
+            One process you already run, and a straight answer to "what does
+            done mean here?" Plus enough of your time to explain how the work
+            actually runs, rather than how the diagram says it runs. We'll scope
+            that with you before you commit to anything.
+          </span>
+        </li>
+        <li class="terms__item" data-accent="green">
+          <strong class="terms__item-title">What you get</strong>
+          <span class="terms__item-body">
+            Your definition of done encoded as gates the work has to pass, and
+            output carrying evidence you can re-check without taking our word
+            for it. Gates refuse or escalate to you — they never silently
+            proceed. You keep what we build: the engine and both kits are
+            Apache-2.0, so none of it depends on us still being here. We
+            haven't set pricing for this work — terms are part of the first
+            conversation, not a rate card we're holding back.
+          </span>
+        </li>
+        <li class="terms__item" data-accent="cobalt-2">
+          <strong class="terms__item-title">What happens after you send it</strong>
+          <span class="terms__item-body">
+            A person reads it — there's no queue, no sequence, and nobody
+            whose job is to keep you warm. The first conversation is a short
+            call about fit and one concrete example, not a demo. If it isn't a
+            fit we'll say so.
+          </span>
+        </li>
+      </ul>
+    </div>
+  </Section>
+
+  <Section borderTop>
     <div class="container">
       <Eyebrow gap="lg">Start with the shape of the problem</Eyebrow>
       <Grid cols={3} gap="lg">
@@ -106,69 +182,31 @@ const mailto = (subject: string, body: string) =>
             <h2 class="lane__title">{title}</h2>
             <p class="lane__body">{body}</p>
             <a href={mailto(subject, bodyText)} class="lane__link" data-accent={accent} data-umami-event={`early-access-${title.toLowerCase().replaceAll(' ', '-')}`}>Start this thread →</a>
+            <span class="lane__addr">hello@kontourai.io</span>
           </Card>
         ))}
       </Grid>
-    </div>
-  </Section>
-
-  <Section tone="alt" borderTop>
-    <div class="container container--readable">
-      <Eyebrow accent="cobalt-2">Who should reach out</Eyebrow>
-      <h2 class="display-md reach__title">If one of these reads like your desk, send the note.</h2>
-      <p class="body reach__copy">
-        Illustrative shapes, not case studies. The pattern is what matters:
-        work where the result has a definition of done, and today the only
-        proof it was met is somebody's word.
-      </p>
-      <ul class="reach__list">
-        <li class="reach__item" data-accent="gold">
-          <strong class="reach__item-title">Legal and compliance process teams</strong>
-          <span class="reach__item-body">Intake, conflict checks, filings — where "reviewed" should mean evidence attached, not an initialed box.</span>
-        </li>
-        <li class="reach__item" data-accent="cobalt-2">
-          <strong class="reach__item-title">Insurance operations</strong>
-          <span class="reach__item-body">Application and claims information gathering — every gathered fact carrying its source and freshness before a decision stands on it.</span>
-        </li>
-        <li class="reach__item" data-accent="green">
-          <strong class="reach__item-title">Customer service and support leaders</strong>
-          <span class="reach__item-body">Promises made in conversation — tracked to evidenced follow-through instead of chat-log archaeology.</span>
-        </li>
-        <li class="reach__item" data-accent="chalk-2">
-          <strong class="reach__item-title">Research teams — clinical, market, or academic</strong>
-          <span class="reach__item-body">Synthesis where every assertion points at what it stood on, and the gaps are named instead of smoothed over.</span>
-        </li>
-        <li class="reach__item" data-accent="gold">
-          <strong class="reach__item-title">Investment research and decisioning</strong>
-          <span class="reach__item-body">Recommendations kept separate from their evidence, reviewer authority, and named exceptions — so the decision trail survives the decision.</span>
-        </li>
-        <li class="reach__item" data-accent="cobalt-2">
-          <strong class="reach__item-title">Software delivery teams</strong>
-          <span class="reach__item-body">The case we prove in public every day: agent-built code that earns its merge. <a href="/receipts/" data-umami-event="early-access-reach-receipts">Check the receipts →</a></span>
-        </li>
-      </ul>
-      <p class="fine reach__note">
-        The engine and kits are open and generic. The engagement is encoding
-        what your process counts as done into gates the work has to pass —
-        so what comes out carries receipts.
+      <p class="fine lanes__note">
+        The same shape turns up in legal intake and conflict checks, insurance
+        claims information gathering, customer-service follow-through, research
+        synthesis, and investment decisioning: work with a definition of done
+        where the only proof it was met is somebody's word. None of those are
+        clients — they're desks where the pattern is easy to recognise.
       </p>
     </div>
   </Section>
 
-  <Section borderTop>
+  <Section tone="alt" borderTop size="sm">
     <div class="container container--readable">
-      <Eyebrow accent="gold">What to send</Eyebrow>
-      <h2 class="display-md send__title">One concrete workflow is enough.</h2>
-      <p class="body send__copy">
-        A useful note says what the work is, who needs to trust it, what evidence
-        exists today, and what currently gets missed, stale, skipped, or buried
-        in chat. No procurement packet or polished brief required.
+      <Eyebrow accent="cobalt-2">The one we run on ourselves</Eyebrow>
+      <h2 class="display-md ours__title">Agent-built code that earns its merge.</h2>
+      <p class="body ours__copy">
+        Kontour is built through its own gates, and the evidence is public
+        rather than described: every bundle on the receipts page is
+        downloadable and re-validatable on your machine, without trusting us
+        or running anything of ours to check it.
       </p>
-      <p class="fine send__note">
-        Kontour is not promising instant access to a hosted product. The current
-        path starts as a focused conversation around fit, examples, and product
-        direction — and, where it fits, continues into hands-on design-partner work.
-      </p>
+      <a href="/receipts/" class="btn-ghost" data-umami-event="early-access-receipts">Check the receipts →</a>
     </div>
   </Section>
 
@@ -177,7 +215,18 @@ const mailto = (subject: string, body: string) =>
 
 <style>
   .early-signup {
-    margin-top: 0.5rem;
+    margin-top: 2rem;
+  }
+  .early-signup__label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--color-chalk-2);
+    margin-bottom: 0.75rem;
+  }
+  .early-signup__terms {
+    max-width: 52ch;
+    margin: 0.85rem 0 0;
+    color: var(--color-chalk-3);
   }
   .early-signup__alt {
     font-family: var(--font-mono);
@@ -191,6 +240,45 @@ const mailto = (subject: string, body: string) =>
   }
   .early-signup__link:hover {
     color: var(--color-chalk);
+  }
+
+  .try__caption {
+    font-size: 0.8rem;
+    line-height: 1.7;
+    color: var(--color-chalk-3);
+    margin-top: 1.25rem;
+    max-width: 46ch;
+  }
+  .try__caption a {
+    color: var(--color-gold);
+    text-decoration: none;
+  }
+
+  .terms__list {
+    list-style: none;
+    margin: 2rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 1.6rem;
+  }
+  .terms__item {
+    border-left: 2px solid var(--accent, var(--color-edge-2));
+    padding-left: 1.2rem;
+  }
+  .terms__item-title {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 1.15rem;
+    color: var(--color-chalk);
+    margin-bottom: 0.35rem;
+  }
+  .terms__item-body {
+    display: block;
+    color: var(--color-chalk-2);
+    font-size: 0.9rem;
+    line-height: 1.65;
+    max-width: 68ch;
   }
 
   .lane__label {
@@ -221,46 +309,19 @@ const mailto = (subject: string, body: string) =>
     color: var(--accent);
     text-decoration: none;
   }
-  .reach__title {
-    margin-bottom: 1rem;
-  }
-  .reach__copy {
-    margin-bottom: 2rem;
-    max-width: 62ch;
-  }
-  .reach__list {
-    list-style: none;
-    margin: 0 0 1.75rem;
-    padding: 0;
-    display: grid;
-    gap: 1.4rem;
-  }
-  .reach__item {
-    border-left: 2px solid var(--accent, var(--color-edge-2));
-    padding-left: 1.2rem;
-  }
-  .reach__item-title {
+  /* The mailto is the affordance; the address is rendered as copyable text
+     beside it so a dead click (webmail, no registered handler) still leaves
+     the reader with something usable. */
+  .lane__addr {
     display: block;
-    font-family: var(--font-display);
-    font-weight: 400;
-    font-size: 1.15rem;
-    color: var(--color-chalk);
-    margin-bottom: 0.35rem;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--color-chalk-3);
+    margin-top: 0.4rem;
   }
-  .reach__item-body {
-    display: block;
-    color: var(--color-chalk-2);
-    font-size: 0.9rem;
-    line-height: 1.65;
-    max-width: 68ch;
-  }
-  .reach__item-body a {
-    color: var(--color-gold);
-    text-decoration: none;
-  }
-  .reach__note {
-    margin: 0;
-    max-width: 68ch;
+  .lanes__note {
+    margin: 2.25rem 0 0;
+    max-width: 72ch;
     color: var(--color-chalk-2);
   }
 
@@ -268,9 +329,14 @@ const mailto = (subject: string, body: string) =>
     margin-bottom: 1.25rem;
   }
   .send__copy {
-    margin-bottom: 1.25rem;
+    margin-bottom: 0;
   }
-  .send__note {
-    margin: 0;
+
+  .ours__title {
+    margin-bottom: 1rem;
+  }
+  .ours__copy {
+    margin-bottom: 1.75rem;
+    max-width: 66ch;
   }
 </style>

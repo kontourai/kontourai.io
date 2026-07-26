@@ -16,6 +16,79 @@ import type { Accent } from '@/lib/theme';
 
 const veritasStatus = getProductStatus('veritas');
 
+/** One rendered line of a captured terminal transcript.
+ *  `cls: 'prompt'` marks a typed command; everything else is real tool output. */
+type TLine = { cls: string; text: string };
+
+/* Captured from the Veritas README ("Caught In The Wild", v1.5.3), running the
+   shipped `nextjs-typescript` standards template. Trimmed for column width only
+   — every line below is printed verbatim by the tool, and each cut is marked. */
+const heroRun: TLine[] = [
+  { cls: 'prompt', text: 'npx veritas readiness --working-tree' },
+  { cls: 'muted', text: '' },
+  { cls: 'muted', text: 'veritas: 1 file changed -> app.app' },
+  { cls: 'pass', text: 'PASS  evidence-check: node -e "process.exit(0)"' },
+  { cls: 'muted', text: '      [ 3 PASS lines trimmed ]' },
+  { cls: 'warn', text: 'WARN  api-routes-require-api-tests: Changed files' },
+  { cls: 'warn', text: '      matched app/api/** but no companion changes' },
+  { cls: 'warn', text: '      matched tests/api/**.' },
+  { cls: 'muted', text: '      -> app/api/projects/route.ts' },
+  { cls: 'muted', text: '      [ 2 PASS lines + 1 WARN trimmed ]' },
+  { cls: 'muted', text: '' },
+  { cls: 'cmd', text: '0 failures · 2 warnings · run `veritas readiness' },
+  { cls: 'cmd', text: '--check evidence` for full generated evidence' },
+];
+
+/* Same source, same repo, after the missing API test was added. */
+const afterRun: TLine[] = [
+  { cls: 'prompt', text: 'npx veritas readiness --working-tree' },
+  { cls: 'muted', text: '' },
+  { cls: 'muted', text: 'veritas: 2 files changed -> app.app, verification.tests' },
+  { cls: 'muted', text: '      [ 4 PASS lines trimmed ]' },
+  { cls: 'pass', text: 'PASS  api-routes-require-api-tests: Changed files' },
+  { cls: 'pass', text: '      matched app/api/** and included required' },
+  { cls: 'pass', text: '      companion changes under tests/api/**.' },
+  { cls: 'muted', text: '      [ 2 PASS lines trimmed ]' },
+  { cls: 'muted', text: '' },
+  { cls: 'cmd', text: '0 failures · 0 warnings · run `veritas readiness' },
+  { cls: 'cmd', text: '--check evidence` for full generated evidence' },
+];
+
+/* The rule that produced both runs, from the shipped nextjs-typescript template. */
+const ruleJson = `{
+  "id": "api-routes-require-api-tests",
+  "kind": "diff-required",
+  "enforcementLevel": "Guide",
+  "match": {
+    "if-changed": "app/api/**",
+    "then-require": "tests/api/**"
+  }
+}`;
+
+/* Unedited capture from this repository, 25 July 2026, on the working tree that
+   produced this page. Nothing removed and nothing reordered; the two longest
+   lines are wrapped at their own `·` / word boundaries to fit the column. */
+const siteRun: TLine[] = [
+  { cls: 'prompt', text: 'npx --yes --package=@kontourai/veritas@1.5.3 -- veritas readiness --working-tree' },
+  { cls: 'muted', text: '' },
+  { cls: 'muted', text: 'veritas: 16 files changed -> app.src, tooling.scripts' },
+  { cls: 'fail', text: 'FAIL  evidence-check: npm run validate && npm run test:rendered' },
+  { cls: 'muted', text: '      -> Evidence Check command exited with 1' },
+  { cls: 'pass', text: 'PASS  policy-changes-require-attestation: Active attestation policy-change-2026-07-20T15-16-09-801Z-ec4b45964e32' },
+  { cls: 'pass', text: '      matches current protected standards hashes.' },
+  { cls: 'pass', text: 'PASS  required-veritas-artifacts: All required repository artifacts are present.' },
+  { cls: 'warn', text: 'WARN  ai-instruction-files-synced: Some AI instruction files are missing the canonical Veritas governance block.' },
+  { cls: 'muted', text: '      -> AGENTS.md' },
+  { cls: 'pass', text: 'PASS  prefer-veritas-routed-delivery: All required repository artifacts are present.' },
+  { cls: 'warn', text: 'WARN  surface-status: claim "veritas.policy.kontourai-io.kontourai-io-default.ai-instruction-files-synced"' },
+  { cls: 'warn', text: '      is DISPUTED (Evidence explicitly reported a non-passing result.)' },
+  { cls: 'muted', text: '' },
+  { cls: 'cmd', text: '1 failure · 2 warnings · run `veritas readiness --check evidence` for full generated evidence' },
+  { cls: 'muted', text: 'report: .kontourai/veritas/evidence/veritas-1785017124503.json' },
+  { cls: 'muted', text: '  · standards feedback draft: .kontourai/veritas/standards-feedback-drafts/veritas-1785017124503.json' },
+  { cls: 'muted', text: '  · run: veritas-1785017124503' },
+];
+
 const boundaries: { label: string; detail: string; accent: Accent }[] = [
   { label: 'Work Area', detail: 'Where the change belongs', accent: 'gold' },
   { label: 'Change Boundary', detail: 'Where extra coordination begins', accent: 'cobalt-2' },
@@ -37,14 +110,16 @@ const beyond: { title: string; body: string; accent: Accent }[] = [
 ];
 
 const cli = [
+  { cmd: 'veritas init --explore', desc: 'Read the repo and propose a starting set of standards — writes nothing' },
   { cmd: 'veritas init', desc: 'Bootstrap Repo Standards, Repo Map, and guidance' },
-  { cmd: 'veritas readiness --working-tree', desc: 'Generate a readiness report for the current change' },
-  { cmd: 'veritas explain --file <path>', desc: 'Show just-in-time guidance for a work area' },
-  { cmd: 'veritas attest bootstrap', desc: 'Record authority evidence for protected standards' },
-  { cmd: 'veritas claim list', desc: 'Author and inspect Surface claims for the repo' },
+  { cmd: 'veritas readiness --working-tree', desc: 'Report whether the current change meets the repo standards' },
+  { cmd: 'veritas explain --file <path>', desc: 'Show only the rules that govern that path' },
+  { cmd: 'veritas attest bootstrap --actor <id> --approval-ref <ref>', desc: 'Record who reviewed the protected standards, and the approval behind it' },
+  { cmd: 'veritas claim list', desc: 'Author and inspect the readiness claims this repo publishes' },
   { cmd: 'veritas feedback summary', desc: 'Review whether standards are helping across prior runs' },
   { cmd: 'veritas recommendation list', desc: 'Review data-driven standards recommendations' },
-  { cmd: 'veritas integrations <tool> install', desc: 'Wire agent hooks — codex, claude-code, cursor, or copilot' },
+  { cmd: 'veritas integrations claude-code install', desc: 'Wire the pre-edit hook that stops a write breaking a required rule' },
+  { cmd: 'veritas integrations codex install', desc: 'Wire end-of-session feedback — same command shape for cursor and copilot' },
 ];
 ---
 
@@ -71,11 +146,16 @@ const cli = [
           <p class="product-tagline animate-fade-up delay-100" data-accent="green">show whether a change is ready before it reaches review</p>
 
           <p class="hero-copy animate-fade-up delay-200">
-            Define what good looks like for your repo. Veritas checks each
-            change against those standards, gives the agent just-in-time
-            guidance while it works, and produces a readiness report that says
-            what passed, what failed, what evidence is stale, and whether the
-            change has enough fresh evidence to merge with reduced human review.
+            An agent rewrites an API route and says it's done. The route
+            changed; the test that covers it didn't. Nothing in the diff flags
+            that — the rule about it lives in a doc nobody opened, or in a
+            reviewer's head.
+          </p>
+          <p class="hero-copy animate-fade-up delay-200">
+            Veritas moves that rule to where the work happens. The agent sees it
+            while it's still editing the file. You see a report that says which
+            of your repo's requirements this change met, which it didn't, and
+            what evidence backs each answer.
           </p>
 
           <div class="hero-actions animate-fade-up delay-300">
@@ -84,67 +164,187 @@ const cli = [
           </div>
         </div>
 
-        <Terminal class="animate-fade-in delay-300" title="veritas readiness">
-          <p><span class="prompt">$ </span><span class="cmd">npx @kontourai/veritas readiness --working-tree</span></p>
-          <br />
-          <p class="info">  veritas {veritasStatus.version} — readiness</p>
-          <p class="muted">  repo map:      loaded</p>
-          <p class="muted">  repo standards: loaded</p>
-          <br />
-          <p class="pass">  PASS  evidence-check: npm run verify</p>
-          <p class="pass">  PASS  repo-standards-present</p>
-          <p class="pass">  PASS  ai-instruction-files-synced</p>
-          <p class="pass">  PASS  merge-readiness: ready</p>
-          <br />
-          <p class="warn">  INFO  evidence-freshness: current</p>
-          <p class="sub">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ checked against this diff and standards version</p>
-          <p class="sub">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ boundary crossing: none</p>
-          <br />
-          <p class="rule">  ───────────────────────────────</p>
-          <p class="cmd">  0 failures &nbsp; 0 warnings</p>
-          <p class="muted">  evidence → .kontourai/veritas/evidence/&lt;run-id&gt;.json</p>
-        </Terminal>
+        <div>
+          <Terminal class="animate-fade-in delay-300" title="veritas readiness">
+            <pre class="code">{heroRun.map(({ cls, text }) => (
+              cls === 'prompt'
+                ? <span><span class="prompt">$ </span><span class="cmd">{text}</span>{'\n'}</span>
+                : <span class={cls}>{text}{'\n'}</span>
+            ))}</pre>
+          </Terminal>
+          <p class="tcap">
+            Real output, from the Veritas README, against its
+            shipped <code>nextjs-typescript</code> standards template. Trimmed
+            for column width where marked — no line here was written by us.
+          </p>
+        </div>
       </Split>
     </div>
   </Section>
 
-  <!-- Change boundaries -->
-  <Section tone="alt" borderTop borderBottom>
+  <!-- Two readers -->
+  <Section tone="alt" borderBottom>
     <div class="container">
-      <Split ratio="1-1" gap="md" align="center">
+      <Eyebrow accent="cobalt-2">Who reads it</Eyebrow>
+      <h2 class="display-md measure-lg tr__title">Two readers, one rule.</h2>
+      <p class="body measure tr__lede">
+        The same standard reaches an agent mid-edit and a human at review, but
+        by different commands and with different install requirements. It's
+        worth knowing which half is yours.
+      </p>
+
+      <Grid cols={2} gap="lg">
+        <Card pad="lg" accent="cobalt-2">
+          <h3 class="tr__head">While the agent is working</h3>
+          <p class="tr__body">
+            <code>veritas explain --file src/api/handler.ts</code> returns only
+            the rules that govern that path — short enough to sit in an agent's
+            context window, so the repo's expectations don't fall out of the
+            conversation two hours in.
+          </p>
+          <p class="tr__body tr__body--last">
+            Install the Claude Code hook and a change that breaks a rule your
+            repo marks as required is stopped before the write lands, with the
+            rule quoted back. Codex, Cursor, and Copilot get the same findings
+            at the end of the session to repair — feedback, not a block.
+          </p>
+        </Card>
+
+        <Card pad="lg" accent="gold">
+          <h3 class="tr__head">When a human picks it up</h3>
+          <p class="tr__body">
+            <code>veritas readiness --working-tree</code> prints one line per
+            requirement: passed, failed, warned, or accepted by exception with
+            the approver named.
+          </p>
+          <p class="tr__body tr__body--last">
+            Every run also writes a JSON file
+            under <code>.kontourai/veritas/evidence/</code>. The next person
+            reads the same answer without re-running anything, and without
+            taking the word of whoever ran it first.
+          </p>
+        </Card>
+      </Grid>
+    </div>
+  </Section>
+
+  <!-- Example use case -->
+  <Section size="lg" borderBottom>
+    <div class="container">
+      <Eyebrow accent="green">Example use case</Eyebrow>
+      <h2 class="display-md measure-lg ip__title">The catch you'd otherwise miss.</h2>
+      <p class="body measure ip__copy">
+        The warning in that first run came from a five-line rule in the repo's
+        standards file: if anything under <code>app/api/**</code> changes,
+        something under <code>tests/api/**</code> has to change with it. Nobody
+        had to remember it, and nobody had to spot it in the diff.
+      </p>
+      <p class="body measure ip__copy ip__copy--last">
+        This one is set to <code>Guide</code>, so it warns rather than fails —
+        advice the agent is expected to act on. Set it
+        to <code>Require</code> and the same finding fails the run instead.
+        Either way the next run tells you whether the fix actually landed.
+      </p>
+
+      <Split ratio="1-1" gap="md" align="start">
+        <Terminal title="the rule that caught it">
+          <p class="muted tfile">nextjs-typescript.repo-standards.json</p>
+          <pre class="code">{ruleJson}</pre>
+        </Terminal>
+
         <div>
-          <Eyebrow accent="cobalt-2">Change boundaries</Eyebrow>
-          <h2 class="display-md cb__title">Shared code, clear coordination.</h2>
-          <p class="body cb__copy">
-            Fast AI development breaks down when several agents and developers touch
-            the same repo without knowing which work areas are independent, protected,
-            or coupled. Veritas makes those boundaries explicit.
-          </p>
-          <p class="body cb__copy">
-            A change that stays inside its work area can move quickly. A boundary crossing
-            asks for the right evidence, owner context, or coordination before it becomes
-            another surprise in review.
-          </p>
-          <p class="body cb__copy cb__copy--last">
-            This is how teams keep code DRY without turning every shared package,
-            contract, or generated artifact into a manual-review bottleneck.
+          <Terminal title="veritas readiness — after the fix">
+            <pre class="code">{afterRun.map(({ cls, text }) => (
+              cls === 'prompt'
+                ? <span><span class="prompt">$ </span><span class="cmd">{text}</span>{'\n'}</span>
+                : <span class={cls}>{text}{'\n'}</span>
+            ))}</pre>
+          </Terminal>
+          <p class="tcap">
+            The same command, after the missing API test was added. Trimmed for
+            column width where marked.
           </p>
         </div>
-
-        <Grid cols={2} gap="md">
-          {boundaries.map(({ label, detail, accent }) => (
-            <div class="minicard" data-accent={accent}>
-              <div class="minicard__label">{label}</div>
-              <div class="minicard__detail">{detail}</div>
-            </div>
-          ))}
-        </Grid>
       </Split>
+    </div>
+  </Section>
+
+  <!-- Exceptions -->
+  <Section tone="alt" borderBottom>
+    <div class="container container--readable">
+      <Eyebrow accent="gold">When you can't meet the rule</Eyebrow>
+      <h2 class="display-md ex__title">The honest path is a first-class one.</h2>
+      <p class="body ex__copy">
+        Not every requirement can be satisfied on every change, and pretending
+        otherwise just teaches people to route around the tool.
+        An <strong>Exception</strong> is an authority-backed decision to accept an
+        unmet or failing requirement for a specific change — recorded with its
+        approver, printed in the readiness report as "accepted by exception,"
+        never a silent skip.
+      </p>
+      <p class="body ex__copy ex__copy--last">
+        Attestations can record how authorization was collected — the human's
+        verbatim authorizing words, or the prompt-and-response exchange, with
+        its source when captured. Six months later you can still see what was
+        actually approved, not just that something was.
+      </p>
+    </div>
+  </Section>
+
+  <!-- Dogfooding -->
+  <Section size="lg" borderBottom>
+    <div class="container">
+      <Eyebrow accent="green">On this site</Eyebrow>
+      <h2 class="display-md measure-lg df__title">We run this on the repo that builds this page.</h2>
+      <p class="body measure df__copy">
+        kontourai.io is itself a Veritas repo. Its standards file, its repo map,
+        and the attestation that protects them are committed
+        under <code>.veritas/</code> in the public repository, and a readiness
+        run goes out on every pull request. It's advisory here — we haven't
+        promoted it to a merge gate yet.
+      </p>
+      <p class="body measure df__copy df__copy--last">
+        Below is the unedited output on the working tree this page was written
+        in, on 25 July 2026 — a broad copy pass across the site — including the
+        parts that aren't green.
+      </p>
+
+      <Terminal title="veritas readiness — kontourai.io">
+        <pre class="code">{siteRun.map(({ cls, text }) => (
+          cls === 'prompt'
+            ? <span><span class="prompt">$ </span><span class="cmd">{text}</span>{'\n'}</span>
+            : <span class={cls}>{text}{'\n'}</span>
+        ))}</pre>
+      </Terminal>
+
+      <Grid cols={2} gap="lg" class="df__grid">
+        <div>
+          <p class="body df__note">
+            The <strong>FAIL</strong> is real. At the moment of that run, this
+            repo's own verification command exited non-zero because a page
+            existed that <code>public/sitemap.xml</code> didn't list. The
+            first <strong>WARN</strong> is real too: <code>AGENTS.md</code> had
+            been hand-edited away from the canonical governance block, so the
+            file agents actually read no longer matched what the repo says it
+            should contain. The second warning is the first one following
+            through — the published claim reads as disputed rather than passing.
+          </p>
+        </div>
+        <div>
+          <p class="body df__note">
+            None of that is Veritas grading itself. Every line names a rule from
+            a file you can open in the public repo, and
+            the <code>report:</code> path is a JSON artifact — the same answer,
+            readable by the next person without re-running anything. A run that
+            only ever comes back green isn't evidence of much.
+          </p>
+        </div>
+      </Grid>
     </div>
   </Section>
 
   <!-- Product promise -->
-  <Section size="lg">
+  <Section size="lg" borderBottom>
     <div class="container">
       <Eyebrow gap="lg">What Veritas makes possible</Eyebrow>
       <Grid cols={3} gap="lg">
@@ -164,60 +364,53 @@ const cli = [
     </div>
   </Section>
 
-  <!-- Example use case -->
-  <Section tone="alt" borderTop>
+  <!-- Change boundaries -->
+  <Section tone="alt" borderBottom>
     <div class="container">
       <Split ratio="1-1" gap="md" align="center">
         <div>
-          <Eyebrow accent="green">Example use case</Eyebrow>
-          <h2 class="display-md ip__title">The catch you'd<br />otherwise miss.</h2>
-          <p class="body ip__copy">
-            An agent rewrites an API handler but skips the test that covers it.
-            Instead of surfacing days later in review, Veritas flags the missing
-            evidence at the moment of change — and tells the agent exactly what
-            it needs before the work is submitted.
+          <Eyebrow accent="cobalt-2">Change boundaries</Eyebrow>
+          <h2 class="display-md cb__title">Shared code, clear coordination.</h2>
+          <p class="body cb__copy">
+            Fast AI development breaks down when several agents and developers touch
+            the same repo without knowing which work areas are independent, protected,
+            or coupled. Veritas makes those boundaries explicit.
           </p>
-          <p class="body ip__copy ip__copy--last">
-            Reviewers spend their attention inspecting evidence, not
-            rediscovering the standard from a diff.
+          <p class="body cb__copy">
+            A change that stays inside its work area can move quickly. A change that
+            reaches into a marked area has to carry the extra evidence, owner context,
+            or named approval before Veritas will call it ready.
+          </p>
+          <p class="body cb__copy cb__copy--last">
+            That's how a shared package, a contract, or a generated artifact stays
+            protected without turning every touch of it into a manual-review
+            bottleneck.
           </p>
         </div>
 
-        <Terminal title="veritas readiness — blocked">
-          <p><span class="prompt">$ </span><span class="cmd">npx @kontourai/veritas readiness --working-tree</span></p>
-          <br />
-          <p class="info">  veritas {veritasStatus.version} — readiness</p>
-          <p class="muted">  repo standards: loaded</p>
-          <br />
-          <p class="pass">  PASS  change-boundaries: within work area</p>
-          <p class="warn">  BLOCK evidence-check: api handler changed, test missing</p>
-          <p class="sub">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ expected: test covering src/api/handler.ts</p>
-          <br />
-          <p>  merge-readiness: <span class="warn">blocked — 1 requirement unmet</span></p>
-          <p class="muted">  next action: add the missing test, then re-run</p>
-        </Terminal>
+        <Grid cols={2} gap="md">
+          {boundaries.map(({ label, detail, accent }) => (
+            <div class="minicard" data-accent={accent}>
+              <div class="minicard__label">{label}</div>
+              <div class="minicard__detail">{detail}</div>
+            </div>
+          ))}
+        </Grid>
       </Split>
     </div>
   </Section>
 
   <!-- Standards that learn -->
-  <Section borderTop size="lg">
+  <Section size="lg" borderBottom>
     <div class="container">
-      <Eyebrow accent="green">Beyond the gate</Eyebrow>
+      <Eyebrow accent="green">Over time</Eyebrow>
       <h2 class="display-md measure-lg beyond-heading">Standards that get sharper the more you ship.</h2>
-      <p class="fine measure exceptions-note">
-        And when a requirement can't be met, the honest path is first-class:
-        an <strong>Exception</strong> is an authority-backed decision to accept
-        an unmet or failing requirement for a specific change — recorded with
-        its approver, visible in the readiness report as "accepted by
-        exception," never a silent skip. The same conformance machinery is
-        adoptable as a shared content-boundary gate for any repo.
-      </p>
-      <p class="fine measure beyond-note">
-        A readiness verdict is the start. Veritas also tracks whether your
-        standards are actually helping, recommends adjustments from real run
-        history, and projects every claim into Surface so the evidence is
-        inspectable downstream.
+      <p class="body measure beyond-note">
+        Veritas records what happened after each run — which rules caught
+        something real, which fired on noise, how long a change sat before it
+        went green — and turns that history into concrete suggestions for
+        tightening, relaxing, or retiring a rule. You accept or reject each one;
+        nothing changes your standards on its own.
       </p>
 
       <Grid cols={4} gap="md">
@@ -232,7 +425,7 @@ const cli = [
   </Section>
 
   <!-- CLI reference strip -->
-  <Section borderTop>
+  <Section tone="alt" borderBottom>
     <div class="container">
       <Eyebrow gap="lg">Current CLI</Eyebrow>
       <Grid min="280" gap="sm">
@@ -246,15 +439,35 @@ const cli = [
     </div>
   </Section>
 
-  <Section size="note" borderTop>
-    <div class="container">
-      <p class="closing-note">Veritas is built with Surface. Users don't need to configure Surface — it's the shared shape under the readiness state.</p>
+  <!-- Closing CTA -->
+  <Section size="lg">
+    <div class="container container--readable">
+      <Eyebrow accent="green">Try it on your repo</Eyebrow>
+      <h2 class="display-md try__title">It won't write anything until you say so.</h2>
+
+      <Terminal title="getting started">
+        <p class="tline"><span class="prompt">$ </span><span class="cmd">npm install -D @kontourai/veritas</span></p>
+        <p class="tline"><span class="prompt">$ </span><span class="cmd">npx veritas init --explore</span></p>
+      </Terminal>
+
+      <p class="body try__copy">
+        <code>--explore</code> reads your repo and proposes a starting set of
+        standards as a plan file — no model calls, no network, nothing written
+        to your source tree. Read it, edit it, then
+        run <code>veritas init --apply --plan &lt;path&gt;</code> when it looks
+        right.
+      </p>
+
+      <div class="hero-actions try__actions">
+        <a href="https://github.com/kontourai/veritas" target="_blank" rel="noopener" class="btn-primary" data-umami-event="veritas-cta-github">View on GitHub →</a>
+        <a href="https://www.npmjs.com/package/@kontourai/veritas" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="veritas-cta-npm">npm package</a>
+      </div>
     </div>
   </Section>
 
-  <Section size="note">
+  <Section size="note" borderTop>
     <div class="container">
-      <p class="closing-note">Attestations can record how authorization was collected — the human's verbatim authorizing words or the prompt-and-response exchange, with their source when captured — so delegated approvals stay reviewable after the fact.</p>
+      <p class="closing-note">Veritas is built with Surface. Readiness evidence is written in Surface's open format, so another tool can read it without importing Veritas.</p>
     </div>
   </Section>
   <Footer active="veritas" />
@@ -262,16 +475,94 @@ const cli = [
 
 <style>
   .cb__title,
-  .ip__title {
+  .ip__title,
+  .tr__title,
+  .df__title,
+  .ex__title,
+  .try__title {
     margin-bottom: 1.25rem;
   }
   .cb__copy,
-  .ip__copy {
+  .ip__copy,
+  .df__copy,
+  .ex__copy {
     margin-bottom: 1.5rem;
   }
   .cb__copy--last,
-  .ip__copy--last {
+  .ip__copy--last,
+  .df__copy--last,
+  .ex__copy--last {
+    margin-bottom: 2.5rem;
+  }
+  .ex__copy--last {
     margin-bottom: 0;
+  }
+  .tr__lede {
+    margin-bottom: 2.5rem;
+  }
+
+  /* Caption under a captured terminal: says what was run and what was trimmed. */
+  .tcap {
+    margin: 0.75rem 0 0;
+    font-size: 0.78rem;
+    line-height: 1.6;
+    color: var(--color-chalk-3);
+  }
+  .tcap code {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+  }
+
+  /* Filename header inside a terminal, above a file excerpt. */
+  .tfile {
+    margin-bottom: 0.75rem;
+    font-size: 0.7rem;
+  }
+  .tline {
+    white-space: pre;
+  }
+
+  .tr__head {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 400;
+    color: var(--color-chalk);
+    margin-bottom: 1rem;
+    letter-spacing: 0;
+  }
+  .tr__body {
+    color: var(--color-chalk-2);
+    font-size: 0.9rem;
+    line-height: 1.75;
+    margin-bottom: 1.1rem;
+  }
+  .tr__body--last {
+    margin-bottom: 0;
+  }
+  .tr__body code,
+  .df__note code,
+  .try__copy code,
+  .ip__copy code {
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    color: var(--color-green);
+  }
+
+  .df__grid {
+    margin-top: 2rem;
+  }
+  .df__note {
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: var(--color-chalk-2);
+    margin: 0;
+  }
+
+  .try__copy {
+    margin: 1.5rem 0 2rem;
+  }
+  .try__actions {
+    margin-top: 0;
   }
 
   .promise__num {
@@ -370,5 +661,4 @@ const cli = [
     font-style: italic;
     margin: 0;
   }
-  .exceptions-note { margin: 0.8rem 0 1.2rem; }
 </style>

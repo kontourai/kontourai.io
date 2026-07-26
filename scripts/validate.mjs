@@ -43,10 +43,20 @@ function warn(message) {
 // registry access is available. Local workspace packages listed in
 // localWorkspacePackages must also match their sibling package manifests.
 const versionedPackages = [
-  { key: "veritas", name: "@kontourai/veritas", page: "src/pages/veritas.astro" },
+  // Veritas' terminal blocks cite the version whose real output they show —
+  // capture provenance, same rule as survey and fieldwork below.
+  { key: "veritas", name: "@kontourai/veritas", page: "src/pages/veritas.astro", allowsPinnedEvidence: true },
   { key: "surface", name: "@kontourai/surface", page: "src/pages/surface.astro" },
-  { key: "survey", name: "@kontourai/survey", page: "src/pages/survey.astro" },
-  { key: "flow", name: "@kontourai/flow", page: "src/pages/flow.astro" },
+  // Survey's terminal blocks cite the version that produced their output. That
+  // is capture provenance, not status copy: deriving it from product-status
+  // would re-stamp the citation at every release without a re-run, which is
+  // exactly the defect the screenshot captions had. Displayed package status
+  // must still come from product-status.
+  { key: "survey", name: "@kontourai/survey", page: "src/pages/survey.astro", allowsPinnedEvidence: true },
+  // flow.astro pins the version that produced its terminal captures — capture
+  // provenance, same rule as survey/veritas/fieldwork. Displayed package status
+  // still comes from product-status.
+  { key: "flow", name: "@kontourai/flow", page: "src/pages/flow.astro", allowsPinnedEvidence: true },
   { key: "flow-agents", name: "@kontourai/flow-agents", page: "src/pages/flow-agents.astro" },
   { key: "console", name: "@kontourai/console", page: "src/pages/console.astro" },
   // Fieldwork cites its immutable 0.2.4 release evidence directly. Its current
@@ -103,16 +113,16 @@ function assertUniqueKeys(keys, label) {
 async function checkProductCatalogCoverage(catalog) {
   const productKeys = catalog.products.map((product) => product.key);
   const applicationKeys = catalog.applications.map((application) => application.key);
-  const catalogKeys = [...productKeys, ...applicationKeys];
+  const referenceKeys = catalog.referencedPackages.map((reference) => reference.key);
+  // Referenced packages carry status but no page/nav/homepage obligations.
+  const catalogKeys = [...productKeys, ...applicationKeys, ...referenceKeys];
   const statusKeys = Object.keys(statusData.products);
   const homepageKeys = catalog.homepageProducts.map((product) => product.key);
-  const developerCompositionKeys = catalog.developerCompositionProducts.map((product) => product.key);
 
   assertUniqueKeys(productKeys, "src/lib/products.ts products");
   assertUniqueKeys(applicationKeys, "src/lib/products.ts applications");
   assertUniqueKeys(catalogKeys, "src/lib/products.ts products and applications");
   assertUniqueKeys(homepageKeys, "src/lib/products.ts homepageProducts");
-  assertUniqueKeys(developerCompositionKeys, "src/lib/products.ts developerCompositionProducts");
 
   const requiredApplicationKeys = ["fieldwork"];
   for (const key of requiredApplicationKeys) {
@@ -137,24 +147,6 @@ async function checkProductCatalogCoverage(catalog) {
   for (const key of productKeys) {
     if (!homepageKeys.includes(key)) {
       error(`src/lib/products.ts: homepageProducts omits catalog product ${key}`);
-    }
-  }
-  for (const product of catalog.developerCompositionProducts) {
-    if (!product.developerComposition) {
-      error(`src/lib/products.ts: developerCompositionProducts includes ${product.key} without composition copy`);
-    }
-  }
-
-  const intentionalDeveloperOmissions = ["survey", "console"];
-  for (const key of productKeys) {
-    const isOmitted = !developerCompositionKeys.includes(key);
-    if (isOmitted && !intentionalDeveloperOmissions.includes(key)) {
-      error(`src/lib/products.ts: developerCompositionProducts omits ${key} without an explicit validation allowance`);
-    }
-  }
-  for (const key of intentionalDeveloperOmissions) {
-    if (!productKeys.includes(key)) {
-      error(`src/lib/products.ts: intentional developer omission ${key} is not a catalog product`);
     }
   }
 
