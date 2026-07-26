@@ -17,6 +17,13 @@ import type { Accent } from '@/lib/theme';
 
 const flowStatus = getProductStatus('flow');
 
+// The version that produced the terminal captures below. Deliberately a pinned
+// literal, NOT productBadge(flowStatus): a capture note is a claim about output
+// recorded at a moment, so deriving it from live product status would re-label
+// these transcripts at every release with no re-run — the same defect the
+// screenshot captions had. Re-capture, then bump this.
+const captureVersion = '3.10.0';
+
 const answers: { q: string; accent?: Accent }[] = [
   { q: 'What was this run supposed to do?' },
   { q: 'Where did it stop?' },
@@ -47,6 +54,80 @@ const consoleFeatures = [
   { label: 'Transition timeline', body: 'Walk every gate the run cleared, blocked on, or routed back from.' },
   { label: 'Gate detail', body: 'Inspect the evidence a gate expected and what was actually collected.' },
   { label: 'Evidence links', body: 'Jump from a gate to the tests, CI, traces, or readiness reports behind it.' },
+];
+
+type TLine = { cls: string; text: string };
+
+/* Every terminal below is an unedited capture from the demo that ships inside
+   the published @kontourai/flow package (see product-status.json for the
+   version the notes render), taken on 25 July 2026 in an empty directory with
+   `npm install -D @kontourai/flow` followed by `npx flow init --demo`.
+
+   The demo's own flow definition (agent-dev-flow) and its own evidence fixture
+   are the only inputs. No run id, gate name, or line of output on this page was
+   written by hand. Where a capture is trimmed or where blank separators were
+   inserted between commands, the note under that terminal says so. */
+
+const quickstartRun: TLine[] = [
+  { cls: 'prompt', text: 'npm install -D @kontourai/flow' },
+  { cls: 'prompt', text: 'npx @kontourai/flow init --demo' },
+  { cls: 'muted', text: 'initialized .flow' },
+  { cls: 'muted', text: 'demo run ready: demo' },
+  { cls: 'muted', text: 'try:' },
+  { cls: 'muted', text: '  flow status demo' },
+  { cls: 'muted', text: '  flow resume demo' },
+  { cls: 'muted', text: '  flow console --run demo' },
+];
+
+/* After `npx flow evaluate demo --exit-code` exits 1 at the implement gate. */
+const heroRun: TLine[] = [
+  { cls: 'prompt', text: 'npx flow status demo --format summary' },
+  { cls: 'info', text: 'flow run: agent-dev-flow / demo-checkout-banner' },
+  { cls: 'muted', text: 'current step: implement' },
+  { cls: 'muted', text: '' },
+  { cls: 'pass', text: 'PASS  plan gate: Acceptance criteria are ready for implementation. satisfied' },
+  { cls: 'warn', text: 'BLOCK implementation gate: The implementation diff is scoped to the' },
+  { cls: 'warn', text: '      planned change. missing' },
+  { cls: 'muted', text: '      expected: The implementation diff is scoped to the planned change.' },
+  { cls: 'muted', text: '      transition diagnostics: transition.gate.block' },
+  { cls: 'muted', text: 'WAIT  verify gate: verify gate waiting' },
+  { cls: 'muted', text: '' },
+  { cls: 'muted', text: 'status: blocked' },
+  { cls: 'muted', text: 'next action: attach scoped files before continuing' },
+  { cls: 'muted', text: 'continuation: resume from implement, not chat memory' },
+  { cls: 'muted', text: 'report: .kontourai/flow/runs/demo/report.md' },
+  { cls: 'muted', text: 'ready steps: implement' },
+];
+
+/* Same run, one step later: the implement gate has been satisfied and the run
+   has reached verify, where nothing has been attached yet. Exits 1. */
+const routeBackRun: TLine[] = [
+  { cls: 'prompt', text: 'npx flow evaluate demo --exit-code' },
+  { cls: 'warn', text: 'route-back verify-gate: Test results are ready for verification. missing' },
+  { cls: 'muted', text: 'current step: verify' },
+  { cls: 'muted', text: 'next action: return to verify and replace failing evidence attempt 1/3' },
+];
+
+const lifecycleRun: TLine[] = [
+  { cls: 'prompt', text: 'npx flow pause demo --request pause-request.json' },
+  { cls: 'muted', text: 'pause: demo' },
+  { cls: 'muted', text: 'status: paused' },
+  { cls: 'muted', text: 'request: kontourai.io#231' },
+  { cls: 'muted', text: '' },
+  { cls: 'prompt', text: 'npx flow resume-run demo --request resume-request.json' },
+  { cls: 'muted', text: 'resume: demo' },
+  { cls: 'muted', text: 'status: blocked' },
+  { cls: 'muted', text: 'request: kontourai.io#231' },
+  { cls: 'muted', text: '' },
+  { cls: 'prompt', text: 'npx flow kit validate ./release-kit' },
+  { cls: 'pass', text: 'valid Flow Kit container: ./release-kit' },
+];
+
+const consoleRun: TLine[] = [
+  { cls: 'prompt', text: 'npx flow console --run demo --port 4317' },
+  { cls: 'info', text: 'Flow Console: http://127.0.0.1:4317/' },
+  { cls: 'muted', text: 'run: demo' },
+  { cls: 'muted', text: 'Press Ctrl+C to stop.' },
 ];
 ---
 
@@ -94,22 +175,25 @@ const consoleFeatures = [
           </div>
         </div>
 
-        <Terminal class="animate-fade-in delay-300" title="flow status — a run that stopped">
-          <p><span class="prompt">$ </span><span class="cmd">flow status dev-1847 --format summary</span></p>
-          <br />
-          <p class="info">  flow run: agent-dev-flow / feature-search-filters</p>
-          <p class="muted">  current step: verify</p>
-          <br />
-          <p class="pass">  PASS  plan gate: acceptance criteria linked</p>
-          <p class="pass">  PASS  implementation gate: scoped files changed</p>
-          <p class="warn">  BLOCK verify gate: browser evidence missing</p>
-          <p class="muted">        expected: tests, lint, screenshot, Veritas readiness</p>
-          <br />
-          <p class="muted">  status: blocked</p>
-          <p>  next action: <span class="warn">run browser check before publish</span></p>
-          <p class="muted">  continuation: resume from verify, not chat memory</p>
-          <p class="muted">  report: .kontourai/flow/runs/dev-1847/report.md</p>
-        </Terminal>
+        <div>
+          <Terminal class="animate-fade-in delay-300" title="flow status — a run that stopped">
+            <pre class="code">{heroRun.map(({ cls, text }) => (
+              cls === 'prompt'
+                ? <span><span class="prompt">$ </span><span class="cmd">{text}</span>{'\n'}</span>
+                : <span class={cls}>{text}{'\n'}</span>
+            ))}</pre>
+          </Terminal>
+          <p class="term-note animate-fade-in delay-300">
+            Real output from the demo inside @kontourai/flow {captureVersion},
+            captured after <code>npx flow init --demo</code> and then <code>npx
+            flow evaluate demo --exit-code</code>, which exits 1 and leaves the
+            run exactly here. Nothing is added or reworded; the one over-long
+            line is wrapped onto the indented line beneath it, and nothing else
+            is changed. The gate that stopped the run is the demo's own
+            implement gate — we did not pick it, and the run id, the step names
+            and the gate descriptions are all the demo's.
+          </p>
+        </div>
       </Split>
     </div>
   </Section>
@@ -119,12 +203,18 @@ const consoleFeatures = [
     <div class="container">
       <Eyebrow accent="cobalt-2">Quickstart</Eyebrow>
       <Terminal title="flow quickstart">
-        <p><span class="prompt">$ </span><span class="cmd">npm install -D @kontourai/flow</span></p>
-        <p><span class="prompt">$ </span><span class="cmd">npx @kontourai/flow init --demo</span></p>
-        <p><span class="prompt">$ </span><span class="cmd">npx @kontourai/flow status demo</span></p>
-        <p><span class="prompt">$ </span><span class="cmd">npx @kontourai/flow evaluate demo --exit-code</span></p>
-        <p><span class="prompt">$ </span><span class="cmd">npx @kontourai/flow resume demo</span></p>
+        <pre class="code">{quickstartRun.map(({ cls, text }) => (
+          cls === 'prompt'
+            ? <span><span class="prompt">$ </span><span class="cmd">{text}</span>{'\n'}</span>
+            : <span class={cls}>{text}{'\n'}</span>
+        ))}</pre>
       </Terminal>
+      <p class="term-note">
+        Real output from @kontourai/flow {captureVersion} in an empty
+        directory. npm's own install output is trimmed; the six lines printed
+        by <code>init --demo</code> are unedited, and the three commands it
+        suggests are the ones the rest of this page runs.
+      </p>
     </div>
   </Section>
 
@@ -156,26 +246,38 @@ const consoleFeatures = [
           <Eyebrow accent="cobalt-2">Example use case</Eyebrow>
           <h2 class="display-md diff__title">A release path that waits for evidence.</h2>
           <p class="body diff__copy">
-            A team asks an agent to ship a pricing-page change. Flow records the
-            required path: plan, implementation, code review, rendered-page
-            verification, release readiness, and post-deploy smoke. The work can
-            only advance when each gate has the evidence it asked for.
+            A team asks an agent to ship a pricing-page change. The flow they
+            declare names the required path — plan, implementation, code review,
+            rendered-page verification, release readiness — and what each step
+            has to hand over. The work can only advance when each gate has the
+            evidence it asked for.
           </p>
           <p class="body diff__copy diff__copy--last">
-            If the browser check is missing, the run does not become "done." It
-            stays blocked with a resumable next action.
+            The demo that ships with the package is that idea in four steps, and
+            the capture beside this is what it actually does. The run has
+            cleared plan and implementation and reached verify, where the gate
+            asked for test results that were never attached. The run does not
+            become "done." It routes back to the step that can fix it, carrying
+            the reason and the attempt count with it.
           </p>
         </div>
 
-        <Terminal title="release-readiness-flow">
-          <p class="pass">  PASS  plan: acceptance criteria present</p>
-          <p class="pass">  PASS  implementation: scoped diff</p>
-          <p class="pass">  PASS  review: no high findings</p>
-          <p class="warn">  BLOCK verify: rendered-page screenshot missing</p>
-          <p class="muted">        expected: desktop + mobile evidence</p>
-          <br />
-          <p>  next action: <span class="warn">capture browser evidence, then resume</span></p>
-        </Terminal>
+        <div>
+          <Terminal title="flow evaluate — the gate that was not satisfied">
+            <pre class="code">{routeBackRun.map(({ cls, text }) => (
+              cls === 'prompt'
+                ? <span><span class="prompt">$ </span><span class="cmd">{text}</span>{'\n'}</span>
+                : <span class={cls}>{text}{'\n'}</span>
+            ))}</pre>
+          </Terminal>
+          <p class="term-note">
+            Real output from the same demo run as the hero, after attaching the
+            demo's own scoped-diff evidence to clear the implement gate.
+            Unedited; the command exits 1. This is the demo's verify gate, not
+            the release path described on the left — that path is an
+            illustration, and we do not have a capture of it.
+          </p>
+        </div>
       </Split>
     </div>
   </Section>
@@ -243,28 +345,38 @@ const consoleFeatures = [
           <Eyebrow accent="cobalt-2" gap="sm">Authority over a run</Eyebrow>
           <h2 class="display-md authority__title">Pausing a run is a decision, and it says who decided.</h2>
           <p class="body authority__copy">
-            Stopping a run is not something that just happens to it.
-            <code class="code-plain">flow pause</code>,
-            <code class="code-plain">flow resume-run</code>, and
+            Stopping a run is not something that just happens to it.{' '}
+            <code class="code-plain">flow pause</code>,{' '}
+            <code class="code-plain">flow resume-run</code>, and{' '}
             <code class="code-plain">flow cancel</code> each take a small
             request file saying who asked and why, and that lands in the run's
             history alongside everything else. A whole process can travel the
-            same way: <code class="code-plain">flow kit validate</code>,
-            <code class="code-plain">install</code>, and
+            same way: <code class="code-plain">flow kit validate</code>,{' '}
+            <code class="code-plain">install</code>, and{' '}
             <code class="code-plain">inspect</code> turn a way of working into
             something a teammate can install and check, instead of a wiki page
             nobody reads.
           </p>
         </div>
-        <Terminal title="run lifecycle">
-          <p><span class="prompt">$ </span><span class="cmd">flow pause dev-1847 --request pause-request.json</span></p>
-          <p class="muted">  pause: dev-1847</p>
-          <p class="muted">  status: paused</p>
-          <p class="muted">  request: pause-request.json</p>
-          <br />
-          <p><span class="prompt">$ </span><span class="cmd">flow kit validate ./release-kit</span></p>
-          <p class="pass">  valid Flow Kit container: ./release-kit</p>
-        </Terminal>
+        <div>
+          <Terminal title="run lifecycle">
+            <pre class="code">{lifecycleRun.map(({ cls, text }) => (
+              cls === 'prompt'
+                ? <span><span class="prompt">$ </span><span class="cmd">{text}</span>{'\n'}</span>
+                : <span class={cls}>{text}{'\n'}</span>
+            ))}</pre>
+          </Terminal>
+          <p class="term-note">
+            Real output from the same demo run, unedited except for the blank
+            line inserted between commands. Two lines are worth reading
+            literally. The echoed <code>request:</code> value is the file's
+            own <code>authority.request_ref</code> — here an issue on this
+            site's repo — not the file name. And <code>resume-run</code>{' '}
+            reports <code>status: blocked</code> because pause captured the
+            status it interrupted and then put it back. The kit is a two-file
+            container we built for this capture.
+          </p>
+        </div>
       </Split>
     </div>
   </Section>
@@ -293,12 +405,12 @@ const consoleFeatures = [
           <Eyebrow accent="cobalt-2">Flow Console</Eyebrow>
           <h2 class="display-md fc__title">See the run<br />where the work happens.</h2>
           <p class="body fc__copy">
-            <code class="codechip" data-accent="cobalt-2">flow console --run &lt;id&gt;</code>
-            opens a page on your own machine that reads the run straight out of
+            <code class="codechip" data-accent="cobalt-2">flow console --run &lt;id&gt;</code>{' '}
+            opens a page on your own machine that reads the run straight out of{' '}
             <code class="code-plain">.kontourai/flow/runs/&lt;id&gt;/</code> — the
             path the work took, every gate it cleared or stopped at, and the
             evidence behind each one. It updates while the run does. It picks a
-            free port unless you name one with
+            free port unless you name one with{' '}
             <code class="code-plain">--port</code>, and it only ever listens on
             your own machine: no account, no upload, nothing hosted.
           </p>
@@ -313,12 +425,21 @@ const consoleFeatures = [
           </div>
         </div>
 
-        <Terminal title="flow console">
-          <p><span class="prompt">$ </span><span class="cmd">npx flow console --run dev-1847 --port 4317</span></p>
-          <p class="info">  Flow Console: http://127.0.0.1:4317/</p>
-          <p class="muted">  run: dev-1847</p>
-          <p class="muted">  Press Ctrl+C to stop.</p>
-        </Terminal>
+        <div>
+          <Terminal title="flow console">
+            <pre class="code">{consoleRun.map(({ cls, text }) => (
+              cls === 'prompt'
+                ? <span><span class="prompt">$ </span><span class="cmd">{text}</span>{'\n'}</span>
+                : <span class={cls}>{text}{'\n'}</span>
+            ))}</pre>
+          </Terminal>
+          <p class="term-note">
+            Real output from the same demo run, unedited. Three lines is all
+            that <code>flow console</code> prints; it then holds the terminal
+            until you stop it. Everything else the console has to show is in
+            the page it serves.
+          </p>
+        </div>
       </Split>
     </div>
   </Section>
@@ -399,4 +520,16 @@ const consoleFeatures = [
   }
   .authority__title { margin-bottom: 1.25rem; }
   .authority__copy { margin-bottom: 0; }
+
+  /* Provenance note under a terminal: what was captured, and what was trimmed. */
+  .term-note {
+    font-size: 0.8rem;
+    line-height: 1.6;
+    color: var(--color-chalk-3);
+    margin-top: 0.9rem;
+    max-width: 52ch;
+  }
+  .term-note code {
+    font-size: 0.75rem;
+  }
 </style>

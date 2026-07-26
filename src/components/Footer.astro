@@ -20,13 +20,18 @@ const trust = { href: '/trust/', label: 'Trust', event: 'footer-trust' };
 // Privacy belongs on every page, teaser or not — the form that collects an
 // email appears on the teaser pages too.
 const privacy = { href: '/privacy/', label: 'Privacy', event: 'footer-privacy' };
+// Writing and Early access were reachable only from inline copy on a handful of
+// pages, so most of the site had no chrome path to either.
+const writing = { href: '/writing/', label: 'Writing', event: 'footer-writing' };
+const earlyAccess = { href: '/early-access/', label: 'Early access', event: 'footer-contact' };
 const links = teaserNav
   ? [
       { href: '/developers/', label: 'Developers', event: 'footer-developers' },
       receipts,
       trust,
+      writing,
       github,
-      { href: '/early-access/', label: 'Early access', event: 'footer-contact' },
+      earlyAccess,
       privacy,
     ]
   : [
@@ -39,7 +44,9 @@ const links = teaserNav
       ...kits.map(({ href, label, key }) => ({ href, label, event: `footer-${key}` })),
       ...products.slice(1).map(({ href, label, key }) => ({ href, label, event: `footer-${key}` })),
       ...applications.map(({ href, label, key }) => ({ href, label, event: `footer-${key}` })),
+      writing,
       github,
+      earlyAccess,
       privacy,
     ];
 ---

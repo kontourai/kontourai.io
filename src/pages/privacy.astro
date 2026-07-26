@@ -49,15 +49,15 @@ const repo = 'https://github.com/kontourai/kontourai.io/blob/main';
 
       <h3 class="privacy-h3">Analytics</h3>
       <p class="body measure">
-        Two analytics tools run in production: <a href="https://umami.is/" target="_blank" rel="noopener">Umami</a>
+        Two analytics tools run in production: <a href="https://umami.is/" target="_blank" rel="noopener">Umami</a>{' '}
         and <a href="https://posthog.com/" target="_blank" rel="noopener">PostHog</a>.
         They record which pages get visited, which links get clicked, and coarse
         technical detail like browser, operating system, and country. PostHog is
         configured to keep no cookies (it uses your browser's local storage), and
-        we never attach a name or email to any of it — the code never calls
+        we never attach a name or email to any of it — the code never calls{' '}
         <code class="code-plain">identify</code>, so events are not tied to a
         person. Both tools honour the "Do Not Track" setting: switch it on and
-        neither one loads.
+        neither one loads.{' '}
         <a href={`${repo}/public/analytics.js`} target="_blank" rel="noopener">See the configuration →</a>
       </p>
 
@@ -90,7 +90,7 @@ const repo = 'https://github.com/kontourai/kontourai.io/blob/main';
         submitted it, your browser's user-agent string, and the page that
         referred you. That's it — there is no hidden field and no enrichment
         step. It goes into a private Cloudflare key-value store that only we can
-        read.
+        read.{' '}
         <a href={`${repo}/public/_worker.js`} target="_blank" rel="noopener">See the code that writes it →</a>
       </p>
       <p class="body measure">
@@ -119,7 +119,7 @@ const repo = 'https://github.com/kontourai/kontourai.io/blob/main';
       <p class="body measure">
         This is the full list. The site's security policy blocks the browser from
         contacting any other outside host, so it can't quietly grow — you can
-        read the allowlist yourself.
+        read the allowlist yourself.{' '}
         <a href={`${repo}/public/_headers`} target="_blank" rel="noopener">See the allowlist →</a>
       </p>
       <ul class="privacy-list">
@@ -137,7 +137,7 @@ const repo = 'https://github.com/kontourai/kontourai.io/blob/main';
       <p class="body measure">
         If what the site collects changes, this page changes in the same commit —
         the history is public, so you can see what it said before.
-        Questions, deletions, or anything else:
+        Questions, deletions, or anything else:{' '}
         <a href="mailto:hello@kontourai.io">hello@kontourai.io</a>.
       </p>
     </div>

@@ -206,6 +206,154 @@ test("no page ships an unfilled authoring placeholder", async () => {
   }
 });
 
+// Astro's `compressHTML` strips the newline between a line of prose and an
+// inline element that starts the next source line, so `…on the\n<a>developers
+// page</a>` ships as "on thedevelopers page". 36+ of these reached production
+// across 15 routes because nothing looked at the rendered result — the built
+// HTML is well-formed, the copy reads correctly in source, and no string check
+// can tell a missing space from a deliberately absent one.
+//
+// So this measures pixels instead. For every pair of adjacent rendered runs of
+// text with no whitespace between them, it asks the browser how far apart the
+// two glyphs actually are. A real collapse renders at 0px. The legitimate
+// no-whitespace cases separate themselves: a padded `.codechip` measures 5.6px
+// and ProofReplay's `margin-right: 0.5ch` speaker labels measure 3.4px, so they
+// pass without needing to be listed here — the guard tracks what the reader
+// sees, not which classes happen to exist today.
+const MIN_VISIBLE_GAP_PX = 1;
+
+// Runs inside the page. Must stay self-contained (no closure over test scope).
+const findCollapsedWordJoins = (minGapPx) => {
+  const SKIP_TAGS = new Set(["SCRIPT", "STYLE", "NOSCRIPT", "TEMPLATE", "SVG", "HEAD"]);
+
+  const texts = [];
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      if (!node.data.trim()) return NodeFilter.FILTER_REJECT;
+      for (let el = node.parentElement; el; el = el.parentElement) {
+        if (SKIP_TAGS.has(el.tagName)) return NodeFilter.FILTER_REJECT;
+      }
+      return NodeFilter.FILTER_ACCEPT;
+    },
+  });
+  for (let n = walker.nextNode(); n; n = walker.nextNode()) texts.push(n);
+
+  const isInline = (el) => {
+    const display = getComputedStyle(el).display;
+    return display.startsWith("inline") || display === "contents";
+  };
+  const charRect = (node, index) => {
+    const range = document.createRange();
+    range.setStart(node, index);
+    range.setEnd(node, index + 1);
+    const rects = range.getClientRects();
+    return rects.length ? rects[rects.length - 1] : null;
+  };
+
+  const joins = [];
+  for (let i = 0; i < texts.length - 1; i += 1) {
+    const before = texts[i];
+    const after = texts[i + 1];
+
+    // Source already supplies whitespace — nothing to collapse.
+    if (/\s$/.test(before.data) || /^\s/.test(after.data)) continue;
+
+    // Both runs must sit in one inline formatting context, or they are simply
+    // two blocks that happen to share a line (grid cells, flex rows).
+    const ancestors = new Set();
+    for (let el = before.parentElement; el; el = el.parentElement) ancestors.add(el);
+    let common = after.parentElement;
+    while (common && !ancestors.has(common)) common = common.parentElement;
+    if (!common) continue;
+    let sameInlineContext = true;
+    for (const start of [before.parentElement, after.parentElement]) {
+      for (let el = start; el && el !== common && sameInlineContext; el = el.parentElement) {
+        if (!isInline(el)) sameInlineContext = false;
+      }
+    }
+    if (!sameInlineContext) continue;
+
+    // Inside one code sample, `foo.bar(baz)` splits across highlight spans with
+    // no space by design. Prose-to-code boundaries have their common ancestor
+    // outside the code element, so they are still checked.
+    let insideCodeSample = false;
+    for (let el = common; el; el = el.parentElement) {
+      if (el.tagName === "PRE" || el.tagName === "CODE") insideCodeSample = true;
+    }
+    if (insideCodeSample) continue;
+
+    // A missing space is only visible when a word follows. Punctuation hugging
+    // a word ("</code>." or "(<a>ADR 0018</a>") is correct typography.
+    const lastChar = before.data[before.data.length - 1];
+    if (!/[\p{L}\p{N}]/u.test(after.data[0])) continue;
+    if (/[(\[{<"'“‘«/\\@#$&+=~^|*·•‐-― -]/u.test(lastChar)) continue;
+
+    const beforeRect = charRect(before, before.data.length - 1);
+    const afterRect = charRect(after, 0);
+    if (!beforeRect || !afterRect) continue;
+    // Different visual lines: the line break supplies the separation.
+    if (Math.abs(beforeRect.top - afterRect.top) > Math.max(beforeRect.height, afterRect.height) * 0.6) continue;
+
+    const gap = afterRect.left - beforeRect.right;
+    if (gap >= minGapPx) continue;
+    // Guard against right-to-left or wrapped runs measuring nonsense.
+    if (gap < -2) continue;
+
+    joins.push({
+      gap: Math.round(gap * 100) / 100,
+      text: `${before.data.slice(-40)}[NO SPACE]${after.data.slice(0, 40)}`,
+      element: after.parentElement
+        ? `<${after.parentElement.tagName.toLowerCase()}${
+            typeof after.parentElement.className === "string" && after.parentElement.className
+              ? ` class="${after.parentElement.className}"`
+              : ""
+          }>`
+        : "",
+    });
+  }
+  return joins;
+};
+
+test("no rendered page fuses two words where the source expected a space", async ({ page }) => {
+  test.setTimeout(180_000);
+
+  const { readdirSync, readFileSync } = await import("node:fs");
+  const { join, relative } = await import("node:path");
+
+  const routes = [];
+  const walk = (dir) => {
+    for (const entry of readdirSync(dir, { withFileTypes: true })) {
+      const full = join(dir, entry.name);
+      if (entry.isDirectory()) walk(full);
+      else if (entry.name.endsWith(".html")) {
+        // Redirect stubs resolve to their target, which is scanned on its own.
+        if (/http-equiv="refresh"/i.test(readFileSync(full, "utf8"))) continue;
+        routes.push(`/${relative("dist", full).replace(/index\.html$/, "")}`);
+      }
+    }
+  };
+  walk("dist");
+  routes.sort();
+
+  expect(routes.length, "expected the build output to contain routes to scan").toBeGreaterThanOrEqual(10);
+
+  const failures = [];
+  for (const route of routes) {
+    await page.goto(route, { waitUntil: "load" });
+    const joins = await page.evaluate(findCollapsedWordJoins, MIN_VISIBLE_GAP_PX);
+    for (const join_ of joins) {
+      failures.push(`${route}  ${join_.gap}px  ${join_.element}\n    …${join_.text}…`);
+    }
+  }
+
+  expect(
+    failures,
+    `Words render with no visible gap (whitespace collapsed by compressHTML).\n` +
+      `Fix each in src/ with {' '} before the inline element, or reflow the source ` +
+      `so the inline element does not start the line.\n\n${failures.join("\n")}\n`,
+  ).toEqual([]);
+});
+
 test("early access page gives static contact paths", async ({ page }) => {
   await page.goto("/early-access/");
 
@@ -289,7 +437,7 @@ test("flow page explains process transparency and proof-first outcomes", async (
   await expect(page.getByText("Why did it move on — or why did it not?")).toBeVisible();
   await expect(page.locator(".label-sm").filter({ hasText: "Example use case" })).toBeVisible();
   await expect(page.getByText("A release path that waits for evidence.")).toBeVisible();
-  await expect(page.getByText("rendered-page screenshot missing")).toBeVisible();
+  await expect(page.getByText("route-back verify-gate: Test results are ready for verification. missing")).toBeVisible();
   await expect(page.locator(".label-sm").filter({ hasText: "Fits your stack" })).toBeVisible();
   await expect(
     page.getByRole("heading", { name: "Give the tools you already use one visible definition of done." }),
@@ -300,14 +448,14 @@ test("flow page explains process transparency and proof-first outcomes", async (
   await expect(page.getByRole("heading", { name: "Policy and security tools" })).toBeVisible();
 
   // Flow 3.0 runtime root: generated run state lives under .kontourai/flow, not .flow.
-  await expect(page.getByText(".kontourai/flow/runs/dev-1847/report.md")).toBeVisible();
+  await expect(page.getByText(".kontourai/flow/runs/demo/report.md")).toBeVisible();
   await expect(page.getByText(".kontourai/flow/runs/<id>/")).toBeVisible();
   await expect(page.getByText(/\.flow\/runs/)).toHaveCount(0);
 
   // `flow console` prints exactly three lines. Nine of the twelve lines this
   // page used to show were invented, and the test pinned one of them in place.
   // These guards keep the fabricated console transcript from coming back.
-  const consoleTerminal = page.locator(".terminal").filter({ hasText: "flow console --run dev-1847" });
+  const consoleTerminal = page.locator(".terminal").filter({ hasText: "flow console --run demo" });
   await expect(consoleTerminal.getByText("Flow Console: http://127.0.0.1:4317/")).toBeVisible();
   await expect(page.getByText("Reading: .kontourai/flow/runs/")).toHaveCount(0);
   await expect(page.getByText(/GET \/[^\s]* 200/)).toHaveCount(0);
@@ -315,12 +463,23 @@ test("flow page explains process transparency and proof-first outcomes", async (
 
   // #164 enrichment: run lifecycle authority + kits as the distribution unit.
   await expect(page.getByRole("heading", { name: "Pausing a run is a decision, and it says who decided." })).toBeVisible();
-  await expect(page.getByText("flow pause dev-1847 --request pause-request.json")).toBeVisible();
+  await expect(page.getByText("flow pause demo --request pause-request.json")).toBeVisible();
   await expect(page.getByText("flow kit validate ./release-kit")).toBeVisible();
   // The lifecycle terminal's two invented lines: a caption posing as stdout, and
   // a success line the CLI never prints.
   await expect(page.getByText("recorded: who, why, when")).toHaveCount(0);
   await expect(page.getByText("kit contract valid")).toHaveCount(0);
+
+  // The whole fabricated scenario, not just its individual lines. Every
+  // terminal here was a hand-built illustration of a run that never happened:
+  // an invented run id, an invented branch, a gate expectation the packaged
+  // demo does not enforce (browser-evidence-reviewed is required: false), and a
+  // Veritas readiness step that appears nowhere in the demo. Captured output
+  // from `flow@3.10.0` replaced all of it.
+  await expect(page.getByText(/dev-1847/)).toHaveCount(0);
+  await expect(page.getByText(/feature-search-filters/)).toHaveCount(0);
+  await expect(page.getByText(/Veritas readiness/)).toHaveCount(0);
+  await expect(page.getByText(/release-readiness-flow/)).toHaveCount(0);
 
   // Runtime honesty: blocking is NOT uniform, and GitHub Actions is where the
   // CI re-run happens, not an editor-runtime adapter (it was listed as one).

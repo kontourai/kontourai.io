@@ -215,7 +215,7 @@ const claimById = new Map(derived.claims.map((claim) => [claim.id, claim]));
       <h2 class="section-heading">Recompute this exact file</h2>
       <p class="section-lead">
         Download the raw <span class="mono-inline">.bundle</span> above and run it through
-        <span class="mono-inline">@kontourai/surface</span> — our implementation of the
+        <span class="mono-inline">@kontourai/surface</span> — our implementation of the{' '}
         <a href="https://github.com/hachure-org/spec" target="_blank" rel="noopener">Hachure
         trust.bundle format</a>, an open spec we publish schemas for but don't own the
         definition of. The command prints the same status row this page shows, and exits
@@ -227,7 +227,7 @@ const claimById = new Map(derived.claims.map((claim) => [claim.id, claim]));
         <div class="muted"># exit 0 prints the trust summary; a broken file exits 1</div>
       </Terminal>
       <p class="section-lead recompute-second">
-        Want a second opinion from a different codebase? The
+        Want a second opinion from a different codebase? The{' '}
         <span class="mono-inline">hachure</span> reference CLI reads the same file against the
         spec's own schemas and reaches the same verdict. Both are still maintained by us — the
         implementations are independent, the organization behind them isn't yet.

@@ -159,7 +159,7 @@ const blockedSubjectHash = blockedClaim.subjectId.replace(/^working-tree:/, '');
         <div class="walk-beat" data-accent="chalk-2">
           <p class="label-sm walk-beat__label">What was being asked</p>
           <p class="body walk-beat__body">
-            One claim, about one thing: merge readiness — recorded as a
+            One claim, about one thing: merge readiness — recorded as a{' '}
             <span class="mono-inline">{blockedClaim.claimType}</span>. Not "is
             the code good," a specific narrow question with a policy attached
             to it. The subject is the working tree's content hash
@@ -193,11 +193,11 @@ const blockedSubjectHash = blockedClaim.subjectId.replace(/^working-tree:/, '');
         <div class="walk-beat" data-accent="red-2">
           <p class="label-sm walk-beat__label">What actually happened</p>
           <p class="body walk-beat__body">
-            "{blockedEvidence.excerptOrSummary}" — recorded with
-            <span class="mono-inline">passing: {String(blockedEvidence.passing)}</span> by
+            "{blockedEvidence.excerptOrSummary}" — recorded with{' '}
+            <span class="mono-inline">passing: {String(blockedEvidence.passing)}</span> by{' '}
             <span class="mono-inline">{blockedEvidence.collectedBy}</span> as the
             check ran, not written up afterwards by whatever was doing the
-            work. The named blocker is
+            work. The named blocker is{' '}
             <span class="mono-inline">{blockedRequirements.join(', ')}</span>:
             a required standard wanted certain artifacts out of the run, and
             didn't get them.
@@ -298,9 +298,9 @@ const blockedSubjectHash = blockedClaim.subjectId.replace(/^working-tree:/, '');
         <div class="muted"># exit 0 — the file says verified; the answer is still disputed</div>
       </Terminal>
       <p class="section-lead tamper-foot">
-        Same refusal. You can go further and delete the
+        Same refusal. You can go further and delete the{' '}
         <span class="mono-inline">status</span> field altogether — it isn't
-        part of the format's required shape — and the answer still comes back
+        part of the format's required shape — and the answer still comes back{' '}
         <span class="mono-inline">disputed</span>. To turn this receipt green
         you'd have to produce a passing check, which is the point.
       </p>
@@ -319,7 +319,7 @@ const blockedSubjectHash = blockedClaim.subjectId.replace(/^working-tree:/, '');
       <Eyebrow accent="green">Recompute, don't trust</Eyebrow>
       <h2 class="section-heading">Check any of these yourself</h2>
       <p class="section-lead">
-        Every bundle here is a
+        Every bundle here is a{' '}
         <a href="https://github.com/hachure-org/spec" target="_blank" rel="noopener">Hachure
         trust.bundle</a> — an open format we publish the schemas for but don't
         own the definition of. Download one and run it through
@@ -340,7 +340,7 @@ const blockedSubjectHash = blockedClaim.subjectId.replace(/^working-tree:/, '');
       </Terminal>
       <p class="section-lead recompute-second">
         Don't take one implementation's word for it either. Every bundle here
-        also passes the separate <span class="mono-inline">hachure</span>
+        also passes the separate <span class="mono-inline">hachure</span>{' '}
         reference CLI — a different codebase reading the same file against the
         spec's own schemas: two implementations, same verdict. CI runs both on
         every published bundle, so this can't quietly go stale. Both are still

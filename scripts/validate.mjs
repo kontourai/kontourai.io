@@ -53,7 +53,10 @@ const versionedPackages = [
   // exactly the defect the screenshot captions had. Displayed package status
   // must still come from product-status.
   { key: "survey", name: "@kontourai/survey", page: "src/pages/survey.astro", allowsPinnedEvidence: true },
-  { key: "flow", name: "@kontourai/flow", page: "src/pages/flow.astro" },
+  // flow.astro pins the version that produced its terminal captures — capture
+  // provenance, same rule as survey/veritas/fieldwork. Displayed package status
+  // still comes from product-status.
+  { key: "flow", name: "@kontourai/flow", page: "src/pages/flow.astro", allowsPinnedEvidence: true },
   { key: "flow-agents", name: "@kontourai/flow-agents", page: "src/pages/flow-agents.astro" },
   { key: "console", name: "@kontourai/console", page: "src/pages/console.astro" },
   // Fieldwork cites its immutable 0.2.4 release evidence directly. Its current
