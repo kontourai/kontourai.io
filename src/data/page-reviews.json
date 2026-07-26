@@ -61,7 +61,7 @@
     {
       "page": "src/pages/survey.astro",
       "products": {
-        "survey": "2.2.1"
+        "survey": "2.2.2"
       },
       "reviewedDate": "2026-07-25"
     },
