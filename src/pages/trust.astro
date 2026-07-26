@@ -56,6 +56,9 @@ const ADR_0018_URL = 'https://github.com/kontourai/flow-agents/blob/main/docs/ad
 const ANTI_GAMING_SUITE_URL ='https://github.com/kontourai/flow-agents/blob/main/evals/ci/antigaming-suite.sh';
 const RUNTIME_HOOK_SPEC_URL = 'https://github.com/kontourai/flow-agents/blob/main/docs/spec/runtime-hook-surface.md';
 const PR_475_URL = 'https://github.com/kontourai/flow-agents/pull/475';
+const CONFIG_PROTECTION_URL = 'https://github.com/kontourai/flow-agents/blob/main/scripts/hooks/config-protection.js';
+const ISSUE_1008_URL = 'https://github.com/kontourai/flow-agents/issues/1008';
+const ISSUE_1009_URL = 'https://github.com/kontourai/flow-agents/issues/1009';
 ---
 
 <Layout
@@ -153,6 +156,29 @@ const PR_475_URL = 'https://github.com/kontourai/flow-agents/pull/475';
             bundle as a source of truth — it only uses it to detect divergence. A claimed pass that
             CI shows failing, or a command CI never ran, fails the job.
           </p>
+          <p class="body bypass-row__body">
+            One level down, a local gate refuses an agent's direct writes to the protected workflow
+            and gate files themselves. It works by reading the command before it runs — and a
+            command string doesn't always say what it will do. Hardening it overnight closed a run
+            of ways past it: a raw newline used as a separator, a bare <code class="mono-inline">{'&'}</code>,{' '}
+            <code class="mono-inline">eval</code> with a quoted operand, a redirect placed before
+            the command word, <code class="mono-inline">source</code> and <code class="mono-inline">.</code>,
+            and ANSI-C <code class="mono-inline">{"$'cd'"}</code>. One class stays open, and can't be
+            closed there: a directory change reached through a shell variable, an array element, a
+            positional parameter or <code class="mono-inline">printf -v</code> leaves no signal in
+            the string. <code class="mono-inline">X=cd; $X /path</code> is character-for-character
+            identical to <code class="mono-inline">X=notcd; $X /path</code>, which doesn't change
+            directory — separating the two needs values that exist only while the command runs. A
+            second gap sits beside it: a redirect written inside a quoted operand, as in{' '}
+            <code class="mono-inline">{'eval "echo … > <gate file>"'}</code> or{' '}
+            <code class="mono-inline">{'sh -c "…"'}</code>, is never extracted as a target at all.
+            Both are open issues in the public repo. That gate raises the cost of reaching a
+            protected file; it was never the boundary, and the code now says so in the file itself.
+            What catches the write is what catches the rest — it breaks the local hash chain, and
+            CI re-runs your declared checks fresh in an environment the agent never touched. Where
+            we're taking it: stop predicting what a command will do, and check what actually
+            changed, by hashing those files before and after.
+          </p>
           <p class="fine bypass-row__residual">
             <em>Where this stops: a determined agent can still flip a local kill-switch through its
             own shell. That's exactly why the authority lives in CI, not in the local gate. And
@@ -232,6 +258,15 @@ const PR_475_URL = 'https://github.com/kontourai/flow-agents/pull/475';
         All of it is held there by a required{' '}
         <a href={ANTI_GAMING_SUITE_URL} target="_blank" rel="noopener">anti-gaming regression suite</a> that
         turns CI red if any gate is weakened.
+      </p>
+
+      <p class="fine receipt-line">
+        Receipt: the open class is Flow Agents{' '}
+        <a href={ISSUE_1009_URL} target="_blank" rel="noopener">issue #1009</a>, which also carries
+        the move from prediction to content hashing; the quoted-operand gap is{' '}
+        <a href={ISSUE_1008_URL} target="_blank" rel="noopener">issue #1008</a>. The gate itself
+        carries the limitation in its own source (<a href={CONFIG_PROTECTION_URL} target="_blank" rel="noopener">config-protection.js</a>).
+        This list is what we know of today, not everything that exists.
       </p>
     </div>
   </Section>

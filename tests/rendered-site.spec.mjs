@@ -1383,6 +1383,36 @@ test("trust page states what it can't certify, the bypass list, the assurance di
   // Every count on the page is checkable against the ADRs, so the residual list
   // is described by size and content rather than claimed to be exhaustive.
   await expect(page.getByText("this exact residuals list")).toHaveCount(0);
+  // The config-protection gate has a currently-open bypass class (flow-agents
+  // #1009) and a second open gap in the redirect detector (#1008). Both must be
+  // disclosed next to the local-tamper claim they qualify.
+  await expect(page.getByText("One class stays open, and can't be closed there")).toBeVisible();
+  await expect(page.getByText("X=cd; $X /path").first()).toBeVisible();
+  await expect(page.getByRole("link", { name: "issue #1009" })).toHaveAttribute(
+    "href",
+    "https://github.com/kontourai/flow-agents/issues/1009",
+  );
+  await expect(page.getByRole("link", { name: "issue #1008" })).toHaveAttribute(
+    "href",
+    "https://github.com/kontourai/flow-agents/issues/1008",
+  );
+  await expect(page.getByText("it was never the boundary")).toBeVisible();
+  // Negative guard: with a known-open class published, the page must never claim
+  // its bypass list is complete. A future edit that reaches for exhaustiveness
+  // language fails here.
+  const trustHtml = (await page.content()).toLowerCase();
+  for (const overclaim of [
+    "exhaustive",
+    "complete list",
+    "the full list",
+    "every way to",
+    "all the ways",
+    "the only ways",
+    "nothing else can",
+  ]) {
+    expect(trustHtml, `trust page must not claim "${overclaim}"`).not.toContain(overclaim);
+  }
+  await expect(page.getByText("This list is what we know of today, not everything that exists.")).toBeVisible();
   await expect(page.getByText("installing the tool doesn't configure your branch protection")).toBeVisible();
   // Site-parity claim stays exactly as strong as the branch-protection fact:
   // required + no-bypass, with the workflow-protection gap disclosed.
