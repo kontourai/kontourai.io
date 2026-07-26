@@ -82,9 +82,9 @@
     {
       "page": "src/pages/fieldwork.astro",
       "products": {
-        "fieldwork": "0.2.5"
+        "fieldwork": "0.2.6"
       },
-      "reviewedDate": "2026-07-25"
+      "reviewedDate": "2026-07-26"
     },
     {
       "page": "src/pages/hachure.astro",

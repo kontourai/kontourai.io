@@ -11,6 +11,7 @@ import Split from '@/components/Split.astro';
 import Terminal from '@/components/Terminal.astro';
 import productStatus from '@/data/product-status.json';
 import { getPublicEvidenceClaimSources } from '@/lib/public-evidence';
+import { assetCapture } from '@/lib/marketing-assets';
 
 const claimSources = {
   corePremise: getPublicEvidenceClaimSources('fieldwork.comparison.core-premise'),
@@ -45,6 +46,10 @@ const upstreamDemo = 'https://google-langextract.hf.space/';
 
 // Live status claim — tracks whatever version is current.
 const fieldworkVersion = productStatus.products.fieldwork.version;
+
+// Capture provenance for the shared review screenshot comes from the asset
+// manifest, never from the live product version.
+const reviewShot = assetCapture('public/screenshots/fieldwork-review.png');
 // Provenance of the terminal transcript below: the version that actually
 // produced that output, deliberately NOT derived from product-status. When
 // Fieldwork ships a new version this must stay 0.2.5 until the run is redone.
@@ -241,8 +246,8 @@ const sourceNames: Record<string, string> = {
           <a href={sources.survey} target="_blank" rel="noopener">The review record contract ↗</a>
         </div>
         <figure class="product-shot">
-          <img src="/screenshots/fieldwork-review.png" alt="Fieldwork Grounded Review desktop view with a source inspector, extraction evidence for record status, and a Survey review workbench showing an accepted proposal." loading="lazy" />
-          <figcaption>Exact desktop snapshot from Fieldwork’s public browser test: source inspection above the review queue, one proposal accepted, decided on the local server.</figcaption>
+          <img src="/screenshots/fieldwork-review.png" alt="Fieldwork Grounded Review desktop view: a source inspector showing the renewal brief with each extracted value highlighted, above a Survey review workbench where two values are accepted and a contested renewal date still needs a decision." loading="lazy" />
+          <figcaption>Desktop snapshot from a local run of the published package, captured against v{reviewShot.capturedAgainstVersion} on {reviewShot.capturedAt}: source inspection above the review queue, accepted values decided on the local server, one contested date still open.</figcaption>
         </figure>
       </Split>
     </div>

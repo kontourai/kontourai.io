@@ -31,24 +31,31 @@ const sources = {
 // status here re-stamps the caption at every release with no capture having
 // happened.
 const reviewShot = assetCapture('public/screenshots/fieldwork-review.png');
-const formatShot = assetCapture('public/screenshots/fieldwork-format-inspection.png');
 
 // Verbatim from a local run of the published CLI against the
 // examples/vendor-obligations fixture that ships inside the npm package:
-// .fieldwork/runs/run-bc32a8a21fef4afa/extraction-envelope.json →
+// .fieldwork/runs/run-cdecb02ac92d8fa1/extraction-envelope.json →
 // result.proposals[].candidateValue / provenance.excerpt / provenance.locator
+// Three of the seven the run proposes — the two the reviewer has to think
+// about, and one of the five that just confirm.
 const proposals: { field: string; value: string; excerpt: string; locator: string }[] = [
   {
-    field: 'obligation',
-    value: 'Deliver the monthly security report',
-    excerpt: 'Obligation: Deliver the monthly security report',
-    locator: 'chars:27-74',
+    field: 'commercial.annualFeeUsd',
+    value: '48000',
+    excerpt: 'Annual renewal fee USD: 48000',
+    locator: 'chars:332-361',
   },
   {
-    field: 'deadline',
-    value: '2027-03-31',
-    excerpt: 'Deadline: 2027-03-31',
-    locator: 'chars:75-95',
+    field: 'renewal.date',
+    value: '2027-04-01',
+    excerpt: 'Renewal date: 2027-04-01',
+    locator: 'chars:362-386',
+  },
+  {
+    field: 'security.assurance',
+    value: 'SOC 2 Type II report requested, 2026 report not yet received',
+    excerpt: 'Security assurance: SOC 2 Type II report requested, 2026 report not yet received',
+    locator: 'chars:437-517',
   },
 ];
 
@@ -91,8 +98,8 @@ const evidence: { title: string; body: string; href: string; label: string; acce
     accent: 'green',
   },
   {
-    title: 'Where the screenshots come from',
-    body: 'The review screens on this page are frames from the public browser tests, which run at both desktop and phone widths. Nothing here is a mock-up.',
+    title: 'Where the screenshot comes from',
+    body: 'The review screen on this page is a local run of the published package, captured through this site’s guarded capture path and bound to its bytes. The same screen is rendered by the public browser test, at desktop and phone widths. Nothing here is a mock-up.',
     href: sources.browser,
     label: 'Inspect the browser test →',
     accent: 'gold-2',
@@ -150,7 +157,7 @@ const evidence: { title: string; body: string; href: string; label: string; acce
         </div>
 
         <Terminal class="animate-fade-in delay-300" title="credential-free quickstart">
-          <pre class="code"><span class="t-com"># Node 22 · offline demo, no signup</span>{'\n'}<span class="t-kw">npm</span> install <span class="t-str">@kontourai/fieldwork</span>{'\n'}{'\n'}<span class="t-com"># 1. pull the values out of the sample agreement</span>{'\n'}<span class="t-kw">npm</span> exec -- fieldwork run \{'\n'}  --task node_modules/@kontourai/fieldwork/examples/vendor-obligations/task.json \{'\n'}  --source node_modules/@kontourai/fieldwork/examples/vendor-obligations/source.txt \{'\n'}  --json{'\n'}<span class="t-com"># → {'{'}"ok":true,…,"runDirectory":"…/.fieldwork/runs/run-bc32a8a21fef4afa","proposalCount":2{'}'}</span>{'\n'}{'\n'}<span class="t-com"># 2. review it in your browser; Ctrl-C stops the server</span>{'\n'}<span class="t-kw">npm</span> exec -- fieldwork open .fieldwork/runs/run-bc32a8a21fef4afa --json{'\n'}<span class="t-com"># → {'{'}"ok":true,"url":"http://127.0.0.1:50651/#cap=…","loopbackOnly":true{'}'}</span>{'\n'}{'\n'}<span class="t-com"># 3. hand off only what you approved</span>{'\n'}<span class="t-kw">npm</span> exec -- fieldwork export .fieldwork/runs/run-bc32a8a21fef4afa --output reviewed.json --json</pre>
+          <pre class="code"><span class="t-com"># Node 22 · offline demo, no signup</span>{'\n'}<span class="t-kw">npm</span> install <span class="t-str">@kontourai/fieldwork</span>{'\n'}{'\n'}<span class="t-com"># 1. pull the values out of the sample renewal brief</span>{'\n'}<span class="t-kw">npm</span> exec -- fieldwork run \{'\n'}  --task node_modules/@kontourai/fieldwork/examples/vendor-obligations/task.json \{'\n'}  --source node_modules/@kontourai/fieldwork/examples/vendor-obligations/source.txt \{'\n'}  --json{'\n'}<span class="t-com"># → {'{'}"ok":true,…,"runDirectory":"…/.fieldwork/runs/run-cdecb02ac92d8fa1","proposalCount":7{'}'}</span>{'\n'}{'\n'}<span class="t-com"># 2. review it in your browser; Ctrl-C stops the server</span>{'\n'}<span class="t-kw">npm</span> exec -- fieldwork open .fieldwork/runs/run-cdecb02ac92d8fa1 --json{'\n'}<span class="t-com"># → {'{'}"ok":true,"url":"http://127.0.0.1:64215/#cap=…","loopbackOnly":true{'}'}</span>{'\n'}{'\n'}<span class="t-com"># 3. hand off only what you resolved</span>{'\n'}<span class="t-kw">npm</span> exec -- fieldwork export .fieldwork/runs/run-cdecb02ac92d8fa1 --output reviewed.json --json</pre>
         </Terminal>
       </Split>
       <p class="quickstart-note">
@@ -190,19 +197,33 @@ const evidence: { title: string; body: string; href: string; label: string; acce
         <Card accent="chalk-2" bar="top" pad="md" class="story-panel">
           <p class="story-panel__step">01 — What you start with</p>
           <h3 class="story-panel__title">A document nobody has checked</h3>
-          <pre class="doc-frame">Synthetic Vendor Agreement
-Obligation: Deliver the monthly security report
-Deadline: 2027-03-31</pre>
+          <pre class="doc-frame">Northstar Analytics — 2027 renewal brief
+…
+Vendor: Northstar Analytics
+Annual renewal fee USD: 48000
+Renewal date: 2027-04-01
+Renewal posture: automatic
+Notice period days: 45
+Security assurance: SOC 2 Type II report requested, 2026 report not yet received
+Hosting region: United States
+
+Open questions for the reviewer:
+The signature page of the executed agreement records a renewal date of
+2027-05-15, which does not match the commercial schedule reproduced above.
+…</pre>
           <p class="story-panel__note">
-            Somebody has to get that deadline into the system that will chase
-            it. Today somebody retypes it, and nobody can tell afterwards
-            whether they read the right line.
+            Somebody has to get that renewal date into the system that will
+            chase it — and this brief carries two dates. Today somebody
+            retypes one of them, and nobody can tell afterwards which line
+            they read. Lines are verbatim from the
+            <span class="codechip">vendor-obligations</span> source that ships in the package;
+            each <span class="codechip">…</span> stands for lines left out for length.
           </p>
         </Card>
 
         <Card accent="gold-2" bar="top" pad="md" class="story-panel">
           <p class="story-panel__step">02 — What Fieldwork proposes</p>
-          <h3 class="story-panel__title">Two values, each with its receipt</h3>
+          <h3 class="story-panel__title">Seven values, each with its receipt</h3>
           <ol class="proposal-list">
             {proposals.map(({ field, value, excerpt, locator }) => (
               <li class="proposal">
@@ -216,25 +237,31 @@ Deadline: 2027-03-31</pre>
             ))}
           </ol>
           <p class="story-panel__note">
-            None of this is data yet. Both rows land in a review queue with the
-            source open beside them, and <span class="codechip">chars:27-74</span> is the exact stretch of
-            the document the value was read out of — so checking a value means
-            reading one line, not trusting a score.
+            Three of the seven, above. None of this is data yet: every row lands
+            in a review queue with the source open beside it, and
+            <span class="codechip">chars:362-386</span> is the exact stretch of the document the value
+            was read out of — so checking a value means reading one line, not
+            trusting a score. Five of the seven confirm on sight. The renewal
+            date is contradicted further down the same document, and the
+            security assurance names a report nobody has received.
           </p>
         </Card>
 
         <Card accent="green" bar="top" pad="md" class="story-panel story-panel--wide">
           <p class="story-panel__step">03 — What you can’t do until you’ve looked</p>
           <h3 class="story-panel__title">The export refuses</h3>
-          <Terminal title="export before review">
-            <pre class="code"><span class="t-kw">npm</span> exec -- fieldwork export .fieldwork/runs/run-bc32a8a21fef4afa --output reviewed.json --json{'\n'}{'{'}"ok":false,"error":{'{'}"code":"FIELDWORK_ERROR","message":"Export refused: unresolved-review-item, unresolved-review-item"{'}'}{'}'}</pre>
+          <Terminal title="export with one row still open">
+            <pre class="code"><span class="t-kw">npm</span> exec -- fieldwork export .fieldwork/runs/run-cdecb02ac92d8fa1 --output reviewed.json --json{'\n'}{'{'}"ok":false,"error":{'{'}"code":"FIELDWORK_ERROR","message":"Export refused: unresolved-review-item"{'}'}{'}'}</pre>
           </Terminal>
           <p class="story-panel__note">
-            Two unreviewed rows, two refusals — one per value nobody has looked
-            at yet. <span class="codechip">reviewed.json</span> is never written. Once a person has
-            decided on every row, the file exists and each value in it carries
-            the line it came from, who accepted it, and when — so the next
-            person doesn’t have to take your word for it either.
+            One refusal per row nobody has settled — seven of them on a fresh
+            run, and still one here after five accepts and a
+            <span class="codechip">could not confirm</span>, because the contested date is open.
+            <span class="codechip">reviewed.json</span> is never written. Resolve the last row and the
+            file exists: each value carries the line it came from
+            (<span class="codechip">sourceLocator</span>, <span class="codechip">excerptOrSummary</span>), who settled it, and
+            when — and the assurance nobody could confirm stays
+            <span class="codechip">"status":"proposed"</span> rather than passing itself off as verified.
           </p>
         </Card>
       </div>
@@ -256,13 +283,18 @@ Deadline: 2027-03-31</pre>
       <Eyebrow accent="green" gap="sm">The review screen</Eyebrow>
       <h2 class="display-md measure-lg">The source on top, the decision underneath.</h2>
       <figure class="product-shot review-shot">
-        <img src="/screenshots/fieldwork-review.png" alt="The reviewed value “Active” shown beside the exact line of source text it was extracted from, with accept and reject controls underneath." loading="lazy" />
+        <img src="/screenshots/fieldwork-review.png" alt="The Fieldwork review screen: the renewal brief with all seven extracted values highlighted where they were found, above a review queue reading “6 of 7 decided” in which the vendor name and annual fee are accepted and the contested renewal date is still awaiting a decision." loading="lazy" />
         <figcaption>
-          You accept a value by reading the line it came from. Exact snapshot
-          from the browser test that ships with the release, captured against
-          v{reviewShot.capturedAgainstVersion} on {reviewShot.capturedAt}. The
-          fixture here is a deliberately tiny one, so the screen is emptier than
-          a real queue. <a href={sources.browser} target="_blank" rel="noopener">Source test →</a>
+          The brief on top with every proposed value highlighted on the line it
+          came from; the queue underneath, mid-review. Five values confirmed on
+          sight, the security assurance marked <em>could not confirm</em>, and
+          <span class="codechip">renewal.date</span> still open — because the document proposes
+          2027-04-01 and, further down the same page, mentions 2027-05-15. A
+          local run of the published package, captured against
+          v{reviewShot.capturedAgainstVersion} on {reviewShot.capturedAt}; the
+          frame stops after the contested row, and four more rows follow below
+          it.{' '}
+          <a href={sources.browser} target="_blank" rel="noopener">The browser test that renders this screen →</a>
         </figcaption>
       </figure>
       <p class="body measure-lg survey-note">
@@ -270,7 +302,9 @@ Deadline: 2027-03-31</pre>
         workbench Kontour ships on its own. Fieldwork is the finished app;
         Survey is the review queue inside it. Fieldwork mounts it rather than
         building a second one, so a decision recorded here means the same thing
-        anywhere else in Kontour it shows up. The queue works on a phone too.
+        anywhere else in Kontour it shows up. The queue lays out on a phone too
+        — the release’s browser test renders the same screen at 390px, which is
+        why there is no second screenshot of it here.
       </p>
     </div>
   </Section>
@@ -291,10 +325,17 @@ Deadline: 2027-03-31</pre>
           <p class="body">Fieldwork brings the review and the evidence view; PDF parsing and OCR come from readers you plug in. If one is missing, the CLI stops and tells you which reader it needs rather than guessing at the text.</p>
           <a href={sources.browser} target="_blank" rel="noopener" class="handoff-link" data-umami-event="fieldwork-format-test">Inspect the format browser test →</a>
         </div>
-        <figure class="product-shot">
-          <img src="/screenshots/fieldwork-format-inspection.png" alt="A proposed value beside its PDF evidence, labelled PDF page 2, one layout element, one table cell." loading="lazy" />
-          <figcaption>The page, layout, and table-cell address travels with the value into the inspector. Exact snapshot from the format browser test, captured against v{formatShot.capturedAgainstVersion}.</figcaption>
-        </figure>
+        <div>
+          <Terminal title="a PDF with no reader attached">
+            <pre class="code"><span class="t-kw">npm</span> exec -- fieldwork run --task task.json --source brief.pdf --json{'\n'}<span class="warn">{'{'}"ok":false,"error":{'{'}"code":"PDF_ADAPTER_REQUIRED",{'\n'}  "message":"PDF extraction requires a host-supplied PDF text adapter"{'}'}{'}'}</span></pre>
+          </Terminal>
+          <p class="format-note">
+            A typed refusal naming the missing reader, not a guess at the text.
+            Attach one and the same run carries page, layout block, and
+            table-cell addresses into the inspector beside every value —
+            the format browser test above renders that screen.
+          </p>
+        </div>
       </Split>
     </div>
   </Section>
@@ -342,11 +383,15 @@ Deadline: 2027-03-31</pre>
       <h2 class="display-md measure-lg">The demo is free. Real documents need a model, and it’s yours.</h2>
       <p class="body measure-lg">
         The extractor in the box finds values by exact label — which is why the
-        sample file above looks like <span class="codechip">Deadline: 2027-03-31</span>. It runs offline with
+        sample file above looks like <span class="codechip">Renewal date: 2027-04-01</span>. It runs offline with
         no account, and it exists so you can see the review, the refusal, and
         the export before deciding anything. Point that same task at an actual
         renewal letter and the run comes back with <span class="codechip">"proposalCount":0</span> — a
-        real letter doesn’t label its own fields.
+        real letter doesn’t label its own fields. It is also why every row in
+        the screenshot reads confidence <span class="codechip">1.00</span>: an exact label match is
+        certain, and it says nothing about whether the right label was read.
+        Graded confidence comes from a model runtime, not from the offline
+        fixture.
       </p>
       <p class="body measure-lg">
         Real documents need a model, and Fieldwork doesn’t ship one or resell
@@ -408,6 +453,7 @@ Deadline: 2027-03-31</pre>
   .recheck-coda strong { color: var(--color-chalk); }
 
   .review-shot { margin-top: 2rem; }
+  .format-note { margin: 1rem 0 0; color: var(--color-chalk-2); font-size: 0.85rem; line-height: 1.6; }
   .survey-note { margin: 1.75rem 0 0; color: var(--color-chalk-2); }
 
   .boundary-title, .evidence-title { margin: 0.5rem 0 0; font-size: 1rem; }
