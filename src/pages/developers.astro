@@ -8,8 +8,9 @@ import Eyebrow from '@/components/Eyebrow.astro';
 import Card from '@/components/Card.astro';
 import Grid from '@/components/Grid.astro';
 import ProofChain from '@/components/ProofChain.astro';
+import ProductMark from '@/components/ProductMark.astro';
 import Terminal from '@/components/Terminal.astro';
-import { applications, kits } from '@/lib/products';
+import { applications, kits, labPackages } from '@/lib/products';
 import { getProductStatus, productBadge } from '@/lib/product-status';
 import type { Accent } from '@/lib/theme';
 import pkg from '../../package.json';
@@ -35,67 +36,14 @@ const applicationCards = applications.map((application) => {
   return { ...application, status, badge: productBadge(status) };
 });
 
-// Hachure is deliberately not in this list any more: it is the open format the
-// whole proof story rests on, not one of our small tools. It leads the proof
-// chain and has its own page.
-const labRepos = [
-  {
-    slug: 'datum',
-    label: 'Datum',
-    repo: 'https://github.com/kontourai/datum',
-    description:
-      "Your model registry. Define providers, models, and roles once, then resolve which backend, which model, whose key, what URL. It doesn't call models for you — apart from four opt-in commands that exist to test a connection.",
-  },
-  {
-    slug: 'bearing',
-    label: 'Bearing',
-    repo: 'https://github.com/kontourai/bearing',
-    description:
-      'Which model is actually good at what, and where that judgement came from. Compiles observations into catalog snapshots you can diff, and ranks models for a given runtime — without calling any of them.',
-  },
-  {
-    slug: 'traverse',
-    label: 'Traverse',
-    repo: 'https://github.com/kontourai/traverse',
-    description:
-      'Pulls structured fields out of documents against a schema you supply, and hands back proposals for a person to review — each one still carrying the passage it came from.',
-  },
-  {
-    slug: 'forage',
-    label: 'Forage',
-    repo: 'https://github.com/kontourai/forage',
-    description:
-      'Fetches untrusted URLs safely and keeps a snapshot of what came back, so a crawl can be replayed instead of re-guessed. Refuses requests aimed at your internal network.',
-  },
-  {
-    slug: 'lookout',
-    label: 'Lookout',
-    repo: 'https://github.com/kontourai/lookout',
-    description:
-      "Watches sources you re-check over time and tells you what changed since the last look. Built on Forage's snapshots; it doesn't extract fields itself.",
-  },
-  {
-    slug: 'ephemeris',
-    label: 'Ephemeris',
-    repo: 'https://github.com/kontourai/ephemeris',
-    description:
-      'Turns "this expires on Friday" into an event the rest of the suite can act on — a standalone freshness scheduler and event bridge. Not under active development.',
-  },
-  {
-    slug: 'kit-research',
-    label: 'Research Kit',
-    repo: 'https://github.com/kontourai/kit-research',
-    description:
-      'A Flow Agents kit for source-traced research: capture, compile, recall, with every claim tied to where it came from.',
-  },
-  {
-    slug: 'ui',
-    label: 'Console Kit (UI)',
-    repo: 'https://github.com/kontourai/ui',
-    description:
-      "Shared design tokens and React/web-component pieces for Kontour consoles. You only need this if you're building a console of your own.",
-  },
-] as const;
+// Hachure is deliberately not in this list: it is the open format the whole
+// proof story rests on, not one of our small tools. It leads the proof chain
+// and has its own page. The list itself is the shared catalog — every entry
+// names the npm package the card advertises, and `npm run validate` fails if
+// any of them is not published. Ephemeris and the Research Kit were listed here
+// for months with nothing on the registry behind either name.
+const labRepos = labPackages;
+const npmUrl = (packageName: string) => `https://www.npmjs.com/package/${packageName}`;
 ---
 
 <Layout
@@ -265,7 +213,9 @@ const labRepos = [
       <div class="application-single">
         {applicationCards.map(({ href, label, accent, repo, packageName, job, composition, status, badge, key }) => (
           <Card accent={accent} bar="top" pad="md">
-            <h3 class="product-card__title">{label}</h3>
+            <h3 class="product-card__title application-card__title">
+              <ProductMark product={key} size={20} class="application-card__mark" />{label}
+            </h3>
             <p class="product-card__body">{job}</p>
             <p class="application-card__composition">{composition}</p>
             <p class="application-card__status">{packageName} · {badge}</p>
@@ -280,19 +230,22 @@ const labRepos = [
     </div>
   </Section>
 
-  <Section borderTop>
+  <Section id="lab" borderTop>
     <div class="container">
       <Eyebrow gap="sm">More from the lab</Eyebrow>
       <p class="fine measure lab-intro">
         Smaller pieces we built for ourselves and published anyway. Each does
-        one thing, and each works without the rest.
+        one thing, each works without the rest, and every one of them is on npm
+        today — nothing on this list is a name you can't install.
       </p>
       <Grid min="280" gap="md">
-        {labRepos.map(({ slug, label, repo, description }) => (
+        {labRepos.map(({ slug, label, repo, packageName, description }) => (
           <Card accent="chalk-2" pad="md">
             <h3 class="product-card__title">{label}</h3>
+            <p class="lab-card__package">{packageName}</p>
             <p class="product-card__body">{description}</p>
             <div class="product-card__links">
+              <a href={npmUrl(packageName)} target="_blank" rel="noopener" data-umami-event={`developers-lab-${slug}-npm`}>npm →</a>
               <a href={repo} target="_blank" rel="noopener" data-umami-event={`developers-lab-${slug}-repo`}>GitHub →</a>
             </div>
           </Card>
@@ -359,6 +312,15 @@ const labRepos = [
     line-height: 1.65;
   }
 
+  /* The package name sits directly under the lab card's title: the card's
+     whole claim is that this is installable, so name the thing you install. */
+  .lab-card__package {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--color-chalk-3);
+    margin: -0.45rem 0 0.7rem;
+  }
+
   .product-card__links,
   .next-links {
     display: flex;
@@ -400,6 +362,19 @@ const labRepos = [
      stretched across an auto-fill grid built for several. */
   .application-single {
     max-width: 620px;
+  }
+
+  /* The application card carries the same mark the nav and the product hero
+     use, so Fieldwork is recognisable before the title is read. */
+  .application-card__title {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+  }
+
+  .application-card__mark {
+    flex-shrink: 0;
+    color: var(--accent, var(--color-chalk-2));
   }
 
   .application-card__composition,

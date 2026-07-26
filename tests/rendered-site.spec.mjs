@@ -5,12 +5,18 @@ import { validateTrustBundle } from "@kontourai/surface";
 test("homepage leads with a single Flow Agents headline and the recognition-then-mechanism argument", async ({ page }) => {
   await page.goto("/");
 
-  // AC1: exactly one hero headline story — the Flow Agents wedge — above the fold.
-  await expect(page.locator(".label-sm").filter({ hasText: "Kontour · Flow Agents" }).first()).toBeVisible();
+  // AC1: exactly one hero headline story above the fold, and the slogan is the
+  // first thing in it. The "Kontour · Flow Agents" kicker that used to sit above
+  // the h1 is gone by owner direction — the guard stays so it does not creep
+  // back, because the whole point of the hero is that the slogan leads.
+  await expect(page.locator(".label-sm").filter({ hasText: "Kontour · Flow Agents" })).toHaveCount(0);
+  await expect(page.locator(".hero-kicker")).toHaveCount(0);
   await expect(
     page.getByRole("heading", { level: 1, name: "Make your agents show their work.", exact: true }),
   ).toBeVisible();
   await expect(page.locator("h1")).toHaveCount(1);
+  // Nothing renders above the headline inside the hero block.
+  await expect(page.locator(".hero-inner > *").first()).toHaveClass(/hero-title/);
   await expect(page.getByText("AI writes more code than anyone can read line by line.").first()).toBeVisible();
 
   // Hero CTAs
@@ -151,6 +157,9 @@ test("homepage leads with a single Flow Agents headline and the recognition-then
   await expect(page.locator('[data-umami-event="nav-builder-kit"]')).toHaveCount(0);
   await expect(page.locator('[data-umami-event="nav-knowledge-kit"]')).toHaveCount(0);
   await expect(page.locator('[data-umami-event="nav-console"]')).toHaveCount(0);
+  await expect(page.locator('[data-umami-event="nav-fieldwork"]')).toHaveCount(0);
+  await expect(page.locator('[data-umami-event="nav-hachure"]')).toHaveCount(0);
+  await expect(page.locator('[data-umami-event="nav-products-menu"]')).toHaveCount(0);
   await expect(page.locator('[data-umami-event="footer-flow"]')).toHaveCount(0);
   await expect(page.locator('[data-umami-event="footer-veritas"]')).toHaveCount(0);
   await expect(page.locator('[data-umami-event="footer-surface"]')).toHaveCount(0);
@@ -283,9 +292,12 @@ const findCollapsedWordJoins = (minGapPx) => {
     if (insideCodeSample) continue;
 
     // A missing space is only visible when a word follows. Punctuation hugging
-    // a word ("</code>." or "(<a>ADR 0018</a>") is correct typography.
+    // a word ("</code>." or "(<a>ADR 0018</a>") is correct typography — except
+    // for a leading "@", which on this site always starts a scoped package name
+    // and reads as a word. "suite router,@kontourai/cli" shipped past this
+    // check on its first cut precisely because "@" was treated as punctuation.
     const lastChar = before.data[before.data.length - 1];
-    if (!/[\p{L}\p{N}]/u.test(after.data[0])) continue;
+    if (!/[\p{L}\p{N}@]/u.test(after.data[0])) continue;
     if (/[(\[{<"'“‘«/\\@#$&+=~^|*·•‐-― -]/u.test(lastChar)) continue;
 
     const beforeRect = charRect(before, before.data.length - 1);
@@ -770,6 +782,15 @@ test("console page presents the suite operating plane and operator outcomes", as
   // command the reader types. That install path must never come back.
   await expect(page.getByText("npm install --global @kontourai/cli @kontourai/console")).toHaveCount(0);
   await expect(page.getByText("kontour console serve")).toHaveCount(0);
+  // ...but the page prints `kontour` a dozen times and never said which package
+  // owns that name. @kontourai/cli is published and claims the same bin, so the
+  // collision is now named explicitly instead of being silently avoided.
+  await expect(page.locator('[data-umami-event="console-run-cli"]')).toHaveAttribute(
+    "href",
+    "https://github.com/kontourai/cli",
+  );
+  await expect(page.getByText("there is also a separate suite router")).toBeVisible();
+  await expect(page.getByText("install one of them globally rather than both")).toBeVisible();
   await expect(page.getByText("kontour-flow-bridge --flow-root .kontourai/flow --watch")).toBeVisible();
   // The registry documents API routes; some UI content is derived client-side,
   // so "everything the UI renders" was broader than the spec covers.
@@ -854,9 +875,9 @@ test("developers page leads with the engine and kits, then exposes the proof cha
   await page.setViewportSize({ width: 1440, height: 1100 });
   await page.goto("/developers/");
 
-  // The nav now carries two dropdowns (Flow Agents and Developers); on this
-  // page the Developers summary carries the active state and the Overview item
-  // inside is the current page.
+  // The nav carries two dropdowns (Products and Developers); on this page the
+  // Developers summary carries the active state and the Overview item inside is
+  // the current page.
   const devSummary = page.locator(".nav-dropdown__summary--active");
   await expect(devSummary).toBeVisible();
   await expect(page.locator('[data-umami-event="nav-developers-menu"]')).toHaveClass(/nav-dropdown__summary--active/);
@@ -955,11 +976,14 @@ test("developers page leads with the engine and kits, then exposes the proof cha
   await expect(page.getByText("apart from four opt-in commands")).toBeVisible();
   await expect(page.getByText("Never makes model calls")).toHaveCount(0);
 
-  // Nav: engine + kits top-level; disciplines live in the Products dropdown
-  // (eleven flat links overflowed every desktop width).
-  const faSummary = page.locator('[data-umami-event="nav-flow-agents-menu"]');
-  await expect(faSummary).toBeVisible();
+  // Nav: two menus split by what the reader wants — Products holds the three
+  // things you install and run (engine, app, operating view) plus the kits that
+  // run on the engine; Developers holds the open format and the parts.
+  const productsSummary = page.locator('[data-umami-event="nav-products-menu"]');
+  await expect(productsSummary).toBeVisible();
   await expect(devSummary).toBeVisible();
+  // Products is a category, not a page: the summary must not be a link.
+  await expect(productsSummary).toHaveJSProperty("tagName", "SUMMARY");
   await expect(page.locator('[data-umami-event="nav-surface"]')).toBeHidden();
   await expect(page.locator('[data-umami-event="nav-builder-kit"]')).toBeHidden();
   // toBeVisible() ignores ancestor overflow clipping (learned on this PR's
@@ -974,12 +998,32 @@ test("developers page leads with the engine and kits, then exposes the proof cha
       const el = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2);
       return !!el && (el === link || link.contains(el));
     }, event);
-  await faSummary.click();
-  expect(await hitTest("nav-builder-kit")).toBe(true);
-  await faSummary.click();
+  await productsSummary.click();
+  // The shopfront: engine, the finished app, and the operating view, each
+  // carrying its own mark, with the kits filed under the engine that runs them.
+  for (const event of ["nav-flow-agents", "nav-fieldwork", "nav-console", "nav-builder-kit", "nav-knowledge-kit"]) {
+    expect(await hitTest(event), `${event} is not hit-testable inside the Products panel`).toBe(true);
+  }
+  await expect(page.locator('[data-umami-event="nav-fieldwork"]')).toHaveAttribute("href", "/fieldwork/");
+  await expect(page.locator('[data-umami-event="nav-console"]')).toHaveAttribute("href", "/console/");
+  await expect(page.locator('[data-umami-event="nav-flow-agents"]')).toHaveAttribute("href", "/flow-agents/");
+  // The engine→kits relationship survives the regrouping in the group label.
+  await expect(page.getByText("Kits that run on Flow Agents")).toBeVisible();
+  // Every Products entry carries a mark, including the two new ones.
+  const productsMarks = await page
+    .locator('.nav-dropdown__panel [data-umami-event="nav-fieldwork"] svg, .nav-dropdown__panel [data-umami-event="nav-console"] svg, .nav-dropdown__panel [data-umami-event="nav-flow-agents"] svg')
+    .count();
+  expect(productsMarks).toBe(3);
+  await productsSummary.click();
+
   await devSummary.click();
   expect(await hitTest("nav-surface")).toBe(true);
-  await expect(page.locator('[data-umami-event="nav-console"]')).toHaveAttribute("href", "/console/");
+  // Hachure moved into the Developers menu with a mark of its own; the
+  // Applications group is gone from here because Fieldwork is a Product now.
+  expect(await hitTest("nav-hachure")).toBe(true);
+  await expect(page.locator('[data-umami-event="nav-hachure"] svg')).toHaveCount(1);
+  await expect(page.locator('.nav-dropdown__panel [data-umami-event="nav-fieldwork"]')).toHaveCount(1);
+  await devSummary.click();
   // The row itself must not overflow its container on desktop.
   const navOverflow = await page.locator(".nav__links").evaluate((el) => el.scrollWidth - el.clientWidth);
   expect(navOverflow).toBeLessThanOrEqual(0);
@@ -992,9 +1036,50 @@ test("developers page leads with the engine and kits, then exposes the proof cha
   await expect(page.locator('[data-umami-event="developers-next-receipts"]')).toHaveAttribute("href", "/receipts/");
   await expect(page.locator('[data-umami-event="developers-next-trust"]')).toHaveAttribute("href", "/trust/");
 
-  // Lab section covers the public building blocks, including the new ones.
-  await expect(page.locator('[data-umami-event="developers-lab-lookout-repo"]')).toHaveAttribute("href", "https://github.com/kontourai/lookout");
-  await expect(page.locator('[data-umami-event="developers-lab-kit-research-repo"]')).toHaveAttribute("href", "https://github.com/kontourai/kit-research");
+  // Lab section: the exact published set, in order. The list is rendered from
+  // the shared catalog and `npm run validate` proves every packageName below is
+  // live on npm, so this test owns the *editorial* expectation — which
+  // packages the page claims exist — and the validator owns the registry fact.
+  const expectedLab = [
+    ["cli", "@kontourai/cli"],
+    ["datum", "@kontourai/datum"],
+    ["bearing", "@kontourai/bearing"],
+    ["relay", "@kontourai/relay"],
+    ["dispatch", "@kontourai/dispatch"],
+    ["conduit", "@kontourai/conduit"],
+    ["traverse", "@kontourai/traverse"],
+    ["forage", "@kontourai/forage"],
+    ["lookout", "@kontourai/lookout"],
+    ["plumb", "@kontourai/plumb"],
+    ["ui", "@kontourai/ui"],
+  ];
+  const renderedLabSlugs = await page
+    .locator('#lab [data-umami-event$="-repo"]')
+    .evaluateAll((links) =>
+      links.map((link) => link.getAttribute("data-umami-event").replace(/^developers-lab-|-repo$/g, "")),
+    );
+  expect(renderedLabSlugs).toEqual(expectedLab.map(([slug]) => slug));
+  for (const [slug, packageName] of expectedLab) {
+    await expect(page.locator(`[data-umami-event="developers-lab-${slug}-repo"]`)).toHaveAttribute(
+      "href",
+      `https://github.com/kontourai/${slug}`,
+    );
+    // The card's whole claim is that this is installable, so it has to name the
+    // package and link the registry entry, not just the repository.
+    await expect(page.locator(`[data-umami-event="developers-lab-${slug}-npm"]`)).toHaveAttribute(
+      "href",
+      `https://www.npmjs.com/package/${packageName}`,
+    );
+    await expect(page.locator("#lab").getByText(packageName, { exact: true })).toBeVisible();
+  }
+  // The two dead names the list used to carry. Neither Ephemeris nor the
+  // Research Kit was ever published, so both cards invited an install that did
+  // not exist — `npm run validate` now refuses an entry in that state.
+  expect(renderedLabSlugs).not.toContain("ephemeris");
+  expect(renderedLabSlugs).not.toContain("kit-research");
+  await expect(page.getByText("Console Kit (UI)")).toHaveCount(0);
+  await expect(page.getByText("Research Kit")).toHaveCount(0);
+  await expect(page.getByText("Ephemeris")).toHaveCount(0);
   await expect(page.locator('[data-umami-event="footer-developers"]')).toBeVisible();
 
   await expect(page.getByText("raw internal critique")).toHaveCount(0);

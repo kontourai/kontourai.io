@@ -9,6 +9,7 @@ import Eyebrow from '@/components/Eyebrow.astro';
 import Card from '@/components/Card.astro';
 import Grid from '@/components/Grid.astro';
 import Split from '@/components/Split.astro';
+import ProductMark from '@/components/ProductMark.astro';
 import type { Accent } from '@/lib/theme';
 import pkg from '../../package.json';
 import notReadyBundle from '@/data/receipts/governance-readiness-not-ready.trust.bundle.json';
@@ -118,7 +119,7 @@ const links: { title: string; href: string; body: string; event: string; accent:
   title="Hachure — the open trust.bundle format · Kontour AI"
   description="Hachure is the open, MIT-licensed format Kontour's receipts are written in. Two independent codebases read the same file, the verdict is a function you can re-run yourself, and signing is a dial that starts at zero."
 >
-  <Nav />
+  <Nav active="hachure" />
 
   <!-- Hero -->
   <Section contour size="hero" borderBottom>
@@ -131,6 +132,7 @@ const links: { title: string; href: string; body: string; event: string; accent:
             <span class="install-hint">npm i hachure</span>
           </div>
 
+          <ProductMark product="hachure" size={40} class="product-hero-mark animate-fade-up" data-accent="gold" />
           <h1 class="product-title animate-fade-up">Hachure</h1>
           <p class="product-tagline animate-fade-up delay-100" data-accent="gold">the receipt format we don't own</p>
 

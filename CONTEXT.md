@@ -28,6 +28,12 @@ generated page as publishable public material.
 - Marketing review freshness: `marketingReviewed` records the public package
   version and date last reconciled against a product page's copy or screenshots.
   Refresh it when marketing content is reviewed against a newer package release.
+- Lab catalog: the `labPackages` records in `src/lib/products.ts`, rendered as
+  the "More from the lab" cards on `/developers/`. Each entry names the npm
+  package its card advertises. `npm run validate` fails if the registry has no
+  such package: a lab card's whole claim is that the reader can install it, so
+  an unpublished name there is a false public claim rather than version drift.
+  Lab packages carry no page, nav, icon, or `product-status.json` entry.
 - Content boundary: the public-copy safety line enforced by
   `npm run check:content-boundary`. Run it after public-facing copy or agent
   instruction changes, and fix any finding before merge readiness.

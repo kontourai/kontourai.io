@@ -11,6 +11,12 @@
  * Marks are sourced at build time from @kontourai/ui via Vite `?raw` SVG
  * imports — a single source of truth shared with the design system. Only the
  * static .svg files are imported, so no React or token CSS enters the bundle.
+ *
+ * Two marks live in `src/icons/` instead: Hachure and Fieldwork have no glyph
+ * in @kontourai/ui yet. They are drawn to the same contract as the package's
+ * icons (24×24, stroke 1.75, `currentColor`, no fill) and are byte-shaped so
+ * they can be moved into the package verbatim when it next ships — at which
+ * point these two imports switch to the package path and the files delete.
  */
 import consoleSvg from "@kontourai/ui/icons/console.svg?raw";
 import flowAgentsSvg from "@kontourai/ui/icons/flow-agents.svg?raw";
@@ -18,9 +24,18 @@ import flowSvg from "@kontourai/ui/icons/flow.svg?raw";
 import surfaceSvg from "@kontourai/ui/icons/surface.svg?raw";
 import surveySvg from "@kontourai/ui/icons/survey.svg?raw";
 import veritasSvg from "@kontourai/ui/icons/veritas.svg?raw";
+import fieldworkSvg from "@/icons/fieldwork.svg?raw";
+import hachureSvg from "@/icons/hachure.svg?raw";
 
 export type ProductMarkSlug =
-  "surface" | "flow" | "veritas" | "survey" | "console" | "flow-agents";
+  | "surface"
+  | "flow"
+  | "veritas"
+  | "survey"
+  | "console"
+  | "flow-agents"
+  | "fieldwork"
+  | "hachure";
 
 type Props = {
   /** Product slug selecting which glyph to render. */
@@ -53,6 +68,8 @@ const inner: Record<ProductMarkSlug, string> = {
   survey: extractInner(surveySvg),
   console: extractInner(consoleSvg),
   "flow-agents": extractInner(flowAgentsSvg),
+  fieldwork: extractInner(fieldworkSvg),
+  hachure: extractInner(hachureSvg),
 };
 
 const classAttr = className ? `product-mark ${className}` : "product-mark";

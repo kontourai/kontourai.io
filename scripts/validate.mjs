@@ -163,6 +163,61 @@ async function checkProductCatalogCoverage(catalog) {
   }
 }
 
+// The lab list on /developers/ advertises small packages a reader is invited to
+// go and install. Two entries (Ephemeris, the Research Kit) sat on that page
+// with no npm package behind either name, so "GitHub →" was the only honest
+// link and the card implied an install that did not exist. Publication is a
+// live registry fact, so an unreachable registry downgrades to a warning — but
+// a package the registry answers 404 for is a false claim in our own copy, and
+// stays an error in both parity modes.
+async function checkLabPackages(catalog) {
+  const lab = catalog.labPackages;
+  if (!Array.isArray(lab) || lab.length === 0) {
+    error("src/lib/products.ts: labPackages is missing or empty");
+    return;
+  }
+
+  const developerPage = await readFile(path.join(rootDir, "src/pages/developers.astro"), "utf8");
+  if (!developerPage.includes("labPackages")) {
+    error("src/pages/developers.astro: does not derive the lab list from the shared labPackages catalog");
+  }
+
+  assertUniqueKeys(lab.map((entry) => entry.slug), "src/lib/products.ts labPackages");
+
+  for (const entry of lab) {
+    for (const field of ["slug", "label", "repo", "packageName", "description"]) {
+      if (!entry[field]) {
+        error(`src/lib/products.ts labPackages: entry ${entry.slug ?? "(unnamed)"} is missing ${field}`);
+      }
+    }
+    if (entry.repo && !/^https:\/\/github\.com\/kontourai\/[\w.-]+$/.test(entry.repo)) {
+      error(`labPackages ${entry.slug}: repo ${entry.repo} is not a public kontourai GitHub repository URL`);
+    }
+    if (!entry.packageName) {
+      continue;
+    }
+
+    let result;
+    try {
+      result = await fetchNpmLatest(entry.packageName);
+    } catch (err) {
+      warn(`${entry.packageName}: registry check skipped (${err.message})`);
+      continue;
+    }
+    if (result.error) {
+      warn(`${entry.packageName}: ${result.error}; lab publication not rechecked`);
+      continue;
+    }
+    if (!result.published) {
+      error(
+        `labPackages ${entry.slug}: ${entry.packageName} is not published on npm; a lab card must not advertise a package nobody can install`,
+      );
+      continue;
+    }
+    console.log(`PASS  ${entry.packageName}: published on npm (v${result.latest}) for lab entry ${entry.slug}`);
+  }
+}
+
 async function fetchNpmLatest(packageName) {
   const url = `${registryBaseUrl}/${encodeURIComponent(packageName)}`;
   const response = await fetch(url, {
@@ -325,6 +380,7 @@ async function checkDist() {
 try {
   const catalog = await loadProductCatalog();
   await checkProductCatalogCoverage(catalog);
+  await checkLabPackages(catalog);
   for (const pkg of localWorkspacePackages) {
     await checkLocalWorkspacePackage(pkg);
   }
