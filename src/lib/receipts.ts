@@ -281,7 +281,7 @@ export function deriveReport(receipt: Receipt): DerivedReport {
   if (cached) return cached;
 
   // Clone first: the imported JSON module object is shared, and validation
-  // normalises in place for older schema versions.
+  // normalizes in place for older schema versions.
   const validated = validateTrustBundle(structuredClone(receipt.bundle));
   const report = buildTrustReport(validated);
 
