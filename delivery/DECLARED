@@ -22,5 +22,11 @@
     "reason": "Moves the @kontourai/survey product-status pin from 2.2.3 to 2.2.4 after that release published. npm run validate flagged the drift as an error, which is the gate working. Data-only change to src/data/product-status.json: no source, no behaviour, no dependency change, nothing for a bundle to reconcile. Verification in lieu of a bundle: npm run validate and npm run build green in this PR's CI. Scope is paired with author: per the ADR 0022 2026-07-03 addendum, since branch-prefix alone resolves against a pusher-controlled ref.",
     "approved_by": "brian.anderson1222 (delegated approval, 2026-07-26 session: scoped-DECLARED-exemption route)",
     "declared_at": "2026-07-27T04:45:00Z"
+  },
+  {
+    "scope": "author:briananderson1222 branch-prefix:chore/pin-fieldwork-0.3.1",
+    "reason": "Moves the @kontourai/fieldwork product-status pin from 0.3.0 to 0.3.1 after that release published (fieldwork#69, shipping the recheck-export fix). Data-only change to src/data/product-status.json: no source, no behaviour, no dependency change, nothing for a bundle to reconcile. The marketing capture stays stamped 0.3.0, which is accurate \u2014 0.3.1 is a patch with no visual change, and re-stamping a capture that did not happen is the failure the manifest exists to prevent. Verification in lieu of a bundle: npm run validate and npm run build green in this PR's CI. Scope is paired with author: per the ADR 0022 2026-07-03 addendum, since branch-prefix alone resolves against a pusher-controlled ref.",
+    "approved_by": "brian.anderson1222 (delegated approval, 2026-07-26 session: scoped-DECLARED-exemption route)",
+    "declared_at": "2026-07-27T05:30:00Z"
   }
 ]
