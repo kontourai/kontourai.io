@@ -83,7 +83,7 @@
       "key": "fieldwork",
       "label": "Fieldwork",
       "packageName": "@kontourai/fieldwork",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/fieldwork",
       "publicNotes": "Standalone application for grounded extraction, inspection, review, rechecks, and trusted export.",
