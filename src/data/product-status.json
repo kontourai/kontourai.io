@@ -18,13 +18,13 @@
       "key": "survey",
       "label": "Survey",
       "packageName": "@kontourai/survey",
-      "version": "2.2.4",
+      "version": "2.3.0",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/survey",
       "publicNotes": "Human review and trust projection for extracted facts.",
       "marketingReviewed": {
-        "version": "2.2.1",
-        "date": "2026-07-25"
+        "version": "2.3.0",
+        "date": "2026-07-27"
       }
     },
     "flow": {
