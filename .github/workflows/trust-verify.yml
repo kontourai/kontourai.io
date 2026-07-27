@@ -64,7 +64,7 @@ jobs:
       # pull_request-only anchor, registry parity is OBSERVED (warn) rather than gated
       # unless the PR itself touched parity-sensitive inputs; the strict parity gate
       # lives in the main/deploy verify run and the scheduled Pin Refresh lane.
-      - uses: kontourai/flow-agents/.github/actions/trust-verify@2a4d4f8e16cf1bfc8dbbacc59fd17ae34206fa9d # flow-agents @ locked action runtime dependencies
+      - uses: kontourai/flow-agents/.github/actions/trust-verify@e5f348b49f8130f9d452e73b104ba328f9916981 # flow-agents @ reports which DECLARED condition failed (#1015)
         env:
           VALIDATE_REGISTRY_PARITY: ${{ steps.parity.outputs.mode || 'strict' }}
         with:
