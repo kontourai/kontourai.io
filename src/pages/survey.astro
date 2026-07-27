@@ -162,18 +162,15 @@ const reviewBenefits: { title: string; accent: Accent; items: string[] }[] = [
     </div>
   </Section>
 
-  {/* The review-console screenshot is pulled until it can be recaptured.
-      survey-workbench.png shows four proposed values sharing one excerpt that
-      supports none of them — a shipped-fixture defect, not a capture artifact
-      (kontourai/survey#199). Its caption invited the reader to check "the
-      sentence it was pulled from", which is precisely the check the image
-      failed, on the page whose argument is that evidence should check out.
+  {/* This shot was once pulled: it showed four proposed values sharing one
+      excerpt that supported none of them — a shipped-fixture defect
+      (kontourai/survey#199), on the page whose whole argument is that evidence
+      should check out. The fixture is fixed and the caption's invitation now
+      survives the check it asks the reader to make.
 
-      Restore after survey 2.2.2 ships with the fixed fixture: copy the session
-      to a neutral path first (the console renders an absolute session path in
-      its title bar, so capturing in place leaks a local home directory), then
-      recapture through scripts/capture-marketing-screenshot.mjs so the manifest
-      stamps capturedAgainstVersion: 2.2.2. */}
+      When recapturing: copy the session to a neutral path first. The console
+      renders the absolute session path in its title bar, so capturing in place
+      leaks a local home directory. */}
   <Section borderBottom>
     <div class="container">
       <Eyebrow accent="gold-2" gap="sm">See it</Eyebrow>

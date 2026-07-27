@@ -28,5 +28,11 @@
     "reason": "Moves the @kontourai/fieldwork product-status pin from 0.3.0 to 0.3.1 after that release published (fieldwork#69, shipping the recheck-export fix). Data-only change to src/data/product-status.json: no source, no behaviour, no dependency change, nothing for a bundle to reconcile. The marketing capture stays stamped 0.3.0, which is accurate \u2014 0.3.1 is a patch with no visual change, and re-stamping a capture that did not happen is the failure the manifest exists to prevent. Verification in lieu of a bundle: npm run validate and npm run build green in this PR's CI. Scope is paired with author: per the ADR 0022 2026-07-03 addendum, since branch-prefix alone resolves against a pusher-controlled ref.",
     "approved_by": "brian.anderson1222 (delegated approval, 2026-07-26 session: scoped-DECLARED-exemption route)",
     "declared_at": "2026-07-27T05:30:00Z"
+  },
+  {
+    "scope": "author:briananderson1222 branch-prefix:site/survey-2.3.0",
+    "reason": "Recaptures public/screenshots/survey-workbench.png against the just-published @kontourai/survey@2.3.0 and moves the product-status pin and marketing-review stamp to match. check-marketing-freshness flagged the asset as stale on the minor bump, which is the gate working. The page copy was read against 2.3.0's actual changes before stamping the review: 2.3.0 publishes developer-facing extension points and prunes duplicated audit output, and the page's claims about verified highlighting are unaffected. Content and data only; no source or behaviour change, nothing for a bundle to reconcile. Verification in lieu of a bundle: npm run validate and npm run build green in this PR's CI, and the capture passed the styled-render guard and was reviewed by eye. Scope is paired with author: per the ADR 0022 2026-07-03 addendum, since branch-prefix alone resolves against a pusher-controlled ref.",
+    "approved_by": "brian.anderson1222 (delegated approval, 2026-07-27 session: scoped-DECLARED-exemption route)",
+    "declared_at": "2026-07-27T06:30:00Z"
   }
 ]
