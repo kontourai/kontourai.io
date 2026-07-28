@@ -898,6 +898,38 @@ test("kit pages show real sidecar/store shapes and record dimensions", async ({ 
   await expect(page.getByText(".kontourai/flow-agents/knowledge/")).toHaveCount(0);
 });
 
+test("no built page ships inline scripts or style attributes the CSP would block", async () => {
+  // The production CSP is script-src 'self' + allowlisted analytics hosts —
+  // no 'unsafe-inline', no hashes. Local servers and this test suite do not
+  // apply _headers, so an inlined script passes every local check and then
+  // dies at the edge (the territory map's terrain did exactly this). Enforce
+  // the constraint statically against the build output.
+  const { readdirSync, readFileSync, statSync } = await import("node:fs");
+  const { join } = await import("node:path");
+  const htmlFiles = [];
+  const walk = (dir) => {
+    for (const name of readdirSync(dir)) {
+      const p = join(dir, name);
+      if (statSync(p).isDirectory()) walk(p);
+      else if (name.endsWith(".html")) htmlFiles.push(p);
+    }
+  };
+  walk("dist");
+  expect(htmlFiles.length).toBeGreaterThan(10);
+  const offenders = [];
+  for (const file of htmlFiles) {
+    const html = readFileSync(file, "utf8");
+    for (const tag of html.match(/<script\b[^>]*>/g) ?? []) {
+      if (!/\bsrc\s*=/.test(tag)) offenders.push(`${file}: ${tag}`);
+    }
+    // style-src 'self' also blocks style attributes (no 'unsafe-hashes').
+    for (const tag of html.match(/<[a-z][^>]*\sstyle="[^"]*"[^>]*>/g) ?? []) {
+      offenders.push(`${file}: ${tag.slice(0, 120)}`);
+    }
+  }
+  expect(offenders).toEqual([]);
+});
+
 test("developers territory map draws the public suite with verified-edge framing", async ({ page }) => {
   await page.goto("/developers/");
   const territory = page.locator("#territory");
@@ -916,6 +948,9 @@ test("developers territory map draws the public suite with verified-edge framing
 
   // Legend carries the four edge meanings — no more, no fewer.
   await expect(territory.locator(".fm-legend > span")).toHaveCount(4);
+
+  // The terrain script ships as an external file (CSP: no inline scripts).
+  await expect(page.locator('script[src="/field-map.js"]')).toHaveCount(1);
 
   // Terrain canvas painted (non-zero backing store after draw).
   const painted = await territory.locator("#fm-terrain").evaluate((c) => c.width > 0 && c.height > 0);

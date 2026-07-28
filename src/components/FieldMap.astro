@@ -24,6 +24,7 @@
 ---
 
 <div class="fm-scroll">
+  <p class="fm-swipe-hint" aria-hidden="true">drag to explore the territory &rarr;</p>
   <div class="fm-frame">
     <canvas id="fm-terrain" aria-hidden="true"></canvas>
     <svg class="fm-routes" viewBox="0 0 1000 625" preserveAspectRatio="none" aria-hidden="true">
@@ -65,102 +66,102 @@
       </g>
     </svg>
 
-    <span class="fm-region" style="left: 17%; top: 5%;">The Survey</span>
-    <span class="fm-region" style="left: 51%; top: 3.5%;">Basecamp</span>
-    <span class="fm-region" style="left: 93.5%; top: 29%;">Method</span>
-    <span class="fm-region" style="left: 24%; top: 95%;">Instruments</span>
-    <span class="fm-region" style="left: 82%; top: 95.5%;">Outposts</span>
+    <span class="fm-region fm-p1">The Survey</span>
+    <span class="fm-region fm-p2">Basecamp</span>
+    <span class="fm-region fm-p3">Method</span>
+    <span class="fm-region fm-p4">Instruments</span>
+    <span class="fm-region fm-p5">Outposts</span>
 
-    <div class="fm-mk" style="left: 8%; top: 20%;" tabindex="0">
+    <div class="fm-mk fm-p6" tabindex="0">
       <span class="fm-ic"><svg viewBox="0 0 24 24"><path d="M4.5 9.5h15v9a1.5 1.5 0 0 1-1.5 1.5h-12a1.5 1.5 0 0 1-1.5-1.5Z"/><path d="M8.5 9.5V7a3.5 3.5 0 0 1 7 0v2.5"/></svg></span>
       <span class="fm-nm">forage</span><span class="fm-vb">acquire</span>
       <span class="fm-tip fm-tip-r"><span class="fm-t-role"><b>Safe, replayable crawling.</b> SSRF-pinned egress, content-addressed snapshots of the untrusted web.</span><span class="fm-t-line"><span class="fm-t-k">feeds</span>snapshots + source refs to traverse, lookout, bearing</span></span>
     </div>
-    <div class="fm-mk" style="left: 22%; top: 13%;" tabindex="0">
+    <div class="fm-mk fm-p7" tabindex="0">
       <span class="fm-ic"><svg viewBox="0 0 24 24"><path d="M4 18.5 9 8.5l5.5 6L20 5.5"/><circle cx="4" cy="18.5" r="1.1"/><circle cx="9" cy="8.5" r="1.1"/><circle cx="14.5" cy="14.5" r="1.1"/><circle cx="20" cy="5.5" r="1.1"/></svg></span>
       <span class="fm-nm">traverse</span><span class="fm-vb">extract</span>
       <span class="fm-tip fm-tip-s"><span class="fm-t-role"><b>Schema-directed extraction.</b> Every proposed value carries the exact source span that grounds it.</span><span class="fm-t-line"><span class="fm-t-k">produces</span>extraction proposals (Survey's shape) &rarr; fieldwork</span><span class="fm-t-line"><span class="fm-t-k">uses</span>forage</span></span>
     </div>
-    <div class="fm-mk" style="left: 37%; top: 28%;" tabindex="0">
+    <div class="fm-mk fm-p8" tabindex="0">
       <span class="fm-ic"><svg viewBox="0 0 24 24"><circle cx="10" cy="10" r="5.5"/><path d="M14 14 19.5 19.5"/><path d="M7.6 9H12.4"/><path d="M7.6 11.2H11.2"/></svg></span>
       <span class="fm-nm">survey</span><span class="fm-vb">review</span>
       <span class="fm-tip"><span class="fm-t-role"><b>Review contracts &mdash; and the bundle constructor.</b> Proposals become reviewed, attributable decisions; <code>buildSurveyTrustBundle</code> mints the TrustBundle on behalf of its consumers.</span><span class="fm-t-line"><span class="fm-t-k">produces</span>TrustBundle &rarr; Surface shape</span><span class="fm-t-line"><span class="fm-t-k">uses</span>surface</span></span>
     </div>
-    <div class="fm-mk fm-summit" style="left: 52%; top: 55%;" tabindex="0">
+    <div class="fm-mk fm-summit fm-p9" tabindex="0">
       <span class="fm-ic"><svg viewBox="0 0 24 24"><path d="M12 3.5 20.5 8 12 12.5 3.5 8Z"/><path d="M3.5 12 12 16.5 20.5 12"/><path d="M3.5 16 12 20.5 20.5 16"/></svg></span>
       <span class="fm-nm">surface</span><span class="fm-vb"><a href="/hachure/" data-umami-event="fieldmap-hachure">hachure format</a></span>
       <span class="fm-tip"><span class="fm-t-role"><b>The trust kernel &mdash; a contract and library, not a store.</b> No bytes pass through it. Implements <a href="/hachure/">Hachure</a>, the open trust format: TrustBundle / Claim / Evidence types, validation, claim folding, trust reports, and the trust-panel web component.</span><span class="fm-t-line"><span class="fm-t-k">consumed by</span>survey, flow, veritas, fieldwork, console</span></span>
     </div>
-    <div class="fm-mk" style="left: 8%; top: 38%;" tabindex="0">
+    <div class="fm-mk fm-p10" tabindex="0">
       <span class="fm-ic"><svg viewBox="0 0 24 24"><path d="M3.5 12S7 6.5 12 6.5 20.5 12 20.5 12 17 17.5 12 17.5 3.5 12 3.5 12Z"/><circle cx="12" cy="12" r="2.5"/></svg></span>
       <span class="fm-nm">lookout</span><span class="fm-vb">watch drift</span>
       <span class="fm-tip fm-tip-r"><span class="fm-t-role"><b>Source registry + drift checks</b> on forage snapshots. Unchanged bytes skip the model entirely; only what moved re-enters review.</span><span class="fm-t-line"><span class="fm-t-k">produces</span>drift observations &rarr; fieldwork recheck</span><span class="fm-t-line"><span class="fm-t-k">uses</span>forage, traverse, datum</span></span>
     </div>
-    <div class="fm-mk" style="left: 27%; top: 44%;" tabindex="0">
+    <div class="fm-mk fm-p11" tabindex="0">
       <span class="fm-ic"><svg viewBox="0 0 24 24"><path d="M8.5 3.5v17"/><path d="M8.5 4.9 18 8.2 8.5 11.5Z"/><path d="M4.5 20.5h9"/></svg></span>
       <span class="fm-nm">fieldwork</span><span class="fm-vb">runs the line</span>
       <span class="fm-tip"><span class="fm-t-role"><b>Grounded extraction review, end to end.</b> The one place the whole pipeline runs in a single process: acquire &rarr; extract &rarr; review &rarr; validated TrustBundle export per run.</span><span class="fm-t-line"><span class="fm-t-k">produces</span>validated TrustBundle (run receipt)</span><span class="fm-t-line"><span class="fm-t-k">uses</span>forage, traverse, survey, surface, lookout, datum, dispatch, relay</span></span>
     </div>
 
-    <div class="fm-mk" style="left: 10%; top: 62%;" tabindex="0">
+    <div class="fm-mk fm-p12" tabindex="0">
       <span class="fm-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M15 9l-2 4.5L9 15l2-4.5Z"/></svg></span>
       <span class="fm-nm">bearing</span><span class="fm-vb">capability</span>
       <span class="fm-tip fm-tip-r"><span class="fm-t-role"><b>Evidence-backed model capability observations.</b> Even &ldquo;model X is good at Y&rdquo; is a snapshot-backed claim; catalogs + runtime-aware ranking.</span><span class="fm-t-line"><span class="fm-t-k">produces</span>catalog snapshots &rarr; datum, dispatch</span><span class="fm-t-line"><span class="fm-t-k">uses</span>forage</span></span>
     </div>
-    <div class="fm-mk" style="left: 20%; top: 72%;" tabindex="0">
+    <div class="fm-mk fm-p13" tabindex="0">
       <span class="fm-ic"><svg viewBox="0 0 24 24"><path d="M12 5.5 18 16H6Z"/><circle cx="12" cy="3.6" r="1"/><path d="M4 19.5h16"/></svg></span>
       <span class="fm-nm">datum</span><span class="fm-vb">registry</span>
       <span class="fm-tip fm-tip-r"><span class="fm-t-role"><b>The model registry.</b> Which provider, which model, whose key &mdash; resolved from bearing's capability catalog. Never makes a call itself.</span><span class="fm-t-line"><span class="fm-t-k">produces</span>model policy &rarr; dispatch, lookout, fieldwork</span><span class="fm-t-line"><span class="fm-t-k">uses</span>bearing</span></span>
     </div>
-    <div class="fm-mk" style="left: 32%; top: 82%;" tabindex="0">
+    <div class="fm-mk fm-p14" tabindex="0">
       <span class="fm-ic"><svg viewBox="0 0 24 24"><path d="M20.5 3.5 10.5 13.5"/><path d="M20.5 3.5 14 20.5l-3.5-7-7-3.5Z"/></svg></span>
       <span class="fm-nm">dispatch</span><span class="fm-vb">route + receipt</span>
       <span class="fm-tip"><span class="fm-t-role"><b>Policy-aware model execution.</b> Routing, budgets, fallbacks &mdash; and a receipt for every call.</span><span class="fm-t-line"><span class="fm-t-k">produces</span>receipts &rarr; fieldwork, flow-agents</span><span class="fm-t-line"><span class="fm-t-k">uses</span>relay, datum</span></span>
     </div>
-    <div class="fm-mk" style="left: 14%; top: 88%;" tabindex="0">
+    <div class="fm-mk fm-p15" tabindex="0">
       <span class="fm-ic"><svg viewBox="0 0 24 24"><path d="M4.5 9h11"/><path d="M12.5 5.5 16 9l-3.5 3.5"/><path d="M19.5 15h-11"/><path d="M11.5 18.5 8 15l3.5-3.5"/></svg></span>
       <span class="fm-nm">relay</span><span class="fm-vb">invoke</span>
       <span class="fm-tip fm-tip-r"><span class="fm-t-role"><b>Provider-neutral invocation contracts</b> + adapters + conformance tools. The floor of the model plane.</span><span class="fm-t-line"><span class="fm-t-k">consumed by</span>dispatch, fieldwork, flow-agents</span></span>
     </div>
 
-    <div class="fm-mk" style="left: 84%; top: 38%;" tabindex="0">
+    <div class="fm-mk fm-p16" tabindex="0">
       <span class="fm-ic"><svg viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="5" rx="1.4"/><path d="M12 8V10.2"/><path d="M12 10.2 16.4 14.8 12 19.4 7.6 14.8Z"/><path d="M16.4 14.8H19.2V20.5"/></svg></span>
       <span class="fm-nm">flow</span><span class="fm-vb">gatekeeper</span>
       <span class="fm-tip fm-tip-l"><span class="fm-t-role"><b>Workflow definitions, gates, runs &mdash; the bundle gatekeeper.</b> The only evidence a gate accepts is <code>kind: trust.bundle</code>: validated, report-derived, freshness re-checked on every evaluation.</span><span class="fm-t-line"><span class="fm-t-k">produces</span>run projections &rarr; console</span><span class="fm-t-line"><span class="fm-t-k">uses</span>surface</span></span>
     </div>
-    <div class="fm-mk" style="left: 84%; top: 56%;" tabindex="0">
+    <div class="fm-mk fm-p17" tabindex="0">
       <span class="fm-ic"><svg viewBox="0 0 24 24"><path d="M12 3 19.5 7.5v9L12 21 4.5 16.5v-9Z"/><path d="M10.2 9.4 15 12 10.2 14.6Z"/></svg></span>
       <span class="fm-nm">flow-agents</span><span class="fm-vb">kit host</span>
       <span class="fm-tip fm-tip-l"><span class="fm-t-role"><b>Process discipline inside the agent tools you already use; hosts the kit ecosystem.</b> The highest-volume bundle producer: one trust.bundle per session &mdash; its only store &mdash; handed to Flow as gate evidence.</span><span class="fm-t-line"><span class="fm-t-k">produces</span>session trust.bundle &rarr; flow gates</span><span class="fm-t-line"><span class="fm-t-k">uses</span>flow, conduit, dispatch, relay, survey</span></span>
     </div>
-    <div class="fm-kits" style="left: 85%; top: 61.5%;" tabindex="0">
+    <div class="fm-kits fm-p18" tabindex="0">
       <span class="fm-ks-label">&#9494; kits</span>
       <span class="fm-kit-row"><span class="fm-kit">builder</span><span class="fm-kit">knowledge</span><span class="fm-kit">release-evidence</span></span>
       <span class="fm-kit-row"><span class="fm-kit fm-kit-ext">governance &#8599; veritas</span></span>
       <span class="fm-tip fm-tip-l"><span class="fm-t-role"><b>The kit shelf</b> &mdash; swappable solutions hosted by flow-agents via the <code>kit.json</code> contract.</span><span class="fm-t-line"><span class="fm-t-k">built-in</span>builder (the delivery workflow) &middot; knowledge (gated knowledge store) &middot; release-evidence (agentless CI gate)</span><span class="fm-t-line"><span class="fm-t-k">external</span>governance ships with veritas and gates the bundle <code>veritas readiness</code> emits</span></span>
     </div>
-    <div class="fm-mk" style="left: 69%; top: 67%;" tabindex="0">
+    <div class="fm-mk fm-p19" tabindex="0">
       <span class="fm-ic"><svg viewBox="0 0 24 24"><path d="M3.5 9.5h17"/><path d="M3.5 14.5h17"/><path d="M9.5 7v10"/><path d="M14.5 7v10"/></svg></span>
       <span class="fm-nm">conduit</span><span class="fm-vb">host contract</span>
       <span class="fm-tip"><span class="fm-t-role"><b>Portable agent-host integration contracts</b>, lifecycle adapters, and conformance evidence &mdash; how kits plug into the coding-agent harnesses.</span><span class="fm-t-line"><span class="fm-t-k">consumed by</span>flow-agents</span></span>
     </div>
-    <div class="fm-mk" style="left: 74%; top: 27%;" tabindex="0">
+    <div class="fm-mk fm-p20" tabindex="0">
       <span class="fm-ic"><svg viewBox="0 0 24 24"><path d="M12 3 19 6v5c0 5-7 9.5-7 9.5S5 16 5 11V6Z"/><path d="M9 12 11 14 15 9.6"/></svg></span>
       <span class="fm-nm">veritas</span><span class="fm-vb">readiness</span>
       <span class="fm-tip fm-tip-s"><span class="fm-t-role"><b>Merge autonomy for AI-authored code.</b> Repo standards become a readiness record that embeds a genuine TrustBundle + TrustReport &mdash; evidence the agent reads back before merging.</span><span class="fm-t-line"><span class="fm-t-k">produces</span>readiness records &rarr; merge gates</span><span class="fm-t-line"><span class="fm-t-k">uses</span>surface</span></span>
     </div>
 
-    <div class="fm-mk" style="left: 48%; top: 10%;" tabindex="0">
+    <div class="fm-mk fm-p21" tabindex="0">
       <span class="fm-ic"><svg viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="2"/><path d="M3.5 9h17"/><path d="M11.5 9v10.5"/></svg></span>
       <span class="fm-nm">console</span><span class="fm-vb">inspect</span>
       <span class="fm-tip fm-tip-s"><span class="fm-t-role"><b>The operating hub.</b> Ingests events, projections, and telemetry records &mdash; <b>not</b> bundles. Trust appears only as a TrustReport derived on the fly from Flow runs, rendered via Surface's trust panel.</span><span class="fm-t-line"><span class="fm-t-k">consumes</span>flow projections + run files, telemetry</span><span class="fm-t-line"><span class="fm-t-k">uses</span>surface (dynamic)</span></span>
     </div>
-    <div class="fm-mk" style="left: 68%; top: 8%;" tabindex="0">
+    <div class="fm-mk fm-p22" tabindex="0">
       <span class="fm-ic"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1.2"/><rect x="13" y="4" width="7" height="7" rx="1.2"/><rect x="4" y="13" width="7" height="7" rx="1.2"/><path d="M13 16.5h7"/><path d="M16.5 13v7"/></svg></span>
       <span class="fm-nm">ui</span><span class="fm-vb">tokens</span>
       <span class="fm-tip fm-tip-s fm-tip-l"><span class="fm-t-role"><b>The design system.</b> Framework-agnostic tokens + primitives &mdash; including the product marks on this map.</span><span class="fm-t-line"><span class="fm-t-k">consumed by</span>this site (console adoption pending)</span></span>
     </div>
-    <div class="fm-mk" style="left: 93%; top: 88%;" tabindex="0">
+    <div class="fm-mk fm-p23" tabindex="0">
       <span class="fm-ic"><svg viewBox="0 0 24 24"><path d="M12 3.5V8"/><path d="M8.5 8h7v4L12 17l-3.5-5Z"/><path d="M12 17v3.5"/></svg></span>
       <span class="fm-nm">plumb</span><span class="fm-vb">prod truth</span>
       <span class="fm-tip fm-tip-l"><span class="fm-t-role"><b>The plumb line &mdash; standalone by design.</b> Scheduled deployment checks that turn failures into agent-drafted repair proposals (PR or issue, never merge), behind cooldown and cap guards. Zero package edges on purpose: independence is the product.</span><span class="fm-t-line"><span class="fm-t-k">relates</span>watches deployed products; checks are any shell command</span></span>
@@ -173,8 +174,8 @@
       <span class="fm-tip"><span class="fm-t-role"><b>Offline-first suite router.</b> Knows where every product lives and routes to all of them &mdash; deliberately no runtime package edges, which is why it spans the map instead of sitting on it.</span></span>
     </div>
 
-    <span class="fm-corner" style="right: 12px; top: 8px;">KONTOUR AI &middot; FIELD MAP</span>
-    <span class="fm-corner" style="right: 12px; bottom: 10px;">EVERY EDGE VERIFIED IN CODE</span>
+    <span class="fm-corner fm-p24">KONTOUR AI &middot; FIELD MAP</span>
+    <span class="fm-corner fm-p25">EVERY EDGE VERIFIED IN CODE</span>
   </div>
   <div class="fm-legend">
     <span><span class="fm-lg fm-lg-route"></span> pipeline route</span>
@@ -185,7 +186,46 @@
 </div>
 
 <style>
-  .fm-scroll { overflow-x: auto; }
+  /* Marker positions live here, not in style attributes: the production CSP
+     (style-src 'self') blocks inline style attributes. */
+  .fm-p1 { left: 17%; top: 5%; }
+  .fm-p2 { left: 51%; top: 3.5%; }
+  .fm-p3 { left: 93.5%; top: 29%; }
+  .fm-p4 { left: 24%; top: 95%; }
+  .fm-p5 { left: 82%; top: 95.5%; }
+  .fm-p6 { left: 8%; top: 20%; }
+  .fm-p7 { left: 22%; top: 13%; }
+  .fm-p8 { left: 37%; top: 28%; }
+  .fm-p9 { left: 52%; top: 55%; }
+  .fm-p10 { left: 8%; top: 38%; }
+  .fm-p11 { left: 27%; top: 44%; }
+  .fm-p12 { left: 10%; top: 62%; }
+  .fm-p13 { left: 20%; top: 72%; }
+  .fm-p14 { left: 32%; top: 82%; }
+  .fm-p15 { left: 14%; top: 88%; }
+  .fm-p16 { left: 84%; top: 38%; }
+  .fm-p17 { left: 84%; top: 56%; }
+  .fm-p18 { left: 85%; top: 61.5%; }
+  .fm-p19 { left: 69%; top: 67%; }
+  .fm-p20 { left: 74%; top: 27%; }
+  .fm-p21 { left: 48%; top: 10%; }
+  .fm-p22 { left: 68%; top: 8%; }
+  .fm-p23 { left: 93%; top: 88%; }
+  .fm-p24 { right: 12px; top: 8px; }
+  .fm-p25 { right: 12px; bottom: 10px; }
+  .fm-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .fm-swipe-hint { display: none; }
+  @media (max-width: 760px) {
+    .fm-scroll {
+      margin-inline: calc(-1 * var(--spacing-page));
+      padding-inline: var(--spacing-page);
+    }
+    .fm-swipe-hint {
+      display: block; margin: 0 0 8px; font-family: var(--font-mono);
+      font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em;
+      color: var(--color-chalk-3);
+    }
+  }
   .fm-frame {
     position: relative; min-width: 760px; aspect-ratio: 1000 / 625;
     border: 1px solid var(--color-edge-2); outline: 1px solid var(--color-edge);
@@ -285,109 +325,7 @@
   .fm-lg-dep { border-top: 1px solid var(--color-chalk-2); opacity: 0.6; }
 </style>
 
-<script>
-  // Deterministic contour terrain: one gaussian hill per region, Surface at
-  // the summit, iso-lines via marching squares. Colors read from the theme
-  // tokens at draw time.
-  const bumps: Array<[number, number, number, number]> = [
-    [0.52, 0.55, 0.15, 1.7],
-    [0.19, 0.24, 0.25, 0.85],
-    [0.2, 0.76, 0.22, 0.75],
-    [0.82, 0.46, 0.24, 0.8],
-    [0.55, 0.1, 0.18, 0.6],
-    [0.84, 0.82, 0.15, 0.55],
-    [0.93, 0.9, 0.06, 0.4],
-  ];
-  const field = (x: number, y: number): number =>
-    bumps.reduce((v, [bx, by, r, a]) => v + a * Math.exp(-((x - bx) ** 2 + (y - by) ** 2) / (r * r)), 0);
 
-  function draw(): void {
-    const canvas = document.getElementById("fm-terrain") as HTMLCanvasElement | null;
-    if (!canvas) return;
-    const w = canvas.clientWidth;
-    const h = canvas.clientHeight;
-    if (!w || !h) return;
-    const dpr = window.devicePixelRatio || 1;
-    canvas.width = w * dpr;
-    canvas.height = h * dpr;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.clearRect(0, 0, w, h);
-
-    const styles = getComputedStyle(document.documentElement);
-    const faint = styles.getPropertyValue("--color-edge").trim() || "#1e2538";
-    const strong = styles.getPropertyValue("--color-edge-2").trim() || "#2a3450";
-
-    const step = 10;
-    const cols = Math.ceil(w / step) + 1;
-    const rows = Math.ceil(h / step) + 1;
-    const vals: number[][] = [];
-    let vmin = Infinity;
-    let vmax = -Infinity;
-    for (let r = 0; r < rows; r++) {
-      vals[r] = [];
-      for (let c = 0; c < cols; c++) {
-        const v = field((c * step) / w, (r * step) / h);
-        vals[r][c] = v;
-        if (v < vmin) vmin = v;
-        if (v > vmax) vmax = v;
-      }
-    }
-
-    const levels = 20;
-    for (let li = 1; li < levels; li++) {
-      const t = vmin + ((vmax - vmin) * li) / levels;
-      const index = li % 4 === 0;
-      ctx.strokeStyle = index ? strong : faint;
-      ctx.lineWidth = index ? 1.4 : 1;
-      ctx.beginPath();
-      for (let r = 0; r < rows - 1; r++) {
-        for (let c = 0; c < cols - 1; c++) {
-          const tl = vals[r][c];
-          const tr = vals[r][c + 1];
-          const br = vals[r + 1][c + 1];
-          const bl = vals[r + 1][c];
-          const x0 = c * step;
-          const y0 = r * step;
-          const state = (tl > t ? 8 : 0) | (tr > t ? 4 : 0) | (br > t ? 2 : 0) | (bl > t ? 1 : 0);
-          if (state === 0 || state === 15) continue;
-          const ix = (a: number, b: number) => (t - a) / (b - a);
-          const top: [number, number] = [x0 + step * ix(tl, tr), y0];
-          const right: [number, number] = [x0 + step, y0 + step * ix(tr, br)];
-          const bottom: [number, number] = [x0 + step * ix(bl, br), y0 + step];
-          const left: [number, number] = [x0, y0 + step * ix(tl, bl)];
-          let segs: Array<[[number, number], [number, number]]> = [];
-          switch (state) {
-            case 1: case 14: segs = [[left, bottom]]; break;
-            case 2: case 13: segs = [[bottom, right]]; break;
-            case 3: case 12: segs = [[left, right]]; break;
-            case 4: case 11: segs = [[top, right]]; break;
-            case 5: segs = [[left, top], [bottom, right]]; break;
-            case 6: case 9: segs = [[top, bottom]]; break;
-            case 7: case 8: segs = [[left, top]]; break;
-            case 10: segs = [[top, right], [left, bottom]]; break;
-          }
-          for (const [[ax, ay], [bx2, by2]] of segs) {
-            ctx.moveTo(ax, ay);
-            ctx.lineTo(bx2, by2);
-          }
-        }
-      }
-      ctx.stroke();
-    }
-  }
-
-  let raf: number | null = null;
-  const schedule = () => {
-    if (raf) return;
-    raf = requestAnimationFrame(() => {
-      raf = null;
-      draw();
-    });
-  };
-  const canvas = document.getElementById("fm-terrain");
-  if (canvas && "ResizeObserver" in window) new ResizeObserver(schedule).observe(canvas);
-  window.addEventListener("resize", schedule);
-  schedule();
-</script>
+<!-- Terrain + scroll ergonomics. External file: the site CSP has no inline
+     script allowance, so an Astro-inlined module is blocked in production. -->
+<script is:inline src="/field-map.js" defer></script>
