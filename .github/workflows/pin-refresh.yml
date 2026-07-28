@@ -46,7 +46,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@v7.0.1
         with:
           # A PAT (secrets.PIN_REFRESH_TOKEN) lets the auto-PR trigger Deploy /
           # Trust Verify; the default GITHUB_TOKEN cannot (GitHub suppresses
