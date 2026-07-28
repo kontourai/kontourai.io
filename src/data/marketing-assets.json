@@ -45,9 +45,9 @@
       "asset": "public/screenshots/fieldwork-review.png",
       "page": "src/pages/fieldwork.astro",
       "product": "fieldwork",
-      "capturedAgainstVersion": "0.3.0",
-      "capturedAt": "2026-07-26",
-      "sha256": "5578574f66676d8c93d610b6e5135f2f90c02b8e38e52ba5c5d03749a415bb9a"
+      "capturedAgainstVersion": "0.4.0",
+      "capturedAt": "2026-07-27",
+      "sha256": "be1a6296b2307b1fe4783c549dbc34df8701c2e4b59e37da8fb75e244256c213"
     }
   ]
 }

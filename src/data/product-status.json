@@ -1,11 +1,11 @@
 {
-  "checkedAt": "2026-07-26",
+  "checkedAt": "2026-07-27",
   "products": {
     "surface": {
       "key": "surface",
       "label": "Surface",
       "packageName": "@kontourai/surface",
-      "version": "2.13.0",
+      "version": "2.13.1",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/surface",
       "publicNotes": "",
@@ -18,12 +18,12 @@
       "key": "survey",
       "label": "Survey",
       "packageName": "@kontourai/survey",
-      "version": "2.3.0",
+      "version": "2.4.0",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/survey",
       "publicNotes": "Human review and trust projection for extracted facts.",
       "marketingReviewed": {
-        "version": "2.3.0",
+        "version": "2.4.0",
         "date": "2026-07-27"
       }
     },
@@ -44,7 +44,7 @@
       "key": "veritas",
       "label": "Veritas",
       "packageName": "@kontourai/veritas",
-      "version": "1.5.3",
+      "version": "1.5.4",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/veritas",
       "publicNotes": "",
@@ -83,20 +83,20 @@
       "key": "fieldwork",
       "label": "Fieldwork",
       "packageName": "@kontourai/fieldwork",
-      "version": "0.3.1",
+      "version": "0.4.0",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/fieldwork",
       "publicNotes": "Standalone application for grounded extraction, inspection, review, rechecks, and trusted export.",
       "marketingReviewed": {
-        "version": "0.3.0",
-        "date": "2026-07-26"
+        "version": "0.4.0",
+        "date": "2026-07-27"
       }
     },
     "traverse": {
       "key": "traverse",
       "label": "Traverse",
       "packageName": "@kontourai/traverse",
-      "version": "0.23.0",
+      "version": "0.25.0",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/traverse",
       "publicNotes": "Schema-directed extraction that proposes values with the excerpt and locator they came from.",

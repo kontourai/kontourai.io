@@ -81,7 +81,7 @@ for (const viewport of [
     // Capture provenance comes from marketing-assets.json, not from the live
     // product version: the captions must state the version the image was
     // actually taken against.
-    await expect(page.getByText("captured against v0.3.0 on 2026-07-26").first()).toBeVisible();
+    await expect(page.getByText("captured against v0.4.0 on 2026-07-27").first()).toBeVisible();
     await expect(screenshots.first()).toHaveAttribute("alt", /.+/);
     await expect(screenshots.first().locator("xpath=..").locator("figcaption")).toBeVisible();
 
