@@ -30,7 +30,7 @@ jobs:
       # `git merge-base --is-ancestor`, which cannot walk a shallow clone —
       # with the default depth-1 checkout every committed bundle looks stale
       # in CI (sealed commit never equals the synthetic merge SHA).
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 0
       - uses: actions/setup-node@v7
