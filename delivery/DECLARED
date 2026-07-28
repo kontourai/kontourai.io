@@ -34,5 +34,11 @@
     "reason": "Recaptures public/screenshots/survey-workbench.png against the just-published @kontourai/survey@2.3.0 and moves the product-status pin and marketing-review stamp to match. check-marketing-freshness flagged the asset as stale on the minor bump, which is the gate working. The page copy was read against 2.3.0's actual changes before stamping the review: 2.3.0 publishes developer-facing extension points and prunes duplicated audit output, and the page's claims about verified highlighting are unaffected. Content and data only; no source or behaviour change, nothing for a bundle to reconcile. Verification in lieu of a bundle: npm run validate and npm run build green in this PR's CI, and the capture passed the styled-render guard and was reviewed by eye. Scope is paired with author: per the ADR 0022 2026-07-03 addendum, since branch-prefix alone resolves against a pusher-controlled ref.",
     "approved_by": "brian.anderson1222 (delegated approval, 2026-07-27 session: scoped-DECLARED-exemption route)",
     "declared_at": "2026-07-27T06:30:00Z"
+  },
+  {
+    "scope": "author:briananderson1222 branch-prefix:site/current-pins",
+    "reason": "Moves product pins to tonight's releases (survey 2.4.0, fieldwork 0.4.0, surface 2.13.1, veritas 1.5.4, traverse 0.25.0), recaptures the Fieldwork review screenshot against the published 0.4.0 (its embedded workbench genuinely changed with survey 2.4.0), and stamps the copy reviews after reading each page against what actually changed. validate flagged the drift as an error, which is the gate working \u2014 every dependabot PR on this repo was failing Build/Test/Validate on exactly this mismatch. Content and data only. Verification in lieu of a bundle: validate and build green in this PR's CI; the capture passed the styled-render guard and was reviewed by eye at the designed 1440x900 frame, driven to the same 6-of-7 state the caption describes. Scope paired with author: per the ADR 0022 2026-07-03 addendum.",
+    "approved_by": "brian.anderson1222 (delegated approval, 2026-07-27 session: scoped-DECLARED-exemption route)",
+    "declared_at": "2026-07-28T01:00:00Z"
   }
 ]
