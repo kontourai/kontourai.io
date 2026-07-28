@@ -898,6 +898,30 @@ test("kit pages show real sidecar/store shapes and record dimensions", async ({ 
   await expect(page.getByText(".kontourai/flow-agents/knowledge/")).toHaveCount(0);
 });
 
+test("developers territory map draws the public suite with verified-edge framing", async ({ page }) => {
+  await page.goto("/developers/");
+  const territory = page.locator("#territory");
+  await territory.scrollIntoViewIfNeeded();
+  await expect(territory.getByRole("heading", { name: "One sheet, whole suite" })).toBeVisible();
+
+  // Exact public roster: 17 markers + the cli scale bar + the kit shelf.
+  await expect(territory.locator(".fm-mk")).toHaveCount(17);
+  await expect(territory.locator(".fm-cli")).toHaveCount(1);
+  await expect(territory.locator(".fm-kits")).toHaveCount(1);
+
+  // The summit is Surface, labeled with the open trust format, linking to /hachure/.
+  const summit = territory.locator(".fm-summit");
+  await expect(summit.locator(".fm-nm")).toHaveText("surface");
+  await expect(summit.locator(".fm-vb a")).toHaveAttribute("href", "/hachure/");
+
+  // Legend carries the four edge meanings — no more, no fewer.
+  await expect(territory.locator(".fm-legend > span")).toHaveCount(4);
+
+  // Terrain canvas painted (non-zero backing store after draw).
+  const painted = await territory.locator("#fm-terrain").evaluate((c) => c.width > 0 && c.height > 0);
+  expect(painted).toBe(true);
+});
+
 test("developers page leads with the engine and kits, then exposes the proof chain", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1100 });
   await page.goto("/developers/");

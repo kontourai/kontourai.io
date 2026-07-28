@@ -9,6 +9,7 @@ import Card from '@/components/Card.astro';
 import Grid from '@/components/Grid.astro';
 import ProofChain from '@/components/ProofChain.astro';
 import ProductMark from '@/components/ProductMark.astro';
+import FieldMap from '@/components/FieldMap.astro';
 import Terminal from '@/components/Terminal.astro';
 import { applications, kits, labPackages } from '@/lib/products';
 import { getProductStatus, productBadge } from '@/lib/product-status';
@@ -227,6 +228,21 @@ const npmUrl = (packageName: string) => `https://www.npmjs.com/package/${package
           </Card>
         ))}
       </div>
+    </div>
+  </Section>
+
+  <Section id="territory" borderTop>
+    <div class="container">
+      <Eyebrow gap="sm" accent="cobalt-2">The territory</Eyebrow>
+      <h2 class="display-md measure-lg">One sheet, whole suite</h2>
+      <p class="body measure territory-lede">
+        Every product is named for the surveyor's craft, because that is the job: go into the
+        field, measure carefully, and bring back records you can defend. Regions are problem
+        domains; Surface sits at the summit because it is the reference everything measures
+        against. A line is drawn only where the relationship exists in code — gold for the
+        grounded-knowledge pipeline, blue for artifact flows, dotted where a product speaks <a href="/hachure/" data-umami-event="territory-hachure">Hachure</a>, the open trust format. Hover any marker for its role, what it produces, and what consumes it.
+      </p>
+      <FieldMap />
     </div>
   </Section>
 
