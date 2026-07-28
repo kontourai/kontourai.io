@@ -97,7 +97,12 @@ test("homepage leads with a single Flow Agents headline and the recognition-then
 
   // Survey is now described where it earns it — in the generalisation section —
   // and only for what it actually owns: the record chain behind a value.
-  await expect(page.getByText("Survey", { exact: true }).first()).toBeVisible();
+  // Scoped to the body: the header's Products menu also contains "Survey", and
+  // a collapsed <details> item is hidden, so an unscoped .first() resolves to
+  // the wrong node now that every page carries the full header.
+  await expect(
+    page.locator("body > :not(header)").getByText("Survey", { exact: true }).first(),
+  ).toBeVisible();
   await expect(page.getByText("an extracted value stays tied to the page it came from")).toBeVisible();
   await expect(page.locator('[data-umami-event="home-proof-survey"]')).toHaveAttribute("href", "/survey/");
   await expect(page.locator('[data-umami-event="home-beyond-writing"]')).toHaveAttribute(
@@ -148,18 +153,13 @@ test("homepage leads with a single Flow Agents headline and the recognition-then
   expect(forkBox.y).toBeLessThan(beyondBox.y);
   await expect(page.locator('[data-umami-event="footer-trust"]')).toHaveAttribute("href", "/trust/");
 
-  // Teaser: product nav/footer links stay hidden on the public home
-  await expect(page.locator('[data-umami-event="nav-flow"]')).toHaveCount(0);
-  await expect(page.locator('[data-umami-event="nav-veritas"]')).toHaveCount(0);
-  await expect(page.locator('[data-umami-event="nav-surface"]')).toHaveCount(0);
-  await expect(page.locator('[data-umami-event="nav-survey"]')).toHaveCount(0);
-  await expect(page.locator('[data-umami-event="nav-flow-agents"]')).toHaveCount(0);
-  await expect(page.locator('[data-umami-event="nav-builder-kit"]')).toHaveCount(0);
-  await expect(page.locator('[data-umami-event="nav-knowledge-kit"]')).toHaveCount(0);
-  await expect(page.locator('[data-umami-event="nav-console"]')).toHaveCount(0);
-  await expect(page.locator('[data-umami-event="nav-fieldwork"]')).toHaveCount(0);
-  await expect(page.locator('[data-umami-event="nav-hachure"]')).toHaveCount(0);
-  await expect(page.locator('[data-umami-event="nav-products-menu"]')).toHaveCount(0);
+  // The teaser rule used to strip the product menu from the header here. It
+  // now applies to the page body and footer only: the header is the one piece
+  // of chrome that must not change shape as you move around the site.
+  await expect(page.locator('[data-umami-event="nav-products-menu"]')).toHaveCount(1);
+  await expect(page.locator('[data-umami-event="nav-developers-menu"]')).toHaveCount(1);
+  await expect(page.locator('[data-umami-event="nav-flow"]')).toHaveCount(1);
+  await expect(page.locator('[data-umami-event="nav-hachure"]')).toHaveCount(1);
   await expect(page.locator('[data-umami-event="footer-flow"]')).toHaveCount(0);
   await expect(page.locator('[data-umami-event="footer-veritas"]')).toHaveCount(0);
   await expect(page.locator('[data-umami-event="footer-surface"]')).toHaveCount(0);
@@ -411,11 +411,16 @@ test("early access page gives static contact paths", async ({ page }) => {
   await expect(page.locator('[data-umami-event="nav-receipts"]')).toHaveAttribute("href", "/receipts/");
   await expect(page.locator('[data-umami-event="footer-receipts"]')).toHaveAttribute("href", "/receipts/");
 
-  // Teaser: product links are hidden here too (nav, footer, and inline)
-  await expect(page.locator('[data-umami-event="nav-veritas"]')).toHaveCount(0);
+  // Teaser: product links stay hidden in the footer and inline copy. The
+  // header is exempt by design — it is identical on every page.
+  await expect(page.locator('[data-umami-event="nav-veritas"]')).toHaveCount(1);
   await expect(page.locator('[data-umami-event="footer-surface"]')).toHaveCount(0);
+  // Scoped below the header: the teaser rule governs what the page argues,
+  // not the site chrome, which is now identical everywhere.
   await expect(
-    page.locator('a[href="/surface/"], a[href="/survey/"], a[href="/flow/"], a[href="/flow-agents/"], a[href="/veritas/"], a[href="/console/"]')
+    page
+      .locator("body > :not(header)")
+      .locator('a[href="/surface/"], a[href="/survey/"], a[href="/flow/"], a[href="/flow-agents/"], a[href="/veritas/"], a[href="/console/"]')
   ).toHaveCount(0);
 });
 
@@ -896,6 +901,55 @@ test("kit pages show real sidecar/store shapes and record dimensions", async ({ 
   await expect(page.locator('[data-enforcement="advisory"]').first()).toHaveText("Advisory");
   await expect(page.getByRole("heading", { name: "Long work that resumes cleanly" })).toBeVisible();
   await expect(page.getByText(".kontourai/flow-agents/knowledge/")).toHaveCount(0);
+});
+
+test("every page renders the same header", async ({ page }) => {
+  // The header used to have four shapes (full, home-without-products,
+  // teaser-without-developers, and unhighlighted) driven by one overloaded
+  // prop. Pin the invariant: same items, same order, everywhere.
+  const EXPECTED = ["nav-products-menu", "nav-developers-menu", "nav-receipts", "nav-github"];
+  const PAGES = [
+    "/",
+    "/developers/",
+    "/early-access/",
+    "/subscribed/",
+    "/trust/",
+    "/privacy/",
+    "/receipts/",
+    "/writing/",
+    "/surface/",
+    "/404.html",
+  ];
+  for (const path of PAGES) {
+    await page.goto(path);
+    const items = await page
+      .locator("header.nav [data-umami-event]")
+      .evaluateAll((els) => els.map((el) => el.getAttribute("data-umami-event")));
+    expect(items.filter((i) => EXPECTED.includes(i)), `header items on ${path}`).toEqual(EXPECTED);
+    // Exactly one thing may claim to be the current page, and only when the
+    // header actually contains an entry for it.
+    const current = await page.locator('header.nav [aria-current="page"]').count();
+    expect(current, `aria-current count on ${path}`).toBeLessThanOrEqual(1);
+  }
+});
+
+test("a page under a menu highlights the menu without claiming to be its overview", async ({ page }) => {
+  // /writing/ borrowed active="developers" to light the menu, which also made
+  // the Overview item announce aria-current="page" on a page that is not it.
+  await page.goto("/writing/");
+  await expect(page.locator('[data-umami-event="nav-developers-menu"]')).toHaveClass(
+    /nav-dropdown__summary--active/,
+  );
+  await expect(page.locator('[data-umami-event="nav-developers"]')).not.toHaveAttribute(
+    "aria-current",
+    "page",
+  );
+  // The real Overview page still marks itself.
+  await page.goto("/developers/");
+  await expect(page.locator('[data-umami-event="nav-developers"]')).toHaveAttribute(
+    "aria-current",
+    "page",
+  );
 });
 
 test("no built page ships inline scripts or style attributes the CSP would block", async () => {

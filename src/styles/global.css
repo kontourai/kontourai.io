@@ -64,6 +64,9 @@
 ───────────────────────────────────────────────────────────── */
 
 html {
+  /* The header is fixed at 56px; without this every in-page anchor scrolls
+     its target underneath it. Was previously patched on one page only. */
+  scroll-padding-top: 4.5rem;
   background-color: var(--color-ink);
   color: var(--color-chalk);
   font-family: var(--font-sans);
