@@ -42,8 +42,8 @@
     ctx.clearRect(0, 0, w, h);
 
     var styles = getComputedStyle(document.documentElement);
-    var faint = styles.getPropertyValue("--color-edge").trim() || "#1e2538";
-    var strong = styles.getPropertyValue("--color-edge-2").trim() || "#2a3450";
+    var faint = styles.getPropertyValue("--color-edge-2").trim() || "#2a3450";
+    var strong = "#39466b"; // edge-2 lifted one step: index contours must read on ink-1
 
     var step = 10;
     var cols = Math.ceil(w / step) + 1;
@@ -65,7 +65,8 @@
     for (var li = 1; li < levels; li++) {
       var t = vmin + ((vmax - vmin) * li) / levels;
       ctx.strokeStyle = li % 4 === 0 ? strong : faint;
-      ctx.lineWidth = li % 4 === 0 ? 1.4 : 1;
+      ctx.globalAlpha = li % 4 === 0 ? 1 : 0.55;
+      ctx.lineWidth = li % 4 === 0 ? 1.5 : 1;
       ctx.beginPath();
       for (var r2 = 0; r2 < rows - 1; r2++) {
         for (var c2 = 0; c2 < cols - 1; c2++) {
@@ -101,6 +102,7 @@
       }
       ctx.stroke();
     }
+    ctx.globalAlpha = 1;
   }
 
   var raf = null;
