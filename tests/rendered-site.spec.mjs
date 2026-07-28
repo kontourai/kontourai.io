@@ -952,9 +952,25 @@ test("developers territory map draws the public suite with verified-edge framing
   // The terrain script ships as an external file (CSP: no inline scripts).
   await expect(page.locator('script[src="/field-map.js"]')).toHaveCount(1);
 
-  // Terrain canvas painted (non-zero backing store after draw).
-  const painted = await territory.locator("#fm-terrain").evaluate((c) => c.width > 0 && c.height > 0);
-  expect(painted).toBe(true);
+  // Terrain actually drawn: an undrawn canvas keeps its default 300x150
+  // backing store, so require the real frame width (>=700px) post-draw.
+  const width = await territory.locator("#fm-terrain").evaluate((c) => c.width);
+  expect(width).toBeGreaterThan(700);
+});
+
+test("territory section swaps to the vertical stack on phones", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/developers/");
+  const territory = page.locator("#territory");
+  await territory.scrollIntoViewIfNeeded();
+  await expect(territory.locator(".fm-stack")).toBeVisible();
+  await expect(territory.locator(".fm-scroll")).toBeHidden();
+  // Route reads forage -> traverse -> survey -> surface, summit last.
+  await expect(territory.locator(".fm-route-step .fm-stack-nm")).toHaveText([
+    "forage", "traverse", "survey", "surface",
+  ]);
+  // Every public product appears exactly once across route + region grids.
+  await expect(territory.locator(".fm-stack .fm-stack-nm")).toHaveCount(18);
 });
 
 test("developers page leads with the engine and kits, then exposes the proof chain", async ({ page }) => {
