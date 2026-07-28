@@ -14,18 +14,28 @@ type SiteNavKey = NavKey | 'developers' | 'receipts' | 'hachure';
 const shopfront = [engine, ...applications, operatingView];
 
 interface Props {
+  /** Which page is currently open. Drives aria-current only. */
   active?: SiteNavKey;
-  /** Hide product links regardless of active page (teaser pages like home/early access). */
+  /**
+   * Which menu to highlight when the open page lives under a menu but is not
+   * one of its entries (essays and comparisons sit under Developers). Without
+   * this, pages borrowed `active` to light the menu and the Overview item then
+   * claimed aria-current="page" on a page that was not the Overview.
+   */
+  menu?: 'products' | 'developers';
+  /** Accepted and ignored: the header is identical on every page. */
   teaser?: boolean;
 }
-const { active, teaser } = Astro.props;
+const { active, menu } = Astro.props;
 const productsMenuActive =
-  shopfront.some(({ key }) => active === key) || kits.some(({ key }) => active === key);
+  menu === 'products' ||
+  shopfront.some(({ key }) => active === key) ||
+  kits.some(({ key }) => active === key);
 const developersMenuActive =
+  menu === 'developers' ||
   active === 'developers' ||
   active === 'hachure' ||
   disciplines.some(({ key }) => active === key);
-const hideProducts = teaser || active === 'home';
 ---
 
 <header class="nav">
@@ -50,8 +60,6 @@ const hideProducts = teaser || active === 'home';
 
       <!-- Nav links -->
       <div class="nav-links nav__links">
-        {!hideProducts && (
-          <>
             {/* Products: the three things you can install and run today, each
                with its own mark, then the kits under the engine that runs
                them. The summary is a category rather than a page, so it is not
@@ -124,17 +132,6 @@ const hideProducts = teaser || active === 'home';
             </details>
 
             <div class="nav__divider"></div>
-          </>
-        )}
-
-        {hideProducts && active === 'home' && (
-          <a
-            href="/developers/"
-            class="nav-link"
-            aria-current={active === 'developers' ? 'page' : undefined}
-            data-umami-event="nav-developers"
-          >Developers</a>
-        )}
 
         {/* Receipts is public evidence for the proof story, not a product — it
            stays visible even on teaser pages where product links are hidden. */}
