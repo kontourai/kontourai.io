@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-07-28",
+  "checkedAt": "2026-07-29",
   "products": {
     "surface": {
       "key": "surface",
@@ -18,7 +18,7 @@
       "key": "survey",
       "label": "Survey",
       "packageName": "@kontourai/survey",
-      "version": "2.4.2",
+      "version": "2.4.3",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/survey",
       "publicNotes": "Human review and trust projection for extracted facts.",
@@ -57,7 +57,7 @@
       "key": "flow-agents",
       "label": "Flow Agents",
       "packageName": "@kontourai/flow-agents",
-      "version": "5.4.0",
+      "version": "5.5.0",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/flow-agents",
       "publicNotes": "",
@@ -83,7 +83,7 @@
       "key": "fieldwork",
       "label": "Fieldwork",
       "packageName": "@kontourai/fieldwork",
-      "version": "0.4.0",
+      "version": "0.5.0",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/fieldwork",
       "publicNotes": "Standalone application for grounded extraction, inspection, review, rechecks, and trusted export.",
@@ -96,7 +96,7 @@
       "key": "traverse",
       "label": "Traverse",
       "packageName": "@kontourai/traverse",
-      "version": "0.25.0",
+      "version": "0.25.1",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/traverse",
       "publicNotes": "Schema-directed extraction that proposes values with the excerpt and locator they came from.",
