@@ -82,5 +82,11 @@
     "reason": "Moves the fieldwork product-status pin to 0.5.0 and traverse to 0.25.1 after tonight's releases, and fixes the automation defect the drift exposed: fieldwork and traverse were never in refresh-product-status.mjs's allowlist, so the scheduled pin-refresh could not update them and every release of either re-broke validate until a human edited the JSON. The capture stamp stays at 0.4.0 (accurate — no recapture happened; 0.5.0's changes are CLI/API surfacing with no workbench visual change) and marketingReviewed stays 0.4.0, so the advisory freshness desk-signal truthfully reports 0.5.0's features as not yet marketed, alongside the existing flow/flow-agents entries. Data + one automation script; no site behaviour change. Verification in lieu of a bundle: validate and build green in this PR's CI; refresh re-run confirms the extended allowlist updates both products. Scope is paired with author: per the ADR 0022 2026-07-03 addendum, since branch-prefix alone resolves against a pusher-controlled ref.",
     "approved_by": "brian.anderson1222 (delegated approval, 2026-07-28 session: owner accepted triage recommendations)",
     "declared_at": "2026-07-29T02:10:00Z"
+  },
+  {
+    "scope": "author:briananderson1222 branch-prefix:chore/pin-fieldwork-0.6.0",
+    "reason": "Moves the fieldwork product-status pin 0.5.0 to 0.6.0 after that release published (#97, reviewed-evidence projection). Produced by the refresh script itself, exercising the allowlist fix from the previous pin PR — the automation now maintains this product. Data-only; marketingReviewed stays 0.4.0 so the advisory freshness signal keeps truthfully reporting the unmarketed feature backlog. Verification in lieu of a bundle: validate and build green in this PR's CI. Scope is paired with author: per the ADR 0022 2026-07-03 addendum, since branch-prefix alone resolves against a pusher-controlled ref.",
+    "approved_by": "brian.anderson1222 (delegated approval, 2026-07-28 session: owner accepted triage recommendations)",
+    "declared_at": "2026-07-29T05:00:00Z"
   }
 ]
