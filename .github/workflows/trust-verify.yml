@@ -24,6 +24,8 @@ permissions:
 jobs:
   trust-verify:
     name: Trust Verify
+    outputs:
+      failure-summary: ${{ steps.trust-verify.outputs.failure-summary }}
     runs-on: ubuntu-latest
     steps:
       # fetch-depth 0: the reconciler binds delivery bundles to commits via
@@ -64,8 +66,23 @@ jobs:
       # pull_request-only anchor, registry parity is OBSERVED (warn) rather than gated
       # unless the PR itself touched parity-sensitive inputs; the strict parity gate
       # lives in the main/deploy verify run and the scheduled Pin Refresh lane.
-      - uses: kontourai/flow-agents/.github/actions/trust-verify@e5f348b49f8130f9d452e73b104ba328f9916981 # flow-agents @ reports which DECLARED condition failed (#1015)
+      - id: trust-verify
+        uses: kontourai/flow-agents/.github/actions/trust-verify@90b260996e1c4477c56317935f0362d48a8cf8d5 # flow-agents @ publishes structured failure summary (#1120)
         env:
           VALIDATE_REGISTRY_PARITY: ${{ steps.parity.outputs.mode || 'strict' }}
         with:
           verify-command: "npm run check:site-verify"
+  trust-advisory-comment:
+    if: >-
+      ${{ always() && github.event_name == 'pull_request' &&
+          github.event.pull_request.head.repo.full_name == github.repository }}
+    needs: trust-verify
+    permissions:
+      pull-requests: write
+    uses: kontourai/.github/.github/workflows/trust-advisory-comment.yml@e6dfe1bea874266a98059c682c21a6b73ae9c71e
+    with:
+      check-name: Trust Verify
+      details: ${{ needs['trust-verify'].outputs.failure-summary }}
+      pr-number: ${{ github.event.pull_request.number }}
+      result: ${{ needs['trust-verify'].result }}
+      run-url: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
