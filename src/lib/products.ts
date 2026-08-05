@@ -304,6 +304,14 @@ export const labPackages: LabPackage[] = [
       "Runs your deployment's own health check on a schedule, and when it fails, hands the failure to an AI agent working in a separate clean clone that opens a pull request or an issue. The live checkout and production data stay outside anything that agent can reach.",
   },
   {
+    slug: "ephemeris",
+    label: "Ephemeris",
+    repo: "https://github.com/kontourai/ephemeris",
+    packageName: "@kontourai/ephemeris",
+    description:
+      "Turns time into a trigger. Watches the freshness deadlines on Kontour trust bundles and nudges Flow to re-evaluate when one expires, and works out when a recurring schedule — cron, a fixed interval, or a one-shot — should next fire in a given timezone, daylight-saving included. It never decides anything itself; it only taps something else on the shoulder.",
+  },
+  {
     slug: "ui",
     label: "Kontour UI",
     repo: "https://github.com/kontourai/ui",
