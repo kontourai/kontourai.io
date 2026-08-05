@@ -1207,6 +1207,7 @@ test("developers page leads with the engine and kits, then exposes the proof cha
     ["forage", "@kontourai/forage"],
     ["lookout", "@kontourai/lookout"],
     ["plumb", "@kontourai/plumb"],
+    ["ephemeris", "@kontourai/ephemeris"],
     ["ui", "@kontourai/ui"],
   ];
   const renderedLabSlugs = await page
@@ -1228,14 +1229,13 @@ test("developers page leads with the engine and kits, then exposes the proof cha
     );
     await expect(page.locator("#lab").getByText(packageName, { exact: true })).toBeVisible();
   }
-  // The two dead names the list used to carry. Neither Ephemeris nor the
-  // Research Kit was ever published, so both cards invited an install that did
-  // not exist — `npm run validate` now refuses an entry in that state.
-  expect(renderedLabSlugs).not.toContain("ephemeris");
+  // The Research Kit (and the old "Console Kit (UI)" label) never shipped, so
+  // those names stay off the page. Ephemeris was removed for being unpublished
+  // too, but is now on the registry and back on the page above; only the
+  // never-published names remain barred here.
   expect(renderedLabSlugs).not.toContain("kit-research");
   await expect(page.getByText("Console Kit (UI)")).toHaveCount(0);
   await expect(page.getByText("Research Kit")).toHaveCount(0);
-  await expect(page.getByText("Ephemeris")).toHaveCount(0);
   await expect(page.locator('[data-umami-event="footer-developers"]')).toBeVisible();
 
   await expect(page.getByText("raw internal critique")).toHaveCount(0);
