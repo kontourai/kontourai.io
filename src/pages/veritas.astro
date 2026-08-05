@@ -69,7 +69,7 @@ const ruleJson = `{
    produced this page. Nothing removed and nothing reordered; the two longest
    lines are wrapped at their own `·` / word boundaries to fit the column. */
 const siteRun: TLine[] = [
-  { cls: 'prompt', text: 'npx --yes --package=@kontourai/veritas@1.5.3 -- veritas readiness --working-tree' },
+  { cls: 'prompt', text: 'npx --yes --package=@kontourai/veritas -- veritas readiness --working-tree' },
   { cls: 'muted', text: '' },
   { cls: 'muted', text: 'veritas: 16 files changed -> app.src, tooling.scripts' },
   { cls: 'fail', text: 'FAIL  evidence-check: npm run validate && npm run test:rendered' },
