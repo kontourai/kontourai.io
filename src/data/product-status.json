@@ -36,8 +36,8 @@
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/flow",
       "publicNotes": "Local CLI plus a loopback Flow Console.",
       "marketingReviewed": {
-        "version": "3.10.0",
-        "date": "2026-07-25"
+        "version": "5.0.0",
+        "date": "2026-08-06"
       }
     },
     "veritas": {

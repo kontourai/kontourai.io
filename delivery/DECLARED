@@ -94,5 +94,11 @@
     "reason": "Moves the survey product-status pin 2.4.3 to 2.5.0 after that release published (the surface#194 typed-bridge adapters). Data-only refresh-script output; marketingReviewed unchanged, so the advisory freshness signal reports the unmarketed feature truthfully. Verification in lieu of a bundle: validate and build green in this PR's CI. Scope is paired with author: per the ADR 0022 2026-07-03 addendum, since branch-prefix alone resolves against a pusher-controlled ref.",
     "approved_by": "brian.anderson1222 (delegated approval, 2026-07-29 session: owner said do-all on the surface/hachure recommendations)",
     "declared_at": "2026-07-29T09:20:00Z"
+  },
+  {
+    "scope": "author:briananderson1222 branch-prefix:chore/marketing-reviewed-flow-5.0.0",
+    "reason": "Follow-up to #273 pin refresh 5.0.0 (flow 4.0.0->5.0.0): updates marketingReviewed from 3.10.0 to 5.0.0 after reconciling 5.0.0 BREAKING changes (authority_trace removal, config publisher host capability) against src/pages/flow.astro. publicNotes remains accurate; terminal captures pinned to 3.10.0 deliberately not re-captured. Documentation-only data marker, no agent delivery claims to reconcile. Trust Reconcile Step 1 remains mandatory.",
+    "approved_by": "brian.anderson1222 (direct approval, 2026-08-06 session: 'are there ci updates we need to make to make that gate optional')",
+    "declared_at": "2026-08-06T17:30:00Z"
   }
 ]
