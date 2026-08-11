@@ -23,7 +23,7 @@ import Section from '@/components/Section.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
 
 const updated = '11 August 2026';
-const inventoryFingerprint = '9c7a09ca758fad25';
+const inventoryFingerprint = '788a17b779346da5';
 ---
 
 <Layout
@@ -81,10 +81,16 @@ const inventoryFingerprint = '9c7a09ca758fad25';
       <p class="body measure">
         Performance metrics and traces, sent only when an operator configures an
         OpenTelemetry endpoint — to that endpoint, which is theirs, not ours.
-        Being precise about one thing: the identifier on these is currently
-        derived from your machine's hostname and operating-system username, so
-        it is not anonymous in the way the telemetry identifier above is. We are
-        changing it to a random value; until then, this is what it does.
+        The identifier on these is a random value created once for your install
+        and stored alongside Station's own data. It is stable, so an operator
+        can group one install's metrics together, and it is not derived from
+        your machine name, your username, or any account.
+      </p>
+      <p class="body measure">
+        Until 11 August 2026 that identifier was derived from your machine's
+        hostname and operating-system username, and this page said so. It is
+        recorded here rather than quietly replaced, because a privacy policy
+        that silently improves is one you cannot check.
       </p>
 
       <h3 class="privacy-h3">Knowledge content</h3>
