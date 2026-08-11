@@ -19,6 +19,7 @@
   <url><loc>https://kontourai.io/receipts/flow-agents-ownership-guard/</loc><priority>0.6</priority></url>
   <url><loc>https://kontourai.io/trust/</loc><priority>0.7</priority></url>
   <url><loc>https://kontourai.io/privacy/</loc><priority>0.3</priority></url>
+  <url><loc>https://kontourai.io/privacy/station/</loc><priority>0.3</priority></url>
   <url><loc>https://kontourai.io/hachure/</loc><priority>0.8</priority></url>
   <url><loc>https://kontourai.io/writing/</loc><priority>0.6</priority></url>
   <url><loc>https://kontourai.io/writing/llm-proposes-structure-verifies/</loc><priority>0.6</priority></url>

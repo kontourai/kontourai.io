@@ -1,0 +1,189 @@
+---
+/**
+ * Station app privacy policy — the URL the App Store and Play listings point at.
+ *
+ * This page is a public projection of Station's privacy inventory, which is the
+ * single source the app's iOS `PrivacyInfo.xcprivacy` and its Play Data Safety
+ * answers are also rendered from. If those three ever disagree, the inventory is
+ * right and this page is stale.
+ *
+ * `inventoryFingerprint` below is the first 16 hex of the SHA-256 over the
+ * inventory's rendered policy. When the app changes what it collects, that value
+ * changes, and this page must be regenerated in the same change. It is recorded
+ * here so the drift is visible rather than silent.
+ *
+ * Unlike /privacy/, this page does not link to the code that implements each
+ * statement: the Station app's source is not public yet. That is a real
+ * limitation of this page and it is stated on it, not hidden.
+ */
+import Layout from '@/layouts/Layout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import Section from '@/components/Section.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+
+const updated = '11 August 2026';
+const inventoryFingerprint = '9c7a09ca758fad25';
+---
+
+<Layout
+  title="Station app privacy — what the app collects, in plain terms · Kontour AI"
+  description="What the Station app collects on your device, what leaves it and only when you configure it to, which permissions exist and why, and how to get your data deleted."
+>
+  <Nav />
+
+  <Section contour size="hero" borderBottom>
+    <div class="container container--readable">
+      <Eyebrow accent="gold" gap="sm">Station app privacy</Eyebrow>
+      <h1 class="display-lg privacy-title">What the app collects.</h1>
+      <p class="lead measure privacy-lead">
+        Station runs on hardware you control. The short version: nothing leaves
+        your machine unless you configure something that sends it, and this page
+        lists every one of those somethings.
+      </p>
+      <p class="fine privacy-updated">Last updated {updated} · Kontour AI LLC</p>
+    </div>
+  </Section>
+
+  <Section borderBottom>
+    <div class="container container--readable">
+      <h2 class="display-md privacy-h2">The default: nothing goes anywhere</h2>
+      <p class="body measure">
+        Station is self-hosted. Your conversations, your files, and your
+        knowledge base live in Station's own storage on your machine. There is no
+        Kontour-operated server in the middle, no account required to use it, and
+        no identifier derived from an account.
+      </p>
+      <p class="body measure">
+        Everything in the next section describes a case where data does leave —
+        and every one of them requires you or your operator to configure it
+        first.
+      </p>
+    </div>
+  </Section>
+
+  <Section borderBottom>
+    <div class="container container--readable">
+      <h2 class="display-md privacy-h2">What can leave, and what turns it on</h2>
+
+      <h3 class="privacy-h3">Product-usage telemetry</h3>
+      <p class="body measure">
+        App version, operating system, and CPU architecture at startup. It is
+        off unless three things are all true: an ingestion endpoint is
+        configured, telemetry is enabled, and you have seen and acknowledged the
+        in-app disclosure of exactly what is sent. The identifier attached to it
+        is a random value generated once on your install and hashed before
+        sending — it is never derived from an account, and Station never reads
+        another vendor's credential files to build one.
+      </p>
+
+      <h3 class="privacy-h3">Diagnostics (OpenTelemetry)</h3>
+      <p class="body measure">
+        Performance metrics and traces, sent only when an operator configures an
+        OpenTelemetry endpoint — to that endpoint, which is theirs, not ours.
+        Being precise about one thing: the identifier on these is currently
+        derived from your machine's hostname and operating-system username, so
+        it is not anonymous in the way the telemetry identifier above is. We are
+        changing it to a random value; until then, this is what it does.
+      </p>
+
+      <h3 class="privacy-h3">Knowledge content</h3>
+      <p class="body measure">
+        Documents and text you add to Knowledge are stored and indexed locally.
+        If you configure a remote embedding provider, the document chunks and
+        your search queries are sent to that provider so it can produce
+        embeddings. Which provider that is, is your choice.
+      </p>
+
+      <h3 class="privacy-h3">Voice</h3>
+      <p class="body measure">
+        Microphone audio is captured only while you have explicitly started a
+        voice session. It travels over your authenticated connection to your own
+        Station, which forwards it to the speech provider you configured. For the
+        built-in provider, that is Amazon Bedrock. If you use a browser's own
+        speech features instead, that browser's handling and retention are the
+        platform's, and we cannot describe them for you.
+      </p>
+
+      <h3 class="privacy-h3">Camera</h3>
+      <p class="body measure">
+        Used for one thing: scanning a pairing code to connect a device to your
+        Station. Frames are decoded on the device, the pairing value is used to
+        pair, and no imagery is sent to us or to a third party.
+      </p>
+    </div>
+  </Section>
+
+  <Section borderBottom>
+    <div class="container container--readable">
+      <h2 class="display-md privacy-h2">Tracking, advertising, and sale of data</h2>
+      <p class="body measure">
+        None of it. Station does not track you across apps or websites, does not
+        contain an advertising SDK, and there is nothing here to sell — the data
+        that would be worth selling never reaches us in the first place.
+      </p>
+    </div>
+  </Section>
+
+  <Section borderBottom>
+    <div class="container container--readable">
+      <h2 class="display-md privacy-h2">How this page is kept honest</h2>
+      <p class="body measure">
+        Station keeps a single inventory of what it collects. The app's iOS
+        privacy manifest, its Play Data Safety answers, and this page are all
+        derived from that one inventory, and a test in the app's build fails if
+        any of them drifts from it — including if a new event starts collecting
+        something the inventory does not cover.
+      </p>
+      <p class="body measure">
+        This page was generated from inventory <code class="code-plain">{inventoryFingerprint}</code>.
+      </p>
+      <p class="body measure">
+        One honest limitation: the site policy at <a href="/privacy/">/privacy/</a>{' '}
+        links each statement to the source that implements it. This page cannot,
+        because the Station app's source is not public yet. When it is, the links
+        belong here too.
+      </p>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="container container--readable">
+      <h2 class="display-md privacy-h2">Deletion, and how to reach us</h2>
+      <p class="body measure">
+        Station's data is on your machine, so deleting it is yours to do — remove
+        the app, or clear its home directory, and it is gone. If you configured an
+        endpoint that received telemetry or diagnostics, that store is yours or
+        your operator's to clear.
+      </p>
+      <p class="body measure">
+        Anything else — questions, a deletion request for something we hold, or a
+        correction to this page:{' '}
+        <a href="mailto:hello@kontourai.io">hello@kontourai.io</a>.
+      </p>
+    </div>
+  </Section>
+
+  <Footer />
+</Layout>
+
+<style>
+  .privacy-title {
+    margin-bottom: 1.25rem;
+  }
+  .privacy-lead {
+    margin-bottom: 1.5rem;
+  }
+  .privacy-updated {
+    color: var(--color-chalk-3);
+  }
+  .privacy-h2 {
+    margin-bottom: 1.25rem;
+  }
+  .privacy-h3 {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    color: var(--color-chalk);
+    margin: 2rem 0 0.75rem;
+  }
+</style>
