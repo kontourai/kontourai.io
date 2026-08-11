@@ -111,7 +111,7 @@ const repo = 'https://github.com/kontourai/kontourai.io/blob/main';
       <p class="body measure">
         We keep it until you ask us to delete it. There is no self-serve
         unsubscribe link yet — that is a real gap, not a policy — so for now,
-        email <a href="mailto:hello@kontourai.io">hello@kontourai.io</a> and ask,
+        email <Fragment set:html="<!--email_off-->" /><a href="mailto:hello@kontourai.io">hello@kontourai.io</a><Fragment set:html="<!--email_on-->" /> and ask,
         and we will delete the record and confirm. You can ask for a copy of what
         we hold the same way.
       </p>
@@ -143,7 +143,7 @@ const repo = 'https://github.com/kontourai/kontourai.io/blob/main';
         If what the site collects changes, this page changes in the same commit —
         the history is public, so you can see what it said before.
         Questions, deletions, or anything else:{' '}
-        <a href="mailto:hello@kontourai.io">hello@kontourai.io</a>.
+        <Fragment set:html="<!--email_off-->" /><a href="mailto:hello@kontourai.io">hello@kontourai.io</a><Fragment set:html="<!--email_on-->" />.
       </p>
     </div>
   </Section>
