@@ -159,7 +159,7 @@ const inventoryFingerprint = '9c7a09ca758fad25';
       <p class="body measure">
         Anything else — questions, a deletion request for something we hold, or a
         correction to this page:{' '}
-        <a href="mailto:hello@kontourai.io">hello@kontourai.io</a>.
+        <Fragment set:html="<!--email_off-->" /><a href="mailto:hello@kontourai.io">hello@kontourai.io</a><Fragment set:html="<!--email_on-->" />.
       </p>
     </div>
   </Section>
