@@ -51,18 +51,18 @@
     }
   ],
   "dependencies": {
-    "@kontourai/surface": "2.13.1",
+    "@kontourai/surface": "2.14.0",
     "@tailwindcss/vite": "^4.3.3",
-    "astro": "7.1.4",
+    "astro": "7.2.1",
     "tailwindcss": "^4.3.0"
   },
   "devDependencies": {
-    "@kontourai/flow-agents": "5.4.0",
-    "@kontourai/ui": "^1.11.2",
-    "@playwright/test": "^1.62.0",
+    "@kontourai/flow-agents": "5.10.0",
+    "@kontourai/ui": "^1.12.0",
+    "@playwright/test": "^1.62.1",
     "ajv": "8.20.0",
     "hachure": "0.15.0",
-    "vite": "8.1.5",
-    "wrangler": "4.114.0"
+    "vite": "8.2.1",
+    "wrangler": "4.122.0"
   }
 }
