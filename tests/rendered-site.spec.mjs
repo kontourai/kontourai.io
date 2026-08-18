@@ -915,6 +915,7 @@ test("every page renders the same header", async ({ page }) => {
     "/subscribed/",
     "/trust/",
     "/privacy/",
+    "/support/",
     "/receipts/",
     "/writing/",
     "/surface/",

@@ -1,0 +1,96 @@
+---
+/**
+ * Public support URL for Station store listings.
+ *
+ * Play Console and App Store Connect need a reachable page, not just an email
+ * address. This is listing infrastructure, not a marketing page. If you change
+ * how someone reaches us about the Station app, change this page in the same
+ * commit as the listing document in the Station repo.
+ */
+import Layout from '@/layouts/Layout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import Section from '@/components/Section.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+
+const updated = '18 August 2026';
+---
+
+<Layout
+  title="Station support — how to reach us · Kontour AI"
+  description="How to get help with the Station app, where the privacy policy lives, and how to delete local data."
+>
+  <Nav />
+
+  <Section contour size="hero" borderBottom>
+    <div class="container container--readable">
+      <Eyebrow accent="gold" gap="sm">Station support</Eyebrow>
+      <h1 class="display-lg privacy-title">How to reach us.</h1>
+      <p class="lead measure privacy-lead">
+        Station is a local-first agent workspace from Kontour AI LLC. This page
+        is the support URL the app store listings point at.
+      </p>
+      <p class="fine privacy-updated">Last updated {updated} · Kontour AI LLC</p>
+    </div>
+  </Section>
+
+  <Section borderBottom>
+    <div class="container container--readable">
+      <h2 class="display-md privacy-h2">Contact</h2>
+      <p class="body measure">
+        Email{' '}
+        <Fragment set:html="<!--email_off-->" /><a href="mailto:hello@kontourai.io">hello@kontourai.io</a><Fragment set:html="<!--email_on-->" />.
+        Include the app version (from Station's about or settings surface), the
+        device OS version, and what you were trying to do.
+      </p>
+      <p class="body measure">
+        There is no in-app ticket system and no Kontour-operated Station host
+        you sign into. The app talks to a Station you run.
+      </p>
+    </div>
+  </Section>
+
+  <Section borderBottom>
+    <div class="container container--readable">
+      <h2 class="display-md privacy-h2">Privacy and deletion</h2>
+      <p class="body measure">
+        What the app can collect, and the conditions under which anything
+        leaves the device, are listed at{' '}
+        <a href="/privacy/station/">/privacy/station/</a>.
+      </p>
+      <p class="body measure">
+        Station's data is on your machine. Remove the app, or clear its home
+        directory, and the local copy is gone. If you configured an endpoint
+        that received telemetry or diagnostics, that store is yours or your
+        operator's to clear.
+      </p>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="container container--readable">
+      <h2 class="display-md privacy-h2">The website</h2>
+      <p class="body measure">
+        Questions about this website, not the app, belong on the same address.
+        The site's own collection policy is at <a href="/privacy/">/privacy/</a>.
+      </p>
+    </div>
+  </Section>
+
+  <Footer />
+</Layout>
+
+<style>
+  .privacy-title {
+    margin-bottom: 1.25rem;
+  }
+  .privacy-lead {
+    margin-bottom: 1.5rem;
+  }
+  .privacy-updated {
+    color: var(--color-chalk-3);
+  }
+  .privacy-h2 {
+    margin-bottom: 1.25rem;
+  }
+</style>
