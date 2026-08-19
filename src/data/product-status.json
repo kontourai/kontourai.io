@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-08-11",
+  "checkedAt": "2026-08-19",
   "products": {
     "surface": {
       "key": "surface",
@@ -57,7 +57,7 @@
       "key": "flow-agents",
       "label": "Flow Agents",
       "packageName": "@kontourai/flow-agents",
-      "version": "5.10.0",
+      "version": "6.0.0",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/flow-agents",
       "publicNotes": "",
