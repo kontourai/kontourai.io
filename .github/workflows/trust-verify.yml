@@ -67,7 +67,7 @@ jobs:
       # unless the PR itself touched parity-sensitive inputs; the strict parity gate
       # lives in the main/deploy verify run and the scheduled Pin Refresh lane.
       - id: trust-verify
-        uses: kontourai/flow-agents/.github/actions/trust-verify@90b260996e1c4477c56317935f0362d48a8cf8d5 # flow-agents @ publishes structured failure summary (#1120)
+        uses: kontourai/flow-agents/.github/actions/trust-verify@6be137d1bbd92ecc47e08a68ca4b052ef54c39d7 # flow-agents @ publishes structured failure summary (#1120)
         env:
           VALIDATE_REGISTRY_PARITY: ${{ steps.parity.outputs.mode || 'strict' }}
         with:
