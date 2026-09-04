@@ -28,7 +28,7 @@ Current gate status is recorded at the bottom of the audit doc (as of 2026-07-03
 
 ## How to use this bar
 
-1. Build the site **as it will ship**: `npm install && npm run build` (audit the branch that will be
+1. Build the site **as it will ship**: `pnpm install && npm run build` (audit the branch that will be
    deployed, not necessarily `main`).
 2. Run each item's stated command / open each stated page / count the stated thing.
 3. Record `PASS` / `FAIL` per item with the literal evidence (command output, count, screenshot).
