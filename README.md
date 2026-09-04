@@ -13,9 +13,15 @@ the files here translate verified public facts into the website.
 Requires Node.js 22.12 or newer.
 
 ```sh
-npm install
+pnpm install
 npm run dev
 ```
+
+The pnpm version is pinned in `package.json` (`packageManager`). Dependency
+install scripts are blocked by default; the only packages allowed to run one are
+listed under `allowBuilds` in `pnpm-workspace.yaml`, pinned by version. Scripts
+are still run with `npm run …` — that only invokes `package.json` scripts and
+does not depend on which tool installed `node_modules`.
 
 Useful verification commands:
 
