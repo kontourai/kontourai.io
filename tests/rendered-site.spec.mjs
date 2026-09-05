@@ -426,6 +426,11 @@ test("early access page gives static contact paths", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "Design partner" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Product builder" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Agent workflow team" })).toBeVisible();
+  // Station has its own lane now that it is the main product; the lane and the
+  // hero mention both point at the product site rather than an install command.
+  await expect(page.getByRole("heading", { name: "Station workspace" })).toBeVisible();
+  await expect(page.getByText("run it from source or the macOS Nightly build, then tell us what you hit")).toBeVisible();
+  await expect(page.locator('[data-umami-event="early-access-hero-station"]')).toHaveAttribute("href", "https://station.kontourai.io/");
   await expect(page.getByText("One concrete workflow is enough.")).toBeVisible();
   await expect(page.locator('[data-umami-event="early-access-hero-email"]')).toHaveAttribute("href", /mailto:hello@kontourai\.io/);
 
