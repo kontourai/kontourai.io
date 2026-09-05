@@ -10,8 +10,8 @@
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/surface",
       "publicNotes": "",
       "marketingReviewed": {
-        "version": "2.13.0",
-        "date": "2026-07-21"
+        "version": "3.2.0",
+        "date": "2026-09-05"
       }
     },
     "survey": {
@@ -23,8 +23,8 @@
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/survey",
       "publicNotes": "Human review and trust projection for extracted facts.",
       "marketingReviewed": {
-        "version": "2.4.0",
-        "date": "2026-07-27"
+        "version": "3.0.0",
+        "date": "2026-09-05"
       }
     },
     "flow": {
@@ -36,8 +36,8 @@
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/flow",
       "publicNotes": "Local CLI plus a loopback Flow Console.",
       "marketingReviewed": {
-        "version": "3.10.0",
-        "date": "2026-07-25"
+        "version": "5.1.1",
+        "date": "2026-09-05"
       }
     },
     "veritas": {
@@ -62,8 +62,8 @@
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/flow-agents",
       "publicNotes": "",
       "marketingReviewed": {
-        "version": "5.3.0",
-        "date": "2026-07-25"
+        "version": "6.2.0",
+        "date": "2026-09-05"
       }
     },
     "station": {
@@ -101,8 +101,8 @@
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/fieldwork",
       "publicNotes": "Standalone application for grounded extraction, inspection, review, rechecks, and trusted export.",
       "marketingReviewed": {
-        "version": "0.4.0",
-        "date": "2026-07-27"
+        "version": "0.10.0",
+        "date": "2026-09-05"
       }
     },
     "traverse": {
@@ -114,8 +114,8 @@
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/traverse",
       "publicNotes": "Schema-directed extraction that proposes values with the excerpt and locator they came from.",
       "marketingReviewed": {
-        "version": "0.23.0",
-        "date": "2026-07-25"
+        "version": "0.25.1",
+        "date": "2026-09-05"
       }
     }
   }

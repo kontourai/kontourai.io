@@ -39,7 +39,7 @@ const objects: { label: string; detail: string; accent: Accent }[] = [
   { label: 'Flow Definition', detail: 'The required path — linear or a dependency DAG — and gate expectations', accent: 'cobalt-2' },
   { label: 'Flow Run', detail: 'One concrete execution with state and history', accent: 'green' },
   { label: 'Gate Evidence', detail: 'Tests, CI, traces, approvals, Veritas reports', accent: 'gold' },
-  { label: 'Flow Report', detail: 'Current state, blocked gates, next action', accent: 'chalk-2' },
+  { label: 'Flow Report', detail: 'Current state, blocked gates, and next action; each gate evaluation also leaves its own exact receipt', accent: 'chalk-2' },
 ];
 
 const integrations: { title: string; body: string; accent: Accent }[] = [
@@ -163,7 +163,8 @@ const consoleRun: TLine[] = [
             Flow puts the answer in plain files next to your code. Every step
             has a gate — a checkpoint that names what the step has to hand over
             before the work moves on. Flow records what each gate asked for,
-            what actually arrived, and anything a person waived on purpose.
+            what actually arrived, and any authorized decision to accept a gap
+            where the flow permits it.
             Nothing becomes "done" because an agent said so.
           </p>
 
@@ -224,7 +225,7 @@ const consoleRun: TLine[] = [
       <Eyebrow accent="cobalt-2" gap="sm">See it</Eyebrow>
       <figure class="product-shot product-shot--terminal">
         <img src="/screenshots/flow-demo.gif" alt="Terminal recording: flow init --demo, status, a blocked evaluate --exit-code, and resume" loading="lazy" width="1000" height="620" />
-        <figcaption>Watch the third command. <code>flow evaluate --exit-code</code> exits non-zero and names the piece of proof that never showed up — the run does not become "done" because the agent said so. The fourth command picks the work back up from exactly that point. <a href="https://kontourai.github.io/flow/" target="_blank" rel="noopener">Full walkthrough in the docs →</a></figcaption>
+        <figcaption>Watch the third command. <code>flow evaluate --exit-code</code> exits non-zero and names the piece of proof that never showed up — the run does not become "done" because the agent said so. The fourth command picks the work back up from exactly that point. Recorded with <code>@kontourai/flow 3.10.0</code>; current package behavior may differ. <a href="https://kontourai.github.io/flow/" target="_blank" rel="noopener">Full walkthrough in the docs →</a></figcaption>
       </figure>
     </div>
   </Section>
@@ -297,12 +298,12 @@ const consoleRun: TLine[] = [
       </p>
       <p class="body measure order-free__copy order-free__copy--last">
         Flow does not care what order the proof arrived in. At each gate it
-        asks one question: is everything this step needs here, recent enough,
-        and from a source you trust? Same answer whether it all landed in one
-        go or in pieces across three sessions. And when something does not hold
-        up, the work routes back — it returns to the step that caused the
-        problem, with the reason attached. The run is not broken. It just is
-        not finished.
+        checks the gate at the run's real position, verifies the producer and
+        artifact again when it evaluates the evidence, and publishes the run
+        record atomically. Each decision leaves an exact evaluation receipt that
+        authorized readers can inspect. And when something does not hold up, the
+        work routes back — it returns to the step that caused the problem, with
+        the reason attached. The run is not broken. It just is not finished.
       </p>
     </div>
   </Section>
@@ -320,8 +321,10 @@ const consoleRun: TLine[] = [
           </p>
           <p class="body diff__copy diff__copy--last">
             Flow turns required paths into evidence-gated transitions. If the
-            evidence is missing, the run blocks or routes back. If the user accepts
-            the gap, the exception becomes part of the record.
+            evidence is missing, the run blocks or routes back. Where the flow
+            permits an exception, an authorized decision can accept the gap and
+            put that decision on the record; explicitly failed evidence cannot
+            be waived into a pass.
           </p>
         </div>
 
@@ -354,8 +357,9 @@ const consoleRun: TLine[] = [
             same way: <code class="code-plain">flow kit validate</code>,{' '}
             <code class="code-plain">install</code>, and{' '}
             <code class="code-plain">inspect</code> turn a way of working into
-            something a teammate can install and check, instead of a wiki page
-            nobody reads.
+            something a teammate can validate, inspect, and install. Project
+            configuration is applied only from a trusted publisher, and declared
+            routing says where work such as <code class="code-plain">builder.build</code> should go.
           </p>
         </div>
         <div>

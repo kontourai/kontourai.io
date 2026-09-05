@@ -154,10 +154,11 @@ const npmUrl = (packageName: string) => `https://www.npmjs.com/package/${package
   <Section id="kits" tone="alt" borderTop borderBottom>
     <div class="container">
       <Eyebrow gap="sm" accent="chalk-2">The kits</Eyebrow>
-      <h2 class="display-md measure-lg">Four workflows ship with it. Pick one.</h2>
+      <h2 class="display-md measure-lg">Four kits ship with it. Activate the ones you want.</h2>
       <p class="body measure kits-intro">
-        A kit is a workflow the engine runs: what the steps are, what evidence
-        each one has to produce, and when it stops to ask you. <a href="/flow-agents/#kits" data-umami-event="developers-kits-how">How kits work →</a>
+        A kit is a versioned rulebook the engine runs: one or more flows, the
+        evidence each step has to produce, and when it stops to ask you. Kits
+        ship in the catalog and stay inactive until you activate them. <a href="/flow-agents/#kits" data-umami-event="developers-kits-how">How kits work →</a>
       </p>
       <Grid min="260" gap="md">
         {kitCards.map(({ name, href, job, note, accent, external, event }) => (
@@ -192,6 +193,13 @@ const npmUrl = (packageName: string) => `https://www.npmjs.com/package/${package
       </p>
 
       <ProofChain eventPrefix="developers" />
+
+      <p class="fine measure ownership-note">
+        That is the receipt path. Surface also carries the answer-facing path:
+        a headless Basis projection that keeps support, counterevidence, gaps,
+        and owner-supplied context distinct across native views, the Trust Panel,
+        and MCP Apps.
+      </p>
 
       <p class="fine measure map-note">
         Every piece above is on npm today. Two things are preview-grade and

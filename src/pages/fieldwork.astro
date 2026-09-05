@@ -157,11 +157,11 @@ const evidence: { title: string; body: string; href: string; label: string; acce
         </div>
 
         <Terminal class="animate-fade-in delay-300" title="credential-free quickstart">
-          <pre class="code"><span class="t-com"># Node 22 · offline demo, no signup</span>{'\n'}<span class="t-kw">npm</span> install <span class="t-str">@kontourai/fieldwork</span>{'\n'}{'\n'}<span class="t-com"># 1. pull the values out of the sample renewal brief</span>{'\n'}<span class="t-kw">npm</span> exec -- fieldwork run \{'\n'}  --task node_modules/@kontourai/fieldwork/examples/vendor-obligations/task.json \{'\n'}  --source node_modules/@kontourai/fieldwork/examples/vendor-obligations/source.txt \{'\n'}  --json{'\n'}<span class="t-com"># → {'{'}"ok":true,…,"runDirectory":"…/.fieldwork/runs/run-cdecb02ac92d8fa1","proposalCount":7{'}'}</span>{'\n'}{'\n'}<span class="t-com"># 2. review it in your browser; Ctrl-C stops the server</span>{'\n'}<span class="t-kw">npm</span> exec -- fieldwork open .fieldwork/runs/run-cdecb02ac92d8fa1 --json{'\n'}<span class="t-com"># → {'{'}"ok":true,"url":"http://127.0.0.1:64215/#cap=…","loopbackOnly":true{'}'}</span>{'\n'}{'\n'}<span class="t-com"># 3. hand off only what you resolved</span>{'\n'}<span class="t-kw">npm</span> exec -- fieldwork export .fieldwork/runs/run-cdecb02ac92d8fa1 --output reviewed.json --json</pre>
+          <pre class="code"><span class="t-com"># Node 22 · offline demo, no signup</span>{'\n'}<span class="t-kw">npm</span> install <span class="t-str">@kontourai/fieldwork@0.4.0</span>{'\n'}{'\n'}<span class="t-com"># 1. pull the values out of the sample renewal brief</span>{'\n'}<span class="t-kw">npm</span> exec -- fieldwork run \{'\n'}  --task node_modules/@kontourai/fieldwork/examples/vendor-obligations/task.json \{'\n'}  --source node_modules/@kontourai/fieldwork/examples/vendor-obligations/source.txt \{'\n'}  --json{'\n'}<span class="t-com"># → {'{'}"ok":true,…,"runDirectory":"…/.fieldwork/runs/run-cdecb02ac92d8fa1","proposalCount":7{'}'}</span>{'\n'}{'\n'}<span class="t-com"># 2. review it in your browser; Ctrl-C stops the server</span>{'\n'}<span class="t-kw">npm</span> exec -- fieldwork open .fieldwork/runs/run-cdecb02ac92d8fa1 --json{'\n'}<span class="t-com"># → {'{'}"ok":true,"url":"http://127.0.0.1:64215/#cap=…","loopbackOnly":true{'}'}</span>{'\n'}{'\n'}<span class="t-com"># 3. hand off only what you resolved</span>{'\n'}<span class="t-kw">npm</span> exec -- fieldwork export .fieldwork/runs/run-cdecb02ac92d8fa1 --output reviewed.json --json</pre>
         </Terminal>
       </Split>
       <p class="quickstart-note">
-        Output above is from a real run of the published package, trimmed at the
+        Output above was captured from the published <code>0.4.0</code> package, trimmed at the
         <span class="codechip">…</span> marks. The link that step 2 prints only works on your own machine,
         and only while the command is running — don’t paste it into a chat. The demo needs
         no account and no key; <a href="#what-it-costs">real documents need a model</a>.
@@ -273,7 +273,10 @@ The signature page of the executed agreement records a renewal date of
         moved, changed, or vanished value opens a new review round covering
         exactly the rows it affects. The run you already signed off stays
         intact and dated — you simply get told which of your decisions no
-        longer describes the document.
+        longer describes the document. Since 0.9.0 a recheck of a reviewed
+        source also keeps its own receipt, bound to the owner's review head at
+        the time, so "still current" is a recorded observation rather than a
+        hope.
       </p>
     </div>
   </Section>
@@ -322,6 +325,7 @@ The signature page of the executed agreement records a renewal date of
             reviewer can see how the text was produced.
           </p>
           <p class="body">Fieldwork brings the review and the evidence view; PDF parsing and OCR come from readers you plug in. If one is missing, the CLI stops and tells you which reader it needs rather than guessing at the text.</p>
+          <p class="body">For a reviewed web source, Fieldwork can show its metadata first and load the exact inert page only through the current review's authorization fence. Source, candidate, review, and locator identities stay owner-bound without exposing raw source bytes just to describe them.</p>
           <a href={sources.browser} target="_blank" rel="noopener" class="handoff-link" data-umami-event="fieldwork-format-test">Inspect the format browser test →</a>
         </div>
         <div>

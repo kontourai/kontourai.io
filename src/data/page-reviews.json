@@ -4,28 +4,29 @@
     {
       "page": "src/pages/flow-agents.astro",
       "products": {
-        "flow-agents": "5.3.0"
+        "flow-agents": "6.2.0"
       },
-      "reviewedDate": "2026-07-25"
+      "reviewedDate": "2026-09-05"
     },
     {
       "page": "src/pages/builder-kit.astro",
       "products": {
-        "flow-agents": "5.3.0"
+        "flow-agents": "6.2.0"
       },
-      "reviewedDate": "2026-07-25"
+      "reviewedDate": "2026-09-05"
     },
     {
       "page": "src/pages/knowledge-kit.astro",
       "products": {
-        "flow-agents": "5.3.0"
+        "flow-agents": "6.2.0"
       },
-      "reviewedDate": "2026-07-25"
+      "reviewedDate": "2026-09-05"
     },
     {
       "page": "src/pages/developers.astro",
       "products": {
-        "flow-agents": "5.3.0",
+        "flow-agents": "6.2.0",
+        "surface": "3.2.0",
         "station": "0.6.0"
       },
       "reviewedDate": "2026-09-05"
@@ -33,8 +34,8 @@
     {
       "page": "src/pages/index.astro",
       "products": {
-        "flow-agents": "5.3.0",
-        "survey": "2.2.1",
+        "flow-agents": "6.2.0",
+        "survey": "3.0.0",
         "station": "0.6.0"
       },
       "reviewedDate": "2026-09-05"
@@ -42,9 +43,9 @@
     {
       "page": "src/pages/surface.astro",
       "products": {
-        "surface": "2.13.0"
+        "surface": "3.2.0"
       },
-      "reviewedDate": "2026-07-25"
+      "reviewedDate": "2026-09-05"
     },
     {
       "page": "src/pages/veritas.astro",
@@ -56,16 +57,16 @@
     {
       "page": "src/pages/flow.astro",
       "products": {
-        "flow": "3.10.0"
+        "flow": "5.1.1"
       },
-      "reviewedDate": "2026-07-25"
+      "reviewedDate": "2026-09-05"
     },
     {
       "page": "src/pages/survey.astro",
       "products": {
-        "survey": "2.2.2"
+        "survey": "3.0.0"
       },
-      "reviewedDate": "2026-07-25"
+      "reviewedDate": "2026-09-05"
     },
     {
       "page": "src/pages/console.astro",
@@ -77,16 +78,17 @@
     {
       "page": "src/pages/trust.astro",
       "products": {
-        "flow-agents": "5.3.0"
+        "flow-agents": "6.2.0"
       },
-      "reviewedDate": "2026-07-25"
+      "reviewedDate": "2026-09-05"
     },
     {
       "page": "src/pages/fieldwork.astro",
       "products": {
-        "fieldwork": "0.4.0"
+        "fieldwork": "0.10.0",
+        "traverse": "0.25.1"
       },
-      "reviewedDate": "2026-07-26"
+      "reviewedDate": "2026-09-05"
     },
     {
       "page": "src/pages/hachure.astro",
@@ -112,9 +114,9 @@
     {
       "page": "src/pages/fieldwork-vs-langextract.astro",
       "products": {
-        "fieldwork": "0.2.5"
+        "fieldwork": "0.10.0"
       },
-      "reviewedDate": "2026-07-25"
+      "reviewedDate": "2026-09-05"
     },
     {
       "page": "src/pages/early-access.astro",
@@ -127,9 +129,9 @@
     {
       "page": "src/pages/writing/llm-proposes-structure-verifies.astro",
       "products": {
-        "traverse": "0.23.0"
+        "traverse": "0.25.1"
       },
-      "reviewedDate": "2026-07-25"
+      "reviewedDate": "2026-09-05"
     },
     {
       "page": "src/pages/writing/index.astro",

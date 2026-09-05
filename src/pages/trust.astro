@@ -215,11 +215,12 @@ const ISSUE_1009_URL = 'https://github.com/kontourai/flow-agents/issues/1009';
           <div class="bypass-row__head">
             <span class="bypass-row__num">03</span>
             <h3 class="bypass-row__title">Let a real pass go stale.</h3>
-            <span class="trust-badge trust-badge--stale">Caught later, in CI</span>
+            <span class="trust-badge trust-badge--stale">Caught locally; re-run independently in CI</span>
           </div>
           <p class="body bypass-row__body">
-            Run the tests, watch them pass, then keep editing. The pass was real when it happened,
-            and nothing locally re-runs it when the code moves underneath it. Same story if the
+            Run the tests, watch them pass, then keep editing. The old pass no longer advances a
+            cursor-moving gate: it is bound to the revision it observed, and freshness is checked
+            again before the run moves on. CI still supplies the independent clean-environment rerun. A narrowed or weakened test can survive both, so that part remains review's job. Same story if the
             agent runs one test file instead of the suite, or edits the test until it goes green —
             the gate reads what actually ran, and what actually ran was green. On the pull request
             CI closes most of this: it re-runs your declared checks against the final code, and
@@ -381,9 +382,10 @@ const ISSUE_1009_URL = 'https://github.com/kontourai/flow-agents/issues/1009';
       <EnforcementMatrix />
 
       <p class="body enforcement-closing">
-        Blocking means the turn cannot end on unproven work — it refuses or escalates to you,
-        never silently proceeds. Advisory means the same evidence is computed and surfaced, but
-        the decision stays with you.
+        Blocking has two forms. A tool-call block refuses that action and returns the reason to the
+        agent; a blocking Stop hook can keep the turn from ending on unproven work before escalating
+        the decision to you. Advisory runtimes compute and surface the evidence without owning the
+        final stop decision.
       </p>
 
       <p class="fine receipt-line">
