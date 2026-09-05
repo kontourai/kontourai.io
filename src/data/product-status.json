@@ -73,7 +73,7 @@
       "version": "0.6.0",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/station-cli",
-      "publicNotes": "The workspace is open source (Apache-2.0) and runs from source on macOS or Linux or as the macOS Nightly desktop build; a verified installer ships with the first stable release. The CLI client and the plugin SDK are the published packages.",
+      "publicNotes": "The workspace is open source (Apache-2.0) and in active development: run it from source on macOS or Linux, or as the macOS Nightly desktop build. No stable or beta release is published yet. The CLI client and the plugin SDK are the published packages.",
       "marketingReviewed": {
         "date": "2026-09-05",
         "version": "0.6.0"

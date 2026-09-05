@@ -54,8 +54,8 @@ const narratorMoments = [
 ---
 
 <Layout
-  title="Kontour AI — Station, the agent workspace where work ships with receipts"
-  description="Station brings your agents, projects, and devices into one open-source, local-first workspace, with gates, evidence, and receipts beside the work. Flow Agents brings the same gates into the coding tools you already run."
+  title="Kontour AI — Make your agents show their work"
+  description="Station brings your agents, projects, and devices into one open-source, local-first workspace, with gates, evidence, and receipts beside the work. Flow Agents brings the same discipline into the coding tools you already run."
 >
   <Nav active="home" />
 
@@ -66,16 +66,16 @@ const narratorMoments = [
     <div class="container container--hero">
       <div class="hero-inner">
         <h1 class="display-xl animate-fade-up hero-title">
-          The agent workspace where<br />work ships with receipts.
+          Make your agents<br />show their work.
         </h1>
 
         <p class="lead measure animate-fade-up delay-100 hero-lead">
-          Station brings your agents, projects, and devices into one
-          open-source, local-first workspace. Hand a Task to the agent you
-          choose, and the gates, evidence, and receipts stay beside the work —
-          so "done" means proven rather than asserted. Already shipping with a
-          coding agent? Flow Agents brings the same gates into the tools you
-          run today.
+          Station is the agent workspace where work ships with receipts. It
+          brings your agents, projects, and devices into one open-source,
+          local-first workspace, and keeps the gates, evidence, and receipts
+          beside the work — so "done" means proven rather than asserted.
+          Already shipping with a coding agent? Flow Agents brings the same
+          discipline into the tools you run today.
         </p>
 
         <div class="animate-fade-up delay-200 hero-actions">
@@ -126,10 +126,14 @@ const narratorMoments = [
         </Card>
       </Grid>
       <p class="fine station__status">
-        Open source under Apache-2.0. Run it from source on macOS or Linux, or
-        try the macOS Nightly desktop build; a verified installer ships with
-        the first stable release. Station data stays on your machine unless
-        you connect a hosted model, an engine, a paired device, or an export.
+        Open source under Apache-2.0 and in active development: run it from
+        source on macOS or Linux, or try the macOS Nightly desktop build. No
+        stable or beta release is published yet. Station data stays on your
+        machine by default; hosted Model connections, Engines, paired devices,
+        remote computers, and export endpoints carry data only when you
+        configure and use them, and desktop builds check their release feed
+        for updates. See the{' '}
+        <a href="/privacy/station/" data-umami-event="home-station-privacy">Station privacy policy</a>.
       </p>
       <div class="station__actions">
         <a href="https://station.kontourai.io/" class="btn-primary" data-umami-event="home-station-tour">Tour Station →</a>
@@ -181,9 +185,10 @@ const narratorMoments = [
       </h2>
       <p class="body measure mechanism__copy">
         A kid can say "I brushed my teeth" for free. The toothbrush either got
-        wet or it didn't. Station and Flow Agents treat an agent's "tests
-        passed" the same way: the claim costs nothing, so it's never what a
-        gate checks.
+        wet or it didn't. Flow Agents treats an agent's "tests passed" the
+        same way: the claim costs nothing, so it's never what a gate checks.
+        It is one way to bring that discipline into the tools you already run;
+        Station applies the same rule to its own Tasks through Flow gates.
       </p>
 
       <ProofReplay />

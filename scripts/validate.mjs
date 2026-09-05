@@ -62,6 +62,10 @@ const versionedPackages = [
   // Fieldwork cites its immutable 0.2.4 release evidence directly. Its current
   // displayed package status is still required to come from product-status.
   { key: "fieldwork", name: "@kontourai/fieldwork", page: "src/pages/fieldwork.astro", allowsPinnedEvidence: true },
+  // Station has no page of its own here (its product site is station.kontourai.io);
+  // the developers page is where its CLI badge renders, so that is the page whose
+  // copy must derive the version from product-status rather than hard-code it.
+  { key: "station", name: "@kontourai/station-cli", page: "src/pages/developers.astro" },
 ];
 
 // Local workspace packages. Their version expectation is DERIVED from
@@ -91,7 +95,11 @@ async function loadProductCatalog() {
 
 async function assertPageUsesProductStatus(pageFile, key, version, allowsPinnedEvidence = false) {
   const source = await readFile(path.join(rootDir, pageFile), "utf8");
-  if (!source.includes("product-status") || !source.includes(`getProductStatus('${key}')`)) {
+  // A page may derive status directly for one key, or for every application
+  // through the shared catalog (developers.astro maps `applications` and reads
+  // each one's status) — both routes go through product-status.json.
+  const derivesViaCatalog = source.includes("applications.map") && source.includes("getProductStatus(application.key)");
+  if (!source.includes("product-status") || (!source.includes(`getProductStatus('${key}')`) && !derivesViaCatalog)) {
     error(`${pageFile}: does not derive ${key} status from src/data/product-status.json`);
   }
 

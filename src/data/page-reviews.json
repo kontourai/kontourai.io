@@ -28,7 +28,7 @@
         "flow-agents": "5.3.0",
         "station": "0.6.0"
       },
-      "reviewedDate": "2026-07-25"
+      "reviewedDate": "2026-09-05"
     },
     {
       "page": "src/pages/index.astro",
@@ -37,7 +37,7 @@
         "survey": "2.2.1",
         "station": "0.6.0"
       },
-      "reviewedDate": "2026-07-25"
+      "reviewedDate": "2026-09-05"
     },
     {
       "page": "src/pages/surface.astro",

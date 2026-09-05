@@ -122,6 +122,7 @@ const versionedPackages = [
   { key: "flow-agents", name: "@kontourai/flow-agents" },
   { key: "console", name: "@kontourai/console" },
   { key: "fieldwork", name: "@kontourai/fieldwork" },
+  { key: "station", name: "@kontourai/station-cli" },
 ];
 
 for (const { key, name } of versionedPackages) {

@@ -2,7 +2,7 @@ import { readFile } from "node:fs/promises";
 import { expect, test } from "@playwright/test";
 import { validateTrustBundle } from "@kontourai/surface";
 
-test("homepage leads with a single Station headline and the recognition-then-mechanism argument", async ({ page }) => {
+test("homepage keeps the company headline, leads with Station, then the recognition-then-mechanism argument", async ({ page }) => {
   await page.goto("/");
 
   // AC1: exactly one hero headline story above the fold, and the slogan is the
@@ -12,16 +12,15 @@ test("homepage leads with a single Station headline and the recognition-then-mec
   await expect(page.locator(".label-sm").filter({ hasText: "Kontour · Flow Agents" })).toHaveCount(0);
   await expect(page.locator(".hero-kicker")).toHaveCount(0);
   await expect(
-    page.getByRole("heading", { level: 1, name: "The agent workspace where work ships with receipts.", exact: true }),
+    page.getByRole("heading", { level: 1, name: "Make your agents show their work.", exact: true }),
   ).toBeVisible();
   await expect(page.locator("h1")).toHaveCount(1);
   // Nothing renders above the headline inside the hero block.
   await expect(page.locator(".hero-inner > *").first()).toHaveClass(/hero-title/);
-  await expect(page.getByText("Station brings your agents, projects, and devices into one").first()).toBeVisible();
-  // The old Flow Agents-led hero is retired; the company line survives only as
-  // the footer tagline.
-  await expect(page.locator(".hero-inner").getByText("Make your agents show their work.")).toHaveCount(0);
-  await expect(page.locator(".footer__tagline").filter({ hasText: "Make your agents show their work." })).toHaveCount(1);
+  // The company slogan stays the headline (owner direction 2026-09-05); the
+  // lead beneath it introduces Station as the product, not Flow Agents.
+  await expect(page.getByText("Station is the agent workspace where work ships with receipts.").first()).toBeVisible();
+  await expect(page.locator(".hero-inner").getByText("AI writes more code than anyone can read line by line.")).toHaveCount(0);
 
   // Hero CTAs: Station leads, Flow Agents is the offer for existing tools.
   await expect(page.locator('[data-umami-event="home-hero-station"]')).toHaveAttribute("href", "https://station.kontourai.io/");
@@ -35,7 +34,9 @@ test("homepage leads with a single Station headline and the recognition-then-mec
   await expect(page.getByText("Your agents, one place")).toBeVisible();
   await expect(page.getByText("Work that outlives a chat")).toBeVisible();
   await expect(page.getByText("Receipts beside the work")).toBeVisible();
-  await expect(page.getByText("a verified installer ships with the first stable release")).toBeVisible();
+  await expect(page.getByText("No stable or beta release is published yet.")).toBeVisible();
+  await expect(page.locator('[data-umami-event="home-station-privacy"]')).toHaveAttribute("href", "/privacy/station/");
+  await expect(page.getByText("desktop builds check their release feed for updates")).toBeVisible();
   await expect(page.locator('[data-umami-event="home-station-tour"]')).toHaveAttribute("href", "https://station.kontourai.io/");
   await expect(page.locator('[data-umami-event="home-station-setup"]')).toHaveAttribute("href", "https://kontourai.github.io/station/docs/user/getting-started.html");
   await expect(page.locator('[data-umami-event="home-station-flow-agents"]')).toHaveAttribute("href", "/flow-agents/");
