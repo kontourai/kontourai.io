@@ -1,5 +1,5 @@
 ---
-import { products, kits, applications, type ProductKey, type KitKey, type ApplicationKey } from '@/lib/products';
+import { products, kits, applications, workspace, type ProductKey, type KitKey, type ApplicationKey } from '@/lib/products';
 
 interface Props {
   active?: 'home' | 'developers' | ProductKey | KitKey | ApplicationKey;
@@ -40,12 +40,13 @@ const links = teaserNav
       { href: '/developers/', label: 'Developers', event: 'footer-developers' },
       receipts,
       trust,
-      // Engine first, its paged kits directly behind it, then the disciplines,
-      // then the standalone applications built on them.
+      // The workspace first, then the engine with its paged kits directly
+      // behind it, then the disciplines, then the other applications.
+      { href: workspace.href, label: workspace.label, event: `footer-${workspace.key}` },
       ...products.slice(0, 1).map(({ href, label, key }) => ({ href, label, event: `footer-${key}` })),
       ...kits.map(({ href, label, key }) => ({ href, label, event: `footer-${key}` })),
       ...products.slice(1).map(({ href, label, key }) => ({ href, label, event: `footer-${key}` })),
-      ...applications.map(({ href, label, key }) => ({ href, label, event: `footer-${key}` })),
+      ...applications.filter(({ key }) => key !== workspace.key).map(({ href, label, key }) => ({ href, label, event: `footer-${key}` })),
       writing,
       github,
       earlyAccess,

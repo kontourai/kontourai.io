@@ -48,8 +48,8 @@ const npmUrl = (packageName: string) => `https://www.npmjs.com/package/${package
 ---
 
 <Layout
-  title="Developers — Install the Flow Agents engine, add kits, keep the receipts · Kontour AI"
-  description="Start with the Flow Agents engine and its kits — Builder, Knowledge, and the agentless evidence kits — then go deeper into the disciplines it wires in: Surface trust records, Flow gates, Veritas readiness, Console projections."
+  title="Developers — Build on Station, install the Flow Agents engine, keep the receipts · Kontour AI"
+  description="Build on Station with its SDK and CLI, or start with the Flow Agents engine and its kits — Builder, Knowledge, and the agentless evidence kits — then go deeper into the disciplines they wire in: Surface trust records, Flow gates, Veritas readiness, Console projections."
 >
   <Nav active="developers" />
 
@@ -67,8 +67,10 @@ const npmUrl = (packageName: string) => `https://www.npmjs.com/package/${package
         Agents</a> installs into that agent and makes it show the work before
         it can call the job done — then writes a file recording what ran, what
         passed, and what it skipped. Anyone can re-check that file without
-        trusting us or the agent. This page is the map: install it below, then
-        open whichever part you want to look inside.
+        trusting us or the agent. Building on the workspace instead? <a href="https://kontourai.github.io/station/docs/" target="_blank" rel="noopener" data-umami-event="developers-hero-station-docs">Station's docs</a> cover
+        its plugin SDK, CLI, and HTTP API, and both packages are on npm. This
+        page is the map: install the engine below, then open whichever part you
+        want to look inside.
       </p>
       <div class="hero-actions animate-fade-up delay-300">
         <a href="#quickstart" class="btn-primary" data-umami-event="developers-hero-quickstart">Install the engine →</a>
@@ -205,13 +207,15 @@ const npmUrl = (packageName: string) => `https://www.npmjs.com/package/${package
   <Section id="applications" tone="alt" borderTop borderBottom>
     <div class="container">
       <Eyebrow gap="sm" accent="gold-2">Built on it</Eyebrow>
-      <h2 class="display-md measure-lg">Fieldwork: the whole workflow as a finished app.</h2>
+      <h2 class="display-md measure-lg">Two applications built on it: the workspace, and the review pipeline.</h2>
       <p class="body measure applications-intro">
-        It sits on that chain rather than being a link in it, which is why it
-        isn't a lane in the map. Start here when you want the complete
-        workflow instead of the parts.
+        Both sit on that chain rather than being links in it, which is why
+        neither is a lane in the map. Station is where agent work happens with
+        the gates in the room; Fieldwork is grounded extraction with the review
+        chain attached. Start here when you want the complete workflow instead
+        of the parts.
       </p>
-      <div class="application-single">
+      <div class="application-grid">
         {applicationCards.map(({ href, label, accent, repo, packageName, job, composition, status, badge, key }) => (
           <Card accent={accent} bar="top" pad="md">
             <h3 class="product-card__title application-card__title">
@@ -376,8 +380,10 @@ const npmUrl = (packageName: string) => `https://www.npmjs.com/package/${package
 
   /* One application ships today, so the card is constrained rather than
      stretched across an auto-fill grid built for several. */
-  .application-single {
-    max-width: 620px;
+  .application-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-md, 1.5rem);
   }
 
   /* The application card carries the same mark the nav and the product hero

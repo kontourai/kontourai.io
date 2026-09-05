@@ -1,17 +1,18 @@
 ---
-import { kits, applications, engine, operatingView, disciplines, type ProductKey, type KitKey, type ApplicationKey } from '@/lib/products';
+import { kits, applications, engine, operatingView, workspace, disciplines, type ProductKey, type KitKey, type ApplicationKey } from '@/lib/products';
 import ProductMark from '@/components/ProductMark.astro';
 
 type NavKey = 'home' | ProductKey | KitKey | ApplicationKey;
 type SiteNavKey = NavKey | 'developers' | 'receipts' | 'hachure';
 
-// Products is what somebody arrives wanting to use: the engine, the finished
-// app built on it, and the screen you watch either one run on. The two kits
-// stay inside that menu under a label naming the engine they run on, so the
-// engine→kits relationship survives without costing a top-level slot. The
-// parts of the machine — the trust record, the gates, the readiness reports,
-// the review workbench — are a developer's concern and live under Developers.
-const shopfront = [engine, ...applications, operatingView];
+// Products is what somebody arrives wanting to use: the workspace first, then
+// the engine for the tools you already run, the finished app built on it, and
+// the screen you watch any of them run on. The two kits stay inside that menu
+// under a label naming the engine they run on, so the engine→kits relationship
+// survives without costing a top-level slot. The parts of the machine — the
+// trust record, the gates, the readiness reports, the review workbench — are a
+// developer's concern and live under Developers.
+const shopfront = [workspace, engine, ...applications.filter(({ key }) => key !== workspace.key), operatingView];
 
 interface Props {
   /** Which page is currently open. Drives aria-current only. */

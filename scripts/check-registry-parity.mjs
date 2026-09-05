@@ -122,6 +122,7 @@ const versionedPackages = [
   { key: "flow-agents", name: "@kontourai/flow-agents" },
   { key: "console", name: "@kontourai/console" },
   { key: "fieldwork", name: "@kontourai/fieldwork" },
+  { key: "station", name: "@kontourai/station-cli" },
 ];
 
 for (const { key, name } of versionedPackages) {
@@ -142,7 +143,9 @@ for (const { key, name } of versionedPackages) {
     continue;
   }
   if (!result.published) {
-    warn(`${name}: not published on npm; metadata v${advertised} requires manual review`);
+    // A definitive 404 contradicts the advertised package state; only registry
+    // uncertainty (network, 5xx) stays a warning.
+    issue(`${name}: not published on npm, but metadata advertises v${advertised}`);
     continue;
   }
   if (result.latest !== advertised) {
