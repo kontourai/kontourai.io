@@ -1054,6 +1054,18 @@ test("developers page leads with the engine and kits, then exposes the proof cha
   await page.setViewportSize({ width: 1440, height: 1100 });
   await page.goto("/developers/");
 
+  // Built on it: both applications render their card with the package name
+  // and the version badge derived from product-status.json. The validator's
+  // catalog-derived route only proves the page maps the catalog; this proves
+  // each card actually reaches the screen with its status.
+  const status = JSON.parse(await readFile(new URL("../src/data/product-status.json", import.meta.url), "utf8")).products;
+  for (const key of ["station", "fieldwork"]) {
+    await expect(page.locator('[data-umami-event="developers-application-' + key + '"]')).toBeVisible();
+    await expect(page.getByText(`${status[key].packageName} · v${status[key].version}`)).toBeVisible();
+  }
+  await expect(page.locator('[data-umami-event="developers-application-station"]')).toHaveAttribute("href", "https://station.kontourai.io/");
+  await expect(page.locator('[data-umami-event="developers-application-station-npm"]')).toHaveAttribute("href", "https://www.npmjs.com/package/@kontourai/station-cli");
+
   // The nav carries two dropdowns (Products and Developers); on this page the
   // Developers summary carries the active state and the Overview item inside is
   // the current page.

@@ -273,7 +273,7 @@ async function checkVersionedPackage({ key, name, page, allowsPinnedEvidence = f
       return;
     }
     if (!result.published) {
-      warn(`${name}: not published on npm; metadata v${advertised} requires manual public-source review`);
+      registryParityIssue(`${name}: not published on npm, but metadata advertises v${advertised}`);
       return;
     }
     if (result.latest !== advertised) {
