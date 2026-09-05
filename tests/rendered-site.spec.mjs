@@ -31,9 +31,9 @@ test("homepage keeps the company headline, leads with Station, then the recognit
   // Station section: what the workspace is, its run paths stated honestly, and
   // both ways in. It renders above the recognition moments.
   await expect(page.getByRole("heading", { name: "One workspace for the whole job." })).toBeVisible();
-  await expect(page.getByText("Your agents, one place")).toBeVisible();
-  await expect(page.getByText("Work that outlives a chat")).toBeVisible();
-  await expect(page.getByText("Receipts beside the work")).toBeVisible();
+  for (const card of ["Your agents, one place", "Work that outlives a chat", "Receipts beside the work"]) {
+    await expect(page.getByRole("heading", { level: 3, name: card, exact: true })).toBeVisible();
+  }
   await expect(page.getByText("No stable or beta release is published yet.")).toBeVisible();
   await expect(page.locator('[data-umami-event="home-station-privacy"]')).toHaveAttribute("href", "/privacy/station/");
   await expect(page.getByText("desktop builds check their release feed for updates")).toBeVisible();
