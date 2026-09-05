@@ -125,7 +125,7 @@ test("homepage keeps the company headline, leads with Station, then the recognit
   await expect(
     page.locator("body > :not(header)").getByText("Survey", { exact: true }).first(),
   ).toBeVisible();
-  await expect(page.getByText("an extracted value stays tied to the page it came from")).toBeVisible();
+  await expect(page.getByText("the extracted value stays tied to its source, alternatives, and decision")).toBeVisible();
   await expect(page.locator('[data-umami-event="home-proof-survey"]')).toHaveAttribute("href", "/survey/");
   await expect(page.locator('[data-umami-event="home-beyond-writing"]')).toHaveAttribute(
     "href",
@@ -875,7 +875,7 @@ test("kit pages show real sidecar/store shapes and record dimensions", async ({ 
   await expect(page.getByText(".kontourai/flow-agents/builder.build/")).toHaveCount(0);
   await expect(page.getByText("issue-214-search-filters")).toHaveCount(0);
   // The hero defines the word before using it.
-  await expect(page.getByText("A kit is a workflow your agent has to follow")).toBeVisible();
+  await expect(page.getByText("A kit is a versioned rulebook your agent has to follow")).toBeVisible();
   // `kit activate <name>` never read the positional argument, so the command the
   // page used to print would have activated every installed kit.
   await expect(page.getByText("kit activate")).toHaveCount(0);
@@ -1123,7 +1123,7 @@ test("developers page leads with the engine and kits, then exposes the proof cha
 
   // The kits section: all four catalog kits, the two paged ones linking to
   // their own pages, quickstart above them (install first, catalog second).
-  await expect(page.getByRole("heading", { name: "Four workflows ship with it. Pick one." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Four kits ship with it. Activate the ones you want." })).toBeVisible();
   await expect(page.locator('[data-umami-event="developers-kit-builder"]')).toHaveAttribute("href", "/builder-kit/");
   await expect(page.locator('[data-umami-event="developers-kit-knowledge"]')).toHaveAttribute("href", "/knowledge-kit/");
   await expect(page.getByText("Release Evidence Kit")).toBeVisible();
@@ -1142,7 +1142,7 @@ test("developers page leads with the engine and kits, then exposes the proof cha
     "https://github.com/kontourai/veritas",
   );
   const quickstartBox = await page.getByRole("heading", { name: "Install it, then check our receipts before you believe us." }).boundingBox();
-  const kitsBox = await page.getByRole("heading", { name: "Four workflows ship with it. Pick one." }).boundingBox();
+  const kitsBox = await page.getByRole("heading", { name: "Four kits ship with it. Activate the ones you want." }).boundingBox();
   expect(quickstartBox).not.toBeNull();
   expect(kitsBox).not.toBeNull();
   expect(quickstartBox.y).toBeLessThan(kitsBox.y);
@@ -1340,7 +1340,7 @@ test("flow agents page presents agent-tool discipline and status", async ({ page
 
   // Kits are explained for someone who has never heard the word.
   await expect(page.getByText("Kits", { exact: true }).first()).toBeVisible();
-  await expect(page.getByRole("heading", { name: "A kit is a workflow, written down." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "A kit is a versioned rulebook." })).toBeVisible();
   const kitNames = page.locator(".kit-card__name");
   await expect(kitNames.filter({ hasText: "Builder Kit" })).toBeVisible();
   await expect(kitNames.filter({ hasText: "Knowledge Kit" })).toBeVisible();
@@ -1402,7 +1402,7 @@ test("memory positioning lives on the knowledge kit page", async ({ page }) => {
 
   await page.goto("/knowledge-kit/#bring-your-own");
   await expect(page.getByRole("heading", { name: "Keep it." })).toBeVisible();
-  await expect(page.getByText("Kontour never touches the retrieval side")).toBeVisible();
+  await expect(page.getByText("you can keep that memory layer completely separate")).toBeVisible();
   // What Flow Agents actually records: the run, not the retrieval.
   await expect(page.getByText("the commands the harness actually executed, their exit codes")).toBeVisible();
   // The unbacked context-to-output provenance claim must not come back.
@@ -1656,7 +1656,7 @@ test("trust page states what it can't certify, the bypass list, the assurance di
   await expect(page.getByRole("heading", { name: "Let a real pass go stale." })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Bypass as an admin." })).toBeVisible();
   await expect(page.getByText("Caught", { exact: true })).toHaveCount(2);
-  await expect(page.getByText("Caught later, in CI")).toBeVisible();
+  await expect(page.getByText("Caught locally; re-run independently in CI")).toBeVisible();
   await expect(page.getByText("Named, not caught")).toBeVisible();
   await expect(page.getByText("never \"tamper-proof.\"")).toBeVisible();
   // The check has one name. It is the `trust-verify` action, and in the Flow
@@ -1747,7 +1747,7 @@ test("trust page states what it can't certify, the bypass list, the assurance di
   await expect(runtimeTable.getByRole("row", { name: /^pi\s/ }).locator(".trust-badge--stale")).toHaveText("Advisory / partial");
   await expect(runtimeTable.getByRole("row", { name: /AWS Strands/ }).locator(".trust-badge--stale")).toHaveText("Advisory / partial");
   await expect(runtimeTable.getByRole("row", { name: /Other harnesses/ }).locator(".trust-badge--unknown")).toHaveText("Spec-only");
-  await expect(page.getByText("it refuses or escalates to you, never silently proceeds.")).toBeVisible();
+  await expect(page.getByText("Blocking has two forms.")).toBeVisible();
   // The hook-conformance scale must stay visibly distinct from the signing assurance dial.
   await expect(page.getByText("a different dial from the signing assurance levels above")).toBeVisible();
 
@@ -1787,4 +1787,47 @@ test("published bundles download and validate under the named validator", async 
     // AC4: the downloaded artifact passes the named validator.
     expect(() => validateTrustBundle(parsed), `${slug} validates`).not.toThrow();
   }
+});
+
+test("freshness pass keeps current claims distinct from frozen demonstrations", async ({ page }) => {
+  await page.goto("/builder-kit/");
+  await expect(page.getByText("Four runnable paths")).toBeVisible();
+
+  await page.goto("/trust/");
+  await expect(page.getByText("Blocking has two forms.")).toBeVisible();
+  await expect(page.getByText("A tool-call block refuses that action and returns the reason to the agent")).toBeVisible();
+
+  await page.goto("/knowledge-kit/");
+  await expect(page.getByText("project provider records into a queryable graph")).toBeVisible();
+
+  await page.goto("/flow-agents/");
+  await expect(page.getByText("an optional durable outbox relays them to Console at least once")).toBeVisible();
+
+  await page.goto("/surface/");
+  await expect(page.getByRole("heading", { name: "Answer Card" })).toBeVisible();
+  await expect(page.getByText("without re-deriving or smoothing over what the report said")).toBeVisible();
+
+  await page.goto("/developers/");
+  await expect(page.getByText("That is the receipt path. Surface also carries the answer-facing path:")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Four kits ship with it. Activate the ones you want." })).toBeVisible();
+
+  await page.goto("/flow/");
+  await expect(page.getByText("Recorded with").filter({ hasText: "@kontourai/flow 3.10.0" })).toBeVisible();
+
+  await page.goto("/survey/");
+  await expect(page.getByText("Real output captured from").filter({ hasText: "@kontourai/survey 2.2.2" })).toBeVisible();
+
+  await page.goto("/fieldwork/");
+  await expect(page.getByText("Output above was captured from the published").filter({ hasText: "0.4.0" })).toBeVisible();
+  await expect(page.locator("pre.code").filter({ hasText: "@kontourai/fieldwork@0.4.0" })).toHaveCount(1);
+  await expect(page.getByText("keeps its own receipt, bound to the owner's review head")).toBeVisible();
+
+  await page.goto("/fieldwork-vs-langextract/");
+  await expect(page.getByText("reports crossing that boundary as a partial stop rather than silent success")).toBeVisible();
+
+  await page.goto("/writing/llm-proposes-structure-verifies/");
+  await expect(page.getByText("reports a chunk-limit cutoff as partial rather than silently complete")).toBeVisible();
+
+  await page.goto("/");
+  await expect(page.getByText("producer-side review contract for it")).toBeVisible();
 });

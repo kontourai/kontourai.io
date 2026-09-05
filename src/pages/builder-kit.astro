@@ -15,9 +15,8 @@ import type { Accent } from '@/lib/theme';
 
 const flowAgentsStatus = getProductStatus('flow-agents');
 
-// Three cards, three flows — `kits/builder/kit.json` declares exactly
-// builder.shape, builder.build and builder.publish-learn. Publish and learn
-// are one flow, so the page no longer splits them into two peers.
+// Three cards introduce the main delivery story; the reduced-gate build-lean
+// path sits beside them for lower-risk work.
 const path: { step: string; title: string; body: string; accent: Accent }[] = [
   {
     step: '01',
@@ -89,9 +88,10 @@ const leftBehind: { file: string; note: string }[] = [
           <p class="product-tagline animate-fade-up delay-100" data-accent="chalk-2">the delivery workflow your coding agent has to follow</p>
 
           <p class="hero-copy hero-copy--wide animate-fade-up delay-200">
-            A kit is a workflow your agent has to follow, packaged so you can
-            install it instead of writing it yourself. Builder Kit is the one
-            for shipping code.
+            A kit is a versioned rulebook your agent has to follow: one or
+            more flows, their evidence requirements, and the assets that teach
+            the agent to follow them, shipped in the catalog and activated when
+            you choose it. Builder Kit is the one for shipping code.
           </p>
           <p class="hero-copy hero-copy--wide animate-fade-up delay-200">
             Point your agent at a ticket. Before it writes a line it has to
@@ -109,18 +109,12 @@ const leftBehind: { file: string; note: string }[] = [
         </div>
 
         <div>
-          <Terminal class="animate-fade-in delay-300" title="install + check">
+          <Terminal class="animate-fade-in delay-300" title="install today">
             <p><span class="prompt">$ </span><span class="cmd">npx @kontourai/flow-agents init --runtime claude-code --activate-kit builder --yes</span></p>
-            <br />
-            <p>Installed Claude Code bundle into …/your-repo</p>
-            <br />
-            <p>Flow Agents install summary:</p>
-            <p class="pass">  ✓ Runtime: claude-code</p>
-            <p class="pass">  ✓ Destination: …/your-repo</p>
-            <p class="pass">  ✓ Telemetry sink: local-files</p>
-            <p class="muted">  - Console: local-only</p>
-            <br />
+          </Terminal>
+          <Terminal class="animate-fade-in delay-300" title="workflow doctor — Flow Agents 5.3.0">
             <p><span class="prompt">$ </span><span class="cmd">flow-agents workflow doctor</span></p>
+            <br />
             <p>Flow Agents CLI: 5.3.0</p>
             <p>Installed hooks/writer: 5.3.0</p>
             <p>Builder Kit schema: installed=1.0 resolved=1.0</p>
@@ -128,9 +122,8 @@ const leftBehind: { file: string; note: string }[] = [
             <p class="muted">Artifact schema: state=none trust=none</p>
           </Terminal>
           <p class="term-note animate-fade-in delay-300">
-            Real output from {productBadge(flowAgentsStatus)}. The absolute
-            install path is shortened to <code>…/your-repo</code> and the
-            trailing “Next steps” lines are trimmed; nothing else is changed.{' '}
+            The doctor excerpt is verbatim output from Flow Agents 5.3.0. The
+            current install command above uses the kit-activation interface introduced in 6.0.0.{' '}
             <code>state=none trust=none</code> is correct on a fresh install —
             no run has happened yet.
           </p>
@@ -232,7 +225,7 @@ const leftBehind: { file: string; note: string }[] = [
 
   <Section size="lg">
     <div class="container">
-      <Eyebrow gap="lg">Three flows</Eyebrow>
+      <Eyebrow gap="lg">Four runnable paths</Eyebrow>
       <Grid cols={3} gap="md">
         {path.map(({ step, title, body, accent }) => (
           <Card accent={accent} bar="top" pad="md">
@@ -257,11 +250,15 @@ const leftBehind: { file: string; note: string }[] = [
         ))}
       </Grid>
       <p class="fine measure-lg gates-limit">
-        What it does not catch: a passing test run recorded before a later
-        edit, a test whose scope was quietly narrowed, or a test edited until
-        it passed. Those stay a reviewer's job — what the kit contributes is
-        that the reviewer has the plan, the commands and the diff in front of
-        them.
+        A pass recorded against earlier bytes no longer advances the run:
+        command evidence is bound to its observed revision, and cursor-advancing
+        gates recheck freshness. Review still owns the harder cases — a test
+        whose scope was quietly narrowed, or a test edited until it passed —
+        but it gets the plan, commands, snapshots, and diff together.
+      </p>
+      <p class="fine measure-lg gates-limit">
+        For lower-risk work, <code>builder.build-lean</code> is the reduced-gate
+        variant. It trims gate cost without describing probing or planning as ungated.
       </p>
     </div>
   </Section>
@@ -290,7 +287,7 @@ const leftBehind: { file: string; note: string }[] = [
         </Card>
         <Card accent="chalk-2" bar="top" pad="md">
           <h3 class="feature-title">Long work that resumes cleanly</h3>
-          <p class="feature-body">A delivery too big for one sitting gets explicit continuation bounds, so the next session resumes with the scope, the evidence so far, and the next action intact instead of starting over from the ticket.</p>
+          <p class="feature-body">A delivery too big for one sitting gets a signed continuation checkpoint bound to the run and actor. A later session or host can recover the exact scope, evidence, and next action without accepting a shared or stale pointer as authority.</p>
         </Card>
       </Grid>
     </div>

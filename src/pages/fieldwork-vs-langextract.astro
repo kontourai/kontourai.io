@@ -69,7 +69,7 @@ const langextractWins = [
   },
   {
     title: 'Long documents are tunable there, capped here',
-    body: 'Both tools chunk. LangExtract exposes the controls — chunk size, parallel workers, repeat passes for recall — and its pinned README runs all 147,843 characters of Romeo and Juliet through them. Fieldwork chunks too, in fixed 12,000-character windows with 200-character overlap and a single pass, and exposes none of those controls. It also stops after 40 chunks: past roughly 472,000 prepared characters the rest of the document is not extracted and the run still reports success, and a source above 2 MiB is refused outright.',
+    body: 'Both tools chunk. LangExtract exposes the controls — chunk size, parallel workers, repeat passes for recall — and its pinned README runs all 147,843 characters of Romeo and Juliet through them. Fieldwork chunks too, in fixed 12,000-character windows with 200-character overlap and a single pass, and exposes none of those controls. It still caps the prepared source at 40 chunks; the extraction layer it depends on (Traverse 0.25.1) reports crossing that boundary as a partial stop rather than silent success. A source above 2 MiB is refused outright.',
     link: { label: 'Pinned long-document example ↗', url: `${sources.langextract}#romeo-and-juliet-full-text-extraction` },
   },
   {
@@ -79,7 +79,7 @@ const langextractWins = [
   },
   {
     title: 'More runtimes, published benchmarks, and something to cite',
-    body: 'Gemini, Vertex AI, OpenAI, OpenAI-compatible endpoints and local Ollama models, batch modes for large jobs, a provider plugin system with a community registry, a benchmarks directory in the repository, and a Zenodo DOI for papers. Fieldwork has none of that.',
+    body: 'Gemini, Vertex AI, OpenAI, OpenAI-compatible endpoints and local Ollama models, batch modes for large jobs, a provider plugin system with a community registry, a benchmarks directory in the repository, and a Zenodo DOI for papers. Fieldwork does not match that provider breadth, batch modes, community plugin registry, published benchmarks, or research citation.',
     link: { label: 'Pinned benchmarks directory ↗', url: upstreamTree('benchmarks') },
   },
 ];
@@ -101,7 +101,7 @@ const rows = [
   {
     concern: 'Human review',
     upstream: 'Generates a self-contained interactive HTML file for reading thousands of extractions in their original context.',
-    kontour: 'A local review app where a person accepts or rejects each value. The decision is written and validated by the local server against the record it came from, so it outlives the browser tab that made it.',
+    kontour: 'A local review app where a person can accept the proposal, keep the current value, reject it, or record that the evidence was not enough to confirm either answer. The decision is written and validated by the local server against the record it came from, so it outlives the browser tab that made it.',
     evidence: claimSources.humanReview,
   },
   {
@@ -161,8 +161,9 @@ const sourceNames: Record<string, string> = {
       </div>
       <p class="fine comparison-hero__receipt">
         Fieldwork is a free Apache-2.0 command-line app for Node 22
-        (<code>npm install @kontourai/fieldwork</code>), currently v{fieldworkVersion}, and it runs
-        without a credential or a network call. LangExtract is a Python library. If you need a
+        (<code>npm install @kontourai/fieldwork</code>), currently v{fieldworkVersion}. Its bundled fixture runs
+        without credentials or a network call; real documents may use your selected model runtime, and reviewed
+        web sources remain behind explicit read authorization. LangExtract is a Python library. If you need a
         Python import, that is a real blocker and this page will not solve it. Every upstream claim
         below links to public commit <code>{upstreamShort}</code>; live figures such as the star count
         were checked on {upstreamCheckedOn}. This compares documented and demonstrated behavior. It is not a benchmark.
@@ -241,7 +242,8 @@ const sourceNames: Record<string, string> = {
           <h3 class="review-split__title">Then a person decides.</h3>
           <p class="body">
             <code>fieldwork open</code> serves the run on a loopback address. The reviewer sees the
-            proposed value next to the exact sentence it came from and either takes it or does not.
+            proposed value next to the exact sentence it came from and can accept the proposal, keep the current
+            value, reject it, or record that the evidence was not enough to confirm either answer.
             The accept is sent to the local server, validated against the record it came from, and
             stored there — the browser is the interface, not the authority. After that, the export
             that just refused will succeed and will carry the excerpt, locator and decision with it.

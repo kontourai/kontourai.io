@@ -48,7 +48,7 @@ const trustTiers: { title: string; body: string; accent: Accent }[] = [
   {
     title: 'Then somewhere it cannot reach',
     accent: 'green',
-    body: 'A clean environment reruns the declared checks and reconciles the result against what actually changed in git. For code work today, that environment is your CI.',
+    body: 'A clean environment reruns the declared checks and reconciles the result against what actually changed in git. For code work today, that environment is your CI. Receipts do not have to stop at the repo: an optional durable outbox relays them to Console at least once, and an accepted gap remains visible there as an aging record.',
   },
   {
     title: 'When the evidence is missing',
@@ -200,12 +200,18 @@ const kits: { name: string; href: string; job: string; note: string; accent: Acc
       <Eyebrow accent="green" gap="sm">So how was that caught?</Eyebrow>
       <h2 class="display-md measure-lg section-title">Know what ran, what passed, and what still needs a decision.</h2>
       <p class="fine measure section-note">
-        Four checks ride your coding agent’s own hooks: a nudge about where the
-        agent is in the work, a format-and-lint pass after each edit, an
-        evidence check before it is allowed to stop, and a veto on edits to the
-        configs that would weaken those checks. What they record is written to
+        The core hooks steer the active workflow, capture what tools actually
+        returned, run per-file quality checks, check evidence before Stop, and
+        veto writes that weaken protected controls. Session start also reports
+        stale installations, while terminal records carry run identity and
+        measured outcomes. What they record is written to
         plain files in your repo, so it survives the chat, the context window,
         and the session.
+      </p>
+      <p class="fine measure section-note">
+        You can run the whole loop as one experiment — install, execute, measure,
+        report — and keep a local trend of what changed. It reports observed cost
+        and outcomes, not a made-up quality score.
       </p>
 
       <Grid cols={3} gap="lg">
@@ -230,13 +236,14 @@ const kits: { name: string; href: string; job: string; note: string; accent: Acc
   <Section id="kits" borderBottom>
     <div class="container">
       <Eyebrow accent="chalk-2" gap="sm">Kits</Eyebrow>
-      <h2 class="display-md measure-lg section-title">A kit is a workflow, written down.</h2>
+      <h2 class="display-md measure-lg section-title">A kit is a versioned rulebook.</h2>
       <p class="body measure kit-copy">
-        Flow Agents on its own is a referee with no rulebook. A kit is the
-        rulebook: it names the steps a piece of work goes through, what
-        evidence each step has to leave behind, and what the agent is not
-        allowed to skip. Install the ones you want and leave the rest out —
-        the engine runs them all the same way.
+        Flow Agents on its own is a referee with no rulebook. A kit is a
+        versioned rulebook: one or more flows, their evidence requirements, and
+        the assets that teach an agent how to follow them. Kits ship in the
+        catalog but stay inactive until you choose them. Activate one or a
+        dependency-ordered set; every declared flow enters through the same
+        validation and provenance checks.
       </p>
 
       <Grid cols={4} gap="md">

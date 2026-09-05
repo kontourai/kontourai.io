@@ -95,7 +95,7 @@ const reviewBenefits: { title: string; accent: Accent; items: string[] }[] = [
             <p class="muted">             (no highlight — source not grounded)</p>
           </Terminal>
           <p class="fine demo-note">
-            Real output from <code class="code-plain">@kontourai/survey</code> against an example
+            Real output captured from <code class="code-plain">@kontourai/survey 2.2.2</code> against an example
             contract. The row labels belong to the demo script; every span, page number, alignment
             state, and message comes from the library. Long excerpts wrapped to fit the column.
           </p>
@@ -114,7 +114,10 @@ const reviewBenefits: { title: string; accent: Accent; items: string[] }[] = [
 
       <div class="story">
         <p class="body story__p">
-          Survey highlights the exact sentence in the document —
+          Survey records what the reviewer decided; the resulting statement carries
+          the trust status that follows from that decision and its evidence, including
+          contradicted, unsupported, proposed, unknown, or superseded where those
+          are the honest result. Survey then highlights the exact sentence in the document —
           <em>"This agreement renews annually on March 31 unless either party
           gives 60 days' notice."</em> — page 4, characters 262 to 347. Next to
           it: the extractor that read it, the 0.82 confidence it stated, the
@@ -253,7 +256,7 @@ const reviewBenefits: { title: string; accent: Accent; items: string[] }[] = [
       <Grid min="260" gap="lg">
         <Card accent="gold-2" bar="top" pad="md">
           <h3 class="feature-title">Review MCP</h3>
-          <p class="feature-body"><code class="code-plain">npx survey-review-mcp</code> drives the queue from any MCP host. The review card carries four outcomes, not two: accept the proposal, keep what's there, reject it — or say you couldn't confirm it. Every one of them goes through the same server check as a decision made in a browser.</p>
+          <p class="feature-body"><code class="code-plain">npx survey-review-mcp</code> drives the queue from current MCP hosts while continuing to serve legacy clients. The review card carries four outcomes, not two: accept the proposal, keep what's there, reject it — or say you couldn't confirm it. Every one of them goes through the same server check as a decision made in a browser.</p>
         </Card>
         <Card accent="cobalt-2" bar="top" pad="md">
           <h3 class="feature-title">Review Console</h3>

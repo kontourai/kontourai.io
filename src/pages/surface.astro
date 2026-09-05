@@ -73,7 +73,7 @@ const moreThanStatus: { title: string; body: string; accent: Accent }[] = [
   {
     title: 'Agent-queryable (MCP)',
     accent: 'chalk-2',
-    body: "Point a coding agent or assistant at npx @kontourai/surface mcp and it can check, before it uses a number, whether that number's evidence is current, missing, or contested. It gets the same answer you would get at the command line, with nothing summarizing it in between.",
+    body: "Point an agent at npx @kontourai/surface mcp and it can inspect the same claim state the CLI derives. Current and legacy MCP clients are supported, and products can deliver the same bounded Basis view as an MCP App without handing protected owner data to the browser.",
   },
   {
     title: 'Waiver validity',
@@ -315,8 +315,10 @@ const docLinks: { label: string; href: string; event: string; external?: boolean
           A <strong>claim</strong> is one specific statement — "the registration
           status on this listing is current." <strong>Evidence</strong> is what
           backs it: a test result, a source excerpt, a person signing off.
-          A <strong>policy</strong> says what would have to be true for that claim
-          to count as checked, and how long the check stays good.
+          A <strong>policy</strong> says what must be true for that claim to count
+          as checked, how long that check lasts, and whether open gaps block it.
+          If Surface cannot evaluate the policy's validity rule, it records a
+          blocking policy gap instead of calling the claim verified.
           A <strong>gap</strong> is anything the receipt can't show you — evidence
           that's missing, private, expired, or contradicted. Surface's job is to
           keep the gap as visible as the claim.
@@ -377,13 +379,22 @@ const docLinks: { label: string; href: string; event: string; external?: boolean
       <Eyebrow gap="sm" accent="gold">Show it to your users</Eyebrow>
       <h2 class="display-md measure-lg section-title">The same trust state, embeddable where your customers already are.</h2>
       <Grid min="260" gap="lg">
+        <Card accent="chalk-2" bar="top" pad="md">
+          <h3 class="feature-title">Answer Card</h3>
+          <p class="feature-body">Put one answer's claim, freshness, supporting evidence, citations, direct inputs, and open gaps into a compact card — without re-deriving or smoothing over what the report said.</p>
+        </Card>
+        <Card accent="cobalt-2" bar="top" pad="md">
+          <h3 class="feature-title">Basis</h3>
+          <p class="feature-body">Show what supports an agent's answer and what merely travelled beside it as context. Surface owns the support assessment; reviewed sources keep their own identities. Render the same meaning natively, in the Trust Panel, or through an MCP App.</p>
+        </Card>
         <Card accent="gold" bar="top" pad="md">
           <h3 class="feature-title">Trust Panel embed</h3>
           <p class="feature-body">
             A dependency-free <code>&lt;surface-trust-panel&gt;</code> element
-            drops the customer-facing view of a claim into your own product —
-            the claim, its evidence, freshness, and gaps, without shipping a
-            framework.
+            drops the customer-facing view into your product — the claim and
+            freshness, what evidence actually supports it versus merely cites
+            it, whether each check passed or blocks, when it was observed, what
+            can be disclosed, and every remaining gap.
           </p>
         </Card>
         <Card accent="cobalt-2" bar="top" pad="md">

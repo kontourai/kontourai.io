@@ -278,8 +278,11 @@ const records: { title: string; body: string; accent: Accent }[] = [
         Plenty of teams already have something — an OKF-style knowledge bundle,
         a hosted memory service, or a hook and a folder of markdown. Knowledge
         Kit is for teams who want the store too. If you already have one, keep
-        using it: Kontour never touches the retrieval side, and there is nothing
-        to migrate.
+        using it: you can keep that memory layer completely separate; Flow Agents'
+        run evidence does not require migrating it. If you opt in, Knowledge Kit
+        can read selected sources at an exact repo revision, return retrieval
+        provenance, and project provider records into a queryable graph without
+        taking ownership of the source store.
       </p>
       <p class="body knowledge-copy knowledge-copy--last">
         What Flow Agents adds is a record of the run that came after — the
