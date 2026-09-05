@@ -9,6 +9,11 @@ import Grid from '@/components/Grid.astro';
 import Card from '@/components/Card.astro';
 import Subscribe from '@/components/Subscribe.astro';
 import ProofReplay from '@/components/ProofReplay.astro';
+import { assetCapture } from '@/lib/marketing-assets';
+
+// The Station capture is bound to marketing-assets.json (sha256 + capture
+// facts) like every other product visual; the caption reads those facts.
+const stationShot = assetCapture('public/screenshots/station-project.png');
 
 // Recognition moments (#113), ground-truthed against the flow-agents runtime
 // (ops/strategy/marketing-hooks.md, 2026-07-07): every "caught by" below is a
@@ -125,6 +130,16 @@ const narratorMoments = [
           </p>
         </Card>
       </Grid>
+      <figure class="product-shot station__shot">
+        <img src="/screenshots/station-project.png" alt="Station project page for a small repository called Trail Notes: its path and main branch, the latest commit, the open Coding layout, and workspace panes for Coding, Chat, Diff, Files, Terminal, and Plan." loading="lazy" width="1400" height="874" />
+        <figcaption>
+          A Project in Station: the branch and latest commit, the open Coding
+          layout, and the panes you can add beside it. A development build
+          (revision 74b4cf1b5) served from a temporary Station home, captured
+          on {stationShot.capturedAt}; unaltered, and not a claim about a
+          released version.
+        </figcaption>
+      </figure>
       <p class="fine station__status">
         Open source under Apache-2.0 and in active development: run it from
         source on macOS or Linux, or try the macOS Nightly desktop build. No
@@ -331,6 +346,9 @@ const narratorMoments = [
   }
   .station__card-title {
     margin-bottom: 0.75rem;
+  }
+  .station__shot {
+    margin: 2.5rem 0 0;
   }
   .station__status {
     max-width: 720px;
