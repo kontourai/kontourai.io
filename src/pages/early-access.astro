@@ -37,6 +37,14 @@ const lanes: { title: string; label: string; body: string; subject: string; body
     bodyText: 'I want to explore Kontour for agent workflows. The workflow I want to make inspectable is:',
     accent: 'cobalt-2',
   },
+  {
+    title: 'Station workspace',
+    label: 'Agents, projects, receipts in one place',
+    body: 'You want your agents, projects, and devices in one local-first workspace with the gates and receipts beside the work. Station is open source and in active development: run it from source or the macOS Nightly build, then tell us what you hit.',
+    subject: 'Kontour Station',
+    bodyText: 'I am running Station and want to talk about:',
+    accent: 'cobalt',
+  },
 ];
 
 const mailto = (subject: string, body: string) =>
@@ -69,7 +77,10 @@ const mailto = (subject: string, body: string) =>
             actually checked. That's the moment Kontour is built for — and you
             don't need us to start. Install the engine into the coding agent
             you already run and it gates the work on evidence instead of
-            promises, today, for nothing.
+            promises, today, for nothing. Prefer a workspace to a plugin?{' '}
+            <a href="https://station.kontourai.io/" data-umami-event="early-access-hero-station">Station</a> is
+            open source too: your agents, projects, and devices in one place,
+            run from source or the macOS Nightly build.
           </p>
           <p class="hero-copy animate-fade-up delay-200">
             The separate thing on offer here is hands-on. Bring one process you
