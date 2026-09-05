@@ -5,7 +5,7 @@
       "key": "surface",
       "label": "Surface",
       "packageName": "@kontourai/surface",
-      "version": "2.14.0",
+      "version": "3.2.0",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/surface",
       "publicNotes": "",
@@ -31,7 +31,7 @@
       "key": "flow",
       "label": "Flow",
       "packageName": "@kontourai/flow",
-      "version": "5.0.0",
+      "version": "5.1.1",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/flow",
       "publicNotes": "Local CLI plus a loopback Flow Console.",
@@ -57,13 +57,26 @@
       "key": "flow-agents",
       "label": "Flow Agents",
       "packageName": "@kontourai/flow-agents",
-      "version": "6.0.0",
+      "version": "6.2.0",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/flow-agents",
       "publicNotes": "",
       "marketingReviewed": {
         "version": "5.3.0",
         "date": "2026-07-25"
+      }
+    },
+    "station": {
+      "key": "station",
+      "label": "Station",
+      "packageName": "@kontourai/station-cli",
+      "version": "0.6.0",
+      "phase": "current package",
+      "sourceUrl": "https://www.npmjs.com/package/@kontourai/station-cli",
+      "publicNotes": "The workspace is open source (Apache-2.0) and runs from source on macOS or Linux or as the macOS Nightly desktop build; a verified installer ships with the first stable release. The CLI client and the plugin SDK are the published packages.",
+      "marketingReviewed": {
+        "date": "2026-09-05",
+        "version": "0.6.0"
       }
     },
     "console": {
@@ -83,7 +96,7 @@
       "key": "fieldwork",
       "label": "Fieldwork",
       "packageName": "@kontourai/fieldwork",
-      "version": "0.6.1",
+      "version": "0.10.0",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/fieldwork",
       "publicNotes": "Standalone application for grounded extraction, inspection, review, rechecks, and trusted export.",

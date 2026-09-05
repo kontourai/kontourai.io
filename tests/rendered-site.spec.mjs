@@ -2,7 +2,7 @@ import { readFile } from "node:fs/promises";
 import { expect, test } from "@playwright/test";
 import { validateTrustBundle } from "@kontourai/surface";
 
-test("homepage leads with a single Flow Agents headline and the recognition-then-mechanism argument", async ({ page }) => {
+test("homepage leads with a single Station headline and the recognition-then-mechanism argument", async ({ page }) => {
   await page.goto("/");
 
   // AC1: exactly one hero headline story above the fold, and the slogan is the
@@ -12,17 +12,35 @@ test("homepage leads with a single Flow Agents headline and the recognition-then
   await expect(page.locator(".label-sm").filter({ hasText: "Kontour · Flow Agents" })).toHaveCount(0);
   await expect(page.locator(".hero-kicker")).toHaveCount(0);
   await expect(
-    page.getByRole("heading", { level: 1, name: "Make your agents show their work.", exact: true }),
+    page.getByRole("heading", { level: 1, name: "The agent workspace where work ships with receipts.", exact: true }),
   ).toBeVisible();
   await expect(page.locator("h1")).toHaveCount(1);
   // Nothing renders above the headline inside the hero block.
   await expect(page.locator(".hero-inner > *").first()).toHaveClass(/hero-title/);
-  await expect(page.getByText("AI writes more code than anyone can read line by line.").first()).toBeVisible();
+  await expect(page.getByText("Station brings your agents, projects, and devices into one").first()).toBeVisible();
+  // The old Flow Agents-led hero is retired; the company line survives only as
+  // the footer tagline.
+  await expect(page.locator(".hero-inner").getByText("Make your agents show their work.")).toHaveCount(0);
+  await expect(page.locator(".footer__tagline").filter({ hasText: "Make your agents show their work." })).toHaveCount(1);
 
-  // Hero CTAs
-  await expect(page.locator('[data-umami-event="home-hero-early-access"]')).toHaveAttribute("href", "/early-access/");
+  // Hero CTAs: Station leads, Flow Agents is the offer for existing tools.
+  await expect(page.locator('[data-umami-event="home-hero-station"]')).toHaveAttribute("href", "https://station.kontourai.io/");
+  await expect(page.locator('[data-umami-event="home-hero-early-access"]')).toHaveCount(0);
   await expect(page.locator('[data-umami-event="home-hero-flow-agents"]')).toHaveAttribute("href", "/flow-agents/");
-  await expect(page.locator('[data-umami-event="home-hero-github"]')).toBeVisible();
+  await expect(page.locator('[data-umami-event="home-hero-github"]')).toHaveAttribute("href", "https://github.com/kontourai/station");
+
+  // Station section: what the workspace is, its run paths stated honestly, and
+  // both ways in. It renders above the recognition moments.
+  await expect(page.getByRole("heading", { name: "One workspace for the whole job." })).toBeVisible();
+  await expect(page.getByText("Your agents, one place")).toBeVisible();
+  await expect(page.getByText("Work that outlives a chat")).toBeVisible();
+  await expect(page.getByText("Receipts beside the work")).toBeVisible();
+  await expect(page.getByText("a verified installer ships with the first stable release")).toBeVisible();
+  await expect(page.locator('[data-umami-event="home-station-tour"]')).toHaveAttribute("href", "https://station.kontourai.io/");
+  await expect(page.locator('[data-umami-event="home-station-setup"]')).toHaveAttribute("href", "https://kontourai.github.io/station/docs/user/getting-started.html");
+  await expect(page.locator('[data-umami-event="home-station-flow-agents"]')).toHaveAttribute("href", "/flow-agents/");
+  await expect(page.locator('[data-umami-event="home-fork-station"]')).toHaveAttribute("href", "https://station.kontourai.io/");
+  await expect(page.locator('[data-umami-event="home-fork-early-access"]')).toHaveAttribute("href", "/early-access/");
 
   // The prompt-vs-gate line survives the enforcement section's deletion; it now
   // closes the mechanism section, with the runtime qualification attached so the
@@ -88,10 +106,13 @@ test("homepage leads with a single Flow Agents headline and the recognition-then
   await expect(page.getByText("an edited test slips through the runtime gate")).toBeVisible();
   await expect(page.locator('[data-umami-event="home-narrator-trust"]')).toHaveAttribute("href", "/trust/");
   // Examples-first placement: the recognition block renders above the mechanism.
+  const stationBox = await page.getByRole("heading", { name: "One workspace for the whole job." }).boundingBox();
   const narratorBox = await page.getByRole("heading", { name: "Anyone can say the tests passed." }).boundingBox();
   const toothbrushBox = await page.getByRole("heading", { name: "Don't ask the agent. Check the toothbrush." }).boundingBox();
+  expect(stationBox).not.toBeNull();
   expect(narratorBox).not.toBeNull();
   expect(toothbrushBox).not.toBeNull();
+  expect(stationBox.y).toBeLessThan(narratorBox.y);
   expect(narratorBox.y).toBeLessThan(toothbrushBox.y);
   await expect(page.locator('[data-umami-event="home-mechanism-receipts"]')).toHaveAttribute("href", "/receipts/");
 
@@ -1158,9 +1179,13 @@ test("developers page leads with the engine and kits, then exposes the proof cha
   await productsSummary.click();
   // The shopfront: engine, the finished app, and the operating view, each
   // carrying its own mark, with the kits filed under the engine that runs them.
-  for (const event of ["nav-flow-agents", "nav-fieldwork", "nav-console", "nav-builder-kit", "nav-knowledge-kit"]) {
+  for (const event of ["nav-station", "nav-flow-agents", "nav-fieldwork", "nav-console", "nav-builder-kit", "nav-knowledge-kit"]) {
     expect(await hitTest(event), `${event} is not hit-testable inside the Products panel`).toBe(true);
   }
+  // Station leads the shopfront and links out to its own site.
+  await expect(page.locator('.nav-dropdown__panel .nav-link--product').first()).toHaveAttribute("data-umami-event", "nav-station");
+  await expect(page.locator('[data-umami-event="nav-station"]')).toHaveAttribute("href", "https://station.kontourai.io/");
+  await expect(page.locator('[data-umami-event="nav-station"] svg')).toHaveCount(1);
   await expect(page.locator('[data-umami-event="nav-fieldwork"]')).toHaveAttribute("href", "/fieldwork/");
   await expect(page.locator('[data-umami-event="nav-console"]')).toHaveAttribute("href", "/console/");
   await expect(page.locator('[data-umami-event="nav-flow-agents"]')).toHaveAttribute("href", "/flow-agents/");

@@ -18,7 +18,7 @@ export type KitKey = "builder-kit" | "knowledge-kit";
 // Applications are standalone front doors that compose product contracts. They
 // remain separate from `products`: an application does not become a primitive
 // product, a ProductKey, or a navigation/icon identity.
-export type ApplicationKey = "fieldwork";
+export type ApplicationKey = "station" | "fieldwork";
 
 // Packages the site cites as evidence but does not market: no page, no nav, no
 // icon. They still need tracked status, because page copy quotes their version
@@ -94,6 +94,16 @@ export const referencedPackages: Reference[] = [
 ];
 
 export const applications: Application[] = [
+  {
+    key: "station",
+    href: "https://station.kontourai.io/",
+    label: "Station",
+    accent: "cobalt",
+    repo: "https://github.com/kontourai/station",
+    packageName: "@kontourai/station-cli",
+    job: "Bring your agents, projects, and devices into one local-first workspace, with gates, evidence, and receipts beside the work.",
+    composition: "The workspace itself: open source, run from source or the macOS Nightly desktop build today. The published CLI client drives any Station from a terminal, and the SDK is how plugins extend it.",
+  },
   {
     key: "fieldwork",
     href: "/fieldwork/",
@@ -202,6 +212,9 @@ function requireProduct(key: ProductKey): Product {
 // machine and lives under `Developers`.
 export const engine = requireProduct("flow-agents");
 export const operatingView = requireProduct("console");
+// Station leads the shopfront (owner direction 2026-09-05: Station is the main
+// product; Flow Agents is the same discipline for the tools you already run).
+export const workspace = applications.find((application) => application.key === "station")!;
 export const disciplines: Product[] = products.filter(
   (product) => product.key !== engine.key && product.key !== operatingView.key,
 );
