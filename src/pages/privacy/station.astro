@@ -22,8 +22,8 @@ import Footer from '@/components/Footer.astro';
 import Section from '@/components/Section.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
 
-const updated = '11 August 2026';
-const inventoryFingerprint = '788a17b779346da5';
+const updated = '24 September 2026';
+const inventoryFingerprint = '14fb5deaa340fe04';
 ---
 
 <Layout
@@ -50,9 +50,11 @@ const inventoryFingerprint = '788a17b779346da5';
       <h2 class="display-md privacy-h2">The default: nothing goes anywhere</h2>
       <p class="body measure">
         Station is self-hosted. Your conversations, your files, and your
-        knowledge base live in Station's own storage on your machine. There is no
-        Kontour-operated server in the middle, no account required to use it, and
-        no identifier derived from an account.
+        knowledge base live in Station's own storage on your machine. By default
+        there is no Kontour-operated server in the middle, no account required to
+        use it, and no identifier derived from an account. The one Kontour service
+        Station can use, the push gateway for agent activity on your phone, is off
+        until you turn it on and is described below.
       </p>
       <p class="body measure">
         Everything in the next section describes a case where data does leave —
@@ -109,6 +111,26 @@ const inventoryFingerprint = '788a17b779346da5';
         built-in provider, that is Amazon Bedrock. If you use a browser's own
         speech features instead, that browser's handling and retention are the
         platform's, and we cannot describe them for you.
+      </p>
+
+      <h3 class="privacy-h3">Agent activity on your phone</h3>
+      <p class="body measure">
+        If you turn on agent activity for a paired Android phone, Station sends
+        that phone a small status card: up to five agent sessions' titles (a
+        session's title is the first ~120 characters of your first message in
+        it), their project names and their status, with activity counts and a
+        short alert when a session needs you or finishes. Never transcripts,
+        later messages, code, tool output or file paths.
+      </p>
+      <p class="body measure">
+        The card is end-to-end encrypted to the phone with a key only that
+        phone and your Station hold. It travels through the Kontour push
+        gateway, which keeps nothing, and Google Firebase Cloud Messaging, which
+        delivers it. Neither can read it: they see only routing data, namely the
+        phone's Firebase registration token, a random per-registration
+        identifier, your Station's push-key fingerprint, and the size and timing
+        of each message. Nothing is sent while no phone is registered, and
+        turning it off or unpairing the phone stops it.
       </p>
 
       <h3 class="privacy-h3">Camera</h3>
