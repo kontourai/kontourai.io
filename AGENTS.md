@@ -23,6 +23,10 @@ publishable.
 - Product pages live in `src/pages/*.astro`; shared metadata in `src/data/product-status.json` (versions must match the npm registry — the validator enforces it).
 - The honesty gates: `scripts/validate.mjs` (registry/version/page-state checks) and `scripts/check-content-boundary.cjs`.
 
+## Design system
+
+UI, brand, and product-copy rules live in `DESIGN.md` in `@kontourai/ui` (https://github.com/kontourai/ui/blob/main/DESIGN.md; also shipped at `node_modules/@kontourai/ui/DESIGN.md` from 1.13.0). Style with the `--k-*` tokens instead of hard-coded colors, spacing, radii or font sizes, and don't resolve anything the doc marks OPEN. The marketing site's own palette is an open question in that doc; keep it until it is decided.
+
 ## Match Checks To Change Type
 
 - Docs/interface-only changes: `npm run check:content-boundary` plus source inspection.
