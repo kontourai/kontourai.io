@@ -25,7 +25,7 @@ publishable.
 
 ## Design system
 
-UI, brand, and product-copy rules live in `DESIGN.md` in `@kontourai/ui` (https://github.com/kontourai/ui/blob/main/DESIGN.md; also shipped at `node_modules/@kontourai/ui/DESIGN.md` from 1.13.0). Style with the `--k-*` tokens instead of hard-coded colors, spacing, radii or font sizes, and don't resolve anything the doc marks OPEN. The marketing site's own palette is an open question in that doc; keep it until it is decided.
+UI, brand, and product-copy rules live in `DESIGN.md` in `@kontourai/ui` (https://github.com/kontourai/ui/blob/main/DESIGN.md; also shipped at `node_modules/@kontourai/ui/DESIGN.md` from 1.13.0). Follow its brand and copy rules, and don't resolve anything the doc marks OPEN. This site does not load the product `--k-*` tokens: it styles with its own palette (`--color-*` and the per-product `--accent` in `src/styles/global.css`, typed in `src/lib/theme.ts` and checked by `npm run check:theme-tokens`). How that palette relates to the product tokens is an open question in that doc (OPEN-11). Use the site's tokens instead of hard-coded colors, don't migrate them to `--k-*`, and keep this palette until OPEN-11 is decided.
 
 ## Match Checks To Change Type
 
