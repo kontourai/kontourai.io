@@ -1,7 +1,7 @@
 # Automated product-status pin refresh (issue #87).
 #
 # The fleet's release cadence outpaces manual pin refreshes: version drift broke
-# "Build, Test & Validate" + "Trust Verify" fleet-wide multiple times in a single
+# "Build, Test & Validate" fleet-wide multiple times in a single
 # day (PRs #79, #86, #94). This workflow moves the mechanical case out of the
 # human loop: it regenerates src/data/product-status.json from the public npm
 # registry and opens a pull request ONLY when a version pin actually drifted.
@@ -48,8 +48,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7.0.1
         with:
-          # A PAT (secrets.PIN_REFRESH_TOKEN) lets the auto-PR trigger Deploy /
-          # Trust Verify; the default GITHUB_TOKEN cannot (GitHub suppresses
+          # A PAT (secrets.PIN_REFRESH_TOKEN) lets the auto-PR trigger Deploy;
+          # the default GITHUB_TOKEN cannot (GitHub suppresses
           # workflow triggers on token-authored events). Falls back gracefully.
           token: ${{ secrets.PIN_REFRESH_TOKEN || secrets.GITHUB_TOKEN }}
 

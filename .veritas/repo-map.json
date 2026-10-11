@@ -70,7 +70,6 @@
         "kind": "product-area",
         "label": "Additional repository product areas",
         "patterns": [
-          "delivery/",
           "public/"
         ]
       },
