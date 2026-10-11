@@ -1,6 +1,6 @@
 # Evidence lanes (issue #3):
 #   - PR VALIDATION EVIDENCE = the "Build, Test & Validate" check on a pull
-#     request (plus "Trust Verify"). Hermetic with one exception: npm-registry
+#     request. Hermetic with one exception: npm-registry
 #     parity runs in warn mode on PRs so out-of-band package releases can't
 #     turn open PRs red.
 #   - DEPLOY/RELEASE READINESS EVIDENCE = the same "Build, Test & Validate"
