@@ -1142,8 +1142,8 @@ test("developers page leads with the engine and kits, then exposes the proof cha
   await expect(page.getByText("Release Evidence Kit")).toBeVisible();
   await expect(page.getByText("Veritas Governance Kit")).toBeVisible();
   // AI-DLC Kit is not on npm (@kontourai/aidlc-kit 404): the card says to
-  // install from GitHub and links the repo until the use-case page lands.
-  await expect(page.locator('[data-umami-event="developers-kit-aidlc"]')).toHaveAttribute("href", "https://github.com/kontourai/aidlc-kit");
+  // install from GitHub, and opens the worked example (/use-cases/aidlc/, #305).
+  await expect(page.locator('[data-umami-event="developers-kit-aidlc"]')).toHaveAttribute("href", "/use-cases/aidlc/");
   await expect(page.getByText("Not on npm: install it from GitHub at a reviewed commit")).toBeVisible();
   // The Veritas kit is not agentless — it ships two flows AND three agent
   // skills, from a different repo than the engine.
