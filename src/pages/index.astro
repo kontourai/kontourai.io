@@ -16,7 +16,7 @@ import { assetCapture } from '@/lib/marketing-assets';
 const stationShot = assetCapture('public/screenshots/station-project.png');
 
 // Recognition moments (#113), ground-truthed against the flow-agents runtime
-// (ops/strategy/marketing-hooks.md, 2026-07-07): every "caught by" below is a
+// (internal marketing notes, 2026-07-07): every "caught by" below is a
 // catch that actually exists in the shipped hooks. Ordering is deliberate —
 // the backstop/memory case leads because it is both believable and
 // implemented. Do NOT add moments whose catch is a named residual (stale
@@ -41,7 +41,7 @@ const narratorMoments = [
     moment: 'Masked the exit code.',
     detail: 'npm test || true, a trailing exit 0 — the command can no longer fail.',
     caught:
-      "a command that masks its own exit code can't stand as evidence: the gate flags the claimed pass as untrustworthy, and CI refuses to reconcile it.",
+      "a command that masks its own exit code can't stand as evidence: the gate flags the claimed pass as untrustworthy, and the pull request's required checks still run the real tests on the exact head.",
   },
   {
     moment: 'Edited the evidence record.',
@@ -142,7 +142,7 @@ const narratorMoments = [
       </figure>
       <p class="fine station__status">
         Open source under Apache-2.0 and in active development: run it from
-        source on macOS or Linux, or try the macOS Nightly desktop build. No
+        source on macOS or Linux, or try the macOS or Windows Nightly desktop build. No
         stable or beta release is published yet. Station data stays on your
         machine by default; hosted Model connections, Engines, paired devices,
         remote computers, and export endpoints carry data only when you
@@ -249,9 +249,8 @@ const narratorMoments = [
       <p class="body measure fork__lead">
         You don't have to take our word for any of this — this site ships
         through the same gates. Every change here merges behind a required
-        check that re-runs this repo's own verification in CI and, when an
-        agent published its claims, fails on any disagreement with what CI
-        actually observed.
+        check that re-runs this repo's own verification in CI on the exact
+        head of the pull request, with no admin bypass.
       </p>
       <div class="fork__paths">
         <div class="fork__path" data-accent="gold">

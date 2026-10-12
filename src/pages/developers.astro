@@ -45,6 +45,10 @@ const applicationCards = applications.map((application) => {
 // for months with nothing on the registry behind either name.
 const labRepos = labPackages;
 const npmUrl = (packageName: string) => `https://www.npmjs.com/package/${packageName}`;
+
+// The docs MCP command uses the same docs-kit commit the docs hub README pins
+// (github.com/kontourai/kontourai.github.io). Update both together.
+const docsKitPin = '27cd43ded8c6e2e591d85d1d65bff31b3ae92e24';
 ---
 
 <Layout
@@ -139,8 +143,9 @@ const npmUrl = (packageName: string) => `https://www.npmjs.com/package/${package
       </Grid>
       <p class="fine measure quickstart-proof">
         We run this on ourselves. This site's own pull requests can't merge
-        until a required <span class="mono-inline">Trust Verify</span> check
-        passes, and the bundle it produces is published on <a href="/receipts/" data-umami-event="developers-quickstart-proof-receipts">the receipts page</a>.
+        until its required <span class="mono-inline">Build, Test &amp; Validate</span> check
+        passes, and that check re-validates every bundle on <a href="/receipts/" data-umami-event="developers-quickstart-proof-receipts">the receipts page</a> under
+        both validators, at the pinned versions shown above.
       </p>
       <div class="quickstart-links">
         <a href="/receipts/" class="btn-ghost" data-umami-event="developers-quickstart-receipts">Download real receipts →</a>
@@ -154,11 +159,12 @@ const npmUrl = (packageName: string) => `https://www.npmjs.com/package/${package
   <Section id="kits" tone="alt" borderTop borderBottom>
     <div class="container">
       <Eyebrow gap="sm" accent="chalk-2">The kits</Eyebrow>
-      <h2 class="display-md measure-lg">Four kits ship with it. Activate the ones you want.</h2>
+      <h2 class="display-md measure-lg">Three kits ship with it, and more install from their own repos.</h2>
       <p class="body measure kits-intro">
         A kit is a versioned rulebook the engine runs: one or more flows, the
         evidence each step has to produce, and when it stops to ask you. Kits
-        ship in the catalog and stay inactive until you activate them. <a href="/flow-agents/#kits" data-umami-event="developers-kits-how">How kits work →</a>
+        ship in the catalog; a default Claude Code install activates every
+        built-in kit, and elsewhere they stay inactive until you activate them. <a href="/flow-agents/#kits" data-umami-event="developers-kits-how">How kits work →</a>
       </p>
       <Grid min="260" gap="md">
         {kitCards.map(({ name, href, job, note, accent, external, event }) => (
@@ -224,7 +230,7 @@ const npmUrl = (packageName: string) => `https://www.npmjs.com/package/${package
         of the parts.
       </p>
       <div class="application-grid">
-        {applicationCards.map(({ href, label, accent, repo, packageName, job, composition, status, badge, key }) => (
+        {applicationCards.map(({ href, label, accent, repo, packageName, docs, job, composition, status, badge, key }) => (
           <Card accent={accent} bar="top" pad="md">
             <h3 class="product-card__title application-card__title">
               <ProductMark product={key} size={20} class="application-card__mark" />{label}
@@ -234,6 +240,7 @@ const npmUrl = (packageName: string) => `https://www.npmjs.com/package/${package
             <p class="application-card__status">{packageName} · {badge}</p>
             <div class="product-card__links">
               <a href={href} data-umami-event={`developers-application-${key}`}>Explore {label} →</a>
+              <a href={docs} target="_blank" rel="noopener" data-umami-event={`developers-application-${key}-docs`}>Docs →</a>
               {status.sourceUrl && <a href={status.sourceUrl} target="_blank" rel="noopener" data-umami-event={`developers-application-${key}-npm`}>npm →</a>}
               <a href={repo} target="_blank" rel="noopener" data-umami-event={`developers-application-${key}-repo`}>GitHub →</a>
             </div>
@@ -267,18 +274,30 @@ const npmUrl = (packageName: string) => `https://www.npmjs.com/package/${package
         today — nothing on this list is a name you can't install.
       </p>
       <Grid min="280" gap="md">
-        {labRepos.map(({ slug, label, repo, packageName, description }) => (
+        {labRepos.map(({ slug, label, repo, packageName, docs, description }) => (
           <Card accent="chalk-2" pad="md">
             <h3 class="product-card__title">{label}</h3>
             <p class="lab-card__package">{packageName}</p>
             <p class="product-card__body">{description}</p>
             <div class="product-card__links">
+              {docs && <a href={docs} target="_blank" rel="noopener" data-umami-event={`developers-lab-${slug}-docs`}>Docs →</a>}
               <a href={npmUrl(packageName)} target="_blank" rel="noopener" data-umami-event={`developers-lab-${slug}-npm`}>npm →</a>
               <a href={repo} target="_blank" rel="noopener" data-umami-event={`developers-lab-${slug}-repo`}>GitHub →</a>
             </div>
           </Card>
         ))}
       </Grid>
+      <div class="docs-hub">
+        <p class="fine measure">
+          Kontour products publish their docs to <a href="https://kontourai.github.io/" target="_blank" rel="noopener" data-umami-event="developers-docs-hub">the Kontour docs hub</a>,
+          built from each repo's <code>main</code> and stamped with the commit it came from.
+          To let a coding agent search them instead, add the docs MCP server, which serves every product on the hub:
+        </p>
+        <Terminal title="add the docs MCP to Claude Code">
+          <p><span class="prompt">$ </span><span class="cmd">claude mcp add kontour-docs -- npx -y \</span></p>
+          <p><span class="cmd">    github:kontourai/docs-kit#{docsKitPin} docs-kit mcp</span></p>
+        </Terminal>
+      </div>
     </div>
   </Section>
 
@@ -302,6 +321,14 @@ const npmUrl = (packageName: string) => `https://www.npmjs.com/package/${package
     max-width: 820px;
   }
 
+
+  .docs-hub {
+    margin: 2.5rem 0 0;
+  }
+
+  .docs-hub p {
+    margin: 0 0 1rem;
+  }
 
   .ownership-note,
   .lab-intro {

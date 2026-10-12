@@ -34,7 +34,7 @@ const path: { step: string; title: string; body: string; accent: Accent }[] = [
     step: '03',
     title: 'Publish & learn',
     accent: 'green',
-    body: 'PR opened, CI rerun reconciled against the diff that actually landed, merge-or-hold called out loud, and the corrections written down so the next run starts sharper.',
+    body: 'PR opened, CI and review status checked on the exact pull-request head, merge-or-hold called out loud, and the corrections written down so the next run starts sharper.',
   },
 ];
 
@@ -112,18 +112,18 @@ const leftBehind: { file: string; note: string }[] = [
           <Terminal class="animate-fade-in delay-300" title="install today">
             <p><span class="prompt">$ </span><span class="cmd">npx @kontourai/flow-agents init --runtime claude-code --activate-kit builder --yes</span></p>
           </Terminal>
-          <Terminal class="animate-fade-in delay-300" title="workflow doctor — Flow Agents 5.3.0">
+          <Terminal class="animate-fade-in delay-300" title="workflow doctor — Flow Agents 8.0.0">
             <p><span class="prompt">$ </span><span class="cmd">flow-agents workflow doctor</span></p>
             <br />
-            <p>Flow Agents CLI: 5.3.0</p>
-            <p>Installed hooks/writer: 5.3.0</p>
+            <p>Flow Agents CLI: 8.0.0</p>
+            <p>Installed hooks/writer: 8.0.0</p>
             <p>Builder Kit schema: installed=1.0 resolved=1.0</p>
-            <p>Flow: builder.build@1.3</p>
+            <p>Flow: builder.build@1.4</p>
             <p class="muted">Artifact schema: state=none trust=none</p>
           </Terminal>
           <p class="term-note animate-fade-in delay-300">
-            The doctor excerpt is verbatim output from Flow Agents 5.3.0. The
-            current install command above uses the kit-activation interface introduced in 6.0.0.{' '}
+            The doctor excerpt is verbatim output from Flow Agents 8.0.0, run
+            right after the install command above.{' '}
             <code>state=none trust=none</code> is correct on a fresh install —
             no run has happened yet.
           </p>
@@ -270,7 +270,7 @@ const leftBehind: { file: string; note: string }[] = [
       <Grid min="260" gap="md">
         <Card accent="green" bar="top" pad="md">
           <h3 class="feature-title">Shipping is part of the job</h3>
-          <p class="feature-body">Opening the PR, reconciling CI against the diff that actually landed, calling merge or hold, and writing down the corrections is one flow — <code>builder.publish-learn</code> — not an afterthought bolted onto the end of a build.</p>
+          <p class="feature-body">Opening the PR, checking CI and review on the exact pull-request head, calling merge or hold, and writing down the corrections is one flow — <code>builder.publish-learn</code> — not an afterthought bolted onto the end of a build.</p>
         </Card>
         <Card accent="gold" bar="top" pad="md">
           <h3 class="feature-title">Model routing + escalation</h3>
@@ -314,8 +314,8 @@ const leftBehind: { file: string; note: string }[] = [
           </p>
           <p class="body builder-copy builder-copy--last">
             Builder brings Knowledge Kit with it — the learning step uses it to
-            file what the reviewers corrected. Two kit directories land in your
-            repo, not one.
+            file what the reviewers corrected. The installer copies the whole kit
+            catalog into your repo, not just Builder.
           </p>
         </div>
 

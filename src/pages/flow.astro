@@ -22,7 +22,7 @@ const flowStatus = getProductStatus('flow');
 // recorded at a moment, so deriving it from live product status would re-label
 // these transcripts at every release with no re-run — the same defect the
 // screenshot captions had. Re-capture, then bump this.
-const captureVersion = '3.10.0';
+const captureVersion = '5.2.0';
 
 const answers: { q: string; accent?: Accent }[] = [
   { q: 'What was this run supposed to do?' },
@@ -90,7 +90,7 @@ const heroRun: TLine[] = [
   { cls: 'warn', text: '      planned change. missing' },
   { cls: 'muted', text: '      expected: The implementation diff is scoped to the planned change.' },
   { cls: 'muted', text: '      transition diagnostics: transition.gate.block' },
-  { cls: 'muted', text: 'WAIT  verify gate: verify gate waiting' },
+  { cls: 'muted', text: 'UNKNOWN verify gate: verify gate has no recorded outcome' },
   { cls: 'muted', text: '' },
   { cls: 'muted', text: 'status: blocked' },
   { cls: 'muted', text: 'next action: attach scoped files before continuing' },
@@ -272,8 +272,8 @@ const consoleRun: TLine[] = [
             ))}</pre>
           </Terminal>
           <p class="term-note">
-            Real output from the same demo run as the hero, after attaching the
-            demo's own scoped-diff evidence to clear the implement gate.
+            Real output from the same demo run as the hero, after attaching a scoped-diff trust bundle we wrote for this capture,
+            modeled on the demo's own acceptance bundle, to clear the implement gate.
             Unedited; the command exits 1. This is the demo's verify gate, not
             the release path described on the left — that path is an
             illustration, and we do not have a capture of it.

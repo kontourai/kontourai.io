@@ -303,7 +303,7 @@ const reviewBenefits: { title: string; accent: Accent; items: string[] }[] = [
           <p class="muted">  (tool call) survey_review_decide {`{`} itemName: "public-directory-phone",</p>
           <p class="muted">                                    decision: "could-not-confirm" {`}`}</p>
           <br />
-          <p class="fail">  survey_review_decide requires a non-empty reason for could-not-confirm</p>
+          <p class="fail">  Input validation error: Invalid arguments for tool survey_review_decide: reason: Invalid input: expected string, received undefined</p>
           <br />
           <p class="muted">  (tool call) survey_review_decide {`{`} … decision: "could-not-confirm",</p>
           <p class="muted">                                    reason: "Directory page and the county</p>
@@ -434,7 +434,7 @@ const reviewBenefits: { title: string; accent: Accent; items: string[] }[] = [
       extractor: <span class="t-str">"example-crawler"</span>,
       extractedAt: <span class="t-fn">now</span>(),
     {'}'},
-    reviewOutcome: {'{'} status: <span class="t-str">"verified"</span> {'}'},
+    reviewOutcome: {'{'} status: <span class="t-str">"verified"</span>, actor: <span class="t-str">"records-reviewer"</span>, reviewedAt: <span class="t-fn">now</span>() {'}'},
     claim: {'{'}
       subjectType: <span class="t-str">"public-record.entity"</span>,
       subjectId: <span class="t-str">"entity-123"</span>,
@@ -474,9 +474,9 @@ const reviewBenefits: { title: string; accent: Accent; items: string[] }[] = [
           <p class="muted">  buildSurveyTrustBundle()</p>
           <p class="rule">  ───────────────────────────────</p>
           <p class="info">  Surface TrustBundle</p>
-          <p class="pass">  verified  registrationStatus = ACTIVE</p>
+          <p class="warn">  proposed  registrationStatus = ACTIVE</p>
           <p class="muted">  evidence  web-page · css:#registration-status</p>
-          <p class="muted">  freshness owned by Surface policy</p>
+          <p class="muted">  verified once a Surface policy names the evidence it needs</p>
         </Terminal>
       </Split>
     </div>

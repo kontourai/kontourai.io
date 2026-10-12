@@ -26,7 +26,7 @@ export const runtimeEnforcement: RuntimeEnforcement[] = [
   {
     runtime: "Codex",
     level: "blocking",
-    meaning: "Same blocking path, mapped to Codex agent definitions.",
+    meaning: "Same blocking path, wired through Codex's hooks.json.",
   },
   {
     // Kiro's adapter has the full blocking capability (hook-surface L2), but

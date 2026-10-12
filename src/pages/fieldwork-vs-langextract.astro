@@ -69,7 +69,7 @@ const langextractWins = [
   },
   {
     title: 'Long documents are tunable there, capped here',
-    body: 'Both tools chunk. LangExtract exposes the controls — chunk size, parallel workers, repeat passes for recall — and its pinned README runs all 147,843 characters of Romeo and Juliet through them. Fieldwork chunks too, in fixed 12,000-character windows with 200-character overlap and a single pass, and exposes none of those controls. It still caps the prepared source at 40 chunks; the extraction layer it depends on (Traverse 0.25.1) reports crossing that boundary as a partial stop rather than silent success. A source above 2 MiB is refused outright.',
+    body: 'Both tools chunk. LangExtract exposes the controls — chunk size, parallel workers, repeat passes for recall — and its pinned README runs all 147,843 characters of Romeo and Juliet through them. Fieldwork chunks too, in fixed 12,000-character windows with 200-character overlap and a single pass; it exposes parallel workers (--concurrency) and the chunk cap (--max-chunks, 40 by default), but not chunk size or repeat passes. The extraction layer it depends on (Traverse 5) reports a source that crosses the cap as a partial stop rather than silent success. A source above 2 MiB is refused outright.',
     link: { label: 'Pinned long-document example ↗', url: `${sources.langextract}#romeo-and-juliet-full-text-extraction` },
   },
   {
@@ -113,7 +113,7 @@ const rows = [
   {
     concern: 'Reviewed output',
     upstream: 'Writes results as JSONL for downstream use, alongside the HTML view.',
-    kontour: 'Exports only after review is finished, and refuses when the review state is unresolved, stale, malformed, tampered or ungrounded. What comes out carries the excerpt, locator, decision and provenance with it.',
+    kontour: 'Exports only the values a person settled — anything still open is left out, listed, and the command exits non-zero — and refuses outright when the review state is stale, malformed, tampered or ungrounded. What comes out carries the excerpt, locator, decision and provenance with it.',
     evidence: claimSources.reviewedOutput,
   },
   {
@@ -326,7 +326,7 @@ const sourceNames: Record<string, string> = {
         <Card accent="green" bar="top">
           <p class="label-md difference-card__number">03 / Export</p>
           <h3>An export that refuses</h3>
-          <p class="body">The export you saw fail above refuses on unresolved, stale, malformed, tampered or ungrounded review state. What it does emit carries its excerpts, locators and decisions with it.</p>
+          <p class="body">The export you saw fail above refuses when nothing has been settled, or when review state is stale, malformed, tampered or ungrounded; a value still open is left out of the file and named. What it does emit carries its excerpts, locators and decisions with it.</p>
           <a href={sources.fieldwork} target="_blank" rel="noopener">Export contract ↗</a>
         </Card>
       </Grid>

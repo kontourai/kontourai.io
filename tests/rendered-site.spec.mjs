@@ -432,7 +432,7 @@ test("early access page gives static contact paths", async ({ page }) => {
   // Station has its own lane now that it is the main product; the lane and the
   // hero mention both point at the product site rather than an install command.
   await expect(page.getByRole("heading", { name: "Station workspace" })).toBeVisible();
-  await expect(page.getByText("run it from source or the macOS Nightly build, then tell us what you hit")).toBeVisible();
+  await expect(page.getByText("run it from source or the macOS or Windows Nightly build, then tell us what you hit")).toBeVisible();
   await expect(page.locator('[data-umami-event="early-access-hero-station"]')).toHaveAttribute("href", "https://station.kontourai.io/");
   await expect(page.getByText("One concrete workflow is enough.")).toBeVisible();
   await expect(page.locator('[data-umami-event="early-access-hero-email"]')).toHaveAttribute("href", /mailto:hello@kontourai\.io/);
@@ -728,7 +728,9 @@ test("survey page explains the producer pipeline and surface handoff", async ({ 
   // The fourth review outcome is load-bearing copy: the MCP card, the section,
   // and the real run that shows the refusal without a reason.
   await expect(page.getByText("four outcomes, not two")).toBeVisible();
-  await expect(page.getByText("survey_review_decide requires a non-empty reason for could-not-confirm")).toBeVisible();
+  // survey-review-mcp 8.x rejects a missing reason at input-schema validation,
+  // before the older handler message could be reached.
+  await expect(page.getByText("Invalid arguments for tool survey_review_decide: reason").first()).toBeVisible();
   await expect(page.getByText("couldNotConfirm=1")).toBeVisible();
   // The Fieldwork/Survey split — the app vs the contracts — is stated, not implied.
   await expect(page.locator('[data-umami-event="survey-fieldwork"]')).toHaveAttribute("href", "/fieldwork/");
@@ -1126,7 +1128,7 @@ test("developers page leads with the engine and kits, then exposes the proof cha
 
   // The kits section: all four catalog kits, the two paged ones linking to
   // their own pages, quickstart above them (install first, catalog second).
-  await expect(page.getByRole("heading", { name: "Four kits ship with it. Activate the ones you want." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Three kits ship with it, and more install from their own repos." })).toBeVisible();
   await expect(page.locator('[data-umami-event="developers-kit-builder"]')).toHaveAttribute("href", "/builder-kit/");
   await expect(page.locator('[data-umami-event="developers-kit-knowledge"]')).toHaveAttribute("href", "/knowledge-kit/");
   await expect(page.getByText("Release Evidence Kit")).toBeVisible();
@@ -1145,7 +1147,7 @@ test("developers page leads with the engine and kits, then exposes the proof cha
     "https://github.com/kontourai/veritas",
   );
   const quickstartBox = await page.getByRole("heading", { name: "Install it, then check our receipts before you believe us." }).boundingBox();
-  const kitsBox = await page.getByRole("heading", { name: "Four kits ship with it. Activate the ones you want." }).boundingBox();
+  const kitsBox = await page.getByRole("heading", { name: "Three kits ship with it, and more install from their own repos." }).boundingBox();
   expect(quickstartBox).not.toBeNull();
   expect(kitsBox).not.toBeNull();
   expect(quickstartBox.y).toBeLessThan(kitsBox.y);
@@ -1174,6 +1176,23 @@ test("developers page leads with the engine and kits, then exposes the proof cha
   await expect(page.getByText("Built on Forage's snapshots")).toBeVisible();
   await expect(page.getByText("apart from four opt-in commands")).toBeVisible();
   await expect(page.getByText("Never makes model calls")).toHaveCount(0);
+
+  // Docs links point at each product's site on the docs hub. A card only
+  // links docs that exist: the Kontour CLI has no docs site, so no link.
+  await expect(page.locator('[data-umami-event="developers-application-station-docs"]')).toHaveAttribute("href", "https://kontourai.github.io/station/");
+  await expect(page.locator('[data-umami-event="developers-application-fieldwork-docs"]')).toHaveAttribute("href", "https://kontourai.github.io/fieldwork/");
+  await expect(page.locator('[data-umami-event="developers-lab-forage-docs"]')).toHaveAttribute("href", "https://kontourai.github.io/forage/");
+  await expect(page.locator('[data-umami-event="developers-lab-cli-docs"]')).toHaveCount(0);
+  await expect(page.locator('[data-umami-event="developers-docs-hub"]')).toHaveAttribute("href", "https://kontourai.github.io/");
+  // The docs MCP command carries the docs-kit commit the hub README pins
+  // (literal, checked against github.com/kontourai/kontourai.github.io on 2026-10-11).
+  await expect(
+    page.getByText("github:kontourai/docs-kit#27cd43ded8c6e2e591d85d1d65bff31b3ae92e24 docs-kit mcp"),
+  ).toBeVisible();
+  // This site's Trust Verify workflow was retired (#302) and was never a
+  // required check; the proof line names the check that is required.
+  await expect(page.getByText("Trust Verify")).toHaveCount(0);
+  await expect(page.getByText("Build, Test & Validate")).toBeVisible();
 
   // Nav: two menus split by what the reader wants — Products holds the three
   // things you install and run (engine, app, operating view) plus the kits that
@@ -1662,18 +1681,24 @@ test("trust page states what it can't certify, the bypass list, the assurance di
   await expect(page.getByText("Caught locally; re-run independently in CI")).toBeVisible();
   await expect(page.getByText("Named, not caught")).toBeVisible();
   await expect(page.getByText("never \"tamper-proof.\"")).toBeVisible();
-  // The check has one name. It is the `trust-verify` action, and in the Flow
-  // Agents repo it runs under the check name `Trust Reconcile`. "Trust Verify"
-  // as a job name never existed.
-  await expect(page.getByText("the way the Flow Agents repo does, where it runs under the name").first()).toBeVisible();
-  await expect(page.getByText("Trust Reconcile").first()).toBeVisible();
+  // Flow Agents 8.0.0 retired its CI reconcile step (Trust Reconcile /
+  // trust-verify action, flow-agents #1459) and its CI signing. The external
+  // boundary is now a repo's own required checks on the exact PR head, plus the
+  // merge step's exact-head evidence requirement. The page may mention Trust
+  // Reconcile only as retired, and must not offer the action or CI signing.
+  await expect(page.getByText("Make your pull requests' own checks").first()).toBeVisible();
+  await expect(page.getByText("8.0.0 retired it").first()).toBeVisible();
+  await expect(page.getByText("Add the trust-verify action")).toHaveCount(0);
+  await expect(page.getByText("Wire the trust-verify action")).toHaveCount(0);
+  await expect(page.getByText(/Sigstore/)).toHaveCount(0);
   await expect(page.getByText("Trust Verify")).toHaveCount(0);
   // Every count on the page is checkable against the ADRs, so the residual list
   // is described by size and content rather than claimed to be exhaustive.
   await expect(page.getByText("this exact residuals list")).toHaveCount(0);
   // The config-protection gate has a currently-open bypass class (flow-agents
-  // #1009) and a second open gap in the redirect detector (#1008). Both must be
-  // disclosed next to the local-tamper claim they qualify.
+  // #1009) and a second open gap in the redirect detector (#1008, closed as
+  // folded into #1009, not fixed). Both must be disclosed next to the
+  // local-tamper claim they qualify.
   await expect(page.getByText("One class stays open, and can't be closed there")).toBeVisible();
   await expect(page.getByText("X=cd; $X /path").first()).toBeVisible();
   await expect(page.getByRole("link", { name: "issue #1009" })).toHaveAttribute(
@@ -1704,11 +1729,12 @@ test("trust page states what it can't certify, the bypass list, the assurance di
   await expect(page.getByText("installing the tool doesn't configure your branch protection")).toBeVisible();
   // Site-parity claim stays exactly as strong as the branch-protection fact:
   // required + no-bypass, with the workflow-protection gap disclosed.
-  await expect(page.getByText("This site's own repo now requires the check too")).toBeVisible();
+  await expect(page.getByText("This site's own repo requires its check, no-bypass")).toBeVisible();
   // Since PR #141, workflow definitions and CI scripts are owner-review-protected via CODEOWNERS.
   await expect(page.getByText("require owner review via CODEOWNERS")).toBeVisible();
   await expect(page.getByText("isn't yet owner-review-protected")).toHaveCount(0);
-  await expect(page.getByText("on where we build Flow Agents, off by default")).toBeVisible();
+  // CI signing went with the retired reconcile action (flow-agents 8.0.0).
+  await expect(page.getByText("on where we build Flow Agents, off by default")).toHaveCount(0);
   await expect(page.getByText("It is the irreducible human boundary").first()).toBeVisible();
 
   // Section 3 — objection handler: "isn't that what CI does?"
@@ -1812,7 +1838,7 @@ test("freshness pass keeps current claims distinct from frozen demonstrations", 
 
   await page.goto("/developers/");
   await expect(page.getByText("That is the receipt path. Surface also carries the answer-facing path:")).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Four kits ship with it. Activate the ones you want." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Three kits ship with it, and more install from their own repos." })).toBeVisible();
 
   await page.goto("/flow/");
   await expect(page.getByText("Recorded with").filter({ hasText: "@kontourai/flow 3.10.0" })).toBeVisible();
@@ -1821,12 +1847,16 @@ test("freshness pass keeps current claims distinct from frozen demonstrations", 
   await expect(page.getByText("Real output captured from").filter({ hasText: "@kontourai/survey 2.2.2" })).toBeVisible();
 
   await page.goto("/fieldwork/");
-  await expect(page.getByText("Output above was captured from the published").filter({ hasText: "0.4.0" })).toBeVisible();
-  await expect(page.locator("pre.code").filter({ hasText: "@kontourai/fieldwork@0.4.0" })).toHaveCount(1);
+  // Quickstart re-captured against 0.14.1 (same run id and proposal count);
+  // the export panel keeps its 0.4.0 output, labelled, with the 0.11 change named.
+  await expect(page.getByText("Output above was captured from the published").filter({ hasText: "0.14.1" })).toBeVisible();
+  await expect(page.locator("pre.code").filter({ hasText: "@kontourai/fieldwork@0.14.1" })).toHaveCount(1);
+  await expect(page.getByText("export with one row still open · fieldwork 0.4.0")).toBeVisible();
+  await expect(page.getByText("lists the open row under").first()).toBeVisible();
   await expect(page.getByText("keeps its own receipt, bound to the owner's review head")).toBeVisible();
 
   await page.goto("/fieldwork-vs-langextract/");
-  await expect(page.getByText("reports crossing that boundary as a partial stop rather than silent success")).toBeVisible();
+  await expect(page.getByText("reports a source that crosses the cap as a partial stop rather than silent success")).toBeVisible();
 
   await page.goto("/writing/llm-proposes-structure-verifies/");
   await expect(page.getByText("reports a chunk-limit cutoff as partial rather than silently complete")).toBeVisible();
