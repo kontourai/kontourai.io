@@ -29,6 +29,7 @@
     "check:marketing-freshness": "node scripts/check-marketing-freshness.mjs",
     "check:marketing-assets": "node scripts/check-marketing-assets.mjs",
     "capture:marketing-screenshot": "node scripts/capture-marketing-screenshot.mjs",
+    "render:brand-assets": "node scripts/render-brand-assets.mjs",
     "check:public-evidence": "node scripts/validate-public-evidence-registry.mjs",
     "check:public-evidence-reachability": "node scripts/check-public-evidence-reachability.mjs",
     "test:public-evidence": "node --test tests/public-evidence-registry.test.mjs"

@@ -1,0 +1,60 @@
+---
+/**
+ * KontourMark — the corporate marks (the Headland symbol, the wordmark, and
+ * their lockups), drawn in `currentColor` so the surrounding text color sets
+ * the one color a mark is allowed.
+ *
+ * The SVGs in `src/icons/kontour/` are byte-identical copies of the
+ * owner-approved marks (2026-10-12) from kontourai/ui `icons/` as proposed in
+ * kontourai/ui#120 (head 86e6141). They are not in a published
+ * @kontourai/ui yet; when the release that ships them lands, these imports
+ * switch to `@kontourai/ui/icons/<name>.svg?raw` and the copies delete.
+ *
+ * Usage rules (kontourai/ui DESIGN.md, "Marks & Identity" → "Usage"): the
+ * small cuts below 64px, the large cuts from 64px; never stretch a mark, so
+ * only `height` is accepted and the width follows the file's own viewBox.
+ */
+import lockupHorizontalSvg from "@/icons/kontour/kontour-lockup-horizontal.svg?raw";
+import symbolSvg from "@/icons/kontour/kontour-symbol.svg?raw";
+import wordmarkSvg from "@/icons/kontour/kontour-wordmark.svg?raw";
+
+export type KontourMarkName = "lockup" | "symbol" | "wordmark";
+
+type Props = {
+  mark: KontourMarkName;
+  /** Rendered height in px. These are the small cuts: keep it below 64. */
+  height?: number;
+  class?: string;
+};
+
+const { mark, height = 24, class: className } = Astro.props as Props;
+
+const raw: Record<KontourMarkName, string> = {
+  lockup: lockupHorizontalSvg,
+  symbol: symbolSvg,
+  wordmark: wordmarkSvg,
+};
+
+if (height >= 64) {
+  throw new Error(`KontourMark: "${mark}" is a small cut; at ${height}px use the large cut (DESIGN.md Usage).`);
+}
+
+const source = raw[mark];
+const viewBox = source.match(/^<svg[^>]*\sviewBox="([^"]+)"/)?.[1];
+if (!viewBox) throw new Error(`KontourMark: "${mark}" has no viewBox`);
+const [, , vbWidth, vbHeight] = viewBox.split(/\s+/).map(Number);
+const width = Math.round(((vbWidth * height) / vbHeight) * 100) / 100;
+const inner = source.replace(/^<svg[^>]*>/, "").replace(/<\/svg>\s*$/, "").trim();
+---
+
+<svg
+  class:list={["kontour-mark", className]}
+  data-kontour-mark={mark}
+  width={width}
+  height={height}
+  viewBox={viewBox}
+  fill="none"
+  aria-hidden="true"
+  focusable="false"
+  set:html={inner}
+/>

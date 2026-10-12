@@ -25,7 +25,7 @@ const ogDescription = og?.description ?? description;
 const site = Astro.site ?? new URL('https://kontourai.io');
 const canonicalUrl = new URL(Astro.url.pathname, site);
 const ogImage = new URL(og?.image ?? '/og/kontour-share.png', site);
-const ogImageAlt = og?.imageAlt ?? 'Kontour AI share card showing inspectability infrastructure for AI-assisted work.';
+const ogImageAlt = og?.imageAlt ?? 'Kontour AI share card: the Kontour logo and the line "Make your agents show their work."';
 const umamiWebsiteId = import.meta.env.PUBLIC_UMAMI_WEBSITE_ID ?? '6a6ee693-2480-4bd2-a371-6af4e5f82e7d';
 const umamiScriptUrl = import.meta.env.PUBLIC_UMAMI_SCRIPT_URL ?? 'https://cloud.umami.is/script.js';
 const umamiDomains = import.meta.env.PUBLIC_UMAMI_DOMAINS ?? 'kontourai.io,www.kontourai.io';
@@ -47,6 +47,9 @@ const shouldLoadPosthog = Boolean(posthogKey) && import.meta.env.PROD;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
+    {/* Derived from the vendored corporate marks by scripts/render-brand-assets.mjs. */}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     {noindex ? (
       <meta name="robots" content="noindex, follow" />
     ) : (

@@ -472,6 +472,65 @@ test("default social metadata includes canonical and share image", async ({ page
   await expect(page.locator('meta[name="twitter:image:alt"]')).toHaveAttribute("content", /Kontour AI share card/);
 });
 
+// The corporate marks are the vendored kontourai/ui files (src/icons/kontour/).
+// Compare the rendered paths with the file's, so a redrawn or swapped mark fails.
+const markPaths = (svg) => [...svg.matchAll(/\sd="([^"]+)"/g)].map(([, d]) => d);
+const pngSize = (bytes) => [bytes.readUInt32BE(16), bytes.readUInt32BE(20)];
+
+test("header and footer draw the Headland marks, not the old K or a live-text wordmark", async ({ page }) => {
+  const lockup = await readFile(new URL("../src/icons/kontour/kontour-lockup-horizontal.svg", import.meta.url), "utf8");
+  const wordmark = await readFile(new URL("../src/icons/kontour/kontour-wordmark.svg", import.meta.url), "utf8");
+
+  for (const path of ["/", "/404/"]) {
+    await page.goto(path);
+
+    const navMark = page.locator('header .nav__logo svg[data-kontour-mark="lockup"]');
+    await expect(navMark).toBeVisible();
+    expect(markPaths(await navMark.evaluate((el) => el.outerHTML))).toEqual(markPaths(lockup));
+    // Small cut at 24px, aspect ratio kept (viewBox 102.24 x 24): never stretched.
+    const box = await navMark.boundingBox();
+    expect(box.height).toBeCloseTo(24, 0);
+    expect(box.width).toBeCloseTo(102.24, 0);
+    // One color from the site text color.
+    await expect(navMark).toHaveCSS("color", "rgb(234, 236, 247)");
+    await expect(page.locator(".nav__logo")).toHaveAccessibleName("Kontour AI home");
+    await expect(page.locator(".nav__logo")).toHaveText("");
+  }
+
+  await page.goto("/");
+  const footerMark = page.locator('footer .footer__brand svg[data-kontour-mark="wordmark"]');
+  await expect(footerMark).toBeVisible();
+  expect(markPaths(await footerMark.evaluate((el) => el.outerHTML))).toEqual(markPaths(wordmark));
+  await expect(page.locator(".footer__brand")).toHaveText("");
+
+  // The old topographic K is gone everywhere it was drawn.
+  await expect(page.locator('path[d^="M4 4 L4 20"]')).toHaveCount(0);
+});
+
+test("favicon, touch icon, and share image are the shipped Headland assets", async ({ page, request }) => {
+  await page.goto("/");
+  await expect(page.locator('link[rel="icon"]')).toHaveAttribute("href", "/favicon.svg");
+  await expect(page.locator('link[rel="icon"]')).toHaveAttribute("type", "image/svg+xml");
+  await expect(page.locator('link[rel="apple-touch-icon"]')).toHaveAttribute("href", "/apple-touch-icon.png");
+
+  const symbol = await readFile(new URL("../src/icons/kontour/kontour-symbol.svg", import.meta.url), "utf8");
+  const favicon = await request.get("/favicon.svg");
+  expect(favicon.status()).toBe(200);
+  const faviconSvg = await favicon.text();
+  expect(markPaths(faviconSvg)).toEqual(markPaths(symbol));
+  // A standalone SVG has no text color to inherit: the color must be set.
+  expect(faviconSvg).toMatch(/^<svg [^>]*\scolor="#07090e"/);
+  expect(faviconSvg).toContain("@media (prefers-color-scheme: dark){svg{color:#eaecf7}}");
+
+  const touch = await request.get("/apple-touch-icon.png");
+  expect(touch.status()).toBe(200);
+  expect(pngSize(await touch.body())).toEqual([180, 180]);
+
+  const share = await request.get("/og/kontour-share.png");
+  expect(share.status()).toBe(200);
+  expect(pngSize(await share.body())).toEqual([1200, 630]);
+});
+
 test("pages without a custom description fall back to the receipt-layer default", async ({ page }) => {
   await page.goto("/404/");
 
