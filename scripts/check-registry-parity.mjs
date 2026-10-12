@@ -2,7 +2,7 @@
 /**
  * check-registry-parity.mjs (issue #3)
  *
- * The authoritative registry-parity gate, designed to run BEFORE `npm ci`,
+ * The authoritative registry-parity gate, designed to run BEFORE the dependency install,
  * the build, or any test step — i.e. before any PR-controlled code has
  * executed in the job. It is deliberately dependency-free (node built-ins +
  * global fetch only) so nothing installed or generated in-job can influence
