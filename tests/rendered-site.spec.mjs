@@ -1190,12 +1190,11 @@ test("developers page leads with the engine and kits, then exposes the proof cha
   await expect(page.getByText("Never makes model calls")).toHaveCount(0);
 
   // Docs links point at each product's site on the docs hub. A card only
-  // links docs that exist: the Kontour CLI has no docs site yet, so its docs
-  // link is its README (switch both when kontourai.github.io/cli/ is published).
+  // links docs that exist.
   await expect(page.locator('[data-umami-event="developers-application-station-docs"]')).toHaveAttribute("href", "https://kontourai.github.io/station/");
   await expect(page.locator('[data-umami-event="developers-application-fieldwork-docs"]')).toHaveAttribute("href", "https://kontourai.github.io/fieldwork/");
   await expect(page.locator('[data-umami-event="developers-lab-forage-docs"]')).toHaveAttribute("href", "https://kontourai.github.io/forage/");
-  await expect(page.locator('[data-umami-event="developers-lab-cli-docs"]')).toHaveAttribute("href", "https://github.com/kontourai/cli#readme");
+  await expect(page.locator('[data-umami-event="developers-lab-cli-docs"]')).toHaveAttribute("href", "https://kontourai.github.io/cli/");
   await expect(page.getByText("npm install --global @kontourai/cli")).toBeVisible();
   await expect(page.locator('[data-umami-event="developers-docs-hub"]')).toHaveAttribute("href", "https://kontourai.github.io/");
   // The docs MCP command carries the docs-kit commit the hub README pins
@@ -1779,11 +1778,15 @@ test("trust page states what it can't certify, the bypass list, the assurance di
   await expect(page.getByRole("heading", { name: "Turn up assurance as the stakes rise." })).toBeVisible();
   await expect(page.getByRole("heading", { name: "L0 — Unsigned, local." })).toBeVisible();
   await expect(page.getByRole("heading", { name: "L1 — Signed by a CI identity." })).toBeVisible();
-  // L1 is a spec level a CI identity enables; Surface's signer is fail-open, so
-  // a laptop bundle is L0. Transparency-log anchoring is optional (Hachure spec).
+  // L1 is a Hachure spec level that a default Flow Agents 8.0.0 setup does not
+  // reach (Surface 5.0.0 signer only under GITHUB_ACTIONS/SIGSTORE_ID_TOKEN, no
+  // id-token workflow shipped, no signature verification since #1459).
+  // Transparency-log anchoring is optional (Hachure spec).
   await expect(page.getByText("A level the Hachure spec defines")).toBeVisible();
   await expect(page.getByText("optionally logged in a public transparency log")).toBeVisible();
-  await expect(page.getByText("so a bundle written on a laptop is L0")).toBeVisible();
+  await expect(page.getByText("A default Flow Agents setup doesn't reach it.")).toBeVisible();
+  await expect(page.getByText("Flow Agents does not currently verify that signature")).toBeVisible();
+  await expect(page.getByText("Not to be confused with Flow Agents' own")).toBeVisible();
   await expect(page.getByRole("heading", { name: "L2 — Organization-held keys." })).toBeVisible();
   await expect(page.getByText("Assurance caps trust in provenance, never in derivation.")).toBeVisible();
   await expect(page.getByRole("link", { name: "Hachure specification" })).toHaveAttribute(
@@ -1919,6 +1922,15 @@ test("Station privacy page covers the current inventory and states its fingerpri
   // No test ties this page to the inventory; the page must not claim one does.
   await expect(page.getByText("no test ties it to the inventory")).toBeVisible();
   await expect(page.getByText("a test in the app's build fails if any of them drifts")).toHaveCount(0);
+  // Review fixes: claims the generated policy and Web Push guide don't support.
+  await expect(page.getByText("nothing goes anywhere")).toHaveCount(0);
+  await expect(page.getByText("The one Kontour-operated service")).toHaveCount(0);
+  await expect(page.getByText(/sale of data/i)).toHaveCount(0);
+  await expect(page.getByText("use Station's Unsubscribe action")).toBeVisible();
+  await expect(page.getByText("OpenTelemetry resource export")).toBeVisible();
+  await expect(page.getByText("does not send camera imagery to a Station-operated")).toBeVisible();
+  await expect(page.getByText("nothing here certifies how every")).toBeVisible();
+  await expect(page.getByText("each provider's own practices need separate")).toBeVisible();
 });
 
 test("AI-DLC use case walks one real gate, labels what was captured, and is linked from Flow and Flow Agents", async ({ page }) => {

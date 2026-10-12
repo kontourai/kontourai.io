@@ -251,9 +251,7 @@ export const labPackages: LabPackage[] = [
     label: "Kontour CLI",
     repo: "https://github.com/kontourai/cli",
     packageName: "@kontourai/cli",
-    // TODO(cli docs-kit lane): switch to https://kontourai.github.io/cli/ once
-    // it is published (404 as of 2026-10-11); until then the README is the docs.
-    docs: "https://github.com/kontourai/cli#readme",
+    docs: "https://kontourai.github.io/cli/",
     install: "npm install --global @kontourai/cli",
     description:
       "The kontour command. It works out which Kontour packages you already have installed and hands your command to the right one. It never reaches for the registry, downloads a missing package, or changes a version behind you — so the same command does the same thing offline.",

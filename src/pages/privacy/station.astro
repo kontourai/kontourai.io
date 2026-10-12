@@ -55,15 +55,14 @@ const policyUrl = `https://github.com/kontourai/station/blob/${policyCommit}/doc
 
   <Section borderBottom>
     <div class="container container--readable">
-      <h2 class="display-md privacy-h2">The default: nothing goes anywhere</h2>
+      <h2 class="display-md privacy-h2">The default: what stays on your machine</h2>
       <p class="body measure">
         Station is self-hosted: it runs on your own machine or on a server your
         operator runs, and keeps what you add to it in its own storage there.
         Accounts are optional, and the identifier on product-usage telemetry is a
-        random installation value, not one derived from an account. The one
-        Kontour-operated service is the push gateway that relays updates to a
-        phone you pair, and it forwards them sealed, without the key to open
-        them.
+        random installation value, not one derived from an account. Station
+        uses the Kontour push gateway only for a phone you register, and the
+        gateway forwards what it relays sealed, without the key to open it.
       </p>
       <p class="body measure">
         Everything in the next section describes a case where data does leave.
@@ -156,7 +155,9 @@ const policyUrl = `https://github.com/kontourai/station/blob/${policyCommit}/doc
         configured. For the built-in provider, Nova Sonic, that is Amazon
         Bedrock. If you use a browser's own speech features instead, that
         browser's handling and retention are the platform's, and we cannot
-        describe them for you.
+        describe them for you. The voice adapter you select controls microphone
+        capture and how the audio travels; nothing here certifies how every
+        possible extension uses a device.
       </p>
 
       <h3 class="privacy-h3">Agent activity on your phone</h3>
@@ -210,10 +211,12 @@ const policyUrl = `https://github.com/kontourai/station/blob/${policyCommit}/doc
         endpoint and encryption keys with the device. Selected notifications are
         encrypted for the browser's push service; hiding content replaces the
         title and body but keeps routing and link fields, and the push service
-        still sees the destination, transport metadata, timing, and size. Use
-        the browser's own unsubscribe control to stop it: turning the feature
-        setting off hides the controls but does not unsubscribe a browser that
-        is already registered.
+        still sees the destination, transport metadata, timing, and size. To
+        stop it, use Station's Unsubscribe action: it removes the browser's
+        local subscription and tries to clear the registration on your Station,
+        which can remain until a later cleanup if that attempt fails. Turning
+        the feature setting off only hides the controls; it does not unsubscribe
+        a browser that is already registered.
       </p>
 
       <h3 class="privacy-h3">Sign-in, when accounts are on</h3>
@@ -231,21 +234,22 @@ const policyUrl = `https://github.com/kontourai/station/blob/${policyCommit}/doc
       <p class="body measure">
         Used for one thing: scanning a pairing code to connect a device to your
         Station. Camera frames are read only while the scanner is open, they are
-        decoded locally in the app, and the decoded value is used to pair. The
-        scanner sends no camera imagery to us or to a third party.
+        decoded locally in the app's web view, and the decoded value is used to
+        pair. This scanner does not send camera imagery to a Station-operated
+        third party.
       </p>
     </div>
   </Section>
 
   <Section borderBottom>
     <div class="container container--readable">
-      <h2 class="display-md privacy-h2">Tracking, advertising, and sale of data</h2>
+      <h2 class="display-md privacy-h2">Tracking and advertising</h2>
       <p class="body measure">
-        None of it. Every entry in Station's privacy inventory is declared as not
+        None declared. Every entry in Station's privacy inventory is declared as not
         used for tracking, and the iOS privacy manifest generated from it
         declares no tracking and lists no tracking domains. Every declared
-        purpose is app functionality or analytics, so nothing is collected for
-        advertising or for sale.
+        purpose is app functionality or analytics; no entry declares an
+        advertising purpose.
       </p>
     </div>
   </Section>
@@ -275,9 +279,11 @@ const policyUrl = `https://github.com/kontourai/station/blob/${policyCommit}/doc
         The inventory's own caveats apply here too. Its tracking, linkage and
         purpose columns are declarations that people make, not conclusions the
         generator reaches. Its review read the source and pinned dependencies
-        with synthetic tests; it has not exercised a real sign-in, a real
-        telemetry export, delivery to a real phone or browser, or a store
-        submission. A matching fingerprint shows this page matches that
+        with synthetic tests; it has not exercised a real identity-provider
+        sign-in, OpenTelemetry resource export, delivery to a real phone or
+        browser, or a store submission. The store classifications, whether the
+        inventory is complete, and each provider's own practices need separate
+        review. A matching fingerprint shows this page matches that
         inventory, not that the inventory is a complete account of what Station
         collects.
       </p>

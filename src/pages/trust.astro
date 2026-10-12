@@ -38,7 +38,7 @@ const dialLevels: { level: string; title: string; accent: Accent; body: string }
     level: 'L1',
     title: 'L1 — Signed by a CI identity.',
     accent: 'cobalt-2',
-    body: "A level the Hachure spec defines: the record is signed with a short-lived key bound to an identity an OIDC provider asserts, such as a CI workflow's, and optionally logged in a public transparency log. Your CI supplies that identity. Surface can sign with it when the identity is there and falls back to unsigned when it isn't, so a bundle written on a laptop is L0.",
+    body: "A level the Hachure spec defines: the record is signed with a short-lived key bound to an identity an OIDC provider asserts, such as a CI workflow's, and optionally logged in a public transparency log. A default Flow Agents setup doesn't reach it. You get it only by running Flow Agents' checkpoint seal yourself in a CI job granted id-token: write — and Flow Agents does not currently verify that signature.",
   },
   {
     level: 'L2',
@@ -60,6 +60,7 @@ const CONFIG_PROTECTION_URL = 'https://github.com/kontourai/flow-agents/blob/mai
 const ISSUE_1008_URL = 'https://github.com/kontourai/flow-agents/issues/1008';
 const ISSUE_1009_URL = 'https://github.com/kontourai/flow-agents/issues/1009';
 const SURFACE_SIGSTORE_URL = 'https://github.com/kontourai/surface/blob/main/src/signing/sigstore.ts';
+const VERIFIABLE_TRUST_URL = 'https://github.com/kontourai/flow-agents/blob/v8.0.0/docs/verifiable-trust.md';
 const MERGE_CHANGE_URL = 'https://github.com/kontourai/flow-agents/blob/v8.0.0/src/cli/merge-change.ts';
 const TRUST_RECONCILE_DECISION_URL = 'https://github.com/kontourai/flow-agents/blob/v8.0.0/docs/decisions/trust-reconcile.md';
 ---
@@ -376,9 +377,15 @@ const TRUST_RECONCILE_DECISION_URL = 'https://github.com/kontourai/flow-agents/b
       <p class="fine receipt-line">
         Receipt: the L0/L1/L2 assurance levels are defined in the open{' '}
         <a href="https://github.com/hachure-org/spec/blob/main/assurance.md" target="_blank" rel="noopener">Hachure specification</a>,
-        with in-toto/DSSE and transparency-log interop. Surface's L1 signing is fail-open:
-        it signs only when an ambient CI OIDC credential is present, and its signing libraries are
-        optional dependencies (<a href={SURFACE_SIGSTORE_URL} target="_blank" rel="noopener">source</a>).
+        with in-toto/DSSE and transparency-log interop. The signer is Surface's (identical in 5.0.0,
+        which Flow Agents 8.0.0 depends on, and in 6.0.0): it attempts to sign when it sees{' '}
+        <code class="mono-inline">GITHUB_ACTIONS</code> or <code class="mono-inline">SIGSTORE_ID_TOKEN</code>,
+        and otherwise falls back to unsigned without saying so (<a href={SURFACE_SIGSTORE_URL} target="_blank" rel="noopener">source</a>).
+        Flow Agents ships no workflow that grants it a token, its merge step accepts an unsigned
+        checkpoint, and nothing in Flow Agents has verified a signature since the CI trust anchor
+        was retired. Not to be confused with Flow Agents' own "L1" and "L2" in its{' '}
+        <a href={VERIFIABLE_TRUST_URL} target="_blank" rel="noopener">verifiable-trust guide</a>, which
+        name its local gate and your required CI checks, not signing levels.
       </p>
     </div>
   </Section>
