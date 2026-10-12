@@ -15,7 +15,7 @@
 //     --asset public/screenshots/survey-workbench.png \
 //     --url http://localhost:4243/ \
 //     [--width 1400] [--height 874] [--dpr 1] [--full-page] \
-//     [--delay-ms 500] [--product-version 2.2.1]
+//     [--delay-ms 500] [--product-version 2.2.1] [--storage-state /path/to/state.json]
 //
 //   # Non-screenshot assets (e.g. a VHS-recorded GIF) are produced by other
 //   # tools; stamp them explicitly so the integrity check can bind the bytes:
@@ -51,6 +51,10 @@ const { values: args } = parseArgs({
     'delay-ms': { type: 'string', default: '500' },
     'color-scheme': { type: 'string', default: 'light' },
     'product-version': { type: 'string' },
+    // A Playwright storageState file for product UIs that need an authorized
+    // session (Station pairs the browser before it renders anything). The
+    // file stays outside the repository; only the capture is committed.
+    'storage-state': { type: 'string' },
   },
 });
 
@@ -110,7 +114,8 @@ if (!args.url) {
 const { chromium } = await import('playwright');
 const browser = await chromium.launch();
 try {
-  const page = await browser.newPage({
+  const context = await browser.newContext({
+    ...(args['storage-state'] ? { storageState: path.resolve(args['storage-state']) } : {}),
     viewport: { width: Number(args.width), height: Number(args.height) },
     deviceScaleFactor: Number(args.dpr),
     // Matters for UIs that follow prefers-color-scheme (e.g. Surface Console);
@@ -120,6 +125,7 @@ try {
     // shows final values, not whatever frame the settle delay happened to hit.
     reducedMotion: 'reduce',
   });
+  const page = await context.newPage();
   // 'load', not 'networkidle': consoles with SSE/live streams never go idle.
   await page.goto(args.url, { waitUntil: 'load' });
   await page.evaluate(() => document.fonts.ready);

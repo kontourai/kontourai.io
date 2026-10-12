@@ -22,6 +22,7 @@ import consoleSvg from "@kontourai/ui/icons/console.svg?raw";
 import flowAgentsSvg from "@kontourai/ui/icons/flow-agents.svg?raw";
 import flowSvg from "@kontourai/ui/icons/flow.svg?raw";
 import surfaceSvg from "@kontourai/ui/icons/surface.svg?raw";
+import stationSvg from "@kontourai/ui/icons/station.svg?raw";
 import surveySvg from "@kontourai/ui/icons/survey.svg?raw";
 import veritasSvg from "@kontourai/ui/icons/veritas.svg?raw";
 import fieldworkSvg from "@/icons/fieldwork.svg?raw";
@@ -32,6 +33,7 @@ export type ProductMarkSlug =
   | "flow"
   | "veritas"
   | "survey"
+  | "station"
   | "console"
   | "flow-agents"
   | "fieldwork"
@@ -66,6 +68,7 @@ const inner: Record<ProductMarkSlug, string> = {
   flow: extractInner(flowSvg),
   veritas: extractInner(veritasSvg),
   survey: extractInner(surveySvg),
+  station: extractInner(stationSvg),
   console: extractInner(consoleSvg),
   "flow-agents": extractInner(flowAgentsSvg),
   fieldwork: extractInner(fieldworkSvg),

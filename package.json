@@ -33,24 +33,6 @@
     "check:public-evidence-reachability": "node scripts/check-public-evidence-reachability.mjs",
     "test:public-evidence": "node --test tests/public-evidence-registry.test.mjs"
   },
-  "trust-reconcile-manifest": [
-    {
-      "id": "site-verify",
-      "command": "npm run check:site-verify"
-    },
-    {
-      "id": "site-build",
-      "command": "npm run build"
-    },
-    {
-      "id": "site-validate",
-      "command": "npm run validate"
-    },
-    {
-      "id": "site-rendered",
-      "command": "npm run test:rendered"
-    }
-  ],
   "dependencies": {
     "@kontourai/surface": "2.14.0",
     "@tailwindcss/vite": "^4.3.3",

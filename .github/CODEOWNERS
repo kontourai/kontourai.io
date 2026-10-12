@@ -4,7 +4,6 @@
 # pages, tests, deps) need no review (base requirement is zero approvals).
 # Escape hatch for legitimate CI maintenance: an auditable admin action
 # (temporarily lifting enforcement), i.e. the same irreducible admin boundary
-# /trust names. ADR 0022 lists delivery/DECLARED alongside verify-config.
+# /trust names.
 /.github/ @briananderson1222
 /scripts/ @briananderson1222
-/delivery/DECLARED @briananderson1222

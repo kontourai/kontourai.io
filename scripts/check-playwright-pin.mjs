@@ -9,7 +9,7 @@
  * image-tag bump — `browserType.launch` fails in CI because the browser build the
  * new client expects doesn't exist in the old image. This guard asserts the two
  * versions match so that class of failure is caught in `validate` (locally and in
- * Trust Verify) instead of only in the rendered-test job.
+ * CI) instead of only in the rendered-test job.
  *
  * Run standalone: `npm run check:playwright-pin`.
  */

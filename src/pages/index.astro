@@ -5,11 +5,18 @@ import Footer from '@/components/Footer.astro';
 import Section from '@/components/Section.astro';
 import Glow from '@/components/Glow.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
+import Grid from '@/components/Grid.astro';
+import Card from '@/components/Card.astro';
 import Subscribe from '@/components/Subscribe.astro';
 import ProofReplay from '@/components/ProofReplay.astro';
+import { assetCapture } from '@/lib/marketing-assets';
+
+// The Station capture is bound to marketing-assets.json (sha256 + capture
+// facts) like every other product visual; the caption reads those facts.
+const stationShot = assetCapture('public/screenshots/station-project.png');
 
 // Recognition moments (#113), ground-truthed against the flow-agents runtime
-// (ops/strategy/marketing-hooks.md, 2026-07-07): every "caught by" below is a
+// (internal marketing notes, 2026-07-07): every "caught by" below is a
 // catch that actually exists in the shipped hooks. Ordering is deliberate —
 // the backstop/memory case leads because it is both believable and
 // implemented. Do NOT add moments whose catch is a named residual (stale
@@ -34,7 +41,7 @@ const narratorMoments = [
     moment: 'Masked the exit code.',
     detail: 'npm test || true, a trailing exit 0 — the command can no longer fail.',
     caught:
-      "a command that masks its own exit code can't stand as evidence: the gate flags the claimed pass as untrustworthy, and CI refuses to reconcile it.",
+      "a command that masks its own exit code can't stand as evidence: the gate flags the claimed pass as untrustworthy, and the pull request's required checks still run the real tests on the exact head.",
   },
   {
     moment: 'Edited the evidence record.',
@@ -53,11 +60,11 @@ const narratorMoments = [
 
 <Layout
   title="Kontour AI — Make your agents show their work"
-  description="AI writes more code than anyone can read line by line. Flow Agents puts gates in the loop, so a change arrives with the commands that actually ran and the exit codes they returned — and stops when the agent's story and the log disagree."
+  description="Station brings your agents, projects, and devices into one open-source, local-first workspace, with gates, evidence, and receipts beside the work. Flow Agents brings the same discipline into the coding tools you already run."
 >
   <Nav active="home" />
 
-  <!-- Hero: single Flow Agents headline ----------------------------------- -->
+  <!-- Hero: Station leads (owner direction 2026-09-05) ------------------- -->
   <Section contour size="cover">
     <Glow accent="gold" position="top-center" />
 
@@ -68,17 +75,85 @@ const narratorMoments = [
         </h1>
 
         <p class="lead measure animate-fade-up delay-100 hero-lead">
-          AI writes more code than anyone can read line by line. Flow Agents
-          puts gates in the loop, so a change arrives with the commands that
-          actually ran and the exit codes they returned — and stops when the
-          agent's story and the log disagree.
+          Station is the agent workspace where work ships with receipts. It
+          brings your agents, projects, and devices into one open-source,
+          local-first workspace, and keeps the gates, evidence, and receipts
+          beside the work — so "done" means proven rather than asserted.
+          Already shipping with a coding agent? Flow Agents brings the same
+          discipline into the tools you run today.
         </p>
 
         <div class="animate-fade-up delay-200 hero-actions">
-          <a href="/early-access/" class="btn-primary" data-umami-event="home-hero-early-access">Get early access →</a>
-          <a href="/flow-agents/" class="btn-ghost" data-umami-event="home-hero-flow-agents">How Flow Agents works</a>
-          <a href="https://github.com/kontourai" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="home-hero-github">View on GitHub</a>
+          <a href="https://station.kontourai.io/" class="btn-primary" data-umami-event="home-hero-station">Get Station →</a>
+          <a href="/flow-agents/" class="btn-ghost" data-umami-event="home-hero-flow-agents">Flow Agents for your existing tools</a>
+          <a href="https://github.com/kontourai/station" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="home-hero-github">View on GitHub</a>
         </div>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Station: what the workspace is ----------------------------------- -->
+  <Section borderTop>
+    <Glow accent="cobalt" position="top-right" />
+    <div class="container station">
+      <Eyebrow accent="cobalt">Station</Eyebrow>
+      <h2 class="display-md station__title">One workspace for the whole job.</h2>
+      <p class="body measure station__copy">
+        Most agent tools stop at an answer or a diff. Station keeps the work
+        and the reason it is allowed to advance together, on your machine.
+      </p>
+      <Grid cols={3} gap="md" class="station__grid">
+        <Card accent="cobalt" bar="top" pad="md">
+          <h3 class="station__card-title">Your agents, one place</h3>
+          <p class="body station__card-copy">
+            Run Station agents on a local or hosted model, or connect supported
+            agent CLIs such as Claude Code and Codex as External agents. Each
+            engine keeps its own tool loop; Station supplies the project
+            context, the gates, and the record.
+          </p>
+        </Card>
+        <Card accent="cobalt" bar="top" pad="md">
+          <h3 class="station__card-title">Work that outlives a chat</h3>
+          <p class="body station__card-copy">
+            Projects, Tasks, Sessions, changed files, artifacts, and receipts
+            stay linked. Reopen a Task later, or follow it from a phone or
+            laptop paired to your Station, and the context is still there.
+          </p>
+        </Card>
+        <Card accent="cobalt" bar="top" pad="md">
+          <h3 class="station__card-title">Receipts beside the work</h3>
+          <p class="body station__card-copy">
+            Gate outcomes, missing evidence, route-backs, and exceptions sit
+            next to the Task they describe. Work ends as passed gates with
+            fresh evidence, an exception a person accepted, or unverified —
+            stated plainly.
+          </p>
+        </Card>
+      </Grid>
+      <figure class="product-shot station__shot">
+        <img src="/screenshots/station-project.png" alt="Station project page for a small repository called Trail Notes: its path and main branch, the latest commit, the open Coding layout, and workspace panes for Coding, Chat, Diff, Files, Terminal, and Plan." loading="lazy" width="1400" height="874" />
+        <figcaption>
+          A Project in Station: the branch and latest commit, the open Coding
+          layout, and the panes you can add beside it. A development build
+          (revision 74b4cf1b5) served from a temporary Station home, captured
+          on {stationShot.capturedAt}; unaltered, and not a claim about a
+          released version.
+        </figcaption>
+      </figure>
+      <p class="fine station__status">
+        Open source under Apache-2.0 and in active development: run it from
+        source on macOS or Linux, or try the macOS or Windows Nightly desktop build. No
+        stable or beta release is published yet. Station data stays on your
+        machine by default; hosted Model connections, Engines, paired devices,
+        remote computers, and export endpoints carry data only when you
+        configure and use them, and desktop builds check their release feed
+        for updates. See the{' '}
+        <a href="/privacy/station/" data-umami-event="home-station-privacy">Station privacy policy</a>.
+      </p>
+      <div class="station__actions">
+        <a href="https://station.kontourai.io/" class="btn-primary" data-umami-event="home-station-tour">Tour Station →</a>
+        <a href="https://kontourai.github.io/station/docs/user/getting-started.html" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="home-station-setup">Read the setup guide</a>
+        <a href="/flow-agents/" class="btn-ghost" data-umami-event="home-station-flow-agents">Keep your tools: Flow Agents →</a>
       </div>
     </div>
   </Section>
@@ -125,8 +200,10 @@ const narratorMoments = [
       </h2>
       <p class="body measure mechanism__copy">
         A kid can say "I brushed my teeth" for free. The toothbrush either got
-        wet or it didn't. Flow Agents treats an agent's "tests passed" the same
-        way: the claim costs nothing, so it's never what a gate checks.
+        wet or it didn't. Flow Agents treats an agent's "tests passed" the
+        same way: the claim costs nothing, so it's never what a gate checks.
+        It is one way to bring that discipline into the tools you already run;
+        Station applies the same rule to its own Tasks through Flow gates.
       </p>
 
       <ProofReplay />
@@ -172,18 +249,21 @@ const narratorMoments = [
       <p class="body measure fork__lead">
         You don't have to take our word for any of this — this site ships
         through the same gates. Every change here merges behind a required
-        check that re-runs this repo's own verification in CI and, when an
-        agent published its claims, fails on any disagreement with what CI
-        actually observed.
+        check that re-runs this repo's own verification in CI on the exact
+        head of the pull request, with no admin bypass.
       </p>
       <div class="fork__paths">
         <div class="fork__path" data-accent="gold">
           <p class="label-sm fork__label">Convinced?</p>
           <p class="body fork__copy">
-            Bring us the workflow you want to make inspectable — join as a
-            design partner and we build the gated version with you.
+            Run Station on your own machine, or bring us the workflow you want
+            to make inspectable and we build the gated version with you as a
+            design partner.
           </p>
-          <a href="/early-access/" class="btn-primary" data-umami-event="home-fork-early-access">Get early access →</a>
+          <div class="fork__actions">
+            <a href="https://station.kontourai.io/" class="btn-primary" data-umami-event="home-fork-station">Get Station →</a>
+            <a href="/early-access/" class="btn-ghost" data-umami-event="home-fork-early-access">Design partners →</a>
+          </div>
         </div>
         <div class="fork__path" data-accent="cobalt-2">
           <p class="label-sm fork__label">Skeptical? Good.</p>
@@ -211,16 +291,16 @@ const narratorMoments = [
         was checked, and what wasn't.
       </p>
       <p class="body measure beyond__copy">
-        We run this on our own tax filings. On the paths that check it, an
-        extracted figure that can't point to the words it came from is dropped
-        before it ever reaches the math.
+        We built a reference tax pipeline on this rule. On the paths that check
+        it, an extracted figure that can't point to the words it came from is
+        dropped before it ever reaches the math.{' '}
+        <a href="/writing/llm-proposes-structure-verifies/" data-umami-event="home-tax-pipeline-writeup">How it works →</a>
       </p>
       <p class="body measure beyond__copy">
         Facts need the same chain code does. <strong>Survey</strong> is the
-        record format for it: an extracted value stays tied to the page it came
-        from, the alternatives that lost, and the reviewer who decided — so an
-        answer built on it can show what it stood on instead of asking you to
-        trust the tone.
+        producer-side review contract for it: the extracted value stays tied to
+        its source, alternatives, and decision, then crosses a typed bridge into
+        Surface with its honest trust status intact.
       </p>
       <div class="beyond__actions">
         <a href="/survey/" class="btn-ghost" data-umami-event="home-proof-survey">How Survey produces claims →</a>
@@ -233,12 +313,12 @@ const narratorMoments = [
   <Section tone="alt" borderTop size="lg">
     <Glow accent="gold" position="top-center" />
     <div class="container container--readable cta">
-      <Eyebrow accent="gold">Early access</Eyebrow>
+      <Eyebrow accent="gold">Build updates</Eyebrow>
       <h2 class="display-md cta__title">Tell us where trust breaks.</h2>
       <p class="body measure cta__copy">
-        We're building in public. Drop your email for build updates and an early
-        look — or start a design-partner conversation: bring a real process, and
-        we build the checkable version of it with you.
+        We're building in public. Drop your email for Station build updates and
+        an early look — or start a design-partner conversation: bring a real
+        process, and we build the checkable version of it with you.
       </p>
       <Subscribe source="home" cta="Get early access" event="home-subscribe" />
       <p class="cta__alt">
@@ -255,6 +335,33 @@ const narratorMoments = [
   /* Hero ----------------------------------------------------------------- */
   .hero-inner {
     max-width: 760px;
+  }
+
+  /* Station -------------------------------------------------------------- */
+  .station__title {
+    margin-bottom: 1rem;
+  }
+  .station__copy {
+    margin-bottom: 2rem;
+  }
+  .station__card-title {
+    margin-bottom: 0.75rem;
+  }
+  .station__shot {
+    margin: 2.5rem 0 0;
+  }
+  .station__status {
+    max-width: 720px;
+    margin: 2rem 0 1.25rem;
+  }
+  .station__actions,
+  .fork__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .fork__actions {
+    margin-top: 1rem;
   }
   .hero-title {
     margin-bottom: 1.5rem;

@@ -110,7 +110,7 @@ const beyond: { title: string; body: string; accent: Accent }[] = [
 ];
 
 const cli = [
-  { cmd: 'veritas init --explore', desc: 'Read the repo and propose a starting set of standards — writes nothing' },
+  { cmd: 'veritas init --explore', desc: 'Read the repo and propose a starting set of standards as a plan file — applies nothing' },
   { cmd: 'veritas init', desc: 'Bootstrap Repo Standards, Repo Map, and guidance' },
   { cmd: 'veritas readiness --working-tree', desc: 'Report whether the current change meets the repo standards' },
   { cmd: 'veritas explain --file <path>', desc: 'Show only the rules that govern that path' },
@@ -119,7 +119,7 @@ const cli = [
   { cmd: 'veritas feedback summary', desc: 'Review whether standards are helping across prior runs' },
   { cmd: 'veritas recommendation list', desc: 'Review data-driven standards recommendations' },
   { cmd: 'veritas integrations claude-code install', desc: 'Wire the pre-edit hook that stops a write breaking a required rule' },
-  { cmd: 'veritas integrations codex install', desc: 'Wire end-of-session feedback — same command shape for cursor and copilot' },
+  { cmd: 'veritas integrations codex install', desc: 'Wire the pre-edit hook plus end-of-session feedback — same command shape for cursor and copilot' },
 ];
 ---
 
@@ -160,6 +160,7 @@ const cli = [
 
           <div class="hero-actions animate-fade-up delay-300">
             <a href="https://github.com/kontourai/veritas" target="_blank" rel="noopener" class="btn-primary" data-umami-event="veritas-hero-github">View on GitHub →</a>
+            <a href="https://kontourai.github.io/veritas/" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="veritas-hero-docs">Read the docs</a>
             <a href="https://www.npmjs.com/package/@kontourai/veritas" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="veritas-hero-npm">npm package</a>
           </div>
         </div>
@@ -203,9 +204,9 @@ const cli = [
             conversation two hours in.
           </p>
           <p class="tr__body tr__body--last">
-            Install the Claude Code hook and a change that breaks a rule your
+            Install the Claude Code or Codex hook and a change that breaks a rule your
             repo marks as required is stopped before the write lands, with the
-            rule quoted back. Codex, Cursor, and Copilot get the same findings
+            rule quoted back (Codex asks you to trust the hook first). Cursor and Copilot get the same findings
             at the end of the session to repair — feedback, not a block.
           </p>
         </Card>
@@ -460,6 +461,7 @@ const cli = [
 
       <div class="hero-actions try__actions">
         <a href="https://github.com/kontourai/veritas" target="_blank" rel="noopener" class="btn-primary" data-umami-event="veritas-cta-github">View on GitHub →</a>
+        <a href="https://kontourai.github.io/veritas/" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="veritas-cta-docs">Read the docs</a>
         <a href="https://www.npmjs.com/package/@kontourai/veritas" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="veritas-cta-npm">npm package</a>
       </div>
     </div>

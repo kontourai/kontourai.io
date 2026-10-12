@@ -48,6 +48,14 @@
       "capturedAgainstVersion": "0.4.0",
       "capturedAt": "2026-07-27",
       "sha256": "be1a6296b2307b1fe4783c549dbc34df8701c2e4b59e37da8fb75e244256c213"
+    },
+    {
+      "asset": "public/screenshots/station-project.png",
+      "page": "src/pages/index.astro",
+      "product": "station",
+      "capturedAgainstVersion": "0.1.11",
+      "capturedAt": "2026-09-05",
+      "sha256": "21cef8b8155ebe22299fd30c8b7e4e335b50a8dfb8ea91a357f878b711c6cb43"
     }
   ]
 }

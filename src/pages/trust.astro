@@ -36,9 +36,9 @@ const dialLevels: { level: string; title: string; accent: Accent; body: string }
   },
   {
     level: 'L1',
-    title: 'L1 — Keyless CI identity.',
+    title: 'L1 — Signed by a CI identity.',
     accent: 'cobalt-2',
-    body: 'CI signs its own fresh results with a short-lived OIDC identity — optionally anchored in a public transparency log anyone can inspect.',
+    body: "A level the Hachure spec defines: the record is signed with a short-lived key bound to an identity an OIDC provider asserts, such as a CI workflow's, and optionally logged in a public transparency log. A default Flow Agents setup doesn't reach it. You get it only by running Flow Agents' checkpoint seal yourself in a CI job granted id-token: write — and Flow Agents does not currently verify that signature.",
   },
   {
     level: 'L2',
@@ -59,6 +59,10 @@ const PR_475_URL = 'https://github.com/kontourai/flow-agents/pull/475';
 const CONFIG_PROTECTION_URL = 'https://github.com/kontourai/flow-agents/blob/main/scripts/hooks/config-protection.js';
 const ISSUE_1008_URL = 'https://github.com/kontourai/flow-agents/issues/1008';
 const ISSUE_1009_URL = 'https://github.com/kontourai/flow-agents/issues/1009';
+const SURFACE_SIGSTORE_URL = 'https://github.com/kontourai/surface/blob/main/src/signing/sigstore.ts';
+const VERIFIABLE_TRUST_URL = 'https://github.com/kontourai/flow-agents/blob/v8.0.0/docs/verifiable-trust.md';
+const MERGE_CHANGE_URL = 'https://github.com/kontourai/flow-agents/blob/v8.0.0/src/cli/merge-change.ts';
+const TRUST_RECONCILE_DECISION_URL = 'https://github.com/kontourai/flow-agents/blob/v8.0.0/docs/decisions/trust-reconcile.md';
 ---
 
 <Layout
@@ -110,10 +114,10 @@ const ISSUE_1009_URL = 'https://github.com/kontourai/flow-agents/issues/1009';
         Flow Agents had a capture bug: on one runtime, failing commands were being recorded as
         passes. The first patch fixed it and opened a worse hole — its parser could be fooled by
         any command that merely printed <code class="mono-inline">Process exited with code 0</code>.
-        A mandatory adversarial re-review built a working exploit against that patch, confirmed it,
-        and blocked the delivery before it was committed. The fix was re-planned, hardened and
-        re-attacked — five fresh bypass attempts, all defeated — and merged only after CI
-        independently re-ran and reconciled every claim.
+        A mandatory adversarial security review built a working exploit against that patch and
+        confirmed it, and the fix went back. It was re-planned and reviewed again: the second
+        review re-ran its own exploit, reported five new bypass probes that all failed safe, and
+        the pull request merged with CI's reconciliation check green on its head.
       </p>
       <p class="body lead-story__body">
         Nothing there was caught by trusting the author. It was caught because the claim and the
@@ -121,9 +125,11 @@ const ISSUE_1009_URL = 'https://github.com/kontourai/flow-agents/issues/1009';
         that separation is built — and the four places it stops working.
       </p>
       <p class="fine receipt-line">
-        Receipt: <a href={PR_475_URL} target="_blank" rel="noopener">Flow Agents PR #475</a>; the
-        review artifacts show iteration-1 FAIL → iteration-2 PASS, with that repo's required Trust
-        Reconcile check green.
+        Receipt: <a href={PR_475_URL} target="_blank" rel="noopener">Flow Agents PR #475</a>. Its
+        description records both review iterations, the critical confirmed in the first fix, and
+        the second review's verdicts, including the five probes; those counts are the reviewing
+        session's own report, not a committed artifact. Its Trust Reconcile check passed on the
+        head commit; Flow Agents retired that CI step in 8.0.0.
       </p>
     </div>
   </Section>
@@ -148,13 +154,15 @@ const ISSUE_1009_URL = 'https://github.com/kontourai/flow-agents/issues/1009';
           <p class="body bypass-row__body">
             Edit the bundle, the logs, or the workflow state on your own machine. Locally, the
             evidence is a tamper-evident hash chain — break a link and the chain no longer
-            verifies. But the authoritative catch isn't local. Add the trust-verify action to your
-            pull requests and make its check required — the way the Flow Agents repo does, where it
-            runs under the name <code class="mono-inline">Trust Reconcile</code> — and every pull
-            request re-runs the real verification fresh in a clean environment the agent can't
-            pre-disable, then reconciles your bundle against its own results. CI never trusts your
-            bundle as a source of truth — it only uses it to detect divergence. A claimed pass that
-            CI shows failing, or a command CI never ran, fails the job.
+            verifies. But the authoritative catch isn't local. Make your pull requests' own checks
+            required, and every pull request re-runs the real verification fresh on its exact head,
+            in a clean environment the agent can't pre-disable. CI doesn't take the bundle's word for
+            anything: a claimed pass the tests don't reproduce simply fails the check. Flow Agents'
+            merge step adds the other half — it won't land a change unless the delivering session's
+            evidence is committed at that same head. (Flow Agents used to ship a separate action that
+            reconciled the bundle against CI, run in its own repo as{' '}
+            <code class="mono-inline">Trust Reconcile</code>; 8.0.0 retired it, because the required
+            checks already caught what it caught.)
           </p>
           <p class="body bypass-row__body">
             One level down, a local gate refuses an agent's direct writes to the protected workflow
@@ -172,7 +180,7 @@ const ISSUE_1009_URL = 'https://github.com/kontourai/flow-agents/issues/1009';
             second gap sits beside it: a redirect written inside a quoted operand, as in{' '}
             <code class="mono-inline">{'eval "echo … > <gate file>"'}</code> or{' '}
             <code class="mono-inline">{'sh -c "…"'}</code>, is never extracted as a target at all.
-            Both are open issues in the public repo. That gate raises the cost of reaching a
+            Both are tracked in one open issue in the public repo. That gate raises the cost of reaching a
             protected file; it was never the boundary, and the code now says so in the file itself.
             What catches the write is what catches the rest — it breaks the local hash chain, and
             CI re-runs your declared checks fresh in an environment the agent never touched. Where
@@ -182,10 +190,10 @@ const ISSUE_1009_URL = 'https://github.com/kontourai/flow-agents/issues/1009';
           <p class="fine bypass-row__residual">
             <em>Where this stops: a determined agent can still flip a local kill-switch through its
             own shell. That's exactly why the authority lives in CI, not in the local gate. And
-            the CI catch is only authoritative once you make the check required — installing the
-            tool doesn't configure your branch protection for you. (This site's own repo now
-            requires the check too, no-bypass — and its workflow definitions and CI scripts
-            require owner review via CODEOWNERS.)</em>
+            the CI catch is only authoritative once you make your checks required — installing the
+            tool doesn't configure your branch protection for you. (This site's own repo requires
+            its check, no-bypass — and its workflow definitions and CI scripts require owner
+            review via CODEOWNERS.)</em>
           </p>
         </div>
 
@@ -197,17 +205,20 @@ const ISSUE_1009_URL = 'https://github.com/kontourai/flow-agents/issues/1009';
           </div>
           <p class="body bypass-row__body">
             Fabricate a green result, or launder the exit code (<code class="mono-inline">npm test || true</code>).
-            The local gate rejects a verify command carrying <code class="mono-inline">||</code>,
-            and CI re-runs your declared checks itself — then, with signing enabled (one flag on
-            the action; on where we build Flow Agents, off by default), signs the result with a keyless
-            Sigstore identity that only exists inside CI. An agent on your laptop has no such
-            identity — it cannot mint that signature, no matter how clever the prompt. A
-            fabricated "green" simply can't be signed.
+            Two things catch it. The local gate rejects any verify command carrying{' '}
+            <code class="mono-inline">||</code>, and checks claimed passes against the log of what
+            actually ran. Then the pull request's required checks re-run the real tests on its
+            exact head, from the code rather than from anything the agent wrote, so a fabricated
+            "green" in the bundle doesn't make a failing test pass there. Flow Agents' merge step
+            only confirms that the session's evidence is complete and committed at that head;
+            whether the tests pass is the required checks' call.
           </p>
           <p class="fine bypass-row__residual">
-            <em>On your laptop, tampering is detectable, not impossible. It becomes impractical at
-            the CI identity boundary, where the signing identity lives: tamper-evident locally,
-            tamper-resistant up to that boundary — never "tamper-proof."</em>
+            <em>On your laptop, tampering is detectable, not impossible. It stops mattering at the
+            required checks, which run where the agent can't reach: tamper-evident locally, checked
+            independently in CI — never "tamper-proof." That holds only once the checks are
+            required, and only for the tests they run: an edit that makes the CI workflow itself
+            swallow failures is for code-owner review to catch, not a re-run.</em>
           </p>
         </div>
 
@@ -215,15 +226,17 @@ const ISSUE_1009_URL = 'https://github.com/kontourai/flow-agents/issues/1009';
           <div class="bypass-row__head">
             <span class="bypass-row__num">03</span>
             <h3 class="bypass-row__title">Let a real pass go stale.</h3>
-            <span class="trust-badge trust-badge--stale">Caught later, in CI</span>
+            <span class="trust-badge trust-badge--stale">Caught locally; re-run independently in CI</span>
           </div>
           <p class="body bypass-row__body">
-            Run the tests, watch them pass, then keep editing. The pass was real when it happened,
-            and nothing locally re-runs it when the code moves underneath it. Same story if the
+            Run the tests, watch them pass, then keep editing. The old pass no longer advances a
+            cursor-moving gate: it is bound to the revision it observed, and freshness is checked
+            again before the run moves on. CI still supplies the independent clean-environment rerun. A narrowed or weakened test can survive both, so that part remains review's job. Same story if the
             agent runs one test file instead of the suite, or edits the test until it goes green —
             the gate reads what actually ran, and what actually ran was green. On the pull request
-            CI closes most of this: it re-runs your declared checks against the final code, and
-            evidence sealed against an earlier commit is treated as if it weren't there at all.
+            CI closes most of this: it re-runs your required checks against the final code, and
+            Flow Agents' merge step won't land the change unless the session's evidence was
+            committed at that exact head.
           </p>
           <p class="fine bypass-row__residual">
             <em>Where this stops: an edited test survives the trip, because CI runs the test you
@@ -263,8 +276,9 @@ const ISSUE_1009_URL = 'https://github.com/kontourai/flow-agents/issues/1009';
       <p class="fine receipt-line">
         Receipt: the open class is Flow Agents{' '}
         <a href={ISSUE_1009_URL} target="_blank" rel="noopener">issue #1009</a>, which also carries
-        the move from prediction to content hashing; the quoted-operand gap is{' '}
-        <a href={ISSUE_1008_URL} target="_blank" rel="noopener">issue #1008</a>. The gate itself
+        the move from prediction to content hashing; the quoted-operand gap was{' '}
+        <a href={ISSUE_1008_URL} target="_blank" rel="noopener">issue #1008</a>, closed as folded
+        into #1009 rather than fixed. The gate itself
         carries the limitation in its own source (<a href={CONFIG_PROTECTION_URL} target="_blank" rel="noopener">config-protection.js</a>).
         This list is what we know of today, not everything that exists.
       </p>
@@ -298,15 +312,16 @@ const ISSUE_1009_URL = 'https://github.com/kontourai/flow-agents/issues/1009';
         <div class="bypass-row" data-accent="cobalt-2">
           <div class="bypass-row__head">
             <span class="bypass-row__num">02</span>
-            <h3 class="bypass-row__title">We run inside CI too.</h3>
+            <h3 class="bypass-row__title">Required checks, plus exact-head evidence at merge.</h3>
           </div>
           <p class="body bypass-row__body">
-            Wire the trust-verify action in as a required check and it re-runs your declared checks,
-            reconciling them against what the agent claimed it ran — if they diverge, CI goes red
-            on the discrepancy itself — and, with signing on, signs the result with an identity
-            that only exists inside CI, which an agent on a laptop cannot forge. CI's ephemeral
-            green becomes a portable, independently recomputable receipt of what passed and what
-            it stood on.
+            Make your own checks required and they re-run on the exact head of every pull request,
+            in an environment the agent never touched, without reading anything the agent wrote.
+            Flow Agents adds the other half at merge: its merge step requires the delivering
+            session's evidence committed at that exact head, so the commit that merged is the
+            commit the evidence was recorded against (<a href={MERGE_CHANGE_URL} target="_blank" rel="noopener">merge-change</a>).
+            That is the whole of it: since 8.0.0, Flow Agents ships no CI check of its own that
+            re-verifies the bundle (<a href={TRUST_RECONCILE_DECISION_URL} target="_blank" rel="noopener">why it was retired</a>).
           </p>
         </div>
 
@@ -342,8 +357,8 @@ const ISSUE_1009_URL = 'https://github.com/kontourai/flow-agents/issues/1009';
       <Eyebrow accent="green">Signing is a dial, not a gate</Eyebrow>
       <h2 class="section-heading">Turn up assurance as the stakes rise.</h2>
       <p class="section-lead">
-        Start unsigned and local in five minutes. Turn the dial to keyless CI identity, then to
-        organization-held keys, as the stakes rise. The dial changes how much you can trust{' '}
+        Start unsigned and local in five minutes. Turn the dial to a CI identity's keyless
+        signature, then to organization-held keys, as the stakes rise. The dial changes how much you can trust{' '}
         <em>where a bundle came from</em> — never how it was <em>derived</em>. An unsigned bundle
         recomputes to exactly the same verdict as a signed one.
       </p>
@@ -362,7 +377,15 @@ const ISSUE_1009_URL = 'https://github.com/kontourai/flow-agents/issues/1009';
       <p class="fine receipt-line">
         Receipt: the L0/L1/L2 assurance levels are defined in the open{' '}
         <a href="https://github.com/hachure-org/spec/blob/main/assurance.md" target="_blank" rel="noopener">Hachure specification</a>,
-        with in-toto/DSSE and transparency-log interop.
+        with in-toto/DSSE and transparency-log interop. The signer is Surface's (identical in 5.0.0,
+        which Flow Agents 8.0.0 depends on, and in 6.0.0): it attempts to sign when it sees{' '}
+        <code class="mono-inline">GITHUB_ACTIONS</code> or <code class="mono-inline">SIGSTORE_ID_TOKEN</code>,
+        and otherwise falls back to unsigned without saying so (<a href={SURFACE_SIGSTORE_URL} target="_blank" rel="noopener">source</a>).
+        Flow Agents ships no workflow that grants it a token, its merge step accepts an unsigned
+        checkpoint, and nothing in Flow Agents has verified a signature since the CI trust anchor
+        was retired. Not to be confused with Flow Agents' own "L1" and "L2" in its{' '}
+        <a href={VERIFIABLE_TRUST_URL} target="_blank" rel="noopener">verifiable-trust guide</a>, which
+        name its local gate and your required CI checks, not signing levels.
       </p>
     </div>
   </Section>
@@ -381,9 +404,10 @@ const ISSUE_1009_URL = 'https://github.com/kontourai/flow-agents/issues/1009';
       <EnforcementMatrix />
 
       <p class="body enforcement-closing">
-        Blocking means the turn cannot end on unproven work — it refuses or escalates to you,
-        never silently proceeds. Advisory means the same evidence is computed and surfaced, but
-        the decision stays with you.
+        Blocking has two forms. A tool-call block refuses that action and returns the reason to the
+        agent; a blocking Stop hook can keep the turn from ending on unproven work before escalating
+        the decision to you. Advisory runtimes compute and surface the evidence without owning the
+        final stop decision.
       </p>
 
       <p class="fine receipt-line">

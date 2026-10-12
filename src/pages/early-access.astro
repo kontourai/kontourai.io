@@ -37,6 +37,14 @@ const lanes: { title: string; label: string; body: string; subject: string; body
     bodyText: 'I want to explore Kontour for agent workflows. The workflow I want to make inspectable is:',
     accent: 'cobalt-2',
   },
+  {
+    title: 'Station workspace',
+    label: 'Agents, projects, receipts in one place',
+    body: 'You want your agents, projects, and devices in one local-first workspace with the gates and receipts beside the work. Station is open source and in active development: run it from source or the macOS or Windows Nightly build, then tell us what you hit.',
+    subject: 'Kontour Station',
+    bodyText: 'I am running Station and want to talk about:',
+    accent: 'cobalt',
+  },
 ];
 
 const mailto = (subject: string, body: string) =>
@@ -45,7 +53,7 @@ const mailto = (subject: string, body: string) =>
 
 <Layout
   title="Talk to us — design-partner work and build updates · Kontour AI"
-  description="The Kontour engine is Apache-2.0 and installable today. Bring one real workflow and we build the gated version of it with you."
+  description="Station and the Flow Agents engine are open source under Apache-2.0. Bring one real workflow and we build the gated version of it with you."
 >
   <Nav teaser />
 
@@ -69,7 +77,10 @@ const mailto = (subject: string, body: string) =>
             actually checked. That's the moment Kontour is built for — and you
             don't need us to start. Install the engine into the coding agent
             you already run and it gates the work on evidence instead of
-            promises, today, for nothing.
+            promises, today, for nothing. Prefer a workspace to a plugin?{' '}
+            <a href="https://station.kontourai.io/" data-umami-event="early-access-hero-station">Station</a> is
+            open source too: your agents, projects, and devices in one place,
+            run from source or the macOS or Windows Nightly build.
           </p>
           <p class="hero-copy animate-fade-up delay-200">
             The separate thing on offer here is hands-on. Bring one process you
@@ -106,8 +117,8 @@ const mailto = (subject: string, body: string) =>
             <p>Flow Agents install summary:</p>
             <p class="pass">  ✓ Runtime: claude-code (auto-detected)</p>
             <p class="pass">  ✓ Destination: ~/your-repo</p>
-            <p class="pass">  ✓ Telemetry sink: local-files</p>
-            <p class="muted">  - Console: local-only</p>
+            <p class="pass">  ✓ Telemetry sink (selected): local-files</p>
+            <p class="muted">  - Console: not configured (no Console endpoint in the resolved telemetry configuration)</p>
           </Terminal>
           <p class="try__caption">
             No key, no waitlist, no email required. Gates block on Claude Code

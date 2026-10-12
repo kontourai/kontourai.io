@@ -17,10 +17,11 @@ const allowlistedPackages = new Map([
   ["flow-agents", "@kontourai/flow-agents"],
   ["console", "@kontourai/console"],
   ["fieldwork", "@kontourai/fieldwork"],
+  ["station", "@kontourai/station-cli"],
   ["traverse", "@kontourai/traverse"],
 ]);
 
-const versionedPackageKeys = new Set(["surface", "survey", "flow", "veritas", "flow-agents", "console", "fieldwork", "traverse"]);
+const versionedPackageKeys = new Set(["surface", "survey", "flow", "veritas", "flow-agents", "console", "fieldwork", "station", "traverse"]);
 
 function today() {
   return new Date().toISOString().slice(0, 10);

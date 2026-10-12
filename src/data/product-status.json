@@ -1,69 +1,82 @@
 {
-  "checkedAt": "2026-08-19",
+  "checkedAt": "2026-10-12",
   "products": {
     "surface": {
       "key": "surface",
       "label": "Surface",
       "packageName": "@kontourai/surface",
-      "version": "2.14.0",
+      "version": "6.0.0",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/surface",
       "publicNotes": "",
       "marketingReviewed": {
-        "version": "2.13.0",
-        "date": "2026-07-21"
+        "version": "6.0.0",
+        "date": "2026-10-12"
       }
     },
     "survey": {
       "key": "survey",
       "label": "Survey",
       "packageName": "@kontourai/survey",
-      "version": "3.0.0",
+      "version": "8.0.0",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/survey",
       "publicNotes": "Human review and trust projection for extracted facts.",
       "marketingReviewed": {
-        "version": "2.4.0",
-        "date": "2026-07-27"
+        "version": "8.0.0",
+        "date": "2026-10-12"
       }
     },
     "flow": {
       "key": "flow",
       "label": "Flow",
       "packageName": "@kontourai/flow",
-      "version": "5.0.0",
+      "version": "5.2.0",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/flow",
       "publicNotes": "Local CLI plus a loopback Flow Console.",
       "marketingReviewed": {
-        "version": "3.10.0",
-        "date": "2026-07-25"
+        "version": "5.2.0",
+        "date": "2026-10-12"
       }
     },
     "veritas": {
       "key": "veritas",
       "label": "Veritas",
       "packageName": "@kontourai/veritas",
-      "version": "1.5.6",
+      "version": "1.7.6",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/veritas",
       "publicNotes": "",
       "marketingReviewed": {
-        "version": "1.5.3",
-        "date": "2026-07-21"
+        "version": "1.7.6",
+        "date": "2026-10-12"
       }
     },
     "flow-agents": {
       "key": "flow-agents",
       "label": "Flow Agents",
       "packageName": "@kontourai/flow-agents",
-      "version": "6.0.0",
+      "version": "8.0.0",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/flow-agents",
       "publicNotes": "",
       "marketingReviewed": {
-        "version": "5.3.0",
-        "date": "2026-07-25"
+        "version": "8.0.0",
+        "date": "2026-10-12"
+      }
+    },
+    "station": {
+      "key": "station",
+      "label": "Station",
+      "packageName": "@kontourai/station-cli",
+      "version": "0.7.0",
+      "phase": "current package",
+      "sourceUrl": "https://www.npmjs.com/package/@kontourai/station-cli",
+      "publicNotes": "The workspace is open source (Apache-2.0) and in active development: run it from source on macOS or Linux, or as the macOS or Windows Nightly desktop build. No stable or beta release is published yet. The CLI client and the plugin SDK are the published packages.",
+      "marketingReviewed": {
+        "version": "0.7.0",
+        "date": "2026-10-12"
       }
     },
     "console": {
@@ -76,33 +89,33 @@
       "publicNotes": "Open-source foundation on npm: the local hub, fixture inspector, Flow run bridge, and a local UI. The hosted console at console.kontourai.io is a private production deployment of it.",
       "marketingReviewed": {
         "version": "2.8.0",
-        "date": "2026-07-24"
+        "date": "2026-10-12"
       }
     },
     "fieldwork": {
       "key": "fieldwork",
       "label": "Fieldwork",
       "packageName": "@kontourai/fieldwork",
-      "version": "0.6.1",
+      "version": "0.14.1",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/fieldwork",
       "publicNotes": "Standalone application for grounded extraction, inspection, review, rechecks, and trusted export.",
       "marketingReviewed": {
-        "version": "0.4.0",
-        "date": "2026-07-27"
+        "version": "0.14.1",
+        "date": "2026-10-12"
       }
     },
     "traverse": {
       "key": "traverse",
       "label": "Traverse",
       "packageName": "@kontourai/traverse",
-      "version": "0.25.1",
+      "version": "5.0.2",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/traverse",
       "publicNotes": "Schema-directed extraction that proposes values with the excerpt and locator they came from.",
       "marketingReviewed": {
-        "version": "0.23.0",
-        "date": "2026-07-25"
+        "version": "5.0.2",
+        "date": "2026-10-12"
       }
     }
   }
