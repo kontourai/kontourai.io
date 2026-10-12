@@ -43,6 +43,7 @@ const views: { name: string; accent: Accent; body: string }[] = [
   { name: 'Board', accent: 'cobalt-2', body: 'Every work item by stage. Open a card for the gates and the evidence sitting behind it.' },
   { name: 'Operate', accent: 'gold', body: 'One run: its pipeline, the stage it is on, and the gate holding everything downstream.' },
   { name: 'Telemetry', accent: 'chalk-2', body: 'What the agents actually did, per tool — latency, failures, and cost, rolled up by project and work item.' },
+  { name: 'Economics', accent: 'green', body: 'The ROI surface: does the scaffolding pay for itself?' },
 ];
 
 const operatingBenefits: { title: string; accent: Accent; items: string[] }[] = [
@@ -138,13 +139,13 @@ const operatingBenefits: { title: string; accent: Accent; items: string[] }[] = 
     </div>
   </Section>
 
-  <!-- Four views -->
+  <!-- Five views -->
   <Section>
     <div class="container">
-      <Eyebrow accent="cobalt" gap="sm">Four views</Eyebrow>
-      <h2 class="display-md measure-lg ans-title">One set of records, four ways to look at it.</h2>
+      <Eyebrow accent="cobalt" gap="sm">Five views</Eyebrow>
+      <h2 class="display-md measure-lg ans-title">One set of records, five ways to look at it.</h2>
 
-      <Grid cols={4} gap="lg">
+      <Grid min="200" gap="lg">
         {views.map(({ name, accent, body }) => (
           <Card accent={accent} pad="md">
             <h3 class="boundary__title">{name}</h3>
@@ -200,9 +201,8 @@ const operatingBenefits: { title: string; accent: Accent; items: string[] }[] = 
             follows Flow runs under <code class="codechip" data-accent="cobalt-2">.kontourai/flow</code>,
             and <code class="codechip" data-accent="cobalt-2">kontour-process-bridge</code>
             follows Flow Agents sessions, including the ones sitting blocked or
-            waiting on a person. Both read those files without writing to them,
-            and re-running either one changes nothing — the run below is this
-            site's own repo.
+            waiting on a person. Both read those files without writing to them —
+            the run below is this site's own repo.
           </p>
           <p class="fine run__cli">
             About that <code class="codechip" data-accent="cobalt">kontour</code> word:
@@ -283,10 +283,10 @@ const operatingBenefits: { title: string; accent: Accent; items: string[] }[] = 
       <Eyebrow accent="green" gap="sm">Provenance</Eyebrow>
       <h2 class="display-md measure-lg ans-title">Trust you can query. Not trust you take on faith.</h2>
       <p class="body measure-lg use__copy">
-        Every gated delivery ships a signed trust bundle — the claims that were
-        made, how each one was verified, and a fresh reconciliation run in CI —
-        alongside a checkpoint file stamped with the commit it was sealed
-        against, both committed with the change. The Flow bridge brings the
+        Every gated delivery ships a trust bundle — the claims that were made
+        and how each one was verified — alongside a checkpoint file stamped with
+        the commit it was sealed against, both committed with the change at the
+        exact head that merges. The Flow bridge brings the
         evidence relevant to each run into Console's trust panel, where you can
         ask what was verified, how, and by whom.
       </p>
@@ -357,8 +357,7 @@ const operatingBenefits: { title: string; accent: Accent; items: string[] }[] = 
 
         <Terminal title="local-producer.js">
 <pre class="code code--cobalt"><span class="t-com">// write records locally — no network</span>
-<span class="t-kw">const</span> {'{'} KontourEmitter, LocalFileSink {'}'} =
-  <span class="t-fn">require</span>(<span class="t-str">"@kontourai/console"</span>);
+<span class="t-kw">import</span> {'{'} KontourEmitter, LocalFileSink {'}'} <span class="t-kw">from</span> <span class="t-str">"@kontourai/console"</span>;
 
 <span class="t-kw">const</span> emitter = <span class="t-kw">new</span> <span class="t-fn">KontourEmitter</span>({'{'}
   sink: <span class="t-kw">new</span> <span class="t-fn">LocalFileSink</span>({'{'} root: <span class="t-str">".kontourai/console"</span> {'}'}),

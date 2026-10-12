@@ -83,10 +83,10 @@ const moreThanStatus: { title: string; body: string; accent: Accent }[] = [
 ];
 
 const docLinks: { label: string; href: string; event: string; external?: boolean }[] = [
-  { label: 'Getting started', href: `${DOCS}/getting-started.html`, event: 'surface-docs-getting-started', external: true },
-  { label: 'CLI reference', href: `${DOCS}/cli.html`, event: 'surface-docs-cli', external: true },
-  { label: 'Console reference', href: `${DOCS}/console.html`, event: 'surface-docs-console', external: true },
-  { label: 'MCP reference', href: `${DOCS}/mcp.html`, event: 'surface-docs-mcp', external: true },
+  { label: 'Getting started', href: `${DOCS}/docs/guides/getting-started.html`, event: 'surface-docs-getting-started', external: true },
+  { label: 'CLI reference', href: `${DOCS}/docs/reference/cli.html`, event: 'surface-docs-cli', external: true },
+  { label: 'Console reference', href: `${DOCS}/docs/reference/console.html`, event: 'surface-docs-console', external: true },
+  { label: 'MCP reference', href: `${DOCS}/docs/reference/mcp.html`, event: 'surface-docs-mcp', external: true },
   { label: 'The Hachure format', href: '/hachure/', event: 'surface-docs-hachure' },
   { label: 'The spec repo', href: 'https://github.com/hachure-org/spec', event: 'surface-docs-spec', external: true },
   { label: 'npm package', href: 'https://www.npmjs.com/package/@kontourai/surface', event: 'surface-docs-npm', external: true },
@@ -330,7 +330,7 @@ const docLinks: { label: string; href: string; event: string; external?: boolean
           it doesn't mean wrong. It means this was checked, the check was good
           for a set window, and the window has closed. Nobody has to remember
           that; the status changes on its own.{' '}
-          <a href={`${DOCS}/concepts.html`} target="_blank" rel="noopener" data-umami-event="surface-vocab-docs">The full vocabulary and all nine statuses →</a>
+          <a href={`${DOCS}/docs/product/concepts.html`} target="_blank" rel="noopener" data-umami-event="surface-vocab-docs">The full vocabulary and all nine statuses →</a>
         </p>
       </div>
     </div>

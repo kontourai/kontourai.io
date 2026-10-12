@@ -12,9 +12,9 @@
  * changes, and this page must be regenerated in the same change. It is recorded
  * here so the drift is visible rather than silent.
  *
- * Unlike /privacy/, this page does not link to the code that implements each
- * statement: the Station app's source is not public yet. That is a real
- * limitation of this page and it is stated on it, not hidden.
+ * Unlike /privacy/, this page does not yet link to the code that implements
+ * each statement, although Station's source is now public (Apache-2.0). That
+ * is a real limitation of this page and it is stated on it, not hidden.
  */
 import Layout from '@/layouts/Layout.astro';
 import Nav from '@/components/Nav.astro';
@@ -51,8 +51,10 @@ const inventoryFingerprint = '788a17b779346da5';
       <p class="body measure">
         Station is self-hosted. Your conversations, your files, and your
         knowledge base live in Station's own storage on your machine. There is no
-        Kontour-operated server in the middle, no account required to use it, and
-        no identifier derived from an account.
+        Kontour-operated server in the middle of your work, no account required to
+        use it, and no identifier derived from an account. The one Kontour-operated
+        service is the push gateway that relays notifications to a phone you pair,
+        and it forwards them encrypted, without the key to open them.
       </p>
       <p class="body measure">
         Everything in the next section describes a case where data does leave —
@@ -68,8 +70,10 @@ const inventoryFingerprint = '788a17b779346da5';
 
       <h3 class="privacy-h3">Product-usage telemetry</h3>
       <p class="body measure">
-        App version, operating system, and CPU architecture at startup. It is
-        off unless three things are all true: an ingestion endpoint is
+        App version, operating system, and CPU architecture, with the release
+        channel and build details, on every event; Station's startup metadata;
+        and the outcome categories of session recovery and of each engine turn
+        (completed, aborted, or failed). It is off unless three things are all true: an ingestion endpoint is
         configured, telemetry is enabled, and you have seen and acknowledged the
         in-app disclosure of exactly what is sent. The identifier attached to it
         is a random value generated once on your install and hashed before
@@ -84,7 +88,10 @@ const inventoryFingerprint = '788a17b779346da5';
         The identifier on these is a random value created once for your install
         and stored alongside Station's own data. It is stable, so an operator
         can group one install's metrics together, and it is not derived from
-        your machine name, your username, or any account.
+        your machine name, your username, or any account. Station also attaches
+        the operating-system type, and the OpenTelemetry SDK it uses adds
+        environment, process, and host attributes by default, so review what
+        your configuration exports before pointing it anywhere.
       </p>
       <p class="body measure">
         Until 11 August 2026 that identifier was derived from your machine's
@@ -146,9 +153,9 @@ const inventoryFingerprint = '788a17b779346da5';
       </p>
       <p class="body measure">
         One honest limitation: the site policy at <a href="/privacy/">/privacy/</a>{' '}
-        links each statement to the source that implements it. This page cannot,
-        because the Station app's source is not public yet. When it is, the links
-        belong here too.
+        links each statement to the source that implements it. This page does
+        not yet, although Station's source is now public under Apache-2.0; those
+        links belong here too.
       </p>
     </div>
   </Section>

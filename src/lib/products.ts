@@ -73,6 +73,8 @@ export type Application = {
   accent: Accent;
   repo: string;
   packageName: string;
+  // Published docs site on the Kontour docs hub (kontourai.github.io).
+  docs: string;
   job: string;
   composition: string;
 };
@@ -101,8 +103,9 @@ export const applications: Application[] = [
     accent: "cobalt",
     repo: "https://github.com/kontourai/station",
     packageName: "@kontourai/station-cli",
+    docs: "https://kontourai.github.io/station/",
     job: "Bring your agents, projects, and devices into one local-first workspace, with gates, evidence, and receipts beside the work.",
-    composition: "The workspace itself: open source, run from source or the macOS Nightly desktop build today. The published CLI client drives any Station from a terminal, and the SDK is how plugins extend it.",
+    composition: "The workspace itself: open source, run from source or the macOS or Windows Nightly desktop build today. The published CLI client drives any Station from a terminal, and the SDK is how plugins extend it.",
   },
   {
     key: "fieldwork",
@@ -111,6 +114,7 @@ export const applications: Application[] = [
     accent: "gold-2",
     repo: "https://github.com/kontourai/fieldwork",
     packageName: "@kontourai/fieldwork",
+    docs: "https://kontourai.github.io/fieldwork/",
     job: "Turn messy source text into reviewed, source-linked data you can recheck and export.",
     composition: "The finished app: install it and start reviewing. Survey is the review machinery inside it, if you would rather build your own screen around it.",
   },
@@ -232,6 +236,9 @@ export type LabPackage = {
   label: string;
   repo: string;
   packageName: string;
+  // Docs site on the Kontour docs hub, only where one is published. Leave it
+  // out rather than guess: a card that links docs has to have docs behind it.
+  docs?: string;
   description: string;
 };
 
@@ -249,14 +256,16 @@ export const labPackages: LabPackage[] = [
     label: "Datum",
     repo: "https://github.com/kontourai/datum",
     packageName: "@kontourai/datum",
+    docs: "https://kontourai.github.io/datum/",
     description:
-      "Your model registry. Define providers, models, and roles once, then resolve which backend, which model, whose key, what URL. It doesn't call models for you — apart from four opt-in commands that exist to test a connection.",
+      "Your model registry. Define providers, models, and roles once, then resolve which backend, which model, whose key, what URL. It doesn't call models for you — apart from four opt-in commands that reach a provider: a probe, a connection test, model discovery, and a catalog refresh.",
   },
   {
     slug: "bearing",
     label: "Bearing",
     repo: "https://github.com/kontourai/bearing",
     packageName: "@kontourai/bearing",
+    docs: "https://kontourai.github.io/bearing/",
     description:
       "Which model is actually good at what, and where that judgement came from. Compiles observations into catalog snapshots you can diff, and ranks models for a given runtime — without calling any of them.",
   },
@@ -265,6 +274,7 @@ export const labPackages: LabPackage[] = [
     label: "Relay",
     repo: "https://github.com/kontourai/relay",
     packageName: "@kontourai/relay",
+    docs: "https://kontourai.github.io/relay/",
     description:
       "One way to call a model whether it sits behind a vendor SDK, a local engine, a hosted service, or a command-line harness, so changing providers doesn't mean rewriting the call. Each adapter has to declare what it can't do — streaming, tool calls, token counts — rather than quietly approximating it.",
   },
@@ -273,6 +283,7 @@ export const labPackages: LabPackage[] = [
     label: "Dispatch",
     repo: "https://github.com/kontourai/dispatch",
     packageName: "@kontourai/dispatch",
+    docs: "https://kontourai.github.io/dispatch/",
     description:
       "Chooses which model handles a job from rules you write — required capabilities, a token and cost budget, retries, fallbacks — and hands back a record of which one ran, why it was picked, and what it actually spent. Budgets can be held across concurrent calls and across restarts.",
   },
@@ -281,14 +292,16 @@ export const labPackages: LabPackage[] = [
     label: "Conduit",
     repo: "https://github.com/kontourai/conduit",
     packageName: "@kontourai/conduit",
+    docs: "https://kontourai.github.io/conduit/",
     description:
-      "Installs an agent's skills, hooks, commands, and context files into whichever coding tool someone is running, through one adapter instead of one per host. It probes each host for what it genuinely supports, and the install receipt lists every file written with its checksum — no file contents, no credentials.",
+      "Installs an agent's skills, hooks, commands, and context files into whichever coding tool someone is running, through one adapter instead of one per host. It probes each host for what it genuinely supports, and the install receipt lists every asset installed with its SHA-256 digest — no file contents, no target paths, no credentials.",
   },
   {
     slug: "traverse",
     label: "Traverse",
     repo: "https://github.com/kontourai/traverse",
     packageName: "@kontourai/traverse",
+    docs: "https://kontourai.github.io/traverse/",
     description:
       "Pulls structured fields out of documents against a schema you supply, and hands back proposals for a person to review — each one still carrying the passage it came from.",
   },
@@ -297,6 +310,7 @@ export const labPackages: LabPackage[] = [
     label: "Forage",
     repo: "https://github.com/kontourai/forage",
     packageName: "@kontourai/forage",
+    docs: "https://kontourai.github.io/forage/",
     description:
       "Fetches untrusted URLs safely and keeps a snapshot of what came back, so a crawl can be replayed instead of re-guessed. Refuses requests aimed at your internal network.",
   },
@@ -305,6 +319,7 @@ export const labPackages: LabPackage[] = [
     label: "Lookout",
     repo: "https://github.com/kontourai/lookout",
     packageName: "@kontourai/lookout",
+    docs: "https://kontourai.github.io/lookout/",
     description:
       "Watches sources you re-check over time and tells you what changed since the last look. Built on Forage's snapshots; it doesn't extract fields itself.",
   },
@@ -313,14 +328,16 @@ export const labPackages: LabPackage[] = [
     label: "Plumb",
     repo: "https://github.com/kontourai/plumb",
     packageName: "@kontourai/plumb",
+    docs: "https://kontourai.github.io/plumb/",
     description:
-      "Runs your deployment's own health check on a schedule, and when it fails, hands the failure to an AI agent working in a separate clean clone that opens a pull request or an issue. The live checkout and production data stay outside anything that agent can reach.",
+      "Runs your deployment's own health check on a schedule, and when it fails, hands the failure to an AI agent working in a separate clean clone that opens a pull request or an issue. The agent works in its own clean clone, and its instructions forbid touching the live checkout or production data — prompt-level guardrails today, not a sandbox.",
   },
   {
     slug: "ephemeris",
     label: "Ephemeris",
     repo: "https://github.com/kontourai/ephemeris",
     packageName: "@kontourai/ephemeris",
+    docs: "https://kontourai.github.io/ephemeris/",
     description:
       "Turns time into a trigger. Watches the freshness deadlines on Kontour trust bundles and nudges Flow to re-evaluate when one expires, and works out when a recurring schedule — cron, a fixed interval, or a one-shot — should next fire in a given timezone, daylight-saving included. It never decides anything itself; it only taps something else on the shoulder.",
   },
@@ -329,6 +346,7 @@ export const labPackages: LabPackage[] = [
     label: "Kontour UI",
     repo: "https://github.com/kontourai/ui",
     packageName: "@kontourai/ui",
+    docs: "https://kontourai.github.io/ui/",
     description:
       "The interface pieces our own screens are built from: buttons, panels, badges, dialogs, form controls, and the CSS variables behind them, for React or plain custom elements. Useful if you are building an operator screen that should match ours; skip it if you already have a design system you like.",
   },

@@ -122,8 +122,8 @@ const ISSUE_1009_URL = 'https://github.com/kontourai/flow-agents/issues/1009';
       </p>
       <p class="fine receipt-line">
         Receipt: <a href={PR_475_URL} target="_blank" rel="noopener">Flow Agents PR #475</a>; the
-        review artifacts show iteration-1 FAIL → iteration-2 PASS, with that repo's required Trust
-        Reconcile check green.
+        review artifacts show iteration-1 FAIL → iteration-2 PASS, with that repo's Trust Reconcile
+        check green (a CI step Flow Agents has since retired, in 8.0.0).
       </p>
     </div>
   </Section>
@@ -148,13 +148,15 @@ const ISSUE_1009_URL = 'https://github.com/kontourai/flow-agents/issues/1009';
           <p class="body bypass-row__body">
             Edit the bundle, the logs, or the workflow state on your own machine. Locally, the
             evidence is a tamper-evident hash chain — break a link and the chain no longer
-            verifies. But the authoritative catch isn't local. Add the trust-verify action to your
-            pull requests and make its check required — the way the Flow Agents repo does, where it
-            runs under the name <code class="mono-inline">Trust Reconcile</code> — and every pull
-            request re-runs the real verification fresh in a clean environment the agent can't
-            pre-disable, then reconciles your bundle against its own results. CI never trusts your
-            bundle as a source of truth — it only uses it to detect divergence. A claimed pass that
-            CI shows failing, or a command CI never ran, fails the job.
+            verifies. But the authoritative catch isn't local. Make your pull requests' own checks
+            required, and every pull request re-runs the real verification fresh on its exact head,
+            in a clean environment the agent can't pre-disable. CI doesn't take the bundle's word for
+            anything: a claimed pass the tests don't reproduce simply fails the check. Flow Agents'
+            merge step adds the other half — it won't land a change unless the delivering session's
+            evidence is committed at that same head. (Flow Agents used to ship a separate action that
+            reconciled the bundle against CI, run in its own repo as{' '}
+            <code class="mono-inline">Trust Reconcile</code>; 8.0.0 retired it, because the required
+            checks already caught what it caught.)
           </p>
           <p class="body bypass-row__body">
             One level down, a local gate refuses an agent's direct writes to the protected workflow
@@ -172,7 +174,7 @@ const ISSUE_1009_URL = 'https://github.com/kontourai/flow-agents/issues/1009';
             second gap sits beside it: a redirect written inside a quoted operand, as in{' '}
             <code class="mono-inline">{'eval "echo … > <gate file>"'}</code> or{' '}
             <code class="mono-inline">{'sh -c "…"'}</code>, is never extracted as a target at all.
-            Both are open issues in the public repo. That gate raises the cost of reaching a
+            Both are tracked in one open issue in the public repo. That gate raises the cost of reaching a
             protected file; it was never the boundary, and the code now says so in the file itself.
             What catches the write is what catches the rest — it breaks the local hash chain, and
             CI re-runs your declared checks fresh in an environment the agent never touched. Where
@@ -182,10 +184,10 @@ const ISSUE_1009_URL = 'https://github.com/kontourai/flow-agents/issues/1009';
           <p class="fine bypass-row__residual">
             <em>Where this stops: a determined agent can still flip a local kill-switch through its
             own shell. That's exactly why the authority lives in CI, not in the local gate. And
-            the CI catch is only authoritative once you make the check required — installing the
-            tool doesn't configure your branch protection for you. (This site's own repo now
-            requires the check too, no-bypass — and its workflow definitions and CI scripts
-            require owner review via CODEOWNERS.)</em>
+            the CI catch is only authoritative once you make your checks required — installing the
+            tool doesn't configure your branch protection for you. (This site's own repo requires
+            its check, no-bypass — and its workflow definitions and CI scripts require owner
+            review via CODEOWNERS.)</em>
           </p>
         </div>
 
@@ -198,16 +200,14 @@ const ISSUE_1009_URL = 'https://github.com/kontourai/flow-agents/issues/1009';
           <p class="body bypass-row__body">
             Fabricate a green result, or launder the exit code (<code class="mono-inline">npm test || true</code>).
             The local gate rejects a verify command carrying <code class="mono-inline">||</code>,
-            and CI re-runs your declared checks itself — then, with signing enabled (one flag on
-            the action; on where we build Flow Agents, off by default), signs the result with a keyless
-            Sigstore identity that only exists inside CI. An agent on your laptop has no such
-            identity — it cannot mint that signature, no matter how clever the prompt. A
-            fabricated "green" simply can't be signed.
+            and the pull request's required checks re-run the real tests on its exact head, from
+            the code rather than from anything the agent wrote. A fabricated "green" in the bundle
+            doesn't make a failing test pass there.
           </p>
           <p class="fine bypass-row__residual">
-            <em>On your laptop, tampering is detectable, not impossible. It becomes impractical at
-            the CI identity boundary, where the signing identity lives: tamper-evident locally,
-            tamper-resistant up to that boundary — never "tamper-proof."</em>
+            <em>On your laptop, tampering is detectable, not impossible. It stops mattering at the
+            required checks, which run where the agent can't reach: tamper-evident locally, checked
+            independently in CI — never "tamper-proof."</em>
           </p>
         </div>
 
@@ -223,8 +223,9 @@ const ISSUE_1009_URL = 'https://github.com/kontourai/flow-agents/issues/1009';
             again before the run moves on. CI still supplies the independent clean-environment rerun. A narrowed or weakened test can survive both, so that part remains review's job. Same story if the
             agent runs one test file instead of the suite, or edits the test until it goes green —
             the gate reads what actually ran, and what actually ran was green. On the pull request
-            CI closes most of this: it re-runs your declared checks against the final code, and
-            evidence sealed against an earlier commit is treated as if it weren't there at all.
+            CI closes most of this: it re-runs your required checks against the final code, and
+            Flow Agents' merge step won't land the change unless the session's evidence was
+            committed at that exact head.
           </p>
           <p class="fine bypass-row__residual">
             <em>Where this stops: an edited test survives the trip, because CI runs the test you
@@ -264,8 +265,9 @@ const ISSUE_1009_URL = 'https://github.com/kontourai/flow-agents/issues/1009';
       <p class="fine receipt-line">
         Receipt: the open class is Flow Agents{' '}
         <a href={ISSUE_1009_URL} target="_blank" rel="noopener">issue #1009</a>, which also carries
-        the move from prediction to content hashing; the quoted-operand gap is{' '}
-        <a href={ISSUE_1008_URL} target="_blank" rel="noopener">issue #1008</a>. The gate itself
+        the move from prediction to content hashing; the quoted-operand gap was{' '}
+        <a href={ISSUE_1008_URL} target="_blank" rel="noopener">issue #1008</a>, closed as folded
+        into #1009 rather than fixed. The gate itself
         carries the limitation in its own source (<a href={CONFIG_PROTECTION_URL} target="_blank" rel="noopener">config-protection.js</a>).
         This list is what we know of today, not everything that exists.
       </p>
@@ -302,12 +304,11 @@ const ISSUE_1009_URL = 'https://github.com/kontourai/flow-agents/issues/1009';
             <h3 class="bypass-row__title">We run inside CI too.</h3>
           </div>
           <p class="body bypass-row__body">
-            Wire the trust-verify action in as a required check and it re-runs your declared checks,
-            reconciling them against what the agent claimed it ran — if they diverge, CI goes red
-            on the discrepancy itself — and, with signing on, signs the result with an identity
-            that only exists inside CI, which an agent on a laptop cannot forge. CI's ephemeral
-            green becomes a portable, independently recomputable receipt of what passed and what
-            it stood on.
+            Make your own checks required and they re-run on the exact head of every pull request,
+            in an environment the agent never touched, without reading anything the agent wrote.
+            Flow Agents adds the other half at merge: its merge step requires the delivering
+            session's evidence committed at that exact head, so the commit that merged is the
+            commit the evidence was recorded against.
           </p>
         </div>
 
