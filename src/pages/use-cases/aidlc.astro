@@ -1,0 +1,952 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import Terminal from '@/components/Terminal.astro';
+import Section from '@/components/Section.astro';
+import Glow from '@/components/Glow.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+import Card from '@/components/Card.astro';
+import Grid from '@/components/Grid.astro';
+import Split from '@/components/Split.astro';
+import type { Accent } from '@/lib/theme';
+
+// Every terminal on this page is data, not markup, so the page cannot drift
+// away from the run that produced it. All of it was captured on 2026-10-12
+// from a fresh clone of kontourai/aidlc-kit at the commit below, on Node 24,
+// with the kit's own pinned dependencies (@kontourai/flow 5.2.0,
+// @kontourai/surface 5.0.0, @kontourai/flow-agents 7.2.0). The only edit is
+// one workspace path, elided where the line says so.
+const kitCommit = 'f5190c245e51a9598fb8383a28076ced7e58de61';
+const kitCommitShort = kitCommit.slice(0, 7);
+const upstreamCommit = '2a555f7a4387cd1b8254029cccb9fd1e99974574';
+const kitRepo = 'https://github.com/kontourai/aidlc-kit';
+const kitDocs = 'https://kontourai.github.io/aidlc-kit/';
+const upstreamRepo = `https://github.com/awslabs/aidlc-workflows/tree/${upstreamCommit}`;
+
+// `cont` is a wrapped command line: printed as part of the command, with no prompt.
+type TLine = { cls: 'prompt' | 'cont' | 'out' | 'muted' | 'pass' | 'warn' | 'info'; text: string };
+
+const cliRun: TLine[] = [
+  { cls: 'prompt', text: 'kontour-aidlc profiles' },
+  { cls: 'out', text: '["bugfix","classic","enterprise","express","feature","infra","mvp","poc","refactor","security-patch","workshop"]' },
+  { cls: 'prompt', text: 'kontour-aidlc check' },
+  { cls: 'pass', text: 'AI-DLC generated kit contracts verified.' },
+];
+
+// jq over upstream/snapshot.json: the pinned upstream record for one stage.
+const stageRecord: TLine[] = [
+  { cls: 'prompt', text: `jq '.stages[] | select(.slug=="requirements-analysis")` },
+  { cls: 'cont', text: `    | {name, lead_agent, reviewer, review_class, reviewer_max_iterations,` },
+  { cls: 'cont', text: `       summary_confirmation, sensors, produces}' upstream/snapshot.json` },
+  { cls: 'out', text: '{' },
+  { cls: 'out', text: '  "name": "Requirements Analysis",' },
+  { cls: 'out', text: '  "lead_agent": "aidlc-product-agent",' },
+  { cls: 'out', text: '  "reviewer": "aidlc-product-lead-agent",' },
+  { cls: 'out', text: '  "review_class": "advisory",' },
+  { cls: 'out', text: '  "reviewer_max_iterations": 2,' },
+  { cls: 'out', text: '  "summary_confirmation": "required",' },
+  { cls: 'out', text: '  "sensors": [' },
+  { cls: 'out', text: '    "required-sections",' },
+  { cls: 'out', text: '    "upstream-coverage"' },
+  { cls: 'out', text: '  ],' },
+  { cls: 'out', text: '  "produces": [' },
+  { cls: 'out', text: '    "requirements",' },
+  { cls: 'out', text: '    "requirements-analysis-questions"' },
+  { cls: 'out', text: '  ]' },
+  { cls: 'out', text: '}' },
+];
+
+// jq over flows/feature.flow.json: the Flow gate the kit compiled from it.
+const gateDefinition: TLine[] = [
+  { cls: 'prompt', text: `jq '.gates["requirements-analysis-gate"]' flows/feature.flow.json` },
+  { cls: 'out', text: '{' },
+  { cls: 'out', text: '  "step": "requirements-analysis",' },
+  { cls: 'out', text: '  "expects": [' },
+  { cls: 'out', text: '    {' },
+  { cls: 'out', text: '      "id": "requirements-analysis-completion",' },
+  { cls: 'out', text: '      "kind": "trust.bundle",' },
+  { cls: 'out', text: '      "required": true,' },
+  { cls: 'out', text: '      "description": "Requirements Analysis: current required artifacts and applicable checks were observed.",' },
+  { cls: 'out', text: '      "bundle_claim": {' },
+  { cls: 'out', text: '        "claimType": "aidlc.requirements-analysis-completion",' },
+  { cls: 'out', text: '        "subjectType": "flow-step",' },
+  { cls: 'out', text: '        "accepted_statuses": [' },
+  { cls: 'out', text: '          "verified"' },
+  { cls: 'out', text: '        ]' },
+  { cls: 'out', text: '      }' },
+  { cls: 'out', text: '    },' },
+  { cls: 'out', text: '    {' },
+  { cls: 'out', text: '      "id": "requirements-analysis-review",' },
+  { cls: 'out', text: '      "kind": "trust.bundle",' },
+  { cls: 'out', text: '      "required": true,' },
+  { cls: 'out', text: '      "description": "Requirements Analysis: recorded review of the current artifact and source basis.",' },
+  { cls: 'out', text: '      "bundle_claim": {' },
+  { cls: 'out', text: '        "claimType": "aidlc.requirements-analysis-review",' },
+  { cls: 'out', text: '        "subjectType": "flow-step",' },
+  { cls: 'out', text: '        "accepted_statuses": [' },
+  { cls: 'out', text: '          "verified"' },
+  { cls: 'out', text: '        ]' },
+  { cls: 'out', text: '      }' },
+  { cls: 'out', text: '    }' },
+  { cls: 'out', text: '  ],' },
+  { cls: 'out', text: '  "on_route_back": {' },
+  { cls: 'out', text: '    "missing_evidence": "requirements-analysis",' },
+  { cls: 'out', text: '    "default": "requirements-analysis"' },
+  { cls: 'out', text: '  },' },
+  { cls: 'out', text: '  "route_back_policy": {' },
+  { cls: 'out', text: '    "max_attempts": 2,' },
+  { cls: 'out', text: '    "on_exceeded": "block"' },
+  { cls: 'out', text: '  }' },
+  { cls: 'out', text: '}' },
+];
+
+// The kit's real gate, run through the Flow 5.2.0 CLI with no evidence
+// attached. excerpt.flow.json is the requirements-analysis gate copied out of
+// flows/feature.flow.json into a two-step definition with jq (see the note).
+const routeBackRun: TLine[] = [
+  { cls: 'prompt', text: 'flow start excerpt.flow.json --run-id ra-demo' },
+  { cls: 'out', text: 'started flow run: ra-demo' },
+  { cls: 'out', text: 'current step: requirements-analysis' },
+  { cls: 'muted', text: 'report: .kontourai/flow/runs/ra-demo/report.md' },
+  { cls: 'prompt', text: 'flow evaluate ra-demo --exit-code' },
+  { cls: 'warn', text: 'route-back requirements-analysis-gate: Requirements Analysis: current required artifacts and applicable checks were observed. missing' },
+  { cls: 'out', text: 'current step: requirements-analysis' },
+  { cls: 'out', text: 'next action: return to requirements-analysis and replace failing evidence attempt 1/2' },
+  { cls: 'prompt', text: 'flow status ra-demo' },
+  { cls: 'out', text: 'flow run: aidlc.requirements-analysis-excerpt / ra-demo' },
+  { cls: 'out', text: 'current step: requirements-analysis' },
+  { cls: 'out', text: '' },
+  { cls: 'warn', text: 'ROUTE-BACK requirements analysis gate: Requirements Analysis: current required artifacts and applicable checks were observed. missing' },
+  { cls: 'muted', text: '      expected: Requirements Analysis: current required artifacts and applicable checks were observed., Requirements Analysis: recorded review of the current artifact and source basis.' },
+  { cls: 'muted', text: '      route: missing_evidence -> requirements-analysis; attempt 1/2; limit exceeded: no' },
+  { cls: 'muted', text: '      transition diagnostics: transition.gate.route-back' },
+  { cls: 'out', text: '' },
+  { cls: 'out', text: 'status: active' },
+  { cls: 'out', text: 'next action: return to requirements-analysis and replace failing evidence attempt 1/2' },
+  { cls: 'info', text: 'continuation: resume from requirements-analysis, not chat memory' },
+  { cls: 'muted', text: 'report: .kontourai/flow/runs/ra-demo/report.md' },
+  { cls: 'out', text: 'ready steps: requirements-analysis' },
+];
+
+// The kit's public conformance eval, summarized with jq. It drives the
+// published Flow and Surface packages with deliberately synthetic evidence.
+const conformanceRun: TLine[] = [
+  { cls: 'prompt', text: 'node evals/public-flow-conformance.mjs > conformance.json' },
+  { cls: 'prompt', text: `jq -r '.cases[] | "\\(.id)  gate=\\(.observed.gate)  run=\\(.observed.run)  \\(.diagnostics[0].reason // "")"' conformance.json` },
+  { cls: 'pass', text: 'verified-evidence  gate=pass  run=completed' },
+  { cls: 'warn', text: 'missing-evidence  gate=block  run=blocked' },
+  { cls: 'warn', text: 'failed-evidence  gate=block  run=blocked  disputed' },
+  { cls: 'warn', text: 'stale-evidence  gate=block  run=blocked  stale' },
+  { cls: 'warn', text: 'wrong-revision-subject  gate=block  run=blocked  claim_not_found' },
+  { cls: 'warn', text: 'tampered-stored-bundle  gate=block  run=blocked  integrity_mismatch' },
+  { cls: 'prompt', text: "jq -r .outcome conformance.json" },
+  { cls: 'pass', text: 'pass' },
+];
+
+// node --test over four of the kit's eval files; test names verbatim, the
+// per-test duration suffix stripped.
+const decisionTests: TLine[] = [
+  { cls: 'prompt', text: 'node --test evals/questionnaire-replies.test.mjs evals/operator-review-concerns.test.mjs \\' },
+  { cls: 'cont', text: '    evals/input-revisions.test.mjs evals/observed-output-rejections.test.mjs' },
+  { cls: 'pass', text: '✔ normal signed CLI answers and edited fields resume a nondeterministic observed questionnaire producer without erasing operator input' },
+  { cls: 'pass', text: '✔ real intent assumptions wait before independent review, even with optional summary off, and exact operator acceptance retains labels' },
+  { cls: 'pass', text: '✔ ordinary signed operator concerns revise a ready model review without inventing model findings and re-reviews without accepting or restarting the old stage' },
+  { cls: 'pass', text: '✔ ordinary signed input revision custody and real reentry: stale' },
+  { cls: 'pass', text: '✔ ordinary signed input revision custody and real reentry: denied-after-apply' },
+  { cls: 'pass', text: '✔ actual malformed planning output retains receipt without publication and new canonical invocation repairs safely: shape' },
+  { cls: 'muted', text: '…' },
+  { cls: 'info', text: 'ℹ tests 23' },
+  { cls: 'info', text: 'ℹ pass 23' },
+  { cls: 'info', text: 'ℹ fail 0' },
+];
+
+const installRun: TLine[] = [
+  { cls: 'prompt', text: `npm install "git+https://github.com/kontourai/aidlc-kit.git#${kitCommit}"` },
+  { cls: 'muted', text: '(npm output omitted)' },
+  { cls: 'prompt', text: 'npx flow-agents init --runtime base --telemetry-sink local-files --dest .' },
+  { cls: 'muted', text: '(init output omitted)' },
+  { cls: 'prompt', text: 'npx flow-agents kit install node_modules/@kontourai/aidlc-kit --dest .' },
+  { cls: 'pass', text: "installed local kit 'aidlc' at …/kits/local/repositories/aidlc" },
+  { cls: 'prompt', text: 'npx flow-agents kit activate --dest . --format json > activation.json' },
+  { cls: 'prompt', text: `jq -r '[.generated_runtime_files[] | select(.kit_id=="aidlc") | .asset_class]` },
+  { cls: 'cont', text: `    | group_by(.) | map("\\(.[0]): \\(length)") | .[]' activation.json` },
+  { cls: 'out', text: 'docs: 11' },
+  { cls: 'out', text: 'flows: 11' },
+  { cls: 'out', text: 'skills: 34' },
+  { cls: 'prompt', text: "jq -c '{errors, warnings}' activation.json" },
+  { cls: 'out', text: '{"errors":[],"warnings":[]}' },
+  { cls: 'prompt', text: "npx flow-agents kit status --dest . | jq '{id, state, recorded_hash, observed_hash}'" },
+  { cls: 'out', text: '{' },
+  { cls: 'out', text: '  "id": "aidlc",' },
+  { cls: 'out', text: '  "state": "installed",' },
+  { cls: 'out', text: '  "recorded_hash": "sha256:664aab4e7424cdf9b641451392b67dba2d6fe90471dc06da4d1eaf45eddcbf39",' },
+  { cls: 'out', text: '  "observed_hash": "sha256:664aab4e7424cdf9b641451392b67dba2d6fe90471dc06da4d1eaf45eddcbf39"' },
+  { cls: 'out', text: '}' },
+];
+
+// The operator inbox commands as the kit documents them. Shown as reference,
+// not as a captured run: a live run needs Docker and model credentials.
+const decisionCommands: TLine[] = [
+  { cls: 'prompt', text: 'kontour-aidlc decisions --controller-root /private/run-controller' },
+  { cls: 'prompt', text: 'kontour-aidlc decide --controller-root /private/run-controller \\' },
+  { cls: 'cont', text: '    --pending /private/run-controller/authority/pending/<digest>.json \\' },
+  { cls: 'cont', text: '    --reference "Operator answered the exact retained questionnaire" \\' },
+  { cls: 'cont', text: '    --disposition /private/operator-reply.json' },
+  { cls: 'prompt', text: 'kontour-aidlc run --request /private/original-request.json \\' },
+  { cls: 'cont', text: '    --controller-root /private/run-controller --auth-file /private/provider-auth.json' },
+];
+
+// The five upstream phases and their stage counts, from upstream/snapshot.json.
+const phases: { name: string; count: number; stages: string; accent: Accent }[] = [
+  { name: 'Initialization', count: 3, stages: 'workspace scaffold, detection, state', accent: 'chalk-2' },
+  { name: 'Ideation', count: 7, stages: 'intent capture through approval handoff', accent: 'gold' },
+  { name: 'Inception', count: 9, stages: 'reverse engineering through delivery planning', accent: 'cobalt-2' },
+  { name: 'Construction', count: 7, stages: 'functional design through CI pipeline', accent: 'green' },
+  { name: 'Operation', count: 7, stages: 'deployment through feedback', accent: 'red-2' },
+];
+
+// Stage counts per profile, from `node scripts/compare.mjs method`
+// (every profile's observed stage list matched the pinned upstream: outcome pass).
+const profiles: { id: string; stages: number }[] = [
+  { id: 'poc', stages: 8 },
+  { id: 'bugfix', stages: 9 },
+  { id: 'express', stages: 10 },
+  { id: 'refactor', stages: 10 },
+  { id: 'security-patch', stages: 10 },
+  { id: 'infra', stages: 13 },
+  { id: 'classic', stages: 18 },
+  { id: 'mvp', stages: 23 },
+  { id: 'workshop', stages: 26 },
+  { id: 'feature', stages: 33 },
+  { id: 'enterprise', stages: 33 },
+];
+
+const problems: { title: string; body: string; accent: Accent }[] = [
+  {
+    title: 'A stage ends when the agent says so',
+    accent: 'gold',
+    body: 'A method written as instructions tells the agent which documents a stage must produce and who reviews them. Nothing in the instructions themselves checks that the documents exist, that the review happened, or that the reviewer saw the current version.',
+  },
+  {
+    title: 'Sign-off turns into a chat message',
+    accent: 'cobalt-2',
+    body: 'AI-DLC asks people to answer questions and confirm summaries at set points. When the answer is a line in a transcript, nothing ties it to the exact document it approved, and a later edit quietly inherits the approval.',
+  },
+  {
+    title: 'Upstream changes do not reach downstream work',
+    accent: 'green',
+    body: 'Requirements change after the design was written from them. Unless something tracks which artifacts each stage read, the design stays marked complete against requirements that no longer exist.',
+  },
+];
+
+const receipts: { file: string; note: string }[] = [
+  { file: 'Flow run state', note: 'each stage’s gate outcome, the route-backs, attempt counts and the current step' },
+  { file: 'trust.bundle evidence', note: 'a completion claim and, where the method declares one, a review claim per stage, bound to the current artifacts' },
+  { file: 'operator receipts', note: 'answers, approvals, denials and change requests, host-signed against the exact pending request and artifact digests' },
+  { file: 'execution receipts', note: 'which worker ran, with which inputs, and how many turns and attempts it spent' },
+  { file: 'artifact fingerprints', note: 'the bytes each stage read and wrote, so a changed input invalidates the stages that depended on it' },
+  { file: 'docs/parity.json', note: 'the ledger of what matches the upstream method, what is stronger, and what is not verified' },
+];
+---
+
+<Layout
+  title="AI-DLC on Flow - a published delivery method, gated stage by stage · Kontour AI"
+  description="A worked example of Flow and Flow Agents: the AI-DLC Kit runs the pinned AWS AI-DLC methodology as a Flow Agents kit, with a Flow gate on every stage, host-signed operator decisions, and route-back when an output is rejected."
+>
+  <Nav menu="products" />
+
+  <Section contour size="hero" borderBottom>
+    <Glow accent="cobalt-2" position="top-right" />
+    <div class="container">
+      <Split ratio="1-1" gap="lg" align="center">
+        <div>
+          <div class="hero-badges">
+            <span class="trust-badge trust-badge--proposed">Use case · Flow + Flow Agents</span>
+            <span class="install-hint">kit: aidlc · v0.1.0</span>
+          </div>
+
+          <h1 class="product-title animate-fade-up">AI-DLC on Flow</h1>
+          <p class="product-tagline animate-fade-up delay-100" data-accent="cobalt-2">a published delivery method, gated stage by stage</p>
+
+          <p class="hero-copy hero-copy--wide animate-fade-up delay-200">
+            <a href={upstreamRepo} target="_blank" rel="noopener" data-umami-event="aidlc-hero-upstream">AI-DLC</a>,
+            the AI-Driven Development Life Cycle from AWS Labs, is an open
+            method for running software delivery with coding agents: 33 stages
+            from intent to operations, each with the documents it produces,
+            the role that reviews them, and the points where a person decides.
+          </p>
+          <p class="hero-copy hero-copy--wide animate-fade-up delay-200">
+            The AI-DLC Kit is a Kontour adaptation of that method. It pins one
+            upstream commit and runs every stage through Flow Agents as a Flow
+            step with a gate. A stage advances only when Flow has the evidence
+            the gate asked for, not when the agent reports that it is done.
+          </p>
+
+          <div class="hero-actions animate-fade-up delay-300">
+            <a href="#walkthrough" class="btn-primary" data-umami-event="aidlc-hero-walkthrough">Walk through one stage</a>
+            <a href={kitDocs} target="_blank" rel="noopener" class="btn-ghost" data-umami-event="aidlc-hero-docs">Kit docs</a>
+            <a href={kitRepo} target="_blank" rel="noopener" class="btn-ghost" data-umami-event="aidlc-hero-github">GitHub</a>
+          </div>
+        </div>
+
+        <div>
+          <Terminal class="animate-fade-in delay-300" title={`kontour-aidlc @ ${kitCommitShort}`}>
+            <pre class="code">{cliRun.map(({ cls, text }) => (
+              cls === 'prompt'
+                ? <span><span class="prompt">$ </span><span class="cmd">{text}</span>{'\n'}</span>
+                : cls === 'cont'
+                  ? <span><span class="cmd">{'  '}{text}</span>{'\n'}</span>
+                  : <span class={cls}>{text}{'\n'}</span>
+            ))}</pre>
+          </Terminal>
+          <p class="term-note animate-fade-in delay-300">
+            Verbatim output from a fresh clone of the kit at{' '}
+            <code>{kitCommitShort}</code>. <code>check</code> recompiles the 11
+            profile flows and 34 stage skills from the pinned upstream snapshot
+            and fails if any committed file differs.
+          </p>
+        </div>
+      </Split>
+    </div>
+  </Section>
+
+  <Section size="lg">
+    <div class="container">
+      <Eyebrow accent="gold" gap="sm">The problem</Eyebrow>
+      <h2 class="display-md measure-lg section-title">A method only helps if something checks it was followed.</h2>
+      <p class="body measure section-copy">
+        AI-DLC already says what each stage needs. The hard part with agents
+        is enforcement: who confirms that the stage really produced its
+        documents, that a reviewer read the current version, and that a
+        person approved the exact thing that went forward.
+      </p>
+      <Grid cols={3} gap="md">
+        {problems.map(({ title, body, accent }) => (
+          <Card accent={accent} bar="top" pad="md">
+            <h3 class="feature-title">{title}</h3>
+            <p class="feature-body">{body}</p>
+          </Card>
+        ))}
+      </Grid>
+    </div>
+  </Section>
+
+  <Section tone="alt" borderTop borderBottom>
+    <div class="container">
+      <Eyebrow accent="cobalt-2" gap="sm">How it runs</Eyebrow>
+      <h2 class="display-md measure-lg section-title">The method stays upstream. The checking moves into Flow.</h2>
+      <p class="body measure section-copy">
+        The kit imports the upstream stage graph, profiles and procedures
+        byte-for-byte, with their source digests, and compiles them into
+        ordinary Flow definitions and Flow Agents skills. It adds no
+        lifecycle engine of its own. Each product keeps its own job:
+      </p>
+
+      <Grid cols={3} gap="md">
+        <Card accent="cobalt-2" bar="top" pad="md">
+          <h3 class="feature-title">Flow owns the run</h3>
+          <p class="feature-body">The canonical run, every gate evaluation, route-back and retry budgets. The kit never writes Flow state directly; it attaches evidence and lets Flow decide.</p>
+          <p class="feature-meta-link"><a href="/flow/" data-umami-event="aidlc-layer-flow">Flow -></a></p>
+        </Card>
+        <Card accent="chalk-2" bar="top" pad="md">
+          <h3 class="feature-title">Flow Agents runs the kit</h3>
+          <p class="feature-body">Kit install and activation, the stage skills your agent reads, and the host execution: isolated Docker workers, a scoped provider broker, and the execution receipts.</p>
+          <p class="feature-meta-link"><a href="/flow-agents/" data-umami-event="aidlc-layer-flow-agents">Flow Agents -></a></p>
+        </Card>
+        <Card accent="green" bar="top" pad="md">
+          <h3 class="feature-title">Surface carries the evidence</h3>
+          <p class="feature-body">Stage results arrive as trust bundles: claims, the evidence behind them and their status. A missing, failed, stale or tampered bundle cannot satisfy a gate.</p>
+          <p class="feature-meta-link"><a href="/surface/" data-umami-event="aidlc-layer-surface">Surface -></a></p>
+        </Card>
+      </Grid>
+
+      <figure class="lifecycle" aria-labelledby="lifecycle-caption">
+        <ol class="phases" aria-label="The five AI-DLC phases">
+          {phases.map(({ name, count, stages, accent }) => (
+            <li class="phase" data-accent={accent}>
+              <span class="phase__count">{count}</span>
+              <span class="phase__name">{name}</span>
+              <span class="phase__stages">{stages}</span>
+            </li>
+          ))}
+        </ol>
+
+        <div class="gate-loop" aria-label="One stage as a Flow step and gate">
+          <div class="loop-node" data-accent="chalk-2">
+            <span class="loop-node__kicker">Stage skill</span>
+            <span class="loop-node__body">author writes the stage’s artifacts</span>
+          </div>
+          <span class="loop-arrow" aria-hidden="true">→</span>
+          <div class="loop-node" data-accent="gold">
+            <span class="loop-node__kicker">Host checks</span>
+            <span class="loop-node__body">artifacts observed, sensors run, operator answers where the method asks</span>
+          </div>
+          <span class="loop-arrow" aria-hidden="true">→</span>
+          <div class="loop-node" data-accent="cobalt-2">
+            <span class="loop-node__kicker">Review</span>
+            <span class="loop-node__body">a distinct reviewer on the current bytes</span>
+          </div>
+          <span class="loop-arrow" aria-hidden="true">→</span>
+          <div class="loop-node loop-node--gate" data-accent="green">
+            <span class="loop-node__kicker">Flow gate</span>
+            <span class="loop-node__body">completion + review claims, <code>verified</code></span>
+          </div>
+          <span class="loop-arrow" aria-hidden="true">→</span>
+          <div class="loop-node" data-accent="green">
+            <span class="loop-node__kicker">Pass</span>
+            <span class="loop-node__body">next stage</span>
+          </div>
+          <div class="loop-back" data-accent="red-2">
+            <span aria-hidden="true">↩</span>
+            Missing or failed evidence routes back to the same stage. After the
+            attempt budget, the run blocks until an operator decides.
+          </div>
+        </div>
+
+        <figcaption id="lifecycle-caption" class="fine">
+          The 33 stages across five phases are the pinned upstream inventory.
+          Every stage compiles to one Flow step and one gate. A profile selects
+          which stages run:{' '}
+          {profiles.map(({ id, stages }, i) => (
+            <span class="profile-chip"><code>{id}</code> {stages}{i < profiles.length - 1 ? ', ' : '.'}</span>
+          ))}
+          {' '}Counts are from the kit’s <code>compare.mjs method</code>, which
+          matched every profile against the pinned source.
+        </figcaption>
+      </figure>
+    </div>
+  </Section>
+
+  <Section id="walkthrough" size="lg">
+    <div class="container">
+      <Eyebrow accent="cobalt-2" gap="sm">One stage, start to finish</Eyebrow>
+      <h2 class="display-md measure-lg section-title">Requirements Analysis, from upstream record to Flow gate.</h2>
+
+      <Split ratio="1-1" gap="md">
+        <div>
+          <h3 class="walk-step"><span class="walk-step__n">1</span> What the method says</h3>
+          <p class="body walk-copy">
+            The upstream record for this stage names a lead agent that writes
+            the requirements, a separate lead that reviews them (advisory, at
+            most two iterations), two sensors that check the documents, and a
+            required summary confirmation: a person has to confirm before the
+            stage can go on.
+          </p>
+          <h3 class="walk-step"><span class="walk-step__n">2</span> What Flow enforces</h3>
+          <p class="body walk-copy">
+            The kit compiles that into a gate with two required
+            expectations. One is a completion claim: the current required
+            artifacts and applicable checks were observed. The other is a review
+            claim on the current artifact and source. Both have to be{' '}
+            <code>verified</code>. Missing evidence{' '}
+            <a href="https://kontourai.github.io/flow/docs/gates-and-route-back.html#route-back" target="_blank" rel="noopener" data-umami-event="aidlc-walk-route-back">routes back</a>{' '}
+            to the same stage, twice at most; after that the run blocks.
+          </p>
+        </div>
+        <div>
+          <Terminal title="upstream/snapshot.json">
+            <pre class="code">{stageRecord.map(({ cls, text }) => (
+              cls === 'prompt'
+                ? <span><span class="prompt">$ </span><span class="cmd">{text}</span>{'\n'}</span>
+                : cls === 'cont'
+                  ? <span><span class="cmd">{'  '}{text}</span>{'\n'}</span>
+                  : <span class={cls}>{text}{'\n'}</span>
+            ))}</pre>
+          </Terminal>
+        </div>
+      </Split>
+
+      <div class="walk-gap">
+        <Terminal title="flows/feature.flow.json · the compiled gate">
+          <pre class="code">{gateDefinition.map(({ cls, text }) => (
+            cls === 'prompt'
+              ? <span><span class="prompt">$ </span><span class="cmd">{text}</span>{'\n'}</span>
+              : cls === 'cont'
+                ? <span><span class="cmd">{'  '}{text}</span>{'\n'}</span>
+                : <span class={cls}>{text}{'\n'}</span>
+          ))}</pre>
+        </Terminal>
+        <p class="term-note">
+          Verbatim, from the kit at <code>{kitCommitShort}</code>. All 33
+          gates in the <code>feature</code> profile have a completion
+          expectation; 13 also require a review claim, matching the 13 stages
+          the method assigns a reviewer.
+        </p>
+      </div>
+
+      <Split ratio="1-1" gap="md" class="walk-gap">
+        <div>
+          <h3 class="walk-step"><span class="walk-step__n">3</span> What Flow does with no evidence</h3>
+          <p class="body walk-copy">
+            Run that gate through the Flow CLI before anything has been
+            attached and it does not pass. Evaluation exits 1, routes the run
+            back to Requirements Analysis, and records attempt 1 of 2. The next
+            action and the place to resume come from the run’s own record.
+          </p>
+          <p class="fine walk-copy">
+            Re-evaluating the same failed visit does not spend another attempt.
+            Flow counts a new attempt only when the run returns to the gate or
+            new failed evidence arrives, so retrying cannot exhaust the budget
+            on its own.
+          </p>
+        </div>
+        <div>
+          <Terminal title="flow 5.2.0 · the kit's gate, nothing attached">
+            <pre class="code">{routeBackRun.map(({ cls, text }) => (
+              cls === 'prompt'
+                ? <span><span class="prompt">$ </span><span class="cmd">{text}</span>{'\n'}</span>
+                : cls === 'cont'
+                  ? <span><span class="cmd">{'  '}{text}</span>{'\n'}</span>
+                  : <span class={cls}>{text}{'\n'}</span>
+            ))}</pre>
+          </Terminal>
+          <p class="term-note">
+            Verbatim. <code>excerpt.flow.json</code> holds the gate above,
+            copied unchanged with <code>jq</code> into a two-step definition
+            (<code>requirements-analysis</code> then <code>user-stories</code>)
+            so it can run on its own.
+          </p>
+        </div>
+      </Split>
+
+      <Split ratio="1-1" gap="md" class="walk-gap">
+        <div>
+          <h3 class="walk-step"><span class="walk-step__n">4</span> The operator decides through an inbox</h3>
+          <p class="body walk-copy">
+            When the stage reaches its confirmation, the run stops and the host
+            writes a signed pending request. You answer the questionnaire,
+            approve, deny or ask for changes with <code>decide</code>, then
+            resume the same original request. The answer is bound to that
+            request, the current visit and the exact artifact digests, so it
+            cannot authorize a different version later.
+          </p>
+          <p class="body walk-copy">
+            To raise a concern about a review that came back clean, add an{' '}
+            <code>operator:</code> concern. The author revises and a fresh
+            reviewer has to dispose of that concern on the new bytes. To change
+            an input that later stages already used, <code>revise-input</code>{' '}
+            records the edit, and the evidence of stages that read the old
+            version is invalidated through Flow, so they run again.
+          </p>
+          <p class="fine walk-copy">
+            These are host-observed operator receipts, signed with the private
+            controller’s key. The kit’s docs say plainly that they are not
+            personally authenticated human signatures.
+          </p>
+        </div>
+        <div>
+          <Terminal title="operator inbox · as documented">
+            <pre class="code">{decisionCommands.map(({ cls, text }) => (
+              cls === 'prompt'
+                ? <span><span class="prompt">$ </span><span class="cmd">{text}</span>{'\n'}</span>
+                : cls === 'cont'
+                  ? <span><span class="cmd">{'  '}{text}</span>{'\n'}</span>
+                  : <span class={cls}>{text}{'\n'}</span>
+            ))}</pre>
+          </Terminal>
+          <p class="term-note">
+            Commands from the kit’s{' '}
+            <a href={`${kitDocs}docs/questionnaire-replies.html`} target="_blank" rel="noopener" data-umami-event="aidlc-walk-questionnaire-docs">questionnaire reply guide</a>.
+            This is reference, not a capture: a live run needs Docker and model
+            credentials, and we did not run one for this page. The tests below
+            exercise the same path.
+          </p>
+        </div>
+      </Split>
+
+      <Split ratio="1-1" gap="md" class="walk-gap">
+        <div>
+          <h3 class="walk-step"><span class="walk-step__n">5</span> The gate refuses what it should</h3>
+          <p class="body walk-copy">
+            The kit’s conformance eval drives the published Flow and Surface
+            packages through a one-expectation gate of the same{' '}
+            <code>trust.bundle</code> kind. Verified
+            evidence passes. Missing, failed, stale, wrong-revision and
+            tampered evidence each block, and each names its reason.
+          </p>
+          <p class="fine walk-copy">
+            The evidence in this eval is deliberately synthetic. It tests the
+            package contracts, not a model’s output or how good it is.
+          </p>
+        </div>
+        <div>
+          <Terminal title="public-flow-conformance · flow 5.2.0, surface 5.0.0">
+            <pre class="code">{conformanceRun.map(({ cls, text }) => (
+              cls === 'prompt'
+                ? <span><span class="prompt">$ </span><span class="cmd">{text}</span>{'\n'}</span>
+                : cls === 'cont'
+                  ? <span><span class="cmd">{'  '}{text}</span>{'\n'}</span>
+                  : <span class={cls}>{text}{'\n'}</span>
+            ))}</pre>
+          </Terminal>
+        </div>
+      </Split>
+
+      <div class="walk-gap">
+        <h3 class="walk-step"><span class="walk-step__n">6</span> Decisions and rejections, under test</h3>
+        <p class="body measure walk-copy">
+          These tests drive the real <code>kontour-aidlc decide</code> command
+          against real Flow runs, with scripted stand-in workers in place of a
+          model: questionnaire answers, operator concerns on a clean review,
+          input revisions that are stale or denied, and model output rejected
+          for its shape, which keeps its receipt and routes back for repair
+          instead of being published.
+        </p>
+        <Terminal title="node --test · 4 of the kit's eval files">
+          <pre class="code">{decisionTests.map(({ cls, text }) => (
+            cls === 'prompt'
+              ? <span><span class="prompt">$ </span><span class="cmd">{text}</span>{'\n'}</span>
+              : cls === 'cont'
+                ? <span><span class="cmd">{'  '}{text}</span>{'\n'}</span>
+                : <span class={cls}>{text}{'\n'}</span>
+          ))}</pre>
+        </Terminal>
+        <p class="term-note">
+          Test names are verbatim, with timings removed; the ellipsis stands
+          for 17 more passing cases. The full suite, <code>npm test</code>,
+          reported 274 tests, 274 passing, on the same commit. The paths
+          arrived in kit pull requests
+          {' '}<a href={`${kitRepo}/pull/13`} target="_blank" rel="noopener">#13</a>,
+          {' '}<a href={`${kitRepo}/pull/16`} target="_blank" rel="noopener">#16</a>,
+          {' '}<a href={`${kitRepo}/pull/18`} target="_blank" rel="noopener">#18</a> and
+          {' '}<a href={`${kitRepo}/pull/20`} target="_blank" rel="noopener">#20</a>.
+        </p>
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="alt" borderTop borderBottom>
+    <div class="container">
+      <Eyebrow accent="green" gap="sm">What you get</Eyebrow>
+      <h2 class="display-md measure-lg section-title">A record of the lifecycle you can inspect without the transcript.</h2>
+      <p class="body measure section-copy">
+        Every stage leaves evidence that Flow evaluated, and every person-made
+        decision leaves a receipt bound to what it decided. After a run you can
+        see which stage it stopped at and why, without asking the agent.
+      </p>
+      <dl class="artifacts">
+        {receipts.map(({ file, note }) => (
+          <div class="artifacts__row">
+            <dt>{file}</dt>
+            <dd>{note}</dd>
+          </div>
+        ))}
+      </dl>
+      <p class="fine measure-lg receipts-note">
+        Where the kit is stricter than the pinned upstream, it says so: missing
+        checks never count as passing, review evidence must match current bytes
+        even where upstream guard policy would keep a stale verdict, and
+        artifact presence alone never advances a run. These are recorded as
+        deliberate differences in{' '}
+        <a href={`${kitRepo}/blob/main/docs/parity.json`} target="_blank" rel="noopener" data-umami-event="aidlc-parity">parity.json</a>.
+      </p>
+    </div>
+  </Section>
+
+  <Section size="lg">
+    <div class="container">
+      <Eyebrow accent="gold" gap="sm">Status</Eyebrow>
+      <h2 class="display-md measure-lg section-title">Early, and specific about what is proven.</h2>
+      <Grid min="260" gap="md">
+        <Card accent="gold" bar="top" pad="md">
+          <h3 class="feature-title">Version 0.1.0, installed from Git</h3>
+          <p class="feature-body">The kit is not on npm; <code>@kontourai/aidlc-kit</code> returns 404 from the registry. Install it from GitHub at a commit you have reviewed. It pins Flow 5.2.0 and Flow Agents 7.2.0; install and activation also completed under Flow Agents 8.0.0.</p>
+        </Card>
+        <Card accent="cobalt-2" bar="top" pad="md">
+          <h3 class="feature-title">Method coverage, not runtime equivalence</h3>
+          <p class="feature-body">Stage selection, order, roles, artifact contracts and policies are compared against the pinned source. That does not show the kit behaves like the upstream engine.</p>
+        </Card>
+        <Card accent="red-2" bar="top" pad="md">
+          <h3 class="feature-title">Effectiveness not verified</h3>
+          <p class="feature-body">A first paired comparison against the upstream method produced no execution-qualified pairs. The parity ledger records effectiveness as <code>not_verified</code>, and nothing here claims the kit produces better software.</p>
+        </Card>
+        <Card accent="chalk-2" bar="top" pad="md">
+          <h3 class="feature-title">Operations need your providers</h3>
+          <p class="feature-body">Deployment and operation stages need a host-supplied provider and existing authorization. Selecting a stage never deploys anything on its own. Live runs need Node 24, Docker and model credentials.</p>
+        </Card>
+      </Grid>
+    </div>
+  </Section>
+
+  <Section id="install" tone="alt" borderTop borderBottom>
+    <div class="container">
+      <Split ratio="1-1" gap="md" align="center">
+        <div>
+          <Eyebrow accent="green">Install</Eyebrow>
+          <h2 class="display-md section-title">Install it into a workspace and check what landed.</h2>
+          <p class="body walk-copy">
+            Installing the kit validates the repository, copies it and records
+            a content hash. Activation writes the 11 profile flows, 34 stage
+            skills and 11 docs into your runtime’s projection. Running a profile
+            is a separate step: <code>flow-agents kit run aidlc</code> with a
+            request that names the profile, the task and finite model, turn and
+            time budgets.
+          </p>
+          <p class="body walk-copy">
+            The <a href={`${kitDocs}docs/environment-setup.html`} target="_blank" rel="noopener" data-umami-event="aidlc-install-env">environment setup guide</a>{' '}
+            covers the Docker worker, provider broker and authentication.
+          </p>
+        </div>
+        <div>
+          <Terminal title={`install @ ${kitCommitShort}`}>
+            <pre class="code">{installRun.map(({ cls, text }) => (
+              cls === 'prompt'
+                ? <span><span class="prompt">$ </span><span class="cmd">{text}</span>{'\n'}</span>
+                : cls === 'cont'
+                  ? <span><span class="cmd">{'  '}{text}</span>{'\n'}</span>
+                  : <span class={cls}>{text}{'\n'}</span>
+            ))}</pre>
+          </Terminal>
+          <p class="term-note">
+            Verbatim, in a fresh empty Git workspace, using the Flow Agents
+            7.2.0 binary the kit installs. The workspace path in the install
+            line is elided. A second clean workspace produced the same content
+            hash.
+          </p>
+        </div>
+      </Split>
+
+      <div class="first-run-actions">
+        <a href={kitDocs} target="_blank" rel="noopener" class="btn-primary" data-umami-event="aidlc-footer-docs">AI-DLC Kit docs</a>
+        <a href={kitRepo} target="_blank" rel="noopener" class="btn-ghost" data-umami-event="aidlc-footer-github">GitHub</a>
+        <a href="/flow/" class="btn-ghost" data-umami-event="aidlc-footer-flow">Flow</a>
+        <a href="/flow-agents/" class="btn-ghost" data-umami-event="aidlc-footer-flow-agents">Flow Agents</a>
+        <a href={upstreamRepo} target="_blank" rel="noopener" class="btn-ghost" data-umami-event="aidlc-footer-upstream">Upstream AI-DLC</a>
+      </div>
+      <p class="fine measure-lg credit">
+        AI-DLC is published by AWS Labs in{' '}
+        <a href="https://github.com/awslabs/aidlc-workflows" target="_blank" rel="noopener">awslabs/aidlc-workflows</a>{' '}
+        under the MIT-0 license. The kit imports its methodology from commit{' '}
+        <code>{upstreamCommit.slice(0, 7)}</code> (declared version 2.11.0) and
+        keeps the original license in <code>upstream/</code>. The kit is
+        maintained by Kontour, is not an AWS product, and is licensed Apache-2.0.
+      </p>
+    </div>
+  </Section>
+
+  <Footer />
+</Layout>
+
+<style>
+  .hero-copy--wide {
+    max-width: 535px;
+  }
+  .section-title {
+    margin-bottom: 1.25rem;
+  }
+  .section-copy {
+    margin-bottom: 2rem;
+  }
+  .term-note {
+    font-size: 0.8rem;
+    line-height: 1.6;
+    color: var(--color-chalk-3);
+    margin-top: 0.9rem;
+    max-width: 60ch;
+  }
+  .term-note code {
+    font-size: 0.75rem;
+  }
+  .feature-meta-link {
+    margin-top: 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  /* Lifecycle diagram: plain HTML so it reflows on narrow screens. */
+  .lifecycle {
+    margin: 2.5rem 0 0;
+  }
+  .phases {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+  .phase {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.9rem 1rem;
+    border: 1px solid var(--color-edge);
+    border-top: 2px solid var(--accent);
+    border-radius: 6px;
+    background: var(--color-ink-2);
+  }
+  .phase__count {
+    font-family: var(--font-mono);
+    font-size: 1.4rem;
+    color: var(--accent);
+  }
+  .phase__name {
+    font-size: 0.85rem;
+    color: var(--color-chalk);
+  }
+  .phase__stages {
+    font-size: 0.72rem;
+    color: var(--color-chalk-3);
+    line-height: 1.5;
+  }
+  .gate-loop {
+    margin-top: 1.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 0.5rem;
+    padding: 1.25rem;
+    border: 1px dashed var(--color-edge-2);
+    border-radius: 6px;
+  }
+  .loop-node {
+    flex: 1 1 140px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: 0.75rem 0.9rem;
+    border: 1px solid var(--color-edge);
+    border-left: 2px solid var(--accent);
+    border-radius: 4px;
+    background: var(--color-ink-1);
+  }
+  .loop-node--gate {
+    border-color: var(--accent);
+  }
+  .loop-node__kicker {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+  }
+  .loop-node__body {
+    font-size: 0.78rem;
+    line-height: 1.5;
+    color: var(--color-chalk-2);
+  }
+  .loop-node__body code {
+    font-size: 0.72rem;
+  }
+  .loop-arrow {
+    align-self: center;
+    font-family: var(--font-mono);
+    color: var(--color-chalk-3);
+  }
+  .loop-back {
+    flex: 1 1 100%;
+    font-size: 0.78rem;
+    line-height: 1.5;
+    color: var(--color-chalk-2);
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--color-edge);
+  }
+  .loop-back span {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    margin-right: 0.4rem;
+  }
+  .lifecycle figcaption {
+    margin-top: 1rem;
+    line-height: 1.7;
+  }
+  .profile-chip code {
+    font-size: 0.72rem;
+  }
+
+  .walk-step {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1rem;
+    color: var(--color-chalk);
+    margin: 0 0 0.75rem;
+  }
+  .walk-step__n {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-cobalt-2);
+    border: 1px solid var(--color-edge-2);
+    border-radius: 999px;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .walk-copy {
+    margin-bottom: 1.5rem;
+  }
+  .walk-gap {
+    margin-top: 3rem;
+  }
+
+  .artifacts {
+    margin-top: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 0 2rem;
+  }
+  .artifacts__row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: baseline;
+    padding: 0.5rem 0;
+    border-top: 1px solid var(--color-edge);
+  }
+  .artifacts dt {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-chalk-2);
+  }
+  .artifacts dd {
+    margin: 0;
+    font-size: 0.8rem;
+    color: var(--color-chalk-3);
+  }
+  .receipts-note {
+    margin-top: 2rem;
+  }
+  .first-run-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+  .credit {
+    margin-top: 1.5rem;
+  }
+
+  /* Stacked Split columns shrink to their content under align-items, so a
+     long terminal line would push its column past the viewport. Pin each
+     stacked column to the container width; the terminal then scrolls. */
+  @media (max-width: 900px) {
+    :global(.stack-mobile) > :global(*) {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .phases {
+      grid-template-columns: 1fr;
+    }
+    .phase {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+    .phase__stages {
+      flex-basis: 100%;
+    }
+    .loop-arrow {
+      transform: rotate(90deg);
+      flex: 1 1 100%;
+      text-align: center;
+    }
+    .loop-node {
+      flex-basis: 100%;
+    }
+  }
+</style>

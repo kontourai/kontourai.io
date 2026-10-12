@@ -1864,3 +1864,44 @@ test("freshness pass keeps current claims distinct from frozen demonstrations", 
   await page.goto("/");
   await expect(page.getByText("producer-side review contract for it")).toBeVisible();
 });
+
+test("AI-DLC use case walks one real gate, labels what was captured, and is linked from Flow and Flow Agents", async ({ page }) => {
+  await page.goto("/use-cases/aidlc/");
+  await expect(page.getByRole("heading", { level: 1, name: "AI-DLC on Flow", exact: true })).toBeVisible();
+  // Upstream credit names the real source, its license, and the pinned commit.
+  await expect(page.locator('[data-umami-event="aidlc-hero-upstream"]')).toHaveAttribute(
+    "href",
+    "https://github.com/awslabs/aidlc-workflows/tree/2a555f7a4387cd1b8254029cccb9fd1e99974574",
+  );
+  await expect(page.getByText("under the MIT-0 license")).toBeVisible();
+  await expect(page.getByText("is not an AWS product")).toBeVisible();
+
+  // The walkthrough terminals carry the captured output, not a paraphrase of it.
+  await expect(page.getByText("AI-DLC generated kit contracts verified.")).toBeVisible();
+  await expect(page.getByText('"claimType": "aidlc.requirements-analysis-review",')).toBeVisible();
+  await expect(page.getByText("next action: return to requirements-analysis and replace failing evidence attempt 1/2").first()).toBeVisible();
+  await expect(page.getByText("route: missing_evidence -> requirements-analysis; attempt 1/2; limit exceeded: no")).toBeVisible();
+  await expect(page.getByText("tampered-stored-bundle  gate=block  run=blocked  integrity_mismatch")).toBeVisible();
+  await expect(page.getByText("skills: 34")).toBeVisible();
+
+  // The operator commands are documented reference, and the page says so.
+  await expect(page.getByText("This is reference, not a capture")).toBeVisible();
+  await expect(page.getByText("not personally authenticated human signatures")).toBeVisible();
+
+  // Status stays honest: not on npm, effectiveness not verified.
+  await expect(page.getByText("returns 404 from the registry")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Effectiveness not verified" })).toBeVisible();
+
+  // The stage-and-gate diagram lists all five phases with the pinned counts.
+  const phases = page.locator(".phases .phase");
+  await expect(phases).toHaveCount(5);
+  await expect(phases.locator(".phase__count")).toHaveText(["3", "7", "9", "7", "7"]);
+
+  for (const [route, event] of [
+    ["/flow/", "flow-in-practice-aidlc"],
+    ["/flow-agents/", "flow-agents-in-practice-aidlc"],
+  ]) {
+    await page.goto(route);
+    await expect(page.locator(`[data-umami-event="${event}"]`)).toHaveAttribute("href", "/use-cases/aidlc/");
+  }
+});
