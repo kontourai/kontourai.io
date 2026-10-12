@@ -114,10 +114,10 @@ export const receipts: Receipt[] = [
       "The trust.bundle a Flow Agents delivery run emits as its own receipt: every workflow check (build, source-tree validation, verification) recorded as a claim with its evidence and status.",
     provenance: {
       repo: "kontourai/flow-agents",
-      commit: "fe41e3cfbf465a2e186af39d235c7b746b3aee05",
+      commit: "573b45ec28453392bc11286ef7378b6627c790e0",
       path: "delivery/trust.bundle",
       note:
-        "Committed by the Flow Agents delivery pipeline and tracked in-repo since PR #269; this copy is taken verbatim from origin/main at the pinned commit.",
+        "Committed by the Flow Agents delivery pipeline with kontourai/flow-agents#277 (the @kontourai/surface 2.0.0 migration) and taken verbatim from delivery/trust.bundle at that merge commit on main.",
     },
     bundle: flowAgentsDelivery as unknown as TrustBundle,
   },

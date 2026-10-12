@@ -256,7 +256,7 @@ const reviewBenefits: { title: string; accent: Accent; items: string[] }[] = [
       <Grid min="260" gap="lg">
         <Card accent="gold-2" bar="top" pad="md">
           <h3 class="feature-title">Review MCP</h3>
-          <p class="feature-body"><code class="code-plain">npx survey-review-mcp</code> drives the queue from current MCP hosts while continuing to serve legacy clients. The review card carries four outcomes, not two: accept the proposal, keep what's there, reject it — or say you couldn't confirm it. Every one of them goes through the same server check as a decision made in a browser.</p>
+          <p class="feature-body"><code class="code-plain">npx -p @kontourai/survey survey-review-mcp</code> drives the queue from current MCP hosts while continuing to serve legacy clients. The review card goes beyond accept or reject: accept the proposal, keep what's there, reject it — or say you couldn't confirm it, with a reason. When several values are proposed, you pick the one to use. Every decision goes through the same server check as one made in a browser.</p>
         </Card>
         <Card accent="cobalt-2" bar="top" pad="md">
           <h3 class="feature-title">Review Console</h3>

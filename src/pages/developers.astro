@@ -22,13 +22,19 @@ const hachurePin = pkg.devDependencies.hachure;
 const ajvPin = pkg.devDependencies.ajv;
 const surfacePin = pkg.dependencies['@kontourai/surface'];
 
-// The two paged kits come from the shared catalog copy. The two external kits
+// The two paged kits come from the shared catalog copy. The external kits
 // live in their own repos, so each links to its own source — not a shared
 // docs root. Their asset counts are read off their kit.json manifests.
+//
+// TODO(aidlc-usecase lane): when src/pages/use-cases/aidlc.astro lands, point
+// AIDLC_KIT_HREF at '/use-cases/aidlc/' and drop `external` on its card. Until
+// that page exists the card links the kit's repo, so it never links a 404.
+const AIDLC_KIT_HREF = 'https://github.com/kontourai/aidlc-kit';
 const kitCards: { name: string; href: string; job: string; note: string; accent: Accent; external?: boolean; event: string }[] = [
   { name: 'Builder Kit', href: '/builder-kit/', accent: 'chalk-2', event: 'developers-kit-builder', job: kits[0].job, note: 'The delivery path: the agent shapes the work, builds it, has it reviewed and verified, and hands you a receipt at the end.' },
   { name: 'Knowledge Kit', href: '/knowledge-kit/', accent: 'gold', event: 'developers-kit-knowledge', job: kits[1].job, note: 'What the agent learned, kept with the source it came from, with a gate before anything gets promoted to fact.' },
   { name: 'Release Evidence Kit', href: 'https://github.com/kontourai/flow-agents/tree/main/kits/release-evidence', accent: 'green', external: true, event: 'developers-kit-release-evidence', job: 'A release gate with no agent involved.', note: 'One flow and nothing else. CI attaches an evidence claim, the gate reads it, and no agent runs at any point — proof the engine works without one.' },
+  { name: 'AI-DLC Kit', href: AIDLC_KIT_HREF, accent: 'gold-2', external: true, event: 'developers-kit-aidlc', job: 'The AI-DLC methodology, run as a kit.', note: 'Independently maintained, on the same public kit, gate, and adapter contracts as any other kit. Not on npm: install it from GitHub at a reviewed commit with flow-agents kit install.' },
   { name: 'Veritas Governance Kit', href: 'https://github.com/kontourai/veritas', accent: 'cobalt-2', external: true, event: 'developers-kit-veritas-governance', job: "Your repo's own rules, as a gate.", note: 'Two flows and three agent skills, installed from a different repo than the engine — which is the proof outside kits get no special treatment.' },
 ];
 
@@ -274,10 +280,11 @@ const docsKitPin = '27cd43ded8c6e2e591d85d1d65bff31b3ae92e24';
         today — nothing on this list is a name you can't install.
       </p>
       <Grid min="280" gap="md">
-        {labRepos.map(({ slug, label, repo, packageName, docs, description }) => (
+        {labRepos.map(({ slug, label, repo, packageName, docs, install, description }) => (
           <Card accent="chalk-2" pad="md">
             <h3 class="product-card__title">{label}</h3>
             <p class="lab-card__package">{packageName}</p>
+            {install && <p class="lab-card__install"><code class="code-plain">{install}</code></p>}
             <p class="product-card__body">{description}</p>
             <div class="product-card__links">
               {docs && <a href={docs} target="_blank" rel="noopener" data-umami-event={`developers-lab-${slug}-docs`}>Docs →</a>}
@@ -374,6 +381,12 @@ const docsKitPin = '27cd43ded8c6e2e591d85d1d65bff31b3ae92e24';
     font-size: 0.72rem;
     color: var(--color-chalk-3);
     margin: -0.45rem 0 0.7rem;
+  }
+
+  .lab-card__install {
+    font-size: 0.72rem;
+    margin: -0.3rem 0 0.7rem;
+    overflow-wrap: anywhere;
   }
 
   .product-card__links,

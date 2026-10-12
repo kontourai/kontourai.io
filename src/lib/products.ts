@@ -236,9 +236,12 @@ export type LabPackage = {
   label: string;
   repo: string;
   packageName: string;
-  // Docs site on the Kontour docs hub, only where one is published. Leave it
-  // out rather than guess: a card that links docs has to have docs behind it.
+  // Docs for the package: its site on the Kontour docs hub where one is
+  // published, otherwise its README. Leave it out rather than guess: a card
+  // that links docs has to have docs behind it.
   docs?: string;
+  // The install command from the package's own README, where the card shows one.
+  install?: string;
   description: string;
 };
 
@@ -248,6 +251,10 @@ export const labPackages: LabPackage[] = [
     label: "Kontour CLI",
     repo: "https://github.com/kontourai/cli",
     packageName: "@kontourai/cli",
+    // TODO(cli docs-kit lane): switch to https://kontourai.github.io/cli/ once
+    // it is published (404 as of 2026-10-11); until then the README is the docs.
+    docs: "https://github.com/kontourai/cli#readme",
+    install: "npm install --global @kontourai/cli",
     description:
       "The kontour command. It works out which Kontour packages you already have installed and hands your command to the right one. It never reaches for the registry, downloads a missing package, or changes a version behind you — so the same command does the same thing offline.",
   },
@@ -267,7 +274,7 @@ export const labPackages: LabPackage[] = [
     packageName: "@kontourai/bearing",
     docs: "https://kontourai.github.io/bearing/",
     description:
-      "Which model is actually good at what, and where that judgement came from. Compiles observations into catalog snapshots you can diff, and ranks models for a given runtime — without calling any of them.",
+      "Which model is actually good at what, and where that judgement came from. Compiles observations into immutable, digest-stamped catalog snapshots, and ranks models for a given runtime — without calling any of them.",
   },
   {
     slug: "relay",
