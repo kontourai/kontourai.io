@@ -111,7 +111,9 @@ if (!args.url) {
   process.exit(2);
 }
 
-const { chromium } = await import('playwright');
+// From @playwright/test, the declared devDependency: bare `playwright` is only
+// its transitive dependency, which pnpm's isolated node_modules does not expose.
+const { chromium } = await import('@playwright/test');
 const browser = await chromium.launch();
 try {
   const context = await browser.newContext({
