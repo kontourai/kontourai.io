@@ -18,8 +18,9 @@ npm run dev
 ```
 
 The pnpm version is pinned in `package.json` (`packageManager`). Dependency
-install scripts are blocked by default; the only packages allowed to run one are
-listed under `allowBuilds` in `pnpm-workspace.yaml`, pinned by version. Scripts
+install scripts are blocked by default; `allowBuilds` in `pnpm-workspace.yaml`
+decides each package that asks for one, by exact version, and currently allows
+none. Scripts
 are still run with `npm run …` — that only invokes `package.json` scripts and
 does not depend on which tool installed `node_modules`.
 

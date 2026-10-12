@@ -1,12 +1,15 @@
-# Dependency install scripts are blocked by default (pnpm >= 10). Only the
-# packages listed here, at exactly these versions, may run a build script.
-# esbuild: postinstall selects the platform binary; without it the JS fallback
-# runs and the Astro/Vite build is dramatically slower. Bump the pin with the dep.
-# workerd: postinstall links the platform-specific workerd binary that wrangler
-# shells out to; without it the wrangler CLI used by the Deploy job cannot run.
+# Dependency install scripts are blocked by default (pnpm >= 10). Nothing here
+# needs one, so every package that asks is denied by exact version (pnpm fails
+# the install on any script it has not been told about).
+# esbuild and workerd: each postinstall only version-checks the binary, falls
+# back to downloading it when the platform package is missing, and swaps the JS
+# shim in bin/ for a hardlink to the native binary. With the scripts skipped,
+# the shim still runs the native platform binary: `npm run build`, the rendered
+# tests, `wrangler --version` and `wrangler pages dev dist` (which starts
+# workerd) all work. Bump these pins together with the dependencies.
 allowBuilds:
-  esbuild@0.28.1: true
-  workerd@1.20260811.1: true
+  esbuild@0.28.1: false
+  workerd@1.20260811.1: false
 
 # A newly published version must be at least 24 hours old before it can be
 # resolved into this lockfile. Blunts the most common supply-chain shape (a
