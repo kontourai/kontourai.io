@@ -6,7 +6,10 @@
 //   public/favicon.svg           small cut, color set (a standalone SVG has no
 //                                text color to inherit; currentColor draws black)
 //   public/apple-touch-icon.png  180x180, the 64px+ symbol cut on the site ink
-//   public/og/kontour-share.png  1200x630 share card, large lockup
+//   public/og/kontour-share.png  1200x630 share card, large lockup over faint
+//                                generic contour rings (decorative terrain,
+//                                deliberately NOT the symbol: a mark is never
+//                                drawn under 3:1)
 //
 // Colors come from the site palette in src/styles/global.css (OPEN-11: the
 // marketing site keeps its own palette), never from @kontourai/ui tokens.
@@ -31,11 +34,20 @@ const token = (name) => {
 };
 const ink = token('ink');
 const ink1 = token('ink-1');
-const ink3 = token('ink-3');
 const edge = token('edge');
 const chalk = token('chalk');
 const chalk2 = token('chalk-2');
 const gold = token('gold');
+
+// Generic terrain for the card background: offset rings whose centres drift
+// down and to the left. Not the Headland symbol or any other mark.
+const terrain = () => {
+  const rings = Array.from({ length: 9 }, (_, i) => {
+    const r = 36 + i * 34;
+    return `<ellipse cx="${520 - i * 9}" cy="${250 + i * 7}" rx="${r * 1.18}" ry="${r}" />`;
+  }).join('');
+  return `<svg width="760" height="560" viewBox="0 0 760 560" fill="none" stroke="currentColor" stroke-width="1.5">${rings}</svg>`;
+};
 
 // Sizes the root <svg> by height only, so the mark keeps its own aspect ratio.
 const sized = (svg, height) => {
@@ -73,13 +85,13 @@ try {
   * { box-sizing: border-box; }
   body { margin: 0; width: 1200px; height: 630px; background: ${ink}; }
   .card { position: absolute; inset: 40px; background: ${ink1}; border: 1px solid ${edge}; border-radius: 16px; overflow: hidden; }
-  .art { position: absolute; right: 64px; top: 40px; color: ${ink3}; }
+  .art { position: absolute; right: -120px; top: -20px; color: ${chalk}; opacity: 0.09; }
   .lockup { position: absolute; left: 72px; top: 84px; color: ${chalk}; }
   .tagline { position: absolute; left: 72px; top: 212px; margin: 0; font: 400 34px/1.3 'Syne', sans-serif; color: ${chalk2}; }
   .rule { position: absolute; left: 72px; right: 72px; bottom: 96px; border-top: 1px solid ${edge}; }
   .url { position: absolute; right: 72px; bottom: 44px; font: 400 24px/1 'JetBrains Mono', monospace; color: ${gold}; }
 </style></head><body><div class="card">
-  <div class="art">${sized(icon('kontour-symbol-hero'), 400)}</div>
+  <div class="art">${terrain()}</div>
   <div class="lockup">${sized(icon('kontour-lockup-large'), 88)}</div>
   <p class="tagline">Make your agents show their work.</p>
   <div class="rule"></div>
