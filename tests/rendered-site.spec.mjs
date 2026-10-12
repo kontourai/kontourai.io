@@ -38,7 +38,7 @@ test("homepage keeps the company headline, leads with Station, then the recognit
   await expect(page.locator('[data-umami-event="home-station-privacy"]')).toHaveAttribute("href", "/privacy/station/");
   // The Station capture is a manifest-bound visual with its provenance in the caption.
   await expect(page.locator('img[src="/screenshots/station-project.png"]')).toHaveAttribute("alt", /Trail Notes/);
-  await expect(page.getByText("A development build (revision 74b4cf1b5) served from a temporary Station home")).toBeVisible();
+  await expect(page.getByText(/Station Nightly 0\.1\.11-nightly\.247504 \(revision f5e213693\)\s+served from a temporary Station home/)).toBeVisible();
   await expect(page.getByText("desktop builds check their release feed for updates")).toBeVisible();
   await expect(page.locator('[data-umami-event="home-station-tour"]')).toHaveAttribute("href", "https://station.kontourai.io/");
   await expect(page.locator('[data-umami-event="home-station-setup"]')).toHaveAttribute("href", "https://kontourai.github.io/station/docs/user/getting-started.html");
@@ -1876,7 +1876,7 @@ test("freshness pass keeps current claims distinct from frozen demonstrations", 
   await expect(page.getByRole("heading", { name: "Three kits ship with it, and more install from their own repos." })).toBeVisible();
 
   await page.goto("/flow/");
-  await expect(page.getByText("Recorded with").filter({ hasText: "@kontourai/flow 3.10.0" })).toBeVisible();
+  await expect(page.getByText("Recorded with").filter({ hasText: "@kontourai/flow 5.2.0" })).toBeVisible();
 
   await page.goto("/survey/");
   await expect(page.getByText("Real output captured from").filter({ hasText: "@kontourai/survey 2.2.2" })).toBeVisible();
