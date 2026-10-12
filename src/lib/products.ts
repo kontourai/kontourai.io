@@ -330,7 +330,7 @@ export const labPackages: LabPackage[] = [
     packageName: "@kontourai/plumb",
     docs: "https://kontourai.github.io/plumb/",
     description:
-      "Runs your deployment's own health check on a schedule, and when it fails, hands the failure to an AI agent working in a separate clean clone that opens a pull request or an issue. The agent works in its own clean clone, and its instructions forbid touching the live checkout or production data — prompt-level guardrails today, not a sandbox.",
+      "Runs your deployment's own health check on a schedule, and when it fails, hands the failure to an AI agent working in a separate clean clone that opens a pull request or an issue. Its instructions forbid touching the live checkout or production data — prompt-level guardrails today, not a sandbox.",
   },
   {
     slug: "ephemeris",
