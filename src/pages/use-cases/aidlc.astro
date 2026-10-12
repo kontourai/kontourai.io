@@ -17,6 +17,8 @@ import type { Accent } from '@/lib/theme';
 // with the kit's own pinned dependencies (@kontourai/flow 5.2.0,
 // @kontourai/surface 5.0.0, @kontourai/flow-agents 7.2.0). The only edit is
 // one workspace path, elided where the line says so.
+// Historical terminal captures retain their original revision and output.
+const currentKitCommit = '186d4e34bce0a8cd21d4c28e071d9f285102a89a';
 const kitCommit = 'f5190c245e51a9598fb8383a28076ced7e58de61';
 const kitCommitShort = kitCommit.slice(0, 7);
 const upstreamCommit = '2a555f7a4387cd1b8254029cccb9fd1e99974574';
@@ -351,7 +353,7 @@ const receipts: { file: string; note: string }[] = [
         </Card>
         <Card accent="chalk-2" bar="top" pad="md">
           <h3 class="feature-title">Flow Agents runs the kit</h3>
-          <p class="feature-body">Kit install and activation, the stage skills your agent reads, and the host execution: isolated Docker workers, a scoped provider broker, and the execution receipts.</p>
+          <p class="feature-body">Kit install and activation, the stage skills your agent reads, and the host execution through configured native coding engines or isolated Docker workers with a scoped provider broker, and the execution receipts.</p>
           <p class="feature-meta-link"><a href="/flow-agents/" data-umami-event="aidlc-layer-flow-agents">Flow Agents -></a></p>
         </Card>
         <Card accent="green" bar="top" pad="md">
@@ -644,6 +646,45 @@ const receipts: { file: string; note: string }[] = [
     </div>
   </Section>
 
+  <Section id="review" tone="alt" borderTop borderBottom>
+    <div class="container">
+      <Eyebrow accent="gold" gap="sm">Review the evidence</Eyebrow>
+      <h2 class="display-md measure-lg section-title">Lock in a decision on the documents you actually read.</h2>
+      <p class="body measure-lg section-copy">
+        When Requirements Analysis stops for its produced-artifact review, the optional{' '}
+        <a href="/survey/" data-umami-event="aidlc-review-survey">Survey interface</a> displays the current
+        artifact bytes, source references, original deadline and remaining worker budget.
+        Inspect the documents, then approve, decline, request changes with a correction note,
+        or record that you could not confirm. A changed artifact or expired request is refused.
+        Resume the same request through Flow Agents after the decision is recorded.
+      </p>
+      <Grid min="260" gap="md">
+        <Card accent="gold" bar="top" pad="md">
+          <h3 class="feature-title">Browser, CLI and MCP App</h3>
+          <p class="feature-body">Survey 8.1.0 supplies the optional browser console and persisted review session. Its MCP server and embedded MCP App can record decisions against that same session; the host applies them through the browser console. Questionnaire answers and other stages keep their existing typed decision interfaces.</p>
+        </Card>
+        <Card accent="cobalt-2" bar="top" pad="md">
+          <h3 class="feature-title">Shared observations, domain checks</h3>
+          <p class="feature-body">The kit retains AWS’s sensor names for methodology-specific checks such as required sections and traceability. Plumb carries bounded check results and their evidence basis. <a href="/veritas/">Veritas</a> consumes the same observation contract for repository standards and readiness; it remains a separate Governance Kit on Flow Agents.</p>
+        </Card>
+        <Card accent="chalk-2" bar="top" pad="md">
+          <h3 class="feature-title">A recorded decision has a scope</h3>
+          <p class="feature-body">The local interface records a host-observed operator interaction. A stored name, browser click or MCP call does not authenticate a human. Could not confirm leaves approval unresolved, and requesting changes requires a new author and distinct review within the original budget.</p>
+        </Card>
+      </Grid>
+      <Terminal title="Current kit · command reference, not captured output">
+        <pre class="code">{`npm install --save-exact "github:kontourai/aidlc-kit#${currentKitCommit}"
+npm install --save-exact @kontourai/survey@8.1.0
+npx kontour-aidlc review --controller-root /private/run-controller \\
+  --pending /private/run-controller/authority/pending/CURRENT.json \\
+  --reference "operator:requirements-reviewed"
+# Open the returned loopback URL, inspect the cards, and send the review.
+# Resume with the original kit run request and controller.`}</pre>
+      </Terminal>
+      <p class="term-note">This command reference targets the <a href={`${kitRepo}/tree/${currentKitCommit}`}>current source at {currentKitCommit.slice(0, 7)}</a>. See the <a href={`${kitDocs}docs/using-the-kit.html#optional-survey-requirements-review`} data-umami-event="aidlc-review-guide">review and resume guide</a> for setup and the MCP command. Keep the bootstrap and private controller outside the application workspace.</p>
+    </div>
+  </Section>
+
   <Section size="lg">
     <div class="container">
       <Eyebrow accent="gold" gap="sm">Status</Eyebrow>
@@ -651,7 +692,7 @@ const receipts: { file: string; note: string }[] = [
       <Grid min="260" gap="md">
         <Card accent="gold" bar="top" pad="md">
           <h3 class="feature-title">Version 0.1.0, installed from Git</h3>
-          <p class="feature-body">The kit is not on npm; <code>@kontourai/aidlc-kit</code> returns 404 from the registry. Install it from GitHub at a commit you have reviewed. It pins Flow 5.2.0 and Flow Agents 7.2.0; install and activation also completed under Flow Agents 8.0.0.</p>
+          <p class="feature-body">The kit is not on npm; <code>@kontourai/aidlc-kit</code> returns 404 from the registry. Install it from GitHub at a commit you have reviewed. The current kit pins Flow 5.2.0 and Flow Agents 8.0.1, and uses Plumb 0.2.0 for shared check observations. The terminal captures below retain their original revision and dependency versions.</p>
         </Card>
         <Card accent="cobalt-2" bar="top" pad="md">
           <h3 class="feature-title">Method coverage, not runtime equivalence</h3>
@@ -659,7 +700,7 @@ const receipts: { file: string; note: string }[] = [
         </Card>
         <Card accent="red-2" bar="top" pad="md">
           <h3 class="feature-title">Effectiveness not verified</h3>
-          <p class="feature-body">A first paired comparison against the upstream method produced no execution-qualified pairs. The parity ledger records effectiveness as <code>not_verified</code>, and nothing here claims the kit produces better software.</p>
+          <p class="feature-body">Independent effectiveness remains withheld pending final-source qualification and grading. The parity ledger records effectiveness as <code>not_verified</code>, and nothing here claims the kit produces better software.</p>
         </Card>
         <Card accent="chalk-2" bar="top" pad="md">
           <h3 class="feature-title">Operations need your providers</h3>
@@ -677,15 +718,14 @@ const receipts: { file: string; note: string }[] = [
           <h2 class="display-md section-title">Install it into a workspace and check what landed.</h2>
           <p class="body walk-copy">
             Installing the kit validates the repository, copies it and records
-            a content hash. Activation writes the 11 profile flows, 34 stage
-            skills and 11 docs into your runtime’s projection. Running a profile
+            a content hash. Activation writes the declared profile flows, stage skills and docs into your runtime’s projection. Running a profile
             is a separate step: <code>flow-agents kit run aidlc</code> with a
             request that names the profile, the task and finite model, turn and
             time budgets.
           </p>
           <p class="body walk-copy">
-            The <a href={`${kitDocs}docs/environment-setup.html`} target="_blank" rel="noopener" data-umami-event="aidlc-install-env">environment setup guide</a>{' '}
-            covers the Docker worker, provider broker and authentication.
+            The <a href={`${kitDocs}docs/using-the-kit.html`} target="_blank" rel="noopener" data-umami-event="aidlc-install-env">environment setup guide</a>{' '}
+            covers install, setup, doctor, native execution, review and resume; the environment guide covers Docker and provider authentication.
           </p>
         </div>
         <div>
