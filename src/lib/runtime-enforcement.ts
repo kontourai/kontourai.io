@@ -32,16 +32,18 @@ export const runtimeEnforcement: RuntimeEnforcement[] = [
     // Kiro's adapter has the full blocking capability (hook-surface L2), but
     // Kiro wires its hooks inside the agent JSON (its native config model), so
     // there is no `.kiro/` host-config directory to look for — all four policy
-    // classes really do ship. What does NOT ship is the block-mode default:
-    // GOAL_FIT_MODE_PREFIX is applied only in exportClaudeSettings() and
-    // exportCodexHooks(), so Kiro's done-check resolves to `warn` unless the
-    // reader sets the variable. Upstream grades it L2/blocking regardless —
-    // flow-agents#1002.
+    // classes really do ship. What does NOT ship is the block-mode default: in
+    // flow-agents v8.0.0 the goal-fit `block` env default is attached only to
+    // the Claude Code and Codex policies (src/tools/build-universal-bundles.ts),
+    // so Kiro's done-check falls to the engine default `warn`
+    // (src/lib/effective-flow-agents-config.ts). Upstream docs
+    // (docs/getting-started.md, docs/spec/runtime-hook-surface.md §5.2) still
+    // say Kiro's stop hook blocks — flow-agents#1002.
     runtime: "Kiro",
     level: "advisory",
     label: "Advisory / opt-in block",
     meaning:
-      "All four policies ship and config protection blocks at tool-call time, but the done-check arrives in warn mode — set FLOW_AGENTS_GOAL_FIT_MODE=block to make it stop the turn.",
+      "All four policies ship and config protection blocks at tool-call time. Flow Agents' docs list Kiro's stop hook as blocking, but as of 8.0.0 its done-check ships in warn mode: set FLOW_AGENTS_GOAL_FIT_MODE=block, or goal_fit.mode \"block\" in .flow-agents/config/core.config.json, to make it stop the turn.",
   },
   {
     runtime: "opencode",

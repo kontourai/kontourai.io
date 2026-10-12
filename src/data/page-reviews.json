@@ -153,6 +153,11 @@
       "page": "src/pages/privacy.astro",
       "products": {},
       "reviewedDate": "2026-10-12"
+    },
+    {
+      "page": "src/pages/privacy/station.astro",
+      "products": {},
+      "reviewedDate": "2026-10-12"
     }
   ]
 }

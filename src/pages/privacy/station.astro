@@ -2,19 +2,24 @@
 /**
  * Station app privacy policy — the URL the App Store and Play listings point at.
  *
- * This page is a public projection of Station's privacy inventory, which is the
- * single source the app's iOS `PrivacyInfo.xcprivacy` and its Play Data Safety
- * answers are also rendered from. If those three ever disagree, the inventory is
- * right and this page is stale.
+ * This page is a hand-written public projection of Station's generated privacy
+ * policy (kontourai/station `docs/privacy-policy.md`), which Station renders from
+ * its privacy inventory (`src-server/services/privacy-inventory.ts`) alongside
+ * the iOS `PrivacyInfo.xcprivacy` and the draft Play Data Safety answers. Every
+ * statement below is taken from that generated policy: its inventory rows, its
+ * "Review scope" list and its "Your choices" list. If the two disagree, the
+ * generated policy is right and this page is stale.
  *
- * `inventoryFingerprint` below is the first 16 hex of the SHA-256 over the
- * inventory's rendered policy. When the app changes what it collects, that value
- * changes, and this page must be regenerated in the same change. It is recorded
- * here so the drift is visible rather than silent.
+ * `inventoryFingerprint` is the first 16 hex characters of the SHA-256 of the
+ * bytes of `docs/privacy-policy.md` at `policyCommit`:
  *
- * Unlike /privacy/, this page does not yet link to the code that implements
- * each statement, although Station's source is now public (Apache-2.0). That
- * is a real limitation of this page and it is stated on it, not hidden.
+ *   git -C station show <policyCommit>:docs/privacy-policy.md | shasum -a 256 | cut -c1-16
+ *
+ * This reproduces every earlier value this page has carried (9c7a09ca758fad25
+ * and 788a17b779346da5 are that hash at kontourai/station-archive 7715fd3b and
+ * b3c05188). No test in either repo checks this page against the policy, so the
+ * fingerprint is what makes the drift visible: when the policy's hash changes,
+ * regenerate this page in the same change.
  */
 import Layout from '@/layouts/Layout.astro';
 import Nav from '@/components/Nav.astro';
@@ -22,13 +27,15 @@ import Footer from '@/components/Footer.astro';
 import Section from '@/components/Section.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
 
-const updated = '11 August 2026';
-const inventoryFingerprint = '788a17b779346da5';
+const updated = '11 October 2026';
+const inventoryFingerprint = '098fe4522c631fbe';
+const policyCommit = 'eafa3df6f65a00fb206a413b8e3a065ff61dae99';
+const policyUrl = `https://github.com/kontourai/station/blob/${policyCommit}/docs/privacy-policy.md`;
 ---
 
 <Layout
   title="Station app privacy — what the app collects, in plain terms · Kontour AI"
-  description="What the Station app collects on your device, what leaves it and only when you configure it to, which permissions exist and why, and how to get your data deleted."
+  description="What the Station app collects, what leaves your machine and what turns it on, which permissions exist and why, and how to get your data deleted."
 >
   <Nav />
 
@@ -37,9 +44,10 @@ const inventoryFingerprint = '788a17b779346da5';
       <Eyebrow accent="gold" gap="sm">Station app privacy</Eyebrow>
       <h1 class="display-lg privacy-title">What the app collects.</h1>
       <p class="lead measure privacy-lead">
-        Station runs on hardware you control. The short version: nothing leaves
-        your machine unless you configure something that sends it, and this page
-        lists every one of those somethings.
+        Station runs on hardware you or your operator control. The short version:
+        data leaves only through features that you configure, register, or use,
+        and this page lists each of those that Station's privacy inventory
+        records.
       </p>
       <p class="fine privacy-updated">Last updated {updated} · Kontour AI LLC</p>
     </div>
@@ -47,19 +55,20 @@ const inventoryFingerprint = '788a17b779346da5';
 
   <Section borderBottom>
     <div class="container container--readable">
-      <h2 class="display-md privacy-h2">The default: nothing goes anywhere</h2>
+      <h2 class="display-md privacy-h2">The default: what stays on your machine</h2>
       <p class="body measure">
-        Station is self-hosted. Your conversations, your files, and your
-        knowledge base live in Station's own storage on your machine. There is no
-        Kontour-operated server in the middle of your work, no account required to
-        use it, and no identifier derived from an account. The one Kontour-operated
-        service is the push gateway that relays notifications to a phone you pair,
-        and it forwards them encrypted, without the key to open them.
+        Station is self-hosted: it runs on your own machine or on a server your
+        operator runs, and keeps what you add to it in its own storage there.
+        Accounts are optional, and the identifier on product-usage telemetry is a
+        random installation value, not one derived from an account. Station
+        uses the Kontour push gateway only for a phone you register, and the
+        gateway forwards what it relays sealed, without the key to open it.
       </p>
       <p class="body measure">
-        Everything in the next section describes a case where data does leave —
-        and every one of them requires you or your operator to configure it
-        first.
+        Everything in the next section describes a case where data does leave.
+        Each one starts with something you or your operator chose: a model
+        connection, an endpoint, a registered phone, a session you started. The
+        exception is the desktop updater, which checks its release feed.
       </p>
     </div>
   </Section>
@@ -68,30 +77,57 @@ const inventoryFingerprint = '788a17b779346da5';
     <div class="container container--readable">
       <h2 class="display-md privacy-h2">What can leave, and what turns it on</h2>
 
+      <h3 class="privacy-h3">Your model and engine</h3>
+      <p class="body measure">
+        When an agent runs, Station sends your messages, supported attachments,
+        tool results, and selected context to the model connection or engine you
+        chose. That provider is your choice, and its own handling applies to what
+        it receives. A local executable can still use hosted inference or
+        external tools, and their service configuration and privacy practices
+        apply as well.
+      </p>
+
+      <h3 class="privacy-h3">Desktop updates</h3>
+      <p class="body measure">
+        A desktop build that includes an updater contacts its configured release
+        feed. The inventory records that contact; it does not yet have its own
+        entry describing what the request carries.
+      </p>
+
       <h3 class="privacy-h3">Product-usage telemetry</h3>
       <p class="body measure">
-        App version, operating system, and CPU architecture, with the release
-        channel and build details, on every event; Station's startup metadata;
-        and the outcome categories of session recovery and of each engine turn
-        (completed, aborted, or failed). It is off unless three things are all true: an ingestion endpoint is
-        configured, telemetry is enabled, and you have seen and acknowledged the
-        in-app disclosure of exactly what is sent. The identifier attached to it
-        is a random value generated once on your install and hashed before
-        sending — it is never derived from an account, and Station never reads
-        another vendor's credential files to build one.
+        Every event carries a versioned event ID, the time it was produced, the
+        privacy-inventory revision, a hashed installation identifier, and
+        allowlisted build details: app version, platform, CPU architecture,
+        release channel, whether the build was modified, and optionally the full
+        Git commit with where that value came from. The events themselves are
+        Station's startup metadata, classified session-recovery outcomes (the
+        failure category, the recovery decision, and the result), and how each
+        engine turn ended (the engine family, and completed, aborted, or
+        failed).
+      </p>
+      <p class="body measure">
+        Nothing is sent unless three things are all true: an operator has
+        configured a telemetry endpoint, telemetry is enabled, and the in-app
+        disclosure for the current inventory has been acknowledged. It goes to
+        that operator-configured endpoint, and it can be disabled. The
+        installation identifier is a random value generated once for your
+        install and SHA-256 hashed before sending; it is never derived from an
+        account.
       </p>
 
       <h3 class="privacy-h3">Diagnostics (OpenTelemetry)</h3>
       <p class="body measure">
-        Performance metrics and traces, sent only when an operator configures an
-        OpenTelemetry endpoint — to that endpoint, which is theirs, not ours.
-        The identifier on these is a random value created once for your install
-        and stored alongside Station's own data. It is stable, so an operator
-        can group one install's metrics together, and it is not derived from
-        your machine name, your username, or any account. Station also attaches
-        the operating-system type, and the OpenTelemetry SDK it uses adds
-        environment, process, and host attributes by default, so review what
-        your configuration exports before pointing it anywhere.
+        Performance metrics and traces. Station starts exporting them only when an
+        operator configures an OpenTelemetry (OTLP) endpoint, and sends them to
+        that endpoint, which is theirs, not ours. Station attaches its random
+        installation hash, the operating-system type, and each instrument's
+        attributes. The OpenTelemetry SDK it pins also detects environment,
+        process, and host attributes by default, so what is actually exported
+        depends on those defaults and on the operator's configuration. The
+        random installation hash alone does not make the whole payload
+        non-identifying: review what your configuration exports before pointing
+        it anywhere.
       </p>
       <p class="body measure">
         Until 11 August 2026 that identifier was derived from your machine's
@@ -102,38 +138,118 @@ const inventoryFingerprint = '788a17b779346da5';
 
       <h3 class="privacy-h3">Knowledge content</h3>
       <p class="body measure">
-        Documents and text you add to Knowledge are stored and indexed locally.
-        If you configure a remote embedding provider, the document chunks and
-        your search queries are sent to that provider so it can produce
-        embeddings. Which provider that is, is your choice.
+        Documents you add to Knowledge are stored through Station's configured
+        storage. The embedding provider you select receives document chunks and
+        your search queries; the vector store you select receives chunk text,
+        vectors, and document metadata. Embedding choices include Amazon Bedrock,
+        OpenAI-compatible, and Ollama endpoints. A local default does not stop a
+        remote provider you configure from receiving that content, so review
+        your provider settings before adding documents.
       </p>
 
       <h3 class="privacy-h3">Voice</h3>
       <p class="body measure">
         Microphone audio is captured only while you have explicitly started a
-        voice session. It travels over your authenticated connection to your own
-        Station, which forwards it to the speech provider you configured. For the
-        built-in provider, that is Amazon Bedrock. If you use a browser's own
-        speech features instead, that browser's handling and retention are the
-        platform's, and we cannot describe them for you.
+        voice session. The mobile app sends it over its authenticated connection
+        to your own Station, which forwards it to the speech provider you
+        configured. For the built-in provider, Nova Sonic, that is Amazon
+        Bedrock. If you use a browser's own speech features instead, that
+        browser's handling and retention are the platform's, and we cannot
+        describe them for you. The voice adapter you select controls microphone
+        capture and how the audio travels; nothing here certifies how every
+        possible extension uses a device.
+      </p>
+
+      <h3 class="privacy-h3">Agent activity on your phone</h3>
+      <p class="body measure">
+        If you register a paired phone, Station can send it an agent-activity
+        card: up to five sessions' titles, their project names, their status,
+        and activity counts. A session title can contain text from your
+        request. Before it leaves your Station, the card is encrypted with a key
+        set up when the phone registered.
+      </p>
+      <p class="body measure">
+        It then travels through the Kontour push gateway (push.kontourai.io,
+        unless your operator configures another) and on to Google Firebase Cloud
+        Messaging for Android or Apple Push Notification service for an iOS Live
+        Activity. The gateway forwards the sealed card and does not hold the key
+        to open it. The gateway and the push provider do not see the session
+        titles or project names. They do see routing data: push tokens or
+        channel IDs, the registration's identity, your Station's push-key
+        fingerprint, the size and timing of each delivery, and transport fields
+        such as the event and alert priority. Nothing is sent without an active
+        registration, and your registration and notification settings decide
+        which device receives it.
+      </p>
+
+      <h3 class="privacy-h3">Notifications on your phone</h3>
+      <p class="body measure">
+        Station can also push the notifications its delivery policy selects to a
+        registered paired phone, through the same gateway and push providers.
+        The notification's title and body, kept to a bounded length, and its
+        routing identities are encrypted with the same registration key. On
+        Android the sealed payload can also carry a reference to the session and
+        a retraction. On iOS an alert needs a separately registered alert token,
+        and the gateway sends fixed, generic alert text chosen by the kind of
+        notification; the real text travels only inside the sealed payload, so
+        unless an extension on the phone opens it, iOS shows the generic text.
+      </p>
+      <p class="body measure">
+        If you hide notification content, the title and body are removed or
+        replaced before encryption. The gateway and the push provider still see
+        routing data, the urgency or alert kind, and the size and timing of each
+        message. A message the gateway sent is not proof that the phone
+        displayed it. Removing a phone's registration stops it being chosen for
+        future pushes; it does not recall a message already sent or shown.
+      </p>
+
+      <h3 class="privacy-h3">Notifications in a browser</h3>
+      <p class="body measure">
+        Browser push is separate from phone push, and it is off in Station's
+        standard hosted setup. Where it is on and you allow it, registering the
+        browser as a paired device stores that browser's push subscription
+        endpoint and encryption keys with the device. Selected notifications are
+        encrypted for the browser's push service; hiding content replaces the
+        title and body but keeps routing and link fields, and the push service
+        still sees the destination, transport metadata, timing, and size. To
+        stop it, use Station's Unsubscribe action: it removes the browser's
+        local subscription and tries to clear the registration on your Station,
+        which can remain until a later cleanup if that attempt fails. Turning
+        the feature setting off only hides the controls; it does not unsubscribe
+        a browser that is already registered.
+      </p>
+
+      <h3 class="privacy-h3">Sign-in, when accounts are on</h3>
+      <p class="body measure">
+        When an operator enables local accounts, Station stores account and
+        session information for sign-in and recovery, which can include the IP
+        address and user-agent of the request. If the operator also configures
+        an external (OIDC) sign-in provider, Station contacts that provider at
+        startup for discovery and exchanges login and identity data with it when
+        you sign in. The account, token, and session records it returns are kept
+        in the operator's authentication store.
       </p>
 
       <h3 class="privacy-h3">Camera</h3>
       <p class="body measure">
         Used for one thing: scanning a pairing code to connect a device to your
-        Station. Frames are decoded on the device, the pairing value is used to
-        pair, and no imagery is sent to us or to a third party.
+        Station. Camera frames are read only while the scanner is open, they are
+        decoded locally in the app's web view, and the decoded value is used to
+        pair. This scanner does not send camera imagery to a Station-operated
+        third party.
       </p>
     </div>
   </Section>
 
   <Section borderBottom>
     <div class="container container--readable">
-      <h2 class="display-md privacy-h2">Tracking, advertising, and sale of data</h2>
+      <h2 class="display-md privacy-h2">Tracking and advertising</h2>
       <p class="body measure">
-        None of it. Station does not track you across apps or websites, does not
-        contain an advertising SDK, and there is nothing here to sell — the data
-        that would be worth selling never reaches us in the first place.
+        None declared. Every entry in Station's privacy inventory is declared as not
+        used for tracking, and the iOS privacy manifest generated from it
+        declares no tracking and lists no tracking domains. Every declared
+        purpose is app functionality or analytics; no entry declares an
+        advertising purpose.
       </p>
     </div>
   </Section>
@@ -142,20 +258,41 @@ const inventoryFingerprint = '788a17b779346da5';
     <div class="container container--readable">
       <h2 class="display-md privacy-h2">How this page is kept honest</h2>
       <p class="body measure">
-        Station keeps a single inventory of what it collects. The app's iOS
-        privacy manifest, its Play Data Safety answers, and this page are all
-        derived from that one inventory, and a test in the app's build fails if
-        any of them drifts from it — including if a new event starts collecting
-        something the inventory does not cover.
+        Station keeps a single privacy inventory in its source. Its iOS privacy
+        manifest, its draft Play Data Safety answers, and its generated privacy
+        policy are all rendered from that inventory. Station's tests fail if a
+        committed copy of any of them drifts from what the inventory renders, or
+        if a telemetry event starts collecting a property the inventory has not
+        reviewed.
       </p>
       <p class="body measure">
-        This page was generated from inventory <code class="code-plain">{inventoryFingerprint}</code>.
+        This page is written by hand from that generated policy, and no test
+        ties it to the inventory. What ties it is this: it was written from the
+        policy whose fingerprint is{' '}
+        <code class="code-plain">{inventoryFingerprint}</code>, the first 16 hex
+        characters of the SHA-256 of{' '}
+        <a href={policyUrl} target="_blank" rel="noopener">Station's{' '}<code class="code-plain">docs/privacy-policy.md</code></a>. Hash the
+        current file yourself: if you get a different value, the inventory has
+        changed since this page was written.
+      </p>
+      <p class="body measure">
+        The inventory's own caveats apply here too. Its tracking, linkage and
+        purpose columns are declarations that people make, not conclusions the
+        generator reaches. Its review read the source and pinned dependencies
+        with synthetic tests; it has not exercised a real identity-provider
+        sign-in, OpenTelemetry resource export, delivery to a real phone or
+        browser, or a store submission. The store classifications, whether the
+        inventory is complete, and each provider's own practices need separate
+        review. A matching fingerprint shows this page matches that
+        inventory, not that the inventory is a complete account of what Station
+        collects.
       </p>
       <p class="body measure">
         One honest limitation: the site policy at <a href="/privacy/">/privacy/</a>{' '}
         links each statement to the source that implements it. This page does
-        not yet, although Station's source is now public under Apache-2.0; those
-        links belong here too.
+        not. The generated policy linked above names the source files behind
+        each entry, and Station's source is public under Apache-2.0, so you can
+        follow them there.
       </p>
     </div>
   </Section>
@@ -164,10 +301,11 @@ const inventoryFingerprint = '788a17b779346da5';
     <div class="container container--readable">
       <h2 class="display-md privacy-h2">Deletion, and how to reach us</h2>
       <p class="body measure">
-        Station's data is on your machine, so deleting it is yours to do — remove
-        the app, or clear its home directory, and it is gone. If you configured an
-        endpoint that received telemetry or diagnostics, that store is yours or
-        your operator's to clear.
+        Station's data is in its own storage on your machine or your operator's
+        server, so deleting it is yours or your operator's to do. If you
+        configured an endpoint that received telemetry or diagnostics, or an
+        embedding or vector provider, that store is yours or your operator's to
+        clear. To stop pushes to a phone, remove its registration.
       </p>
       <p class="body measure">
         Anything else — questions, a deletion request for something we hold, or a

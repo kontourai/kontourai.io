@@ -130,6 +130,10 @@ test("homepage keeps the company headline, leads with Station, then the recognit
   ).toBeVisible();
   await expect(page.getByText("the extracted value stays tied to its source, alternatives, and decision")).toBeVisible();
   await expect(page.locator('[data-umami-event="home-proof-survey"]')).toHaveAttribute("href", "/survey/");
+  // No public source says Kontour runs this on its own filings; the public
+  // write-up calls it a reference implementation.
+  await expect(page.getByText("our own tax filings")).toHaveCount(0);
+  await expect(page.getByText("We built a reference tax pipeline on this rule.")).toBeVisible();
   await expect(page.locator('[data-umami-event="home-beyond-writing"]')).toHaveAttribute(
     "href",
     "/writing/llm-proposes-structure-verifies/",
@@ -719,7 +723,8 @@ test("survey page explains the producer pipeline and surface handoff", async ({ 
 
   // #164 enrichment: review surfaces (MCP, standalone console, flywheel).
   await expect(page.getByRole("heading", { name: "The queue meets the reviewer where they already are." })).toBeVisible();
-  await expect(page.getByText("npx survey-review-mcp")).toBeVisible();
+  // survey-review-mcp is a bin inside @kontourai/survey, not its own npm package.
+  await expect(page.getByText("npx -p @kontourai/survey survey-review-mcp").first()).toBeVisible();
   await expect(page.getByRole("heading", { name: "Review Console" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Reviewed learning updates" })).toBeVisible();
   // 1.9/1.10: calibration derived from owned review outcomes.
@@ -727,7 +732,10 @@ test("survey page explains the producer pipeline and surface handoff", async ({ 
   await expect(page.getByText("labeled sample")).toBeVisible();
   // The fourth review outcome is load-bearing copy: the MCP card, the section,
   // and the real run that shows the refusal without a reason.
-  await expect(page.getByText("four outcomes, not two")).toBeVisible();
+  // The card offers accept / hold / reject / could-not-confirm, plus per-value
+  // "select" on a conflict (survey docs/review-mcp.md) — so no fixed count.
+  await expect(page.getByText("The review card goes beyond accept or reject")).toBeVisible();
+  await expect(page.getByText("four outcomes, not two")).toHaveCount(0);
   // survey-review-mcp 8.x rejects a missing reason at input-schema validation,
   // before the older handler message could be reached.
   await expect(page.getByText("Invalid arguments for tool survey_review_decide: reason").first()).toBeVisible();
@@ -1133,6 +1141,10 @@ test("developers page leads with the engine and kits, then exposes the proof cha
   await expect(page.locator('[data-umami-event="developers-kit-knowledge"]')).toHaveAttribute("href", "/knowledge-kit/");
   await expect(page.getByText("Release Evidence Kit")).toBeVisible();
   await expect(page.getByText("Veritas Governance Kit")).toBeVisible();
+  // AI-DLC Kit is not on npm (@kontourai/aidlc-kit 404): the card says to
+  // install from GitHub, and opens the worked example (/use-cases/aidlc/, #305).
+  await expect(page.locator('[data-umami-event="developers-kit-aidlc"]')).toHaveAttribute("href", "/use-cases/aidlc/");
+  await expect(page.getByText("Not on npm: install it from GitHub at a reviewed commit")).toBeVisible();
   // The Veritas kit is not agentless — it ships two flows AND three agent
   // skills, from a different repo than the engine.
   await expect(page.getByText("Two flows and three agent skills")).toBeVisible();
@@ -1178,11 +1190,12 @@ test("developers page leads with the engine and kits, then exposes the proof cha
   await expect(page.getByText("Never makes model calls")).toHaveCount(0);
 
   // Docs links point at each product's site on the docs hub. A card only
-  // links docs that exist: the Kontour CLI has no docs site, so no link.
+  // links docs that exist.
   await expect(page.locator('[data-umami-event="developers-application-station-docs"]')).toHaveAttribute("href", "https://kontourai.github.io/station/");
   await expect(page.locator('[data-umami-event="developers-application-fieldwork-docs"]')).toHaveAttribute("href", "https://kontourai.github.io/fieldwork/");
   await expect(page.locator('[data-umami-event="developers-lab-forage-docs"]')).toHaveAttribute("href", "https://kontourai.github.io/forage/");
-  await expect(page.locator('[data-umami-event="developers-lab-cli-docs"]')).toHaveCount(0);
+  await expect(page.locator('[data-umami-event="developers-lab-cli-docs"]')).toHaveAttribute("href", "https://kontourai.github.io/cli/");
+  await expect(page.getByText("npm install --global @kontourai/cli")).toBeVisible();
   await expect(page.locator('[data-umami-event="developers-docs-hub"]')).toHaveAttribute("href", "https://kontourai.github.io/");
   // The docs MCP command carries the docs-kit commit the hub README pins
   // (literal, checked against github.com/kontourai/kontourai.github.io on 2026-10-11).
@@ -1615,9 +1628,9 @@ test("the ownership-guard receipt discloses its waived pre-existing-failure gap"
 test("every receipt's rendered status matches what the validator derives", async ({ page }) => {
   // The integrity property this page exists for: what the page BADGES must be
   // what `buildTrustReport` derives from the published artifact. This is
-  // deliberately NOT a stored-vs-derived check — the delivery bundle legitimately
-  // stores `superseded` where the derivation says `proposed`, and the page now
-  // displays that divergence on purpose.
+  // deliberately NOT a stored-vs-derived check — a bundle may legitimately
+  // store a status the derivation disagrees with, and the page displays that
+  // divergence on purpose.
   const { buildTrustReport } = await import("@kontourai/surface");
   for (const slug of [
     "flow-agents-delivery",
@@ -1746,15 +1759,34 @@ test("trust page states what it can't certify, the bypass list, the assurance di
   await expect(
     page.getByRole("heading", { name: "CI is green on what nobody wrote a check for." }),
   ).toBeVisible();
-  await expect(page.getByRole("heading", { name: "We run inside CI too." })).toBeVisible();
+  // Flow Agents 8.0.0 retired its own CI trust anchor: the card names what is
+  // still true (required checks + merge-change exact-head evidence), and must
+  // not imply Flow Agents ships a CI re-verifier.
+  await expect(
+    page.getByRole("heading", { name: "Required checks, plus exact-head evidence at merge." }),
+  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "We run inside CI too." })).toHaveCount(0);
+  await expect(page.getByText("Flow Agents ships no CI check of its own that")).toBeVisible();
+  // Forge-the-content keeps "Caught" only because the copy says what catches it.
+  await expect(page.getByText("whether the tests pass is the required checks' call")).toBeVisible();
+  // #475: the probe count is attributed to the review's own report, not a committed artifact.
+  await expect(page.getByText("five fresh bypass attempts, all defeated")).toHaveCount(0);
+  await expect(page.getByText("not a committed artifact")).toBeVisible();
   await expect(page.getByRole("heading", { name: "Before CI, in the loop." })).toBeVisible();
 
   // Section 4 — the assurance dial (L0/L1/L2), the load-bearing distinction.
   await expect(page.getByRole("heading", { name: "Turn up assurance as the stakes rise." })).toBeVisible();
   await expect(page.getByRole("heading", { name: "L0 — Unsigned, local." })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "L1 — Keyless CI identity." })).toBeVisible();
-  // Transparency-log anchoring is optional for L1 (Hachure spec) — the copy must not imply it's intrinsic.
-  await expect(page.getByText("optionally anchored in a public transparency log")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "L1 — Signed by a CI identity." })).toBeVisible();
+  // L1 is a Hachure spec level that a default Flow Agents 8.0.0 setup does not
+  // reach (Surface 5.0.0 signer only under GITHUB_ACTIONS/SIGSTORE_ID_TOKEN, no
+  // id-token workflow shipped, no signature verification since #1459).
+  // Transparency-log anchoring is optional (Hachure spec).
+  await expect(page.getByText("A level the Hachure spec defines")).toBeVisible();
+  await expect(page.getByText("optionally logged in a public transparency log")).toBeVisible();
+  await expect(page.getByText("A default Flow Agents setup doesn't reach it.")).toBeVisible();
+  await expect(page.getByText("Flow Agents does not currently verify that signature")).toBeVisible();
+  await expect(page.getByText("Not to be confused with Flow Agents' own")).toBeVisible();
   await expect(page.getByRole("heading", { name: "L2 — Organization-held keys." })).toBeVisible();
   await expect(page.getByText("Assurance caps trust in provenance, never in derivation.")).toBeVisible();
   await expect(page.getByRole("link", { name: "Hachure specification" })).toHaveAttribute(
@@ -1772,6 +1804,9 @@ test("trust page states what it can't certify, the bypass list, the assurance di
   // Kiro ships the engine's warn default (only Claude Code/Codex ship block) —
   // badging it "Blocking" was an overclaim, fixed in #110.
   await expect(runtimeTable.getByRole("row", { name: /Kiro/ }).locator(".trust-badge--stale")).toHaveText("Advisory / opt-in block");
+  // Upstream docs say Kiro blocks; 8.0.0 ships its done-check in warn mode. Say both.
+  await expect(runtimeTable.getByRole("row", { name: /Kiro/ })).toContainText("docs list Kiro's stop hook as blocking");
+  await expect(runtimeTable.getByRole("row", { name: /Kiro/ })).toContainText("as of 8.0.0 its done-check ships in warn mode");
   await expect(runtimeTable.getByRole("row", { name: /opencode/ }).locator(".trust-badge--stale")).toHaveText("Advisory / partial");
   await expect(runtimeTable.getByRole("row", { name: /^pi\s/ }).locator(".trust-badge--stale")).toHaveText("Advisory / partial");
   await expect(runtimeTable.getByRole("row", { name: /AWS Strands/ }).locator(".trust-badge--stale")).toHaveText("Advisory / partial");
@@ -1863,6 +1898,39 @@ test("freshness pass keeps current claims distinct from frozen demonstrations", 
 
   await page.goto("/");
   await expect(page.getByText("producer-side review contract for it")).toBeVisible();
+});
+
+test("Station privacy page covers the current inventory and states its fingerprint method", async ({ page }) => {
+  await page.goto("/privacy/station/");
+  // Literal, checked 2026-10-11: first 16 hex of SHA-256 of kontourai/station
+  // docs/privacy-policy.md at eafa3df6f65a00fb206a413b8e3a065ff61dae99.
+  await expect(page.getByText("098fe4522c631fbe")).toBeVisible();
+  await expect(page.getByText("the first 16 hex characters of the SHA-256 of")).toBeVisible();
+  await expect(page.locator('a[href="https://github.com/kontourai/station/blob/eafa3df6f65a00fb206a413b8e3a065ff61dae99/docs/privacy-policy.md"]')).toBeVisible();
+  // The flows the 11 August page left out.
+  for (const heading of [
+    "Your model and engine",
+    "Desktop updates",
+    "Agent activity on your phone",
+    "Notifications on your phone",
+    "Notifications in a browser",
+    "Sign-in, when accounts are on",
+  ]) {
+    await expect(page.getByRole("heading", { level: 3, name: heading })).toBeVisible();
+  }
+  await expect(page.getByText("Google Firebase Cloud Messaging for Android or Apple Push Notification service")).toBeVisible();
+  // No test ties this page to the inventory; the page must not claim one does.
+  await expect(page.getByText("no test ties it to the inventory")).toBeVisible();
+  await expect(page.getByText("a test in the app's build fails if any of them drifts")).toHaveCount(0);
+  // Review fixes: claims the generated policy and Web Push guide don't support.
+  await expect(page.getByText("nothing goes anywhere")).toHaveCount(0);
+  await expect(page.getByText("The one Kontour-operated service")).toHaveCount(0);
+  await expect(page.getByText(/sale of data/i)).toHaveCount(0);
+  await expect(page.getByText("use Station's Unsubscribe action")).toBeVisible();
+  await expect(page.getByText("OpenTelemetry resource export")).toBeVisible();
+  await expect(page.getByText("does not send camera imagery to a Station-operated")).toBeVisible();
+  await expect(page.getByText("nothing here certifies how every")).toBeVisible();
+  await expect(page.getByText("each provider's own practices need separate")).toBeVisible();
 });
 
 test("AI-DLC use case walks one real gate, labels what was captured, and is linked from Flow and Flow Agents", async ({ page }) => {
