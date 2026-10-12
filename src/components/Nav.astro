@@ -1,6 +1,7 @@
 ---
 import { kits, applications, engine, operatingView, workspace, disciplines, type ProductKey, type KitKey, type ApplicationKey } from '@/lib/products';
 import ProductMark from '@/components/ProductMark.astro';
+import KontourMark from '@/components/KontourMark.astro';
 
 type NavKey = 'home' | ProductKey | KitKey | ApplicationKey;
 type SiteNavKey = NavKey | 'developers' | 'receipts' | 'hachure';
@@ -44,19 +45,10 @@ const developersMenuActive =
     <nav class="nav__inner">
       <!-- Logo -->
       <a href="/" class="nav__logo" aria-label="Kontour AI home">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <!-- Topographic K mark -->
-          <path
-            d="M4 4 L4 20 M4 12 L14 4 M4 12 L14 20"
-            stroke="var(--color-gold)"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-          <ellipse cx="12" cy="12" rx="8" ry="8" stroke="rgba(201,163,90,0.2)" stroke-width="1" fill="none"/>
-          <ellipse cx="12" cy="12" rx="5" ry="5" stroke="rgba(201,163,90,0.12)" stroke-width="1" fill="none"/>
-        </svg>
-        <span class="nav__wordmark">Kontour<span class="nav__dot">.</span></span>
+        {/* The outlined lockup (Headland symbol + "Kontour" wordmark), never
+           live text: DESIGN.md forbids retyping the wordmark. The link's
+           aria-label names it, so the mark itself is hidden from AT. */}
+        <KontourMark mark="lockup" height={24} class="nav__lockup" />
       </a>
 
       <!-- Nav links -->
@@ -189,20 +181,17 @@ const developersMenuActive =
   .nav__logo {
     display: flex;
     align-items: center;
-    gap: 0.6rem;
+    flex-shrink: 0;
+    /* Clear space: a quarter of the 24px lockup on every side (the 56px bar
+       covers top and bottom; this keeps the first link off its right edge). */
+    padding: 6px;
+    margin: 0 0.75rem 0 -6px;
+    color: var(--color-chalk);
     text-decoration: none;
   }
 
-  .nav__wordmark {
-    font-family: var(--font-display);
-    font-size: 1.1rem;
-    font-weight: 400;
-    color: var(--color-chalk);
-    letter-spacing: 0;
-  }
-
-  .nav__dot {
-    color: var(--color-gold);
+  .nav__lockup {
+    display: block;
   }
 
   /* Keep the bar one line tall; let links scroll on narrow screens instead of

@@ -1,5 +1,6 @@
 ---
 import { products, kits, applications, workspace, type ProductKey, type KitKey, type ApplicationKey } from '@/lib/products';
+import KontourMark from '@/components/KontourMark.astro';
 
 interface Props {
   active?: 'home' | 'developers' | ProductKey | KitKey | ApplicationKey;
@@ -59,7 +60,10 @@ const links = teaserNav
   <div class="container footer__grid">
     <div>
       <a href="/" class="footer__brand" aria-label="Kontour AI home">
-        <span class="footer__wordmark">Kontour<span class="footer__dot">.</span></span>
+        {/* The outlined wordmark, not live text. The fixed header already
+           shows the lockup, so the symbol would repeat here (DESIGN.md
+           "Which mark": the wordmark where a symbol would repeat). */}
+        <KontourMark mark="wordmark" height={24} />
       </a>
       <p class="footer__tagline">Make your agents show their work.</p>
       <p class="footer__tagline footer__category">The receipt layer for AI work.</p>
@@ -97,20 +101,11 @@ const links = teaserNav
   .footer__brand {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    text-decoration: none;
-    margin-bottom: 0.75rem;
-  }
-
-  .footer__wordmark {
-    font-family: var(--font-display);
-    font-size: 0.95rem;
+    /* Clear space: a quarter of the 24px wordmark. */
+    padding: 6px;
+    margin: -6px 0 calc(0.75rem - 6px) -6px;
     color: var(--color-chalk-2);
-    letter-spacing: 0;
-  }
-
-  .footer__dot {
-    color: var(--color-gold);
+    text-decoration: none;
   }
 
   .footer__tagline {
