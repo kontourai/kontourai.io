@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "id": "policy-change-2026-10-12T04-14-13-257Z-7f1303d91a10",
+  "kind": "policy-change",
+  "actor": {
+    "id": "brian-anderson",
+    "displayName": "Brian Anderson",
+    "identityEvidence": {
+      "gitEmail": null,
+      "signingKeyFingerprint": null
+    }
+  },
+  "attestedAt": "2026-10-12T04:14:13.257Z",
+  "repoStandardsHash": "sha256:3ca4a0f1020e341c7990cdf4d8592d70e4c83e9b934beec6fa35b4a55fa8d7e1",
+  "repoMapHash": "sha256:875ffa2aef21c94f057b3e7808920d5a091d591ab3786a36c44000f58ae9afb1",
+  "repoMapHashAlgorithm": "public-policy-v1",
+  "authoritySettingsHash": "sha256:98d8e33be9f16fdd0720fd8104c9d8644b41eff77dc99ac7edc9db89d9594c07",
+  "priorAttestationId": "legacy-attestation-v0:b2a042349ed20bc4",
+  "validUntilDays": 90,
+  "notes": "Repo map root-manifests: replace package-lock.json with pnpm-lock.yaml and pnpm-workspace.yaml for the npm-to-pnpm 11 migration, so the lockfile and the pnpm install policy (allowBuilds, minimumReleaseAge) stay governance-covered. No other repo-map, standards or authority change.",
+  "metadata": {
+    "protectedStandardsPaths": {
+      "repoStandardsPath": ".veritas/repo-standards/default.repo-standards.json",
+      "repoMapPath": ".veritas/repo-map.json",
+      "authoritySettingsPath": ".veritas/authority/default.authority-settings.json"
+    },
+    "supersedes": "legacy-attestation-v0:b2a042349ed20bc4",
+    "approvalRef": "https://github.com/kontourai/kontourai.io/pull/291",
+    "approvalRefPolicy": {
+      "mode": "reference-only",
+      "matchedPrefix": null,
+      "requiresResolution": false
+    },
+    "approvalResolution": null
+  },
+  "surface": {
+    "claim": {
+      "id": "veritas.attestation.policy-change-2026-10-12T04-14-13-257Z-7f1303d91a10",
+      "subjectType": "veritas-protected-standards",
+      "subjectId": "protected-standards",
+      "facet": "veritas.attestations",
+      "claimType": "veritas-human-attestation",
+      "fieldOrBehavior": "policy-change",
+      "value": {
+        "contentHash": "8ba009d6197800e2d6b0bf96f929f772c27a9a22d96d90ca1feaa1e2d47b18ab",
+        "validUntil": "2027-01-10T04:14:13.257Z"
+      },
+      "createdAt": "2026-10-12T04:14:13.257Z",
+      "updatedAt": "2026-10-12T04:14:13.257Z",
+      "status": "verified",
+      "impactLevel": "high",
+      "confidenceBasis": {
+        "sourceQuality": "strong",
+        "reviewerAuthority": "human",
+        "evidenceStrength": "strong",
+        "impactLevel": "high"
+      }
+    },
+    "evidence": {
+      "id": "evidence.attestation.veritas.attestation.policy-change-2026-10-12T04-14-13-257Z-7f1303d91a10",
+      "claimId": "veritas.attestation.policy-change-2026-10-12T04-14-13-257Z-7f1303d91a10",
+      "evidenceType": "attestation",
+      "method": "attestation",
+      "sourceRef": "veritas:protected-standards",
+      "excerptOrSummary": "Repo map root-manifests: replace package-lock.json with pnpm-lock.yaml and pnpm-workspace.yaml for the npm-to-pnpm 11 migration, so the lockfile and the pnpm install policy (allowBuilds, minimumReleaseAge) stay governance-covered. No other repo-map, standards or authority change.",
+      "observedAt": "2026-10-12T04:14:13.257Z",
+      "collectedBy": "brian-anderson",
+      "integrityRef": "8ba009d6197800e2d6b0bf96f929f772c27a9a22d96d90ca1feaa1e2d47b18ab",
+      "metadata": {
+        "actor": {
+          "id": "brian-anderson",
+          "displayName": "Brian Anderson"
+        },
+        "attestedAt": "2026-10-12T04:14:13.257Z",
+        "validUntil": "2027-01-10T04:14:13.257Z",
+        "contentHash": "8ba009d6197800e2d6b0bf96f929f772c27a9a22d96d90ca1feaa1e2d47b18ab"
+      },
+      "sourceLocator": ".veritas/attestations"
+    },
+    "event": {
+      "id": "veritas.attestation.policy-change-2026-10-12T04-14-13-257Z-7f1303d91a10.verified",
+      "claimId": "veritas.attestation.policy-change-2026-10-12T04-14-13-257Z-7f1303d91a10",
+      "status": "verified",
+      "actor": "brian-anderson",
+      "method": "human attestation",
+      "evidenceIds": [
+        "evidence.attestation.veritas.attestation.policy-change-2026-10-12T04-14-13-257Z-7f1303d91a10"
+      ],
+      "createdAt": "2026-10-12T04:14:13.257Z",
+      "verifiedAt": "2026-10-12T04:14:13.257Z"
+    }
+  }
+}
