@@ -21,41 +21,41 @@
       "asset": "public/screenshots/survey-workbench.png",
       "page": "src/pages/survey.astro",
       "product": "survey",
-      "capturedAgainstVersion": "2.3.0",
-      "capturedAt": "2026-07-27",
-      "sha256": "940a0cda560b6bac254e9df3964e8bd6d959094e92c09971970b8df9ccdb0a04"
+      "capturedAgainstVersion": "8.0.0",
+      "capturedAt": "2026-10-11",
+      "sha256": "c76ba789ea67ebe0e287b4e68aa8548b66a9523800acc35b041507ed7138e800"
     },
     {
       "asset": "public/screenshots/surface-console.png",
       "page": "src/pages/surface.astro",
       "product": "surface",
-      "capturedAgainstVersion": "2.13.0",
-      "capturedAt": "2026-07-24",
-      "sha256": "bd6a2b9c9fd6331ab16b74555fda4f871f23ddf3964edd07599757f6fdb10665"
+      "capturedAgainstVersion": "6.0.0",
+      "capturedAt": "2026-10-11",
+      "sha256": "3d7cc1c4efa9ff9191ce9aba91f052bce41863ac7f54aa0f3052a2554e7d2317"
     },
     {
       "asset": "public/screenshots/flow-demo.gif",
       "page": "src/pages/flow.astro",
       "product": "flow",
-      "capturedAgainstVersion": "3.10.0",
-      "capturedAt": "2026-07-25",
-      "sha256": "56f6645c19feb042bf80a52b542c4fba21d7e4eafeabaf9690190ec2e6410dab"
+      "capturedAgainstVersion": "5.2.0",
+      "capturedAt": "2026-10-11",
+      "sha256": "055650c8a2e8586182d42388a02aa7bcaf6f7154d078f46874f0eb313e39aca9"
     },
     {
       "asset": "public/screenshots/fieldwork-review.png",
       "page": "src/pages/fieldwork.astro",
       "product": "fieldwork",
-      "capturedAgainstVersion": "0.4.0",
-      "capturedAt": "2026-07-27",
-      "sha256": "be1a6296b2307b1fe4783c549dbc34df8701c2e4b59e37da8fb75e244256c213"
+      "capturedAgainstVersion": "0.14.1",
+      "capturedAt": "2026-10-11",
+      "sha256": "23324b6461228d342486e545b0d6474eb38818a9c4d7c8acda30871c18207321"
     },
     {
       "asset": "public/screenshots/station-project.png",
       "page": "src/pages/index.astro",
       "product": "station",
-      "capturedAgainstVersion": "0.1.11",
-      "capturedAt": "2026-09-05",
-      "sha256": "21cef8b8155ebe22299fd30c8b7e4e335b50a8dfb8ea91a357f878b711c6cb43"
+      "capturedAgainstVersion": "0.1.11-nightly.247504",
+      "capturedAt": "2026-10-11",
+      "sha256": "b4084b04e8ef2f0a1116f48edb8ce1da094ddc9e0374c47d48ffb9b4ed32cfdd"
     }
   ]
 }
