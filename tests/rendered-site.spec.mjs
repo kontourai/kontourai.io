@@ -1963,7 +1963,7 @@ test("AI-DLC use case walks one real gate, labels what was captured, and is link
   // The stage-and-gate diagram lists all five phases with the pinned counts.
   const phases = page.locator(".phases .phase");
   await expect(phases).toHaveCount(5);
-  await expect(phases.locator(".phase__count")).toHaveText(["3", "7", "9", "7", "7"]);
+  await expect(phases.locator(".phase__count")).toHaveText(["3 stages", "7 stages", "9 stages", "7 stages", "7 stages"]);
 
   for (const [route, event] of [
     ["/flow/", "flow-in-practice-aidlc"],
