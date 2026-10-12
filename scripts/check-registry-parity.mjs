@@ -2,7 +2,7 @@
 /**
  * check-registry-parity.mjs (issue #3)
  *
- * The authoritative registry-parity gate, designed to run BEFORE `npm ci`,
+ * The authoritative registry-parity gate, designed to run BEFORE the dependency install,
  * the build, or any test step — i.e. before any PR-controlled code has
  * executed in the job. It is deliberately dependency-free (node built-ins +
  * global fetch only) so nothing installed or generated in-job can influence
@@ -36,7 +36,7 @@ const registryBaseUrl = "https://registry.npmjs.org";
 // Paths a PR may NOT touch and still get the warn lane: the parity-compared
 // inputs, this script (and siblings), package/npm config, and CI definitions.
 const PARITY_SENSITIVE =
-  /^(src\/data\/product-status\.json|src\/pages\/flow-agents\.astro|scripts\/|package\.json|package-lock\.json|\.npmrc|\.github\/)/;
+  /^(src\/data\/product-status\.json|src\/pages\/flow-agents\.astro|scripts\/|package\.json|pnpm-lock\.yaml|pnpm-workspace\.yaml|\.npmrc|\.github\/)/;
 
 /**
  * Resolve warn|strict. Explicit VALIDATE_REGISTRY_PARITY env wins (local
