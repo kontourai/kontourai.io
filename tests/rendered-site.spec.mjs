@@ -102,12 +102,12 @@ test("homepage keeps the company headline, leads with Station, then the recognit
   // Moment 5 must NOT imply an unconditional CI identity (signing is opt-in;
   // scope lives on /trust) — it claims only the fresh, untouched-env re-run.
   await expect(page.locator(".narrator__moment").getByText("in an environment the agent never touched")).toBeVisible();
-  // Residuals stated as gaps, never as catches — all three named, and stated
-  // concretely rather than under an editorial "honest residuals" label.
-  await expect(page.getByText("Three things this doesn't catch:")).toBeVisible();
-  await expect(page.getByText("isn't re-invalidated when the code changes afterward")).toBeVisible();
-  await expect(page.getByText("running one test file instead of the suite looks the same as running the suite")).toBeVisible();
-  await expect(page.getByText("an edited test slips through the runtime gate")).toBeVisible();
+  // Keep the implemented freshness check distinct from test-coverage limits.
+  await expect(page.locator(".narrator__residual")).toContainText("Revision-bound gates reject a captured pass");
+  await expect(page.locator(".narrator__residual")).toContainText("narrowed test suite or a test edited until it passes");
+  await expect(page.locator(".narrator__residual")).toContainText("depend on the configured runtime");
+  await expect(page.locator(".hero-lead")).not.toContainText('"done" means proven');
+  await expect(page.getByText("Completing a Task does not by itself establish")).toBeVisible();
   await expect(page.locator('[data-umami-event="home-narrator-trust"]')).toHaveAttribute("href", "/trust/");
   // Examples-first placement: the recognition block renders above the mechanism.
   const stationBox = await page.getByRole("heading", { name: "One workspace for the whole job." }).boundingBox();
@@ -975,7 +975,9 @@ test("kit pages show real sidecar/store shapes and record dimensions", async ({ 
   await expect(page.getByText("mutation log intact")).toHaveCount(0);
   // The real, code-backed properties those strings were standing in for.
   await expect(page.getByText("The mutation log is append-only")).toBeVisible();
-  await expect(page.getByText("Every note points at one, and you can open it.")).toBeVisible();
+  await expect(page.getByText("Raw captures can record provenance without a source link.")).toBeVisible();
+  await expect(page.getByText("notes your agent can't quietly make up")).toHaveCount(0);
+  await expect(page.getByText("it does not generate a summary from the transcript")).toBeVisible();
   // Freshness is derived on read, never stored — the record is not rewritten.
   await expect(page.getByText("the record itself is never rewritten behind your back")).toBeVisible();
   // Store root is a constructor argument with no default path — shown as adopter-chosen.
@@ -991,6 +993,10 @@ test("kit pages show real sidecar/store shapes and record dimensions", async ({ 
   await page.goto("/builder-kit/");
   await expect(page.getByRole("heading", { name: "Long jobs, hard jobs, and the ones that move between tools." })).toBeVisible();
   await expect(page.getByText("builder.publish-learn")).toBeVisible();
+  const experimentalFlows = page.locator("#experiments");
+  await expect(experimentalFlows).toContainText("builder.build-lean");
+  await expect(experimentalFlows).toContainText("Do not substitute it for builder.build on ordinary work.");
+  await expect(page.getByText("For lower-risk work")).toHaveCount(0);
   await expect(page.getByRole("heading", { name: "Model routing + escalation" })).toBeVisible();
   // Retitled to drop the uniform-enforcement claim: portable STATE is the claim,
   // and the badges say where the gate can actually block.
@@ -1736,7 +1742,9 @@ test("trust page states what it can't certify, the bypass list, the assurance di
   await expect(page.getByText("status = f(evidence, policy, now)").first()).toBeVisible();
   await expect(page.getByText("Recomputable", { exact: true }).first()).toBeVisible();
   await expect(page.getByText("Captured, not narrated").first()).toBeVisible();
-  await expect(page.getByText("Refuses or escalates", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("Blocks where supported", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("Advisory adapters report gaps without controlling the stop decision")).toBeVisible();
+  await expect(page.getByText("A recorded review is not by itself evidence of an independent reviewer.")).toBeVisible();
   await expect(page.locator('[data-umami-event="trust-hero-receipts"]')).toHaveAttribute("href", "/receipts/");
   await expect(page.locator('[data-umami-event="trust-hero-early-access"]')).toHaveAttribute("href", "/early-access/");
 

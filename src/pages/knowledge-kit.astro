@@ -18,7 +18,7 @@ const records: { title: string; body: string; accent: Accent }[] = [
   {
     title: 'Source',
     accent: 'gold',
-    body: 'Where the note came from: a file, an issue, a docs page, a pull request, a generated artifact, or a decision someone made in a meeting. Every note points at one, and you can open it.',
+    body: 'Link notes to source material such as a file, issue, docs page, pull request, or meeting record. A source link lets you inspect the basis of a note; it does not establish that the note is correct. Raw captures can record provenance without a source link.',
   },
   {
     title: 'Provenance',
@@ -55,7 +55,7 @@ const records: { title: string; body: string; accent: Accent }[] = [
           </div>
 
           <h1 class="product-title animate-fade-up">Knowledge Kit</h1>
-          <p class="product-tagline animate-fade-up delay-100" data-accent="gold">notes your agent can't quietly make up</p>
+          <p class="product-tagline animate-fade-up delay-100" data-accent="gold">agent notes with recorded provenance and history</p>
 
           <p class="hero-copy hero-copy--wide animate-fade-up delay-200">
             Your coding agent learns things about your repo — that deploys go
@@ -65,9 +65,10 @@ const records: { title: string; body: string; accent: Accent }[] = [
             and you will have no way to check any of them.
           </p>
           <p class="hero-copy hero-copy--wide animate-fade-up delay-200">
-            Knowledge Kit stores each note with the thing it was made from and
-            the date it was made. When a note gets replaced, the one it replaced
-            stays readable instead of disappearing.
+            Knowledge Kit records who captured a note and when, and lets you
+            link it to its source material. When a note gets replaced, the
+            earlier one stays readable. The store preserves these records;
+            checking what a note says remains a separate task.
           </p>
 
           <div class="hero-actions animate-fade-up delay-300">
@@ -99,11 +100,12 @@ const records: { title: string; body: string; accent: Accent }[] = [
       <Split ratio="1-1" gap="lg" align="center">
         <div>
           <Eyebrow accent="gold">What came out</Eyebrow>
-          <h2 class="display-md example-title">A meeting transcript went in. This came out.</h2>
+          <h2 class="display-md example-title">A transcript, a prepared summary, and their history.</h2>
           <p class="body example-copy">
-            The transcript lands in the store as a raw capture. A compiled note
-            distils the decision out of it. A snapshot records where the topic
-            ended up — one file, on disk, in the vault you already read.
+            This demo writes a sample transcript, a prepared compiled note,
+            and a snapshot to the store. It demonstrates source links and
+            retained history; it does not generate a summary from the transcript.
+            An agent or reviewer supplies that interpretation.
           </p>
           <p class="body example-copy">
             The snapshot names the note it was made from, twice: once in{' '}

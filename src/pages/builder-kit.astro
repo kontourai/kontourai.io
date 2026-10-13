@@ -15,8 +15,8 @@ import type { Accent } from '@/lib/theme';
 
 const flowAgentsStatus = getProductStatus('flow-agents');
 
-// Three cards introduce the main delivery story; the reduced-gate build-lean
-// path sits beside them for lower-risk work.
+// Three cards introduce the delivery path. The evaluation-only build-lean
+// variant is described separately below the first-run instructions.
 const path: { step: string; title: string; body: string; accent: Accent }[] = [
   {
     step: '01',
@@ -257,8 +257,9 @@ const leftBehind: { file: string; note: string }[] = [
         but it gets the plan, commands, snapshots, and diff together.
       </p>
       <p class="fine measure-lg gates-limit">
-        For lower-risk work, <code>builder.build-lean</code> is the reduced-gate
-        variant. It trims gate cost without describing probing or planning as ungated.
+        Use <code>builder.build</code> for the delivery workflow described here.
+        The <a href="#experiments">experimental variant below</a> is for
+        evaluating the cost and effect of selected workflow steps.
       </p>
     </div>
   </Section>
@@ -332,6 +333,23 @@ const leftBehind: { file: string; note: string }[] = [
         <a href="/flow-agents/" class="btn-primary" data-umami-event="builder-kit-footer-engine">The engine underneath -></a>
         <a href="https://kontourai.github.io/flow-agents/" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="builder-kit-footer-docs">Read the docs</a>
       </div>
+    </div>
+  </Section>
+
+  <Section id="experiments" tone="alt" borderBottom>
+    <div class="container">
+      <Eyebrow accent="gold">Experiments</Eyebrow>
+      <h2 class="display-md builder-title">An evaluation variant, not a delivery shortcut.</h2>
+      <p class="body builder-copy">
+        <code>builder.build-lean</code> is an ablation experiment: it removes
+        the design-probe and plan gates and the requirement to produce those
+        steps' work. It measures that combined change, not gate overhead alone.
+        Do not substitute it for <code>builder.build</code> on ordinary work.
+      </p>
+      <p class="fine measure-lg">
+        This scope is declared in the{' '}
+        <a href="https://github.com/kontourai/flow-agents/blob/0fa8e13158b07f57d8928914fd037f65bb7d6f2c/kits/builder/kit.json" target="_blank" rel="noopener">Builder Kit definition</a>.
+      </p>
     </div>
   </Section>
 
