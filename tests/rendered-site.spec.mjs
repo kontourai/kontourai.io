@@ -976,6 +976,7 @@ test("kit pages show real sidecar/store shapes and record dimensions", async ({ 
   // The real, code-backed properties those strings were standing in for.
   await expect(page.getByText("The mutation log is append-only")).toBeVisible();
   await expect(page.getByText("Raw captures can record provenance without a source link.")).toBeVisible();
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute("content", /source links where supplied/);
   await expect(page.getByText("notes your agent can't quietly make up")).toHaveCount(0);
   await expect(page.getByText("it does not generate a summary from the transcript")).toBeVisible();
   // Freshness is derived on read, never stored — the record is not rewritten.

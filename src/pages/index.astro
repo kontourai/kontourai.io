@@ -19,9 +19,9 @@ const stationShot = assetCapture('public/screenshots/station-project.png');
 // (internal marketing notes, 2026-07-07): every "caught by" below is a
 // catch that actually exists in the shipped hooks. Ordering is deliberate —
 // the backstop/memory case leads because it is both believable and
-// implemented. Do NOT add moments whose catch is a named residual (stale
-// pass after later edits, narrowed scope, edited tests) — those are
-// disclosed as gaps in the residual line, never as catches.
+// implemented. The residual line distinguishes the current revision-bound
+// freshness check from narrowed scope and edited tests, which still need
+// review. Check runtime support before adding a new catch.
 const narratorMoments = [
   {
     moment: 'Said done — never actually ran it.',
