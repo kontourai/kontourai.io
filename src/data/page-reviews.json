@@ -144,12 +144,12 @@
       "page": "src/pages/use-cases/aidlc.astro",
       "products": {
         "flow": "5.2.0",
-        "flow-agents": "8.0.1",
+        "flow-agents": "8.1.0",
         "surface": "6.0.0",
-        "survey": "8.1.0",
-        "veritas": "1.8.0"
+        "survey": "8.1.1",
+        "veritas": "1.10.0"
       },
-      "reviewedDate": "2026-10-12"
+      "reviewedDate": "2026-10-13"
     },
     {
       "page": "src/pages/privacy.astro",
