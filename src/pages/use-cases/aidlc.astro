@@ -654,7 +654,8 @@ const receipts: { file: string; note: string }[] = [
         When intent, requirements or design stops for a produced-artifact review, the optional{' '}
         <a href="/survey/" data-umami-event="aidlc-review-survey">Survey interface</a> displays the current
         artifact bytes, source references, original deadline and remaining worker budget.
-        Inspect the documents, then approve, decline, request changes with a correction note,
+        The review summary shows why the run is waiting, open findings and reviewer concerns.
+        Read each document and mark it reviewed, then approve, decline, request changes with a correction note,
         or record that you could not confirm. A changed artifact or expired request is refused.
         Resume the same request through Flow Agents after the decision is recorded.
       </p>
@@ -681,7 +682,8 @@ const receipts: { file: string; note: string }[] = [
 #    "reference":"operator:proposal-reviewed"}}
 npx flow-agents kit review aidlc --dest /absolute/aidlc-bootstrap \\
   --request /private/artifact-review.json
-# Open the returned loopback URL, inspect the cards, and send the review.
+# Open the loopback URL, read the findings, and mark each artifact reviewed.
+# Choose an action, add a correction note if needed, and send the review once.
 # Resume with the original kit run request and controller.`}</pre>
       </Terminal>
       <p class="term-note">This command reference targets the <a href={`${kitRepo}/tree/${currentKitCommit}`}>current source at {currentKitCommit.slice(0, 7)}</a>. See the <a href={`${kitDocs}docs/using-the-kit.html#optional-local-survey-decisions`} data-umami-event="aidlc-review-guide">review and resume guide</a> for setup and the MCP command. Keep the bootstrap and private controller outside the application workspace. The native host verifies installed kit integrity again before applying; the kit checks its current subject and original budget. Existing kit-specific commands remain compatibility paths.</p>
