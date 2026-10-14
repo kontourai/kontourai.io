@@ -755,7 +755,25 @@ test("veritas page commands run the installed scoped package, never a registry f
   for (const prompt of await prompts.all()) {
     await expect(prompt).toHaveText(/^npx --no @kontourai\/veritas /);
   }
-  await expect(page.getByText("npx --no @kontourai/veritas init --explore", { exact: true })).toBeVisible();
+  await expect(page.locator(".terminal-body .cmd").getByText("npx --no @kontourai/veritas init --explore", { exact: true })).toBeVisible();
+
+  // The "Current CLI" list is copied into shells, so every entry carries the
+  // same scoped, installed-only spelling as the transcripts above.
+  const cliCommands = page.locator(".cli__cmd");
+  expect(await cliCommands.count()).toBeGreaterThan(0);
+  for (const command of await cliCommands.all()) {
+    await expect(command).toHaveText(/^npx --no @kontourai\/veritas [a-z]/);
+  }
+
+  // Inline code and terminal lines are copied the same way, so none may show a
+  // bare `veritas <subcommand>`. The lookbehind skips the scoped package name
+  // and paths such as `.veritas/`.
+  const bare = await page.locator("code, .terminal-body .cmd").evaluateAll((nodes) =>
+    nodes
+      .map((node) => node.textContent ?? "")
+      .filter((text) => /(?<![\w@/.-])veritas\s+[a-z]/.test(text)),
+  );
+  expect(bare).toEqual([]);
 });
 
 test("survey page explains the producer pipeline and surface handoff", async ({ page }) => {

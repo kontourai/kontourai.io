@@ -85,7 +85,7 @@ const siteRun: TLine[] = [
   { cls: 'warn', text: 'WARN  surface-status: claim "veritas.policy.kontourai-io.kontourai-io-default.ai-instruction-files-synced"' },
   { cls: 'warn', text: '      is DISPUTED (Evidence explicitly reported a non-passing result.)' },
   { cls: 'muted', text: '' },
-  { cls: 'cmd', text: '1 failure · 2 warnings · run `veritas readiness --check evidence` for full generated evidence' },
+  { cls: 'cmd', text: '1 failure · 2 warnings · run `npx --no @kontourai/veritas readiness --check evidence` for full generated evidence' },
   { cls: 'muted', text: 'report: .kontourai/veritas/evidence/veritas-1785017124503.json' },
   { cls: 'muted', text: '  · standards feedback draft: .kontourai/veritas/standards-feedback-drafts/veritas-1785017124503.json' },
   { cls: 'muted', text: '  · run: veritas-1785017124503' },
@@ -112,16 +112,16 @@ const beyond: { title: string; body: string; accent: Accent }[] = [
 ];
 
 const cli = [
-  { cmd: 'veritas init --explore', desc: 'Read the repo and propose a starting set of standards as a plan file — applies nothing' },
-  { cmd: 'veritas init', desc: 'Bootstrap Repo Standards, Repo Map, and guidance' },
-  { cmd: 'veritas readiness --working-tree', desc: 'Report whether the current change meets the repo standards' },
-  { cmd: 'veritas explain --file <path>', desc: 'Show only the rules that govern that path' },
-  { cmd: 'veritas attest bootstrap --actor <id> --approval-ref <ref>', desc: 'Record who reviewed the protected standards, and the approval behind it' },
-  { cmd: 'veritas claim list', desc: 'Author and inspect the readiness claims this repo publishes' },
-  { cmd: 'veritas feedback summary', desc: 'Review whether standards are helping across prior runs' },
-  { cmd: 'veritas recommendation list', desc: 'Review data-driven standards recommendations' },
-  { cmd: 'veritas integrations claude-code install', desc: 'Wire the pre-edit hook that stops a write breaking a required rule' },
-  { cmd: 'veritas integrations codex install', desc: 'Wire the pre-edit hook plus end-of-session feedback — same command shape for cursor and copilot' },
+  { cmd: 'npx --no @kontourai/veritas init --explore', desc: 'Read the repo and propose a starting set of standards as a plan file — applies nothing' },
+  { cmd: 'npx --no @kontourai/veritas init', desc: 'Bootstrap Repo Standards, Repo Map, and guidance' },
+  { cmd: 'npx --no @kontourai/veritas readiness --working-tree', desc: 'Report whether the current change meets the repo standards' },
+  { cmd: 'npx --no @kontourai/veritas explain --file <path>', desc: 'Show only the rules that govern that path' },
+  { cmd: 'npx --no @kontourai/veritas attest bootstrap --actor <id> --approval-ref <ref>', desc: 'Record who reviewed the protected standards, and the approval behind it' },
+  { cmd: 'npx --no @kontourai/veritas claim list', desc: 'Author and inspect the readiness claims this repo publishes' },
+  { cmd: 'npx --no @kontourai/veritas feedback summary', desc: 'Review whether standards are helping across prior runs' },
+  { cmd: 'npx --no @kontourai/veritas recommendation list', desc: 'Review data-driven standards recommendations' },
+  { cmd: 'npx --no @kontourai/veritas integrations claude-code install', desc: 'Wire the pre-edit hook that stops a write breaking a required rule' },
+  { cmd: 'npx --no @kontourai/veritas integrations codex install', desc: 'Wire the pre-edit hook plus end-of-session feedback — same command shape for cursor and copilot' },
 ];
 ---
 
@@ -200,7 +200,7 @@ const cli = [
         <Card pad="lg" accent="cobalt-2">
           <h3 class="tr__head">While the agent is working</h3>
           <p class="tr__body">
-            <code>veritas explain --file src/api/handler.ts</code> returns only
+            <code>npx --no @kontourai/veritas explain --file src/api/handler.ts</code> returns only
             the rules that govern that path — short enough to sit in an agent's
             context window, so the repo's expectations don't fall out of the
             conversation two hours in.
@@ -216,7 +216,7 @@ const cli = [
         <Card pad="lg" accent="gold">
           <h3 class="tr__head">When a human picks it up</h3>
           <p class="tr__body">
-            <code>veritas readiness --working-tree</code> prints one line per
+            <code>npx --no @kontourai/veritas readiness --working-tree</code> prints one line per
             requirement: passed, failed, warned, or accepted by exception with
             the approver named.
           </p>
