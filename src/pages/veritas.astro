@@ -20,11 +20,11 @@ const veritasStatus = getProductStatus('veritas');
  *  `cls: 'prompt'` marks a typed command; everything else is real tool output. */
 type TLine = { cls: string; text: string };
 
-/* Captured from the Veritas README ("Caught In The Wild", v1.5.3), running the
+/* Captured from the Veritas README ("Caught In The Wild", v1.11.2), running the
    shipped `nextjs-typescript` standards template. Trimmed for column width only
    — every line below is printed verbatim by the tool, and each cut is marked. */
 const heroRun: TLine[] = [
-  { cls: 'prompt', text: 'npx veritas readiness --working-tree' },
+  { cls: 'prompt', text: 'npx --no @kontourai/veritas readiness --working-tree' },
   { cls: 'muted', text: '' },
   { cls: 'muted', text: 'veritas: 1 file changed -> app.app' },
   { cls: 'pass', text: 'PASS  evidence-check: node -e "process.exit(0)"' },
@@ -35,13 +35,13 @@ const heroRun: TLine[] = [
   { cls: 'muted', text: '      -> app/api/projects/route.ts' },
   { cls: 'muted', text: '      [ 2 PASS lines + 1 WARN trimmed ]' },
   { cls: 'muted', text: '' },
-  { cls: 'cmd', text: '0 failures · 2 warnings · run `veritas readiness' },
-  { cls: 'cmd', text: '--check evidence` for full generated evidence' },
+  { cls: 'cmd', text: '0 failures · 2 warnings · run `npx --no @kontourai/veritas' },
+  { cls: 'cmd', text: 'readiness --check evidence` for full generated evidence' },
 ];
 
 /* Same source, same repo, after the missing API test was added. */
 const afterRun: TLine[] = [
-  { cls: 'prompt', text: 'npx veritas readiness --working-tree' },
+  { cls: 'prompt', text: 'npx --no @kontourai/veritas readiness --working-tree' },
   { cls: 'muted', text: '' },
   { cls: 'muted', text: 'veritas: 2 files changed -> app.app, verification.tests' },
   { cls: 'muted', text: '      [ 4 PASS lines trimmed ]' },
@@ -50,8 +50,8 @@ const afterRun: TLine[] = [
   { cls: 'pass', text: '      companion changes under tests/api/**.' },
   { cls: 'muted', text: '      [ 2 PASS lines trimmed ]' },
   { cls: 'muted', text: '' },
-  { cls: 'cmd', text: '0 failures · 0 warnings · run `veritas readiness' },
-  { cls: 'cmd', text: '--check evidence` for full generated evidence' },
+  { cls: 'cmd', text: '0 failures · 0 warnings · run `npx --no @kontourai/veritas' },
+  { cls: 'cmd', text: 'readiness --check evidence` for full generated evidence' },
 ];
 
 /* The rule that produced both runs, from the shipped nextjs-typescript template. */
@@ -67,9 +67,11 @@ const ruleJson = `{
 
 /* Unedited capture from this repository, 25 July 2026, on the working tree that
    produced this page. Nothing removed and nothing reordered; the two longest
-   lines are wrapped at their own `·` / word boundaries to fit the column. */
+   lines are wrapped at their own `·` / word boundaries to fit the column.
+   The output is that release's; the prompt shows how this repo runs Veritas now
+   (installed as a devDependency), not the unpinned registry fetch used then. */
 const siteRun: TLine[] = [
-  { cls: 'prompt', text: 'npx --yes --package=@kontourai/veritas -- veritas readiness --working-tree' },
+  { cls: 'prompt', text: 'npx --no @kontourai/veritas readiness --working-tree' },
   { cls: 'muted', text: '' },
   { cls: 'muted', text: 'veritas: 16 files changed -> app.src, tooling.scripts' },
   { cls: 'fail', text: 'FAIL  evidence-check: npm run validate && npm run test:rendered' },
@@ -317,6 +319,11 @@ const cli = [
             : <span class={cls}>{text}{'\n'}</span>
         ))}</pre>
       </Terminal>
+      <p class="tcap">
+        That run fetched Veritas from the registry. The prompt shows the
+        command this repo runs now that Veritas is installed here; the output
+        is as printed.
+      </p>
 
       <Grid cols={2} gap="lg" class="df__grid">
         <div>
@@ -448,14 +455,14 @@ const cli = [
 
       <Terminal title="getting started">
         <p class="tline"><span class="prompt">$ </span><span class="cmd">npm install -D @kontourai/veritas</span></p>
-        <p class="tline"><span class="prompt">$ </span><span class="cmd">npx veritas init --explore</span></p>
+        <p class="tline"><span class="prompt">$ </span><span class="cmd">npx --no @kontourai/veritas init --explore</span></p>
       </Terminal>
 
       <p class="body try__copy">
         <code>--explore</code> reads your repo and proposes a starting set of
         standards as a plan file — no model calls, no network, nothing written
         to your source tree. Read it, edit it, then
-        run <code>veritas init --apply --plan &lt;path&gt;</code> when it looks
+        run <code>npx --no @kontourai/veritas init --apply --plan &lt;path&gt;</code> when it looks
         right.
       </p>
 

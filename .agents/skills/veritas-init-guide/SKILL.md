@@ -18,9 +18,9 @@ Use this skill when a repo needs AI-assisted Veritas initialization. The skill c
 
 ## Hard Boundary
 
-- Treat `veritas init --explore` and `veritas init --guided` as read-only surfaces.
+- Treat `npx --no @kontourai/veritas init --explore` and `npx --no @kontourai/veritas init --guided` as read-only surfaces.
 - Never hand-edit `.veritas/` files in the target repo.
-- Never bypass `veritas init --apply --plan <artifact>`.
+- Never bypass `npx --no @kontourai/veritas init --apply --plan <artifact>`.
 - Keep any site or commentary edits separate from Veritas repo state changes.
 
 ## Required Context
@@ -35,12 +35,16 @@ If a required artifact is missing, stop and report the gap instead of guessing.
 
 ## Workflow
 
+Run Veritas as `npx --no @kontourai/veritas`, from a repo that has `@kontourai/veritas` installed.
+`--no` makes a missing install an error instead of a silent registry fetch. Never drop the scope:
+the unscoped `veritas` package is a different, third-party project.
+
 ### 1. Explore
 
 Run the deterministic CLI first:
 
 ```sh
-veritas init --explore --root <repo> --output <repo>/.veritas/init-plans/<slug>.json
+npx --no @kontourai/veritas init --explore --root <repo> --output <repo>/.veritas/init-plans/<slug>.json
 ```
 
 Use the stdout JSON and saved artifact as the baseline. Do not write starter files during exploration.
@@ -79,7 +83,7 @@ Write the owner answers into the guided plan artifact. Keep unanswered items unr
 After review, run:
 
 ```sh
-veritas init --apply --plan <guided-plan>
+npx --no @kontourai/veritas init --apply --plan <guided-plan>
 ```
 
 Do not mutate the target repo by any other route. If a payload or target drifts from the reviewed artifact, fail and ask for a fresh plan instead of silently regenerating.
