@@ -734,6 +734,30 @@ test("veritas page shows the promise, a concrete catch, and the surface handoff"
   await expect(page.getByText("the channel, the environment")).toHaveCount(0);
 });
 
+test("veritas page commands run the installed scoped package, never a registry fetch", async ({ page }) => {
+  await page.goto("/veritas/");
+
+  // The unscoped `veritas` npm package belongs to a third party, so `npx veritas`
+  // downloads someone else's code. Without `--no`, npx falls back to the
+  // registry when Veritas is not installed. Veritas's README spells first use
+  // as install, then `npx --no @kontourai/veritas …`.
+  const lines = (await page.locator("body").innerText()).split("\n");
+  const unsafe = lines.filter(
+    (line) =>
+      /\bnpx\s+(?:(?:--yes|-y)\s+)?veritas\b/.test(line) ||
+      (/\bnpx\b.*@kontourai\/veritas\b/.test(line) && !/\bnpx --no @kontourai\/veritas\b/.test(line)) ||
+      /--package[= ]@kontourai\/veritas(?!@\d)/.test(line),
+  );
+  expect(unsafe).toEqual([]);
+
+  const prompts = page.locator(".terminal-body .cmd").filter({ hasText: /^npx / });
+  await expect(prompts).toHaveCount(4);
+  for (const prompt of await prompts.all()) {
+    await expect(prompt).toHaveText(/^npx --no @kontourai\/veritas /);
+  }
+  await expect(page.getByText("npx --no @kontourai/veritas init --explore", { exact: true })).toBeVisible();
+});
+
 test("survey page explains the producer pipeline and surface handoff", async ({ page }) => {
   await page.goto("/survey/");
 

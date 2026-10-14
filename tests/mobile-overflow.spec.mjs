@@ -88,6 +88,18 @@ for (const route of routes) {
         scrollWidth,
         `${route} @${vp.label}px overflows by ${scrollWidth - innerWidth}px. Uncontained culprits: ${culprits.join("; ") || "(none isolated — check fixed/scroll containers)"}`,
       ).toBeLessThanOrEqual(innerWidth + 1);
+
+      // A section's own overflow clip hides a too-wide terminal from the check
+      // above while cutting its lines off mid-command. Long lines must scroll
+      // inside the terminal, so the terminal itself has to fit the viewport.
+      const clippedTerminals = await page.evaluate(
+        (vw) =>
+          [...document.querySelectorAll(".terminal")]
+            .filter((el) => el.getBoundingClientRect().width > 0 && el.getBoundingClientRect().right > vw + 1)
+            .map((el) => `${el.querySelector(".terminal-title")?.textContent ?? "(untitled)"} (right=${Math.round(el.getBoundingClientRect().right)})`),
+        vp.width,
+      );
+      expect(clippedTerminals, `${route} @${vp.label}px has terminals wider than the viewport`).toEqual([]);
     });
   }
 }
