@@ -112,16 +112,16 @@ const beyond: { title: string; body: string; accent: Accent }[] = [
 ];
 
 const cli = [
-  { cmd: 'veritas init --explore', desc: 'Read the repo and propose a starting set of standards as a plan file — applies nothing' },
-  { cmd: 'veritas init', desc: 'Bootstrap Repo Standards, Repo Map, and guidance' },
-  { cmd: 'veritas readiness --working-tree', desc: 'Report whether the current change meets the repo standards' },
-  { cmd: 'veritas explain --file <path>', desc: 'Show only the rules that govern that path' },
-  { cmd: 'veritas attest bootstrap --actor <id> --approval-ref <ref>', desc: 'Record who reviewed the protected standards, and the approval behind it' },
-  { cmd: 'veritas claim list', desc: 'Author and inspect the readiness claims this repo publishes' },
-  { cmd: 'veritas feedback summary', desc: 'Review whether standards are helping across prior runs' },
-  { cmd: 'veritas recommendation list', desc: 'Review data-driven standards recommendations' },
-  { cmd: 'veritas integrations claude-code install', desc: 'Wire the pre-edit hook that stops a write breaking a required rule' },
-  { cmd: 'veritas integrations codex install', desc: 'Wire the pre-edit hook plus end-of-session feedback — same command shape for cursor and copilot' },
+  { cmd: 'npx --no @kontourai/veritas init --explore', desc: 'Read the repo and propose a starting set of standards as a plan file — applies nothing' },
+  { cmd: 'npx --no @kontourai/veritas init', desc: 'Bootstrap Repo Standards, Repo Map, and guidance' },
+  { cmd: 'npx --no @kontourai/veritas readiness --working-tree', desc: 'Report whether the current change meets the repo standards' },
+  { cmd: 'npx --no @kontourai/veritas explain --file <path>', desc: 'Show only the rules that govern that path' },
+  { cmd: 'npx --no @kontourai/veritas attest bootstrap --actor <id> --approval-ref <ref>', desc: 'Record who reviewed the protected standards, and the approval behind it' },
+  { cmd: 'npx --no @kontourai/veritas claim list', desc: 'Author and inspect the readiness claims this repo publishes' },
+  { cmd: 'npx --no @kontourai/veritas feedback summary', desc: 'Review whether standards are helping across prior runs' },
+  { cmd: 'npx --no @kontourai/veritas recommendation list', desc: 'Review data-driven standards recommendations' },
+  { cmd: 'npx --no @kontourai/veritas integrations claude-code install', desc: 'Wire the pre-edit hook that stops a write breaking a required rule' },
+  { cmd: 'npx --no @kontourai/veritas integrations codex install', desc: 'Wire the pre-edit hook plus end-of-session feedback — same command shape for cursor and copilot' },
 ];
 ---
 
