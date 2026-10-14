@@ -19,9 +19,9 @@ const stationShot = assetCapture('public/screenshots/station-project.png');
 // (internal marketing notes, 2026-07-07): every "caught by" below is a
 // catch that actually exists in the shipped hooks. Ordering is deliberate —
 // the backstop/memory case leads because it is both believable and
-// implemented. Do NOT add moments whose catch is a named residual (stale
-// pass after later edits, narrowed scope, edited tests) — those are
-// disclosed as gaps in the residual line, never as catches.
+// implemented. The residual line distinguishes the current revision-bound
+// freshness check from narrowed scope and edited tests, which still need
+// review. Check runtime support before adding a new catch.
 const narratorMoments = [
   {
     moment: 'Said done — never actually ran it.',
@@ -77,8 +77,9 @@ const narratorMoments = [
         <p class="lead measure animate-fade-up delay-100 hero-lead">
           Station is the agent workspace where work ships with receipts. It
           brings your agents, projects, and devices into one open-source,
-          local-first workspace, and keeps the gates, evidence, and receipts
-          beside the work — so "done" means proven rather than asserted.
+          local-first workspace. Configured workflows keep gate results,
+          evidence, and receipts beside the work, so you can review what ran
+          and what still needs checking before accepting the result.
           Already shipping with a coding agent? Flow Agents brings the same
           discipline into the tools you run today.
         </p>
@@ -123,10 +124,10 @@ const narratorMoments = [
         <Card accent="cobalt" bar="top" pad="md">
           <h3 class="station__card-title">Receipts beside the work</h3>
           <p class="body station__card-copy">
-            Gate outcomes, missing evidence, route-backs, and exceptions sit
-            next to the Task they describe. Work ends as passed gates with
-            fresh evidence, an exception a person accepted, or unverified —
-            stated plainly.
+            Where the configured workflow provides them, gate outcomes,
+            missing evidence, route-backs, and exceptions stay beside the
+            Task. Completing a Task does not by itself establish that a
+            review or gate passed.
           </p>
         </Card>
       </Grid>
@@ -181,11 +182,11 @@ const narratorMoments = [
       </ul>
 
       <p class="fine narrator__residual">
-        Three things this doesn't catch: a check that genuinely passed isn't
-        re-invalidated when the code changes afterward, running one test file
-        instead of the suite looks the same as running the suite, and an
-        edited test slips through the runtime gate.{' '}
-        <a href="/trust/" data-umami-event="home-narrator-trust">The full list of what gets past it →</a>
+        Revision-bound gates reject a captured pass when its recorded workspace
+        snapshot no longer matches the current one. They still need review
+        to catch a narrowed test suite or a test edited until it passes. The
+        checks and blocking behavior depend on the configured runtime.{' '}
+        <a href="/trust/" data-umami-event="home-narrator-trust">See the checks, runtime support, and limits →</a>
       </p>
     </div>
   </Section>

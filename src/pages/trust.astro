@@ -22,8 +22,8 @@ const guarantees: { label: string; body: string; formula?: string; tail?: string
     body: "Results come from the log the harness wrote while the command ran — the actual exit code, not a summary of it — never from the model's story about the run.",
   },
   {
-    label: 'Refuses or escalates',
-    body: "The agent can't end a turn by asserting it's done. Either the evidence backs the claim, or the gate refuses — or it hands the decision to you. It never just proceeds.",
+    label: 'Blocks where supported',
+    body: "A configured blocking Stop hook can prevent an unsupported completion claim from ending the turn before escalating to you. Advisory adapters report gaps without controlling the stop decision; the runtime table below names the differences.",
   },
 ];
 
@@ -83,6 +83,12 @@ const TRUST_RECONCILE_DECISION_URL = 'https://github.com/kontourai/flow-agents/b
         was capable of disagreeing with it. So we don't sell proof of correctness. We make what an
         answer actually stood on — and what it skipped — visible and re-checkable by anyone,
         instead of hidden behind a checkmark the model gave itself.
+      </p>
+      <p class="body measure">
+        A recorded review is not by itself evidence of an independent reviewer.
+        The local workflow records the supplied reviewer identity; it does not
+        attest that a separate person or runtime performed the review. The
+        operator must establish that independence separately.
       </p>
 
       <Grid cols={3} gap="md" class="guarantee-grid animate-fade-up delay-300">
@@ -240,8 +246,9 @@ const TRUST_RECONCILE_DECISION_URL = 'https://github.com/kontourai/flow-agents/b
           </p>
           <p class="fine bypass-row__residual">
             <em>Where this stops: an edited test survives the trip, because CI runs the test you
-            wrote. That one is on review, not on the machine. And before the pull request exists,
-            all three of these are on you.</em>
+            wrote. A narrowed test suite also needs review. The local revision-bound
+            checks address stale evidence on the paths that use them; they do not
+            establish that the tests cover the intended behavior.</em>
           </p>
         </div>
 
