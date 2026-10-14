@@ -449,8 +449,13 @@ h1, h2, h3, h4, h5, h6 {
     flex-direction: column !important;
     min-width: 0;
   }
+  /* A Split's `align` becomes the cross (horizontal) axis once stacked, so a
+     child shrinks to fit its content. A terminal's min-content is its longest
+     unwrapped line, which then outgrew the column and was clipped by the
+     section instead of scrolling inside the terminal. */
   .stack-mobile > * {
     min-width: 0;
+    max-width: 100%;
   }
 }
 
