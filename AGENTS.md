@@ -42,13 +42,13 @@ UI, brand, and product-copy rules live in `DESIGN.md` in `@kontourai/ui` (https:
 - `npm run check:content-boundary` — focused public-boundary check after public-facing copy or agent instruction changes.
 - `npm run sync-versions` — refresh all version pins in `product-status.json` from npm after any release (idempotent; prints a diff of what changed)
 - `npm run sync-versions:check` — CI gate: exits non-zero if any pin is stale, prints which ones
-- `npm exec --yes --package=@kontourai/veritas@1.5.3 -- veritas readiness` — how to run the
-  governance check below, since Veritas is not a local dependency. Keep the version in step with
-  `.github/workflows/veritas-advisory.yml`. This note lives outside the governance block on
-  purpose: that block is byte-matched against the canonical text Veritas generates, so editing
-  it — even helpfully — is what put `ai-instruction-files-synced` into WARN.
+- `npx --no @kontourai/veritas readiness` — runs the governance check below with the repo's
+  `@kontourai/veritas` devDependency. CI runs readiness through the shared readiness action that
+  `.github/workflows/veritas-advisory.yml` calls, which installs its own Veritas. Never drop the
+  `@kontourai/` scope: the unscoped `veritas` package belongs to another project. Leave the
+  governance block below as Veritas writes it; it is byte-matched against the canonical text.
 
 <!-- veritas:governance-block:start -->
 This repo uses Veritas for AI governance. Read `.veritas/GOVERNANCE.md` before making changes.
-After changes, run `veritas readiness` and address any FAIL lines before finishing.
+After changes, run `npx --no @kontourai/veritas readiness` and address any FAIL lines before finishing.
 <!-- veritas:governance-block:end -->
