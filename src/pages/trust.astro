@@ -12,18 +12,16 @@ import type { Accent } from '@/lib/theme';
 
 const guarantees: { label: string; body: string; formula?: string; tail?: string }[] = [
   {
-    label: 'Recomputable',
-    body: 'Any machine with the same evidence and the same rules re-derives the same verdict — ',
-    formula: 'status = f(evidence, policy, now)',
-    tail: ", a published function, not a model's opinion. It moves only where it should: evidence with a shelf life goes stale on schedule.",
+    label: 'What is checked',
+    body: 'Supported gate paths compare completion claims with captured command results. Revision-bound gates reject evidence when the recorded workspace snapshot no longer matches. These checks do not establish test coverage or factual correctness.',
   },
   {
-    label: 'Captured, not narrated',
-    body: "Results come from the log the harness wrote while the command ran — the actual exit code, not a summary of it — never from the model's story about the run.",
+    label: 'What you configure',
+    body: 'Install a supported runtime adapter, declare meaningful verification commands, and require the relevant CI checks. Protect workflow and CI configuration with owner review. Installation alone does not configure repository protection.',
   },
   {
-    label: 'Blocks where supported',
-    body: "A configured blocking Stop hook can prevent an unsupported completion claim from ending the turn before escalating to you. Advisory adapters report gaps without controlling the stop decision; the runtime table below names the differences.",
+    label: 'What still needs review',
+    body: 'Review test adequacy, reviewer independence, exceptions, and administrator authority. Advisory adapters report gaps without blocking; local command checks have bypass limits. The runtime table and historical notes below explain those boundaries.',
   },
 ];
 
@@ -66,8 +64,8 @@ const TRUST_RECONCILE_DECISION_URL = 'https://github.com/kontourai/flow-agents/b
 ---
 
 <Layout
-  title="Trust — what we can't certify, and four ways to cheat the gate · Kontour AI"
-  description="We can't certify that an agent is right. Here's what we do instead, exactly where it stops working, and four ways someone could cheat it."
+  title="Trust — checks, required setup, and limits · Kontour AI"
+  description="What Flow Agents checks, what you must configure, and what still requires review. Historical incidents remain available beside the controls they tested."
 >
   <Nav />
 
@@ -76,13 +74,13 @@ const TRUST_RECONCILE_DECISION_URL = 'https://github.com/kontourai/flow-agents/b
     <Glow accent="chalk-2" position="top-right" />
     <div class="container container--readable">
       <Eyebrow accent="chalk-2">For the skeptic</Eyebrow>
-      <h1 class="product-title animate-fade-up">We can't certify an agent is right. No one can.</h1>
+      <h1 class="product-title animate-fade-up">Check what ran. Know what still needs review.</h1>
       <p class="hero-copy trust-hero-copy animate-fade-up delay-200">
-        An agent tells you it ran the migration test. It didn't. You find out in production. The
-        problem isn't that the model was wrong — it's that nothing between its claim and your merge
-        was capable of disagreeing with it. So we don't sell proof of correctness. We make what an
-        answer actually stood on — and what it skipped — visible and re-checkable by anyone,
-        instead of hidden behind a checkmark the model gave itself.
+        A completion message is a claim. Flow Agents can compare it with recorded
+        execution evidence on supported paths and show missing checks. Start with
+        the checks, setup, and limits below, then use the runtime table to choose
+        the enforcement your host provides. These controls do not certify that
+        the resulting work is correct.
       </p>
       <p class="body measure">
         A recorded review is not by itself evidence of an independent reviewer.
@@ -105,7 +103,7 @@ const TRUST_RECONCILE_DECISION_URL = 'https://github.com/kontourai/flow-agents/b
       </Grid>
 
       <div class="hero-actions animate-fade-up delay-300">
-        <a href="/early-access/" class="btn-primary" data-umami-event="trust-hero-early-access">Get early access →</a>
+        <a href="/early-access/" class="btn-primary" data-umami-event="trust-hero-early-access">Discuss a pilot →</a>
         <a href="/receipts/" class="btn-ghost" data-umami-event="trust-hero-receipts">Check the receipts yourself →</a>
       </div>
     </div>
@@ -115,7 +113,15 @@ const TRUST_RECONCILE_DECISION_URL = 'https://github.com/kontourai/flow-agents/b
   <Section size="lg" borderBottom>
     <div class="container container--readable">
       <Eyebrow accent="gold">What that looks like</Eyebrow>
-      <h2 class="section-heading">The security fix that almost shipped its own backdoor</h2>
+      <h2 class="section-heading">Inspect the evidence behind a control.</h2>
+      <p class="body lead-story__body">
+        Use the runtime table for current enforcement and the linked source for
+        its limits. A past incident shows what a review found on that candidate;
+        it does not qualify today's release.
+      </p>
+      <details class="historical-notes">
+        <summary>7 July 2026 — capture-parser incident and review history (PR #475)</summary>
+        <h3 class="section-heading">The security fix that almost shipped its own backdoor</h3>
       <p class="body lead-story__body">
         Flow Agents had a capture bug: on one runtime, failing commands were being recorded as
         passes. The first patch fixed it and opened a worse hole — its parser could be fooled by
@@ -137,6 +143,7 @@ const TRUST_RECONCILE_DECISION_URL = 'https://github.com/kontourai/flow-agents/b
         session's own report, not a committed artifact. Its Trust Reconcile check passed on the
         head commit; Flow Agents retired that CI step in 8.0.0.
       </p>
+      </details>
     </div>
   </Section>
 
@@ -170,6 +177,9 @@ const TRUST_RECONCILE_DECISION_URL = 'https://github.com/kontourai/flow-agents/b
             <code class="mono-inline">Trust Reconcile</code>; 8.0.0 retired it, because the required
             checks already caught what it caught.)
           </p>
+          <details class="historical-notes">
+            <summary>Shell-parser hardening history and residual gaps — retained from the 16 October 2026 site snapshot</summary>
+            <p class="fine receipt-line">Historical account; the linked ADRs, issues, and source below carry the implementation details. This is not a new exploit or runtime qualification.</p>
           <p class="body bypass-row__body">
             One level down, a local gate refuses an agent's direct writes to the protected workflow
             and gate files themselves. It works by reading the command before it runs — and a
@@ -193,6 +203,7 @@ const TRUST_RECONCILE_DECISION_URL = 'https://github.com/kontourai/flow-agents/b
             we're taking it: stop predicting what a command will do, and check what actually
             changed, by hashing those files before and after.
           </p>
+          </details>
           <p class="fine bypass-row__residual">
             <em>Where this stops: a determined agent can still flip a local kill-switch through its
             own shell. That's exactly why the authority lives in CI, not in the local gate. And
@@ -259,11 +270,11 @@ const TRUST_RECONCILE_DECISION_URL = 'https://github.com/kontourai/flow-agents/b
             <span class="trust-badge trust-badge--disputed">Named, not caught</span>
           </div>
           <p class="body bypass-row__body">
-            Force-merge past branch protection, or approve your own malicious change. Nothing
-            machine-side stops this, and nothing ever will. It is the irreducible human boundary —
-            the one place the whole model depends on trusting a person, not a proof. What's left is
-            ordinary: branch protection with enforced admins, code-owner review on the gate and CI
-            config, and a human who declines the <code class="mono-inline">--admin</code> shortcut.
+            A person with sufficient repository authority may change protections
+            or use an available bypass. Configure administrator enforcement and
+            code-owner review for gate and CI changes, limit bypass permissions,
+            and inspect exceptions. These workflow checks do not establish that
+            an administrator's decision was appropriate.
           </p>
         </div>
       </div>
@@ -429,9 +440,12 @@ const TRUST_RECONCILE_DECISION_URL = 'https://github.com/kontourai/flow-agents/b
   <!-- Section 6: The closing story + CTA pair -->
   <Section size="lg" borderTop>
     <div class="container container--readable">
-      <Eyebrow accent="gold">When it mattered</Eyebrow>
-      <h2 class="section-heading">The agent that refused its own admin powers</h2>
-
+      <Eyebrow accent="gold">Administrative decisions</Eyebrow>
+      <h2 class="section-heading">Keep bypass decisions visible.</h2>
+      <p class="body lead-story__body">Review repository permissions and exceptions directly. An agent's reported refusal is not an enforcement mechanism.</p>
+      <details class="historical-notes">
+        <summary>Historical anecdote retained from the 16 October 2026 site snapshot — no linked event receipt</summary>
+        <h3 class="section-heading">The agent that refused its own admin powers</h3>
       <div class="story-grid">
         <p class="body story-card__body">
           Two green pull requests couldn't merge because branch protection demanded up-to-date
@@ -448,9 +462,10 @@ const TRUST_RECONCILE_DECISION_URL = 'https://github.com/kontourai/flow-agents/b
         </p>
       </div>
 
+      </details>
       <div class="hero-actions story-actions">
         <a href="/receipts/" class="btn-ghost" data-umami-event="trust-cta-receipts">Check the receipts yourself →</a>
-        <a href="/early-access/" class="btn-primary" data-umami-event="trust-cta-early-access">Get early access →</a>
+        <a href="/early-access/" class="btn-primary" data-umami-event="trust-cta-early-access">Discuss a pilot →</a>
       </div>
     </div>
   </Section>
@@ -580,6 +595,21 @@ const TRUST_RECONCILE_DECISION_URL = 'https://github.com/kontourai/flow-agents/b
   .enforcement-closing {
     max-width: 70ch;
     margin: 0;
+  }
+
+  .historical-notes {
+    margin: 1.5rem 0;
+    padding: 1rem;
+    border: 1px solid var(--color-edge);
+    border-radius: 6px;
+  }
+  .historical-notes summary {
+    cursor: pointer;
+    color: var(--color-chalk);
+    line-height: 1.6;
+  }
+  .historical-notes[open] summary {
+    margin-bottom: 1rem;
   }
 
   /* Lead example */

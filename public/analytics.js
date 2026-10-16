@@ -5,8 +5,8 @@
 // PostHog's standard inline snippet. This file injects the CDN script
 // (host allowlisted in public/_headers) and configures the privacy
 // posture the site promises:
-//   - anonymous events only (person_profiles: 'identified_only', and we
-//     never call identify) — no consent banner required
+//   - person_profiles: 'identified_only'; this loader never calls identify
+//     (browser/session identifiers can still link events; not an anonymity claim)
 //   - no cookies: localStorage persistence only
 //   - session replays with every input masked (the only input on the
 //     site is the subscribe email; page text is public marketing copy)

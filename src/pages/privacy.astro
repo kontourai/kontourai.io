@@ -16,7 +16,7 @@ import Footer from '@/components/Footer.astro';
 import Section from '@/components/Section.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
 
-const updated = '25 July 2026';
+const updated = '16 October 2026';
 const repo = 'https://github.com/kontourai/kontourai.io/blob/main';
 ---
 
@@ -31,9 +31,9 @@ const repo = 'https://github.com/kontourai/kontourai.io/blob/main';
       <Eyebrow accent="gold" gap="sm">Privacy</Eyebrow>
       <h1 class="display-lg privacy-title">What this site collects.</h1>
       <p class="lead measure privacy-lead">
-        We sell receipts for a living, so here is one for the site itself. Every
-        line below can be checked against the source that implements it — the
-        links go to the actual files.
+        Here is what the committed website code configures and what the signup
+        handler stores. The linked files describe those settings; they do not
+        establish every service's deployed settings or retention practices.
       </p>
       <p class="fine privacy-updated">Last updated {updated} · Kontour AI LLC</p>
       <p class="body measure privacy-lead">
@@ -48,40 +48,42 @@ const repo = 'https://github.com/kontourai/kontourai.io/blob/main';
     <div class="container container--readable">
       <h2 class="display-md privacy-h2">If you just read the site</h2>
       <p class="body measure">
-        No account, no cookies, and nothing you type — because there is nothing
-        to type. Three things still happen that you should know about.
+        Reading the site requires no account. Analytics, session recordings,
+        fonts, and hosting can still involve data collection.
       </p>
 
       <h3 class="privacy-h3">Analytics</h3>
       <p class="body measure">
-        Two analytics tools run in production: <a href="https://umami.is/" target="_blank" rel="noopener">Umami</a>{' '}
+        The production layout configures two analytics tools: <a href="https://umami.is/" target="_blank" rel="noopener">Umami</a>{' '}
         and <a href="https://posthog.com/" target="_blank" rel="noopener">PostHog</a>.
-        They record which pages get visited, which links get clicked, and coarse
-        technical detail like browser, operating system, and country. PostHog is
-        configured to keep no cookies (it uses your browser's local storage), and
-        we never attach a name or email to any of it — the code never calls{' '}
-        <code class="code-plain">identify</code>, so events are not tied to a
-        person. Both tools honour the "Do Not Track" setting: switch it on and
-        neither one loads.{' '}
+        The code enables page and click analytics, including PostHog autocapture
+        and page-leave events. PostHog uses browser local storage for persistence
+        and sets <code class="code-plain">person_profiles: 'identified_only'</code>.
+        This site's loader does not call <code class="code-plain">identify</code>{' '}
+        to attach a name or email. Browser and session identifiers can still link
+        events over time; these settings do not establish anonymity. The PostHog
+        loader checks Do Not Track before loading its SDK, and the Umami script
+        is configured with <code class="code-plain">data-do-not-track="true"</code>.{' '}
         <a href={`${repo}/public/analytics.js`} target="_blank" rel="noopener">See the configuration →</a>
       </p>
 
       <h3 class="privacy-h3">Session recordings</h3>
       <p class="body measure">
-        PostHog records anonymous playback of site sessions, so we can see where
-        a page confuses people. Every input field is masked before anything is
-        sent, so the one thing you could type here — your email address in the
-        signup box — is never captured in a recording. Recordings are not linked
-        to an identity.
+        The PostHog loader configures session replay with{' '}
+        <code class="code-plain">maskAllInputs: true</code>, intended to mask input
+        fields such as the signup email. Page text, interaction history, and
+        browser/session identifiers can still be recorded. Input masking is not
+        a guarantee that a recording cannot identify someone. We have not verified
+        vendor-side retention or every deployed replay setting from this source review.
       </p>
 
       <h3 class="privacy-h3">Fonts and hosting</h3>
       <p class="body measure">
-        The site's typefaces load from Google Fonts, which means Google receives
-        your IP address and browser details when a page loads. The site is hosted
-        on Cloudflare Pages, so Cloudflare handles the request and keeps its own
-        standard server-side logs. Neither is something we control beyond the
-        decision to use them.
+        The layout loads typefaces from Google Fonts, so font requests expose
+        connection information such as an IP address to Google. Cloudflare Pages
+        handles site requests. The layout can also load Cloudflare Web Analytics
+        when a deployment supplies its token. This code review does not establish
+        whether that optional beacon is enabled or how these vendors retain request data.
       </p>
     </div>
   </Section>
@@ -90,12 +92,11 @@ const repo = 'https://github.com/kontourai/kontourai.io/blob/main';
     <div class="container container--readable">
       <h2 class="display-md privacy-h2">If you give us your email</h2>
       <p class="body measure">
-        The signup form stores exactly five things, and this is the complete
-        list: your email address, which page you submitted it from, the time you
+        The signup handler writes five fields into the subscriber record: your email address, which page you submitted it from, the time you
         submitted it, your browser's user-agent string, and the page that
-        referred you. That's it — there is no hidden field and no enrichment
-        step. It goes into a private Cloudflare key-value store that only we can
-        read.{' '}
+        referred you. The handler writes that record into the configured
+        Cloudflare key-value store. This describes the application's write path,
+        not all infrastructure logs or account access controls.{' '}
         <a href={`${repo}/public/_worker.js`} target="_blank" rel="noopener">See the code that writes it →</a>
       </p>
       <p class="body measure">
@@ -120,15 +121,16 @@ const repo = 'https://github.com/kontourai/kontourai.io/blob/main';
 
   <Section borderBottom>
     <div class="container container--readable">
-      <h2 class="display-md privacy-h2">Everyone we hand data to</h2>
+      <h2 class="display-md privacy-h2">Services configured by the site</h2>
       <p class="body measure">
-        This is the full list. The site's security policy blocks the browser from
-        contacting any other outside host, so it can't quietly grow — you can
-        read the allowlist yourself.{' '}
+        The layout and security policy name the services below. The policy
+        restricts script and connection destinations; it also permits HTTPS
+        images from other hosts. It does not establish a complete inventory of
+        vendor processing or retention.{' '}
         <a href={`${repo}/public/_headers`} target="_blank" rel="noopener">See the allowlist →</a>
       </p>
       <ul class="privacy-list">
-        <li><strong>Cloudflare</strong> — hosting, request logs, and the store holding signup emails.</li>
+        <li><strong>Cloudflare</strong> — hosting and the store holding signup emails; an optional Web Analytics beacon when configured.</li>
         <li><strong>Umami</strong> — page and click analytics.</li>
         <li><strong>PostHog</strong> — page and click analytics, plus masked session recordings.</li>
         <li><strong>Google Fonts</strong> — serves the typefaces; receives your IP address as a result.</li>

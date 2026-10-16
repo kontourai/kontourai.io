@@ -212,3 +212,22 @@ test("the public content boundary scans an untracked registry file", async () =>
     await rm(root, { recursive: true, force: true });
   }
 });
+
+
+test("source review metadata cannot substitute a runtime qualification or omit its scope", async () => {
+  const registry = registryForTest();
+  const review = { date: "2026-10-16", scope: "Documented workspace and setup descriptions", qualification: "source-only" };
+  registry.claims[0].review = review;
+  assert.deepEqual(await validatePublicEvidenceRegistry(registry), []);
+  for (const invalid of [
+    { ...review, date: "2026-02-30" },
+    { ...review, scope: " " },
+    { ...review, qualification: "runtime-qualified" },
+    { ...review, date: null },
+  ]) {
+    registry.claims[0].review = invalid;
+    assert.ok((await validatePublicEvidenceRegistry(registry)).some((error) => error.includes("source-only qualification")));
+  }
+  registry.claims[0].review = review;
+  assert.deepEqual(await validatePublicEvidenceRegistry(registry), []);
+});

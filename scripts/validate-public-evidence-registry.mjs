@@ -86,6 +86,14 @@ export async function validatePublicEvidenceRegistry(registry, { rootDir, readFi
       errors.push(`${prefix}: sourceIds must name at least one source`);
       continue;
     }
+    if (claim.review !== undefined) {
+      const review = claim.review;
+      if (!isRecord(review) || !/^\d{4}-\d{2}-\d{2}$/.test(review.date ?? '') ||
+          !Number.isFinite(Date.parse(review.date)) || new Date(review.date).toISOString().slice(0, 10) !== review.date ||
+          !hasText(review.scope?.trim?.()) || review.qualification !== 'source-only') {
+        errors.push(`${prefix}: review requires a valid date, explicit scope, and source-only qualification`);
+      }
+    }
     const claimSources = new Set();
     for (const sourceId of claim.sourceIds) {
       if (!hasText(sourceId) || !sourceById.has(sourceId)) {
