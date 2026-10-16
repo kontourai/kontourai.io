@@ -18,7 +18,7 @@ import type { Accent } from '@/lib/theme';
 // @kontourai/surface 5.0.0, @kontourai/flow-agents 7.2.0). The only edit is
 // one workspace path, elided where the line says so.
 // Historical terminal captures retain their original revision and output.
-const currentKitCommit = '455b6df6a22c625d97c84e6274d0f381c057727c';
+const currentKitCommit = 'f7f167e29927427cb33f8cf624879493345a474f';
 const kitCommit = 'f5190c245e51a9598fb8383a28076ced7e58de61';
 const kitCommitShort = kitCommit.slice(0, 7);
 const upstreamCommit = '2a555f7a4387cd1b8254029cccb9fd1e99974574';
@@ -654,14 +654,15 @@ const receipts: { file: string; note: string }[] = [
         When intent, requirements or design stops for a produced-artifact review, the optional{' '}
         <a href="/survey/" data-umami-event="aidlc-review-survey">Survey interface</a> displays the current
         artifact bytes, source references, original deadline and remaining worker budget.
-        Inspect the documents, then approve, decline, request changes with a correction note,
+        The review summary shows why the run is waiting, open findings and reviewer concerns.
+        Read each document and mark it reviewed, then approve, decline, request changes with a correction note,
         or record that you could not confirm. A changed artifact or expired request is refused.
         Resume the same request through Flow Agents after the decision is recorded.
       </p>
       <Grid min="260" gap="md">
         <Card accent="gold" bar="top" pad="md">
           <h3 class="feature-title">Browser, CLI and MCP App</h3>
-          <p class="feature-body">Flow Agents 8.1.0 opens the native review interface and supplies Survey 8.1.1, its browser console and persisted review session. Its MCP server and embedded MCP App can record decisions against that same session; the host applies admitted decisions through the same producer callback. The kit adapter also presents observed findings and correction notes. Questionnaire answers and input confirmations keep their existing typed decision interfaces.</p>
+          <p class="feature-body">The kit pins Flow Agents 9.0.0, which opens the native review interface with Survey 8.2.0 and its persisted review session. Its MCP server and embedded MCP App can record decisions against that same session; the host applies admitted decisions through the same producer callback. The review shows findings, artifact acknowledgments and named actions, with one final submit button. Questionnaire answers and input confirmations keep their existing typed decision interfaces.</p>
         </Card>
         <Card accent="cobalt-2" bar="top" pad="md">
           <h3 class="feature-title">Shared observations, domain checks</h3>
@@ -681,7 +682,8 @@ const receipts: { file: string; note: string }[] = [
 #    "reference":"operator:proposal-reviewed"}}
 npx flow-agents kit review aidlc --dest /absolute/aidlc-bootstrap \\
   --request /private/artifact-review.json
-# Open the returned loopback URL, inspect the cards, and send the review.
+# Open the loopback URL, read the findings, and mark each artifact reviewed.
+# Choose an action, add a correction note if needed, and send the review once.
 # Resume with the original kit run request and controller.`}</pre>
       </Terminal>
       <p class="term-note">This command reference targets the <a href={`${kitRepo}/tree/${currentKitCommit}`}>current source at {currentKitCommit.slice(0, 7)}</a>. See the <a href={`${kitDocs}docs/using-the-kit.html#optional-local-survey-decisions`} data-umami-event="aidlc-review-guide">review and resume guide</a> for setup and the MCP command. Keep the bootstrap and private controller outside the application workspace. The native host verifies installed kit integrity again before applying; the kit checks its current subject and original budget. Existing kit-specific commands remain compatibility paths.</p>
@@ -695,7 +697,7 @@ npx flow-agents kit review aidlc --dest /absolute/aidlc-bootstrap \\
       <Grid min="260" gap="md">
         <Card accent="gold" bar="top" pad="md">
           <h3 class="feature-title">Version 0.1.0, installed from Git</h3>
-          <p class="feature-body">The kit is not on npm; <code>@kontourai/aidlc-kit</code> returns 404 from the registry. Install it from GitHub at a commit you have reviewed. The current kit pins Flow 5.2.0 and Flow Agents 8.1.0, and uses Plumb 0.2.0 for shared check observations. The terminal captures below retain their original revision and dependency versions.</p>
+          <p class="feature-body">The kit is not on npm; <code>@kontourai/aidlc-kit</code> returns 404 from the registry. Install it from GitHub at a commit you have reviewed. The current kit pins Flow 5.2.0 and Flow Agents 9.0.0, and uses Plumb 0.2.0 for shared check observations. The terminal captures below retain their original revision and dependency versions.</p>
         </Card>
         <Card accent="cobalt-2" bar="top" pad="md">
           <h3 class="feature-title">Method coverage, not runtime equivalence</h3>
