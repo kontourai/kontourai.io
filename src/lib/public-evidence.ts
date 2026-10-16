@@ -12,6 +12,7 @@ export type PublicEvidenceClaim = {
   id: string;
   pagePath: string;
   sourceIds: string[];
+  review?: { date: string; scope: string; qualification: string };
 };
 
 const sources = new Map<string, PublicEvidenceSource>(

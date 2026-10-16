@@ -182,8 +182,12 @@ const operatingBenefits: { title: string; accent: Accent; items: string[] }[] = 
       <Split ratio="1-1" gap="md" align="center">
         <div>
           <Eyebrow accent="cobalt" gap="sm">Run it locally</Eyebrow>
-          <h2 class="display-md run__title">One command. No install, no account, no cloud.</h2>
+          <h2 class="display-md run__title">Run a local Console with npx.</h2>
           <p class="body run__copy">
+            No global installation or hosted account is required. The first
+            <code class="codechip" data-accent="cobalt">npx</code> run may download
+            and cache the npm package. The Console server runs locally;
+            configured producers and integrations have their own network behavior.
             <code class="codechip" data-accent="cobalt">kontour serve</code> starts
             the hub and the bundled UI on
             <code class="codechip" data-accent="cobalt">127.0.0.1:3737</code> —

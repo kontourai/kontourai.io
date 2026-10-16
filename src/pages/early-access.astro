@@ -1,4 +1,5 @@
 ---
+import { getPublicEvidenceClaimSources } from '@/lib/public-evidence';
 import Layout from '@/layouts/Layout.astro';
 import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
@@ -49,6 +50,7 @@ const lanes: { title: string; label: string; body: string; subject: string; body
 
 const mailto = (subject: string, body: string) =>
   `mailto:hello@kontourai.io?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+const stationCapabilitySources = getPublicEvidenceClaimSources('station.contact-entry');
 ---
 
 <Layout
@@ -90,6 +92,12 @@ const mailto = (subject: string, body: string) =>
             not a story you take on faith.
           </p>
 
+          <p class="fine measure">
+            Station capability descriptions reviewed against source on 16 October 2026:{' '}
+            {stationCapabilitySources.map((source, index) => <Fragment>{index > 0 && ' · '}<a href={source.url} target="_blank" rel="noopener">{source.sourcePath}</a></Fragment>)}.
+            This is a source review, not installed server, desktop, or mobile qualification.
+            Nightly is a testing channel; see the setup guide for platform limits.
+          </p>
           <div class="animate-fade-up delay-300 early-signup">
             <p class="early-signup__label">Want the occasional build update?</p>
             <Subscribe source="early-access" cta="Get build updates" event="early-access-subscribe" />

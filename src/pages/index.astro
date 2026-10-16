@@ -1,4 +1,5 @@
 ---
+import { getPublicEvidenceClaimSources } from '@/lib/public-evidence';
 import Layout from '@/layouts/Layout.astro';
 import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
@@ -56,6 +57,7 @@ const narratorMoments = [
       "status is recomputed from evidence the agent doesn't author, and CI re-runs the declared checks fresh in an environment the agent never touched.",
   },
 ];
+const stationCapabilitySources = getPublicEvidenceClaimSources('station.home-workspace');
 ---
 
 <Layout
@@ -117,8 +119,9 @@ const narratorMoments = [
           <h3 class="station__card-title">Work that outlives a chat</h3>
           <p class="body station__card-copy">
             Projects, Tasks, Sessions, changed files, artifacts, and receipts
-            stay linked. Reopen a Task later, or follow it from a phone or
-            laptop paired to your Station, and the context is still there.
+            stay linked. Reopen a Task with its recorded workspace binding,
+            then check that workspace's current availability. Paired devices
+            need a reachable Station and the access scopes the operation requires.
           </p>
         </Card>
         <Card accent="cobalt" bar="top" pad="md">
@@ -150,6 +153,12 @@ const narratorMoments = [
         configure and use them, and desktop builds check their release feed
         for updates. See the{' '}
         <a href="/privacy/station/" data-umami-event="home-station-privacy">Station privacy policy</a>.
+      </p>
+      <p class="fine measure">
+        Station capability descriptions reviewed against source on 16 October 2026:{' '}
+        {stationCapabilitySources.map((source, index) => <Fragment>{index > 0 && ' · '}<a href={source.url} target="_blank" rel="noopener">{source.sourcePath}</a></Fragment>)}.
+        This is a source review, not installed server, desktop, or mobile qualification.
+        Nightly is a testing channel; see the setup guide for platform limits.
       </p>
       <div class="station__actions">
         <a href="https://station.kontourai.io/" class="btn-primary" data-umami-event="home-station-tour">Tour Station →</a>
@@ -197,14 +206,14 @@ const narratorMoments = [
     <div class="container container--readable mechanism">
       <Eyebrow accent="cobalt-2">How a gate knows</Eyebrow>
       <h2 class="display-md mechanism__title">
-        Don't ask the agent.<br />Check the toothbrush.
+        Compare the claim<br />with the recorded result.
       </h2>
       <p class="body measure mechanism__copy">
-        A kid can say "I brushed my teeth" for free. The toothbrush either got
-        wet or it didn't. Flow Agents treats an agent's "tests passed" the
-        same way: the claim costs nothing, so it's never what a gate checks.
-        It is one way to bring that discipline into the tools you already run;
-        Station applies the same rule to its own Tasks through Flow gates.
+        If an agent says "tests passed" but the captured command exited with
+        an error, the recorded result contradicts the claim. Flow Agents checks
+        that result on its supported gate paths; blocking depends on the runtime
+        and configuration. Station can keep configured Flow gate results beside
+        its Tasks. A passing command still needs adequate tests and review.
       </p>
 
       <ProofReplay />
@@ -317,11 +326,11 @@ const narratorMoments = [
       <Eyebrow accent="gold">Build updates</Eyebrow>
       <h2 class="display-md cta__title">Tell us where trust breaks.</h2>
       <p class="body measure cta__copy">
-        We're building in public. Drop your email for Station build updates and
-        an early look — or start a design-partner conversation: bring a real
-        process, and we build the checkable version of it with you.
+        Get occasional Station build updates by email. Downloads and public
+        packages are available without signing up. To discuss a pilot, bring
+        a real process and the checks you need it to pass.
       </p>
-      <Subscribe source="home" cta="Get early access" event="home-subscribe" />
+      <Subscribe source="home" cta="Get build updates" event="home-subscribe" />
       <p class="cta__alt">
         Developer? Two commands — install the engine, verify a receipt — on the{' '}
         <a href="/developers/" class="cta__alt-link" data-umami-event="home-cta-developers">developers page →</a>

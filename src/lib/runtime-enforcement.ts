@@ -57,7 +57,7 @@ export const runtimeEnforcement: RuntimeEnforcement[] = [
     level: "advisory",
     label: "Advisory / partial",
     meaning:
-      "No stop hook — the done-check can't run; config protection still blocks at tool-call time.",
+      "The shutdown callback runs the done-check but does not act on its result, so it cannot block completion; config protection still blocks at tool-call time.",
   },
   {
     runtime: "AWS Strands (Python & TS)",

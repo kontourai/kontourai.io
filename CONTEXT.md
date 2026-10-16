@@ -25,11 +25,17 @@ generated page as publishable public material.
   `src/data/product-status.json`. `version`, `phase`, `sourceUrl`,
   `publicNotes`, and `marketingReviewed` are public-facing claims and must stay
   aligned with the package and page copy they describe.
+- Station capability review: the public evidence registry binds the homepage,
+  developer entry, and contact entry to immutable workspace/setup sources with
+  a dated scope and `source-only` qualification. `page-reviews.json` references
+  those claim IDs separately from package versions. Station CLI freshness does
+  not establish server, desktop, mobile, or installed-runtime qualification.
 - Marketing review freshness: `marketingReviewed` records the public package
   version and date last reconciled against a product page's copy or screenshots.
   Refresh it when marketing content is reviewed against a newer package release.
-- Lab catalog: the `labPackages` records in `src/lib/products.ts`, rendered as
-  the "More from the lab" cards on `/developers/`. Each entry names the npm
+- Developer-library catalog: the `labPackages` records in `src/lib/products.ts`,
+  rendered as the "Developer libraries" cards on `/developers/`. The grouping
+  describes a package's role, not its support or experimental status. Each entry names the npm
   package its card advertises. `npm run validate` fails if the registry has no
   such package: a lab card's whole claim is that the reader can install it, so
   an unpublished name there is a false public claim rather than version drift.

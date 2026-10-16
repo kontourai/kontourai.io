@@ -55,9 +55,9 @@ test("homepage keeps the company headline, leads with Station, then the recognit
   // Mechanism section: "how a gate knows" the claim from the capture, sitting
   // below the recognition moments.
   await expect(page.locator(".label-sm").filter({ hasText: "How a gate knows" }).first()).toBeVisible();
-  const mechanismHeading = page.getByRole("heading", { level: 2 }).filter({ hasText: "Don't ask the agent." });
+  const mechanismHeading = page.getByRole("heading", { level: 2 }).filter({ hasText: "Compare the claim" });
   await expect(mechanismHeading).toBeVisible();
-  await expect(mechanismHeading).toContainText("Check the toothbrush.");
+  await expect(mechanismHeading).toContainText("with the recorded result.");
   await expect(page.getByText("1 · The claim")).toBeVisible();
   await expect(page.getByText("2 · The capture")).toBeVisible();
   await expect(page.getByText("3 · The recompute")).toBeVisible();
@@ -112,12 +112,12 @@ test("homepage keeps the company headline, leads with Station, then the recognit
   // Examples-first placement: the recognition block renders above the mechanism.
   const stationBox = await page.getByRole("heading", { name: "One workspace for the whole job." }).boundingBox();
   const narratorBox = await page.getByRole("heading", { name: "Anyone can say the tests passed." }).boundingBox();
-  const toothbrushBox = await page.getByRole("heading", { name: "Don't ask the agent. Check the toothbrush." }).boundingBox();
+  const mechanismHeadingBox = await page.getByRole("heading", { name: "Compare the claim with the recorded result." }).boundingBox();
   expect(stationBox).not.toBeNull();
   expect(narratorBox).not.toBeNull();
-  expect(toothbrushBox).not.toBeNull();
+  expect(mechanismHeadingBox).not.toBeNull();
   expect(stationBox.y).toBeLessThan(narratorBox.y);
-  expect(narratorBox.y).toBeLessThan(toothbrushBox.y);
+  expect(narratorBox.y).toBeLessThan(mechanismHeadingBox.y);
   await expect(page.locator('[data-umami-event="home-mechanism-receipts"]')).toHaveAttribute("href", "/receipts/");
 
   // Survey is now described where it earns it — in the generalisation section —
@@ -755,7 +755,25 @@ test("veritas page commands run the installed scoped package, never a registry f
   for (const prompt of await prompts.all()) {
     await expect(prompt).toHaveText(/^npx --no @kontourai\/veritas /);
   }
-  await expect(page.getByText("npx --no @kontourai/veritas init --explore", { exact: true })).toBeVisible();
+  await expect(page.locator(".terminal-body .cmd").getByText("npx --no @kontourai/veritas init --explore", { exact: true })).toBeVisible();
+
+  // The "Current CLI" list is copied into shells, so every entry carries the
+  // same scoped, installed-only spelling as the transcripts above.
+  const cliCommands = page.locator(".cli__cmd");
+  expect(await cliCommands.count()).toBeGreaterThan(0);
+  for (const command of await cliCommands.all()) {
+    await expect(command).toHaveText(/^npx --no @kontourai\/veritas [a-z]/);
+  }
+
+  // Inline code and terminal lines are copied the same way, so none may show a
+  // bare `veritas <subcommand>`. The lookbehind skips the scoped package name
+  // and paths such as `.veritas/`.
+  const bare = await page.locator("code, .terminal-body .cmd").evaluateAll((nodes) =>
+    nodes
+      .map((node) => node.textContent ?? "")
+      .filter((text) => /(?<![\w@/.-])veritas\s+[a-z]/.test(text)),
+  );
+  expect(bare).toEqual([]);
 });
 
 test("survey page explains the producer pipeline and surface handoff", async ({ page }) => {
@@ -836,7 +854,7 @@ test("reference story: LLM proposes, structure verifies (#74)", async ({ page })
   await page.goto("/writing/llm-proposes-structure-verifies/");
 
   await expect(
-    page.getByRole("heading", { level: 1, name: "The AI read your tax form. Nothing checked it." }),
+    page.getByRole("heading", { level: 1, name: "Check the source quote before accepting an extracted value." }),
   ).toBeVisible();
   // The spine and the structural claim.
   await expect(page.getByText("extracted → resolved → verified")).toBeVisible();
@@ -930,7 +948,7 @@ test("console page presents the suite operating plane and operator outcomes", as
   await expect(page.getByText("release-browser-check missing")).toHaveCount(0);
 
   // #164 enrichment: the run-it-locally quickstart with real suite-CLI commands.
-  await expect(page.getByRole("heading", { name: "One command. No install, no account, no cloud." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Run a local Console with npx." })).toBeVisible();
   await expect(page.getByText("npx --package @kontourai/console kontour serve").first()).toBeVisible();
   // @kontourai/console and @kontourai/cli both claim the `kontour` bin, so
   // installing both globally is last-write-wins and can break the very next
@@ -1759,16 +1777,20 @@ test("trust page states what it can't certify, the bypass list, the assurance di
 
   // Section 1 — hero: the honest ceiling. Exactly one h1 on the page.
   await expect(
-    page.getByRole("heading", { level: 1, name: "We can't certify an agent is right. No one can.", exact: true }),
+    page.getByRole("heading", { level: 1, name: "Check what ran. Know what still needs review.", exact: true }),
   ).toBeVisible();
   await expect(page.locator("h1")).toHaveCount(1);
-  // The status function takes policy and time, not just evidence — the elided
-  // form understated what the derivation depends on (and why `stale` moves).
-  await expect(page.getByText("status = f(evidence, policy, now)").first()).toBeVisible();
-  await expect(page.getByText("Recomputable", { exact: true }).first()).toBeVisible();
-  await expect(page.getByText("Captured, not narrated").first()).toBeVisible();
-  await expect(page.getByText("Blocks where supported", { exact: true }).first()).toBeVisible();
-  await expect(page.getByText("Advisory adapters report gaps without controlling the stop decision")).toBeVisible();
+  for (const label of ["What is checked", "What you configure", "What still needs review"]) {
+    await expect(page.getByText(label, { exact: true })).toBeVisible();
+  }
+  // Historical evidence remains inspectable without leading the current control.
+  const history = page.locator("details.historical-notes");
+  await expect(history).toHaveCount(3);
+  for (const details of await history.all()) {
+    await expect(details).not.toHaveAttribute("open", "");
+    await details.locator("summary").click();
+    await expect(details).toHaveAttribute("open", "");
+  }
   await expect(page.getByText("A recorded review is not by itself evidence of an independent reviewer.")).toBeVisible();
   await expect(page.locator('[data-umami-event="trust-hero-receipts"]')).toHaveAttribute("href", "/receipts/");
   await expect(page.locator('[data-umami-event="trust-hero-early-access"]')).toHaveAttribute("href", "/early-access/");
@@ -1840,7 +1862,7 @@ test("trust page states what it can't certify, the bypass list, the assurance di
   await expect(page.getByText("isn't yet owner-review-protected")).toHaveCount(0);
   // CI signing went with the retired reconcile action (flow-agents 8.0.0).
   await expect(page.getByText("on where we build Flow Agents, off by default")).toHaveCount(0);
-  await expect(page.getByText("It is the irreducible human boundary").first()).toBeVisible();
+  await expect(page.getByText("These workflow checks do not establish that")).toBeVisible();
 
   // Section 3 — objection handler: "isn't that what CI does?"
   await expect(

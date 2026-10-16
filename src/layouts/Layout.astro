@@ -34,7 +34,7 @@ const cloudflareAnalyticsUrl = import.meta.env.PUBLIC_CLOUDFLARE_WEB_ANALYTICS_U
 const shouldLoadUmami = Boolean(umamiWebsiteId) && import.meta.env.PROD;
 const shouldLoadCloudflareAnalytics = Boolean(cloudflareAnalyticsToken) && import.meta.env.PROD;
 // PostHog runs alongside umami during the evaluation period (owner decision
-// 2026-07-12): anonymous mode, localStorage-only, masked replays — config
+// 2026-07-12): no identify calls, localStorage persistence, masked replay inputs — config
 // lives in public/analytics.js (same-origin loader; strict CSP blocks the
 // standard inline snippet). Activates only when a project key is present.
 const posthogKey = import.meta.env.PUBLIC_POSTHOG_KEY ?? 'phc_CHJNDjZiwbeYDEgr5ZqFPnRNoJKu8RoicudYSqFLCJP9';
