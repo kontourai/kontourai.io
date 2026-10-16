@@ -44,7 +44,7 @@
       "key": "veritas",
       "label": "Veritas",
       "packageName": "@kontourai/veritas",
-      "version": "1.11.2",
+      "version": "1.11.3",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/veritas",
       "publicNotes": "",
