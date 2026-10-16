@@ -67,6 +67,18 @@
       "subject": "dispatch",
       "sourcePath": "README.md",
       "url": "https://github.com/kontourai/dispatch/blob/05c823e460a618a77900ce9e2b361aa8868480d1/README.md"
+    },
+    {
+      "id": "station.workspace",
+      "subject": "station",
+      "sourcePath": "README.md",
+      "url": "https://github.com/kontourai/station/blob/64c3b8ced637018f30912749dd0be43b90222293/README.md"
+    },
+    {
+      "id": "station.setup",
+      "subject": "station",
+      "sourcePath": "docs/user/getting-started.md",
+      "url": "https://github.com/kontourai/station/blob/64c3b8ced637018f30912749dd0be43b90222293/docs/user/getting-started.md"
     }
   ],
   "claims": [
@@ -124,6 +136,36 @@
       "id": "fieldwork.comparison.runtime-posture",
       "pagePath": "src/pages/fieldwork-vs-langextract.astro",
       "sourceIds": ["comparison.langextract-readme", "fieldwork.readme", "relay.readme", "dispatch.readme"]
+    },
+    {
+      "id": "station.home-workspace",
+      "pagePath": "src/pages/index.astro",
+      "sourceIds": ["station.workspace", "station.setup"],
+      "review": {
+        "date": "2026-10-16",
+        "scope": "Projects, Tasks, linked evidence, configured engines, paired-device access, and Nightly entry routes; source descriptions only.",
+        "qualification": "source-only"
+      }
+    },
+    {
+      "id": "station.developer-entry",
+      "pagePath": "src/pages/developers.astro",
+      "sourceIds": ["station.workspace", "station.setup"],
+      "review": {
+        "date": "2026-10-16",
+        "scope": "Workspace role, CLI-client versus server/desktop distinction, and documented Nightly setup; source descriptions only.",
+        "qualification": "source-only"
+      }
+    },
+    {
+      "id": "station.contact-entry",
+      "pagePath": "src/pages/early-access.astro",
+      "sourceIds": ["station.workspace", "station.setup"],
+      "review": {
+        "date": "2026-10-16",
+        "scope": "Public Nightly/source entry and paired-device setup prerequisites; source descriptions only.",
+        "qualification": "source-only"
+      }
     }
   ]
 }

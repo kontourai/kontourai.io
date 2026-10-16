@@ -1,5 +1,5 @@
 {
-  "comment": "Page-copy freshness manifest (#163). Each page maps to the products whose repos its prose claims depend on, with the version the copy was last editorially reconciled against. Stamped by humans/editors after each content pass \u2014 the freshness check flags pages whose mapped products moved a minor/major beyond the reviewed version. Advisory desk signal, not a gate.",
+  "comment": "Page-copy freshness manifest (#163). Each page maps to the products whose repos its prose claims depend on, with the version the copy was last editorially reconciled against. Stamped by humans/editors after each content pass \u2014 the freshness check flags pages whose mapped products moved a minor/major beyond the reviewed version. Advisory desk signal, not a gate. Station CLI package versions do not qualify workspace/server/desktop/mobile claims. sourceClaimIds bind the limited source-only reviews through public-evidence-registry.json; they are not runtime qualification.",
   "pages": [
     {
       "page": "src/pages/flow-agents.astro",
@@ -26,19 +26,23 @@
       "page": "src/pages/developers.astro",
       "products": {
         "flow-agents": "8.0.0",
-        "surface": "6.0.0",
-        "station": "0.7.0"
+        "surface": "6.0.0"
       },
-      "reviewedDate": "2026-10-12"
+      "reviewedDate": "2026-10-12",
+      "sourceClaimIds": [
+        "station.developer-entry"
+      ]
     },
     {
       "page": "src/pages/index.astro",
       "products": {
         "flow-agents": "8.0.0",
-        "survey": "8.0.0",
-        "station": "0.7.0"
+        "survey": "8.0.0"
       },
-      "reviewedDate": "2026-10-12"
+      "reviewedDate": "2026-10-12",
+      "sourceClaimIds": [
+        "station.home-workspace"
+      ]
     },
     {
       "page": "src/pages/surface.astro",
@@ -121,10 +125,12 @@
     {
       "page": "src/pages/early-access.astro",
       "products": {
-        "flow-agents": "8.0.0",
-        "station": "0.7.0"
+        "flow-agents": "8.0.0"
       },
-      "reviewedDate": "2026-10-12"
+      "reviewedDate": "2026-10-12",
+      "sourceClaimIds": [
+        "station.contact-entry"
+      ]
     },
     {
       "page": "src/pages/writing/llm-proposes-structure-verifies.astro",

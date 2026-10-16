@@ -25,6 +25,9 @@ for (const [key, node] of Object.entries(products)) {
     console.log(`WARN  ${key}: npm lookup failed`);
     continue;
   }
+  if (key === 'station') {
+    console.log('INFO  station: CLI package comparison only; workspace capability source reviews are separate and do not qualify installed runtimes.');
+  }
   const reviewed = node.marketingReviewed?.version;
   if (!reviewed) { console.log(`WARN  ${key}: no marketingReviewed marker`); flagged += 1; continue; }
   const [lMaj, lMin] = parse(latest);
@@ -39,7 +42,7 @@ for (const [key, node] of Object.entries(products)) {
   }
 }
 
-console.log(flagged ? `\n${flagged} product page(s) need a marketing pass.` : '\nAll product pages marketing-current.');
+console.log(flagged ? `\n${flagged} product page(s) need a marketing pass.` : '\nNo package-version marketing drift detected; this does not establish capability or runtime freshness.');
 
 // ── Per-asset visual freshness (images/videos) ────────────────────────────
 // src/data/marketing-assets.json binds every product screenshot/video to the
@@ -121,9 +124,19 @@ const lookupLatest = (packageName) => {
   return latestCache.get(packageName);
 };
 
+const evidenceRegistry = JSON.parse(readFileSync(new URL('../src/data/public-evidence-registry.json', import.meta.url), 'utf8'));
+const sourceClaims = new Map(evidenceRegistry.claims.map((claim) => [claim.id, claim]));
 const stalePages = [];
 for (const entry of pageManifest.pages ?? []) {
   const staleFor = [];
+  for (const claimId of entry.sourceClaimIds ?? []) {
+    const claim = sourceClaims.get(claimId);
+    if (!claim || claim.pagePath !== entry.page || !claim.review) {
+      console.log(`WARN  page ${entry.page}: missing source review binding ${claimId}`);
+      continue;
+    }
+    console.log(`SOURCE_REVIEW page ${entry.page}: ${claimId} on ${claim.review.date}; ${claim.review.scope} Qualification: ${claim.review.qualification}; source drift and installed runtime NOT_VERIFIED.`);
+  }
   for (const [productKey, reviewed] of Object.entries(entry.products ?? {})) {
     const product = products[productKey];
     if (!product?.packageName) {
@@ -146,7 +159,7 @@ for (const entry of pageManifest.pages ?? []) {
     const detail = staleFor.map((s) => `${s.productKey} ${s.reviewed} -> ${s.latest}`).join(', ');
     console.log(`STALE page ${entry.page}: copy reviewed ${entry.reviewedDate}; product moved since (${detail})`);
   } else {
-    console.log(`ok    page ${entry.page}: copy current (reviewed ${entry.reviewedDate})`);
+    console.log(`ok    page ${entry.page}: no mapped package-version drift (reviewed ${entry.reviewedDate}; source reviews are separate)`);
   }
 }
 

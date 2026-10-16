@@ -105,7 +105,7 @@ export const applications: Application[] = [
     packageName: "@kontourai/station-cli",
     docs: "https://kontourai.github.io/station/",
     job: "Bring your agents, projects, and devices into one local-first workspace, with gates, evidence, and receipts beside the work.",
-    composition: "The workspace itself: open source, run from source or the macOS or Windows Nightly desktop build today. The published CLI client drives any Station from a terminal, and the SDK is how plugins extend it.",
+    composition: "The workspace itself: open source, run from source or the macOS or Windows Nightly desktop build today. The published CLI client controls compatible Station servers from a terminal; its package version does not identify the server or desktop release. Plugins use the public SDK.",
   },
   {
     key: "fieldwork",
@@ -223,9 +223,9 @@ export const disciplines: Product[] = products.filter(
   (product) => product.key !== engine.key && product.key !== operatingView.key,
 );
 
-// The lab -------------------------------------------------------------------
+// Developer libraries -------------------------------------------------------
 //
-// Small packages we built for ourselves and published anyway. Every entry
+// Published building blocks, grouped by role rather than maturity. Every entry
 // names the npm package it is advertising, and `scripts/validate.mjs` refuses
 // to ship an entry whose package is not on the registry: this list previously
 // carried Ephemeris and a Research Kit, neither of which was ever published, so

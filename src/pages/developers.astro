@@ -1,4 +1,5 @@
 ---
+import { getPublicEvidenceClaimSources } from '@/lib/public-evidence';
 import Layout from '@/layouts/Layout.astro';
 import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
@@ -53,6 +54,7 @@ const npmUrl = (packageName: string) => `https://www.npmjs.com/package/${package
 // The docs MCP command uses the same docs-kit commit the docs hub README pins
 // (github.com/kontourai/kontourai.github.io). Update both together.
 const docsKitPin = '27cd43ded8c6e2e591d85d1d65bff31b3ae92e24';
+const stationCapabilitySources = getPublicEvidenceClaimSources('station.developer-entry');
 ---
 
 <Layout
@@ -93,10 +95,12 @@ const docsKitPin = '27cd43ded8c6e2e591d85d1d65bff31b3ae92e24';
       <Eyebrow gap="sm" accent="green">Start here</Eyebrow>
       <h2 class="display-md measure-lg">Install it, then check our receipts before you believe us.</h2>
       <p class="body measure quickstart-intro">
-        Two minutes: put the engine in a workspace you already use, then take
-        one of our published receipts and recompute under two validators
-        yourself. Both commands on the right are the ones this site's own CI
-        runs on every change.
+        Install the engine in a repository you already use, then follow its{' '}
+        <a href="/flow-agents/#install">runtime setup and install guide</a>.
+        The receipt commands below recompute under two validators as a separate
+        format check; they do not qualify your own task or its tests. Builder is a delivery workflow you
+        can choose when its gates fit the work; its reduced-gate ablation is
+        an experiment, not a small-task shortcut.
       </p>
       <Grid cols={2} gap="lg" align="start">
         <div class="quickstart-col">
@@ -227,11 +231,16 @@ const docsKitPin = '27cd43ded8c6e2e591d85d1d65bff31b3ae92e24';
       <Eyebrow gap="sm" accent="gold-2">Built on it</Eyebrow>
       <h2 class="display-md measure-lg">Two applications built on it: the workspace, and the review pipeline.</h2>
       <p class="body measure applications-intro">
-        Both sit on that chain rather than being links in it, which is why
-        neither is a lane in the map. Station is where agent work happens with
-        the gates in the room; Fieldwork is grounded extraction with the review
-        chain attached. Start here when you want the complete workflow instead
-        of the parts.
+        Use Station to work with agents and inspect the linked files and results.
+        Use Fieldwork to inspect extracted proposals, record review decisions, and
+        export resolved values with source links. Each application's setup guide
+        states its prerequisites and limits.
+      </p>
+      <p class="fine measure">
+        Station capability descriptions reviewed against source on 16 October 2026:{' '}
+        {stationCapabilitySources.map((source, index) => <Fragment>{index > 0 && ' · '}<a href={source.url} target="_blank" rel="noopener">{source.sourcePath}</a></Fragment>)}.
+        This is a source review, not installed server, desktop, or mobile qualification.
+        Nightly is a testing channel; see the setup guide for platform limits.
       </p>
       <div class="application-grid">
         {applicationCards.map(({ href, label, accent, repo, packageName, docs, job, composition, status, badge, key }) => (
@@ -241,7 +250,7 @@ const docsKitPin = '27cd43ded8c6e2e591d85d1d65bff31b3ae92e24';
             </h3>
             <p class="product-card__body">{job}</p>
             <p class="application-card__composition">{composition}</p>
-            <p class="application-card__status">{packageName} · {badge}</p>
+            <p class="application-card__status">{key === 'station' && 'CLI client package only: '}{packageName} · {badge}</p>
             <div class="product-card__links">
               <a href={href} data-umami-event={`developers-application-${key}`}>Explore {label} →</a>
               <a href={docs} target="_blank" rel="noopener" data-umami-event={`developers-application-${key}-docs`}>Docs →</a>
@@ -271,11 +280,13 @@ const docsKitPin = '27cd43ded8c6e2e591d85d1d65bff31b3ae92e24';
 
   <Section id="lab" borderTop>
     <div class="container">
-      <Eyebrow gap="sm">More from the lab</Eyebrow>
+      <Eyebrow gap="sm">Developer libraries</Eyebrow>
       <p class="fine measure lab-intro">
-        Smaller pieces we built for ourselves and published anyway. Each does
-        one thing, each works without the rest, and every one of them is on npm
-        today — nothing on this list is a name you can't install.
+        Published building blocks for developers. Each card links the package
+        and its documentation; check those docs for supported operations and
+        version limits. This grouping describes their role, not an experimental
+        status or a suite-wide support guarantee. The Builder Kit's evaluation-only
+        ablation is labeled separately on its <a href="/builder-kit/">workflow page</a>.
       </p>
       <Grid min="280" gap="md">
         {labRepos.map(({ slug, label, repo, packageName, docs, install, description }) => (

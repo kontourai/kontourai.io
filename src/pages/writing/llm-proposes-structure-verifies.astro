@@ -46,8 +46,8 @@ dropped  dropped proposal for "interestIncome": excerpt not found in prepared co
 ---
 
 <Layout
-  title="The AI read your tax form. Nothing checked it. · Kontour AI"
-  description="Most AI document tools save whatever the model extracts. We built a tax pipeline where a number can't reach the math until something other than the extractor has confirmed where it came from — with a runnable example of the check throwing a number away."
+  title="Check the source quote before accepting an extracted value. · Kontour AI"
+  description="A runnable Traverse example rejects an invented source quote. See what exact matching establishes, what it misses, and where review policy enters."
 >
   <Nav menu="developers" />
 
@@ -55,29 +55,26 @@ dropped  dropped proposal for "interestIncome": excerpt not found in prepared co
     <Glow accent="gold" position="top-right" />
     <div class="container container--readable">
       <Eyebrow accent="gold">Writing</Eyebrow>
-      <h1 class="product-title animate-fade-up">The AI read your tax form. Nothing checked it.</h1>
+      <h1 class="product-title animate-fade-up">Check the source quote before accepting an extracted value.</h1>
       <p class="hero-copy animate-fade-up delay-200">
-        Upload a document, a model pulls the numbers out, the numbers get
-        saved. That's how most AI document tools work — and not one of them
-        can tell you whether the number it saved is the number on the page.
-        We built a tax pipeline that can't save a number until something
-        other than the extractor has confirmed where it came from. Halfway
-        down this page you can run that check yourself and watch it throw a
-        number away.
+        An extracted value needs a source a reviewer can inspect. The runnable
+        example below shows Traverse rejecting a proposal whose quote is absent
+        from the prepared text. It also shows the limit: locating a quote does
+        not establish that the proposed value is correct. The tax workflow
+        described here illustrates a review policy; its private implementation
+        and review rate are not independently verified by this example.
       </p>
     </div>
   </Section>
 
   <Section tone="alt" size="lg" borderBottom>
     <div class="container container--readable">
-      <h2 class="section-heading">The pattern everyone ships</h2>
+      <h2 class="section-heading">The risk of saving a proposal immediately</h2>
       <p class="body measure-lg prose">
-        The demo is irresistible: drop in a PDF, watch the fields fill
-        themselves, hit save. When the model reads the wage box correctly you
-        just saved twenty minutes. When it reads one digit wrong you saved
-        twenty minutes and filed a wrong number — and nothing in the system
-        can tell you which of those two things happened, because the output
-        was trusted the moment it appeared.
+        Consider a workflow that saves an extracted wage value immediately.
+        If the extractor misreads one digit, the saved record carries the error
+        forward. Recording the proposal separately gives a later check or
+        reviewer a chance to reject or correct it before downstream use.
       </p>
       <p class="body measure-lg prose">
         That isn't a model problem. <strong>The proposer and the record-keeper
@@ -192,12 +189,13 @@ dropped  dropped proposal for "interestIncome": excerpt not found in prepared co
         approval.
       </p>
       <p class="body measure-lg prose">
-        Most facts never need a person. A fact whose quote checked out, with
-        one candidate and high confidence, promotes automatically. That is not
-        the extractor grading its own work: the quote check already ran, and
-        the extractor had no vote in it. Confidence decides only what gets
-        escalated to a human — it can escalate, it can never excuse. The gate
-        holds back what's ambiguous; it doesn't make you read every number.
+        In this described policy, a single candidate can promote automatically
+        when its quote matches and its confidence clears the configured threshold.
+        Those conditions establish policy acceptance, not factual correctness:
+        exact matching locates the quote, and confidence is a producer-supplied
+        signal. A wrong value beside a real quote can still pass. Semantic checks
+        or reviewer decisions are separate evidence. This example measures no
+        review rate, accuracy, time saving, or reduction in human work.
       </p>
     </div>
   </Section>

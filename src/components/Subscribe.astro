@@ -17,7 +17,7 @@ interface Props {
   event?: string;
 }
 
-const { source = "site", cta = "Get early access", event = "subscribe-submit" } = Astro.props;
+const { source = "site", cta = "Get build updates", event = "subscribe-submit" } = Astro.props;
 ---
 
 <form class="subscribe" action="/api/subscribe" method="post" data-source={source} novalidate>
