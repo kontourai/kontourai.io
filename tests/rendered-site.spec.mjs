@@ -2002,7 +2002,8 @@ test("freshness pass keeps current claims distinct from frozen demonstrations", 
   await expect(page.locator("pre.code").filter({ hasText: "@kontourai/fieldwork@0.14.1" })).toHaveCount(1);
   await expect(page.getByText("export with one row still open · fieldwork 0.4.0")).toBeVisible();
   await expect(page.getByText("lists the open row under").first()).toBeVisible();
-  await expect(page.getByText("keeps its own receipt, bound to the owner's review head")).toBeVisible();
+  await expect(page.getByText("A check receipt records an observation at that time")).toBeVisible();
+  await expect(page.getByText("it does not renew a review or keep the source continuously current.")).toBeVisible();
 
   await page.goto("/fieldwork-vs-langextract/");
   await expect(page.getByText("reports a source that crosses the cap as a partial stop rather than silent success")).toBeVisible();
