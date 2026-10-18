@@ -94,7 +94,7 @@ const evidence: { title: string; body: string; href: string; label: string; acce
     title: 'What the CLI promises',
     body: 'The released contract documents run, open, recheck, inspect, and export behavior, including the rows it leaves out while unreviewed and the refusal you get when review state is stale or tampered with.',
     href: sources.runtime,
-    label: `Read the v${fieldworkStatus.version} contract →`,
+    label: 'Read the pinned CLI contract →',
     accent: 'green',
   },
   {
@@ -269,14 +269,13 @@ The signature page of the executed agreement records a renewal date of
       <p class="body measure-lg recheck-coda">
         <strong>And a month later, when the vendor reissues the agreement:</strong>
         <span class="codechip">fieldwork recheck</span> compares the new document against the run you
-        already approved. Identical bytes cost nothing and change nothing. A
-        moved, changed, or vanished value opens a new review round covering
-        exactly the rows it affects. The run you already signed off stays
-        intact and dated — you simply get told which of your decisions no
-        longer describes the document. Since 0.10.0 a recheck of a reviewed
-        source also keeps its own receipt, bound to the owner's review head at
-        the time, so "still current" is a recorded observation rather than a
-        hope.
+        already approved. Unchanged source bytes skip extraction and model
+        calls; changed bytes with the same proposals create no review work.
+        Added, removed, moved, value-changed, or provenance-changed evidence
+        opens a new review round. The earlier run and its decisions stay
+        intact, including when acquiring the new source fails. A check receipt
+        records an observation at that time; it does not renew a review or
+        keep the source continuously current.
       </p>
     </div>
   </Section>

@@ -62,10 +62,13 @@ for (const viewport of [
     await expect(
       page.getByRole("heading", { name: "Review PDF and OCR results with their layout context intact." }),
     ).toBeVisible();
-    await expect(page.getByRole("link", { name: `Read the v${fieldworkVersion} contract →` })).toHaveAttribute(
+    // A current package badge must not re-label the immutable contract source.
+    await expect(page.getByRole("link", { name: "Read the pinned CLI contract →" })).toHaveAttribute(
       "href",
-      /github\.com\/kontourai\/fieldwork\/blob\/[0-9a-f]{40}\/README\.md/,
+      "https://github.com/kontourai/fieldwork/blob/a5d280b7f9f49eae6331fa0e7ce18b73d0ad3e19/README.md",
     );
+    await expect(page.getByText("changed bytes with the same proposals create no review work.", { exact: false })).toBeVisible();
+    await expect(page.getByText("it does not renew a review or keep the source continuously current.", { exact: false })).toBeVisible();
     await expect(page.getByRole("link", { name: "Inspect the fixtures →" })).toHaveAttribute(
       "href",
       /github\.com\/kontourai\/fieldwork\/tree\/[0-9a-f]{40}\/conformance/,
