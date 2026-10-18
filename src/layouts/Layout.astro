@@ -113,6 +113,11 @@ const shouldLoadPosthog = Boolean(posthogKey) && import.meta.env.PROD;
     }
   </head>
   <body>
-    <slot />
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <slot name="header" />
+    <main id="main-content" tabindex="-1">
+      <slot />
+    </main>
+    <slot name="footer" />
   </body>
 </html>

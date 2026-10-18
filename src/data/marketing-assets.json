@@ -5,33 +5,33 @@
       "asset": "public/screenshots/console-environment.png",
       "page": "src/pages/console.astro",
       "product": "console",
-      "capturedAgainstVersion": "2.8.0",
-      "capturedAt": "2026-07-24",
-      "sha256": "efdf58f8cd205e077b0e9162cee5d85a1e41de3f314f43428339fab987f09859"
+      "capturedAgainstVersion": "2.9.0",
+      "capturedAt": "2026-10-18",
+      "sha256": "da7d1945565861931595c6789baf846a6ec29cca0b0f5e96ac22fad8e943806e"
     },
     {
       "asset": "public/screenshots/console-operating-plane.png",
       "page": "src/pages/console.astro",
       "product": "console",
-      "capturedAgainstVersion": "2.8.0",
-      "capturedAt": "2026-07-24",
-      "sha256": "38cef309a85f2aeebef38a16bbda0ecf1711e97f73c519d6055f5dba27587c83"
+      "capturedAgainstVersion": "2.9.0",
+      "capturedAt": "2026-10-18",
+      "sha256": "77914a153951d871399a4fc53ae989f9086c26999227a5b740a7d288b0d5799d"
     },
     {
       "asset": "public/screenshots/survey-workbench.png",
       "page": "src/pages/survey.astro",
       "product": "survey",
-      "capturedAgainstVersion": "8.0.0",
-      "capturedAt": "2026-10-11",
-      "sha256": "c76ba789ea67ebe0e287b4e68aa8548b66a9523800acc35b041507ed7138e800"
+      "capturedAgainstVersion": "8.2.1",
+      "capturedAt": "2026-10-18",
+      "sha256": "b7122711cecc379c2030cf630802843527bb06ba2275a42b32dba042aadb593a"
     },
     {
       "asset": "public/screenshots/surface-console.png",
       "page": "src/pages/surface.astro",
       "product": "surface",
-      "capturedAgainstVersion": "6.0.0",
-      "capturedAt": "2026-10-11",
-      "sha256": "3d7cc1c4efa9ff9191ce9aba91f052bce41863ac7f54aa0f3052a2554e7d2317"
+      "capturedAgainstVersion": "6.2.0",
+      "capturedAt": "2026-10-18",
+      "sha256": "ecd2b5337e54f59fe36f281b9746feabddda2f89172f245339097ee0625010e5"
     },
     {
       "asset": "public/screenshots/flow-demo.gif",
@@ -45,9 +45,9 @@
       "asset": "public/screenshots/fieldwork-review.png",
       "page": "src/pages/fieldwork.astro",
       "product": "fieldwork",
-      "capturedAgainstVersion": "0.14.1",
-      "capturedAt": "2026-10-11",
-      "sha256": "23324b6461228d342486e545b0d6474eb38818a9c4d7c8acda30871c18207321"
+      "capturedAgainstVersion": "0.15.0",
+      "capturedAt": "2026-10-18",
+      "sha256": "6a93d93fec51ae381b98532cdb13f61cefde6b3f8d1a3c0f670b495acab4efe1"
     },
     {
       "asset": "public/screenshots/station-project.png",
@@ -55,7 +55,8 @@
       "product": "station",
       "capturedAgainstVersion": "0.1.11-nightly.247504",
       "capturedAt": "2026-10-11",
-      "sha256": "b4084b04e8ef2f0a1116f48edb8ce1da094ddc9e0374c47d48ffb9b4ed32cfdd"
+      "sha256": "b4084b04e8ef2f0a1116f48edb8ce1da094ddc9e0374c47d48ffb9b4ed32cfdd",
+      "releaseKind": "workspace"
     }
   ]
 }

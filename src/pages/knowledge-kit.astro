@@ -42,7 +42,7 @@ const records: { title: string; body: string; accent: Accent }[] = [
   title="Knowledge Kit - Agent notes that show where they came from · Kontour AI"
   description="Keep agent notes with recorded provenance, source links where supplied, and retained history so you can inspect their basis as the work changes."
 >
-  <Nav active="knowledge-kit" />
+  <Nav slot="header" active="knowledge-kit" />
 
   <Section contour size="hero" borderBottom>
     <Glow accent="gold" position="top-right" />
@@ -198,7 +198,7 @@ const records: { title: string; body: string; accent: Accent }[] = [
         </Card>
         <Card accent="gold" bar="top" pad="md">
           <h3 class="feature-title">Obsidian vault</h3>
-          <p class="feature-body">The same gated records as vault-native notes, so your existing knowledge tooling keeps working on content that carries its sources. Shipped and in use; layout refinements and person cards are still landing.</p>
+          <p class="feature-body">The same gated records as vault-native notes, so your existing knowledge tooling keeps working on content that carries its sources. Source links, superseded notes, and mutation history stay inspectable in the vault.</p>
         </Card>
         <Card accent="green" bar="top" pad="md">
           <h3 class="feature-title">Hygiene flows</h3>
@@ -326,7 +326,7 @@ const records: { title: string; body: string; accent: Accent }[] = [
     </div>
   </Section>
 
-  <Footer active="knowledge-kit" />
+  <Footer slot="footer" active="knowledge-kit" />
 </Layout>
 
 <style>

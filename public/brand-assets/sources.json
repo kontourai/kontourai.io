@@ -1,0 +1,77 @@
+[
+  {
+    "id": "kontour-lockup",
+    "source": "@kontourai/ui/icons/kontour-lockup-horizontal.svg",
+    "sha256": "e93ca21c04f3ea126feafdd0fc28c50e0994bd4544afe8a9633168ec76886cb9"
+  },
+  {
+    "id": "kontour-lockup-large",
+    "source": "@kontourai/ui/icons/kontour-lockup-large.svg",
+    "sha256": "cff51592d3d1005aaff3068443793739246262f204f90dbcee4ff1cd454ac0a0"
+  },
+  {
+    "id": "kontour-symbol",
+    "source": "@kontourai/ui/icons/kontour-symbol.svg",
+    "sha256": "b5dd874d5b7804dee18bc6b332af6f24f3e257cc9f0c4dff3ad3f350dcd03787"
+  },
+  {
+    "id": "kontour-symbol-lockup",
+    "source": "@kontourai/ui/icons/kontour-symbol-lockup.svg",
+    "sha256": "57befee4c310791be522bcaa732fb58a1d2741a4bcb0c4c8f4f8385575846993"
+  },
+  {
+    "id": "kontour-symbol-hero",
+    "source": "@kontourai/ui/icons/kontour-symbol-hero.svg",
+    "sha256": "60ba4ba0b192372ea2217a108679874f7cda2682c6a0771b6c0f6b9fe60704b8"
+  },
+  {
+    "id": "kontour-wordmark",
+    "source": "@kontourai/ui/icons/kontour-wordmark.svg",
+    "sha256": "5c8a98bd393b81e513b28dac7384a0118b2fe81475eb61247f8e761d49f47baf"
+  },
+  {
+    "id": "station",
+    "source": "@kontourai/ui/icons/station.svg",
+    "sha256": "e1e552ff3901c9927b553fbd9d5197ad7ead3a192e1ec9eec90e2b50b2ae3466"
+  },
+  {
+    "id": "flow-agents",
+    "source": "@kontourai/ui/icons/flow-agents.svg",
+    "sha256": "26e5109365c788ac3b76a0f44b6d5b8ad8a0d32a06c5828fdbaf3e0faf945a37"
+  },
+  {
+    "id": "flow",
+    "source": "@kontourai/ui/icons/flow.svg",
+    "sha256": "4a34d33879f2b5743af7e3f6acb42c299c90e2df2b80e1ae5f9100017e7eb394"
+  },
+  {
+    "id": "surface",
+    "source": "@kontourai/ui/icons/surface.svg",
+    "sha256": "284c41417012a6f254e58fcd09b3ed80e210e6f5a82731cbc6dd6c7475c3ed67"
+  },
+  {
+    "id": "survey",
+    "source": "@kontourai/ui/icons/survey.svg",
+    "sha256": "390d4ea8448f1cffab96e1e4430397c42d7c9c3b120746dde40336cc5139720c"
+  },
+  {
+    "id": "veritas",
+    "source": "@kontourai/ui/icons/veritas.svg",
+    "sha256": "cb4db71576d533828ec92007d4bc93b41e9268995da6851802a05f790d857ef9"
+  },
+  {
+    "id": "console",
+    "source": "@kontourai/ui/icons/console.svg",
+    "sha256": "783e4b5f01c39717aaf91ea7b02d6ef61937e2153c310a6858f9eb8a4134ef93"
+  },
+  {
+    "id": "fieldwork",
+    "source": "@kontourai/ui/icons/fieldwork.svg",
+    "sha256": "d120bca31251292e9f1a7a488768dd5a30894f92c1ceaf236bd3f12f89275f4b"
+  },
+  {
+    "id": "hachure",
+    "source": "@kontourai/ui/icons/hachure.svg",
+    "sha256": "f3edb0ddbb568c98850a5e17b231e96bda146f6d4532dd934ce9c8dee065e7c9"
+  }
+]

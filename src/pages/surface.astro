@@ -13,11 +13,13 @@ import Split from '@/components/Split.astro';
 import QuestionGrid from '@/components/QuestionGrid.astro';
 import ProductMark from '@/components/ProductMark.astro';
 import { getProductStatus, productBadge } from '@/lib/product-status';
+import { assetCapture } from '@/lib/marketing-assets';
 import type { Accent } from '@/lib/theme';
 
 const surfaceStatus = getProductStatus('surface');
 
 const DOCS = 'https://kontourai.github.io/surface';
+const consoleShot = assetCapture('public/screenshots/surface-console.png');
 
 const answers: { q: string; accent?: Accent }[] = [
   { q: 'What does this product claim?' },
@@ -97,7 +99,7 @@ const docLinks: { label: string; href: string; event: string; external?: boolean
   title="Surface — the receipt under every claim your product makes · Kontour AI"
   description="Open the answer: what was claimed, what backs it, when it was last checked, and what nobody checked. Runs on your machine, in an open format anyone can re-check."
 >
-  <Nav active="surface" />
+  <Nav slot="header" active="surface" />
 
   <!-- Hero -->
   <Section contour size="hero" borderBottom>
@@ -222,7 +224,8 @@ const docLinks: { label: string; href: string; event: string; external?: boolean
           claim — the release artifact's sha256 digest — and Surface names the
           record it set aside instead of silently dropping it. Two of the five
           claims have no evidence at all. This is the example that ships
-          in the package; the command above reproduces it.
+          in the package; the command above reproduces it. Captured against
+          {consoleShot.capturedAgainstVersion} on {consoleShot.capturedAt}.
         </figcaption>
       </figure>
     </div>
@@ -496,7 +499,7 @@ const docLinks: { label: string; href: string; event: string; external?: boolean
     </div>
   </Section>
 
-  <Footer active="surface" />
+  <Footer slot="footer" active="surface" />
 </Layout>
 
 <style>

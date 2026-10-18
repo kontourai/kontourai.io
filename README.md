@@ -73,3 +73,13 @@ Treat every tracked file and rendered page as publishable. Do not add secrets,
 private repository names, customer details, prototype names, or unreleased
 roadmap claims. The content-boundary check is required after any public-facing
 copy or documentation change.
+
+
+## Brand downloads
+
+`/brand/` serves corporate marks and product interface icons from the pinned
+`@kontourai/ui` release. After changing that pin or the export inventory, run
+`npm run export:brand-downloads` to regenerate light/dark SVGs, transparent PNGs,
+source fingerprints and the ZIP in `public/brand-assets/`. Inspect the generated
+artwork and run the rendered download/accessibility checks before publishing.
+The marketing palette exception remains in force; this imports artwork only.

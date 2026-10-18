@@ -4,31 +4,31 @@
     {
       "page": "src/pages/flow-agents.astro",
       "products": {
-        "flow-agents": "8.0.0"
+        "flow-agents": "9.2.0"
       },
-      "reviewedDate": "2026-10-12"
+      "reviewedDate": "2026-10-18"
     },
     {
       "page": "src/pages/builder-kit.astro",
       "products": {
-        "flow-agents": "8.0.0"
+        "flow-agents": "9.2.0"
       },
-      "reviewedDate": "2026-10-12"
+      "reviewedDate": "2026-10-18"
     },
     {
       "page": "src/pages/knowledge-kit.astro",
       "products": {
-        "flow-agents": "8.0.0"
+        "flow-agents": "9.2.0"
       },
-      "reviewedDate": "2026-10-12"
+      "reviewedDate": "2026-10-18"
     },
     {
       "page": "src/pages/developers.astro",
       "products": {
-        "flow-agents": "8.0.0",
-        "surface": "6.0.0"
+        "flow-agents": "9.2.0",
+        "surface": "6.2.0"
       },
-      "reviewedDate": "2026-10-12",
+      "reviewedDate": "2026-10-18",
       "sourceClaimIds": [
         "station.developer-entry"
       ]
@@ -36,10 +36,10 @@
     {
       "page": "src/pages/index.astro",
       "products": {
-        "flow-agents": "8.0.0",
-        "survey": "8.0.0"
+        "flow-agents": "9.2.0",
+        "survey": "8.2.1"
       },
-      "reviewedDate": "2026-10-12",
+      "reviewedDate": "2026-10-18",
       "sourceClaimIds": [
         "station.home-workspace"
       ]
@@ -47,87 +47,87 @@
     {
       "page": "src/pages/surface.astro",
       "products": {
-        "surface": "6.0.0"
+        "surface": "6.2.0"
       },
-      "reviewedDate": "2026-10-12"
+      "reviewedDate": "2026-10-18"
     },
     {
       "page": "src/pages/veritas.astro",
       "products": {
-        "veritas": "1.7.6"
+        "veritas": "1.11.4"
       },
-      "reviewedDate": "2026-10-12"
+      "reviewedDate": "2026-10-18"
     },
     {
       "page": "src/pages/flow.astro",
       "products": {
-        "flow": "5.2.0"
+        "flow": "5.2.2"
       },
-      "reviewedDate": "2026-10-12"
+      "reviewedDate": "2026-10-18"
     },
     {
       "page": "src/pages/survey.astro",
       "products": {
-        "survey": "8.0.0"
+        "survey": "8.2.1"
       },
-      "reviewedDate": "2026-10-12"
+      "reviewedDate": "2026-10-18"
     },
     {
       "page": "src/pages/console.astro",
       "products": {
-        "console": "2.8.0"
+        "console": "2.9.0"
       },
-      "reviewedDate": "2026-10-12"
+      "reviewedDate": "2026-10-18"
     },
     {
       "page": "src/pages/trust.astro",
       "products": {
-        "flow-agents": "8.0.0"
+        "flow-agents": "9.2.0"
       },
-      "reviewedDate": "2026-10-12"
+      "reviewedDate": "2026-10-18"
     },
     {
       "page": "src/pages/fieldwork.astro",
       "products": {
-        "fieldwork": "0.14.1",
-        "traverse": "5.0.2"
+        "fieldwork": "0.15.0",
+        "traverse": "5.0.3"
       },
-      "reviewedDate": "2026-10-12"
+      "reviewedDate": "2026-10-18"
     },
     {
       "page": "src/pages/hachure.astro",
       "products": {
-        "surface": "6.0.0"
+        "surface": "6.2.0"
       },
-      "reviewedDate": "2026-10-12"
+      "reviewedDate": "2026-10-18"
     },
     {
       "page": "src/pages/receipts/index.astro",
       "products": {
-        "surface": "6.0.0"
+        "surface": "6.2.0"
       },
-      "reviewedDate": "2026-10-12"
+      "reviewedDate": "2026-10-18"
     },
     {
       "page": "src/pages/receipts/[slug].astro",
       "products": {
-        "surface": "6.0.0"
+        "surface": "6.2.0"
       },
-      "reviewedDate": "2026-10-12"
+      "reviewedDate": "2026-10-18"
     },
     {
       "page": "src/pages/fieldwork-vs-langextract.astro",
       "products": {
-        "fieldwork": "0.14.1"
+        "fieldwork": "0.15.0"
       },
-      "reviewedDate": "2026-10-12"
+      "reviewedDate": "2026-10-18"
     },
     {
       "page": "src/pages/early-access.astro",
       "products": {
-        "flow-agents": "8.0.0"
+        "flow-agents": "9.2.0"
       },
-      "reviewedDate": "2026-10-12",
+      "reviewedDate": "2026-10-18",
       "sourceClaimIds": [
         "station.contact-entry"
       ]
@@ -135,27 +135,27 @@
     {
       "page": "src/pages/writing/llm-proposes-structure-verifies.astro",
       "products": {
-        "traverse": "5.0.2"
+        "traverse": "5.0.3"
       },
-      "reviewedDate": "2026-10-12"
+      "reviewedDate": "2026-10-18"
     },
     {
       "page": "src/pages/writing/index.astro",
       "products": {
-        "traverse": "5.0.2"
+        "traverse": "5.0.3"
       },
-      "reviewedDate": "2026-10-12"
+      "reviewedDate": "2026-10-18"
     },
     {
       "page": "src/pages/use-cases/aidlc.astro",
       "products": {
-        "flow": "5.2.0",
-        "flow-agents": "8.1.0",
-        "surface": "6.0.0",
-        "survey": "8.1.1",
-        "veritas": "1.10.0"
+        "flow": "5.2.2",
+        "flow-agents": "9.2.0",
+        "surface": "6.2.0",
+        "survey": "8.2.1",
+        "veritas": "1.11.4"
       },
-      "reviewedDate": "2026-10-13"
+      "reviewedDate": "2026-10-18"
     },
     {
       "page": "src/pages/privacy.astro",

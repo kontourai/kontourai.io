@@ -129,7 +129,7 @@ const cli = [
   title="Veritas — Inspectable code readiness for AI-authored changes · Kontour AI"
   description="Veritas makes code and change readiness inspectable by turning repo standards into evidence-backed guidance and readiness reports."
 >
-  <Nav active="veritas" />
+  <Nav slot="header" active="veritas" />
 
   <!-- Hero -->
   <Section contour size="hero" borderBottom>
@@ -223,8 +223,9 @@ const cli = [
           <p class="tr__body tr__body--last">
             Every run also writes a JSON file
             under <code>.kontourai/veritas/evidence/</code>. The next person
-            reads the same answer without re-running anything, and without
-            taking the word of whoever ran it first.
+            can inspect the recorded result and the source revision it checked.
+            Re-run readiness for a changed revision before accepting that older
+            result as current.
           </p>
         </Card>
       </Grid>
@@ -479,7 +480,7 @@ const cli = [
       <p class="closing-note">Veritas is built with Surface. Readiness evidence is written in Surface's open format, so another tool can read it without importing Veritas.</p>
     </div>
   </Section>
-  <Footer active="veritas" />
+  <Footer slot="footer" active="veritas" />
 </Layout>
 
 <style>

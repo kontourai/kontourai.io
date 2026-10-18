@@ -54,6 +54,8 @@ for (const route of routes) {
     test(`no horizontal overflow: ${route} @${vp.label}px`, async ({ page }) => {
       await page.setViewportSize({ width: vp.width, height: vp.height });
       await page.goto(route, { waitUntil: "networkidle" });
+      await expect(page.getByRole("main")).toHaveCount(1);
+      await expect(page.getByRole("main").locator("header.nav, footer")).toHaveCount(0);
 
       const { scrollWidth, innerWidth, culprits } = await page.evaluate((vw) => {
         const de = document.documentElement;

@@ -1,5 +1,7 @@
 import { defineConfig, devices } from "@playwright/test";
 
+const port = process.env.SITE_TEST_PORT ?? "4328";
+
 export default defineConfig({
   testDir: "./tests",
   timeout: 30_000,
@@ -7,13 +9,13 @@ export default defineConfig({
     timeout: 5_000,
   },
   webServer: {
-    command: "npm run preview -- --host 127.0.0.1 --port 4328",
-    url: "http://127.0.0.1:4328",
-    reuseExistingServer: !process.env.CI,
+    command: 'node scripts/serve-test-site.mjs',
+    url: `http://127.0.0.1:${port}`,
+    reuseExistingServer: false,
     timeout: 30_000,
   },
   use: {
-    baseURL: "http://127.0.0.1:4328",
+    baseURL: `http://127.0.0.1:${port}`,
     trace: "retain-on-failure",
   },
   projects: [

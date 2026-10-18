@@ -125,7 +125,7 @@ const evidence: { title: string; body: string; href: string; label: string; acce
   title="Fieldwork — Facts out of documents, with the source line attached · Kontour AI"
   description="Fieldwork is a local review app for documents. It proposes each value beside the exact line it was found on, records your decision, refuses to export anything nobody has looked at, and reopens decisions when the source changes."
 >
-  <Nav active="fieldwork" />
+  <Nav slot="header" active="fieldwork" />
 
   <Section contour size="hero" borderBottom>
     <Glow accent="green" position="top-right" />
@@ -143,11 +143,11 @@ const evidence: { title: string; body: string; href: string; label: string; acce
           <p class="hero-copy animate-fade-up delay-200">
             Somebody has to read the contract, the filing, the report and pull
             the numbers out of it — and somebody downstream has to trust those
-            numbers. Fieldwork does the reading, puts each value next to the
-            exact line of the document it was found on, and makes you approve
-            it. Nothing it hands you includes a value you haven’t approved. When the source
-            changes underneath you, it reopens the decisions that just went
-            stale.
+            numbers. Fieldwork proposes values beside the exact source passages
+            they came from. You review the proposals and decide what to keep;
+            reviewed exports include resolved values and leave unresolved items
+            explicit. When the source changes, affected decisions open in a new
+            review round while the earlier record stays intact.
           </p>
           <div class="hero-actions animate-fade-up delay-300">
             <a href="#see-it" class="btn-primary" data-umami-event="fieldwork-hero-example">See what comes out →</a>
@@ -412,7 +412,7 @@ The signature page of the executed agreement records a renewal date of
     </div>
   </Section>
 
-  <Footer active="fieldwork" />
+  <Footer slot="footer" active="fieldwork" />
 </Layout>
 
 <style>

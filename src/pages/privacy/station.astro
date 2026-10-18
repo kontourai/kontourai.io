@@ -37,7 +37,7 @@ const policyUrl = `https://github.com/kontourai/station/blob/${policyCommit}/doc
   title="Station app privacy — what the app collects, in plain terms · Kontour AI"
   description="What the Station app collects, what leaves your machine and what turns it on, which permissions exist and why, and how to get your data deleted."
 >
-  <Nav />
+  <Nav slot="header" />
 
   <Section contour size="hero" borderBottom>
     <div class="container container--readable">
@@ -315,7 +315,7 @@ const policyUrl = `https://github.com/kontourai/station/blob/${policyCommit}/doc
     </div>
   </Section>
 
-  <Footer />
+  <Footer slot="footer" />
 </Layout>
 
 <style>

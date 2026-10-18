@@ -51,9 +51,8 @@ const applicationCards = applications.map((application) => {
 const labRepos = labPackages;
 const npmUrl = (packageName: string) => `https://www.npmjs.com/package/${packageName}`;
 
-// The docs MCP command uses the same docs-kit commit the docs hub README pins
-// (github.com/kontourai/kontourai.github.io). Update both together.
-const docsKitPin = '27cd43ded8c6e2e591d85d1d65bff31b3ae92e24';
+// Reviewed Corpus source supports the hub’s version 2 bundles.
+const corpusPin = 'b8ecf4cd4c6482bb804cdeea617ebe2d9b78ab05';
 const stationCapabilitySources = getPublicEvidenceClaimSources('station.developer-entry');
 ---
 
@@ -61,7 +60,7 @@ const stationCapabilitySources = getPublicEvidenceClaimSources('station.develope
   title="Developers — Build on Station, install the Flow Agents engine, keep the receipts · Kontour AI"
   description="Build on Station with its SDK and CLI, or start with the Flow Agents engine and its kits — Builder, Knowledge, and the agentless evidence kits — then go deeper into the disciplines they wire in: Surface trust records, Flow gates, Veritas readiness, Console projections."
 >
-  <Nav active="developers" />
+  <Nav slot="header" active="developers" />
 
   <Section contour size="hero" borderBottom>
     <Glow accent="gold" position="top-right" />
@@ -311,7 +310,7 @@ const stationCapabilitySources = getPublicEvidenceClaimSources('station.develope
         </p>
         <Terminal title="add the docs MCP to Claude Code">
           <p><span class="prompt">$ </span><span class="cmd">claude mcp add kontour-docs -- npx -y \</span></p>
-          <p><span class="cmd">    github:kontourai/docs-kit#{docsKitPin} docs-kit mcp</span></p>
+          <p><span class="cmd">    --package=https://codeload.github.com/kontourai/corpus/tar.gz/{corpusPin} -- corpus mcp</span></p>
         </Terminal>
       </div>
     </div>
@@ -329,7 +328,7 @@ const stationCapabilitySources = getPublicEvidenceClaimSources('station.develope
     </div>
   </Section>
 
-  <Footer active="developers" />
+  <Footer slot="footer" active="developers" />
 </Layout>
 
 <style>
