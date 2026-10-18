@@ -65,6 +65,10 @@ for (const entry of manifest.assets ?? []) {
     console.log(`WARN  asset ${entry.asset}: file missing from repo`);
     continue;
   }
+  if (entry.releaseKind === 'workspace') {
+    console.log(`SOURCE_REVIEW asset ${entry.asset}: workspace capture ${entry.capturedAgainstVersion} (${entry.capturedAt}); compare its source revision with the workspace release, not the CLI package.`);
+    continue;
+  }
   let latest;
   try {
     latest = execFileSync('npm', ['view', product.packageName, 'version'], { encoding: 'utf8', timeout: 30000 }).trim();
@@ -87,7 +91,7 @@ for (const entry of manifest.assets ?? []) {
 console.log(
   staleAssets.length
     ? `${staleAssets.length} visual asset(s) need recapture + human review.`
-    : 'All marketing visuals current.',
+    : 'No package-version drift in checked visuals; workspace captures require a separate source review.',
 );
 
 const summaryFlag = process.argv.indexOf('--assets-summary');

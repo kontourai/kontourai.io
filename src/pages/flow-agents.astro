@@ -94,7 +94,7 @@ const kits: { name: string; href: string; job: string; note: string; accent: Acc
   title="Flow Agents - Make your coding agent show its work · Kontour AI"
   description="Your agent says the tests pass. Flow Agents checks that against a log of what actually ran, and holds the “done” when the two disagree. It installs into the coding agent you already use."
 >
-  <Nav active="flow-agents" />
+  <Nav slot="header" active="flow-agents" />
 
   <Section contour size="hero" borderBottom>
     <Glow accent="chalk-2" position="top-right" />
@@ -315,7 +315,7 @@ const kits: { name: string; href: string; job: string; note: string; accent: Acc
     </div>
   </Section>
 
-  <Footer active="flow-agents" />
+  <Footer slot="footer" active="flow-agents" />
 </Layout>
 
 <style>

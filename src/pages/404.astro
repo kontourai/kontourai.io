@@ -4,15 +4,15 @@ import Nav from '@/components/Nav.astro';
 ---
 
 <Layout title="404 — Not found · Kontour AI" noindex>
-  <Nav />
-  <main class="notfound">
+  <Nav slot="header" />
+  <div class="notfound">
     <p class="label-sm notfound__kicker">404</p>
     <h1 class="display-md notfound__title">Claim not found.</h1>
     <p class="notfound__status">
       trust status: <span class="trust-badge trust-badge--unknown notfound__badge">unknown</span>
     </p>
     <a href="/" class="btn-ghost">← Return home</a>
-  </main>
+  </div>
 </Layout>
 
 <style>

@@ -1,0 +1,62 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import Section from '@/components/Section.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+import { assets } from '@/data/brand-assets.json';
+---
+
+<Layout title="Brand assets — Logos and icons · Kontour AI" description="Download Kontour logos and product interface icons as SVG or transparent PNG, with light and dark artwork and usage guidance.">
+  <Nav slot="header" />
+  <Section contour size="hero" borderBottom>
+    <div class="container">
+      <Eyebrow accent="gold">Brand assets</Eyebrow>
+      <h1 class="display-lg">Kontour, ready to share.</h1>
+      <p class="lead measure">Logos and product icons for articles, integrations, and presentations. Download an individual file or the complete collection.</p>
+      <a class="btn-primary" href="/brand-assets/kontour-brand-assets.zip" download>Download all assets (ZIP)</a>
+    </div>
+  </Section>
+  {(['corporate', 'product'] as const).map(group => (
+    <Section borderBottom>
+      <div class="container">
+        <h2 class="display-md">{group === 'corporate' ? 'Kontour logos' : 'Product interface icons'}</h2>
+        <p class="body measure">{group === 'corporate' ? 'The approved Headland symbol and outlined Kontour wordmark. Choose the cut suited to your display size.' : 'Released Kontour UI icons used on this site. These identify individual products; use the Kontour logo to identify the company.'}</p>
+        <div class="asset-grid">
+          {assets.filter(asset => asset.group === group).map(asset => (
+            <article class="asset-card">
+              <div class:list={["asset-preview", { "asset-preview--large": asset.group === "corporate" && asset.height >= 64 && asset.id !== "kontour-wordmark" }]}><img src={`/brand-assets/${asset.id}-light.svg`} alt={asset.label} loading="lazy" /></div>
+              <h3>{asset.label}</h3>
+              {'note' in asset && <p class="fine">{asset.note}</p>}
+              <p class="fine">Light artwork · for dark backgrounds</p>
+              <div class="asset-links"><a href={`/brand-assets/${asset.id}-light.svg`} download>SVG</a><a href={`/brand-assets/${asset.id}-light.png`} download>PNG</a></div>
+              <p class="fine">Dark artwork · for light backgrounds</p>
+              <div class="asset-links"><a href={`/brand-assets/${asset.id}-dark.svg`} download>SVG</a><a href={`/brand-assets/${asset.id}-dark.png`} download>PNG</a></div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </Section>
+  ))}
+  <Section>
+    <div class="container container--readable">
+      <h2 class="display-md">Using the artwork</h2>
+      <p class="body">SVG is best for resizing; PNG files have transparent backgrounds. Keep the original proportions and one color per mark. Leave clear space around the artwork and use a background with enough contrast. Keep the outlined wordmark intact.</p>
+      <p class="body">Name the company “Kontour AI” in text. A product can be described as “Station by Kontour AI”, for example. Describe your relationship accurately; use of these files should not imply an endorsement.</p>
+      <p class="body">License notices are <a href="/brand-assets/LICENSE-APACHE-2.0.txt" download>included with the artwork</a>. For trademark permission or partnership questions, <a href="/support/">contact Kontour AI</a>. The <a href="https://github.com/kontourai/ui/blob/main/DESIGN.md">design guidance</a> records the approved marks and their usage. <a href="/brand-assets/sources.json" download>Asset source fingerprints</a> are included with the collection.</p>
+    </div>
+  </Section>
+  <Footer slot="footer" />
+</Layout>
+
+<style>
+  .asset-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: 1.5rem; margin-top: 2rem; }
+  .asset-card { border: 1px solid var(--color-edge); border-radius: 8px; padding: 1.5rem; background: var(--color-ink-1); }
+  .asset-preview { min-height: 7rem; display: flex; align-items: center; overflow-x: auto; margin-bottom: 1rem; }
+  .asset-preview img { width: auto; height: 48px; max-width: none; flex-shrink: 0; }
+  .asset-preview--large img { height: 64px; }
+  .asset-card h3 { font-size: 1.15rem; margin-bottom: 0.5rem; }
+  .asset-card .fine { margin: 0.75rem 0 0.35rem; }
+  .asset-links { display: flex; gap: 1.25rem; font-family: var(--font-mono); }
+  .asset-links a { color: var(--color-gold); padding: 0.4rem 0; }
+</style>

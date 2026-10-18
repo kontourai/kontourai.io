@@ -472,14 +472,14 @@ test("default social metadata includes canonical and share image", async ({ page
   await expect(page.locator('meta[name="twitter:image:alt"]')).toHaveAttribute("content", /Kontour AI share card/);
 });
 
-// The corporate marks are the vendored kontourai/ui files (src/icons/kontour/).
+// Compare rendered corporate geometry with the approved package assets.
 // Compare the rendered paths with the file's, so a redrawn or swapped mark fails.
 const markPaths = (svg) => [...svg.matchAll(/\sd="([^"]+)"/g)].map(([, d]) => d);
 const pngSize = (bytes) => [bytes.readUInt32BE(16), bytes.readUInt32BE(20)];
 
 test("header and footer draw the Headland marks, not the old K or a live-text wordmark", async ({ page }) => {
-  const lockup = await readFile(new URL("../src/icons/kontour/kontour-lockup-horizontal.svg", import.meta.url), "utf8");
-  const wordmark = await readFile(new URL("../src/icons/kontour/kontour-wordmark.svg", import.meta.url), "utf8");
+  const lockup = await readFile(new URL(import.meta.resolve("@kontourai/ui/icons/kontour-lockup-horizontal.svg")), "utf8");
+  const wordmark = await readFile(new URL(import.meta.resolve("@kontourai/ui/icons/kontour-wordmark.svg")), "utf8");
 
   for (const path of ["/", "/404/"]) {
     await page.goto(path);
@@ -513,7 +513,7 @@ test("favicon, touch icon, and share image are the shipped Headland assets", asy
   await expect(page.locator('link[rel="icon"]')).toHaveAttribute("type", "image/svg+xml");
   await expect(page.locator('link[rel="apple-touch-icon"]')).toHaveAttribute("href", "/apple-touch-icon.png");
 
-  const symbol = await readFile(new URL("../src/icons/kontour/kontour-symbol.svg", import.meta.url), "utf8");
+  const symbol = await readFile(new URL(import.meta.resolve("@kontourai/ui/icons/kontour-symbol.svg")), "utf8");
   const favicon = await request.get("/favicon.svg");
   expect(favicon.status()).toBe(200);
   const faviconSvg = await favicon.text();
@@ -913,9 +913,8 @@ test("console page presents the suite operating plane and operator outcomes", as
   await expect(page.locator(".label-sm").filter({ hasText: "What it answers" })).toBeVisible();
   await expect(page.getByText("One screen for sessions, gates, proof, queues, and next actions.").first()).toBeVisible();
 
-  // Nothing on this page is "illustrative" any more: both invented terminals
-  // (the "suite work queue" and the "operator attention view") are deleted, and
-  // every block is a real run against this site's own public repo.
+  // Terminal output remains from the named real run. UI captures use a
+  // separately labeled local rendering fixture, with versioned provenance.
   await expect(page.getByText("kontourai-kontourai-io-208").first()).toBeVisible();
   await expect(page.getByText("illustrative")).toHaveCount(0);
   await expect(page.getByText("kontour-flow-bridge").first()).toBeVisible();
@@ -1305,10 +1304,9 @@ test("developers page leads with the engine and kits, then exposes the proof cha
   await expect(page.locator('[data-umami-event="developers-lab-cli-docs"]')).toHaveAttribute("href", "https://kontourai.github.io/cli/");
   await expect(page.getByText("npm install --global @kontourai/cli")).toBeVisible();
   await expect(page.locator('[data-umami-event="developers-docs-hub"]')).toHaveAttribute("href", "https://kontourai.github.io/");
-  // The docs MCP command carries the docs-kit commit the hub README pins
-  // (literal, checked against github.com/kontourai/kontourai.github.io on 2026-10-11).
+  // Pin the public installation recipe to the reviewed v2-compatible server.
   await expect(
-    page.getByText("github:kontourai/docs-kit#27cd43ded8c6e2e591d85d1d65bff31b3ae92e24 docs-kit mcp"),
+    page.getByText("--package=https://codeload.github.com/kontourai/corpus/tar.gz/b8ecf4cd4c6482bb804cdeea617ebe2d9b78ab05 -- corpus mcp"),
   ).toBeVisible();
   // This site's Trust Verify workflow was retired (#302) and was never a
   // required check; the proof line names the check that is required.
@@ -1918,9 +1916,9 @@ test("trust page states what it can't certify, the bypass list, the assurance di
   // Kiro ships the engine's warn default (only Claude Code/Codex ship block) —
   // badging it "Blocking" was an overclaim, fixed in #110.
   await expect(runtimeTable.getByRole("row", { name: /Kiro/ }).locator(".trust-badge--stale")).toHaveText("Advisory / opt-in block");
-  // Upstream docs say Kiro blocks; 8.0.0 ships its done-check in warn mode. Say both.
+  // Published9.2.0 still ships Kiro’s done-check in warn mode.
   await expect(runtimeTable.getByRole("row", { name: /Kiro/ })).toContainText("docs list Kiro's stop hook as blocking");
-  await expect(runtimeTable.getByRole("row", { name: /Kiro/ })).toContainText("as of 8.0.0 its done-check ships in warn mode");
+  await expect(runtimeTable.getByRole("row", { name: /Kiro/ })).toContainText("as of 9.2.0 its done-check ships in warn mode");
   await expect(runtimeTable.getByRole("row", { name: /opencode/ }).locator(".trust-badge--stale")).toHaveText("Advisory / partial");
   await expect(runtimeTable.getByRole("row", { name: /^pi\s/ }).locator(".trust-badge--stale")).toHaveText("Advisory / partial");
   await expect(runtimeTable.getByRole("row", { name: /AWS Strands/ }).locator(".trust-badge--stale")).toHaveText("Advisory / partial");

@@ -4,19 +4,15 @@
  * their lockups), drawn in `currentColor` so the surrounding text color sets
  * the one color a mark is allowed.
  *
- * The SVGs in `src/icons/kontour/` are byte-identical copies of the
- * owner-approved marks (2026-10-12) from kontourai/ui `icons/` as proposed in
- * kontourai/ui#120 (head 86e6141). They are not in a published
- * @kontourai/ui yet; when the release that ships them lands, these imports
- * switch to `@kontourai/ui/icons/<name>.svg?raw` and the copies delete.
+ * The approved marks come directly from the pinned Kontour UI package.
  *
  * Usage rules (kontourai/ui DESIGN.md, "Marks & Identity" → "Usage"): the
  * small cuts below 64px, the large cuts from 64px; never stretch a mark, so
  * only `height` is accepted and the width follows the file's own viewBox.
  */
-import lockupHorizontalSvg from "@/icons/kontour/kontour-lockup-horizontal.svg?raw";
-import symbolSvg from "@/icons/kontour/kontour-symbol.svg?raw";
-import wordmarkSvg from "@/icons/kontour/kontour-wordmark.svg?raw";
+import lockupHorizontalSvg from "@kontourai/ui/icons/kontour-lockup-horizontal.svg?raw";
+import symbolSvg from "@kontourai/ui/icons/kontour-symbol.svg?raw";
+import wordmarkSvg from "@kontourai/ui/icons/kontour-wordmark.svg?raw";
 
 export type KontourMarkName = "lockup" | "symbol" | "wordmark";
 

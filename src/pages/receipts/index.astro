@@ -68,7 +68,7 @@ const blockedSubjectHash = blockedClaim.subjectId.replace(/^working-tree:/, '');
   title="Trust receipts — real recomputable bundles · Kontour AI"
   description="Read a real receipt from an AI-assisted build in plain language, then re-check the verdict yourself with one command. Open Hachure trust.bundle artifacts from Kontour's own pipelines."
 >
-  <Nav active="receipts" />
+  <Nav slot="header" active="receipts" />
 
   <!-- Hero -->
   <Section contour size="hero" borderBottom>
@@ -450,7 +450,7 @@ const blockedSubjectHash = blockedClaim.subjectId.replace(/^working-tree:/, '');
     </div>
   </Section>
 
-  <Footer />
+  <Footer slot="footer" />
 </Layout>
 
 <style>

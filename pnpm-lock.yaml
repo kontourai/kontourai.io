@@ -25,8 +25,8 @@ importers:
         specifier: 5.10.0
         version: 5.10.0(@ai-sdk/provider@4.0.3)(supports-color@10.2.2)(zod@4.4.3)
       '@kontourai/ui':
-        specifier: ^1.12.0
-        version: 1.12.0(react@19.2.7)
+        specifier: ^1.20.1
+        version: 1.20.1(react@19.2.7)
       '@kontourai/veritas':
         specifier: 1.11.2
         version: 1.11.2(supports-color@10.2.2)(zod@4.4.3)
@@ -36,6 +36,9 @@ importers:
       ajv:
         specifier: 8.20.0
         version: 8.20.0
+      fflate:
+        specifier: 0.8.2
+        version: 0.8.2
       hachure:
         specifier: 0.15.0
         version: 0.15.0
@@ -695,8 +698,8 @@ packages:
       typescript:
         optional: true
 
-  '@kontourai/ui@1.12.0':
-    resolution: {integrity: sha512-DsbMTv8PIGN2c71vdOxrH2W3Rt6SwTunYtp/+xB+2XP+xt789nX1RfJPmfdv58EQmfsms0Z3k3C+CS3GfFJVMw==}
+  '@kontourai/ui@1.20.1':
+    resolution: {integrity: sha512-V3GHhEKMclbZ7dnw3kFgatCbuQIK1q3wjTLObfVxQB8pb3yOmdTtkZof0RZ3Qi6IVHQZ37EOIg6Lj65cgWFEJQ==}
     engines: {node: '>=22'}
     peerDependencies:
       react: ^19.0.0
@@ -1367,6 +1370,9 @@ packages:
     peerDependenciesMeta:
       picomatch:
         optional: true
+
+  fflate@0.8.2:
+    resolution: {integrity: sha512-cPJU47OaAoCbg0pBvzsgpTPhmhqI5eJjh/JIu8tPj5q+T7iLvW/JAYUqmE7KOB4R1ZyEhzBaIQpQpardBF5z8A==}
 
   finalhandler@2.1.1:
     resolution: {integrity: sha512-S8KoZgRZN+a5rNwqTxlZZePjT/4cnm0ROV70LedRHZ0p8u9fRID0hJUZQpkKLzro8LfmC8sx23bY6tVNxv8pQA==}
@@ -2916,7 +2922,7 @@ snapshots:
       - kerberos
       - supports-color
 
-  '@kontourai/ui@1.12.0(react@19.2.7)':
+  '@kontourai/ui@1.20.1(react@19.2.7)':
     dependencies:
       react: 19.2.7
 
@@ -3657,6 +3663,8 @@ snapshots:
   fdir@6.5.0(picomatch@4.0.5):
     optionalDependencies:
       picomatch: 4.0.5
+
+  fflate@0.8.2: {}
 
   finalhandler@2.1.1(supports-color@10.2.2):
     dependencies:
