@@ -1,11 +1,11 @@
 {
-  "checkedAt": "2026-10-18",
+  "checkedAt": "2026-10-23",
   "products": {
     "surface": {
       "key": "surface",
       "label": "Surface",
       "packageName": "@kontourai/surface",
-      "version": "6.2.0",
+      "version": "6.2.1",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/surface",
       "publicNotes": "",
@@ -44,7 +44,7 @@
       "key": "veritas",
       "label": "Veritas",
       "packageName": "@kontourai/veritas",
-      "version": "1.11.4",
+      "version": "1.12.1",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/veritas",
       "publicNotes": "",
@@ -57,7 +57,7 @@
       "key": "flow-agents",
       "label": "Flow Agents",
       "packageName": "@kontourai/flow-agents",
-      "version": "9.2.0",
+      "version": "9.5.0",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/flow-agents",
       "publicNotes": "",
