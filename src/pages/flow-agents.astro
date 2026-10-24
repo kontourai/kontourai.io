@@ -291,7 +291,10 @@ const kits: { name: string; href: string; job: string; note: string; accent: Acc
             in the repo, as plain files you can read, diff, and delete.
           </p>
           <p class="fine measure install-copy install-copy--last">
-            Nothing leaves your machine unless you point it at a Console.{' '}
+            Telemetry follows the resolved configuration, which can include an existing Console endpoint.
+            Use <code>--telemetry-sink local-files</code> to pin local telemetry; an explicit
+            <code>TELEMETRY_CONFIG_FILE</code> override or separately enabled OTLP bridge
+            can still send data. This is not network isolation.{' '}
             <a href="https://kontourai.github.io/flow-agents/" target="_blank" rel="noopener" data-umami-event="flow-agents-install-docs">Read the install guide -></a>
           </p>
         </div>

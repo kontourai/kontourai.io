@@ -1223,6 +1223,13 @@ test("developers page leads with the engine and kits, then exposes the proof cha
   await expect(page.getByText("are advisory out of the box (matrix on /trust)")).toBeVisible();
   // Appears twice by design: the hero install-hint badge and the quickstart terminal.
   await expect(page.getByText("npx @kontourai/flow-agents init").first()).toBeVisible();
+  const telemetryNote = page.locator(".quickstart-note");
+  await expect(telemetryNote).toContainText("existing Console endpoint");
+  await expect(telemetryNote).toContainText("--telemetry-sink local-files");
+  await expect(telemetryNote).toContainText("TELEMETRY_CONFIG_FILE");
+  await expect(telemetryNote).toContainText("separately enabled OTLP bridge");
+  await expect(telemetryNote).toContainText("not network isolation");
+  await expect(page.getByText("Nothing leaves your machine unless you point it at a Console.")).toHaveCount(0);
   const devPins = JSON.parse(
     await readFile(new URL("../package.json", import.meta.url), "utf8"),
   ).devDependencies;
@@ -1502,7 +1509,13 @@ test("flow agents page presents agent-tool discipline and status", async ({ page
   await expect(page.getByRole("heading", { name: "Know what ran, what passed, and what still needs a decision." })).toBeVisible();
   // The install section states the cost before the reader pays it.
   await expect(page.getByText("Needs Node 22 or newer.")).toBeVisible();
-  await expect(page.getByText("Nothing leaves your machine unless you point it at a Console.")).toBeVisible();
+  const telemetryNote = page.locator(".install-copy--last");
+  await expect(telemetryNote).toContainText("existing Console endpoint");
+  await expect(telemetryNote).toContainText("--telemetry-sink local-files");
+  await expect(telemetryNote).toContainText("TELEMETRY_CONFIG_FILE");
+  await expect(telemetryNote).toContainText("separately enabled OTLP bridge");
+  await expect(telemetryNote).toContainText("not network isolation");
+  await expect(page.getByText("Nothing leaves your machine unless you point it at a Console.")).toHaveCount(0);
   // The old install terminal claimed ✓ engine / ✓ gates / ✓ adapters /
   // ✓ primitives / ✓ catalog — none of which the tool prints.
   await expect(page.getByText("Installed Claude Code bundle into")).toBeVisible();
