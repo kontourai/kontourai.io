@@ -116,8 +116,10 @@ const stationCapabilitySources = getPublicEvidenceClaimSources('station.develope
             a <code>CLAUDE.md</code>. If your agent already has Flow Agents
             hooks at the user level, it warns you about the collision rather
             than quietly running everything twice. Run it at the root of a repo
-            you can commit, and read the diff before you push. Nothing leaves
-            your machine unless you point it at a Console.
+            you can commit, and read the diff before you push. Telemetry follows the resolved configuration, which can include an existing Console endpoint.
+            Use <code>--telemetry-sink local-files</code> to pin local telemetry; an explicit{' '}
+            <code>TELEMETRY_CONFIG_FILE</code> override or separately enabled OTLP bridge
+            can still send data. This is not network isolation.
           </p>
         </div>
         <div class="quickstart-col">
