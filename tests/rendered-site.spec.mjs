@@ -1223,7 +1223,7 @@ test("developers page leads with the engine and kits, then exposes the proof cha
   await expect(page.getByText("are advisory out of the box (matrix on /trust)")).toBeVisible();
   // Appears twice by design: the hero install-hint badge and the quickstart terminal.
   await expect(page.getByText("npx @kontourai/flow-agents init").first()).toBeVisible();
-  const telemetryNote = page.locator(".quickstart-note");
+  const telemetryNote = page.locator(".quickstart-note").filter({ hasText: "Telemetry follows the resolved configuration" });
   await expect(telemetryNote).toContainText("existing Console endpoint");
   await expect(telemetryNote).toContainText("--telemetry-sink local-files");
   await expect(telemetryNote).toContainText("TELEMETRY_CONFIG_FILE");
