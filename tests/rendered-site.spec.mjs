@@ -701,6 +701,9 @@ test("veritas page shows the promise, a concrete catch, and the surface handoff"
   await expect(page.getByRole("heading", { name: "Define what good looks like" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Guide work at the moment of change" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Earn merge readiness" })).toBeVisible();
+  // Readiness informs a merge decision; it has not been shown to make reduced review safe.
+  await expect(page.getByText("it does not show that less human review is safe")).toBeVisible();
+  await expect(page.getByText(/reduced human review/i)).toHaveCount(0);
 
   // Concrete use-case section
   await expect(page.locator(".label-sm").filter({ hasText: "Example use case" })).toBeVisible();
