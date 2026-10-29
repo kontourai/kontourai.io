@@ -5,15 +5,18 @@ import { validateTrustBundle } from "@kontourai/surface";
 test("Veritas planning and approval qualifiers are explicit", async ({ page }) => {
   await page.goto("/veritas/");
   await expect(page.locator("body")).toContainText("npx --no @kontourai/veritas plan <paths you will change>");
+  await expect(page.locator("body")).toContainText("An optional Oxlint reference pack, merged into your own lint config, flags Biome, ESLint, Oxlint, and TypeScript suppression comments that give no reason.");
+  await expect(page.locator("body")).toContainText("Run veritas plan on the files you are about to change to see which checks and guidance apply.");
   await expect(page.locator("body")).toContainText("The reference is verified only in the resolved and resolved-strict approval modes.");
-  await expect(page.locator("body")).toContainText("If source files, the index, or HEAD change while checks are running, readiness stops before writing a report.");
+  await expect(page.locator("body")).toContainText("If source files, the index, or HEAD differ after the checks from when they started, readiness stops before writing a report.");
 });
 
 test("Station homepage installation and Project details are explicit", async ({ page }) => {
   await page.goto("/");
-  await expect(page.locator(".station__status")).toContainText("Install the Nightly with one command on macOS, Linux, or Windows, use the Nightly desktop app on an Apple silicon Mac or a Windows PC, or run it from source.");
+  await expect(page.locator(".station__status")).toContainText("Install the Nightly with one command on macOS, Linux, or Windows x64, use the Nightly desktop app on an Apple silicon Mac or a Windows x64 PC, or run it from source.");
   await expect(page.locator(".station__card-copy").nth(1)).toContainText("a shared Room for discussion and notes, and a Task can start from a GitHub issue");
   await expect(page.locator('img[src="/screenshots/station-project.png"]')).toHaveAttribute("alt", /Project room/);
+  await expect(page.locator(".station__shot figcaption")).toContainText("four Tasks ready to start");
 });
 
 test("homepage keeps the company headline, leads with Station, then the recognition-then-mechanism argument", async ({ page }) => {
@@ -1954,8 +1957,8 @@ test("trust page states what it can't certify, the bypass list, the assurance di
   // badging it "Blocking" was an overclaim, fixed in #110.
   await expect(runtimeTable.getByRole("row", { name: /Kiro/ }).locator(".trust-badge--stale")).toHaveText("Advisory / opt-in block");
   // Published 9.8.0 still ships Kiro’s done-check in warn mode.
-  await expect(runtimeTable.getByRole("row", { name: /Kiro/ })).toContainText("docs list Kiro's stop hook as blocking");
-  await expect(runtimeTable.getByRole("row", { name: /Kiro/ })).toContainText("as of 9.8.0 its done-check ships in warn mode");
+  await expect(runtimeTable.getByRole("row", { name: /Kiro/ })).toContainText("As of 9.8.0, Kiro's done-check ships in warn mode");
+
   await expect(runtimeTable.getByRole("row", { name: /opencode/ }).locator(".trust-badge--stale")).toHaveText("Advisory / partial");
   await expect(runtimeTable.getByRole("row", { name: /^pi\s/ }).locator(".trust-badge--stale")).toHaveText("Advisory / partial");
   await expect(runtimeTable.getByRole("row", { name: /AWS Strands/ }).locator(".trust-badge--stale")).toHaveText("Advisory / partial");
