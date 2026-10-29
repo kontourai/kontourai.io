@@ -37,9 +37,9 @@
       "asset": "public/screenshots/flow-demo.gif",
       "page": "src/pages/flow.astro",
       "product": "flow",
-      "capturedAgainstVersion": "5.2.0",
-      "capturedAt": "2026-10-11",
-      "sha256": "055650c8a2e8586182d42388a02aa7bcaf6f7154d078f46874f0eb313e39aca9"
+      "capturedAgainstVersion": "5.4.0",
+      "capturedAt": "2026-10-29",
+      "sha256": "d77b96a45f3a763087f3818f72e3b1829fad6b53fb268955d26892927774cb2a"
     },
     {
       "asset": "public/screenshots/fieldwork-review.png",
@@ -53,9 +53,9 @@
       "asset": "public/screenshots/station-project.png",
       "page": "src/pages/index.astro",
       "product": "station",
-      "capturedAgainstVersion": "0.1.11-nightly.247504",
-      "capturedAt": "2026-10-11",
-      "sha256": "b4084b04e8ef2f0a1116f48edb8ce1da094ddc9e0374c47d48ffb9b4ed32cfdd",
+      "capturedAgainstVersion": "0.1.11-nightly.249203",
+      "capturedAt": "2026-10-29",
+      "sha256": "86ba1402e3dbc119e826e703f76e9e7394d41828faddaa02f2a787f1b58b5422",
       "releaseKind": "workspace"
     }
   ]
