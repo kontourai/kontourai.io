@@ -39,7 +39,7 @@ const heroRun: TLine[] = [
   { cls: 'cmd', text: 'readiness --check evidence` for full generated evidence' },
 ];
 
-/* Same source, same repo, after the missing API test was added. */
+/* Same source, same repo, after a file under tests/api/** changed. */
 const afterRun: TLine[] = [
   { cls: 'prompt', text: 'npx --no @kontourai/veritas readiness --working-tree' },
   { cls: 'muted', text: '' },
@@ -107,7 +107,7 @@ const promises: { num: string; title: string; accent: Accent; summary: string; b
 const beyond: { title: string; body: string; accent: Accent }[] = [
   { title: 'Standards feedback', accent: 'green', body: 'Longitudinal tracking of whether each standard helped, got in the way, or needs adjustment — built from real run evidence.' },
   { title: 'Recommendations', accent: 'cobalt-2', body: 'Data-driven suggestions for tightening, relaxing, or retiring standards, accepted or rejected with authority backing.' },
-  { title: 'Marker benchmarking', accent: 'gold', body: 'Deterministic scoring of whether Veritas guidance actually improves agent outcomes, not just whether checks pass.' },
+  { title: 'Marker benchmarking', accent: 'gold', body: 'Compare supplied session logs for configured warning phrases and when they appear. Marker scores do not measure code quality or review savings.' },
   { title: 'Claim authoring', accent: 'chalk-2', body: 'Author and manage Surface claims directly from the repo, so readiness state is portable to people, agents, and other systems.' },
 ];
 
@@ -217,8 +217,7 @@ const cli = [
           <h3 class="tr__head">When a human picks it up</h3>
           <p class="tr__body">
             <code>npx --no @kontourai/veritas readiness --working-tree</code> prints one line per
-            requirement: passed, failed, warned, or accepted by exception with
-            the approver named.
+            applicable requirement: passed, failed, or warned.
           </p>
           <p class="tr__body tr__body--last">
             Every run also writes a JSON file
@@ -247,7 +246,10 @@ const cli = [
         This one is set to <code>Guide</code>, so it warns rather than fails —
         advice the agent is expected to act on. Set it
         to <code>Require</code> and the same finding fails the run instead.
-        Either way the next run tells you whether the fix actually landed.
+        Either way the next run reports whether a file under <code>tests/api/**</code>
+        changed. That alone does not show the test covers the route or that the
+        route works: the evidence command shown only checks for a zero exit
+        status and does not run API tests.
       </p>
 
       <Split ratio="1-1" gap="md" align="start">
@@ -257,7 +259,7 @@ const cli = [
         </Terminal>
 
         <div>
-          <Terminal title="veritas readiness — after the fix">
+          <Terminal title="veritas readiness — after a companion file changed">
             <pre class="code">{afterRun.map(({ cls, text }) => (
               cls === 'prompt'
                 ? <span><span class="prompt">$ </span><span class="cmd">{text}</span>{'\n'}</span>
@@ -265,7 +267,7 @@ const cli = [
             ))}</pre>
           </Terminal>
           <p class="tcap">
-            The same command, after the missing API test was added. Trimmed for
+            The same command, after a file under tests/api/** changed. Trimmed for
             column width where marked.
           </p>
         </div>
@@ -277,14 +279,15 @@ const cli = [
   <Section tone="alt" borderBottom>
     <div class="container container--readable">
       <Eyebrow accent="gold">When you can't meet the rule</Eyebrow>
-      <h2 class="display-md ex__title">The honest path is a first-class one.</h2>
+      <h2 class="display-md ex__title">Record an exception.</h2>
       <p class="body ex__copy">
         Not every requirement can be satisfied on every change, and pretending
         otherwise just teaches people to route around the tool.
-        An <strong>Exception</strong> is an authority-backed decision to accept an
-        unmet or failing requirement for a specific change — recorded with its
-        approver, printed in the readiness report as "accepted by exception,"
-        never a silent skip.
+        When a rule blocks an edit, the pre-edit hook can let it through as an
+        <strong>Exception</strong>, recording the rule, a reason and the actor in a
+        local exception log instead of skipping silently. Veritas does not verify
+        an approver for that exception, and readiness does not read the log.
+        Review exceptions separately when you decide whether to merge.
       </p>
       <p class="body ex__copy ex__copy--last">
         Attestations can record how authorization was collected — the human's
@@ -391,9 +394,9 @@ const cli = [
             or named approval before Veritas will call it ready.
           </p>
           <p class="body cb__copy cb__copy--last">
-            That's how a shared package, a contract, or a generated artifact stays
-            protected without turning every touch of it into a manual-review
-            bottleneck.
+            The report shows which configured requirements apply to a shared
+            package, contract, or generated artifact, and what evidence is still
+            missing. Your team decides what review the change needs.
           </p>
         </div>
 
