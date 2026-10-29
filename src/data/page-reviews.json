@@ -61,9 +61,9 @@
     {
       "page": "src/pages/flow.astro",
       "products": {
-        "flow": "5.2.2"
+        "flow": "5.4.0"
       },
-      "reviewedDate": "2026-10-18"
+      "reviewedDate": "2026-10-29"
     },
     {
       "page": "src/pages/survey.astro",
@@ -149,7 +149,7 @@
     {
       "page": "src/pages/use-cases/aidlc.astro",
       "products": {
-        "flow": "5.2.2",
+        "flow": "5.4.0",
         "flow-agents": "9.8.0",
         "surface": "6.2.0",
         "survey": "8.2.1",

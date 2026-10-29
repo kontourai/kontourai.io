@@ -69,6 +69,24 @@
       "url": "https://github.com/kontourai/dispatch/blob/05c823e460a618a77900ce9e2b361aa8868480d1/README.md"
     },
     {
+      "id": "station.home-workspace-readme",
+      "subject": "station",
+      "sourcePath": "README.md",
+      "url": "https://github.com/kontourai/station/blob/7ab23e351c844bdccf6359c8ba773e11c8ab00ad/README.md"
+    },
+    {
+      "id": "station.home-workspace-setup",
+      "subject": "station",
+      "sourcePath": "docs/user/getting-started.md",
+      "url": "https://github.com/kontourai/station/blob/7ab23e351c844bdccf6359c8ba773e11c8ab00ad/docs/user/getting-started.md"
+    },
+    {
+      "id": "station.home-workspace-rooms",
+      "subject": "station",
+      "sourcePath": "docs/guides/machine-relationships.md",
+      "url": "https://github.com/kontourai/station/blob/7ab23e351c844bdccf6359c8ba773e11c8ab00ad/docs/guides/machine-relationships.md"
+    },
+    {
       "id": "station.workspace",
       "subject": "station",
       "sourcePath": "README.md",
@@ -140,9 +158,9 @@
     {
       "id": "station.home-workspace",
       "pagePath": "src/pages/index.astro",
-      "sourceIds": ["station.workspace", "station.setup"],
+      "sourceIds": ["station.home-workspace-readme", "station.home-workspace-setup", "station.home-workspace-rooms"],
       "review": {
-        "date": "2026-10-16",
+        "date": "2026-10-29",
         "scope": "Projects, Tasks, linked evidence, configured engines, paired-device access, and Nightly entry routes; source descriptions only.",
         "qualification": "source-only"
       }

@@ -118,10 +118,7 @@ const stationCapabilitySources = getPublicEvidenceClaimSources('station.home-wor
         <Card accent="cobalt" bar="top" pad="md">
           <h3 class="station__card-title">Work that outlives a chat</h3>
           <p class="body station__card-copy">
-            Projects, Tasks, Sessions, changed files, artifacts, and receipts
-            stay linked. Reopen a Task with its recorded workspace binding,
-            then check that workspace's current availability. Paired devices
-            need a reachable Station and the access scopes the operation requires.
+            A Project keeps its Tasks, files, connections, and a shared Room for discussion and notes, and a Task can start from a GitHub issue. Reopen a Task with its recorded workspace binding, then check that the workspace is still available.
           </p>
         </Card>
         <Card accent="cobalt" bar="top" pad="md">
@@ -135,19 +132,16 @@ const stationCapabilitySources = getPublicEvidenceClaimSources('station.home-wor
         </Card>
       </Grid>
       <figure class="product-shot station__shot">
-        <img src="/screenshots/station-project.png" alt="Station project page for a small repository called Trail Notes: its main branch, a Start work box for new requests, the latest commit, the open Coding layout, and the project's Tasks." loading="lazy" width="1400" height="874" />
+        <img src="/screenshots/station-project.png" alt="TODO(opus-copy)" loading="lazy" width="1400" height="874" />
         <figcaption>
-          A Project in Station: the branch and latest commit, a place to start
-          new work, the open Coding layout, and the project's Tasks. Station
-          Nightly {stationShot.capturedAgainstVersion} (revision f5e213693)
+          TODO(opus-copy) Station
+          Nightly {stationShot.capturedAgainstVersion} (revision 7ab23e35)
           served from a temporary Station home, captured
           on {stationShot.capturedAt}; unaltered, and not a stable release.
         </figcaption>
       </figure>
       <p class="fine station__status">
-        Open source under Apache-2.0 and in active development: run it from
-        source on macOS or Linux, or try the macOS or Windows Nightly desktop build. No
-        stable or beta release is published yet. Station data stays on your
+        Open source under Apache-2.0 and in active development. Install the Nightly with one command on macOS, Linux, or Windows, use the Nightly desktop app for macOS or Windows, or run it from source. No stable or beta release is published yet. Station data stays on your
         machine by default; hosted Model connections, Engines, paired devices,
         remote computers, and export endpoints carry data only when you
         configure and use them, and desktop builds check their release feed
@@ -155,7 +149,7 @@ const stationCapabilitySources = getPublicEvidenceClaimSources('station.home-wor
         <a href="/privacy/station/" data-umami-event="home-station-privacy">Station privacy policy</a>.
       </p>
       <p class="fine measure">
-        Station capability descriptions reviewed against source on 16 October 2026:{' '}
+        Station capability descriptions reviewed against source on 29 October 2026:{' '}
         {stationCapabilitySources.map((source, index) => <Fragment>{index > 0 && ' · '}<a href={source.url} target="_blank" rel="noopener">{source.sourcePath}</a></Fragment>)}.
         This is a source review, not installed server, desktop, or mobile qualification.
         Nightly is a testing channel; see the setup guide for platform limits.
