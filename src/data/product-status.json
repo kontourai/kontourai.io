@@ -1,11 +1,11 @@
 {
-  "checkedAt": "2026-10-18",
+  "checkedAt": "2026-10-29",
   "products": {
     "surface": {
       "key": "surface",
       "label": "Surface",
       "packageName": "@kontourai/surface",
-      "version": "6.2.0",
+      "version": "6.2.1",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/surface",
       "publicNotes": "",
@@ -31,39 +31,39 @@
       "key": "flow",
       "label": "Flow",
       "packageName": "@kontourai/flow",
-      "version": "5.2.2",
+      "version": "5.4.0",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/flow",
       "publicNotes": "Local CLI plus a loopback Flow Console.",
       "marketingReviewed": {
-        "version": "5.2.0",
-        "date": "2026-10-12"
+        "version": "5.4.0",
+        "date": "2026-10-29"
       }
     },
     "veritas": {
       "key": "veritas",
       "label": "Veritas",
       "packageName": "@kontourai/veritas",
-      "version": "1.11.4",
+      "version": "1.12.1",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/veritas",
       "publicNotes": "",
       "marketingReviewed": {
-        "version": "1.11.4",
-        "date": "2026-10-18"
+        "version": "1.12.1",
+        "date": "2026-10-29"
       }
     },
     "flow-agents": {
       "key": "flow-agents",
       "label": "Flow Agents",
       "packageName": "@kontourai/flow-agents",
-      "version": "9.2.0",
+      "version": "9.9.0",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/flow-agents",
       "publicNotes": "",
       "marketingReviewed": {
-        "version": "9.2.0",
-        "date": "2026-10-18"
+        "version": "9.8.0",
+        "date": "2026-10-29"
       }
     },
     "station": {
@@ -73,10 +73,10 @@
       "version": "0.7.0",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/station-cli",
-      "publicNotes": "The workspace is open source (Apache-2.0) and in active development: run it from source on macOS or Linux, or as the macOS or Windows Nightly desktop build. No stable or beta release is published yet. The CLI client and the plugin SDK are the published packages.",
+      "publicNotes": "The workspace is open source (Apache-2.0) and in active development: install the Nightly with one command on macOS, Linux, or Windows x64, use the Nightly desktop app on an Apple silicon Mac or a Windows x64 PC, or run it from source. No stable or beta release is published yet. The CLI client and the plugin SDK are the published packages.",
       "marketingReviewed": {
         "version": "0.7.0",
-        "date": "2026-10-12"
+        "date": "2026-10-29"
       }
     },
     "console": {
