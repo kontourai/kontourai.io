@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-24",
+  "checkedAt": "2026-10-29",
   "products": {
     "surface": {
       "key": "surface",
@@ -31,7 +31,7 @@
       "key": "flow",
       "label": "Flow",
       "packageName": "@kontourai/flow",
-      "version": "5.2.2",
+      "version": "5.4.0",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/flow",
       "publicNotes": "Local CLI plus a loopback Flow Console.",
@@ -57,7 +57,7 @@
       "key": "flow-agents",
       "label": "Flow Agents",
       "packageName": "@kontourai/flow-agents",
-      "version": "9.5.2",
+      "version": "9.8.0",
       "phase": "current package",
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/flow-agents",
       "publicNotes": "",
