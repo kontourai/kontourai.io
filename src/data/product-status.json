@@ -49,8 +49,8 @@
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/veritas",
       "publicNotes": "",
       "marketingReviewed": {
-        "version": "1.11.4",
-        "date": "2026-10-18"
+        "version": "1.12.1",
+        "date": "2026-10-29"
       }
     },
     "flow-agents": {
@@ -62,8 +62,8 @@
       "sourceUrl": "https://www.npmjs.com/package/@kontourai/flow-agents",
       "publicNotes": "",
       "marketingReviewed": {
-        "version": "9.2.0",
-        "date": "2026-10-24"
+        "version": "9.8.0",
+        "date": "2026-10-29"
       }
     },
     "station": {

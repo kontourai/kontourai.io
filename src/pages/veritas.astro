@@ -100,7 +100,7 @@ const boundaries: { label: string; detail: string; accent: Accent }[] = [
 
 const promises: { num: string; title: string; accent: Accent; summary: string; body: string; tags: string[] }[] = [
   { num: '01', title: 'Define what good looks like', accent: 'green', summary: 'Repo Standards', body: 'Capture the repo expectations reviewers keep in their heads: required tests, protected files, shared contracts, release checks, security scans, boundaries, and authority rules.', tags: ['requirements', 'evidence-checks', 'authorities', 'guidance'] },
-  { num: '02', title: 'Guide work at the moment of change', accent: 'cobalt-2', summary: 'Change Guidance', body: 'When an agent or developer touches a risky work area, Veritas supplies the relevant standards before context drift turns into a bad merge.', tags: ['work-areas', 'boundaries', 'hooks', 'recheck'] },
+  { num: '02', title: 'Guide work at the moment of change', accent: 'cobalt-2', summary: 'Change Guidance', body: 'When an agent or developer touches a risky work area, Veritas supplies the standards that apply there. Run veritas plan before the first edit to see which checks will run.', tags: ['work-areas', 'boundaries', 'hooks', 'recheck', 'plan'] },
   { num: '03', title: 'Earn merge readiness', accent: 'gold', summary: 'Readiness Reports', body: 'Every change gets a clear answer: what passed, what failed, what evidence is stale, what needs recheck, and whether it meets the readiness standard your team configured. That report informs your merge decision; it does not show that less human review is safe.', tags: ['merge-readiness', 'freshness', 'exceptions', 'coverage'] },
 ];
 
@@ -114,6 +114,7 @@ const beyond: { title: string; body: string; accent: Accent }[] = [
 const cli = [
   { cmd: 'npx --no @kontourai/veritas init --explore', desc: 'Read the repo and propose a starting set of standards as a plan file — applies nothing' },
   { cmd: 'npx --no @kontourai/veritas init', desc: 'Bootstrap Repo Standards, Repo Map, and guidance' },
+  { cmd: 'npx --no @kontourai/veritas plan --working-tree', desc: 'Preview the checks and guidance that apply to a change before editing. Runs no checks and writes no evidence.' },
   { cmd: 'npx --no @kontourai/veritas readiness --working-tree', desc: 'Report whether the current change meets the repo standards' },
   { cmd: 'npx --no @kontourai/veritas explain --file <path>', desc: 'Show only the rules that govern that path' },
   { cmd: 'npx --no @kontourai/veritas attest bootstrap --actor <id> --approval-ref <ref>', desc: 'Record who reviewed the protected standards, and the approval behind it' },
@@ -290,10 +291,7 @@ const cli = [
         Review exceptions separately when you decide whether to merge.
       </p>
       <p class="body ex__copy ex__copy--last">
-        Attestations can record how authorization was collected — the human's
-        verbatim authorizing words, or the prompt-and-response exchange, with
-        its source when captured. Six months later you can still see what was
-        actually approved, not just that something was.
+        Attestations can record how authorization was collected: the person's exact authorizing words, or the prompt-and-response exchange, with its source when captured. By default Veritas stores the approval reference without checking it. The reference is verified only when the repo uses the <code>resolved</code> approval mode.
       </p>
     </div>
   </Section>
