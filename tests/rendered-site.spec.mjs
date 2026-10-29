@@ -2106,3 +2106,12 @@ test("AI-DLC use case walks one real gate, labels what was captured, and is link
     await expect(page.locator(`[data-umami-event="${event}"]`)).toHaveAttribute("href", "/use-cases/aidlc/");
   }
 });
+
+test("Veritas is not described as granting merge autonomy", async ({ page }) => {
+  // Readiness informs a team's merge decision; nothing shows review can be safely reduced.
+  for (const path of ["/surface/", "/developers/"]) {
+    await page.goto(path);
+    await expect(page.getByText(/merge autonomy/i)).toHaveCount(0);
+    await expect(page.getByText("Readiness evidence for AI-authored changes").first()).toBeAttached();
+  }
+});
