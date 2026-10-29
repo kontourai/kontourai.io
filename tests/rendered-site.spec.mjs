@@ -725,6 +725,9 @@ test("veritas page shows the promise, a concrete catch, and the surface handoff"
   await expect(page.getByText(/authority-backed decision|accepted by exception|approver named/i)).toHaveCount(0);
   // A companion-path check is not a confirmed fix, and marker scores are not outcome measures.
   await expect(page.getByText("That alone does not show the test covers the route")).toBeVisible();
+  // compressHTML drops the newline after </code>; the fused-words scan does not see the ** boundary.
+  const coChange = await page.locator("p", { hasText: "next run reports whether a file under" }).innerText();
+  expect(coChange).toContain("tests/api/** changed");
   await expect(page.getByText(/fix actually landed|actually improves agent outcomes|manual-review\s+bottleneck/i)).toHaveCount(0);
 
   // Integrations are split by CAPABILITY, not listed as equivalents. Only the
