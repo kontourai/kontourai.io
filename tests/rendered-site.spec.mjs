@@ -701,6 +701,9 @@ test("veritas page shows the promise, a concrete catch, and the surface handoff"
   await expect(page.getByRole("heading", { name: "Define what good looks like" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Guide work at the moment of change" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Earn merge readiness" })).toBeVisible();
+  // Readiness informs a merge decision; it has not been shown to make reduced review safe.
+  await expect(page.getByText("it does not show that less human review is safe")).toBeVisible();
+  await expect(page.getByText(/reduced human review/i)).toHaveCount(0);
 
   // Concrete use-case section
   await expect(page.locator(".label-sm").filter({ hasText: "Example use case" })).toBeVisible();
@@ -716,9 +719,16 @@ test("veritas page shows the promise, a concrete catch, and the surface handoff"
   // Current CLI and the Surface handoff
   await expect(page.locator(".label-sm").filter({ hasText: "Current CLI" })).toBeVisible();
   await expect(page.getByText("Veritas is built with Surface.")).toBeVisible();
-  // #164 enrichment: exceptions are first-class and attributed.
-  await expect(page.getByText("authority-backed decision to accept")).toBeVisible();
-  await expect(page.getByText("accepted by exception").first()).toBeVisible();
+  // Exceptions are recorded by the pre-edit hook, but Veritas verifies no approver
+  // and readiness does not read them (veritas docs/concepts.md). The old copy claimed both.
+  await expect(page.getByText("Veritas does not verify an approver for that exception")).toBeVisible();
+  await expect(page.getByText(/authority-backed decision|accepted by exception|approver named/i)).toHaveCount(0);
+  // A companion-path check is not a confirmed fix, and marker scores are not outcome measures.
+  await expect(page.getByText("That alone does not show the test covers the route")).toBeVisible();
+  // compressHTML drops the newline after </code>; the fused-words scan does not see the ** boundary.
+  const coChange = await page.locator("p", { hasText: "next run reports whether a file under" }).innerText();
+  expect(coChange).toContain("tests/api/** changed");
+  await expect(page.getByText(/fix actually landed|actually improves agent outcomes|manual-review\s+bottleneck/i)).toHaveCount(0);
 
   // Integrations are split by CAPABILITY, not listed as equivalents. Only the
   // Claude Code PreToolUse path blocks a write; the codex/cursor/copilot hooks
@@ -2097,5 +2107,14 @@ test("AI-DLC use case walks one real gate, labels what was captured, and is link
   ]) {
     await page.goto(route);
     await expect(page.locator(`[data-umami-event="${event}"]`)).toHaveAttribute("href", "/use-cases/aidlc/");
+  }
+});
+
+test("Veritas is not described as granting merge autonomy", async ({ page }) => {
+  // Readiness informs a team's merge decision; nothing shows review can be safely reduced.
+  for (const path of ["/surface/", "/developers/"]) {
+    await page.goto(path);
+    await expect(page.getByText(/merge autonomy/i)).toHaveCount(0);
+    await expect(page.getByText("Readiness evidence for AI-authored changes").first()).toBeAttached();
   }
 });
