@@ -221,11 +221,7 @@ const cli = [
             applicable requirement: passed, failed, or warned.
           </p>
           <p class="tr__body tr__body--last">
-            Every run also writes a JSON file
-            under <code>.kontourai/veritas/evidence/</code>. The next person
-            can inspect the recorded result and the source revision it checked.
-            Re-run readiness for a changed revision before accepting that older
-            result as current.
+            Each completed run writes a JSON file under <code>.kontourai/veritas/evidence/</code>, so the next person can inspect the recorded result and the source revision it checked. If source files, the index, or HEAD change while checks are running, readiness stops before writing a report. Re-run readiness for a changed revision before accepting an older result as current.
           </p>
         </Card>
       </Grid>

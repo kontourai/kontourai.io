@@ -38,7 +38,7 @@ test("homepage keeps the company headline, leads with Station, then the recognit
   await expect(page.locator('[data-umami-event="home-station-privacy"]')).toHaveAttribute("href", "/privacy/station/");
   // The Station capture is a manifest-bound visual with its provenance in the caption.
   await expect(page.locator('img[src="/screenshots/station-project.png"]')).toHaveAttribute("alt", /Trail Notes/);
-  await expect(page.getByText(/Station Nightly 0\.1\.11-nightly\.249203 \(revision 7ab23e35\)\s+served from a temporary Station home/)).toBeVisible();
+  await expect(page.getByText(/Station Nightly 0\.1\.11-nightly\.249203 \(revision 7ab23e35\)\s+running from a temporary Station home/)).toBeVisible();
   await expect(page.getByText("desktop builds check their release feed for updates")).toBeVisible();
   await expect(page.locator('[data-umami-event="home-station-tour"]')).toHaveAttribute("href", "https://station.kontourai.io/");
   await expect(page.locator('[data-umami-event="home-station-setup"]')).toHaveAttribute("href", "https://kontourai.github.io/station/docs/user/getting-started.html");
