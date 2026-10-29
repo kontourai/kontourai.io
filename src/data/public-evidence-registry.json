@@ -161,7 +161,7 @@
       "sourceIds": ["station.home-workspace-readme", "station.home-workspace-setup", "station.home-workspace-rooms"],
       "review": {
         "date": "2026-10-29",
-        "scope": "Projects, Tasks, linked evidence, configured engines, paired-device access, and Nightly entry routes; source descriptions only.",
+        "scope": "Projects with a shared Room, Tasks (including Tasks started from a GitHub issue), recorded workspace bindings, configured engines, paired-device data flows, and Nightly install routes; source descriptions only.",
         "qualification": "source-only"
       }
     },

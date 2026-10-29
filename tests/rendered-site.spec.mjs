@@ -2,6 +2,20 @@ import { readFile } from "node:fs/promises";
 import { expect, test } from "@playwright/test";
 import { validateTrustBundle } from "@kontourai/surface";
 
+test("Veritas planning and approval qualifiers are explicit", async ({ page }) => {
+  await page.goto("/veritas/");
+  await expect(page.locator("body")).toContainText("npx --no @kontourai/veritas plan <paths you will change>");
+  await expect(page.locator("body")).toContainText("The reference is verified only in the resolved and resolved-strict approval modes.");
+  await expect(page.locator("body")).toContainText("If source files, the index, or HEAD change while checks are running, readiness stops before writing a report.");
+});
+
+test("Station homepage installation and Project details are explicit", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator(".station__status")).toContainText("Install the Nightly with one command on macOS, Linux, or Windows, use the Nightly desktop app on an Apple silicon Mac or a Windows PC, or run it from source.");
+  await expect(page.locator(".station__card-copy").nth(1)).toContainText("a shared Room for discussion and notes, and a Task can start from a GitHub issue");
+  await expect(page.locator('img[src="/screenshots/station-project.png"]')).toHaveAttribute("alt", /Project room/);
+});
+
 test("homepage keeps the company headline, leads with Station, then the recognition-then-mechanism argument", async ({ page }) => {
   await page.goto("/");
 
@@ -436,7 +450,7 @@ test("early access page gives static contact paths", async ({ page }) => {
   // Station has its own lane now that it is the main product; the lane and the
   // hero mention both point at the product site rather than an install command.
   await expect(page.getByRole("heading", { name: "Station workspace" })).toBeVisible();
-  await expect(page.getByText("run it from source or the macOS or Windows Nightly build, then tell us what you hit")).toBeVisible();
+  await expect(page.getByText("install the Nightly or the Nightly desktop app, or run it from source, then tell us what you hit")).toBeVisible();
   await expect(page.locator('[data-umami-event="early-access-hero-station"]')).toHaveAttribute("href", "https://station.kontourai.io/");
   await expect(page.getByText("One concrete workflow is enough.")).toBeVisible();
   await expect(page.locator('[data-umami-event="early-access-hero-email"]')).toHaveAttribute("href", /mailto:hello@kontourai\.io/);
@@ -1939,9 +1953,9 @@ test("trust page states what it can't certify, the bypass list, the assurance di
   // Kiro ships the engine's warn default (only Claude Code/Codex ship block) —
   // badging it "Blocking" was an overclaim, fixed in #110.
   await expect(runtimeTable.getByRole("row", { name: /Kiro/ }).locator(".trust-badge--stale")).toHaveText("Advisory / opt-in block");
-  // Published9.2.0 still ships Kiro’s done-check in warn mode.
+  // Published 9.8.0 still ships Kiro’s done-check in warn mode.
   await expect(runtimeTable.getByRole("row", { name: /Kiro/ })).toContainText("docs list Kiro's stop hook as blocking");
-  await expect(runtimeTable.getByRole("row", { name: /Kiro/ })).toContainText("as of 9.2.0 its done-check ships in warn mode");
+  await expect(runtimeTable.getByRole("row", { name: /Kiro/ })).toContainText("as of 9.8.0 its done-check ships in warn mode");
   await expect(runtimeTable.getByRole("row", { name: /opencode/ }).locator(".trust-badge--stale")).toHaveText("Advisory / partial");
   await expect(runtimeTable.getByRole("row", { name: /^pi\s/ }).locator(".trust-badge--stale")).toHaveText("Advisory / partial");
   await expect(runtimeTable.getByRole("row", { name: /AWS Strands/ }).locator(".trust-badge--stale")).toHaveText("Advisory / partial");

@@ -43,7 +43,7 @@ export const runtimeEnforcement: RuntimeEnforcement[] = [
     level: "advisory",
     label: "Advisory / opt-in block",
     meaning:
-      "All four policies ship and config protection blocks at tool-call time. Flow Agents' docs list Kiro's stop hook as blocking, but as of 9.2.0 its done-check ships in warn mode: set FLOW_AGENTS_GOAL_FIT_MODE=block, or goal_fit.mode \"block\" in .flow-agents/config/core.config.json, to make it stop the turn.",
+      "All four policies ship and config protection blocks at tool-call time. Flow Agents' docs list Kiro's stop hook as blocking, but as of 9.8.0 its done-check ships in warn mode: set FLOW_AGENTS_GOAL_FIT_MODE=block, or goal_fit.mode \"block\" in .flow-agents/config/core.config.json, to make it stop the turn.",
   },
   {
     runtime: "opencode",
