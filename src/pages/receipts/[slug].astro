@@ -70,7 +70,7 @@ const claimById = new Map(derived.claims.map((claim) => [claim.id, claim]));
   title={`${receipt.title} — trust receipt · Kontour AI`}
   description={receipt.summary}
 >
-  <Nav active="receipts" />
+  <Nav slot="header" active="receipts" />
 
   <!-- Hero -->
   <Section contour size="hero" borderBottom>
@@ -445,7 +445,7 @@ const claimById = new Map(derived.claims.map((claim) => [claim.id, claim]));
     </div>
   </Section>
 
-  <Footer />
+  <Footer slot="footer" />
 </Layout>
 
 <style>

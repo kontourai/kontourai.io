@@ -256,7 +256,7 @@ const receipts: { file: string; note: string }[] = [
   title="AI-DLC on Flow - a published delivery method, gated stage by stage · Kontour AI"
   description="A worked example of Flow and Flow Agents: the AI-DLC Kit runs the pinned AWS AI-DLC methodology as a Flow Agents kit, with a Flow gate on every stage, host-signed operator decisions, and route-back when an output is rejected."
 >
-  <Nav menu="products" />
+  <Nav slot="header" menu="products" />
 
   <Section contour size="hero" borderBottom>
     <Glow accent="cobalt-2" position="top-right" />
@@ -770,7 +770,7 @@ npx flow-agents kit review aidlc --dest /absolute/aidlc-bootstrap \\
     </div>
   </Section>
 
-  <Footer />
+  <Footer slot="footer" />
 </Layout>
 
 <style>

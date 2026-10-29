@@ -1,6 +1,5 @@
 #!/usr/bin/env node
-// Derives the site's brand assets from the vendored corporate marks in
-// src/icons/kontour/ (see src/components/KontourMark.astro for provenance).
+// Derives site metadata artwork from the approved Kontour UI marks.
 // DESIGN.md: raster exports derive from the SVGs, never from concept images.
 //
 //   public/favicon.svg           small cut, color set (a standalone SVG has no
@@ -20,11 +19,13 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
 import { chromium } from '@playwright/test';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const read = (rel) => readFileSync(path.join(root, rel), 'utf8');
-const icon = (name) => read(`src/icons/kontour/${name}.svg`).trim();
+const require = createRequire(import.meta.url);
+const icon = name => readFileSync(require.resolve(`@kontourai/ui/icons/${name}.svg`), 'utf8').trim();
 
 const css = read('src/styles/global.css');
 const token = (name) => {

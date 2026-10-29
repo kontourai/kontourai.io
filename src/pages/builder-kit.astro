@@ -72,7 +72,7 @@ const leftBehind: { file: string; note: string }[] = [
   title="Builder Kit - the delivery workflow your coding agent follows · Kontour AI"
   description="Builder Kit is the Flow Agents kit for shipping code: the agent has to plan before it writes, get critiqued before it verifies, and leave the evidence in your repo as files."
 >
-  <Nav active="builder-kit" />
+  <Nav slot="header" active="builder-kit" />
 
   <Section contour size="hero" borderBottom>
     <Glow accent="chalk-2" position="top-right" />
@@ -353,7 +353,7 @@ const leftBehind: { file: string; note: string }[] = [
     </div>
   </Section>
 
-  <Footer active="builder-kit" />
+  <Footer slot="footer" active="builder-kit" />
 </Layout>
 
 <style>

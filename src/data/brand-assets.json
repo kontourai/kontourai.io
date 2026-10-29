@@ -1,0 +1,115 @@
+{
+  "assets": [
+    {
+      "id": "kontour-lockup",
+      "label": "Kontour horizontal logo",
+      "source": "@kontourai/ui/icons/kontour-lockup-horizontal.svg",
+      "group": "corporate",
+      "height": 48,
+      "note": "Small cut. Use below 64px high."
+    },
+    {
+      "id": "kontour-lockup-large",
+      "label": "Kontour large horizontal logo",
+      "source": "@kontourai/ui/icons/kontour-lockup-large.svg",
+      "group": "corporate",
+      "height": 256,
+      "note": "Large cut. Use at 64px high or larger."
+    },
+    {
+      "id": "kontour-symbol",
+      "label": "Kontour symbol",
+      "source": "@kontourai/ui/icons/kontour-symbol.svg",
+      "group": "corporate",
+      "height": 48,
+      "note": "Small Headland cut. Use below 64px high."
+    },
+    {
+      "id": "kontour-symbol-lockup",
+      "label": "Kontour large symbol",
+      "source": "@kontourai/ui/icons/kontour-symbol-lockup.svg",
+      "group": "corporate",
+      "height": 256,
+      "note": "Heavier Headland cut. Use at 64px high or larger."
+    },
+    {
+      "id": "kontour-symbol-hero",
+      "label": "Kontour hero symbol",
+      "source": "@kontourai/ui/icons/kontour-symbol-hero.svg",
+      "group": "corporate",
+      "height": 256,
+      "note": "Fine-line Headland cut for large artwork. Use at 64px high or larger."
+    },
+    {
+      "id": "kontour-wordmark",
+      "label": "Kontour wordmark",
+      "source": "@kontourai/ui/icons/kontour-wordmark.svg",
+      "group": "corporate",
+      "height": 256,
+      "note": "Outlined wordmark. Keep its original proportions."
+    },
+    {
+      "id": "station",
+      "label": "Station",
+      "source": "@kontourai/ui/icons/station.svg",
+      "group": "product",
+      "height": 256
+    },
+    {
+      "id": "flow-agents",
+      "label": "Flow Agents",
+      "source": "@kontourai/ui/icons/flow-agents.svg",
+      "group": "product",
+      "height": 256
+    },
+    {
+      "id": "flow",
+      "label": "Flow",
+      "source": "@kontourai/ui/icons/flow.svg",
+      "group": "product",
+      "height": 256
+    },
+    {
+      "id": "surface",
+      "label": "Surface",
+      "source": "@kontourai/ui/icons/surface.svg",
+      "group": "product",
+      "height": 256
+    },
+    {
+      "id": "survey",
+      "label": "Survey",
+      "source": "@kontourai/ui/icons/survey.svg",
+      "group": "product",
+      "height": 256
+    },
+    {
+      "id": "veritas",
+      "label": "Veritas",
+      "source": "@kontourai/ui/icons/veritas.svg",
+      "group": "product",
+      "height": 256
+    },
+    {
+      "id": "console",
+      "label": "Console",
+      "source": "@kontourai/ui/icons/console.svg",
+      "group": "product",
+      "height": 256
+    },
+    {
+      "id": "fieldwork",
+      "label": "Fieldwork",
+      "source": "@kontourai/ui/icons/fieldwork.svg",
+      "group": "product",
+      "height": 256
+    },
+    {
+      "id": "hachure",
+      "label": "Hachure",
+      "source": "@kontourai/ui/icons/hachure.svg",
+      "group": "product",
+      "height": 256
+    }
+  ]
+}

@@ -23,7 +23,7 @@
   /* Colors — Chalk (light text) */
   --color-chalk:   #eaecf7;
   --color-chalk-2: #8b91b0;
-  --color-chalk-3: #4e566e;
+  --color-chalk-3: #8189a8;
 
   /* Colors — Accent */
   --color-gold:    #c9a35a;
@@ -850,4 +850,21 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: 12px;
   font-size: 0.9em;
   opacity: 0.75;
+}
+
+
+.skip-link {
+  position: fixed;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 10000;
+  padding: 0.75rem 1rem;
+  background: var(--color-chalk);
+  color: var(--color-ink);
+  transform: translateY(-200%);
+}
+.skip-link:focus {
+  transform: translateY(0);
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
 }

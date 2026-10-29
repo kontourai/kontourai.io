@@ -41,7 +41,7 @@ const lanes: { title: string; label: string; body: string; subject: string; body
   {
     title: 'Station workspace',
     label: 'Agents, projects, receipts in one place',
-    body: 'You want your agents, projects, and devices in one local-first workspace with the gates and receipts beside the work. Station is open source and in active development: run it from source or the macOS or Windows Nightly build, then tell us what you hit.',
+    body: 'You want your agents, projects, and devices in one local-first workspace with the gates and receipts beside the work. Station is open source and in active development: install the Nightly or the Nightly desktop app, or run it from source, then tell us what you hit.',
     subject: 'Kontour Station',
     bodyText: 'I am running Station and want to talk about:',
     accent: 'cobalt',
@@ -57,7 +57,7 @@ const stationCapabilitySources = getPublicEvidenceClaimSources('station.contact-
   title="Talk to us — design-partner work and build updates · Kontour AI"
   description="Station and the Flow Agents engine are open source under Apache-2.0. Bring one real workflow and we build the gated version of it with you."
 >
-  <Nav teaser />
+  <Nav slot="header" teaser />
 
   <Section contour size="hero" borderBottom>
     <Glow accent="gold" position="top-right" />
@@ -82,7 +82,7 @@ const stationCapabilitySources = getPublicEvidenceClaimSources('station.contact-
             promises, today, for nothing. Prefer a workspace to a plugin?{' '}
             <a href="https://station.kontourai.io/" data-umami-event="early-access-hero-station">Station</a> is
             open source too: your agents, projects, and devices in one place,
-            run from source or the macOS or Windows Nightly build.
+            installed from the Nightly, the Nightly desktop app, or source.
           </p>
           <p class="hero-copy animate-fade-up delay-200">
             The separate thing on offer here is hands-on. Bring one process you
@@ -229,7 +229,7 @@ const stationCapabilitySources = getPublicEvidenceClaimSources('station.contact-
     </div>
   </Section>
 
-  <Footer teaser />
+  <Footer slot="footer" teaser />
 </Layout>
 
 <style>

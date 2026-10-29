@@ -9,8 +9,8 @@ import Nav from '@/components/Nav.astro';
 ---
 
 <Layout title="You're on the list · Kontour AI" noindex>
-  <Nav teaser />
-  <main class="subscribed">
+  <Nav slot="header" teaser />
+  <div class="subscribed">
     <p class="label-sm subscribed__kicker">Build updates</p>
     <h1 class="display-md subscribed__title">You're on the list.</h1>
     <p class="body subscribed__copy">
@@ -21,7 +21,7 @@ import Nav from '@/components/Nav.astro';
       <a href="/developers/" class="btn-primary" data-umami-event="subscribed-developers">Start with two commands →</a>
       <a href="/" class="btn-ghost" data-umami-event="subscribed-home">Back home</a>
     </div>
-  </main>
+  </div>
 </Layout>
 
 <style>

@@ -41,7 +41,7 @@ const reviewBenefits: { title: string; accent: Accent; items: string[] }[] = [
   title="Survey — keep the evidence behind every reviewed value · Kontour AI"
   description="Survey keeps the source, the sentence, the alternatives, and the reviewer's decision attached to every value your product publishes as reviewed."
 >
-  <Nav active="survey" />
+  <Nav slot="header" active="survey" />
 
   <!-- Hero -->
   <Section contour size="hero" borderBottom>
@@ -482,7 +482,7 @@ const reviewBenefits: { title: string; accent: Accent; items: string[] }[] = [
     </div>
   </Section>
 
-  <Footer active="survey" />
+  <Footer slot="footer" active="survey" />
 </Layout>
 
 <style>

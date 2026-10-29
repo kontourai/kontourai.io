@@ -2,6 +2,23 @@ import { readFile } from "node:fs/promises";
 import { expect, test } from "@playwright/test";
 import { validateTrustBundle } from "@kontourai/surface";
 
+test("Veritas planning and approval qualifiers are explicit", async ({ page }) => {
+  await page.goto("/veritas/");
+  await expect(page.locator("body")).toContainText("npx --no @kontourai/veritas plan <paths you will change>");
+  await expect(page.locator("body")).toContainText("An optional Oxlint reference pack, merged into your own lint config, flags Biome, ESLint, Oxlint, and TypeScript suppression comments that give no reason.");
+  await expect(page.locator("body")).toContainText("Run veritas plan on the files you are about to change to see which checks and guidance apply.");
+  await expect(page.locator("body")).toContainText("The reference is verified only in the resolved and resolved-strict approval modes.");
+  await expect(page.locator("body")).toContainText("If source files, the index, or HEAD differ after the checks from when they started, readiness stops before writing a report.");
+});
+
+test("Station homepage installation and Project details are explicit", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator(".station__status")).toContainText("Install the Nightly with one command on macOS, Linux, or Windows x64, use the Nightly desktop app on an Apple silicon Mac or a Windows x64 PC, or run it from source.");
+  await expect(page.locator(".station__card-copy").nth(1)).toContainText("a shared Room for discussion and notes, and a Task can start from a GitHub issue");
+  await expect(page.locator('img[src="/screenshots/station-project.png"]')).toHaveAttribute("alt", /Project room/);
+  await expect(page.locator(".station__shot figcaption")).toContainText("four Tasks ready to start");
+});
+
 test("homepage keeps the company headline, leads with Station, then the recognition-then-mechanism argument", async ({ page }) => {
   await page.goto("/");
 
@@ -38,7 +55,7 @@ test("homepage keeps the company headline, leads with Station, then the recognit
   await expect(page.locator('[data-umami-event="home-station-privacy"]')).toHaveAttribute("href", "/privacy/station/");
   // The Station capture is a manifest-bound visual with its provenance in the caption.
   await expect(page.locator('img[src="/screenshots/station-project.png"]')).toHaveAttribute("alt", /Trail Notes/);
-  await expect(page.getByText(/Station Nightly 0\.1\.11-nightly\.247504 \(revision f5e213693\)\s+served from a temporary Station home/)).toBeVisible();
+  await expect(page.getByText(/Station Nightly 0\.1\.11-nightly\.249203 \(revision 7ab23e35\)\s+running from a temporary Station home/)).toBeVisible();
   await expect(page.getByText("desktop builds check their release feed for updates")).toBeVisible();
   await expect(page.locator('[data-umami-event="home-station-tour"]')).toHaveAttribute("href", "https://station.kontourai.io/");
   await expect(page.locator('[data-umami-event="home-station-setup"]')).toHaveAttribute("href", "https://kontourai.github.io/station/docs/user/getting-started.html");
@@ -436,7 +453,7 @@ test("early access page gives static contact paths", async ({ page }) => {
   // Station has its own lane now that it is the main product; the lane and the
   // hero mention both point at the product site rather than an install command.
   await expect(page.getByRole("heading", { name: "Station workspace" })).toBeVisible();
-  await expect(page.getByText("run it from source or the macOS or Windows Nightly build, then tell us what you hit")).toBeVisible();
+  await expect(page.getByText("install the Nightly or the Nightly desktop app, or run it from source, then tell us what you hit")).toBeVisible();
   await expect(page.locator('[data-umami-event="early-access-hero-station"]')).toHaveAttribute("href", "https://station.kontourai.io/");
   await expect(page.getByText("One concrete workflow is enough.")).toBeVisible();
   await expect(page.locator('[data-umami-event="early-access-hero-email"]')).toHaveAttribute("href", /mailto:hello@kontourai\.io/);
@@ -472,14 +489,14 @@ test("default social metadata includes canonical and share image", async ({ page
   await expect(page.locator('meta[name="twitter:image:alt"]')).toHaveAttribute("content", /Kontour AI share card/);
 });
 
-// The corporate marks are the vendored kontourai/ui files (src/icons/kontour/).
+// Compare rendered corporate geometry with the approved package assets.
 // Compare the rendered paths with the file's, so a redrawn or swapped mark fails.
 const markPaths = (svg) => [...svg.matchAll(/\sd="([^"]+)"/g)].map(([, d]) => d);
 const pngSize = (bytes) => [bytes.readUInt32BE(16), bytes.readUInt32BE(20)];
 
 test("header and footer draw the Headland marks, not the old K or a live-text wordmark", async ({ page }) => {
-  const lockup = await readFile(new URL("../src/icons/kontour/kontour-lockup-horizontal.svg", import.meta.url), "utf8");
-  const wordmark = await readFile(new URL("../src/icons/kontour/kontour-wordmark.svg", import.meta.url), "utf8");
+  const lockup = await readFile(new URL(import.meta.resolve("@kontourai/ui/icons/kontour-lockup-horizontal.svg")), "utf8");
+  const wordmark = await readFile(new URL(import.meta.resolve("@kontourai/ui/icons/kontour-wordmark.svg")), "utf8");
 
   for (const path of ["/", "/404/"]) {
     await page.goto(path);
@@ -513,7 +530,7 @@ test("favicon, touch icon, and share image are the shipped Headland assets", asy
   await expect(page.locator('link[rel="icon"]')).toHaveAttribute("type", "image/svg+xml");
   await expect(page.locator('link[rel="apple-touch-icon"]')).toHaveAttribute("href", "/apple-touch-icon.png");
 
-  const symbol = await readFile(new URL("../src/icons/kontour/kontour-symbol.svg", import.meta.url), "utf8");
+  const symbol = await readFile(new URL(import.meta.resolve("@kontourai/ui/icons/kontour-symbol.svg")), "utf8");
   const favicon = await request.get("/favicon.svg");
   expect(favicon.status()).toBe(200);
   const faviconSvg = await favicon.text();
@@ -701,6 +718,9 @@ test("veritas page shows the promise, a concrete catch, and the surface handoff"
   await expect(page.getByRole("heading", { name: "Define what good looks like" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Guide work at the moment of change" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Earn merge readiness" })).toBeVisible();
+  // Readiness informs a merge decision; it has not been shown to make reduced review safe.
+  await expect(page.getByText("it does not show that less human review is safe")).toBeVisible();
+  await expect(page.getByText(/reduced human review/i)).toHaveCount(0);
 
   // Concrete use-case section
   await expect(page.locator(".label-sm").filter({ hasText: "Example use case" })).toBeVisible();
@@ -716,9 +736,16 @@ test("veritas page shows the promise, a concrete catch, and the surface handoff"
   // Current CLI and the Surface handoff
   await expect(page.locator(".label-sm").filter({ hasText: "Current CLI" })).toBeVisible();
   await expect(page.getByText("Veritas is built with Surface.")).toBeVisible();
-  // #164 enrichment: exceptions are first-class and attributed.
-  await expect(page.getByText("authority-backed decision to accept")).toBeVisible();
-  await expect(page.getByText("accepted by exception").first()).toBeVisible();
+  // Exceptions are recorded by the pre-edit hook, but Veritas verifies no approver
+  // and readiness does not read them (veritas docs/concepts.md). The old copy claimed both.
+  await expect(page.getByText("Veritas does not verify an approver for that exception")).toBeVisible();
+  await expect(page.getByText(/authority-backed decision|accepted by exception|approver named/i)).toHaveCount(0);
+  // A companion-path check is not a confirmed fix, and marker scores are not outcome measures.
+  await expect(page.getByText("That alone does not show the test covers the route")).toBeVisible();
+  // compressHTML drops the newline after </code>; the fused-words scan does not see the ** boundary.
+  const coChange = await page.locator("p", { hasText: "next run reports whether a file under" }).innerText();
+  expect(coChange).toContain("tests/api/** changed");
+  await expect(page.getByText(/fix actually landed|actually improves agent outcomes|manual-review\s+bottleneck/i)).toHaveCount(0);
 
   // Integrations are split by CAPABILITY, not listed as equivalents. Only the
   // Claude Code PreToolUse path blocks a write; the codex/cursor/copilot hooks
@@ -913,9 +940,8 @@ test("console page presents the suite operating plane and operator outcomes", as
   await expect(page.locator(".label-sm").filter({ hasText: "What it answers" })).toBeVisible();
   await expect(page.getByText("One screen for sessions, gates, proof, queues, and next actions.").first()).toBeVisible();
 
-  // Nothing on this page is "illustrative" any more: both invented terminals
-  // (the "suite work queue" and the "operator attention view") are deleted, and
-  // every block is a real run against this site's own public repo.
+  // Terminal output remains from the named real run. UI captures use a
+  // separately labeled local rendering fixture, with versioned provenance.
   await expect(page.getByText("kontourai-kontourai-io-208").first()).toBeVisible();
   await expect(page.getByText("illustrative")).toHaveCount(0);
   await expect(page.getByText("kontour-flow-bridge").first()).toBeVisible();
@@ -1224,6 +1250,13 @@ test("developers page leads with the engine and kits, then exposes the proof cha
   await expect(page.getByText("are advisory out of the box (matrix on /trust)")).toBeVisible();
   // Appears twice by design: the hero install-hint badge and the quickstart terminal.
   await expect(page.getByText("npx @kontourai/flow-agents init").first()).toBeVisible();
+  const telemetryNote = page.locator(".quickstart-note").filter({ hasText: "Telemetry follows the resolved configuration" });
+  await expect(telemetryNote).toContainText("existing Console endpoint");
+  await expect(telemetryNote).toContainText("--telemetry-sink local-files");
+  await expect(telemetryNote).toContainText("TELEMETRY_CONFIG_FILE");
+  await expect(telemetryNote).toContainText("separately enabled OTLP bridge");
+  await expect(telemetryNote).toContainText("not network isolation");
+  await expect(page.getByText("Nothing leaves your machine unless you point it at a Console.")).toHaveCount(0);
   const devPins = JSON.parse(
     await readFile(new URL("../package.json", import.meta.url), "utf8"),
   ).devDependencies;
@@ -1305,10 +1338,9 @@ test("developers page leads with the engine and kits, then exposes the proof cha
   await expect(page.locator('[data-umami-event="developers-lab-cli-docs"]')).toHaveAttribute("href", "https://kontourai.github.io/cli/");
   await expect(page.getByText("npm install --global @kontourai/cli")).toBeVisible();
   await expect(page.locator('[data-umami-event="developers-docs-hub"]')).toHaveAttribute("href", "https://kontourai.github.io/");
-  // The docs MCP command carries the docs-kit commit the hub README pins
-  // (literal, checked against github.com/kontourai/kontourai.github.io on 2026-10-11).
+  // Pin the public installation recipe to the reviewed v2-compatible server.
   await expect(
-    page.getByText("github:kontourai/docs-kit#27cd43ded8c6e2e591d85d1d65bff31b3ae92e24 docs-kit mcp"),
+    page.getByText("--package=https://codeload.github.com/kontourai/corpus/tar.gz/b8ecf4cd4c6482bb804cdeea617ebe2d9b78ab05 -- corpus mcp"),
   ).toBeVisible();
   // This site's Trust Verify workflow was retired (#302) and was never a
   // required check; the proof line names the check that is required.
@@ -1504,7 +1536,13 @@ test("flow agents page presents agent-tool discipline and status", async ({ page
   await expect(page.getByRole("heading", { name: "Know what ran, what passed, and what still needs a decision." })).toBeVisible();
   // The install section states the cost before the reader pays it.
   await expect(page.getByText("Needs Node 22 or newer.")).toBeVisible();
-  await expect(page.getByText("Nothing leaves your machine unless you point it at a Console.")).toBeVisible();
+  const telemetryNote = page.locator(".install-copy--last");
+  await expect(telemetryNote).toContainText("existing Console endpoint");
+  await expect(telemetryNote).toContainText("--telemetry-sink local-files");
+  await expect(telemetryNote).toContainText("TELEMETRY_CONFIG_FILE");
+  await expect(telemetryNote).toContainText("separately enabled OTLP bridge");
+  await expect(telemetryNote).toContainText("not network isolation");
+  await expect(page.getByText("Nothing leaves your machine unless you point it at a Console.")).toHaveCount(0);
   // The old install terminal claimed ✓ engine / ✓ gates / ✓ adapters /
   // ✓ primitives / ✓ catalog — none of which the tool prints.
   await expect(page.getByText("Installed Claude Code bundle into")).toBeVisible();
@@ -1918,9 +1956,9 @@ test("trust page states what it can't certify, the bypass list, the assurance di
   // Kiro ships the engine's warn default (only Claude Code/Codex ship block) —
   // badging it "Blocking" was an overclaim, fixed in #110.
   await expect(runtimeTable.getByRole("row", { name: /Kiro/ }).locator(".trust-badge--stale")).toHaveText("Advisory / opt-in block");
-  // Upstream docs say Kiro blocks; 8.0.0 ships its done-check in warn mode. Say both.
-  await expect(runtimeTable.getByRole("row", { name: /Kiro/ })).toContainText("docs list Kiro's stop hook as blocking");
-  await expect(runtimeTable.getByRole("row", { name: /Kiro/ })).toContainText("as of 8.0.0 its done-check ships in warn mode");
+  // Published 9.8.0 still ships Kiro’s done-check in warn mode.
+  await expect(runtimeTable.getByRole("row", { name: /Kiro/ })).toContainText("As of 9.8.0, Kiro's done-check ships in warn mode");
+
   await expect(runtimeTable.getByRole("row", { name: /opencode/ }).locator(".trust-badge--stale")).toHaveText("Advisory / partial");
   await expect(runtimeTable.getByRole("row", { name: /^pi\s/ }).locator(".trust-badge--stale")).toHaveText("Advisory / partial");
   await expect(runtimeTable.getByRole("row", { name: /AWS Strands/ }).locator(".trust-badge--stale")).toHaveText("Advisory / partial");
@@ -1990,7 +2028,7 @@ test("freshness pass keeps current claims distinct from frozen demonstrations", 
   await expect(page.getByRole("heading", { name: "Three kits ship with it, and more install from their own repos." })).toBeVisible();
 
   await page.goto("/flow/");
-  await expect(page.getByText("Recorded with").filter({ hasText: "@kontourai/flow 5.2.0" })).toBeVisible();
+  await expect(page.getByText("Recorded with").filter({ hasText: "@kontourai/flow 5.4.0" })).toBeVisible();
 
   await page.goto("/survey/");
   await expect(page.getByText("Real output captured from").filter({ hasText: "@kontourai/survey 2.2.2" })).toBeVisible();
@@ -2086,5 +2124,14 @@ test("AI-DLC use case walks one real gate, labels what was captured, and is link
   ]) {
     await page.goto(route);
     await expect(page.locator(`[data-umami-event="${event}"]`)).toHaveAttribute("href", "/use-cases/aidlc/");
+  }
+});
+
+test("Veritas is not described as granting merge autonomy", async ({ page }) => {
+  // Readiness informs a team's merge decision; nothing shows review can be safely reduced.
+  for (const path of ["/surface/", "/developers/"]) {
+    await page.goto(path);
+    await expect(page.getByText(/merge autonomy/i)).toHaveCount(0);
+    await expect(page.getByText("Readiness evidence for AI-authored changes").first()).toBeAttached();
   }
 });

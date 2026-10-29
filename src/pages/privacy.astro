@@ -24,7 +24,7 @@ const repo = 'https://github.com/kontourai/kontourai.io/blob/main';
   title="Privacy — what this site collects, in plain terms · Kontour AI"
   description="What kontourai.io collects when you read it, what it stores if you give us your email, which third parties are involved, and how to get your data deleted."
 >
-  <Nav />
+  <Nav slot="header" />
 
   <Section contour size="hero" borderBottom>
     <div class="container container--readable">
@@ -150,7 +150,7 @@ const repo = 'https://github.com/kontourai/kontourai.io/blob/main';
     </div>
   </Section>
 
-  <Footer />
+  <Footer slot="footer" />
 </Layout>
 
 <style>

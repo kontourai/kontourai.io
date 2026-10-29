@@ -13,10 +13,13 @@ import Split from '@/components/Split.astro';
 import QuestionGrid from '@/components/QuestionGrid.astro';
 import ProductMark from '@/components/ProductMark.astro';
 import { getProductStatus, productBadge } from '@/lib/product-status';
+import { assetCapture } from '@/lib/marketing-assets';
 import type { Accent } from '@/lib/theme';
 
 const consoleStatus = getProductStatus('console');
 const DOCS = 'https://kontourai.github.io/console/';
+const overviewShot = assetCapture('public/screenshots/console-environment.png');
+const operateShot = assetCapture('public/screenshots/console-operating-plane.png');
 
 // Each of these is answered by a labeled region of the Overview shot above it.
 const questions: { q: string; accent?: Accent }[] = [
@@ -57,7 +60,7 @@ const operatingBenefits: { title: string; accent: Accent; items: string[] }[] = 
   title="Console — One operating plane for the suite · Kontour AI"
   description="Console shows what is live, blocked, stale, waiting, and backed by proof, with the context and next action for each session."
 >
-  <Nav active="console" />
+  <Nav slot="header" active="console" />
 
   <!-- Hero -->
   <Section contour size="hero" borderBottom>
@@ -102,16 +105,16 @@ const operatingBenefits: { title: string; accent: Accent; items: string[] }[] = 
   <Section id="see-it" size="lg">
     <div class="container">
       <Eyebrow accent="cobalt" gap="sm">What it answers</Eyebrow>
-      <h2 class="display-md measure-lg ans-title">Three things need you. Here they are, by name.</h2>
+      <h2 class="display-md measure-lg ans-title">See what is waiting on you.</h2>
 
       <figure class="product-shot shot--lead">
-        <img src="/screenshots/console-environment.png" alt="Console Overview: needs-you triage cards, stat tiles for processes, gates, claims, and inquiries, and a live happening-now feed" loading="lazy" />
+        <img src="/screenshots/console-environment.png" alt="Console Overview with example producer records: one review waiting for evidence, visible missing trust-report feed, and fleet status" loading="lazy" />
         <figcaption>
-          The first screen you land on. One run is parked at the Required fields
-          coverage gate, waiting for someone to record a license-number source;
-          two more processes have not moved in weeks and say so. Underneath:
-          what is active, which gates passed, which claims are still verified,
-          and the last few things that happened, in order.
+          The Overview in Console {overviewShot.capturedAgainstVersion}, captured
+          on {overviewShot.capturedAt} from an isolated local hub with example
+          producer records. One example run is waiting for review evidence.
+          Missing feeds and the absence of spend or claim data remain visible;
+          these sample records do not establish a real gate outcome.
         </figcaption>
       </figure>
 
@@ -126,14 +129,14 @@ const operatingBenefits: { title: string; accent: Accent; items: string[] }[] = 
       <h2 class="display-md measure-lg ans-title">One screen for sessions, gates, proof, queues, and next actions.</h2>
 
       <figure class="product-shot">
-        <img src="/screenshots/console-operating-plane.png" alt="Console local operating plane: an interactive process canvas with passed and waiting gates, claims, and an active process" loading="lazy" />
+        <img src="/screenshots/console-operating-plane.png" alt="Console Operate view of an example pipeline waiting at review, with retained producer events and visible evidence gaps" loading="lazy" />
         <figcaption>
-          One run, drawn from its own records: plan and shape passed, implement
-          is current, verify and publish are blocked — because the Required
-          fields coverage gate is still missing license-number-source evidence.
-          The gate that passed shows what it checked. The action beside it is
-          marked read-only: Console reports the state of your work, it does not
-          drive it. <a href={DOCS} target="_blank" rel="noopener">Explore the docs →</a>
+          The Operate view in Console {operateShot.capturedAgainstVersion},
+          captured on {operateShot.capturedAt} from the same local example.
+          The sample pipeline is at review, waiting for its evidence, and the
+          earlier events remain inspectable. This demonstrates rendering of
+          producer records, not execution of a production workflow.
+          {' '}<a href={DOCS} target="_blank" rel="noopener">Explore the docs →</a>
         </figcaption>
       </figure>
     </div>
@@ -401,7 +404,7 @@ const operatingBenefits: { title: string; accent: Accent; items: string[] }[] = 
     </div>
   </Section>
 
-  <Footer active="console" />
+  <Footer slot="footer" active="console" />
 </Layout>
 
 <style>
