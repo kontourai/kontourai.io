@@ -37,7 +37,7 @@
     "check:brand-downloads": "node scripts/check-brand-downloads.mjs"
   },
   "dependencies": {
-    "@kontourai/surface": "2.14.0",
+    "@kontourai/surface": "6.2.1",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "7.4.2",
     "tailwindcss": "^4.3.0"
