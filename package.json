@@ -43,7 +43,7 @@
     "tailwindcss": "^4.3.0"
   },
   "devDependencies": {
-    "@kontourai/flow-agents": "5.10.0",
+    "@kontourai/flow-agents": "9.9.1",
     "@kontourai/ui": "^1.20.1",
     "@kontourai/veritas": "1.11.4",
     "@playwright/test": "^1.64.1",
