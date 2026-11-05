@@ -78,14 +78,14 @@
     },
     {
       "id": "station-public-product-content",
-      "reviewedAt": "2026-11-05T15:48:07Z",
-      "note": "Reviewed Station homepage, developer/contact entry, current source citations, install instructions and read-only collaboration limits against current main. Existing Nightly screenshots remain explicitly dated.",
+      "reviewedAt": "2026-11-05T23:35:50.307Z",
+      "note": "Reviewed Station homepage, developer/contact entry, current source citations, install instructions and read-only collaboration limits against current main. Existing Nightly screenshots remain explicitly dated. Re-reviewed README.md, docs/guides/nightly.md, docs/guides/release-channel-ports.md at 748e8b05d1ef1e3600b184cfd466af7d8ce23da9: updated positioning and date-based Nightly identities do not change the advertised install commands, fixed download names, ownership or sharing limits. Partial desktop publication is not treated as delivery proof.",
       "limits": "Station statements only; other products on shared pages are outside this review. Public CLI metadata is independently checked against npm. No new screenshot, install or release certification.",
       "inputs": [
         {
           "url": "https://github.com/kontourai/station/blob/main/README.md",
-          "revision": "083dea55cbbe6e8a30c031fb1d28a9f3c2efdbff",
-          "sha256": "cec53824391b635f68c45ae9bfbcdc903c8699bc93290add87b463c66cb241b6"
+          "revision": "748e8b05d1ef1e3600b184cfd466af7d8ce23da9",
+          "sha256": "9687c01b432620616c2d1ff92478f765d1ed12facc9cc97c8ff4d9bf510abf9a"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/docs/guides/connections.md",
@@ -104,8 +104,8 @@
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/docs/guides/nightly.md",
-          "revision": "083dea55cbbe6e8a30c031fb1d28a9f3c2efdbff",
-          "sha256": "22a4d5576acf88f751d5b14d33c5f764312663cbed80f1b74832f212d02e2b5b"
+          "revision": "748e8b05d1ef1e3600b184cfd466af7d8ce23da9",
+          "sha256": "e77e1b8ad0cb5d018046c83df98b71581127efee023b7c64c88803921f631c36"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/docs/guides/plugins.md",
@@ -114,8 +114,8 @@
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/docs/guides/release-channel-ports.md",
-          "revision": "083dea55cbbe6e8a30c031fb1d28a9f3c2efdbff",
-          "sha256": "7afbacf6bc04abde7528d6852060b2cf3617cc93c73aca962e985e90b01cb863"
+          "revision": "748e8b05d1ef1e3600b184cfd466af7d8ce23da9",
+          "sha256": "93c5bca1a7276a1a1524bd90c76b77a75fddf1bbae261d1c7a1bde4c15b41c37"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/docs/user/concepts.md",
@@ -158,7 +158,7 @@
         },
         {
           "path": "src/data/public-evidence-registry.json",
-          "sha256": "8a90183468c8c1370941ab633c7d76450be9dc4cc7d6bfe96ca79e85d72bc9fa"
+          "sha256": "487998dab394ae09dcec095e43640b4cf67aebea8f4ecae80de21490ded7376e"
         },
         {
           "path": "src/data/product-status.json",
