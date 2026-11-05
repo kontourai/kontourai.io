@@ -21,15 +21,20 @@ This is the connective tissue across the product line:
 
 **Station is an open-source coding workspace for individual developers and
 small teams working with coding agents.**
-The experience starts with personal project work: choose an agent, keep context
-and results together, inspect changes and checks, and follow the work from a
-paired computer or phone.
+The individual developer experience earns adoption first: plan, build, and ship
+with coding agents, retain the work between visits, and use plugins to shape the
+workspace. The public promise is **Code from anywhere. On your own, or with your
+team.**
 
-The team vision is an interactive Task room. People and agents work from
-shared Task and project knowledge, talk with each other, inspect agent activity,
-and contribute within their permissions. Room participation and permission to
-direct an agent are separate choices. Project rooms, invitations and roles,
-Task memory, and review surfaces are foundations for that experience.
+**From your first idea to what you ship.** Plan, build, and ship with your coding agents. Start on your own, then bring in teammates who can make decisions with you and take the work forward themselves. See progress as it happens, share what you learn, and build on work already done.
+
+That team participation is product direction. People should be able to join work
+already underway, understand its decisions, and contribute alongside its agents.
+Shared knowledge and visible progress should help people reuse learning and
+avoid overlapping effort. Task rooms, Project knowledge, and permissions support
+that concept; they should not replace the value proposition in public copy.
+Participation and authority to direct agents remain explicit choices.
+
 Describe each supported path at its actual scope: paired-device access is
 different from another person's access, and the separate collaborator browser
 entry currently reads shared Tasks without editing or agent execution. The
@@ -239,9 +244,10 @@ Kontour AI shows the work behind AI.
 
 ### Station
 
-A coding workspace for working with agents. Start with your own projects and
-preferred agents, review each Task’s context and checks across paired devices,
-and add plugins. Project sharing is limited; Station’s guides document its
+An open-source coding workspace for taking your own project from idea to
+delivery. Start with your agents, retain knowledge and progress, and bring in
+teammates who can make decisions and drive changes as the team experience
+develops. Project sharing is limited today; Station’s guides document its
 current scope.
 
 ### Surface
