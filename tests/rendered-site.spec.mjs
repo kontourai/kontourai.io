@@ -36,7 +36,7 @@ test("homepage keeps the company headline, leads with Station, then the recognit
   await expect(page.locator(".hero-inner > *").first()).toHaveClass(/hero-title/);
   // The company slogan stays the headline (owner direction 2026-09-05); the
   // lead beneath it introduces Station as the product, not Flow Agents.
-  await expect(page.getByText("Station is the agent workspace where work ships with receipts.").first()).toBeVisible();
+  await expect(page.getByText("Station is an open-source coding workspace that grows with you.").first()).toBeVisible();
   await expect(page.locator(".hero-inner").getByText("AI writes more code than anyone can read line by line.")).toHaveCount(0);
 
   // Hero CTAs: Station leads, Flow Agents is the offer for existing tools.
@@ -453,7 +453,7 @@ test("early access page gives static contact paths", async ({ page }) => {
   // Station has its own lane now that it is the main product; the lane and the
   // hero mention both point at the product site rather than an install command.
   await expect(page.getByRole("heading", { name: "Station workspace" })).toBeVisible();
-  await expect(page.getByText("install the Nightly or the Nightly desktop app, or run it from source, then tell us what you hit")).toBeVisible();
+  await expect(page.getByText("try the Nightly and tell us where the experience needs work")).toBeVisible();
   await expect(page.locator('[data-umami-event="early-access-hero-station"]')).toHaveAttribute("href", "https://station.kontourai.io/");
   await expect(page.getByText("One concrete workflow is enough.")).toBeVisible();
   await expect(page.locator('[data-umami-event="early-access-hero-email"]')).toHaveAttribute("href", /mailto:hello@kontourai\.io/);

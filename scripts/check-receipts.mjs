@@ -63,8 +63,9 @@ if (!/^\d+\.\d+\.\d+$/.test(surfacePin)) {
 const hachureBin = path.join(
   rootDir,
   "node_modules",
-  ".bin",
-  process.platform === "win32" ? "hachure.cmd" : "hachure",
+  "hachure",
+  "bin",
+  "hachure.mjs",
 );
 
 const sources = readdirSync(srcDir).filter((name) => name.endsWith(SRC_SUFFIX));
@@ -120,7 +121,10 @@ for (const sourceName of sources.sort()) {
   //    error, never a skip — the "two implementations, same verdict"
   //    affordance on the receipts pages is only honest while this passes.
   try {
-    execFileSync(hachureBin, ["validate", srcPath], { stdio: "pipe" });
+    execFileSync(process.execPath, [hachureBin, "validate", srcPath], {
+      stdio: "pipe",
+      windowsHide: true,
+    });
     console.log(`PASS  ${slug}: second validator agrees (hachure@${hachurePin} validate)`);
   } catch (err) {
     const detail = err.stderr?.toString().trim() || err.stdout?.toString().trim() || err.message;

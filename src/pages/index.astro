@@ -62,7 +62,7 @@ const stationCapabilitySources = getPublicEvidenceClaimSources('station.home-wor
 
 <Layout
   title="Kontour AI — Make your agents show their work"
-  description="Station brings your agents, projects, and devices into one open-source, local-first workspace, with gates, evidence, and receipts beside the work. Flow Agents brings the same discipline into the coding tools you already run."
+  description="Station is an open-source coding workspace that grows with you. Work with your agents across devices, keep context and checks together, and extend the workspace with plugins."
 >
   <Nav slot="header" active="home" />
 
@@ -77,13 +77,12 @@ const stationCapabilitySources = getPublicEvidenceClaimSources('station.home-wor
         </h1>
 
         <p class="lead measure animate-fade-up delay-100 hero-lead">
-          Station is the agent workspace where work ships with receipts. It
-          brings your agents, projects, and devices into one open-source,
-          local-first workspace. Configured workflows keep gate results,
-          evidence, and receipts beside the work, so you can review what ran
-          and what still needs checking before accepting the result.
-          Already shipping with a coding agent? Flow Agents brings the same
-          discipline into the tools you run today.
+          Station is an open-source coding workspace that grows with you.
+          Work with the agents you choose, follow your projects from your
+          computer or phone, and keep context, changes, and checks together.
+          Review what happened and what still needs you before accepting the
+          result. Flow Agents brings evidence-backed workflows into the
+          coding tools you already run.
         </p>
 
         <div class="animate-fade-up delay-200 hero-actions">
@@ -102,8 +101,9 @@ const stationCapabilitySources = getPublicEvidenceClaimSources('station.home-wor
       <Eyebrow accent="cobalt">Station</Eyebrow>
       <h2 class="display-md station__title">One workspace for the whole job.</h2>
       <p class="body measure station__copy">
-        Most agent tools stop at an answer or a diff. Station keeps the work
-        and the reason it is allowed to advance together, on your machine.
+        Start with your own coding work. Keep plans, conversations, changes,
+        and decisions attached to the project, then shape the workspace with
+        plugins and use its scoped sharing controls as you involve others.
       </p>
       <Grid cols={3} gap="md" class="station__grid">
         <Card accent="cobalt" bar="top" pad="md">
@@ -111,8 +111,8 @@ const stationCapabilitySources = getPublicEvidenceClaimSources('station.home-wor
           <p class="body station__card-copy">
             Run Station agents on a local or hosted model, or connect supported
             agent CLIs such as Claude Code and Codex as External agents. Each
-            engine keeps its own tool loop; Station supplies the project
-            context, the gates, and the record.
+            engine keeps its own tool loop. Station brings project context,
+            execution history, and configured workflow evidence together.
           </p>
         </Card>
         <Card accent="cobalt" bar="top" pad="md">
@@ -131,6 +131,19 @@ const stationCapabilitySources = getPublicEvidenceClaimSources('station.home-wor
           </p>
         </Card>
       </Grid>
+      <p class="body measure station__copy">
+        <strong>Grow into shared work.</strong> Project invitations and roles
+        provide scoped access. The separate collaborator browser entry can
+        read shared Tasks; editing and execution through that entry remain
+        unavailable. Review the <a href="https://kontourai.github.io/station/docs/guides/deployment-authentication.html" target="_blank" rel="noopener">sharing setup and current limits</a>{' '}
+        before inviting a teammate.
+      </p>
+      <p class="body measure station__copy">
+        <strong>Make it fit your work.</strong> Plugins add layouts, agents,
+        tools, knowledge, connections, and skills through the public SDK.
+        Individuals can tailor their workspace; teams can build purpose-built
+        work surfaces on the same extension contracts.
+      </p>
       <figure class="product-shot station__shot">
         <img src="/screenshots/station-project.png" alt="Station Project page for a sample project called Trail Notes on its main branch. The Project menu lists Overview, Project room, Tasks, Files &amp; connections, and Settings. The Tasks view is open, with four to-do Tasks and a New Task button." loading="lazy" width="1400" height="874" />
         <figcaption>
@@ -146,7 +159,7 @@ const stationCapabilitySources = getPublicEvidenceClaimSources('station.home-wor
         <a href="/privacy/station/" data-umami-event="home-station-privacy">Station privacy policy</a>.
       </p>
       <p class="fine measure">
-        Station capability descriptions reviewed against source on 29 October 2026:{' '}
+        Station capability descriptions reviewed against source on 4 November 2026:{' '}
         {stationCapabilitySources.map((source, index) => <Fragment>{index > 0 && ' · '}<a href={source.url} target="_blank" rel="noopener">{source.sourcePath}</a></Fragment>)}.
         This is a source review, not installed server, desktop, or mobile qualification.
         Nightly is a testing channel; see the setup guide for platform limits.

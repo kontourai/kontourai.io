@@ -72,31 +72,43 @@
       "id": "station.home-workspace-readme",
       "subject": "station",
       "sourcePath": "README.md",
-      "url": "https://github.com/kontourai/station/blob/7ab23e351c844bdccf6359c8ba773e11c8ab00ad/README.md"
+      "url": "https://github.com/kontourai/station/blob/e5c20a74a4e62acb8fe2ba1a0bb727350ac6cf6b/README.md"
     },
     {
       "id": "station.home-workspace-setup",
       "subject": "station",
       "sourcePath": "docs/user/getting-started.md",
-      "url": "https://github.com/kontourai/station/blob/7ab23e351c844bdccf6359c8ba773e11c8ab00ad/docs/user/getting-started.md"
+      "url": "https://github.com/kontourai/station/blob/e5c20a74a4e62acb8fe2ba1a0bb727350ac6cf6b/docs/user/getting-started.md"
     },
     {
       "id": "station.home-workspace-rooms",
       "subject": "station",
       "sourcePath": "docs/guides/machine-relationships.md",
-      "url": "https://github.com/kontourai/station/blob/7ab23e351c844bdccf6359c8ba773e11c8ab00ad/docs/guides/machine-relationships.md"
+      "url": "https://github.com/kontourai/station/blob/e5c20a74a4e62acb8fe2ba1a0bb727350ac6cf6b/docs/guides/machine-relationships.md"
     },
     {
       "id": "station.workspace",
       "subject": "station",
       "sourcePath": "README.md",
-      "url": "https://github.com/kontourai/station/blob/64c3b8ced637018f30912749dd0be43b90222293/README.md"
+      "url": "https://github.com/kontourai/station/blob/e5c20a74a4e62acb8fe2ba1a0bb727350ac6cf6b/README.md"
     },
     {
       "id": "station.setup",
       "subject": "station",
       "sourcePath": "docs/user/getting-started.md",
-      "url": "https://github.com/kontourai/station/blob/64c3b8ced637018f30912749dd0be43b90222293/docs/user/getting-started.md"
+      "url": "https://github.com/kontourai/station/blob/e5c20a74a4e62acb8fe2ba1a0bb727350ac6cf6b/docs/user/getting-started.md"
+    },
+    {
+      "id": "station.sharing",
+      "subject": "station",
+      "sourcePath": "docs/guides/deployment-authentication.md",
+      "url": "https://github.com/kontourai/station/blob/e5c20a74a4e62acb8fe2ba1a0bb727350ac6cf6b/docs/guides/deployment-authentication.md"
+    },
+    {
+      "id": "station.plugins",
+      "subject": "station",
+      "sourcePath": "docs/guides/plugins.md",
+      "url": "https://github.com/kontourai/station/blob/e5c20a74a4e62acb8fe2ba1a0bb727350ac6cf6b/docs/guides/plugins.md"
     }
   ],
   "claims": [
@@ -158,30 +170,30 @@
     {
       "id": "station.home-workspace",
       "pagePath": "src/pages/index.astro",
-      "sourceIds": ["station.home-workspace-readme", "station.home-workspace-setup", "station.home-workspace-rooms"],
+      "sourceIds": ["station.home-workspace-readme", "station.home-workspace-setup", "station.home-workspace-rooms", "station.sharing", "station.plugins"],
       "review": {
-        "date": "2026-10-29",
-        "scope": "Projects with a shared Room, Tasks (including Tasks started from a GitHub issue), recorded workspace bindings, configured engines, paired-device data flows, and Nightly install routes; source descriptions only.",
+        "date": "2026-11-04",
+        "scope": "Personal coding workspace, paired-device continuity, configured workflow evidence, public plugin contribution types, and scoped Project sharing with read-only collaborator Task entry. Source inspection only; no complete two-person delivery, shared inference service, or enterprise deployment qualification.",
         "qualification": "source-only"
       }
     },
     {
       "id": "station.developer-entry",
       "pagePath": "src/pages/developers.astro",
-      "sourceIds": ["station.workspace", "station.setup"],
+      "sourceIds": ["station.workspace", "station.setup", "station.sharing", "station.plugins"],
       "review": {
-        "date": "2026-10-16",
-        "scope": "Workspace role, CLI-client versus server/desktop distinction, and documented Nightly setup; source descriptions only.",
+        "date": "2026-11-04",
+        "scope": "Personal coding workspace, paired-device continuity, configured workflow evidence, public plugin contribution types, and scoped Project sharing with read-only collaborator Task entry. Source inspection only; no complete two-person delivery, shared inference service, or enterprise deployment qualification.",
         "qualification": "source-only"
       }
     },
     {
       "id": "station.contact-entry",
       "pagePath": "src/pages/early-access.astro",
-      "sourceIds": ["station.workspace", "station.setup"],
+      "sourceIds": ["station.workspace", "station.setup", "station.sharing", "station.plugins"],
       "review": {
-        "date": "2026-10-16",
-        "scope": "Public Nightly/source entry and paired-device setup prerequisites; source descriptions only.",
+        "date": "2026-11-04",
+        "scope": "Personal coding workspace, paired-device continuity, configured workflow evidence, public plugin contribution types, and scoped Project sharing with read-only collaborator Task entry. Source inspection only; no complete two-person delivery, shared inference service, or enterprise deployment qualification.",
         "qualification": "source-only"
       }
     }
