@@ -2052,11 +2052,9 @@ test("freshness pass keeps current claims distinct from frozen demonstrations", 
 
 test("Station privacy page covers the current inventory and states its fingerprint method", async ({ page }) => {
   await page.goto("/privacy/station/");
-  // Literal, checked 2026-10-11: first 16 hex of SHA-256 of kontourai/station
-  // docs/privacy-policy.md at eafa3df6f65a00fb206a413b8e3a065ff61dae99.
-  await expect(page.getByText("098fe4522c631fbe")).toBeVisible();
+  await expect(page.getByText("ad8af6b4ff8a8727")).toBeVisible();
   await expect(page.getByText("the first 16 hex characters of the SHA-256 of")).toBeVisible();
-  await expect(page.locator('a[href="https://github.com/kontourai/station/blob/eafa3df6f65a00fb206a413b8e3a065ff61dae99/docs/privacy-policy.md"]')).toBeVisible();
+  await expect(page.locator('a[href="https://github.com/kontourai/station/blob/083dea55cbbe6e8a30c031fb1d28a9f3c2efdbff/docs/privacy-policy.md"]')).toBeVisible();
   // The flows the 11 August page left out.
   for (const heading of [
     "Your model and engine",
@@ -2065,13 +2063,16 @@ test("Station privacy page covers the current inventory and states its fingerpri
     "Notifications on your phone",
     "Notifications in a browser",
     "Sign-in, when accounts are on",
+    "Plugin publisher analytics",
+    "Private memory preview",
   ]) {
     await expect(page.getByRole("heading", { level: 3, name: heading })).toBeVisible();
   }
   await expect(page.getByText("Google Firebase Cloud Messaging for Android or Apple Push Notification service")).toBeVisible();
-  // No test ties this page to the inventory; the page must not claim one does.
-  await expect(page.getByText("no test ties it to the inventory")).toBeVisible();
-  await expect(page.getByText("a test in the app's build fails if any of them drifts")).toHaveCount(0);
+  await expect(page.getByText("Automated checks compare the reviewed policy")).toBeVisible();
+  await expect(page.getByText("plugin Lite is not identifier-free")).toBeVisible();
+  await expect(page.getByText("publisher-specific monthly pseudonym")).toBeVisible();
+  await expect(page.getByText("It does not store a passkey private key or biometric data.")).toBeVisible();
   // Review fixes: claims the generated policy and Web Push guide don't support.
   await expect(page.getByText("nothing goes anywhere")).toHaveCount(0);
   await expect(page.getByText("The one Kontour-operated service")).toHaveCount(0);

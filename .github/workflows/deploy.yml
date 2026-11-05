@@ -26,6 +26,9 @@ permissions:
   # Needed by the parity-mode guard to list a PR's changed files.
   pull-requests: read
 
+env:
+  GITHUB_TOKEN: ${{ github.token }}
+
 jobs:
   verify:
     name: Build, Test & Validate
