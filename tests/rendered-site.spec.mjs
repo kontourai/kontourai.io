@@ -11,10 +11,10 @@ test("Veritas planning and approval qualifiers are explicit", async ({ page }) =
   await expect(page.locator("body")).toContainText("If source files, the index, or HEAD differ after the checks from when they started, readiness stops before writing a report.");
 });
 
-test("Station homepage installation and Project details are explicit", async ({ page }) => {
+test("Station homepage installation, continuity, and sharing limits are explicit", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator(".station__status")).toContainText("Install the Nightly with one command on macOS, Linux, or Windows x64, use the Nightly desktop app on an Apple silicon Mac or a Windows x64 PC, or run it from source.");
-  await expect(page.locator(".station__card-copy").nth(1)).toContainText("a Project room for discussion. A Task can start from a GitHub issue");
+  await expect(page.locator(".station__card-copy").nth(1)).toContainText("Return to the conversation, files, and progress without starting over.");
   await expect(page.locator('img[src="/screenshots/station-project.png"]')).toHaveAttribute("alt", /Project room/);
   await expect(page.locator(".station__shot figcaption")).toContainText("four Tasks ready to start");
 });
@@ -36,7 +36,7 @@ test("homepage keeps the company headline, leads with Station, then the recognit
   await expect(page.locator(".hero-inner > *").first()).toHaveClass(/hero-title/);
   // The company slogan stays the headline (owner direction 2026-09-05); the
   // lead beneath it introduces Station as the product, not Flow Agents.
-  await expect(page.getByText("Station runs coding agents on machines you control.").first()).toBeVisible();
+  await expect(page.getByText("Station helps you plan, build, and ship with your coding agents.").first()).toBeVisible();
   await expect(page.locator(".hero-inner").getByText("AI writes more code than anyone can read line by line.")).toHaveCount(0);
 
   // Hero CTAs: Station leads, Flow Agents is the offer for existing tools.
@@ -48,7 +48,7 @@ test("homepage keeps the company headline, leads with Station, then the recognit
   // Station section: what the workspace is, its run paths stated honestly, and
   // both ways in. It renders above the recognition moments.
   await expect(page.getByRole("heading", { name: "Code from anywhere. On your own, or with your team." })).toBeVisible();
-  for (const card of ["Use the agents you already have", "Come back to a Task later", "See what was checked"]) {
+  for (const card of ["Bring the coding agents you already use", "Pick up where you left off", "See what was checked"]) {
     await expect(page.getByRole("heading", { level: 3, name: card, exact: true })).toBeVisible();
   }
   await expect(page.getByText("There is no stable or beta release yet.")).toBeVisible();
