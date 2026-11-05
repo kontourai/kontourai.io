@@ -11,6 +11,7 @@ allowBuilds:
   esbuild@0.28.1: false
   esbuild@0.28.2: false
   workerd@1.20261019.1: false
+  workerd@1.20261023.1: false
 
 # A newly published version must be at least 24 hours old before it can be
 # resolved into this lockfile. Blunts the most common supply-chain shape (a

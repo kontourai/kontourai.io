@@ -1755,14 +1755,11 @@ test("the ownership-guard receipt discloses its waived pre-existing-failure gap"
   // AC: the gaps section is visible and names the waived claim from the bundle
   // (subjectId ends with pre-existing-failure-baseline) rather than hiding it.
   //
-  // The section is now driven by the validator instead of a homegrown
-  // heuristic. Per `surface report`, this bundle has ZERO transparency gaps —
-  // the waived claim is a high-impact UNSUPPORTED claim, which is a different
-  // thing. The old `.gap-item` locator and the `high-impact but status is
-  // "assumed"` string were both deriveGaps() inventions that disagreed with the
-  // validator (it rendered 12 gaps where the validator found 0).
+  // Surface 6 also reports missing verification policies for the other claims.
+  // This receipt therefore exposes twelve high-impact unsupported claims and
+  // eleven transparency gaps, while still naming the waived baseline below.
   await expect(page.getByRole("heading", { name: "What this receipt leaves open" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "High-impact claims counted as unsupported (1)" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "High-impact claims counted as unsupported (12)" })).toBeVisible();
   await expect(
     page
       .locator(".unsupported-list li")
