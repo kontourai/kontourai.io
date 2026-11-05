@@ -19,14 +19,17 @@ This is the connective tissue across the product line:
 
 ## Station: the application front door
 
-**Station is an open-source coding workspace that grows with you.** Its primary
-audience is individual developers and small teams working with coding agents.
+**Station is an open-source coding workspace for individual developers and
+small teams working with coding agents.**
 The experience starts with personal project work: choose an agent, keep context
 and results together, inspect changes and checks, and follow the work from a
 paired computer or phone.
 
-Collaboration gives that work a shared context. Project rooms, invitations and
-roles, Task memory, and review surfaces are foundations for involving others.
+The team vision is an interactive Task room. People and agents work from
+shared Task and project knowledge, talk with each other, inspect agent activity,
+and contribute within their permissions. Room participation and permission to
+direct an agent are separate choices. Project rooms, invitations and roles,
+Task memory, and review surfaces are foundations for that experience.
 Describe each supported path at its actual scope: paired-device access is
 different from another person's access, and the separate collaborator browser
 entry currently reads shared Tasks without editing or agent execution. The
@@ -34,8 +37,8 @@ entry currently reads shared Tasks without editing or agent execution. The
 owns current setup and limitations.
 
 Extensibility supports both personal workflows and organization-specific work
-surfaces. Plugins use the public SDK to contribute layouts, agents, tools,
-knowledge, connections, and skills. A plugin interface does not establish
+surfaces. Plugins use the public SDK to contribute layouts, agents, MCP tools,
+model providers, knowledge, and skills. A plugin interface does not establish
 enterprise deployment readiness or complete shared-resource isolation.
 
 Keep this message consistent across the product site, company site, and
@@ -236,9 +239,10 @@ Kontour AI shows the work behind AI.
 
 ### Station
 
-A coding workspace that grows with you. Start with your preferred agents and
-personal projects, keep context and checks together across devices, extend the
-workspace with plugins, and use scoped sharing within its documented limits.
+A coding workspace for working with agents. Start with your own projects and
+preferred agents, review each Task’s context and checks across paired devices,
+and add plugins. Project sharing is limited; Station’s guides document its
+current scope.
 
 ### Surface
 

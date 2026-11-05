@@ -14,7 +14,7 @@ test("Veritas planning and approval qualifiers are explicit", async ({ page }) =
 test("Station homepage installation and Project details are explicit", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator(".station__status")).toContainText("Install the Nightly with one command on macOS, Linux, or Windows x64, use the Nightly desktop app on an Apple silicon Mac or a Windows x64 PC, or run it from source.");
-  await expect(page.locator(".station__card-copy").nth(1)).toContainText("a shared Room for discussion and notes, and a Task can start from a GitHub issue");
+  await expect(page.locator(".station__card-copy").nth(1)).toContainText("a Project room for discussion. A Task can start from a GitHub issue");
   await expect(page.locator('img[src="/screenshots/station-project.png"]')).toHaveAttribute("alt", /Project room/);
   await expect(page.locator(".station__shot figcaption")).toContainText("four Tasks ready to start");
 });
@@ -36,7 +36,7 @@ test("homepage keeps the company headline, leads with Station, then the recognit
   await expect(page.locator(".hero-inner > *").first()).toHaveClass(/hero-title/);
   // The company slogan stays the headline (owner direction 2026-09-05); the
   // lead beneath it introduces Station as the product, not Flow Agents.
-  await expect(page.getByText("Station is an open-source coding workspace that grows with you.").first()).toBeVisible();
+  await expect(page.getByText("Station runs coding agents on machines you control.").first()).toBeVisible();
   await expect(page.locator(".hero-inner").getByText("AI writes more code than anyone can read line by line.")).toHaveCount(0);
 
   // Hero CTAs: Station leads, Flow Agents is the offer for existing tools.
@@ -47,16 +47,16 @@ test("homepage keeps the company headline, leads with Station, then the recognit
 
   // Station section: what the workspace is, its run paths stated honestly, and
   // both ways in. It renders above the recognition moments.
-  await expect(page.getByRole("heading", { name: "One workspace for the whole job." })).toBeVisible();
-  for (const card of ["Your agents, one place", "Work that outlives a chat", "Receipts beside the work"]) {
+  await expect(page.getByRole("heading", { name: "Code from anywhere. On your own, or with your team." })).toBeVisible();
+  for (const card of ["Use the agents you already have", "Come back to a Task later", "See what was checked"]) {
     await expect(page.getByRole("heading", { level: 3, name: card, exact: true })).toBeVisible();
   }
-  await expect(page.getByText("No stable or beta release is published yet.")).toBeVisible();
+  await expect(page.getByText("There is no stable or beta release yet.")).toBeVisible();
   await expect(page.locator('[data-umami-event="home-station-privacy"]')).toHaveAttribute("href", "/privacy/station/");
   // The Station capture is a manifest-bound visual with its provenance in the caption.
   await expect(page.locator('img[src="/screenshots/station-project.png"]')).toHaveAttribute("alt", /Trail Notes/);
   await expect(page.getByText(/Station Nightly 0\.1\.11-nightly\.249203 \(revision 7ab23e35\)\s+running from a temporary Station home/)).toBeVisible();
-  await expect(page.getByText("desktop builds check their release feed for updates")).toBeVisible();
+  await expect(page.getByText("desktop builds check for updates")).toBeVisible();
   await expect(page.locator('[data-umami-event="home-station-tour"]')).toHaveAttribute("href", "https://station.kontourai.io/");
   await expect(page.locator('[data-umami-event="home-station-setup"]')).toHaveAttribute("href", "https://kontourai.github.io/station/docs/user/getting-started.html");
   await expect(page.locator('[data-umami-event="home-station-flow-agents"]')).toHaveAttribute("href", "/flow-agents/");
@@ -124,10 +124,10 @@ test("homepage keeps the company headline, leads with Station, then the recognit
   await expect(page.locator(".narrator__residual")).toContainText("narrowed test suite or a test edited until it passes");
   await expect(page.locator(".narrator__residual")).toContainText("depend on the configured runtime");
   await expect(page.locator(".hero-lead")).not.toContainText('"done" means proven');
-  await expect(page.getByText("Completing a Task does not by itself establish")).toBeVisible();
+  await expect(page.getByText("Completing a Task doesn’t mean")).toBeVisible();
   await expect(page.locator('[data-umami-event="home-narrator-trust"]')).toHaveAttribute("href", "/trust/");
   // Examples-first placement: the recognition block renders above the mechanism.
-  const stationBox = await page.getByRole("heading", { name: "One workspace for the whole job." }).boundingBox();
+  const stationBox = await page.getByRole("heading", { name: "Code from anywhere. On your own, or with your team." }).boundingBox();
   const narratorBox = await page.getByRole("heading", { name: "Anyone can say the tests passed." }).boundingBox();
   const mechanismHeadingBox = await page.getByRole("heading", { name: "Compare the claim with the recorded result." }).boundingBox();
   expect(stationBox).not.toBeNull();
@@ -453,7 +453,7 @@ test("early access page gives static contact paths", async ({ page }) => {
   // Station has its own lane now that it is the main product; the lane and the
   // hero mention both point at the product site rather than an install command.
   await expect(page.getByRole("heading", { name: "Station workspace" })).toBeVisible();
-  await expect(page.getByText("try the Nightly and tell us where the experience needs work")).toBeVisible();
+  await expect(page.getByText("Try the Nightly and tell us what needs work")).toBeVisible();
   await expect(page.locator('[data-umami-event="early-access-hero-station"]')).toHaveAttribute("href", "https://station.kontourai.io/");
   await expect(page.getByText("One concrete workflow is enough.")).toBeVisible();
   await expect(page.locator('[data-umami-event="early-access-hero-email"]')).toHaveAttribute("href", /mailto:hello@kontourai\.io/);

@@ -62,7 +62,7 @@ const stationCapabilitySources = getPublicEvidenceClaimSources('station.home-wor
 
 <Layout
   title="Kontour AI — Make your agents show their work"
-  description="Station is an open-source coding workspace that grows with you. Work with your agents across devices, keep context and checks together, and extend the workspace with plugins."
+  description="Station is an open-source coding workspace for working with agents on your computer and phone. Flow Agents adds evidence-backed workflows to the coding tools you already use."
 >
   <Nav slot="header" active="home" />
 
@@ -77,11 +77,9 @@ const stationCapabilitySources = getPublicEvidenceClaimSources('station.home-wor
         </h1>
 
         <p class="lead measure animate-fade-up delay-100 hero-lead">
-          Station is an open-source coding workspace that grows with you.
-          Work with the agents you choose, follow your projects from your
-          computer or phone, and keep context, changes, and checks together.
-          Review what happened and what still needs you before accepting the
-          result. Flow Agents brings evidence-backed workflows into the
+          Station runs coding agents on machines you control. Continue a Task
+          from a paired phone, review the changes, and share selected work
+          with your team. Flow Agents brings evidence-backed workflows to the
           coding tools you already run.
         </p>
 
@@ -98,51 +96,55 @@ const stationCapabilitySources = getPublicEvidenceClaimSources('station.home-wor
   <Section borderTop>
     <Glow accent="cobalt" position="top-right" />
     <div class="container station">
-      <Eyebrow accent="cobalt">Station</Eyebrow>
-      <h2 class="display-md station__title">One workspace for the whole job.</h2>
+      <h2 class="display-md station__title">Code from anywhere. On your own, or with your team.</h2>
       <p class="body measure station__copy">
-        Start with your own coding work. Keep plans, conversations, changes,
-        and decisions attached to the project, then shape the workspace with
-        plugins and use its scoped sharing controls as you involve others.
+        Run Claude Code, Codex, or another supported coding agent on your project.
+        Each Task keeps the plan and agent Sessions with its changes and checks.
+        Plugins let you add the tools and work surfaces your project needs.
       </p>
       <Grid cols={3} gap="md" class="station__grid">
         <Card accent="cobalt" bar="top" pad="md">
-          <h3 class="station__card-title">Your agents, one place</h3>
+          <h3 class="station__card-title">Use the agents you already have</h3>
           <p class="body station__card-copy">
-            Run Station agents on a local or hosted model, or connect supported
-            agent CLIs such as Claude Code and Codex as External agents. Each
-            engine keeps its own tool loop. Station brings project context,
-            execution history, and configured workflow evidence together.
+            Run a Station agent on a local or hosted model, or connect Claude
+            Code, Codex, and other supported agent CLIs. Each engine keeps its
+            own tool loop. Station supplies Project context and records its activity.
           </p>
         </Card>
         <Card accent="cobalt" bar="top" pad="md">
-          <h3 class="station__card-title">Work that outlives a chat</h3>
+          <h3 class="station__card-title">Come back to a Task later</h3>
           <p class="body station__card-copy">
-            A Project keeps its Tasks, files, connections, and a shared Room for discussion and notes, and a Task can start from a GitHub issue. Reopen a Task with its recorded workspace binding, then check that the workspace is still available.
+            A Project holds its Tasks, files, connections, and a Project room
+            for discussion. A Task can start from a GitHub issue. When you reopen
+            one, Station shows the workspace it was bound to so you can check
+            that it’s still available.
           </p>
         </Card>
         <Card accent="cobalt" bar="top" pad="md">
-          <h3 class="station__card-title">Receipts beside the work</h3>
+          <h3 class="station__card-title">See what was checked</h3>
           <p class="body station__card-copy">
-            Where the configured workflow provides them, gate outcomes,
-            missing evidence, route-backs, and exceptions stay beside the
-            Task. Completing a Task does not by itself establish that a
-            review or gate passed.
+            When your workflow records them, gate results, missing evidence,
+            and exceptions appear on the Task. Completing a Task doesn’t mean
+            a review or gate passed.
           </p>
         </Card>
       </Grid>
       <p class="body measure station__copy">
-        <strong>Grow into shared work.</strong> Project invitations and roles
-        provide scoped access. The separate collaborator browser entry can
-        read shared Tasks; editing and execution through that entry remain
-        unavailable. Review the <a href="https://kontourai.github.io/station/docs/guides/deployment-authentication.html" target="_blank" rel="noopener">sharing setup and current limits</a>{' '}
+        We’re building shared Task rooms where people and coding agents can
+        talk through the work, use the same project knowledge, and follow agent
+        activity together. Room permissions will control participation and
+        access to the agents.
+      </p>
+      <p class="body measure station__copy">
+        Today, invite someone to a Project with a role, and they can read the Tasks
+        you publish for them. Editing and running agents from their browser
+        aren’t available yet. Read the <a href="https://kontourai.github.io/station/docs/guides/deployment-authentication.html" target="_blank" rel="noopener">sharing setup and current limits</a>{' '}
         before inviting a teammate.
       </p>
       <p class="body measure station__copy">
-        <strong>Make it fit your work.</strong> Plugins add layouts, agents,
-        tools, knowledge, connections, and skills through the public SDK.
-        Individuals can tailor their workspace; teams can build purpose-built
-        work surfaces on the same extension contracts.
+        Plugins built on the public SDK can add layouts, agents, MCP tools,
+        model providers, knowledge, and skills for your own setup or a team’s
+        work surface.
       </p>
       <figure class="product-shot station__shot">
         <img src="/screenshots/station-project.png" alt="Station Project page for a sample project called Trail Notes on its main branch. The Project menu lists Overview, Project room, Tasks, Files &amp; connections, and Settings. The Tasks view is open, with four to-do Tasks and a New Task button." loading="lazy" width="1400" height="874" />
@@ -151,23 +153,24 @@ const stationCapabilitySources = getPublicEvidenceClaimSources('station.home-wor
         </figcaption>
       </figure>
       <p class="fine station__status">
-        Open source under Apache-2.0 and in active development. Install the Nightly with one command on macOS, Linux, or Windows x64, use the Nightly desktop app on an Apple silicon Mac or a Windows x64 PC, or run it from source. No stable or beta release is published yet. Station data stays on your
-        machine by default; hosted Model connections, Engines, paired devices,
-        remote computers, and export endpoints carry data only when you
-        configure and use them, and desktop builds check their release feed
-        for updates. See the{' '}
+        Open source under Apache-2.0 and in active development. Install the Nightly with one command on macOS, Linux, or Windows x64, use the Nightly desktop app on an Apple silicon Mac or a Windows x64 PC, or run it from source. There is no stable or beta release yet. Station stores its data on the
+        computer that runs it. The services, engines, devices, and integrations
+        you connect can send and receive data outside it, and desktop builds
+        check for updates. See the{' '}
         <a href="/privacy/station/" data-umami-event="home-station-privacy">Station privacy policy</a>.
       </p>
-      <p class="fine measure">
-        Station capability descriptions reviewed against source on 4 November 2026:{' '}
-        {stationCapabilitySources.map((source, index) => <Fragment>{index > 0 && ' · '}<a href={source.url} target="_blank" rel="noopener">{source.sourcePath}</a></Fragment>)}.
-        This is a source review, not installed server, desktop, or mobile qualification.
-        Nightly is a testing channel; see the setup guide for platform limits.
-      </p>
+      <details class="fine measure">
+        <summary>Sources and current limits</summary>
+        <p>
+          {stationCapabilitySources.map((source, index) => <Fragment>{index > 0 && ' · '}<a href={source.url} target="_blank" rel="noopener">{source.sourcePath}</a></Fragment>)}.
+          This is a source review, not installed server, desktop, or mobile qualification.
+          Nightly is a testing channel; see the setup guide for platform limits.
+        </p>
+      </details>
       <div class="station__actions">
         <a href="https://station.kontourai.io/" class="btn-primary" data-umami-event="home-station-tour">Tour Station →</a>
         <a href="https://kontourai.github.io/station/docs/user/getting-started.html" target="_blank" rel="noopener" class="btn-ghost" data-umami-event="home-station-setup">Read the setup guide</a>
-        <a href="/flow-agents/" class="btn-ghost" data-umami-event="home-station-flow-agents">Keep your tools: Flow Agents →</a>
+        <a href="/flow-agents/" class="btn-ghost" data-umami-event="home-station-flow-agents">Flow Agents for your current tools →</a>
       </div>
     </div>
   </Section>

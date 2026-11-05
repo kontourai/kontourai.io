@@ -104,8 +104,8 @@ export const applications: Application[] = [
     repo: "https://github.com/kontourai/station",
     packageName: "@kontourai/station-cli",
     docs: "https://kontourai.github.io/station/",
-    job: "A coding workspace that grows with you: your agents, project context, changes, and checks together across devices.",
-    composition: "Start with personal coding work, extend it through the public plugin SDK, and review scoped Project sharing and its current limits before inviting others. Open source; available as a Nightly install, Nightly desktop app, or from source. The published CLI client controls compatible Station servers; its package version does not identify the server or desktop release.",
+    job: "An open-source coding workspace. Work with your agents, review each Task’s changes and checks, and continue from your phone.",
+    composition: "Start with your own projects and add plugins through the public SDK. Interactive team Task rooms are under development: shared knowledge, conversation with people and agents, and visible activity. Read current sharing limits before inviting others. Install the Nightly or the Nightly desktop app, or run from source. The published CLI client controls compatible Station servers; its package version does not identify the server or desktop release.",
   },
   {
     key: "fieldwork",
