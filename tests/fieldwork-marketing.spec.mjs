@@ -5,7 +5,7 @@ import { join } from "node:path";
 import { promisify } from "node:util";
 import { expect, test } from "@playwright/test";
 
-const comparisonRoute = "src/pages/fieldwork-vs-langextract.astro";
+const comparisonRoute = join("src", "pages", "fieldwork-vs-langextract.astro");
 const ordinaryContentRoots = ["src/pages", "docs"];
 const execFileAsync = promisify(execFile);
 const productStatus = JSON.parse(await readFile("src/data/product-status.json", "utf8"));

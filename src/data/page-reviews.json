@@ -28,7 +28,7 @@
         "flow-agents": "9.8.0",
         "surface": "6.2.0"
       },
-      "reviewedDate": "2026-10-29",
+      "reviewedDate": "2026-11-04",
       "sourceClaimIds": [
         "station.developer-entry"
       ]
@@ -39,7 +39,7 @@
         "flow-agents": "9.8.0",
         "survey": "8.2.1"
       },
-      "reviewedDate": "2026-10-29",
+      "reviewedDate": "2026-11-04",
       "sourceClaimIds": [
         "station.home-workspace"
       ]
@@ -127,7 +127,7 @@
       "products": {
         "flow-agents": "9.8.0"
       },
-      "reviewedDate": "2026-10-29",
+      "reviewedDate": "2026-11-04",
       "sourceClaimIds": [
         "station.contact-entry"
       ]

@@ -63,7 +63,7 @@ for (const entry of assets) {
 }
 
 for (const file of walk(path.join(repoRoot, 'public/screenshots'))) {
-  const rel = path.relative(repoRoot, file);
+  const rel = path.relative(repoRoot, file).split(path.sep).join('/');
   if (!byPath.has(rel)) fail(`${rel}: on disk but not in marketing-assets.json — add an entry and stamp it`);
 }
 
@@ -71,7 +71,7 @@ for (const file of walk(path.join(repoRoot, 'public/screenshots'))) {
 // terminated by quote/backtick/paren/query/hash/whitespace.
 const refPattern = /["'`(]\s*\/screenshots\/([^"'`)?#\s]+)/g;
 for (const file of walk(path.join(repoRoot, 'src'))) {
-  const rel = path.relative(repoRoot, file);
+  const rel = path.relative(repoRoot, file).split(path.sep).join('/');
   if (rel === manifestRel) continue;
   const source = readFileSync(file, 'utf8');
   for (const [, ref] of source.matchAll(refPattern)) {
