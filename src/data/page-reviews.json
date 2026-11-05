@@ -1,5 +1,5 @@
 {
-  "comment": "Page-copy freshness manifest (#163). Each page maps to the products whose repos its prose claims depend on, with the version the copy was last editorially reconciled against. Stamped by humans/editors after each content pass \u2014 the freshness check flags pages whose mapped products moved a minor/major beyond the reviewed version. Advisory desk signal, not a gate. Station CLI package versions do not qualify workspace/server/desktop/mobile claims. sourceClaimIds bind the limited source-only reviews through public-evidence-registry.json; they are not runtime qualification.",
+  "comment": "Page-copy freshness manifest (#163). Each page maps to the products whose repos its prose claims depend on, with the version the copy was last editorially reconciled against. Stamped by humans/editors after each content pass — the freshness check flags pages whose mapped products moved a minor/major beyond the reviewed version. Advisory desk signal, not a gate. Station CLI package versions do not qualify workspace/server/desktop/mobile claims. sourceClaimIds bind the limited source-only reviews through public-evidence-registry.json; they are not runtime qualification.",
   "pages": [
     {
       "page": "src/pages/flow-agents.astro",
@@ -28,7 +28,7 @@
         "flow-agents": "9.8.0",
         "surface": "6.2.0"
       },
-      "reviewedDate": "2026-11-04",
+      "reviewedDate": "2026-11-05",
       "sourceClaimIds": [
         "station.developer-entry"
       ]
@@ -39,7 +39,7 @@
         "flow-agents": "9.8.0",
         "survey": "8.2.1"
       },
-      "reviewedDate": "2026-11-04",
+      "reviewedDate": "2026-11-05",
       "sourceClaimIds": [
         "station.home-workspace"
       ]
@@ -127,7 +127,7 @@
       "products": {
         "flow-agents": "9.8.0"
       },
-      "reviewedDate": "2026-11-04",
+      "reviewedDate": "2026-11-05",
       "sourceClaimIds": [
         "station.contact-entry"
       ]
