@@ -1,25 +1,7 @@
 ---
-/**
- * Station app privacy policy — the URL the App Store and Play listings point at.
- *
- * This page is a hand-written public projection of Station's generated privacy
- * policy (kontourai/station `docs/privacy-policy.md`), which Station renders from
- * its privacy inventory (`src-server/services/privacy-inventory.ts`) alongside
- * the iOS `PrivacyInfo.xcprivacy` and the draft Play Data Safety answers. Every
- * statement below is taken from that generated policy: its inventory rows, its
- * "Review scope" list and its "Your choices" list. If the two disagree, the
- * generated policy is right and this page is stale.
- *
- * `inventoryFingerprint` is the first 16 hex characters of the SHA-256 of the
- * bytes of `docs/privacy-policy.md` at `policyCommit`:
- *
- *   git -C station show <policyCommit>:docs/privacy-policy.md | shasum -a 256 | cut -c1-16
- *
- * This reproduces every earlier value this page has carried (9c7a09ca758fad25
- * and 788a17b779346da5 are that hash at kontourai/station-archive 7715fd3b and
- * b3c05188). No test in either repo checks this page against the policy, so the
- * fingerprint is what makes the drift visible: when the policy's hash changes,
- * regenerate this page in the same change.
+/** Public projection of Station's declared privacy inventory.
+ * Corpus checks bind reviewed upstream inputs and this page's bytes.
+ * Source review does not establish completeness or deployment.
  */
 import Layout from '@/layouts/Layout.astro';
 import Nav from '@/components/Nav.astro';
@@ -27,9 +9,9 @@ import Footer from '@/components/Footer.astro';
 import Section from '@/components/Section.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
 
-const updated = '11 October 2026';
-const inventoryFingerprint = '098fe4522c631fbe';
-const policyCommit = 'eafa3df6f65a00fb206a413b8e3a065ff61dae99';
+const updated = '5 November 2026';
+const inventoryFingerprint = 'ad8af6b4ff8a8727';
+const policyCommit = '083dea55cbbe6e8a30c031fb1d28a9f3c2efdbff';
 const policyUrl = `https://github.com/kontourai/station/blob/${policyCommit}/docs/privacy-policy.md`;
 ---
 
@@ -45,9 +27,10 @@ const policyUrl = `https://github.com/kontourai/station/blob/${policyCommit}/doc
       <h1 class="display-lg privacy-title">What the app collects.</h1>
       <p class="lead measure privacy-lead">
         Station runs on hardware you or your operator control. The short version:
-        data leaves only through features that you configure, register, or use,
-        and this page lists each of those that Station's privacy inventory
-        records.
+        networked features send data according to their configuration,
+        registration, and use. Built-in usage telemetry defaults to Lite when a
+        destination and shown notice are present; desktop builds also check their
+        release feed. This page summarizes the declared inventory and known gaps.
       </p>
       <p class="fine privacy-updated">Last updated {updated} · Kontour AI LLC</p>
     </div>
@@ -58,17 +41,19 @@ const policyUrl = `https://github.com/kontourai/station/blob/${policyCommit}/doc
       <h2 class="display-md privacy-h2">The default: what stays on your machine</h2>
       <p class="body measure">
         Station is self-hosted: it runs on your own machine or on a server your
-        operator runs, and keeps what you add to it in its own storage there.
-        Accounts are optional, and the identifier on product-usage telemetry is a
-        random installation value, not one derived from an account. Station
+        operator runs, and keeps its workspace state in storage there.
+        Accounts are optional. Full product-usage telemetry uses a
+        publisher-specific monthly pseudonym derived from a random installation
+        secret, not an account. Built-in Lite aggregates carry no installation
+        identifier. Station
         uses the Kontour push gateway only for a phone you register, and the
         gateway forwards what it relays sealed, without the key to open it.
       </p>
       <p class="body measure">
         Everything in the next section describes a case where data does leave.
-        Each one starts with something you or your operator chose: a model
-        connection, an endpoint, a registered phone, a session you started. The
-        exception is the desktop updater, which checks its release feed.
+        Destinations can come from operator settings or the build, as well as
+        connected providers and registered devices. Review the choices below
+        before using a networked feature.
       </p>
     </div>
   </Section>
@@ -96,24 +81,65 @@ const policyUrl = `https://github.com/kontourai/station/blob/${policyCommit}/doc
 
       <h3 class="privacy-h3">Product-usage telemetry</h3>
       <p class="body measure">
-        Every event carries a versioned event ID, the time it was produced, the
-        privacy-inventory revision, a hashed installation identifier, and
-        allowlisted build details: app version, platform, CPU architecture,
-        release channel, whether the build was modified, and optionally the full
-        Git commit with where that value came from. The events themselves are
-        Station's startup metadata, classified session-recovery outcomes (the
-        failure category, the recovery decision, and the result), and how each
-        engine turn ended (the engine family, and completed, aborted, or
-        failed).
+        Built-in telemetry has independent Off, Lite, and Full choices for each
+        publisher, defaulting to Lite. Lite sends identifier-free daily
+        aggregates for the completed previous UTC day, at most once per day per
+        publisher, after a current shown-notice receipt and with a configured
+        destination. Aggregates include coarse token-use buckets for
+        conversations run in Station; outside CLI use is excluded. Resume
+        baselines and accounting corrections can undercount usage. Conversations
+        taken over from an outside Codex CLI currently contribute no tokens;
+        missing usage is not a measured zero.
       </p>
       <p class="body measure">
-        Nothing is sent unless three things are all true: an operator has
-        configured a telemetry endpoint, telemetry is enabled, and the in-app
-        disclosure for the current inventory has been acknowledged. It goes to
-        that operator-configured endpoint, and it can be disabled. The
-        installation identifier is a random value generated once for your
-        install and SHA-256 hashed before sending; it is never derived from an
-        account.
+        Full requires that publisher's current disclosure and destination
+        acknowledgement. It sends versioned events with timestamps rounded to
+        the UTC minute, inventory revision, allowlisted build details, startup
+        metadata, session-recovery and engine-turn outcomes, and selected plugin,
+        settings, and connection observations. Its installation identifier is
+        hashed separately for each publisher and rotates monthly. It is
+        pseudonymous, not anonymous, and Station does not link it to an account.
+      </p>
+      <p class="body measure">
+        The operator destination comes from Settings or
+        STATION_PRODUCT_TELEMETRY_ENDPOINT (legacy alias STATION_TELEMETRY_ENDPOINT).
+        An independent Kontour sender requires a nonempty build-time address
+        and its own notice and consent state; changing the operator endpoint
+        does not disable that sender. The address is empty in source, so source
+        builds send nothing to Kontour through it. A nonempty DO_NOT_TRACK value
+        other than 0 forces Off for all publishers.
+      </p>
+      <p class="body measure">
+        Optional fixed-choice feedback is identifier-free and publisher-scoped.
+        A reason for lowering a tier can send before the lower choice, including
+        Off, takes effect. A separate reason requires a recorded lowering within
+        ten minutes; together they are limited to one per publisher per UTC day.
+        Do Not Track suppresses this feedback. A local payload ledger retains
+        send attempts and grouped drops for at most 30 days and 5 MiB; inspect it
+        with Station's telemetry outbox command.
+      </p>
+
+      <h3 class="privacy-h3">Plugin publisher analytics</h3>
+      <p class="body measure">
+        Signed public-registry plugins can declare bounded events and count
+        buckets for their own publisher. Plugin analytics defaults to Off and
+        requires explicit opt-in; showing a notice does not enable it. Plugin
+        Lite sends previous-day count histograms after its publisher notice.
+        Station adds no installation identifier, but plugin-chosen counts can
+        encode a stable identifier, so plugin Lite is not identifier-free.
+        Plugin Full requires an explicit choice and current destination and
+        inventory acknowledgement, and adds timestamps and the publisher's
+        monthly installation pseudonym.
+      </p>
+      <p class="body measure">
+        Station sends to the signed declaration's HTTPS destination without
+        operator credentials. Non-public addresses and redirects are refused.
+        Receivers still see network metadata such as the source IP. Do Not Track
+        forces Off. Uninstall removes pending counts and receipts; an optional
+        fixed-choice uninstall reason can send before removal when permitted,
+        capped at one per publisher per UTC day. The bounded local ledger records
+        delivery outcomes. Distribution-manifest loading and broker acceptance
+        remain deferred.
       </p>
 
       <h3 class="privacy-h3">Diagnostics (OpenTelemetry)</h3>
@@ -124,8 +150,8 @@ const policyUrl = `https://github.com/kontourai/station/blob/${policyCommit}/doc
         installation hash, the operating-system type, and each instrument's
         attributes. The OpenTelemetry SDK it pins also detects environment,
         process, and host attributes by default, so what is actually exported
-        depends on those defaults and on the operator's configuration. The
-        random installation hash alone does not make the whole payload
+        depends on those defaults and on the operator's configuration. Saved
+        collector changes take effect after restart. The random installation hash alone does not make the whole payload
         non-identifying: review what your configuration exports before pointing
         it anywhere.
       </p>
@@ -145,6 +171,17 @@ const policyUrl = `https://github.com/kontourai/station/blob/${policyCommit}/doc
         OpenAI-compatible, and Ollama endpoints. A local default does not stop a
         remote provider you configure from receiving that content, so review
         your provider settings before adding documents.
+      </p>
+
+      <h3 class="privacy-h3">Private memory preview</h3>
+      <p class="body measure">
+        Private memory is a default-off preview. When enabled, an operator can
+        stage content and evidence in an author-private root associated with the
+        owner's identity. Pending proposals stay out of ordinary record lists
+        and index rebuilds. Turning the preview off retains those proposals.
+        A configured embedding provider receives search queries and, when
+        existing memory records are explicitly indexed, their chunks. Index
+        rebuilds do not send pending proposals to that provider.
       </p>
 
       <h3 class="privacy-h3">Voice</h3>
@@ -227,7 +264,11 @@ const policyUrl = `https://github.com/kontourai/station/blob/${policyCommit}/doc
         an external (OIDC) sign-in provider, Station contacts that provider at
         startup for discovery and exchanges login and identity data with it when
         you sign in. The account, token, and session records it returns are kept
-        in the operator's authentication store.
+        in the operator's authentication store. With the Member passkeys preview
+        enabled, Station also stores each credential's public key, ID, signature
+        counter, name, and authenticator details such as its model and whether
+        it is synced. It does not store a passkey private key or biometric data.
+        Sign-in is separate from Device and Project authorization.
       </p>
 
       <h3 class="privacy-h3">Camera</h3>
@@ -266,9 +307,10 @@ const policyUrl = `https://github.com/kontourai/station/blob/${policyCommit}/doc
         reviewed.
       </p>
       <p class="body measure">
-        This page is written by hand from that generated policy, and no test
-        ties it to the inventory. What ties it is this: it was written from the
-        policy whose fingerprint is{' '}
+        This page is written by hand from that generated policy. Automated
+        checks compare the reviewed policy, inventory, supporting guides, and
+        this page with the bytes recorded in a review manifest. Product changes
+        or later copy edits require a new review. The policy fingerprint is{' '}
         <code class="code-plain">{inventoryFingerprint}</code>, the first 16 hex
         characters of the SHA-256 of{' '}
         <a href={policyUrl} target="_blank" rel="noopener">Station's{' '}<code class="code-plain">docs/privacy-policy.md</code></a>. Hash the
@@ -283,9 +325,9 @@ const policyUrl = `https://github.com/kontourai/station/blob/${policyCommit}/doc
         sign-in, OpenTelemetry resource export, delivery to a real phone or
         browser, or a store submission. The store classifications, whether the
         inventory is complete, and each provider's own practices need separate
-        review. A matching fingerprint shows this page matches that
-        inventory, not that the inventory is a complete account of what Station
-        collects.
+        review. A matching fingerprint identifies the reviewed policy version;
+        it does not prove that this summary is correct or that the inventory is
+        a complete account of what Station collects.
       </p>
       <p class="body measure">
         One honest limitation: the site policy at <a href="/privacy/">/privacy/</a>{' '}
@@ -304,8 +346,11 @@ const policyUrl = `https://github.com/kontourai/station/blob/${policyCommit}/doc
         Station's data is in its own storage on your machine or your operator's
         server, so deleting it is yours or your operator's to do. If you
         configured an endpoint that received telemetry or diagnostics, or an
-        embedding or vector provider, that store is yours or your operator's to
-        clear. To stop pushes to a phone, remove its registration.
+        embedding or vector provider, review that receiver's deletion controls
+        and retention policy too. Turning off a preview or telemetry does not
+        delete existing records or recall delivered data. A configured Kontour
+        or plugin-publisher destination may hold data independently of your
+        operator's storage. To stop pushes to a phone, remove its registration.
       </p>
       <p class="body measure">
         Anything else — questions, a deletion request for something we hold, or a

@@ -72,43 +72,43 @@
       "id": "station.home-workspace-readme",
       "subject": "station",
       "sourcePath": "README.md",
-      "url": "https://github.com/kontourai/station/blob/e5c20a74a4e62acb8fe2ba1a0bb727350ac6cf6b/README.md"
+      "url": "https://github.com/kontourai/station/blob/748e8b05d1ef1e3600b184cfd466af7d8ce23da9/README.md"
     },
     {
       "id": "station.home-workspace-setup",
       "subject": "station",
       "sourcePath": "docs/user/getting-started.md",
-      "url": "https://github.com/kontourai/station/blob/e5c20a74a4e62acb8fe2ba1a0bb727350ac6cf6b/docs/user/getting-started.md"
+      "url": "https://github.com/kontourai/station/blob/748e8b05d1ef1e3600b184cfd466af7d8ce23da9/docs/user/getting-started.md"
     },
     {
       "id": "station.home-workspace-rooms",
       "subject": "station",
       "sourcePath": "docs/guides/machine-relationships.md",
-      "url": "https://github.com/kontourai/station/blob/e5c20a74a4e62acb8fe2ba1a0bb727350ac6cf6b/docs/guides/machine-relationships.md"
+      "url": "https://github.com/kontourai/station/blob/748e8b05d1ef1e3600b184cfd466af7d8ce23da9/docs/guides/machine-relationships.md"
     },
     {
       "id": "station.workspace",
       "subject": "station",
       "sourcePath": "README.md",
-      "url": "https://github.com/kontourai/station/blob/e5c20a74a4e62acb8fe2ba1a0bb727350ac6cf6b/README.md"
+      "url": "https://github.com/kontourai/station/blob/748e8b05d1ef1e3600b184cfd466af7d8ce23da9/README.md"
     },
     {
       "id": "station.setup",
       "subject": "station",
       "sourcePath": "docs/user/getting-started.md",
-      "url": "https://github.com/kontourai/station/blob/e5c20a74a4e62acb8fe2ba1a0bb727350ac6cf6b/docs/user/getting-started.md"
+      "url": "https://github.com/kontourai/station/blob/748e8b05d1ef1e3600b184cfd466af7d8ce23da9/docs/user/getting-started.md"
     },
     {
       "id": "station.sharing",
       "subject": "station",
       "sourcePath": "docs/guides/deployment-authentication.md",
-      "url": "https://github.com/kontourai/station/blob/e5c20a74a4e62acb8fe2ba1a0bb727350ac6cf6b/docs/guides/deployment-authentication.md"
+      "url": "https://github.com/kontourai/station/blob/748e8b05d1ef1e3600b184cfd466af7d8ce23da9/docs/guides/deployment-authentication.md"
     },
     {
       "id": "station.plugins",
       "subject": "station",
       "sourcePath": "docs/guides/plugins.md",
-      "url": "https://github.com/kontourai/station/blob/e5c20a74a4e62acb8fe2ba1a0bb727350ac6cf6b/docs/guides/plugins.md"
+      "url": "https://github.com/kontourai/station/blob/748e8b05d1ef1e3600b184cfd466af7d8ce23da9/docs/guides/plugins.md"
     }
   ],
   "claims": [

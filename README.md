@@ -69,6 +69,26 @@ published package versions and public metadata drift.
 
 ## Public content boundary
 
+Station's product pages, public app policy, and this website's own privacy
+notice also use Corpus's shared input/output review checks:
+
+```sh
+npm run station:sync:check
+```
+
+`src/data/station-source-review.json` records the reviewed source and public-copy
+hashes, dates, notes and limits. Product references are GitHub URLs; no sibling
+checkout layout is assumed. `validate`, `build`, and the daily Product content
+freshness workflow run the check. CI supplies its read-only GitHub token.
+Inspect changed claims and callers before recording new hashes. The check has
+no automatic refresh command and does not qualify legal/store declarations,
+provider retention, installed runtimes or deployed pages.
+
+For local work, append `-- --checkout kontourai/station=/path/to/checkout` to
+the command. This explicitly checks working bytes rather than remote `main`.
+Keep registry version checks, screenshot capture provenance and publication
+verification separate from this source review.
+
 Treat every tracked file and rendered page as publishable. Do not add secrets,
 private repository names, customer details, prototype names, or unreleased
 roadmap claims. The content-boundary check is required after any public-facing
