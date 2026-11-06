@@ -22,8 +22,8 @@ importers:
         version: 4.3.3
     devDependencies:
       '@kontourai/corpus':
-        specifier: https://codeload.github.com/kontourai/corpus/tar.gz/dfadba4e64883e6187fb42e32911ca9f091e0fa7
-        version: https://codeload.github.com/kontourai/corpus/tar.gz/dfadba4e64883e6187fb42e32911ca9f091e0fa7
+        specifier: https://codeload.github.com/kontourai/corpus/tar.gz/6ff763f67dda8431d123f277f108407eaa337242
+        version: https://codeload.github.com/kontourai/corpus/tar.gz/6ff763f67dda8431d123f277f108407eaa337242
       '@kontourai/flow-agents':
         specifier: 9.9.1
         version: 9.9.1(@ai-sdk/provider@4.0.3)(@kontourai/bearing@0.2.0(playwright@1.64.1))(playwright@1.64.1)(supports-color@10.2.2)(zod@4.6.7)
@@ -658,8 +658,8 @@ packages:
     resolution: {integrity: sha512-EiAd0KYVnysVy6I1lvW6vHoGTocLmG81HotMDsqJTIcqhMBImFAyojMs1qPqXrBnH/HpjrLI+yBlUSOzKtJwjw==}
     engines: {node: '>=22'}
 
-  '@kontourai/corpus@https://codeload.github.com/kontourai/corpus/tar.gz/dfadba4e64883e6187fb42e32911ca9f091e0fa7':
-    resolution: {gitHosted: true, integrity: sha512-4c4mdW5gpHs9WwD7+BWMVkO2NjgtTt/qy5BT6q7l5DSkmDa3W6SxkV+m46yWbFU9J2nNAqLo6ZzDPq4iHouJ8Q==, tarball: https://codeload.github.com/kontourai/corpus/tar.gz/dfadba4e64883e6187fb42e32911ca9f091e0fa7}
+  '@kontourai/corpus@https://codeload.github.com/kontourai/corpus/tar.gz/6ff763f67dda8431d123f277f108407eaa337242':
+    resolution: {gitHosted: true, integrity: sha512-fPuDb0SpDYY4xPsJYE9JqHtmUlUC1dj9mICR2l+pE592xjoShhOGuQbY3Oo86Hp9pRtEhdn+/ayxrlu1SWm3DA==, tarball: https://codeload.github.com/kontourai/corpus/tar.gz/6ff763f67dda8431d123f277f108407eaa337242}
     version: 0.7.0
     engines: {node: '>=22'}
     hasBin: true
@@ -3045,7 +3045,7 @@ snapshots:
 
   '@kontourai/conduit@0.7.1': {}
 
-  '@kontourai/corpus@https://codeload.github.com/kontourai/corpus/tar.gz/dfadba4e64883e6187fb42e32911ca9f091e0fa7':
+  '@kontourai/corpus@https://codeload.github.com/kontourai/corpus/tar.gz/6ff763f67dda8431d123f277f108407eaa337242':
     dependencies:
       '@modelcontextprotocol/server': 2.4.0
       github-slugger: 2.0.0

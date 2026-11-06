@@ -53,6 +53,6 @@
     "hachure": "0.18.0",
     "vite": "8.3.5",
     "wrangler": "4.156.0",
-    "@kontourai/corpus": "https://codeload.github.com/kontourai/corpus/tar.gz/dfadba4e64883e6187fb42e32911ca9f091e0fa7"
+    "@kontourai/corpus": "https://codeload.github.com/kontourai/corpus/tar.gz/6ff763f67dda8431d123f277f108407eaa337242"
   }
 }

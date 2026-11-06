@@ -4,8 +4,8 @@
   "reviews": [
     {
       "id": "station-public-privacy",
-      "reviewedAt": "2026-11-05T15:48:07Z",
-      "note": "Reconciled public disclosure with declared product/plugin telemetry tiers, publisher destinations and monthly pseudonyms, feedback/outbox retention, default-off Private memory, passkey fields, provider/OTel boundaries, and push controls.",
+      "reviewedAt": "2026-11-06T01:40:01.436Z",
+      "note": "Reconciled public disclosure with declared product/plugin telemetry tiers, publisher destinations and monthly pseudonyms, feedback/outbox retention, default-off Private memory, passkey fields, provider/OTel boundaries, and push controls. Re-reviewed usage-telemetry.md at 4bb7033e124502498586cdc7fdf8c15749ee4cc1: publisher digest/item syntax now rejects uppercase, reserved keys, trailing newlines and extra segments. The website describes publisher choices and destinations without promising that syntax; collected data, retention and destination disclosures remain accurate for this change.",
       "limits": "Source consistency only. The declared inventory is incomplete; legal/store classification, provider retention, real delivery and deployed pages are not qualified.",
       "inputs": [
         {
@@ -30,8 +30,8 @@
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/docs/reference/usage-telemetry.md",
-          "revision": "083dea55cbbe6e8a30c031fb1d28a9f3c2efdbff",
-          "sha256": "5d08368ceb8a28b6b977616f11c2df46c5a30e6e78ff9280aae0d5fc73cfc482"
+          "revision": "4bb7033e124502498586cdc7fdf8c15749ee4cc1",
+          "sha256": "429b718670bc99d36dcebadf6db214ec6a4cc502f277dc17a2ba58be294dcee6"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/src-server/knowledge-store/memory-root.ts",
@@ -78,8 +78,8 @@
     },
     {
       "id": "station-public-product-content",
-      "reviewedAt": "2026-11-05T23:35:50.307Z",
-      "note": "Reviewed Station homepage, developer/contact entry, current source citations, install instructions and read-only collaboration limits against current main. Existing Nightly screenshots remain explicitly dated. Re-reviewed README.md, docs/guides/nightly.md, docs/guides/release-channel-ports.md at 748e8b05d1ef1e3600b184cfd466af7d8ce23da9: updated positioning and date-based Nightly identities do not change the advertised install commands, fixed download names, ownership or sharing limits. Partial desktop publication is not treated as delivery proof.",
+      "reviewedAt": "2026-11-06T01:38:12.424Z",
+      "note": "Reviewed Station homepage, developer/contact entry, current source citations, install instructions and read-only collaboration limits against current main. Existing Nightly screenshots remain explicitly dated. Re-reviewed README.md, docs/guides/nightly.md, docs/guides/release-channel-ports.md at 748e8b05d1ef1e3600b184cfd466af7d8ce23da9: updated positioning and date-based Nightly identities do not change the advertised install commands, fixed download names, ownership or sharing limits. Partial desktop publication is not treated as delivery proof. Scoped the shared product-status output to /products/station after inspecting the metadata and rendered consumers. Station metadata is unchanged by the Veritas 1.12.2 registry refresh; other products remain outside this explicitly Station-only review and retain independent registry parity checks.",
       "limits": "Station statements only; other products on shared pages are outside this review. Public CLI metadata is independently checked against npm. No new screenshot, install or release certification.",
       "inputs": [
         {
@@ -162,7 +162,8 @@
         },
         {
           "path": "src/data/product-status.json",
-          "sha256": "62acfdad66925b740b30902328d594a4d9d48c6695093b0d6fdbdda9ecb01f73"
+          "sha256": "e8d3ecf47abc5132878fb5d505e0abaee852ae05191d79e23029f9b080a46dae",
+          "pointer": "/products/station"
         }
       ]
     },
