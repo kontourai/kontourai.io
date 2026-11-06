@@ -229,20 +229,23 @@ const stationCapabilitySources = getPublicEvidenceClaimSources('station.develope
 
   <Section id="applications" tone="alt" borderTop borderBottom>
     <div class="container">
-      <Eyebrow gap="sm" accent="gold-2">Built on it</Eyebrow>
-      <h2 class="display-md measure-lg">Two applications built on it: the workspace, and the review pipeline.</h2>
+      <h2 class="display-md measure-lg">Two applications built on it: Station and Fieldwork.</h2>
       <p class="body measure applications-intro">
-        Use Station to work with agents and inspect the linked files and results.
-        Use Fieldwork to inspect extracted proposals, record review decisions, and
-        export resolved values with source links. Each application's setup guide
-        states its prerequisites and limits.
+        Station helps individual developers take projects from idea to delivery
+        with coding agents. Its plugin
+        SDK, CLI, and HTTP API are public. Fieldwork lets you inspect extracted
+        proposals, record review decisions, and export resolved values with
+        source links. Each application’s setup guide lists its prerequisites
+        and limits.
       </p>
-      <p class="fine measure">
-        Station capability descriptions reviewed against source on 16 October 2026:{' '}
-        {stationCapabilitySources.map((source, index) => <Fragment>{index > 0 && ' · '}<a href={source.url} target="_blank" rel="noopener">{source.sourcePath}</a></Fragment>)}.
-        This is a source review, not installed server, desktop, or mobile qualification.
-        Nightly is a testing channel; see the setup guide for platform limits.
-      </p>
+      <details class="fine measure">
+        <summary>Sources and current limits</summary>
+        <p>
+          {stationCapabilitySources.map((source, index) => <Fragment>{index > 0 && ' · '}<a href={source.url} target="_blank" rel="noopener">{source.sourcePath}</a></Fragment>)}.
+          This is a source review, not installed server, desktop, or mobile qualification.
+          Nightly is a testing channel; see the setup guide for platform limits.
+        </p>
+      </details>
       <div class="application-grid">
         {applicationCards.map(({ href, label, accent, repo, packageName, docs, job, composition, status, badge, key }) => (
           <Card accent={accent} bar="top" pad="md">

@@ -17,6 +17,41 @@ This is the connective tissue across the product line:
 - **Flow Agents** applies those primitives inside the agent tools people already use.
 - **Console** makes the suite operable — claim status, process state, proof, queues, decisions, and next actions across products in one operating plane.
 
+## Station: the application front door
+
+**Station is an open-source coding workspace for individual developers and
+small teams working with coding agents.**
+The individual developer experience earns adoption first: plan, build, and ship
+with coding agents, retain the work between visits, and use plugins to shape the
+workspace. The public promise is **Code from anywhere. On your own, or with your
+team.**
+
+**From your first idea to what you ship.** Plan, build, and ship with your coding agents. Start on your own, then bring in teammates who can make decisions with you and take the work forward themselves. See progress as it happens, share what you learn, and build on work already done.
+
+That team participation is product direction. People should be able to join work
+already underway, understand its decisions, and contribute alongside its agents.
+Shared knowledge and visible progress should help people reuse learning and
+avoid overlapping effort. Task rooms, Project knowledge, and permissions support
+that concept; they should not replace the value proposition in public copy.
+Participation and authority to direct agents remain explicit choices.
+
+Describe each supported path at its actual scope: paired-device access is
+different from another person's access, and the separate collaborator browser
+entry currently reads shared Tasks without editing or agent execution. The
+[Station authentication guide](https://kontourai.github.io/station/docs/guides/deployment-authentication.html)
+owns current setup and limitations.
+
+Extensibility supports both personal workflows and organization-specific work
+surfaces. Plugins use the public SDK to contribute layouts, agents, MCP tools,
+model providers, knowledge, and skills. A plugin interface does not establish
+enterprise deployment readiness or complete shared-resource isolation.
+
+Keep this message consistent across the product site, company site, and
+developer entry. Station's own product direction owns the audience and promise;
+its implementation, guides, and release evidence own availability. Evidence and
+receipts help people review a result; a completed Task alone does not establish
+that a check or gate passed.
+
 ## The Three Verbs
 
 Every Kontour product is an implementation of three verbs over one ledger:
@@ -112,6 +147,11 @@ It can consume Flow to enforce workflow state across Codex, Claude Code, Kiro, G
 ## Product-Line Architecture
 
 ```text
+Station
+  The coding workspace application.
+  Personal work and remote continuity, public plugin extensions, and scoped
+  shared work at the support level documented by Station.
+
 Surface
   Shared transparency foundation.
   Claims, evidence, freshness, gaps, policies, trust snapshots.
@@ -201,6 +241,14 @@ That category includes:
 ### Company
 
 Kontour AI shows the work behind AI.
+
+### Station
+
+An open-source coding workspace for taking your own project from idea to
+delivery. Start with your agents, retain knowledge and progress, and bring in
+teammates who can make decisions and drive changes as the team experience
+develops. Project sharing is limited today; Station’s guides document its
+current scope.
 
 ### Surface
 

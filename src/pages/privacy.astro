@@ -16,7 +16,7 @@ import Footer from '@/components/Footer.astro';
 import Section from '@/components/Section.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
 
-const updated = '16 October 2026';
+const updated = '5 November 2026';
 const repo = 'https://github.com/kontourai/kontourai.io/blob/main';
 ---
 
@@ -142,8 +142,11 @@ const repo = 'https://github.com/kontourai/kontourai.io/blob/main';
     <div class="container container--readable">
       <h2 class="display-md privacy-h2">Changes, and how to reach us</h2>
       <p class="body measure">
-        If what the site collects changes, this page changes in the same commit —
-        the history is public, so you can see what it said before.
+        Automated checks detect changes to this notice and its reviewed layout,
+        analytics loader, signup handler, and security policy. A changed input
+        requires reviewing the disclosure before recording new review hashes.
+        The history is public, so you can see earlier versions. These checks
+        do not verify vendor retention or deployed settings.
         Questions, deletions, or anything else:{' '}
         <Fragment set:html="<!--email_off-->" /><a href="mailto:hello@kontourai.io">hello@kontourai.io</a><Fragment set:html="<!--email_on-->" />.
       </p>

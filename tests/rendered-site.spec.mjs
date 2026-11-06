@@ -11,10 +11,10 @@ test("Veritas planning and approval qualifiers are explicit", async ({ page }) =
   await expect(page.locator("body")).toContainText("If source files, the index, or HEAD differ after the checks from when they started, readiness stops before writing a report.");
 });
 
-test("Station homepage installation and Project details are explicit", async ({ page }) => {
+test("Station homepage installation, continuity, and sharing limits are explicit", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator(".station__status")).toContainText("Install the Nightly with one command on macOS, Linux, or Windows x64, use the Nightly desktop app on an Apple silicon Mac or a Windows x64 PC, or run it from source.");
-  await expect(page.locator(".station__card-copy").nth(1)).toContainText("a shared Room for discussion and notes, and a Task can start from a GitHub issue");
+  await expect(page.locator(".station__card-copy").nth(1)).toContainText("Return to the conversation, files, and progress without starting over.");
   await expect(page.locator('img[src="/screenshots/station-project.png"]')).toHaveAttribute("alt", /Project room/);
   await expect(page.locator(".station__shot figcaption")).toContainText("four Tasks ready to start");
 });
@@ -36,7 +36,7 @@ test("homepage keeps the company headline, leads with Station, then the recognit
   await expect(page.locator(".hero-inner > *").first()).toHaveClass(/hero-title/);
   // The company slogan stays the headline (owner direction 2026-09-05); the
   // lead beneath it introduces Station as the product, not Flow Agents.
-  await expect(page.getByText("Station is the agent workspace where work ships with receipts.").first()).toBeVisible();
+  await expect(page.getByText("Station helps you plan, build, and ship with your coding agents.").first()).toBeVisible();
   await expect(page.locator(".hero-inner").getByText("AI writes more code than anyone can read line by line.")).toHaveCount(0);
 
   // Hero CTAs: Station leads, Flow Agents is the offer for existing tools.
@@ -47,16 +47,16 @@ test("homepage keeps the company headline, leads with Station, then the recognit
 
   // Station section: what the workspace is, its run paths stated honestly, and
   // both ways in. It renders above the recognition moments.
-  await expect(page.getByRole("heading", { name: "One workspace for the whole job." })).toBeVisible();
-  for (const card of ["Your agents, one place", "Work that outlives a chat", "Receipts beside the work"]) {
+  await expect(page.getByRole("heading", { name: "Code from anywhere. On your own, or with your team." })).toBeVisible();
+  for (const card of ["Bring the coding agents you already use", "Pick up where you left off", "See what was checked"]) {
     await expect(page.getByRole("heading", { level: 3, name: card, exact: true })).toBeVisible();
   }
-  await expect(page.getByText("No stable or beta release is published yet.")).toBeVisible();
+  await expect(page.getByText("There is no stable or beta release yet.")).toBeVisible();
   await expect(page.locator('[data-umami-event="home-station-privacy"]')).toHaveAttribute("href", "/privacy/station/");
   // The Station capture is a manifest-bound visual with its provenance in the caption.
   await expect(page.locator('img[src="/screenshots/station-project.png"]')).toHaveAttribute("alt", /Trail Notes/);
   await expect(page.getByText(/Station Nightly 0\.1\.11-nightly\.249203 \(revision 7ab23e35\)\s+running from a temporary Station home/)).toBeVisible();
-  await expect(page.getByText("desktop builds check their release feed for updates")).toBeVisible();
+  await expect(page.getByText("desktop builds check for updates")).toBeVisible();
   await expect(page.locator('[data-umami-event="home-station-tour"]')).toHaveAttribute("href", "https://station.kontourai.io/");
   await expect(page.locator('[data-umami-event="home-station-setup"]')).toHaveAttribute("href", "https://kontourai.github.io/station/docs/user/getting-started.html");
   await expect(page.locator('[data-umami-event="home-station-flow-agents"]')).toHaveAttribute("href", "/flow-agents/");
@@ -124,10 +124,10 @@ test("homepage keeps the company headline, leads with Station, then the recognit
   await expect(page.locator(".narrator__residual")).toContainText("narrowed test suite or a test edited until it passes");
   await expect(page.locator(".narrator__residual")).toContainText("depend on the configured runtime");
   await expect(page.locator(".hero-lead")).not.toContainText('"done" means proven');
-  await expect(page.getByText("Completing a Task does not by itself establish")).toBeVisible();
+  await expect(page.getByText("Completing a Task doesn’t mean")).toBeVisible();
   await expect(page.locator('[data-umami-event="home-narrator-trust"]')).toHaveAttribute("href", "/trust/");
   // Examples-first placement: the recognition block renders above the mechanism.
-  const stationBox = await page.getByRole("heading", { name: "One workspace for the whole job." }).boundingBox();
+  const stationBox = await page.getByRole("heading", { name: "Code from anywhere. On your own, or with your team." }).boundingBox();
   const narratorBox = await page.getByRole("heading", { name: "Anyone can say the tests passed." }).boundingBox();
   const mechanismHeadingBox = await page.getByRole("heading", { name: "Compare the claim with the recorded result." }).boundingBox();
   expect(stationBox).not.toBeNull();
@@ -453,7 +453,7 @@ test("early access page gives static contact paths", async ({ page }) => {
   // Station has its own lane now that it is the main product; the lane and the
   // hero mention both point at the product site rather than an install command.
   await expect(page.getByRole("heading", { name: "Station workspace" })).toBeVisible();
-  await expect(page.getByText("install the Nightly or the Nightly desktop app, or run it from source, then tell us what you hit")).toBeVisible();
+  await expect(page.getByText("Try the Nightly and tell us what needs work")).toBeVisible();
   await expect(page.locator('[data-umami-event="early-access-hero-station"]')).toHaveAttribute("href", "https://station.kontourai.io/");
   await expect(page.getByText("One concrete workflow is enough.")).toBeVisible();
   await expect(page.locator('[data-umami-event="early-access-hero-email"]')).toHaveAttribute("href", /mailto:hello@kontourai\.io/);
@@ -1755,14 +1755,11 @@ test("the ownership-guard receipt discloses its waived pre-existing-failure gap"
   // AC: the gaps section is visible and names the waived claim from the bundle
   // (subjectId ends with pre-existing-failure-baseline) rather than hiding it.
   //
-  // The section is now driven by the validator instead of a homegrown
-  // heuristic. Per `surface report`, this bundle has ZERO transparency gaps —
-  // the waived claim is a high-impact UNSUPPORTED claim, which is a different
-  // thing. The old `.gap-item` locator and the `high-impact but status is
-  // "assumed"` string were both deriveGaps() inventions that disagreed with the
-  // validator (it rendered 12 gaps where the validator found 0).
+  // Surface 6 also reports missing verification policies for the other claims.
+  // This receipt therefore exposes twelve high-impact unsupported claims and
+  // eleven transparency gaps, while still naming the waived baseline below.
   await expect(page.getByRole("heading", { name: "What this receipt leaves open" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "High-impact claims counted as unsupported (1)" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "High-impact claims counted as unsupported (12)" })).toBeVisible();
   await expect(
     page
       .locator(".unsupported-list li")
@@ -2055,11 +2052,9 @@ test("freshness pass keeps current claims distinct from frozen demonstrations", 
 
 test("Station privacy page covers the current inventory and states its fingerprint method", async ({ page }) => {
   await page.goto("/privacy/station/");
-  // Literal, checked 2026-10-11: first 16 hex of SHA-256 of kontourai/station
-  // docs/privacy-policy.md at eafa3df6f65a00fb206a413b8e3a065ff61dae99.
-  await expect(page.getByText("098fe4522c631fbe")).toBeVisible();
+  await expect(page.getByText("ad8af6b4ff8a8727")).toBeVisible();
   await expect(page.getByText("the first 16 hex characters of the SHA-256 of")).toBeVisible();
-  await expect(page.locator('a[href="https://github.com/kontourai/station/blob/eafa3df6f65a00fb206a413b8e3a065ff61dae99/docs/privacy-policy.md"]')).toBeVisible();
+  await expect(page.locator('a[href="https://github.com/kontourai/station/blob/083dea55cbbe6e8a30c031fb1d28a9f3c2efdbff/docs/privacy-policy.md"]')).toBeVisible();
   // The flows the 11 August page left out.
   for (const heading of [
     "Your model and engine",
@@ -2068,13 +2063,16 @@ test("Station privacy page covers the current inventory and states its fingerpri
     "Notifications on your phone",
     "Notifications in a browser",
     "Sign-in, when accounts are on",
+    "Plugin publisher analytics",
+    "Private memory preview",
   ]) {
     await expect(page.getByRole("heading", { level: 3, name: heading })).toBeVisible();
   }
   await expect(page.getByText("Google Firebase Cloud Messaging for Android or Apple Push Notification service")).toBeVisible();
-  // No test ties this page to the inventory; the page must not claim one does.
-  await expect(page.getByText("no test ties it to the inventory")).toBeVisible();
-  await expect(page.getByText("a test in the app's build fails if any of them drifts")).toHaveCount(0);
+  await expect(page.getByText("Automated checks compare the reviewed policy")).toBeVisible();
+  await expect(page.getByText("plugin Lite is not identifier-free")).toBeVisible();
+  await expect(page.getByText("publisher-specific monthly pseudonym")).toBeVisible();
+  await expect(page.getByText("It does not store a passkey private key or biometric data.")).toBeVisible();
   // Review fixes: claims the generated policy and Web Push guide don't support.
   await expect(page.getByText("nothing goes anywhere")).toHaveCount(0);
   await expect(page.getByText("The one Kontour-operated service")).toHaveCount(0);

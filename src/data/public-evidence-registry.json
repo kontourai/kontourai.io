@@ -72,116 +72,177 @@
       "id": "station.home-workspace-readme",
       "subject": "station",
       "sourcePath": "README.md",
-      "url": "https://github.com/kontourai/station/blob/7ab23e351c844bdccf6359c8ba773e11c8ab00ad/README.md"
+      "url": "https://github.com/kontourai/station/blob/748e8b05d1ef1e3600b184cfd466af7d8ce23da9/README.md"
     },
     {
       "id": "station.home-workspace-setup",
       "subject": "station",
       "sourcePath": "docs/user/getting-started.md",
-      "url": "https://github.com/kontourai/station/blob/7ab23e351c844bdccf6359c8ba773e11c8ab00ad/docs/user/getting-started.md"
+      "url": "https://github.com/kontourai/station/blob/748e8b05d1ef1e3600b184cfd466af7d8ce23da9/docs/user/getting-started.md"
     },
     {
       "id": "station.home-workspace-rooms",
       "subject": "station",
       "sourcePath": "docs/guides/machine-relationships.md",
-      "url": "https://github.com/kontourai/station/blob/7ab23e351c844bdccf6359c8ba773e11c8ab00ad/docs/guides/machine-relationships.md"
+      "url": "https://github.com/kontourai/station/blob/748e8b05d1ef1e3600b184cfd466af7d8ce23da9/docs/guides/machine-relationships.md"
     },
     {
       "id": "station.workspace",
       "subject": "station",
       "sourcePath": "README.md",
-      "url": "https://github.com/kontourai/station/blob/64c3b8ced637018f30912749dd0be43b90222293/README.md"
+      "url": "https://github.com/kontourai/station/blob/748e8b05d1ef1e3600b184cfd466af7d8ce23da9/README.md"
     },
     {
       "id": "station.setup",
       "subject": "station",
       "sourcePath": "docs/user/getting-started.md",
-      "url": "https://github.com/kontourai/station/blob/64c3b8ced637018f30912749dd0be43b90222293/docs/user/getting-started.md"
+      "url": "https://github.com/kontourai/station/blob/748e8b05d1ef1e3600b184cfd466af7d8ce23da9/docs/user/getting-started.md"
+    },
+    {
+      "id": "station.sharing",
+      "subject": "station",
+      "sourcePath": "docs/guides/deployment-authentication.md",
+      "url": "https://github.com/kontourai/station/blob/748e8b05d1ef1e3600b184cfd466af7d8ce23da9/docs/guides/deployment-authentication.md"
+    },
+    {
+      "id": "station.plugins",
+      "subject": "station",
+      "sourcePath": "docs/guides/plugins.md",
+      "url": "https://github.com/kontourai/station/blob/748e8b05d1ef1e3600b184cfd466af7d8ce23da9/docs/guides/plugins.md"
     }
   ],
   "claims": [
     {
       "id": "fieldwork.published-contract",
       "pagePath": "src/pages/fieldwork.astro",
-      "sourceIds": ["fieldwork.readme"]
+      "sourceIds": [
+        "fieldwork.readme"
+      ]
     },
     {
       "id": "fieldwork.browser-review-evidence",
       "pagePath": "src/pages/fieldwork.astro",
-      "sourceIds": ["fieldwork.browser-review"]
+      "sourceIds": [
+        "fieldwork.browser-review"
+      ]
     },
     {
       "id": "fieldwork.deterministic-conformance",
       "pagePath": "src/pages/fieldwork.astro",
-      "sourceIds": ["fieldwork.conformance"]
+      "sourceIds": [
+        "fieldwork.conformance"
+      ]
     },
     {
       "id": "fieldwork.runtime-boundary",
       "pagePath": "src/pages/fieldwork.astro",
-      "sourceIds": ["fieldwork.readme"]
+      "sourceIds": [
+        "fieldwork.readme"
+      ]
     },
     {
       "id": "fieldwork.release-source",
       "pagePath": "src/pages/fieldwork.astro",
-      "sourceIds": ["fieldwork.release"]
+      "sourceIds": [
+        "fieldwork.release"
+      ]
     },
     {
       "id": "fieldwork.comparison.core-premise",
       "pagePath": "src/pages/fieldwork-vs-langextract.astro",
-      "sourceIds": ["comparison.langextract-readme", "fieldwork.readme", "traverse.readme"]
+      "sourceIds": [
+        "comparison.langextract-readme",
+        "fieldwork.readme",
+        "traverse.readme"
+      ]
     },
     {
       "id": "fieldwork.comparison.grounding",
       "pagePath": "src/pages/fieldwork-vs-langextract.astro",
-      "sourceIds": ["comparison.langextract-readme", "traverse.readme"]
+      "sourceIds": [
+        "comparison.langextract-readme",
+        "traverse.readme"
+      ]
     },
     {
       "id": "fieldwork.comparison.human-review",
       "pagePath": "src/pages/fieldwork-vs-langextract.astro",
-      "sourceIds": ["comparison.langextract-readme", "fieldwork.readme", "survey.readme"]
+      "sourceIds": [
+        "comparison.langextract-readme",
+        "fieldwork.readme",
+        "survey.readme"
+      ]
     },
     {
       "id": "fieldwork.comparison.recheck-and-replay",
       "pagePath": "src/pages/fieldwork-vs-langextract.astro",
-      "sourceIds": ["fieldwork.readme", "lookout.readme"]
+      "sourceIds": [
+        "fieldwork.readme",
+        "lookout.readme"
+      ]
     },
     {
       "id": "fieldwork.comparison.reviewed-output",
       "pagePath": "src/pages/fieldwork-vs-langextract.astro",
-      "sourceIds": ["comparison.langextract-readme", "fieldwork.readme", "surface.readme"]
+      "sourceIds": [
+        "comparison.langextract-readme",
+        "fieldwork.readme",
+        "surface.readme"
+      ]
     },
     {
       "id": "fieldwork.comparison.runtime-posture",
       "pagePath": "src/pages/fieldwork-vs-langextract.astro",
-      "sourceIds": ["comparison.langextract-readme", "fieldwork.readme", "relay.readme", "dispatch.readme"]
+      "sourceIds": [
+        "comparison.langextract-readme",
+        "fieldwork.readme",
+        "relay.readme",
+        "dispatch.readme"
+      ]
     },
     {
       "id": "station.home-workspace",
       "pagePath": "src/pages/index.astro",
-      "sourceIds": ["station.home-workspace-readme", "station.home-workspace-setup", "station.home-workspace-rooms"],
+      "sourceIds": [
+        "station.home-workspace-readme",
+        "station.home-workspace-setup",
+        "station.home-workspace-rooms",
+        "station.sharing",
+        "station.plugins"
+      ],
       "review": {
-        "date": "2026-10-29",
-        "scope": "Projects with a shared Room, Tasks (including Tasks started from a GitHub issue), recorded workspace bindings, configured engines, paired-device data flows, and Nightly install routes; source descriptions only.",
+        "date": "2026-11-05",
+        "scope": "Personal coding workspace, paired-device continuity, configured workflow evidence, public plugin contribution types, and scoped Project sharing with read-only collaborator Task entry. Source inspection only; no complete two-person delivery, shared inference service, or enterprise deployment qualification. Owner-directed plain-language rewrite and eyebrow removal reviewed against the same pinned sources. No universal Session-brief delivery claim is added. Interactive team Task rooms are owner-approved direction, not current member-browser qualification. Public messaging leads with individual project work from idea to delivery, then team participation and shared learning as direction. Task-room structure is supporting detail. Current member-browser limits remain explicit.",
         "qualification": "source-only"
       }
     },
     {
       "id": "station.developer-entry",
       "pagePath": "src/pages/developers.astro",
-      "sourceIds": ["station.workspace", "station.setup"],
+      "sourceIds": [
+        "station.workspace",
+        "station.setup",
+        "station.sharing",
+        "station.plugins"
+      ],
       "review": {
-        "date": "2026-10-16",
-        "scope": "Workspace role, CLI-client versus server/desktop distinction, and documented Nightly setup; source descriptions only.",
+        "date": "2026-11-05",
+        "scope": "Personal coding workspace, paired-device continuity, configured workflow evidence, public plugin contribution types, and scoped Project sharing with read-only collaborator Task entry. Source inspection only; no complete two-person delivery, shared inference service, or enterprise deployment qualification. Owner-directed plain-language rewrite and eyebrow removal reviewed against the same pinned sources. No universal Session-brief delivery claim is added. Interactive team Task rooms are owner-approved direction, not current member-browser qualification. Public messaging leads with individual project work from idea to delivery, then team participation and shared learning as direction. Task-room structure is supporting detail. Current member-browser limits remain explicit.",
         "qualification": "source-only"
       }
     },
     {
       "id": "station.contact-entry",
       "pagePath": "src/pages/early-access.astro",
-      "sourceIds": ["station.workspace", "station.setup"],
+      "sourceIds": [
+        "station.workspace",
+        "station.setup",
+        "station.sharing",
+        "station.plugins"
+      ],
       "review": {
-        "date": "2026-10-16",
-        "scope": "Public Nightly/source entry and paired-device setup prerequisites; source descriptions only.",
+        "date": "2026-11-05",
+        "scope": "Personal coding workspace, paired-device continuity, configured workflow evidence, public plugin contribution types, and scoped Project sharing with read-only collaborator Task entry. Source inspection only; no complete two-person delivery, shared inference service, or enterprise deployment qualification. Owner-directed plain-language rewrite and eyebrow removal reviewed against the same pinned sources. No universal Session-brief delivery claim is added. Interactive team Task rooms are owner-approved direction, not current member-browser qualification. Public messaging leads with individual project work from idea to delivery, then team participation and shared learning as direction. Task-room structure is supporting detail. Current member-browser limits remain explicit.",
         "qualification": "source-only"
       }
     }
