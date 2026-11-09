@@ -4,143 +4,153 @@
   "reviews": [
     {
       "id": "station-public-privacy",
-      "reviewedAt": "2026-11-06T01:40:01.436Z",
-      "note": "Reconciled public disclosure with declared product/plugin telemetry tiers, publisher destinations and monthly pseudonyms, feedback/outbox retention, default-off Private memory, passkey fields, provider/OTel boundaries, and push controls. Re-reviewed usage-telemetry.md at 4bb7033e124502498586cdc7fdf8c15749ee4cc1: publisher digest/item syntax now rejects uppercase, reserved keys, trailing newlines and extra segments. The website describes publisher choices and destinations without promising that syntax; collected data, retention and destination disclosures remain accurate for this change.",
+      "reviewedAt": "2026-11-09T16:22:04Z",
+      "note": "Reviewed the declared privacy inventory and its generated policy at 309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d, plus the memory review persistence and authority-gated first-turn brief. Updated public disclosure for stored decisions, correction text and review timing, and confirmed/corrected memory sent to the selected model provider. Reviewed managed-policy telemetry suppression, the Privacy & sharing outbox, authentication-origin/bootstrap-device changes, and owner-root hashing; updated telemetry wording and the policy fingerprint. Unchanged destinations, plugin opt-in, retention, passkey and push disclosures retain their prior source scope. No native or provider execution is claimed.",
       "limits": "Source consistency only. The declared inventory is incomplete; legal/store classification, provider retention, real delivery and deployed pages are not qualified.",
       "inputs": [
         {
           "url": "https://github.com/kontourai/station/blob/main/docs/guides/deployment-authentication.md",
-          "revision": "083dea55cbbe6e8a30c031fb1d28a9f3c2efdbff",
-          "sha256": "46069b331cc180ba627c1d9e4524cc3355401b29c317dc2dc811572c1c3a38c1"
+          "revision": "309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d",
+          "sha256": "466c068a66ce39e2cbf3263a52446c9d4444167ae61e57dff27af6db0b8de43e"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/docs/guides/monitoring.md",
-          "revision": "083dea55cbbe6e8a30c031fb1d28a9f3c2efdbff",
-          "sha256": "90bd4d8c1b94d65029c9022eebc72e33ba2b43e508679f396ff92e254c868916"
+          "revision": "309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d",
+          "sha256": "f95caacc18403727ed57b02b8160b0dc56cf90efeb20a2e5b626c31b750cd9c9"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/docs/guides/web-push-notifications.md",
-          "revision": "083dea55cbbe6e8a30c031fb1d28a9f3c2efdbff",
+          "revision": "309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d",
           "sha256": "437a3e22642a5809aaf4a26046069b168ffa141140b6e1422f9f428a1d4843cf"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/docs/privacy-policy.md",
-          "revision": "083dea55cbbe6e8a30c031fb1d28a9f3c2efdbff",
-          "sha256": "ad8af6b4ff8a872736ef5a35d29ec7f488150182b21e47e12cb8afb00c4ef2ea"
+          "revision": "309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d",
+          "sha256": "ac2584fa8c678aff8217b650f1150e6b9cd8767a70fa75fa07eb81f6a12ea2db"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/docs/reference/usage-telemetry.md",
-          "revision": "4bb7033e124502498586cdc7fdf8c15749ee4cc1",
-          "sha256": "429b718670bc99d36dcebadf6db214ec6a4cc502f277dc17a2ba58be294dcee6"
+          "revision": "309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d",
+          "sha256": "32d306482dba451a2e5ee0a3283facac26bb9765e68e71ea37708fa5215797aa"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/src-server/knowledge-store/memory-root.ts",
-          "revision": "083dea55cbbe6e8a30c031fb1d28a9f3c2efdbff",
-          "sha256": "fa42141b8a634afb6f7bbb77d04339aa7a48bd75bcf3e0c93135e6e625bf9447"
+          "revision": "309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d",
+          "sha256": "dd31d557d852f7ab145295edd08c75211bd6940b4b5dc8200a71ab7587c49808"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/src-server/services/identity/local-account-passkeys.ts",
-          "revision": "083dea55cbbe6e8a30c031fb1d28a9f3c2efdbff",
+          "revision": "309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d",
           "sha256": "0d724e426d1d82a553b28838dd5623c8b8a942f530710b9c73066927aabfed9b"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/src-server/services/identity/local-account-provider.ts",
-          "revision": "083dea55cbbe6e8a30c031fb1d28a9f3c2efdbff",
+          "revision": "309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d",
           "sha256": "58c4ddba526745866831189fcf9a7aa4257cf45f2cdabd041d5268c92e0a78fa"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/src-server/services/plugin-telemetry-service.ts",
-          "revision": "083dea55cbbe6e8a30c031fb1d28a9f3c2efdbff",
+          "revision": "309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d",
           "sha256": "1c2f2d341517aee7d03d6e29ca6e4378cc1578b8ad6e6ba649bc40e7a5baa658"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/src-server/services/privacy-inventory.ts",
-          "revision": "083dea55cbbe6e8a30c031fb1d28a9f3c2efdbff",
-          "sha256": "853b1c571810817fc0ddc765f19ef873cf7cf2126762b38979b14fc35e80ec69"
+          "revision": "309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d",
+          "sha256": "055e8771daf096135764055125ccb69cf7db9dd864792d2888b3ae0672469b01"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/src-server/services/telemetry-local-state.ts",
-          "revision": "083dea55cbbe6e8a30c031fb1d28a9f3c2efdbff",
+          "revision": "309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d",
           "sha256": "b82daacfc178e66ffd7f8c9b2648f856ddc6631c8ac1cb0ea23b614ac75dcb68"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/src-server/services/telemetry-publisher-service.ts",
-          "revision": "083dea55cbbe6e8a30c031fb1d28a9f3c2efdbff",
-          "sha256": "2c85e8bcb9175831e73217d4f4b8dd86fb402cc0441f0bb524cafc56ffe4762d"
+          "revision": "309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d",
+          "sha256": "53f7044c61401b9974a30134a20ca162853c95bdbf37f46a5d3696085e735f58"
+        },
+        {
+          "url": "https://github.com/kontourai/station/blob/main/src-server/knowledge-store/memory-review.ts",
+          "revision": "309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d",
+          "sha256": "8d974309520c4ec7612f2f78eebb0fe0b63c51a26e8b44073bc89b9cbf33fc3b"
+        },
+        {
+          "url": "https://github.com/kontourai/station/blob/main/src-server/knowledge-store/memory-brief-provider.ts",
+          "revision": "309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d",
+          "sha256": "c5412b09defac6c17b1d6b202e58e10fa8162fecd646b684d3d724ea93f2be3e"
         }
       ],
       "outputs": [
         {
           "path": "src/pages/privacy/station.astro",
-          "sha256": "ec3abc68d9d60e5804f1fc65282644fe2c657f199eef41c8e2aa2c2f30cef59a"
+          "sha256": "f81ef218daf0898d0e51b1fc3271f4f1bc50043d99b950c836699b8352503c7c"
         }
       ]
     },
     {
       "id": "station-public-product-content",
-      "reviewedAt": "2026-11-06T01:38:12.424Z",
-      "note": "Reviewed Station homepage, developer/contact entry, current source citations, install instructions and read-only collaboration limits against current main. Existing Nightly screenshots remain explicitly dated. Re-reviewed README.md, docs/guides/nightly.md, docs/guides/release-channel-ports.md at 748e8b05d1ef1e3600b184cfd466af7d8ce23da9: updated positioning and date-based Nightly identities do not change the advertised install commands, fixed download names, ownership or sharing limits. Partial desktop publication is not treated as delivery proof. Scoped the shared product-status output to /products/station after inspecting the metadata and rendered consumers. Station metadata is unchanged by the Veritas 1.12.2 registry refresh; other products remain outside this explicitly Station-only review and retain independent registry parity checks.",
+      "reviewedAt": "2026-11-09T16:22:04Z",
+      "note": "Re-reviewed all declared Station inputs at 309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d against the Station sections on the homepage, developer/contact entries and scoped product metadata. Source deltas cover sample gallery images, managed-policy restrictions and mirrors, pairing/bootstrap recovery and Tailscale origins, relay chat and attachment limits, source/authentication observations, workspace paths, inbox/Apps and uncertain-delivery recovery. Existing high-level install, personal continuity, public SDK and read-only collaborator claims remain accurate; no new release, screenshot, universal brief-delivery or end-to-end team qualification is asserted. The CLI manifest adds Koffi without changing the advertised package identity. Other products on shared pages remain outside this Station review.",
       "limits": "Station statements only; other products on shared pages are outside this review. Public CLI metadata is independently checked against npm. No new screenshot, install or release certification.",
       "inputs": [
         {
           "url": "https://github.com/kontourai/station/blob/main/README.md",
-          "revision": "748e8b05d1ef1e3600b184cfd466af7d8ce23da9",
-          "sha256": "9687c01b432620616c2d1ff92478f765d1ed12facc9cc97c8ff4d9bf510abf9a"
+          "revision": "309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d",
+          "sha256": "0a94b98b51d42a4f3a9a73ae75b080c2ce7fa54ceed86b7a237f6d883901aac3"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/docs/guides/connections.md",
-          "revision": "083dea55cbbe6e8a30c031fb1d28a9f3c2efdbff",
-          "sha256": "706fff6556e93c9c7f9d80e4f4d8cc6aac6cb6fcf2033ea02ca64c4f2d7465fe"
+          "revision": "309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d",
+          "sha256": "f256c9fb27dacf0ec98747ab850446645f4aa3ef4c12518cea10865fd29ece76"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/docs/guides/deployment-authentication.md",
-          "revision": "083dea55cbbe6e8a30c031fb1d28a9f3c2efdbff",
-          "sha256": "46069b331cc180ba627c1d9e4524cc3355401b29c317dc2dc811572c1c3a38c1"
+          "revision": "309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d",
+          "sha256": "466c068a66ce39e2cbf3263a52446c9d4444167ae61e57dff27af6db0b8de43e"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/docs/guides/machine-relationships.md",
-          "revision": "083dea55cbbe6e8a30c031fb1d28a9f3c2efdbff",
-          "sha256": "bedab7f6aea11ecff595fdbea8d622ac8d0930208c9c858913379b772c5aca38"
+          "revision": "309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d",
+          "sha256": "59584d63b56d51911ce5b05e999539552dbcecc2e63ddf8fb4e284d53a3c3b07"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/docs/guides/nightly.md",
-          "revision": "748e8b05d1ef1e3600b184cfd466af7d8ce23da9",
-          "sha256": "e77e1b8ad0cb5d018046c83df98b71581127efee023b7c64c88803921f631c36"
+          "revision": "309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d",
+          "sha256": "89180ec871df8e51086f30be853863aafc2f33493c91fb4c6afccb6925eecaf5"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/docs/guides/plugins.md",
-          "revision": "083dea55cbbe6e8a30c031fb1d28a9f3c2efdbff",
-          "sha256": "dd38e2633c5decb877622f90a158a544dbe34b55519f3ca0bc9ab96f7d0c29b4"
+          "revision": "309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d",
+          "sha256": "6be0457004a9dfd48e96e2684089273623292eb4421be171b232d6ea0304018d"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/docs/guides/release-channel-ports.md",
-          "revision": "748e8b05d1ef1e3600b184cfd466af7d8ce23da9",
-          "sha256": "93c5bca1a7276a1a1524bd90c76b77a75fddf1bbae261d1c7a1bde4c15b41c37"
+          "revision": "309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d",
+          "sha256": "22b1c880f687a9cd56b52c57a1d31babd7c05c915a230ecf29e8a5052f10a922"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/docs/user/concepts.md",
-          "revision": "083dea55cbbe6e8a30c031fb1d28a9f3c2efdbff",
-          "sha256": "890803eb6efeb9d3842a67511ad2f212622ea5c142dd907e1b6b571153eeec52"
+          "revision": "309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d",
+          "sha256": "7083f0593ce89b2bd3ef86017c6517228310c2b23d909631e0e6f526f7279001"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/docs/user/getting-started.md",
-          "revision": "083dea55cbbe6e8a30c031fb1d28a9f3c2efdbff",
-          "sha256": "6254ecbd7f4665b424f26d9a100afa9a4fa0ba8102e7b656de47ee6949e4bb41"
+          "revision": "309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d",
+          "sha256": "2ead7a53fd33a11c89e8abb8ab1a097bae35126662a9dbcb63abc1ac8cc20ca4"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/install.ps1",
-          "revision": "083dea55cbbe6e8a30c031fb1d28a9f3c2efdbff",
+          "revision": "309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d",
           "sha256": "f154fe9d6a89cfcb7e3ed375600aa92df09b409ef3a493081341c467387d5a62"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/install.sh",
-          "revision": "083dea55cbbe6e8a30c031fb1d28a9f3c2efdbff",
-          "sha256": "01561e142827aab9fd202635a3ed1142d81c97569db31920cf34e143bbf801b4"
+          "revision": "309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d",
+          "sha256": "879481a1600c5f169a545fc30bfac82db63ea0ab2b5803177dfb13bc226559b5"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/packages/cli/package.json",
-          "revision": "083dea55cbbe6e8a30c031fb1d28a9f3c2efdbff",
-          "sha256": "69c8207085f3ecab7bb75ca841ddb0590b31874dff4912301a77e64fca97381f"
+          "revision": "309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d",
+          "sha256": "d7c724c6f9ea0add5d98ca2f203c0d7dd1d7c290167811ed94cda8821a905f36"
         }
       ],
       "outputs": [
