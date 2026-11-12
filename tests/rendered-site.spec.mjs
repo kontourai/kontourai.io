@@ -2052,9 +2052,9 @@ test("freshness pass keeps current claims distinct from frozen demonstrations", 
 
 test("Station privacy page covers the current inventory and states its fingerprint method", async ({ page }) => {
   await page.goto("/privacy/station/");
-  await expect(page.getByText("ad8af6b4ff8a8727")).toBeVisible();
+  await expect(page.getByText("ac2584fa8c678aff")).toBeVisible();
   await expect(page.getByText("the first 16 hex characters of the SHA-256 of")).toBeVisible();
-  await expect(page.locator('a[href="https://github.com/kontourai/station/blob/083dea55cbbe6e8a30c031fb1d28a9f3c2efdbff/docs/privacy-policy.md"]')).toBeVisible();
+  await expect(page.locator('a[href="https://github.com/kontourai/station/blob/309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d/docs/privacy-policy.md"]')).toBeVisible();
   // The flows the 11 August page left out.
   for (const heading of [
     "Your model and engine",
@@ -2073,6 +2073,8 @@ test("Station privacy page covers the current inventory and states its fingerpri
   await expect(page.getByText("plugin Lite is not identifier-free")).toBeVisible();
   await expect(page.getByText("publisher-specific monthly pseudonym")).toBeVisible();
   await expect(page.getByText("It does not store a passkey private key or biometric data.")).toBeVisible();
+  await expect(page.getByText("Review decisions, correction text, and review timing")).toBeVisible();
+  await expect(page.getByText("reaches the model provider chosen for that chat.")).toBeVisible();
   // Review fixes: claims the generated policy and Web Push guide don't support.
   await expect(page.getByText("nothing goes anywhere")).toHaveCount(0);
   await expect(page.getByText("The one Kontour-operated service")).toHaveCount(0);

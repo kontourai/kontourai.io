@@ -38,21 +38,21 @@
     "station:sync:check": "corpus content check --manifest src/data/station-source-review.json"
   },
   "dependencies": {
-    "@kontourai/surface": "6.2.1",
-    "@tailwindcss/vite": "^4.3.3",
-    "astro": "7.4.4",
-    "tailwindcss": "^4.3.0"
+    "@kontourai/surface": "6.3.0",
+    "@tailwindcss/vite": "^4.3.5",
+    "astro": "7.4.7",
+    "tailwindcss": "^4.3.5"
   },
   "devDependencies": {
-    "@kontourai/flow-agents": "9.9.1",
+    "@kontourai/flow-agents": "9.13.0",
     "@kontourai/ui": "^1.20.1",
-    "@kontourai/veritas": "1.12.1",
-    "@playwright/test": "^1.64.1",
+    "@kontourai/veritas": "1.12.2",
+    "@playwright/test": "^1.65.0",
     "ajv": "8.20.0",
     "fflate": "0.8.3",
     "hachure": "0.18.0",
-    "vite": "8.3.5",
-    "wrangler": "4.156.0",
+    "vite": "8.3.6",
+    "wrangler": "4.158.0",
     "@kontourai/corpus": "https://codeload.github.com/kontourai/corpus/tar.gz/6ff763f67dda8431d123f277f108407eaa337242"
   }
 }

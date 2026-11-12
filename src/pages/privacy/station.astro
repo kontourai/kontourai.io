@@ -9,9 +9,9 @@ import Footer from '@/components/Footer.astro';
 import Section from '@/components/Section.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
 
-const updated = '5 November 2026';
-const inventoryFingerprint = 'ad8af6b4ff8a8727';
-const policyCommit = '083dea55cbbe6e8a30c031fb1d28a9f3c2efdbff';
+const updated = '9 November 2026';
+const inventoryFingerprint = 'ac2584fa8c678aff';
+const policyCommit = '309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d';
 const policyUrl = `https://github.com/kontourai/station/blob/${policyCommit}/docs/privacy-policy.md`;
 ---
 
@@ -114,9 +114,11 @@ const policyUrl = `https://github.com/kontourai/station/blob/${policyCommit}/doc
         A reason for lowering a tier can send before the lower choice, including
         Off, takes effect. A separate reason requires a recorded lowering within
         ten minutes; together they are limited to one per publisher per UTC day.
-        Do Not Track suppresses this feedback. A local payload ledger retains
+        Do Not Track and a managed policy that disables telemetry suppress this
+        feedback. A local payload ledger retains
         send attempts and grouped drops for at most 30 days and 5 MiB; inspect it
-        with Station's telemetry outbox command.
+        in Settings → Privacy & sharing under What was sent, or with Station's
+        telemetry outbox command.
       </p>
 
       <h3 class="privacy-h3">Plugin publisher analytics</h3>
@@ -145,7 +147,8 @@ const policyUrl = `https://github.com/kontourai/station/blob/${policyCommit}/doc
       <h3 class="privacy-h3">Diagnostics (OpenTelemetry)</h3>
       <p class="body measure">
         Performance metrics and traces. Station starts exporting them only when an
-        operator configures an OpenTelemetry (OTLP) endpoint, and sends them to
+        operator configures an OpenTelemetry (OTLP) endpoint and managed policy
+        permits telemetry, and sends them to
         that endpoint, which is theirs, not ours. Station attaches its random
         installation hash, the operating-system type, and each instrument's
         attributes. The OpenTelemetry SDK it pins also detects environment,
@@ -178,10 +181,15 @@ const policyUrl = `https://github.com/kontourai/station/blob/${policyCommit}/doc
         Private memory is a default-off preview. When enabled, an operator can
         stage content and evidence in an author-private root associated with the
         owner's identity. Pending proposals stay out of ordinary record lists
-        and index rebuilds. Turning the preview off retains those proposals.
+        and index rebuilds. Review decisions, correction text, and review timing
+        are stored alongside the memory. Turning the preview off retains the
+        proposals and decisions.
         A configured embedding provider receives search queries and, when
         existing memory records are explicitly indexed, their chunks. Index
-        rebuilds do not send pending proposals to that provider.
+        rebuilds do not send pending proposals to that provider. When the
+        preview and access checks permit it, a short brief of confirmed or
+        corrected memory can accompany a Station-engine chat's first message
+        and reaches the model provider chosen for that chat.
       </p>
 
       <h3 class="privacy-h3">Voice</h3>
