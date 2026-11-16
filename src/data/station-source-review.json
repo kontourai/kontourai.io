@@ -4,8 +4,8 @@
   "reviews": [
     {
       "id": "station-public-privacy",
-      "reviewedAt": "2026-11-16T18:06:47.965Z",
-      "note": "Reviewed the declared privacy inventory and its generated policy at 309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d, plus the memory review persistence and authority-gated first-turn brief. Updated public disclosure for stored decisions, correction text and review timing, and confirmed/corrected memory sent to the selected model provider. Reviewed managed-policy telemetry suppression, the Privacy & sharing outbox, authentication-origin/bootstrap-device changes, and owner-root hashing; updated telemetry wording and the policy fingerprint. Unchanged destinations, plugin opt-in, retention, passkey and push disclosures retain their prior source scope. No native or provider execution is claimed. Re-reviewed usage-telemetry.md at a8813c1cd18ac8a5072e76e602dc309e3fb097d0: only the disclosure-loading recovery label changes to Retry loading; collection, destinations and retention are unchanged. At 960d434d05a895e8562426ff16afaafcf15d3241, reviewed the changed authentication, diagnostics, browser push, usage-telemetry, telemetry publisher and memory-review inputs against this notice. Changes include room permissions, diagnostic dimensions and tool-input observations, notification focus and room mentions, telemetry rejection/backoff and engine-family mapping, and the imported memory marker. The declared inventory and generated policy bytes remain unchanged. Existing notice wording remains scoped; this review does not establish inventory completeness, provider handling, native behavior or delivery.",
+      "reviewedAt": "2026-11-16T19:38:21.508Z",
+      "note": "Reviewed the declared privacy inventory and its generated policy at 309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d, plus the memory review persistence and authority-gated first-turn brief. Updated public disclosure for stored decisions, correction text and review timing, and confirmed/corrected memory sent to the selected model provider. Reviewed managed-policy telemetry suppression, the Privacy & sharing outbox, authentication-origin/bootstrap-device changes, and owner-root hashing; updated telemetry wording and the policy fingerprint. Unchanged destinations, plugin opt-in, retention, passkey and push disclosures retain their prior source scope. No native or provider execution is claimed. Re-reviewed usage-telemetry.md at a8813c1cd18ac8a5072e76e602dc309e3fb097d0: only the disclosure-loading recovery label changes to Retry loading; collection, destinations and retention are unchanged. At 960d434d05a895e8562426ff16afaafcf15d3241, reviewed the changed authentication, diagnostics, browser push, usage-telemetry, telemetry publisher and memory-review inputs against this notice. Changes include room permissions, diagnostic dimensions and tool-input observations, notification focus and room mentions, telemetry rejection/backoff and engine-family mapping, and the imported memory marker. The declared inventory and generated policy bytes remain unchanged. Existing notice wording remains scoped; this review does not establish inventory completeness, provider handling, native behavior or delivery. At b72ee30e724f0263f8e362b9aa0a250fc070b2bc, reviewed the browser push and usage telemetry documentation follow-up. The added pull request agent feedback category remains covered by selected notifications; no destination or payload field changed. Clarified that the local ledger records Full batch outcomes when batches leave the queue, not each retry; grouped drops and retention remain as disclosed. Attempt counts are separate process metrics. This is a source-only follow-up, not a provider, native, legal or deployment qualification.",
       "limits": "Source consistency only. The declared inventory is incomplete; legal/store classification, provider retention, real delivery and deployed pages are not qualified.",
       "inputs": [
         {
@@ -20,8 +20,8 @@
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/docs/guides/web-push-notifications.md",
-          "revision": "960d434d05a895e8562426ff16afaafcf15d3241",
-          "sha256": "f8bc4c61022273bec66363fd0486deb4e1dea0f96096744352eb4eee32fb3da5"
+          "revision": "b72ee30e724f0263f8e362b9aa0a250fc070b2bc",
+          "sha256": "34a3f95364b999b0656a34c2b3a5fd407ff6893df235b5a18ecbd65661b730e8"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/docs/privacy-policy.md",
@@ -30,8 +30,8 @@
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/docs/reference/usage-telemetry.md",
-          "revision": "960d434d05a895e8562426ff16afaafcf15d3241",
-          "sha256": "04d351b24faf56e63deddf9853d3fa6fc5e154c9ac76f6eb3c647f3419f707d1"
+          "revision": "b72ee30e724f0263f8e362b9aa0a250fc070b2bc",
+          "sha256": "571d48fe1c728f47552565aff7a5395c970b0469d6e9f99756eaa6acfab23d82"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/src-server/knowledge-store/memory-root.ts",
@@ -82,7 +82,7 @@
       "outputs": [
         {
           "path": "src/pages/privacy/station.astro",
-          "sha256": "f81ef218daf0898d0e51b1fc3271f4f1bc50043d99b950c836699b8352503c7c"
+          "sha256": "cc9e22ee2b1afd2451c0aec7fa89699e70c017f275c6c8480f53972139bcd693"
         }
       ]
     },
