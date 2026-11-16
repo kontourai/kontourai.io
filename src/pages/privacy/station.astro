@@ -115,10 +115,11 @@ const policyUrl = `https://github.com/kontourai/station/blob/${policyCommit}/doc
         Off, takes effect. A separate reason requires a recorded lowering within
         ten minutes; together they are limited to one per publisher per UTC day.
         Do Not Track and a managed policy that disables telemetry suppress this
-        feedback. A local payload ledger retains
-        send attempts and grouped drops for at most 30 days and 5 MiB; inspect it
-        in Settings → Privacy & sharing under What was sent, or with Station's
-        telemetry outbox command.
+        feedback. A local payload ledger retains send outcomes and grouped
+        drops for at most 30 days and 5 MiB. A Full batch is recorded once when
+        it leaves the queue, not for each retry. Inspect the ledger in Settings →
+        Privacy & sharing under What was sent, or with Station's telemetry
+        outbox command.
       </p>
 
       <h3 class="privacy-h3">Plugin publisher analytics</h3>

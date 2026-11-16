@@ -4,24 +4,24 @@
   "reviews": [
     {
       "id": "station-public-privacy",
-      "reviewedAt": "2026-11-12T04:12:14Z",
-      "note": "Reviewed the declared privacy inventory and its generated policy at 309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d, plus the memory review persistence and authority-gated first-turn brief. Updated public disclosure for stored decisions, correction text and review timing, and confirmed/corrected memory sent to the selected model provider. Reviewed managed-policy telemetry suppression, the Privacy & sharing outbox, authentication-origin/bootstrap-device changes, and owner-root hashing; updated telemetry wording and the policy fingerprint. Unchanged destinations, plugin opt-in, retention, passkey and push disclosures retain their prior source scope. No native or provider execution is claimed. Re-reviewed usage-telemetry.md at a8813c1cd18ac8a5072e76e602dc309e3fb097d0: only the disclosure-loading recovery label changes to Retry loading; collection, destinations and retention are unchanged.",
+      "reviewedAt": "2026-11-16T19:38:21.508Z",
+      "note": "Reviewed the declared privacy inventory and its generated policy at 309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d, plus the memory review persistence and authority-gated first-turn brief. Updated public disclosure for stored decisions, correction text and review timing, and confirmed/corrected memory sent to the selected model provider. Reviewed managed-policy telemetry suppression, the Privacy & sharing outbox, authentication-origin/bootstrap-device changes, and owner-root hashing; updated telemetry wording and the policy fingerprint. Unchanged destinations, plugin opt-in, retention, passkey and push disclosures retain their prior source scope. No native or provider execution is claimed. Re-reviewed usage-telemetry.md at a8813c1cd18ac8a5072e76e602dc309e3fb097d0: only the disclosure-loading recovery label changes to Retry loading; collection, destinations and retention are unchanged. At 960d434d05a895e8562426ff16afaafcf15d3241, reviewed the changed authentication, diagnostics, browser push, usage-telemetry, telemetry publisher and memory-review inputs against this notice. Changes include room permissions, diagnostic dimensions and tool-input observations, notification focus and room mentions, telemetry rejection/backoff and engine-family mapping, and the imported memory marker. The declared inventory and generated policy bytes remain unchanged. Existing notice wording remains scoped; this review does not establish inventory completeness, provider handling, native behavior or delivery. At b72ee30e724f0263f8e362b9aa0a250fc070b2bc, reviewed the browser push and usage telemetry documentation follow-up. The added pull request agent feedback category remains covered by selected notifications; no destination or payload field changed. Clarified that the local ledger records Full batch outcomes when batches leave the queue, not each retry; grouped drops and retention remain as disclosed. Attempt counts are separate process metrics. This is a source-only follow-up, not a provider, native, legal or deployment qualification.",
       "limits": "Source consistency only. The declared inventory is incomplete; legal/store classification, provider retention, real delivery and deployed pages are not qualified.",
       "inputs": [
         {
           "url": "https://github.com/kontourai/station/blob/main/docs/guides/deployment-authentication.md",
-          "revision": "309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d",
-          "sha256": "466c068a66ce39e2cbf3263a52446c9d4444167ae61e57dff27af6db0b8de43e"
+          "revision": "960d434d05a895e8562426ff16afaafcf15d3241",
+          "sha256": "bf5ea87919caaae1aa9ee30241714dcaab6ecf70e3c52d92d17db545e058bd3c"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/docs/guides/monitoring.md",
-          "revision": "309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d",
-          "sha256": "f95caacc18403727ed57b02b8160b0dc56cf90efeb20a2e5b626c31b750cd9c9"
+          "revision": "960d434d05a895e8562426ff16afaafcf15d3241",
+          "sha256": "ea1d2849fd7b79067a39d6fbc7dedf6c73fac15bb1e73f7564baa1e9c217ac38"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/docs/guides/web-push-notifications.md",
-          "revision": "309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d",
-          "sha256": "437a3e22642a5809aaf4a26046069b168ffa141140b6e1422f9f428a1d4843cf"
+          "revision": "b72ee30e724f0263f8e362b9aa0a250fc070b2bc",
+          "sha256": "34a3f95364b999b0656a34c2b3a5fd407ff6893df235b5a18ecbd65661b730e8"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/docs/privacy-policy.md",
@@ -30,8 +30,8 @@
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/docs/reference/usage-telemetry.md",
-          "revision": "a8813c1cd18ac8a5072e76e602dc309e3fb097d0",
-          "sha256": "ae03290192d8b743d15cdeb7ebf1115a16a59e82a2fa2a200c40a939f3265eb4"
+          "revision": "b72ee30e724f0263f8e362b9aa0a250fc070b2bc",
+          "sha256": "571d48fe1c728f47552565aff7a5395c970b0469d6e9f99756eaa6acfab23d82"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/src-server/knowledge-store/memory-root.ts",
@@ -65,13 +65,13 @@
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/src-server/services/telemetry-publisher-service.ts",
-          "revision": "309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d",
-          "sha256": "53f7044c61401b9974a30134a20ca162853c95bdbf37f46a5d3696085e735f58"
+          "revision": "960d434d05a895e8562426ff16afaafcf15d3241",
+          "sha256": "51dfac59d1a9b802b55a38ad895e0f755e0617a3b78b1c99ef76d5264f4ba2cd"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/src-server/knowledge-store/memory-review.ts",
-          "revision": "309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d",
-          "sha256": "8d974309520c4ec7612f2f78eebb0fe0b63c51a26e8b44073bc89b9cbf33fc3b"
+          "revision": "960d434d05a895e8562426ff16afaafcf15d3241",
+          "sha256": "430f143b45e1e7b36786d5d68ed5a8fcab9107de46e1e9e28eaeb63a536e6959"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/src-server/knowledge-store/memory-brief-provider.ts",
@@ -82,81 +82,81 @@
       "outputs": [
         {
           "path": "src/pages/privacy/station.astro",
-          "sha256": "f81ef218daf0898d0e51b1fc3271f4f1bc50043d99b950c836699b8352503c7c"
+          "sha256": "cc9e22ee2b1afd2451c0aec7fa89699e70c017f275c6c8480f53972139bcd693"
         }
       ]
     },
     {
       "id": "station-public-product-content",
-      "reviewedAt": "2026-11-12T04:12:14Z",
-      "note": "Re-reviewed all declared Station inputs at 309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d against the Station sections on the homepage, developer/contact entries and scoped product metadata. Source deltas cover sample gallery images, managed-policy restrictions and mirrors, pairing/bootstrap recovery and Tailscale origins, relay chat and attachment limits, source/authentication observations, workspace paths, inbox/Apps and uncertain-delivery recovery. Existing high-level install, personal continuity, public SDK and read-only collaborator claims remain accurate; no new release, screenshot, universal brief-delivery or end-to-end team qualification is asserted. The CLI manifest adds Koffi without changing the advertised package identity. Other products on shared pages remain outside this Station review. Re-reviewed the subsequent connections/plugins/concepts/getting-started deltas at a8813c1cd18ac8a5072e76e602dc309e3fb097d0: confined-session platform/network limits, plugin-preview install ordering, delivery recovery labels, inbox/background-command presentation, steering and queued-file behavior, coordinator preview and Task-room controls add no broader claim to these pages. Existing install, personal continuity, public SDK and read-only collaborator statements remain scoped and accurate; no sandbox security or runtime qualification is inferred.",
+      "reviewedAt": "2026-11-16T19:57:40.470038+00:00",
+      "note": "Re-reviewed all declared Station inputs at 309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d against the Station sections on the homepage, developer/contact entries and scoped product metadata. Source deltas cover sample gallery images, managed-policy restrictions and mirrors, pairing/bootstrap recovery and Tailscale origins, relay chat and attachment limits, source/authentication observations, workspace paths, inbox/Apps and uncertain-delivery recovery. Existing high-level install, personal continuity, public SDK and published Task read-only claims remain accurate; no new release, screenshot, universal brief-delivery or end-to-end team qualification is asserted. The CLI manifest adds Koffi without changing the advertised package identity. Other products on shared pages remain outside this Station review. Re-reviewed the subsequent connections/plugins/concepts/getting-started deltas at a8813c1cd18ac8a5072e76e602dc309e3fb097d0: confined-session platform/network limits, plugin-preview install ordering, delivery recovery labels, inbox/background-command presentation, steering and queued-file behavior, coordinator preview and Task-room controls add no broader claim to these pages. Existing install, personal continuity, public SDK and published Task read-only statements remain scoped and accurate; no sandbox security or runtime qualification is inferred. At 960d434d05a895e8562426ff16afaafcf15d3241, reviewed the changed README, connections, authentication, machine relationships, Nightly, plugins, release channels, concepts, getting-started, installers and CLI manifest against Station claims on the homepage, developer and contact entries, evidence registry and Station product metadata. Retired Beta and preview selectors are refused; corrected the two release-status statements. The Windows installer includes a generated encoded core, decoded for source comparison; the CLI manifest changes package version and dependencies, not its identity. Readiness, sharing, external-session, plugin, installer and release changes do not add runtime, screenshot or publication qualification. Other products remain outside this review. Corrected the homepage to distinguish read-only published Tasks from permission-dependent Project Room actions, and replaced the contact page’s v1 timing promise with the source’s first-Stable-in-preparation status. Room Agent requests have additional host and execution-root conditions; this review does not establish installed behavior. At 75a936a1b0648a24ce2d520da5186e963f01db06, reviewed the desktop inbox presentation clarification: the scope badge can show all work and rows use title/time followed by agent icon, status and project. The selected high-level product claims remain accurate; no screenshot or interaction qualification is inferred.",
       "limits": "Station statements only; other products on shared pages are outside this review. Public CLI metadata is independently checked against npm. No new screenshot, install or release certification.",
       "inputs": [
         {
           "url": "https://github.com/kontourai/station/blob/main/README.md",
-          "revision": "309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d",
-          "sha256": "0a94b98b51d42a4f3a9a73ae75b080c2ce7fa54ceed86b7a237f6d883901aac3"
+          "revision": "960d434d05a895e8562426ff16afaafcf15d3241",
+          "sha256": "35c4f661f00920004258c98be03e2bb78eb2f1671a12c52a9774464cbc9031d2"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/docs/guides/connections.md",
-          "revision": "a8813c1cd18ac8a5072e76e602dc309e3fb097d0",
-          "sha256": "f325e13419c45454dd24ef491d84559e95e1fda06a7fc28a5b8c2304ed57ee83"
+          "revision": "960d434d05a895e8562426ff16afaafcf15d3241",
+          "sha256": "ffd32885558b037d3bbf58e3ee055cf1586c7a2da62166646f65c43a2a16a95d"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/docs/guides/deployment-authentication.md",
-          "revision": "309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d",
-          "sha256": "466c068a66ce39e2cbf3263a52446c9d4444167ae61e57dff27af6db0b8de43e"
+          "revision": "960d434d05a895e8562426ff16afaafcf15d3241",
+          "sha256": "bf5ea87919caaae1aa9ee30241714dcaab6ecf70e3c52d92d17db545e058bd3c"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/docs/guides/machine-relationships.md",
-          "revision": "309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d",
-          "sha256": "59584d63b56d51911ce5b05e999539552dbcecc2e63ddf8fb4e284d53a3c3b07"
+          "revision": "960d434d05a895e8562426ff16afaafcf15d3241",
+          "sha256": "f2f63f6852ab015da4e7642ded87a21f1c035e95f06d4b925d085bf0e36bdb03"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/docs/guides/nightly.md",
-          "revision": "309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d",
-          "sha256": "89180ec871df8e51086f30be853863aafc2f33493c91fb4c6afccb6925eecaf5"
+          "revision": "960d434d05a895e8562426ff16afaafcf15d3241",
+          "sha256": "173fb8d8f72c05173ca8aae6bd3f8df0d69136ade5b67df655f65472e6ee9aa8"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/docs/guides/plugins.md",
-          "revision": "a8813c1cd18ac8a5072e76e602dc309e3fb097d0",
-          "sha256": "d9c3e7591e7290acba5fdfc0e22daa8d452949e5dba51473ddb98e077d174553"
+          "revision": "960d434d05a895e8562426ff16afaafcf15d3241",
+          "sha256": "49df7f9c666f1239b77646ed57d25ef8d4ce6246c5d07595151d87791ea7ab29"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/docs/guides/release-channel-ports.md",
-          "revision": "309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d",
-          "sha256": "22b1c880f687a9cd56b52c57a1d31babd7c05c915a230ecf29e8a5052f10a922"
+          "revision": "960d434d05a895e8562426ff16afaafcf15d3241",
+          "sha256": "ecc20343c74559731cc38ad57fa3f266bb2fd94f2c7d7a298a44f87a697f990b"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/docs/user/concepts.md",
-          "revision": "a8813c1cd18ac8a5072e76e602dc309e3fb097d0",
-          "sha256": "dbb2dbdee1fd6ca8cb09614ee867f88a01ca2ba2f45a6d984f0428f8e3eb744b"
+          "revision": "960d434d05a895e8562426ff16afaafcf15d3241",
+          "sha256": "50fe8516c439d5f452914c1c5a7e7b92e090f52d190a63fba9b3abbd87c9c415"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/docs/user/getting-started.md",
-          "revision": "a8813c1cd18ac8a5072e76e602dc309e3fb097d0",
-          "sha256": "bef9d24b37623b433d23c1905f1ebed4c37dd9eaba2e022c081509dd31fece58"
+          "revision": "75a936a1b0648a24ce2d520da5186e963f01db06",
+          "sha256": "dd353e246c86055feacfcba4edbcf80caf80a3480cc67ce95abd32d7694916d0"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/install.ps1",
-          "revision": "309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d",
-          "sha256": "f154fe9d6a89cfcb7e3ed375600aa92df09b409ef3a493081341c467387d5a62"
+          "revision": "960d434d05a895e8562426ff16afaafcf15d3241",
+          "sha256": "01cf831b14c716f16aa029bd3311d746d33dbd689a29f5b8fcb79860910b2710"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/install.sh",
-          "revision": "309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d",
-          "sha256": "879481a1600c5f169a545fc30bfac82db63ea0ab2b5803177dfb13bc226559b5"
+          "revision": "960d434d05a895e8562426ff16afaafcf15d3241",
+          "sha256": "9f96eb2e71719312e9eed09a30394ae91ffbc9980382af1d572c14c61f89b649"
         },
         {
           "url": "https://github.com/kontourai/station/blob/main/packages/cli/package.json",
-          "revision": "309f2231d40cf86b6d2ad8c6ed4434b02fbf6e5d",
-          "sha256": "d7c724c6f9ea0add5d98ca2f203c0d7dd1d7c290167811ed94cda8821a905f36"
+          "revision": "960d434d05a895e8562426ff16afaafcf15d3241",
+          "sha256": "6d0ebdacc72bbdf155c8da32d4c86c394706043b151959dcbdd39d6aa42046b9"
         }
       ],
       "outputs": [
         {
           "path": "src/pages/index.astro",
-          "sha256": "83ee576b602a8a028e1049facc656b8cc00ef6f5568ccacfbf6eb8fd3f02317c"
+          "sha256": "c920fe6e6a0abe52c70d0e99bd285f1e34ea6d651193dd0871bbc434a6b984af"
         },
         {
           "path": "src/pages/developers.astro",
@@ -164,7 +164,7 @@
         },
         {
           "path": "src/pages/early-access.astro",
-          "sha256": "0d6e45dc9a726ac0477a67b815f6e8424af7851876d548e4b5eb5c8144f56947"
+          "sha256": "dc985a9ba2a4f61ce02be91110eea5974b24e85020e72b1bf8e7fb94e0a464c1"
         },
         {
           "path": "src/data/public-evidence-registry.json",
@@ -172,7 +172,7 @@
         },
         {
           "path": "src/data/product-status.json",
-          "sha256": "e8d3ecf47abc5132878fb5d505e0abaee852ae05191d79e23029f9b080a46dae",
+          "sha256": "f61989ada6704d85ac4a2fa2dd87cdb581333aff73c57de8f033ca49bcb04ba1",
           "pointer": "/products/station"
         }
       ]

@@ -51,7 +51,7 @@ test("homepage keeps the company headline, leads with Station, then the recognit
   for (const card of ["Bring the coding agents you already use", "Pick up where you left off", "See what was checked"]) {
     await expect(page.getByRole("heading", { level: 3, name: card, exact: true })).toBeVisible();
   }
-  await expect(page.getByText("There is no stable or beta release yet.")).toBeVisible();
+  await expect(page.getByText("There is no stable release yet; the beta channel has been retired.")).toBeVisible();
   await expect(page.locator('[data-umami-event="home-station-privacy"]')).toHaveAttribute("href", "/privacy/station/");
   // The Station capture is a manifest-bound visual with its provenance in the caption.
   await expect(page.locator('img[src="/screenshots/station-project.png"]')).toHaveAttribute("alt", /Trail Notes/);
